@@ -1,6 +1,6 @@
 // View.js
 // -------
-define(["jquery", "backbone", "models/Model", "text!templates/heading.html"],
+define(["jquery", "backbone", "models/Model", "text!templates/view.html"],
 
     function($, Backbone, Model, template){
 
