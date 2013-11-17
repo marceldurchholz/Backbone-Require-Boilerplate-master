@@ -30,6 +30,10 @@ define(["jquery", "backbone", "models/Model", "text!templates/aboutus.html", "te
 				// Append the result to the view's element.
 				$(this.el).append(testareahtml);
 				// Maintains chainability
+				
+				// report('Aboutus.js','render:');
+				// app.initialize();
+				
                 return this;
 
             }
