@@ -90,7 +90,7 @@ var app = {
             console.log("DOMComponentsLoaded are loaded!");
         });
 		*/
-	}
+	},
 	// Update DOM on a Received Event
     receivedEvent: function() {
 		report('app onDeviceReady','receivedEvent');
