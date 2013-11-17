@@ -74,7 +74,7 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        this.onDeviceReady();
+        // this.onDeviceReady();
 		// this.onJqueryReady();
     },
     // deviceready Event Handler
@@ -90,11 +90,8 @@ var app = {
             console.log("DOMComponentsLoaded are loaded!");
         });
 		*/
-	},
-	onJqueryReady: function() {
-		this.receivedJqueryEvent();
-	},
-    // Update DOM on a Received Event
+	}
+	// Update DOM on a Received Event
     receivedEvent: function() {
 		report('app onDeviceReady','receivedEvent');
         deviceReady = true;
@@ -106,10 +103,7 @@ var app = {
 			jqueryready = true;
 		}(jQuery));
 		*/
-    },
-	receivedJqueryEvent : function() {
-		alert('onJqueryReady startet');
-	}
+    }
 
 };
 
