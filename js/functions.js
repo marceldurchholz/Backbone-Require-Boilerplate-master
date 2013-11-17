@@ -845,7 +845,7 @@ var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
-		alert('var app');
+		// alert('var app');
     },
     // Bind Event Listeners
     //
@@ -859,7 +859,7 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-		alert('onDeviceReady');
+		// alert('onDeviceReady');
         app.receivedEvent('deviceready');
 		/*
         document.addEventListener('DOMComponentsLoaded', function(){
@@ -870,7 +870,7 @@ var app = {
    },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-		alert('receivedEvent');
+		// alert('deviceready receivedEvent');
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
