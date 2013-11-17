@@ -87,7 +87,7 @@ isMobile  = {
 };
 
 if(isMobile.any()){ 
-	alert("document.write >> <script type='text/javascript' src='" + rootURL + "phonegap.js'></script>");
+	// alert("document.write >> <script type='text/javascript' src='" + rootURL + "phonegap.js'></script>");
     document.write("<script type='text/javascript' src='" + rootURL + "phonegap.js'></script>"); 
     // initApp();
 }else{
@@ -632,10 +632,7 @@ function getDeviceType(){
 	return type;
 }
 
-
-/* ----------------------------------------------------------- /
-	getOSVersionFromUserAgent
-/ ----------------------------------------------------------- */
+/*
 function getOSVersionFromUserAgent(){
 	report('TEST','--> getOSVersionFromUserAgent()..');	
 	try{
@@ -646,6 +643,18 @@ function getOSVersionFromUserAgent(){
 	}catch(e){ catchError('getOSVersionFromUserAgent()',e); }			
 }
 
+function getOS(){
+	var OSName="Unknown OS";
+	if (navigator.appVersion.indexOf("Win")!=-1) OSName="Windows";
+	if (navigator.appVersion.indexOf("Mac")!=-1) OSName="MacOS";
+	if (navigator.appVersion.indexOf("X11")!=-1) OSName="UNIX";
+	if (navigator.appVersion.indexOf("Linux")!=-1) OSName="Linux";	
+	if((navigator.appVersion.indexOf("Mobile")!=-1)) OSName += " Mobile";
+	if(cordovaIsLoaded){
+		OSName = device.platform;
+	}
+	return OSName;	
+}
 
 function getDeviceVersion(){
 	var version;
@@ -700,6 +709,7 @@ function getDevicePlatform(){
 	report('VERBOSE','DEVICE NAME:' + platform);	
 	return platform; 
 }
+*/
 
 function removeNonAlphaNumericChars(str){	
 	str = str.replace(/[ ]+/g,'_');
@@ -707,24 +717,9 @@ function removeNonAlphaNumericChars(str){
 	return str;	
 }
 
-
 function removeProtectedDelimeters(str){		
 	str = str.replace(/[,;|]+/g,'');
 	return str;	
-}
-
-
-function getOS(){
-	var OSName="Unknown OS";
-	if (navigator.appVersion.indexOf("Win")!=-1) OSName="Windows";
-	if (navigator.appVersion.indexOf("Mac")!=-1) OSName="MacOS";
-	if (navigator.appVersion.indexOf("X11")!=-1) OSName="UNIX";
-	if (navigator.appVersion.indexOf("Linux")!=-1) OSName="Linux";	
-	if((navigator.appVersion.indexOf("Mobile")!=-1)) OSName += " Mobile";
-	if(cordovaIsLoaded){
-		OSName = device.platform;
-	}
-	return OSName;	
 }
 
 function openExternalURL(strURL){	
