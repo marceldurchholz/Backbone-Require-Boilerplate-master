@@ -68,21 +68,68 @@
 	
 </head>
 <body>
-	<div data-role="page">
-		<header data-role="header" class="navbar nav navbar-inner">
-			<h1>APPinaut - Mobile Training and Infotainment</h1>
-		</header>
-		<div class="container-fluid" data-role="content">
-			<div class="row-fluid">
+	<div id="fb-root"></div>
+	<!--
+	data-role="page" 
+	<header data-role="header" class="navbar nav navbar-inner">
+		<h1>APPinaut - Mobile Training and Infotainment</h1>
+	</header>
+	-->		
+	<div id="sidebar" style="height:57px;position:fixed;top:0px;"></div>
+	<div id="header" style="height:57px;position:fixed;top:0px;width:100%;z-index:999;">
+		<div class="strip">
+			<div class="icons f_left">
+				<a class="showMenu" href="#">
+					<img border="0" alt="Menu" src="images/icon-menu.png">
+				</a>
+			</div>
+			<span>
+				<a rel="external" href="">
+					<img style="max-height:34px;max-width:40%;" alt="APPinaut" src="images/logo.png">
+				</a>
+			</span>
+			<div class="f_right">
+				<div class="icons f_right">
+					<a data-rel="back" data-direction="reverse" data-icon="arrow-l" data-transition="slide" href="#">
+						<img border="0" alt="back" src="images/icon-back.png">
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<!--
+	<div class="container-fluid" data-role="content">
+			<div class="example">
+	</div>
+	-->
+	<!--
+	<div class="container-fluid" data-role="content" style="padding-top:57px;">
+		<div class="row-fluid">
 			<div class="span12">
 				<div class="example">
 				</div>
 			</div>
+		</div>
+	</div>
+	-->
+	<div class="container-fluid" data-role="content" style="padding-top:57px;">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="example">
+				</div>
 			</div>
 		</div>
-		<footer class="footer navbar navbar-fixed-bottom" data-role="footer">
-			<p>Written by <a href="http://www.digitalverve.de/" target="_blank">DigitalVerve</a></p>
-		</footer>
+	</div>
+	<div class="clear"></div>
+	<!--
+	<footer class="footer navbar navbar-fixed-bottom" data-role="footer">
+		<p>Written by <a href="http://www.digitalverve.de/" target="_blank">DigitalVerve</a></p>
+	</footer>
+	-->
+	<div id="footer">
+		<div class="strip"><a data-ajax="true" data-transition="flip" href="about-us/">Innovative Möglichkeiten für Wissensanbieter</a>»</div> 
+		<div class="strip"></div>
 	</div>
 </body>
 </html>
