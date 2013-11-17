@@ -10,7 +10,11 @@ define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "co
 
                 // Tells Backbone to start watching for hashchange events
                 Backbone.history.start();
-				app.initialize();
+				// app.initialize();
+				$(document).ready(function() {
+					app.initialize();
+					// alert('bla');
+				});
 
             },
 

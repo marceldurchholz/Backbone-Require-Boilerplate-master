@@ -16,10 +16,10 @@ define(["jquery", "backbone", "models/Model", "text!templates/view.html", "text!
                 this.render();
 
             },
-
+			
             // View Event Handlers
             events: {
-
+				
             },
 
             // Renders the view's template to the UI
