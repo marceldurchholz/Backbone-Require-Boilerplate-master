@@ -1,3 +1,5 @@
+report('jquery.mobile.js','start');
+
 /*
 * jQuery Mobile Git Build: SHA1: caa77b258660731d663844fe7867aa2c3a107ab1 <> Date: Wed Feb 20 15:03:27 2013 -0500
 * http://jquerymobile.com
@@ -11086,7 +11088,13 @@ $.mobile.document.bind( "pagecreate create", function( e ) {
 			);
 		}
 	});
+	
+report('jquery.mobile.js','inner a');
+
 }( jQuery, this ));
 
+report('jquery.mobile.js','inner b');
 
 }));
+
+report('jquery.mobile.js','end');

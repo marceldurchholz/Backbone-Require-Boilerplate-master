@@ -28,6 +28,8 @@ if(isMobile.any()){
 var rootURL = "";
 var root = this; // used by pdfbrowser and childbrowser
 var deviceSDID;
+var deviceReady = false;
+
 var cordovaIsLoaded = false;
 var deviceSDID = "???";
 var SDID_DOMAIN = 'phonegap.appinaut.de';  
@@ -41,6 +43,7 @@ var fileObj = null;
 var fileEntry = null;
 var pageStartTime = +new Date();
 
+/*
 //default camera options
 var camQualityDefault = ['quality value', 50];
 var camDestinationTypeDefault = ['FILE_URI', 1];
@@ -50,12 +53,11 @@ var camEncodingTypeDefault = ['JPEG', 0];
 var camMediaTypeDefault = ['mediaType', 0];
 var camCorrectOrientationDefault = ['correctOrientation', false];
 var camSaveToPhotoAlbumDefault = ['saveToPhotoAlbum', true];
+*/
 
 var badgeToggledOn = false;
 var autoLockIsDisabled = false;
 var cdvBadge = null;
-
-var deviceReady = false;
 
 // var jqueryready = false;
 var jqueryReady = false;
@@ -64,7 +66,7 @@ var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
-		// alert('var app');
+		alert('var app initialize');
     },
     // Bind Event Listeners
     //
@@ -72,8 +74,8 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        document.addEventListener('jqueryready', this.onJqueryReady, false);
-		// this.onDeviceReady();
+        this.onDeviceReady();
+		// this.onJqueryReady();
     },
     // deviceready Event Handler
     //
@@ -88,9 +90,9 @@ var app = {
             console.log("DOMComponentsLoaded are loaded!");
         });
 		*/
-   },
-   onJqueryReady: function() {
-		alert('onJqueryReady startet');
+	},
+	onJqueryReady: function() {
+		app.receivedJqueryEvent();
 	},
     // Update DOM on a Received Event
     receivedEvent: function() {
@@ -98,13 +100,17 @@ var app = {
         deviceReady = true;
 		cordovaIsLoaded = true;
 		populateDeviceInfo();
-		jqueryready = true;
+		
 		/*
 		(function($) {
 			jqueryready = true;
 		}(jQuery));
 		*/
-    }
+    },
+	receivedJqueryEvent : function() {
+		alert('onJqueryReady startet');
+	}
+
 };
 
 /* ----------------------------------------------------------- /

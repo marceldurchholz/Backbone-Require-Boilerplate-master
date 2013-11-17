@@ -24,11 +24,24 @@
 	<!-- <script type="text/javascript" src="../cordova-incl.js"></script> -->
 	<!-- <script type="text/javascript" src="phonegap.js"></script> -->
 
-	<script src="js/functions.js"></script>
-	<script src="js/detectmobile.js"></script>
-
 	<script type="text/javascript">
 	</script>
+	
+	<script src="js/detectmobile.js"></script>
+	<script src="js/functions.js"></script>
+
+	<script type="text/javascript">
+		report('index.html','test');
+		var DOMloaded = function DOMloaded(){
+			report("index.html","DOMComponentsLoaded are loaded!");
+			app.initialize();
+			report("index.html","app.initialize()");
+        }
+		// document.addEventListener('DOMloaded', myFunction, false);
+		// document.addEventListener('isMobile', myFunction, false);
+		// DOMloaded();
+	</script>
+	
 	<script type="text/javascript">
 		window.setTimeout(function() {
 			if (!deviceReady) {
