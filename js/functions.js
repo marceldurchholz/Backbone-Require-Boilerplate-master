@@ -1,3 +1,32 @@
+var rootURL = "";
+var root = this; // used by pdfbrowser and childbrowser
+var deviceSDID;
+var cordovaIsLoaded = false;
+var deviceSDID = "???";
+var SDID_DOMAIN = 'phonegap.appinaut.de';  
+var SDID_KEY = '633241';
+
+// capture video page
+
+var my_media;
+var deviceReady = false;
+var platformId = null;
+var CameraPopoverOptions = null;
+var pictureUrl = null;
+var fileObj = null;
+var fileEntry = null;
+var pageStartTime = +new Date();
+
+//default camera options
+var camQualityDefault = ['quality value', 50];
+var camDestinationTypeDefault = ['FILE_URI', 1];
+var camPictureSourceTypeDefault = ['CAMERA', 1];
+var camAllowEditDefault = ['allowEdit', false];
+var camEncodingTypeDefault = ['JPEG', 0];
+var camMediaTypeDefault = ['mediaType', 0];
+var camCorrectOrientationDefault = ['correctOrientation', false];
+var camSaveToPhotoAlbumDefault = ['saveToPhotoAlbum', true];
+
 var badgeToggledOn = false;
 var autoLockIsDisabled = false;
 var cdvBadge = null;
@@ -832,10 +861,12 @@ var app = {
     onDeviceReady: function() {
 		alert('onDeviceReady');
         app.receivedEvent('deviceready');
+		/*
         document.addEventListener('DOMComponentsLoaded', function(){
 			alert('components are loaded!');
             console.log("components are loaded!");
         });
+		*/
    },
     // Update DOM on a Received Event
     receivedEvent: function(id) {

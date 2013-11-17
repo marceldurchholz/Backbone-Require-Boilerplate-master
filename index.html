@@ -21,38 +21,37 @@
 	<!-- Use the .htaccess and remove these lines to avoid edge case issues. More info: h5bp.com/i/378 -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<!--Detect if the browser is a mobile browser or a desktop browser and conditionally include your JavaScript --> 
-	<script type="text/javascript" src="../cordova-incl.js"></script>
+	<!-- <script type="text/javascript" src="../cordova-incl.js"></script> -->
+	<script type="text/javascript" src="phonegap.js"></script>
 	<script src="js/functions.js"></script>
 	<script src="js/detectmobile.js"></script>
 	
 	<script type="text/javascript">
-		app.initialize();
+		// app.initialize();
+		window.setTimeout(function() {
+			if (!deviceReady) {
+				// doAlert("Error: Apache Cordova did not initialize.  Demo will not run correctly.","Debug Error Message");
+				alert('no');
+			}
+			else {
+				alert('yes');					
+			}
+		},3000);		
 	</script>
 	
 </head>
 <body>
 	<div data-role="page">
+	<div class="app">
+		<h1>PhoneGap</h1>
+		<div id="deviceready" class="blink">
+			<p class="event listening">Connecting to Device</p>
+			<p class="event received">Device is Ready</p>
+		</div>
+	</div>
+
 		<header data-role="header" class="navbar nav navbar-inner">
 			<h1>APPinaut - Mobile Training and Infotainment</h1>
-			
-			<div id="deviceready" class="blink info">
-                <label>Device Status:</label>
-				<p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-
-			<div id='tests'>
-				<h4>Platform: <span id="platform"></span></h4>
-				<h4>Version: <span id="version"></span></h4>
-				<h4>UUID: <span id="uuid"></span></h4>
-				<h4>Name: <span id="name"></span></h4>
-				<h4>Model: <span id="model"></span></h4>
-				<h4>Width: <span id="width"></span>, Height: <span id="height"></span>, Color Depth: <span id="colorDepth"></span></h4>
-				<h4>User-Agent: <span id="user-agent"></span></h4>
-				<h4>device_conn: <span id="device_conn"></span></h4>
-				<h4>device_internet: <span id="device_internet"></span></h4>
-			</div>
-			
 		</header>
 		<div class="container-fluid" data-role="content">
 			<div class="row-fluid">
