@@ -24,11 +24,11 @@ define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "vi
 			
             home: function() {
                 new View();
-				populateDeviceInfo();
+				// populateDeviceInfo();
             },
             aboutus: function() {
                 new Aboutus();
-				populateDeviceInfo();
+				// populateDeviceInfo();
             },
             testarea: function() {
                 new Testarea();
