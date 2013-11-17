@@ -72,7 +72,7 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-		// this.onDeviceReady();
+		this.onDeviceReady();
     },
     // deviceready Event Handler
     //
@@ -100,11 +100,25 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 		(function($) {
 			jqueryready = true;
-			populateDeviceInfo();
+			initApp();
 		}(jQuery));
         console.log('Received Event: ' + id);
     }
 };
+
+/* ----------------------------------------------------------- /
+    initApp
+/ ----------------------------------------------------------- */
+function initApp(){
+    report('TEST','--> initApp()..');  
+    try{
+		report('initApp','try started');
+        // $(document).ready(function(){
+		// doAlert('initApp','Native Message');
+		populateDeviceInfo();
+        // });
+    }catch(e){ catchError('initApp()',e); }            
+}
 
 /* ----------------------------------------------------------- /
  populateDeviceInfo
@@ -134,22 +148,6 @@ function populateDeviceInfo(){
 		// doAlert('$(#device_conn span).html(getConnectionType());','--> populateDeviceInfo()..');
     }catch(e){ catchError('populateDeviceInfo()',e); }
 }
-
-/* ----------------------------------------------------------- /
-    initApp
-/ ----------------------------------------------------------- */
-/*
-function initApp(){
-    report('TEST','--> initApp()..');  
-    try{
-		report('initApp','try started');
-        // $(document).ready(function(){
-		// doAlert('initApp','Native Message');
-		populateDeviceInfo();
-        // });
-    }catch(e){ catchError('initApp()',e); }            
-}
-*/
 
 function isConnectedToInternet(){
 	var connectionType = getConnectionType();
