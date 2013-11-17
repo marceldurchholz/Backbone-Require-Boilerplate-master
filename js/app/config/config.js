@@ -1,7 +1,7 @@
 // Require.js Configurations
 // -------------------------
 
-report('config.js','start');
+// report('config.js','start');
 
 require.config({
 

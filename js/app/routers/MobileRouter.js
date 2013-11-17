@@ -1,6 +1,7 @@
 // MobileRouter.js
 // ---------------
-report('MobileRouter.js','start');
+
+// report('MobileRouter.js','start');
 
 define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "collections/Collection"],		
 	
@@ -15,7 +16,7 @@ define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "co
 				// Tells Backbone to start watching for hashchange events
 				Backbone.history.start();
 				// alert('app.initialize');
-				app.initialize();
+				// app.initialize();
 
 			},
 
@@ -44,6 +45,5 @@ define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "co
 		return MobileRouter;
 
 	}
-	
 
 );

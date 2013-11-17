@@ -1,6 +1,7 @@
 // MobileInit.js
 // -------------
-report('MobileInit.js','start');
+
+// report('MobileInit.js','start');
 
 // Include Mobile Specific JavaScript files here (or inside of your Mobile router)
 require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone.validateAll"],
