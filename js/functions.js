@@ -641,7 +641,6 @@ function getDeviceType(){
 	return type;
 }
 
-/*
 function getOSVersionFromUserAgent(){
 	report('TEST','--> getOSVersionFromUserAgent()..');	
 	try{
@@ -718,7 +717,6 @@ function getDevicePlatform(){
 	report('VERBOSE','DEVICE NAME:' + platform);	
 	return platform; 
 }
-*/
 
 function removeNonAlphaNumericChars(str){	
 	str = str.replace(/[ ]+/g,'_');
