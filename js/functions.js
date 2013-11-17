@@ -83,7 +83,7 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
 		// alert('onDeviceReady');
-        app.receivedEvent();
+        this.receivedEvent();
         /*
 		document.addEventListener('DOMComponentsLoaded', function(){
 			alert('DOMComponentsLoaded are loaded!');
@@ -92,14 +92,14 @@ var app = {
 		*/
 	},
 	onJqueryReady: function() {
-		app.receivedJqueryEvent();
+		this.receivedJqueryEvent();
 	},
     // Update DOM on a Received Event
     receivedEvent: function() {
 		report('app onDeviceReady','receivedEvent');
         deviceReady = true;
 		cordovaIsLoaded = true;
-		populateDeviceInfo();
+		// populateDeviceInfo();
 		
 		/*
 		(function($) {
