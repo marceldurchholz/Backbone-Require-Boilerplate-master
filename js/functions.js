@@ -49,17 +49,16 @@ var app = {
     onDeviceReady: function() {
 		// alert('onDeviceReady');
         app.receivedEvent('deviceready');
-		/*
         document.addEventListener('DOMComponentsLoaded', function(){
-			alert('components are loaded!');
-            console.log("components are loaded!");
+			alert('DOMComponentsLoaded are loaded!');
+            console.log("DOMComponentsLoaded are loaded!");
         });
-		*/
    },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
 		// alert('deviceready receivedEvent');
         deviceReady = true;
+		cordovaIsLoaded = true;
 		var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         listeningElement.setAttribute('style', 'display:none;');
@@ -87,24 +86,36 @@ isMobile  = {
     }
 };
 
-/*
 if(isMobile.any()){ 
-	// alert("document.write >> <script type='text/javascript' src='" + rootURL + "cordova.js'></script>");
-    document.write("<script type='text/javascript' src='" + rootURL + "cordova.js'></script>"); 
-	// checkInvokeString();
-}else{
-    console.log('NOT-DEVICE-MODE: Skipping loading of [cordova.js] and plugins...');    
+	alert("document.write >> <script type='text/javascript' src='" + rootURL + "phonegap.js'></script>");
+    document.write("<script type='text/javascript' src='" + rootURL + "phonegap.js'></script>"); 
     // initApp();
+}else{
+    console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
 }
-*/
 
 function catchError(f,e){
     report('ERROR','ERROR in (' + f + ')[Error Message: ' + e.message + ']');
 }
 
 /* ----------------------------------------------------------- /
+    initApp
+/ ----------------------------------------------------------- */
+function initApp(){
+    report('TEST','--> initApp()..');  
+    try{
+        $(document).ready(function(){
+			populateDeviceInfo();
+			doAlert('cordovaJsLoaded','Native Message');
+        });
+                                     
+    }catch(e){ catchError('initApp()',e); }            
+}
+
+/* ----------------------------------------------------------- /
     postDeviceReadyActions
 / ----------------------------------------------------------- */
+/*
 function postDeviceReadyActions(){
     //report('TEST','--> postDeviceReadyActions()..');  
     try{
@@ -115,12 +126,12 @@ function postDeviceReadyActions(){
         // initApp();
     }catch(e){ catchError('postDeviceReadyActions()',e); }            
 }
+*/
 
 /* ----------------------------------------------------------- /
     modifyiOS7StatusBar
 / ----------------------------------------------------------- */
 function modifyiOS7StatusBar(){
-    //report('TEST','--> postDeviceReadyActions()..');  
     try{
         StatusBar.overlaysWebView(false);
 		StatusBar.styleLightContent();
@@ -133,22 +144,6 @@ function modifyiOS7StatusBar(){
 		*/
     }catch(e){ catchError('modifyiOS7StatusBar()',e); }            
 }
-
-/* ----------------------------------------------------------- /
-    initApp
-/ ----------------------------------------------------------- */
-/*
-function initApp(){
-    report('TEST','--> initApp()..');  
-    try{
-        $(document).ready(function(){
-			populateDeviceInfo();
-			doAlert('cordovaJsLoaded','Native Message');
-        });
-                                     
-    }catch(e){ catchError('initApp()',e); }            
-}
-*/
 
 function debugModeEnabled(){
     return true; //false;
