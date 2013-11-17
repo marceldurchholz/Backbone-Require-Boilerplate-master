@@ -133,7 +133,8 @@ function populateDeviceInfo(){
         $('#device_version span').html(getDeviceVersion());
         $('#device_internet span').html(isConnectedToInternet());
         $('#device_conn span').html(getConnectionType());
-		doAlert('$(#device_conn span).html(getConnectionType());','--> populateDeviceInfo()..');
+		document.getElementById("device_conn").innerHTML = getConnectionType();
+		// doAlert('$(#device_conn span).html(getConnectionType());','--> populateDeviceInfo()..');
     }catch(e){ catchError('populateDeviceInfo()',e); }
 }
 
