@@ -130,31 +130,33 @@ function populateDeviceInfo(){
     try {
 		$( document ).ready(function() {
 			report('populateDeviceInfo()','device and document ready');
-			modifyiOS7StatusBar();
-			var id = 'devicereadydiv';
-			var parentElement = document.getElementById(id);
-			var listeningElement = parentElement.querySelector('.listening');
-			listeningElement.setAttribute('style', 'display:none;');
-			var receivedElement = parentElement.querySelector('.received');
-			receivedElement.setAttribute('style', 'display:block;');
-			document.getElementById("user-agent").textContent = navigator.userAgent;
-			document.getElementById("platform").innerHTML = device.platform;
-			document.getElementById("version").innerHTML = device.version;
-			document.getElementById("uuid").innerHTML = device.uuid;
-			document.getElementById("name").innerHTML = device.name;
-			document.getElementById("model").innerHTML = device.model;
-			document.getElementById("width").innerHTML = screen.width;
-			document.getElementById("height").innerHTML = screen.height;
-			document.getElementById("colorDepth").innerHTML = screen.colorDepth;
-			document.getElementById("device_internet").innerHTML = isConnectedToInternet();
-			$('#device_conn span').html(getConnectionType());
-			// document.getElementById("device_conn").innerHTML = getConnectionType();
-			// $('#device_platform span').html(getDevicePlatform());
-			// $('#device_model span').html(getDeviceModel());
-			// $('#device_os span').html(getOS());
-			// $('#device_version span').html(getDeviceVersion());
-			// $('#device_internet span').html(isConnectedToInternet());
-			// doAlert('$(#device_conn span).html(getConnectionType());','--> populateDeviceInfo()..');
+			if(isMobile.any()) {
+				modifyiOS7StatusBar();
+				var id = 'devicereadydiv';
+				var parentElement = document.getElementById(id);
+				var listeningElement = parentElement.querySelector('.listening');
+				listeningElement.setAttribute('style', 'display:none;');
+				var receivedElement = parentElement.querySelector('.received');
+				receivedElement.setAttribute('style', 'display:block;');
+				document.getElementById("user-agent").textContent = navigator.userAgent;
+				document.getElementById("platform").innerHTML = device.platform;
+				document.getElementById("version").innerHTML = device.version;
+				document.getElementById("uuid").innerHTML = device.uuid;
+				document.getElementById("name").innerHTML = device.name;
+				document.getElementById("model").innerHTML = device.model;
+				document.getElementById("width").innerHTML = screen.width;
+				document.getElementById("height").innerHTML = screen.height;
+				document.getElementById("colorDepth").innerHTML = screen.colorDepth;
+				document.getElementById("device_internet").innerHTML = isConnectedToInternet();
+				// $('#device_conn span').html(getConnectionType());
+				document.getElementById("device_conn").innerHTML = getConnectionType();
+				// $('#device_platform span').html(getDevicePlatform());
+				// $('#device_model span').html(getDeviceModel());
+				// $('#device_os span').html(getOS());
+				// $('#device_version span').html(getDeviceVersion());
+				// $('#device_internet span').html(isConnectedToInternet());
+				// doAlert('$(#device_conn span).html(getConnectionType());','--> populateDeviceInfo()..');
+			}
 		});
     }catch(e){ catchError('populateDeviceInfo()',e); }
 }
