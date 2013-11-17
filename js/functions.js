@@ -64,6 +64,7 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         var receivedElement = parentElement.querySelector('.received');
         receivedElement.setAttribute('style', 'display:block;');
+		initApp();
         console.log('Received Event: ' + id);
     }
 };
@@ -94,10 +95,6 @@ if(isMobile.any()){
     console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
 }
 
-function catchError(f,e){
-    report('ERROR','ERROR in (' + f + ')[Error Message: ' + e.message + ']');
-}
-
 /* ----------------------------------------------------------- /
     initApp
 / ----------------------------------------------------------- */
@@ -105,8 +102,8 @@ function initApp(){
     report('TEST','--> initApp()..');  
     try{
         // $(document).ready(function(){
-		populateDeviceInfo();
 		doAlert('initApp','Native Message');
+		populateDeviceInfo();
         // });
     }catch(e){ catchError('initApp()',e); }            
 }
@@ -960,5 +957,9 @@ function PWreenableAutoLock(){
 
 function powerMgmtError(error){ report('ERROR','powerMgmtError() [error(' + error + ')]'); }
 function powerMgmtSuccess(success){ report('TEST','powerMgmtSuccess() success: ' + powerMgmtSuccess + '...');}
+
+function catchError(f,e){
+    report('ERROR','ERROR in (' + f + ')[Error Message: ' + e.message + ']');
+}
 
 //* DEBUG */ window.console.log('js/global.js loaded...');
