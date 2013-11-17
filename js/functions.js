@@ -99,7 +99,7 @@ var app = {
 		report('app onDeviceReady','receivedEvent');
         deviceReady = true;
 		cordovaIsLoaded = true;
-		// populateDeviceInfo();
+		populateDeviceInfo();
 		
 		/*
 		(function($) {
