@@ -1,3 +1,30 @@
+var isMobile = {};
+isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i) ? true : false;
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i) ? true : false;
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i) ? true : false;
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
+    }
+};
+
+if(isMobile.any()){ 
+	// alert("document.write >> <script type='text/javascript' src='" + rootURL + "phonegap.js'></script>");
+    document.write("<script type='text/javascript' src='" + rootURL + "phonegap.js'></script>"); 
+    // initApp();
+}else{
+    console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
+}
+
 var rootURL = "";
 var root = this; // used by pdfbrowser and childbrowser
 var deviceSDID;
@@ -29,6 +56,9 @@ var badgeToggledOn = false;
 var autoLockIsDisabled = false;
 var cdvBadge = null;
 
+var jqueryready = false;
+var jqueryReady = false;
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -41,6 +71,7 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+		// this.onDeviceReady();
     },
     // deviceready Event Handler
     //
@@ -58,7 +89,7 @@ var app = {
    },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-		// alert('deviceready receivedEvent');
+		alert('deviceready receivedEvent');
         deviceReady = true;
 		cordovaIsLoaded = true;
 		var parentElement = document.getElementById(id);
@@ -66,36 +97,13 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         var receivedElement = parentElement.querySelector('.received');
         receivedElement.setAttribute('style', 'display:block;');
-		initApp();
+		(function($) {
+			jqueryready = true;
+			initApp();
+		}(jQuery));
         console.log('Received Event: ' + id);
     }
 };
-
-isMobile  = {
-    Android: function() {
-        return navigator.userAgent.match(/Android/i) ? true : false;
-    },
-    BlackBerry: function() {
-        return navigator.userAgent.match(/BlackBerry/i) ? true : false;
-    },
-    iOS: function() {
-        return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
-    },
-    Windows: function() {
-        return navigator.userAgent.match(/IEMobile/i) ? true : false;
-    },
-    any: function() {
-        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
-    }
-};
-
-if(isMobile.any()){ 
-	// alert("document.write >> <script type='text/javascript' src='" + rootURL + "phonegap.js'></script>");
-    document.write("<script type='text/javascript' src='" + rootURL + "phonegap.js'></script>"); 
-    // initApp();
-}else{
-    console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
-}
 
 /* ----------------------------------------------------------- /
     initApp
@@ -103,6 +111,9 @@ if(isMobile.any()){
 function initApp(){
     report('TEST','--> initApp()..');  
     try{
+		(function($) {
+			$('#testdiv').html('bla');
+		}(jQuery));
         // $(document).ready(function(){
 		doAlert('initApp','Native Message');
 		populateDeviceInfo();
@@ -127,13 +138,14 @@ function populateDeviceInfo(){
 		document.getElementById("width").innerHTML = screen.width;
 		document.getElementById("height").innerHTML = screen.height;
 		document.getElementById("colorDepth").innerHTML = screen.colorDepth;
-		$('#device_platform span').html(getDevicePlatform());
-        $('#device_model span').html(getDeviceModel());
-        $('#device_os span').html(getOS());
-        $('#device_version span').html(getDeviceVersion());
-        $('#device_internet span').html(isConnectedToInternet());
-        $('#device_conn span').html(getConnectionType());
+		document.getElementById("device_internet").innerHTML = isConnectedToInternet();
 		document.getElementById("device_conn").innerHTML = getConnectionType();
+		// $('#device_platform span').html(getDevicePlatform());
+        // $('#device_model span').html(getDeviceModel());
+        // $('#device_os span').html(getOS());
+        // $('#device_version span').html(getDeviceVersion());
+        // $('#device_internet span').html(isConnectedToInternet());
+        // $('#device_conn span').html(getConnectionType());
 		// doAlert('$(#device_conn span).html(getConnectionType());','--> populateDeviceInfo()..');
     }catch(e){ catchError('populateDeviceInfo()',e); }
 }
