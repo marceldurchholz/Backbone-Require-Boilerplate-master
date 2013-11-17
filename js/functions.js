@@ -111,7 +111,7 @@ var app = {
  / ----------------------------------------------------------- */
 function populateDeviceInfo(){
     // report('TEST','--> populateDeviceInfo()..');
-	report('TEST','--> populateDeviceInfo()..');
+	doAlert('TEST','--> populateDeviceInfo()..');
     try{
 		// modifyiOS7StatusBar();
 		document.getElementById("user-agent").textContent = navigator.userAgent;

@@ -1,8 +1,5 @@
 // Require.js Configurations
 // -------------------------
-
-// report('config.js','start');
-
 require.config({
 
   // Sets the js folder as the base directory for all future relative paths
