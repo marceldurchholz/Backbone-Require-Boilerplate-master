@@ -146,18 +146,15 @@ function populateDeviceInfo(){
 		document.getElementById("colorDepth").innerHTML = screen.colorDepth;
 		document.getElementById("device_internet").innerHTML = isConnectedToInternet();
 		// document.getElementById("device_conn").innerHTML = getConnectionType();
-		
 		// $('#device_platform span').html(getDevicePlatform());
         // $('#device_model span').html(getDeviceModel());
         // $('#device_os span').html(getOS());
         // $('#device_version span').html(getDeviceVersion());
         // $('#device_internet span').html(isConnectedToInternet());
 		// doAlert('$(#device_conn span).html(getConnectionType());','--> populateDeviceInfo()..');
-		
 		$( document ).ready(function() {
 			$('#device_conn span').html(getConnectionType());
 		});
-		
     }catch(e){ catchError('populateDeviceInfo()',e); }
 }
 
