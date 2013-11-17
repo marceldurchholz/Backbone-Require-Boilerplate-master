@@ -80,7 +80,7 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
 		// alert('onDeviceReady');
-        app.receivedEvent('devicereadydiv');
+        app.receivedEvent();
         /*
 		document.addEventListener('DOMComponentsLoaded', function(){
 			alert('DOMComponentsLoaded are loaded!');
@@ -93,12 +93,8 @@ var app = {
 		alert('deviceready receivedEvent');
         deviceReady = true;
 		cordovaIsLoaded = true;
-		var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        listeningElement.setAttribute('style', 'display:none;');
-        var receivedElement = parentElement.querySelector('.received');
-        receivedElement.setAttribute('style', 'display:block;');
-		initApp();
+		// initApp();
+		populateDeviceInfo();
 		/*
 		(function($) {
 			jqueryready = true;
@@ -116,7 +112,7 @@ function initApp(){
     try{
 		// $(document).ready(function(){
 		doAlert('initApp','Native Message');
-		populateDeviceInfo();
+		// populateDeviceInfo();
         // });
     }catch(e){ catchError('initApp()',e); }            
 }
@@ -129,6 +125,12 @@ function populateDeviceInfo(){
 	doAlert('TEST','--> populateDeviceInfo()..');
     try{
 		modifyiOS7StatusBar();
+		var id = 'devicereadydiv';
+		var parentElement = document.getElementById(id);
+        var listeningElement = parentElement.querySelector('.listening');
+        listeningElement.setAttribute('style', 'display:none;');
+        var receivedElement = parentElement.querySelector('.received');
+        receivedElement.setAttribute('style', 'display:block;');
 		document.getElementById("user-agent").textContent = navigator.userAgent;
 		document.getElementById("platform").innerHTML = device.platform;
 		document.getElementById("version").innerHTML = device.version;

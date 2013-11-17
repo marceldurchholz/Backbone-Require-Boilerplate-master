@@ -12,6 +12,12 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
     // Disabling this will prevent jQuery Mobile from handling hash changes
     $.mobile.hashListeningEnabled = false;
 
+	$( document ).ready(function() {
+	  // Handler for .ready() called.
+	  alert('document.ready');
+	  app.initialize();
+	});
+	
     // Instantiates a new Mobile Router instance
     new MobileRouter();
 
