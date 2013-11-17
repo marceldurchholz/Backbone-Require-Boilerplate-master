@@ -25,9 +25,11 @@
 	<script type="text/javascript" src="phonegap.js"></script>
 	<script src="js/functions.js"></script>
 	<script src="js/detectmobile.js"></script>
+	<script type="text/javascript">
+		app.initialize();
+	</script>
 	
 	<script type="text/javascript">
-		// app.initialize();
 		window.setTimeout(function() {
 			if (!deviceReady) {
 				// doAlert("Error: Apache Cordova did not initialize.  Demo will not run correctly.","Debug Error Message");
