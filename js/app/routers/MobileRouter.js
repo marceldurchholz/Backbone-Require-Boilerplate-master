@@ -1,6 +1,5 @@
 // MobileRouter.js
 // ---------------
-$(document).ready(function(){
 	report('MobileRouter.js','document.ready');
 
 	define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "collections/Collection"],		
@@ -13,7 +12,7 @@ $(document).ready(function(){
 
 					// Tells Backbone to start watching for hashchange events
 					Backbone.history.start();
-					// app.initialize();
+					app.initialize();
 				},
 
 				// All of your Backbone Routes (add more)
@@ -45,5 +44,4 @@ $(document).ready(function(){
 
 	);
 
-app.initialize();
 });

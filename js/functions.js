@@ -57,7 +57,7 @@ var cdvBadge = null;
 
 var deviceReady = false;
 
-var jqueryready = false;
+// var jqueryready = false;
 var jqueryReady = false;
 
 var app = {
@@ -72,6 +72,7 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        document.addEventListener('jqueryready', this.onJqueryReady, false);
 		// this.onDeviceReady();
     },
     // deviceready Event Handler
@@ -88,15 +89,21 @@ var app = {
         });
 		*/
    },
+   onJqueryReady: function() {
+		alert('onJqueryReady startet');
+	},
     // Update DOM on a Received Event
     receivedEvent: function() {
 		report('app onDeviceReady','receivedEvent');
         deviceReady = true;
 		cordovaIsLoaded = true;
 		populateDeviceInfo();
+		jqueryready = true;
+		/*
 		(function($) {
 			jqueryready = true;
 		}(jQuery));
+		*/
     }
 };
 
