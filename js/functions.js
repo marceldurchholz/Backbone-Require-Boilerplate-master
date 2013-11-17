@@ -104,12 +104,58 @@ function catchError(f,e){
 function initApp(){
     report('TEST','--> initApp()..');  
     try{
-        $(document).ready(function(){
-			populateDeviceInfo();
-			doAlert('cordovaJsLoaded','Native Message');
-        });
-                                     
+        // $(document).ready(function(){
+		populateDeviceInfo();
+		doAlert('initApp','Native Message');
+        // });
     }catch(e){ catchError('initApp()',e); }            
+}
+
+/* ----------------------------------------------------------- /
+ populateDeviceInfo
+ / ----------------------------------------------------------- */
+function populateDeviceInfo(){
+    report('TEST','--> populateDeviceInfo()..');
+    try{
+		/*
+        $('#device_platform span').html(getDevicePlatform());
+        $('#device_model span').html(getDeviceModel());
+        $('#device_os span').html(getOS());
+        $('#device_version span').html(getDeviceVersion());
+        */
+        $('#device_internet span').html(isConnectedToInternet());
+        $('#device_conn span').html(getConnectionType());
+    }catch(e){ catchError('populateDeviceInfo()',e); }
+}
+
+function isConnectedToInternet(){
+	var connectionType = getConnectionType();
+	return (
+			(connectionType.toUpperCase().indexOf("NO NETWORK",0) == -1) &&
+			(connectionType.toUpperCase().indexOf("UNKNOWN",0) == -1)
+			);
+}
+
+function getConnectionType() {
+	if(cordovaIsLoaded != true){
+		// simulate offline with querystring ?OFFLINE=1
+		if(getURLParameter("OFFLINE") != ""){
+			return "No network connection";	
+		}else{
+			return "wifi";	
+		}		
+	} 
+    var networkState = navigator.connection.type;//navigator.network.connection.type;
+    var states = {};
+    states[Connection.UNKNOWN]  = 'Unknown connection';
+    states[Connection.ETHERNET] = 'Ethernet connection';
+    states[Connection.WIFI]     = 'WiFi connection';
+    states[Connection.CELL_2G]  = 'Cell 2G connection';
+    states[Connection.CELL_3G]  = 'Cell 3G connection';
+    states[Connection.CELL_4G]  = 'Cell 4G connection';
+    states[Connection.NONE]     = 'No network connection';
+    // alert('Connection type: ' + states[networkState]);
+	return states[networkState];
 }
 
 /* ----------------------------------------------------------- /
@@ -158,23 +204,6 @@ function report(logtype,msg){
     }catch(e){ 
         // give up
     }            
-}
-
-/* ----------------------------------------------------------- /
- populateDeviceInfo
- / ----------------------------------------------------------- */
-function populateDeviceInfo(){
-    report('TEST','--> populateDeviceInfo()..');
-    try{
-		/*
-        $('#device_platform span').html(getDevicePlatform());
-        $('#device_model span').html(getDeviceModel());
-        $('#device_os span').html(getOS());
-        $('#device_version span').html(getDeviceVersion());
-        */
-        $('#device_conn span').html(getConnectionType());
-        $('#device_internet span').html(isConnectedToInternet());
-    }catch(e){ catchError('populateDeviceInfo()',e); }
 }
 
 /* ----------------------------------------------------------- /
@@ -805,39 +834,6 @@ function clearIntervalVar(iVar){
 		}											
 	}catch(e){ catchError('clearIntervalVar()',e); }					
 }
-
-
-function isConnectedToInternet(){
-	var connectionType = getConnectionType();
-	return (
-			(connectionType.toUpperCase().indexOf("NO NETWORK",0) == -1) &&
-			(connectionType.toUpperCase().indexOf("UNKNOWN",0) == -1)
-			);
-}
-
-
-function getConnectionType() {
-	if(cordovaIsLoaded != true){
-		// simulate offline with querystring ?OFFLINE=1
-		if(getURLParameter("OFFLINE") != ""){
-			return "No network connection";	
-		}else{
-			return "wifi";	
-		}		
-	} 
-    var networkState = navigator.connection.type;//navigator.network.connection.type;
-    var states = {};
-    states[Connection.UNKNOWN]  = 'Unknown connection';
-    states[Connection.ETHERNET] = 'Ethernet connection';
-    states[Connection.WIFI]     = 'WiFi connection';
-    states[Connection.CELL_2G]  = 'Cell 2G connection';
-    states[Connection.CELL_3G]  = 'Cell 3G connection';
-    states[Connection.CELL_4G]  = 'Cell 4G connection';
-    states[Connection.NONE]     = 'No network connection';
-    // alert('Connection type: ' + states[networkState]);
-	return states[networkState];
-}
-
 
 // onSuccess Callback
 //
