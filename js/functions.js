@@ -28,8 +28,6 @@ if(isMobile.any()){
 var rootURL = "";
 var root = this; // used by pdfbrowser and childbrowser
 var deviceSDID;
-var deviceReady = false;
-
 var cordovaIsLoaded = false;
 var deviceSDID = "???";
 var SDID_DOMAIN = 'phonegap.appinaut.de';  
@@ -43,7 +41,6 @@ var fileObj = null;
 var fileEntry = null;
 var pageStartTime = +new Date();
 
-/*
 //default camera options
 var camQualityDefault = ['quality value', 50];
 var camDestinationTypeDefault = ['FILE_URI', 1];
@@ -53,20 +50,21 @@ var camEncodingTypeDefault = ['JPEG', 0];
 var camMediaTypeDefault = ['mediaType', 0];
 var camCorrectOrientationDefault = ['correctOrientation', false];
 var camSaveToPhotoAlbumDefault = ['saveToPhotoAlbum', true];
-*/
 
 var badgeToggledOn = false;
 var autoLockIsDisabled = false;
 var cdvBadge = null;
 
-// var jqueryready = false;
+var deviceReady = false;
+
+var jqueryready = false;
 var jqueryReady = false;
 
 var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
-		alert('var app initialize');
+		// alert('var app');
     },
     // Bind Event Listeners
     //
@@ -74,8 +72,7 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        // this.onDeviceReady();
-		// this.onJqueryReady();
+		// this.onDeviceReady();
     },
     // deviceready Event Handler
     //
@@ -83,28 +80,30 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
 		// alert('onDeviceReady');
-        this.receivedEvent();
+        app.receivedEvent('devicereadydiv');
         /*
 		document.addEventListener('DOMComponentsLoaded', function(){
 			alert('DOMComponentsLoaded are loaded!');
             console.log("DOMComponentsLoaded are loaded!");
         });
 		*/
-	},
-	// Update DOM on a Received Event
-    receivedEvent: function() {
-		report('app onDeviceReady','receivedEvent');
+   },
+    // Update DOM on a Received Event
+    receivedEvent: function(id) {
+		alert('deviceready receivedEvent');
         deviceReady = true;
 		cordovaIsLoaded = true;
-		// populateDeviceInfo();
-		
-		/*
+		var parentElement = document.getElementById(id);
+        var listeningElement = parentElement.querySelector('.listening');
+        listeningElement.setAttribute('style', 'display:none;');
+        var receivedElement = parentElement.querySelector('.received');
+        receivedElement.setAttribute('style', 'display:block;');
 		(function($) {
 			jqueryready = true;
+			populateDeviceInfo();
 		}(jQuery));
-		*/
+        console.log('Received Event: ' + id);
     }
-
 };
 
 /* ----------------------------------------------------------- /
@@ -115,12 +114,6 @@ function populateDeviceInfo(){
 	report('TEST','--> populateDeviceInfo()..');
     try{
 		// modifyiOS7StatusBar();
-		var statusElement = 'devicereadydiv';
-        var parentElement = document.getElementById(statusElement);
-		var listeningElement = parentElement.querySelector('.listening');
-        listeningElement.setAttribute('style', 'display:none;');
-        var receivedElement = parentElement.querySelector('.received');
-        receivedElement.setAttribute('style', 'display:block;');
 		document.getElementById("user-agent").textContent = navigator.userAgent;
 		document.getElementById("platform").innerHTML = device.platform;
 		document.getElementById("version").innerHTML = device.version;
