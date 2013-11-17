@@ -34,7 +34,7 @@ define(["jquery", "backbone", "models/Model", "text!templates/view.html", "text!
 				var testareahtml = _.template(testarea, {}); // this.template(dict);
 				// Append the result to the view's element.
 				$(this.el).append(testareahtml);
-				
+				report('render view.js');
                 // Maintains chainability
                 return this;
 

@@ -64,6 +64,7 @@ var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
+		report('functions.js','app.initialize();');
 		// alert('var app');
     },
     // Bind Event Listeners
@@ -89,8 +90,8 @@ var app = {
 		*/
    },
     // Update DOM on a Received Event
-    receivedEvent: function(id) {
-		alert('deviceready receivedEvent');
+    receivedEvent: function() {
+		// alert('deviceready receivedEvent');
         deviceReady = true;
 		cordovaIsLoaded = true;
 		// initApp();
@@ -100,13 +101,15 @@ var app = {
 			jqueryready = true;
 		}(jQuery));
         */
-		console.log('Received Event: ' + id);
+		// alert('app.initialize >> receivedEvent >> Received Event');
+		// report('app.initialize >> receivedEvent','Received Event');
     }
 };
 
 /* ----------------------------------------------------------- /
     initApp
 / ----------------------------------------------------------- */
+/*
 function initApp(){
     report('TEST','--> initApp()..');  
     try{
@@ -116,13 +119,14 @@ function initApp(){
         // });
     }catch(e){ catchError('initApp()',e); }            
 }
+*/
 
 /* ----------------------------------------------------------- /
  populateDeviceInfo
  / ----------------------------------------------------------- */
 function populateDeviceInfo(){
     // report('TEST','--> populateDeviceInfo()..');
-	doAlert('TEST','--> populateDeviceInfo()..');
+	// doAlert('TEST','--> populateDeviceInfo()..');
     try{
 		modifyiOS7StatusBar();
 		var id = 'devicereadydiv';

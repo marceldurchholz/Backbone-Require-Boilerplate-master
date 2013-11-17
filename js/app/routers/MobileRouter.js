@@ -9,6 +9,7 @@ define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "co
             initialize: function() {
 
                 // Tells Backbone to start watching for hashchange events
+				report('MobileRouter.js','initialize:');
                 Backbone.history.start();
 
             },
@@ -24,6 +25,7 @@ define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "co
 
             home: function() {
                 new View();
+				report('new home view');
             },
             aboutus: function() {
                 new Aboutus();

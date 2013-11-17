@@ -14,8 +14,9 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
 	$( document ).ready(function() {
 	  // Handler for .ready() called.
-	  alert('document.ready');
+	  report('MobileInit.js','document.ready START');
 	  app.initialize();
+	  report('MobileInit.js','document.ready END');
 	});
 	
     // Instantiates a new Mobile Router instance
