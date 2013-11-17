@@ -48,11 +48,13 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
 		// alert('onDeviceReady');
-        app.receivedEvent('deviceready');
-        document.addEventListener('DOMComponentsLoaded', function(){
+        app.receivedEvent('devicereadydiv');
+        /*
+		document.addEventListener('DOMComponentsLoaded', function(){
 			alert('DOMComponentsLoaded are loaded!');
             console.log("DOMComponentsLoaded are loaded!");
         });
+		*/
    },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -112,16 +114,26 @@ function initApp(){
  populateDeviceInfo
  / ----------------------------------------------------------- */
 function populateDeviceInfo(){
-    report('TEST','--> populateDeviceInfo()..');
+    // report('TEST','--> populateDeviceInfo()..');
+	doAlert('TEST','--> populateDeviceInfo()..');
     try{
-		/*
-        $('#device_platform span').html(getDevicePlatform());
+		modifyiOS7StatusBar();
+		document.getElementById("user-agent").textContent = navigator.userAgent;
+		document.getElementById("platform").innerHTML = device.platform;
+		document.getElementById("version").innerHTML = device.version;
+		document.getElementById("uuid").innerHTML = device.uuid;
+		document.getElementById("name").innerHTML = device.name;
+		document.getElementById("model").innerHTML = device.model;
+		document.getElementById("width").innerHTML = screen.width;
+		document.getElementById("height").innerHTML = screen.height;
+		document.getElementById("colorDepth").innerHTML = screen.colorDepth;
+		$('#device_platform span').html(getDevicePlatform());
         $('#device_model span').html(getDeviceModel());
         $('#device_os span').html(getOS());
         $('#device_version span').html(getDeviceVersion());
-        */
         $('#device_internet span').html(isConnectedToInternet());
         $('#device_conn span').html(getConnectionType());
+		doAlert('$(#device_conn span).html(getConnectionType());','--> populateDeviceInfo()..');
     }catch(e){ catchError('populateDeviceInfo()',e); }
 }
 
@@ -959,7 +971,8 @@ function powerMgmtError(error){ report('ERROR','powerMgmtError() [error(' + erro
 function powerMgmtSuccess(success){ report('TEST','powerMgmtSuccess() success: ' + powerMgmtSuccess + '...');}
 
 function catchError(f,e){
-    report('ERROR','ERROR in (' + f + ')[Error Message: ' + e.message + ']');
+    // report('ERROR','ERROR in (' + f + ')[Error Message: ' + e.message + ']');
+	doAlert('ERROR','ERROR in (' + f + ')[Error Message: ' + e.message + ']');
 }
 
 //* DEBUG */ window.console.log('js/global.js loaded...');
