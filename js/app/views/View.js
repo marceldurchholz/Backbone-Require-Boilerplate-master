@@ -1,28 +1,23 @@
 // View.js
 // -------
-define(["jquery", "backbone", "models/Model", "text!templates/view.html", "text!templates/testarea.html"],
+define(["jquery", "backbone", "models/Model", "text!templates/view.html", "text!templates/sidebar.html"],
 
-    function($, Backbone, Model, template, testarea){
+    function($, Backbone, Model, template, sidebar){
 
         var View = Backbone.View.extend({
 
-            // The DOM Element associated with this view
             el: ".example",
 
-            // View constructor
             initialize: function() {
 
-                // Calls the view's render method
                 this.render();
 
             },
 			
-            // View Event Handlers
             events: {
 				
             },
 
-            // Renders the view's template to the UI
             render: function() {
 			
                 // Setting the view's template property using the Underscore template method
@@ -31,10 +26,9 @@ define(["jquery", "backbone", "models/Model", "text!templates/view.html", "text!
                 this.$el.html(this.template);
 
 				// sidebar
-				var testareahtml = _.template(testarea, {}); // this.template(dict);
+				var testareahtml = _.template(sidebar, {}); // this.template(dict);
 				// Append the result to the view's element.
 				$(this.el).append(testareahtml);
-				report('render view.js');
                 // Maintains chainability
                 return this;
 
@@ -42,7 +36,6 @@ define(["jquery", "backbone", "models/Model", "text!templates/view.html", "text!
 
         });
 
-        // Returns the View class
         return View;
 
     }

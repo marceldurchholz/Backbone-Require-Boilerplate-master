@@ -20,18 +20,33 @@
 	<link rel="apple-touch-icon" sizes="152x152" href="images/add-to-home/touch-icon-apple-152.png">
 	<!-- Use the .htaccess and remove these lines to avoid edge case issues. More info: h5bp.com/i/378 -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
 	<!--Detect if the browser is a mobile browser or a desktop browser and conditionally include your JavaScript --> 
 	<!-- <script type="text/javascript" src="../cordova-incl.js"></script> -->
-	<!-- <script type="text/javascript" src="phonegap.js"></script> -->
-
 	<script type="text/javascript" src="phonegap.js"></script>
 	<script src="js/functions.js"></script>
 	<script src="js/detectmobile.js"></script>
-	<!--
-	<script type="text/javascript">
-		app.initialize();
-	</script>
-	-->
+
+	<link rel="stylesheet" href="css/topcoat-mobile-min.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="css/pageslider.css">
+	<link rel="stylesheet" href="css/jquery.expander.css" type="text/css"/>
+	<link rel="stylesheet" type="text/css" href="css/normalize.css"> 
+	<link rel="stylesheet" type="text/css" href="css/result-light.css">
+	<link rel="stylesheet" type="text/css" src="css/mythemestyles.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
+	<link rel="stylesheet" href="css/master.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/tests.css" />
+	<link rel="stylesheet" href="layerslider/css/layerslider.css" type="text/css"/>
+	<link rel="stylesheet" href="layerslider/assets/css/style.css" type="text/css"/>
+	<link rel="stylesheet" href="css/menu/main.css?v=31"/>
+	<link rel="stylesheet" type="text/css" href="css/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="css/twitter/livetweets.css"/>
+	<link rel="stylesheet" href="photoswipe/photoswipe.css" type="text/css"/>
+	<link rel="stylesheet" href="css/add2home.css">
+	<link rel="stylesheet" href="css/video-js.css">
+	<link rel="stylesheet" href="css/jquery.mobile.structure-1.3.2.min.css" />
+	<link rel="stylesheet" href="css/jquery.mobile-1.3.2-appinaut.css" />
 
 	<!--
 	<script type="text/javascript">
@@ -52,26 +67,6 @@
 </head>
 <body>
 	<div data-role="page">
-			<h4>/cordova-plugin-splashscreen.git</h4>
-			<input type='button' onclick="test_SplashScreen()" value='SplashScreen'/>
-			<div class="app">
-				<h1>PhoneGap</h1>
-				<div id="devicereadydiv" class="blink">
-					<p class="event listening">Connecting to Device</p>
-					<p class="event received">Device is Ready</p>
-				</div>
-			</div>
-			<div id='tests'>
-				<h4>device_internet: <span id="device_internet"></span></h4>
-				<h4>device_conn: <span id="device_conn"></span></h4>
-				<h4>Platform: <span id="platform"></span></h4>
-				<h4>Version: <span id="version"></span></h4>
-				<h4>UUID: <span id="uuid"></span></h4>
-				<h4>Name: <span id="name"></span></h4>
-				<h4>Model: <span id="model"></span></h4>
-				<h4>Width: <span id="width"></span>, Height: <span id="height"></span>, Color Depth: <span id="colorDepth"></span></h4>
-				<h4>User-Agent: <span id="user-agent"></span></h4>
-			</div>
 		<header data-role="header" class="navbar nav navbar-inner">
 			<h1>APPinaut - Mobile Training and Infotainment</h1>
 		</header>

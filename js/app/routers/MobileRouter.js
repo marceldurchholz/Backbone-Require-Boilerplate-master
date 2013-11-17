@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "collections/Collection"],
+define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "views/Sidebar", "views/Testarea", "collections/Collection"],
         
-    function($, Backbone, UserModel, View, Aboutus, Collection) {
+    function($, Backbone, UserModel, View, Aboutus, Sidebar, Testarea, Collection) {
 
         var MobileRouter = Backbone.Router.extend({
 
@@ -32,6 +32,9 @@ define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "co
             },
             testarea: function() {
                 new Testarea();
+            },
+            sidebar: function() {
+                new Sidebar();
             }
     
         });
