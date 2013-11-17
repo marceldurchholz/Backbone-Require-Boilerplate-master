@@ -28,15 +28,14 @@
 	<script type="text/javascript">
 		app.initialize();
 	</script>
-	
 	<script type="text/javascript">
 		window.setTimeout(function() {
 			if (!deviceReady) {
-				// doAlert("Error: Apache Cordova did not initialize.  Demo will not run correctly.","Debug Error Message");
-				alert('no');
+				doAlert("Error: Apache Cordova did not initialize. Demo will not run correctly.","Debug Error Message");
+				// alert('no');
 			}
 			else {
-				alert('yes');					
+				// alert('yes');					
 			}
 		},3000);		
 	</script>
@@ -44,16 +43,26 @@
 </head>
 <body>
 	<div data-role="page">
-	<div class="app">
-		<h1>PhoneGap</h1>
-		<div id="deviceready" class="blink">
-			<p class="event listening">Connecting to Device</p>
-			<p class="event received">Device is Ready</p>
-		</div>
-	</div>
-
 		<header data-role="header" class="navbar nav navbar-inner">
 			<h1>APPinaut - Mobile Training and Infotainment</h1>
+			<div class="app">
+				<h1>PhoneGap</h1>
+				<div id="deviceready" class="blink">
+					<p class="event listening">Connecting to Device</p>
+					<p class="event received">Device is Ready</p>
+				</div>
+			</div>
+			<div id='tests'>
+				<h4>Platform: <span id="platform"></span></h4>
+				<h4>Version: <span id="version"></span></h4>
+				<h4>UUID: <span id="uuid"></span></h4>
+				<h4>Name: <span id="name"></span></h4>
+				<h4>Model: <span id="model"></span></h4>
+				<h4>Width: <span id="width"></span>, Height: <span id="height"></span>, Color Depth: <span id="colorDepth"></span></h4>
+				<h4>User-Agent: <span id="user-agent"></span></h4>
+				<h4>device_conn: <span id="device_conn"></span></h4>
+				<h4>device_internet: <span id="device_internet"></span></h4>
+			</div>
 		</header>
 		<div class="container-fluid" data-role="content">
 			<div class="row-fluid">
