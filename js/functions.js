@@ -153,6 +153,11 @@ function populateDeviceInfo(){
         // $('#device_internet span').html(isConnectedToInternet());
         // $('#device_conn span').html(getConnectionType());
 		// doAlert('$(#device_conn span).html(getConnectionType());','--> populateDeviceInfo()..');
+		
+		$( document ).ready(function() {
+			alert('bla');
+		});
+		
     }catch(e){ catchError('populateDeviceInfo()',e); }
 }
 
