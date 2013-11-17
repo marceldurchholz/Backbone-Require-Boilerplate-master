@@ -15,6 +15,7 @@ define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "co
 				// Tells Backbone to start watching for hashchange events
 				Backbone.history.start();
 				// alert('app.initialize');
+				app.initialize();
 
 			},
 
