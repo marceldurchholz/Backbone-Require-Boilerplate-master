@@ -34,7 +34,6 @@ var SDID_DOMAIN = 'phonegap.appinaut.de';
 var SDID_KEY = '633241';
 
 var my_media;
-var deviceReady = false;
 var platformId = null;
 var CameraPopoverOptions = null;
 var pictureUrl = null;
@@ -55,6 +54,8 @@ var camSaveToPhotoAlbumDefault = ['saveToPhotoAlbum', true];
 var badgeToggledOn = false;
 var autoLockIsDisabled = false;
 var cdvBadge = null;
+
+var deviceReady = false;
 
 var jqueryready = false;
 var jqueryReady = false;
@@ -79,7 +80,7 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
 		// alert('onDeviceReady');
-        app.receivedEvent('devicereadydiv');
+        app.receivedEvent();
         /*
 		document.addEventListener('DOMComponentsLoaded', function(){
 			alert('DOMComponentsLoaded are loaded!');
@@ -88,47 +89,31 @@ var app = {
 		*/
    },
     // Update DOM on a Received Event
-    receivedEvent: function(id) {
-		alert('deviceready receivedEvent');
+    receivedEvent: function() {
+		report('app onDeviceReady','receivedEvent');
         deviceReady = true;
 		cordovaIsLoaded = true;
-		var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        listeningElement.setAttribute('style', 'display:none;');
-        var receivedElement = parentElement.querySelector('.received');
-        receivedElement.setAttribute('style', 'display:block;');
+		populateDeviceInfo();
 		(function($) {
 			jqueryready = true;
-			initApp();
 		}(jQuery));
-        console.log('Received Event: ' + id);
     }
 };
-
-/* ----------------------------------------------------------- /
-    initApp
-/ ----------------------------------------------------------- */
-function initApp(){
-    report('TEST','--> initApp()..');  
-    try{
-		(function($) {
-			$('#testdiv').html('bla');
-		}(jQuery));
-        // $(document).ready(function(){
-		doAlert('initApp','Native Message');
-		populateDeviceInfo();
-        // });
-    }catch(e){ catchError('initApp()',e); }            
-}
 
 /* ----------------------------------------------------------- /
  populateDeviceInfo
  / ----------------------------------------------------------- */
 function populateDeviceInfo(){
     // report('TEST','--> populateDeviceInfo()..');
-	doAlert('TEST','--> populateDeviceInfo()..');
+	report('TEST','--> populateDeviceInfo()..');
     try{
-		modifyiOS7StatusBar();
+		// modifyiOS7StatusBar();
+		var statusElement = 'devicereadydiv';
+        var parentElement = document.getElementById(statusElement);
+		var listeningElement = parentElement.querySelector('.listening');
+        listeningElement.setAttribute('style', 'display:none;');
+        var receivedElement = parentElement.querySelector('.received');
+        receivedElement.setAttribute('style', 'display:block;');
 		document.getElementById("user-agent").textContent = navigator.userAgent;
 		document.getElementById("platform").innerHTML = device.platform;
 		document.getElementById("version").innerHTML = device.version;
@@ -149,6 +134,22 @@ function populateDeviceInfo(){
 		// doAlert('$(#device_conn span).html(getConnectionType());','--> populateDeviceInfo()..');
     }catch(e){ catchError('populateDeviceInfo()',e); }
 }
+
+/* ----------------------------------------------------------- /
+    initApp
+/ ----------------------------------------------------------- */
+/*
+function initApp(){
+    report('TEST','--> initApp()..');  
+    try{
+		report('initApp','try started');
+        // $(document).ready(function(){
+		// doAlert('initApp','Native Message');
+		populateDeviceInfo();
+        // });
+    }catch(e){ catchError('initApp()',e); }            
+}
+*/
 
 function isConnectedToInternet(){
 	var connectionType = getConnectionType();
