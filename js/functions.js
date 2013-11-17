@@ -6,8 +6,6 @@ var deviceSDID = "???";
 var SDID_DOMAIN = 'phonegap.appinaut.de';  
 var SDID_KEY = '633241';
 
-// capture video page
-
 var my_media;
 var deviceReady = false;
 var platformId = null;
@@ -30,6 +28,142 @@ var camSaveToPhotoAlbumDefault = ['saveToPhotoAlbum', true];
 var badgeToggledOn = false;
 var autoLockIsDisabled = false;
 var cdvBadge = null;
+
+var app = {
+    // Application Constructor
+    initialize: function() {
+        this.bindEvents();
+		// alert('var app');
+    },
+    // Bind Event Listeners
+    //
+    // Bind any events that are required on startup. Common events are:
+    // 'load', 'deviceready', 'offline', and 'online'.
+    bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    // deviceready Event Handler
+    //
+    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+    // function, we must explicity call 'app.receivedEvent(...);'
+    onDeviceReady: function() {
+		// alert('onDeviceReady');
+        app.receivedEvent('deviceready');
+		/*
+        document.addEventListener('DOMComponentsLoaded', function(){
+			alert('components are loaded!');
+            console.log("components are loaded!");
+        });
+		*/
+   },
+    // Update DOM on a Received Event
+    receivedEvent: function(id) {
+		// alert('deviceready receivedEvent');
+        deviceReady = true;
+		var parentElement = document.getElementById(id);
+        var listeningElement = parentElement.querySelector('.listening');
+        listeningElement.setAttribute('style', 'display:none;');
+        var receivedElement = parentElement.querySelector('.received');
+        receivedElement.setAttribute('style', 'display:block;');
+        console.log('Received Event: ' + id);
+    }
+};
+
+isMobile  = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i) ? true : false;
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i) ? true : false;
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i) ? true : false;
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
+    }
+};
+
+/*
+if(isMobile.any()){ 
+	// alert("document.write >> <script type='text/javascript' src='" + rootURL + "cordova.js'></script>");
+    document.write("<script type='text/javascript' src='" + rootURL + "cordova.js'></script>"); 
+	// checkInvokeString();
+}else{
+    console.log('NOT-DEVICE-MODE: Skipping loading of [cordova.js] and plugins...');    
+    // initApp();
+}
+*/
+
+function catchError(f,e){
+    report('ERROR','ERROR in (' + f + ')[Error Message: ' + e.message + ']');
+}
+
+/* ----------------------------------------------------------- /
+    postDeviceReadyActions
+/ ----------------------------------------------------------- */
+function postDeviceReadyActions(){
+    //report('TEST','--> postDeviceReadyActions()..');  
+    try{
+		// doAlert('cordovaJsLoaded');
+		// test_SplashScreen();
+        console.log('Device Ready!');
+        cordovaIsLoaded = true;        
+        // initApp();
+    }catch(e){ catchError('postDeviceReadyActions()',e); }            
+}
+
+/* ----------------------------------------------------------- /
+    modifyiOS7StatusBar
+/ ----------------------------------------------------------- */
+function modifyiOS7StatusBar(){
+    //report('TEST','--> postDeviceReadyActions()..');  
+    try{
+        StatusBar.overlaysWebView(false);
+		StatusBar.styleLightContent();
+		StatusBar.backgroundColorByName("black");
+		// StatusBar.backgroundColorByHexString("#3e8fd9");
+		/*
+		if (parseFloat(window.device.version) === 7.0) {
+			  document.body.style.marginTop = "20px";
+		}
+		*/
+    }catch(e){ catchError('modifyiOS7StatusBar()',e); }            
+}
+
+/* ----------------------------------------------------------- /
+    initApp
+/ ----------------------------------------------------------- */
+/*
+function initApp(){
+    report('TEST','--> initApp()..');  
+    try{
+        $(document).ready(function(){
+			populateDeviceInfo();
+			doAlert('cordovaJsLoaded','Native Message');
+        });
+                                     
+    }catch(e){ catchError('initApp()',e); }            
+}
+*/
+
+function debugModeEnabled(){
+    return true; //false;
+}
+
+/* ----------------------------------------------------------- /
+    report
+/ ----------------------------------------------------------- */
+function report(logtype,msg){
+    try{
+        console.log(logtype + ': ' + msg);                                                
+    }catch(e){ 
+        // give up
+    }            
+}
 
 /* ----------------------------------------------------------- /
  populateDeviceInfo
@@ -840,44 +974,5 @@ function PWreenableAutoLock(){
 
 function powerMgmtError(error){ report('ERROR','powerMgmtError() [error(' + error + ')]'); }
 function powerMgmtSuccess(success){ report('TEST','powerMgmtSuccess() success: ' + powerMgmtSuccess + '...');}
-
-var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-		// alert('var app');
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicity call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-		// alert('onDeviceReady');
-        app.receivedEvent('deviceready');
-		/*
-        document.addEventListener('DOMComponentsLoaded', function(){
-			alert('components are loaded!');
-            console.log("components are loaded!");
-        });
-		*/
-   },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-		// alert('deviceready receivedEvent');
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-        console.log('Received Event: ' + id);
-    }
-};
 
 //* DEBUG */ window.console.log('js/global.js loaded...');
