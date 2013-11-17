@@ -72,7 +72,7 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-		this.onDeviceReady();
+		// this.onDeviceReady();
     },
     // deviceready Event Handler
     //
@@ -98,13 +98,13 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         var receivedElement = parentElement.querySelector('.received');
         receivedElement.setAttribute('style', 'display:block;');
+		initApp();
 		/*
 		(function($) {
 			jqueryready = true;
-			initApp();
 		}(jQuery));
         */
-console.log('Received Event: ' + id);
+		console.log('Received Event: ' + id);
     }
 };
 
