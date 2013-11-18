@@ -58,7 +58,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		});
 	});
 	
-
+	/*
 	$(document).on("pagebeforecreate", function(event, ui) {
 		report('pagebeforecreate');
 		$(document).ready(function() {
@@ -86,10 +86,12 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	$(document).ready(function() {
 		report('documentready');
 		});
+	*/
 	
 	// Backbone.history.bind("all", function (route, router) {
 	// $(document).ready(function() {
-	if (!app) var app = {
+	// if (!app) 
+	var app = {
 		// Application Constructor
 		initialize: function() {
 			this.bindEvents();
@@ -155,7 +157,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		*/
 	});
 
-		app.initialize();
+	app.initialize();
     // Instantiates a new Mobile Router instance
     new MobileRouter();
 
