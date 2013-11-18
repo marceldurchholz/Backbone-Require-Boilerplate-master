@@ -60,52 +60,6 @@ var deviceReady = false;
 var jqueryready = false;
 var jqueryReady = false;
 
-var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-		report('functions.js','app.initialize();');
-		// alert('var app');
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-		// this.onDeviceReady();
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicity call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-		// alert('onDeviceReady');
-        app.receivedEvent();
-        /*
-		document.addEventListener('DOMComponentsLoaded', function(){
-			alert('DOMComponentsLoaded are loaded!');
-            console.log("DOMComponentsLoaded are loaded!");
-        });
-		*/
-   },
-    // Update DOM on a Received Event
-    receivedEvent: function() {
-		report('deviceready receivedEvent');
-        deviceReady = true;
-		cordovaIsLoaded = true;
-		// initApp();
-		populateDeviceInfo();
-		/*
-		(function($) {
-			jqueryready = true;
-		}(jQuery));
-        */
-		// alert('app.initialize >> receivedEvent >> Received Event');
-		// report('app.initialize >> receivedEvent','Received Event');
-    }
-};
-
 /* ----------------------------------------------------------- /
     initApp
 / ----------------------------------------------------------- */
@@ -125,11 +79,11 @@ function initApp(){
  populateDeviceInfo
  / ----------------------------------------------------------- */
 function populateDeviceInfo(){
-    report('populateDeviceInfo()','START');
+    report('functions.js','populateDeviceInfo() START');
 	// doAlert('TEST','--> populateDeviceInfo()..');
     try {
 		$( document ).ready(function() {
-			report('populateDeviceInfo()','device and document ready');
+			report('fucntions.js','populateDeviceInfo() >> device and document are already ready');
 			if(isMobile.any()) {
 				modifyiOS7StatusBar();
 				var id = 'devicereadydiv';
