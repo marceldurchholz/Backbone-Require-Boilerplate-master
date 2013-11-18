@@ -188,7 +188,8 @@ function debugModeEnabled(){
 / ----------------------------------------------------------- */
 function report(logtype,msg){
     try{
-        console.log(logtype + ': ' + msg);                                                
+		alert(logtype + ': ' + msg);
+        console.log(logtype + ': ' + msg);
     }catch(e){ 
         // give up
     }            
