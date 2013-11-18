@@ -95,7 +95,7 @@ var app = {
         deviceReady = true;
 		cordovaIsLoaded = true;
 		// initApp();
-		// populateDeviceInfo();
+		populateDeviceInfo();
 		/*
 		(function($) {
 			jqueryready = true;

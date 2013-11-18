@@ -32,7 +32,7 @@ define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "vi
             },
             testarea: function() {
                 new Testarea();
-				populateDeviceInfo();
+				// populateDeviceInfo();
             },
             sidebar: function() {
                 new Sidebar();

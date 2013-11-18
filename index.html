@@ -66,6 +66,42 @@
 	</script>
 	-->
 	
+	<style type="text/css">	
+	#footer{
+		position:fixed;
+		left:0px;
+		bottom:0px;
+		height:30px;
+		width:100%;
+		background:#999;
+	}
+	/* Für ie6*/
+	* html #footer{
+		position:absolute;
+		top:expression((0-(footer.offsetHeight)+(document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight)+(ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop))+'px');
+	}	
+	
+	</style>
+	<script type="text/javascript">
+	/*
+	// document.getElementById("device_conn").innerHTML = getConnectionType();
+	setnewcontentheight();
+	function setnewcontentheight(){
+		// alert($("#footer").height);
+		alert(document.getElementById("sidebar").height);
+		// document.getElementById("#ui-content").height(Math.max($(window).height()-document.getElementById("#footer").height(),document.getElementById('#ui-content').height()));		
+	}
+
+	$(window).resize(function(){
+		setnewcontentheight();
+	});
+
+	$(document).ready(function() {
+		setnewcontentheight();
+	});	
+	*/
+	</script>
+
 </head>
 <body>
 	<div id="fb-root"></div>
@@ -113,7 +149,7 @@
 		</div>
 	</div>
 	-->
-	<div class="container-fluid" data-role="content" style="padding-top:57px;">
+	<div id="ui-content" class="container-fluid" data-role="content" style="padding-top:57px;">
 		<div class="row-fluid">
 			<div class="span12">
 				<div class="example">
