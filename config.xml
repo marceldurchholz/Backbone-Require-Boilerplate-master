@@ -126,8 +126,9 @@
     <preference name="orientation"                value="default" />        <!-- all: default means both landscape and portrait are enabled -->
     <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
     <preference name="fullscreen"                 value="true" />           <!-- all: hides the status bar at the top of the screen -->
-    <preference name="DisallowOverscroll" 		  value="true" />
-	<preference name="webviewbounce"              value="false" />           <!-- ios: control whether the screen 'bounces' when scrolled beyond the top -->
+    <!-- <preference name="UIWebViewBounce" 			  value="true" /> -->
+    <preference name="DisallowOverscroll" 		  value="false" />
+	<!-- <preference name="webviewbounce"              value="false" /> -->          <!-- ios: control whether the screen 'bounces' when scrolled beyond the top -->
     <preference name="prerendered-icon"           value="true" />           <!-- ios: if icon is prerendered, iOS will not apply it's gloss to the app's icon on the user's home screen -->
     <preference name="stay-in-webview"            value="true" />          <!-- ios: external links should open in the default browser, 'true' would use the webview the app lives in -->
     <preference name="OpenAllWhitelistURLsInWebView" value="true" />
@@ -143,7 +144,6 @@
 	<preference name="KeyboardDisplayRequiresUserAction" value="true" />
 	<preference name="KeyboardShrinksView" value="true" />
     <preference name="SuppressesIncrementalRendering" value="true" />
-    <preference name="UIWebViewBounce" value="true" />
     <preference name="TopActivityIndicator" value="gray" />
     <preference name="EnableLocation" value="true" />
     <preference name="EnableViewportScale" value="true" />

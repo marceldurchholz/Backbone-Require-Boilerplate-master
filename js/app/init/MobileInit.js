@@ -13,6 +13,10 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
     $.mobile.hashListeningEnabled = false;
 	// $.mobile.hashListeningEnabled = true;
 
+	$(document).on("pageinit", function(event, ui) {
+	   // jqmReady.resolve();
+	   alert('ups!');
+	});
 
 	// Backbone.history.bind("all", function (route, router) {
 	Backbone.history.bind("route", function (route, router) {
