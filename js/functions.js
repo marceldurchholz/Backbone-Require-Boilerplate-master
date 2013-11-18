@@ -25,6 +25,8 @@ if(isMobile.any()){
     console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
 }
 
+var menuStatus = false;
+
 var rootURL = "";
 var root = this; // used by pdfbrowser and childbrowser
 var deviceSDID;

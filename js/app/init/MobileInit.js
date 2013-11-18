@@ -8,6 +8,8 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
 	report('MobileInit.js','START');
     
+	// $('#body').append('<div id="sidebar"></div>');
+	
 	// Prevents all anchor click handling
     $.mobile.linkBindingEnabled = false;
 
@@ -23,8 +25,37 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// ^----- TYPO HERE (should be mobileinit)
 		alert('mobileinit');
 	});
+	
+	/*
 	$('body').on("click", ".showMenu", function (e) {
 		alert('bla');
+	});
+	*/
+	$('body').on("click", "a.showMenu", function (e) {
+		// alert('clicked');
+		if (menuStatus != true) {
+			$(".ui-page-active").animate({
+				marginLeft: "175px",
+			}, 300, function () {
+				menuStatus = true;
+			});
+			return false;
+		} else {
+			$(".ui-page-active").animate({
+				marginLeft: "0px",
+			}, 300, function () {
+				menuStatus = false;
+			});
+			return false;
+		}
+	});
+	$('body').on("click", "#menuelement a.contentLink", function (e) {
+		// alert('#menuelement a.contentLink clicked');
+		$(".ui-page-active").animate({
+			marginLeft: "0px",
+		}, 300, function () {
+			menuStatus = false;
+		});
 	});
 	
 
@@ -54,7 +85,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	});
 	$(document).ready(function() {
 		report('documentready');
-	});
+		});
 	
 	// Backbone.history.bind("all", function (route, router) {
 	// $(document).ready(function() {
@@ -108,7 +139,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	
 	Backbone.history.bind("route", function (route, router) {
 		report('MobileInit.js','Backbone.history.bind event >> '+router);
-			alert(router);
+			// alert(router);
 			$( document ).ready(function() {
 				report('functions.js','populateDeviceInfo() when device and document are already ready');
 				if ('router' == 'testarea') populateDeviceInfo();
