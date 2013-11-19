@@ -1,4 +1,5 @@
 var menuStatus = false;
+var footervideoStatus = false;
 
 var rootURL = "";
 var root = this; // used by pdfbrowser and childbrowser

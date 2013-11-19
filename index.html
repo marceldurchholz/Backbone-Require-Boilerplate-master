@@ -30,9 +30,12 @@
 		position:fixed;
 		left:0px;
 		bottom:0px;
-		height:30px;
+		height:20px;
+		padding-top:10px;
+		p/adding-bottom:0px;
+		m/argin:0px;
 		width:100%;
-		background:#999;
+		b/ackground:#999;
 	}
 	/* Für ie6*/
 	* html #footer{
@@ -102,7 +105,7 @@
 	</header>
 	-->		
 	<div data-role="page">
-		<div id="header" style="height:57px;position:fixed;top:0px;width:100%;z-index:0;">
+		<div id="header" style="height:57px;position:fixed;top:0px;width:100%;z-index:10;">
 			<div class="strip">
 				<div class="icons f_left">
 					<a class="showMenu" href="#">
@@ -124,32 +127,53 @@
 			</div>
 		</div>
 		<div class="clear"></div>
-		<!--
-		<div class="container-fluid" data-role="content">
-				<div class="example">
-		</div>
-		-->
-		<!--
-		<div class="container-fluid" data-role="content" style="padding-top:57px;">
-			<div class="row-fluid">
-				<div class="span12">
-					<div class="example">
-					</div>
-				</div>
-			</div>
-		</div>
-		-->
-		<div id="ui-content" class="container-fluid" data-role="content" style="padding-top:57px;">
+		<div id="ui-content" class="container-fluid" data-role="content" style="padding-top:57px;padding-bottom:140px;">
 		</div>
 		<div class="clear"></div>
-		<!--
-		<footer class="footer navbar navbar-fixed-bottom" data-role="footer">
-			<p>Written by <a href="http://www.digitalverve.de/" target="_blank">DigitalVerve</a></p>
-		</footer>
-		-->
-		<div id="footer">
-			<div class="strip"><a data-ajax="true" data-transition="flip" href="about-us/">Innovative Möglichkeiten für Wissensanbieter</a>»</div> 
-			<div class="strip"></div>
+		<div id="footer" style="width:100%;z-index:10;">
+			<div class="strip">
+				<a class="footervideolink" href="#">Innovative Möglichkeiten für Wissensanbieter »</a>
+			</div>
+			<div id="footervideodiv" class="strip">
+				<!--
+				<iframe allowfullscreen="" frameborder="0" height="auto" width="100%" src="http://www.youtube.com/embed/UkWd0azv3fQ"></iframe>
+				-->
+				<div style="background:#333;width:100%;height:250px;margin-bottom:10px;">&nbsp;</div>
+			</div>
+			<!--
+			<div class="strip" id="footercontactsmall" style="padding-bottom:0px;margin-bottom:0px;padding-top:0px;margin-top:0px;">
+				<a class="ui-link" data-ajax="true" data-transition="flip" href="#aboutus">Direktkontakt zum APPInaut Team</a> »
+			</div>
+			<div class="strip"  id="footercontactbig">
+				<strong>APPinaut - Mobile Training and Infotainment</strong>
+				<br>
+				Humboldtstraße 53-55
+				<br>
+				22083 Hamburg
+				<br>
+				Deutschland
+				<br>
+				<br>
+				<div class="f_left">
+					<img border="0" alt="" src="images/icon-footer-phone.png">
+				</div>
+				<div class="f_left">+49 (0) 32032678</div>
+				<br>
+				<div class="clear"></div>
+				<div class="f_left">
+					<img border="0" alt="" src="images/icon-footer-contacts.png">
+				</div>
+				<div class="f_left">
+					<a class="ui-link" target="_blank" href="mailto:info@appinaut.com">info@appinaut.com</a>
+				</div>
+				<br>
+				<br>
+				&copy 2013 DigitalVerve |
+				<a class="ui-link" rel="external" href="#privacy">Impressum und Datenschutz</a>
+				<br>
+				<br>
+			</div>
+			-->
 		</div>
 	</div>
 </body>

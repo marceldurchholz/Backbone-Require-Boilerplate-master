@@ -8,8 +8,6 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
 	report('MobileInit.js','START');
     
-	var webtest = false;
-	
 	// Prevents all anchor click handling
     $.mobile.linkBindingEnabled = false;
     // Disabling this will prevent jQuery Mobile from handling hash changes
@@ -24,8 +22,8 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	var app = {
 		callback: function() {
 			report('MobileInit.js','var app:callback');
-			// setTimeout("populateDeviceInfo();",1000);
-			populateDeviceInfo();
+			setTimeout("populateDeviceInfo();",3000);
+			// populateDeviceInfo();
 		},
 		initialize: function() {
 			report('MobileInit.js','var app:initialize');
@@ -91,6 +89,26 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		  app.callback();
 	   }
 	});
+	
+	$('body').on("click", "a.footervideolink", function (e) {
+		// alert('footer clicked');
+		if (footervideoStatus != true) {
+			$("#footer").animate({
+				height: "60%",
+			}, 300, function () {
+				footervideoStatus = true;
+			});
+			return false;		
+		}
+		else {
+			$("#footer").animate({
+				height: "20px",
+			}, 300, function () {
+				footervideoStatus = false;
+			});
+			return false;
+		}
+	});
 
 	$('body').on("click", "a.showMenu", function (e) {
 		if (menuStatus != true) {
@@ -117,19 +135,25 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		});
 	});
 	
-
-	/*
+/*
 	Backbone.history.bind("route", function (route, router) {
 		report('MobileInit.js','Backbone.history.bind event >> '+router);
+		var router = Backbone.history.fragment;
+		alert(router);
 		// alert(router);
-		$( document ).ready(function() {
+		// $( document ).ready(function() {
 			// if ('router' == 'testarea') {
-				report('functions.js','populateDeviceInfo() for testarea when route changed and document ready');
-				setTimeout("populateDeviceInfo();",1000);
+				// report('functions.js','populateDeviceInfo() for testarea when route changed and document ready');
+				// setTimeout("populateDeviceInfo();",3000);
 			// }
-		});
+			if (router == 'testarea' || router == '') {
+				// alert('bla');
+				populateDeviceInfo();
+			}
+		// });
+		
 	});
-	*/
+*/
 	
 
 	app.initialize();
