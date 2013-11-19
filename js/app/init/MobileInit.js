@@ -30,9 +30,9 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			// this.callback = callback;
 			if(!isMobile.any()) {
 				report("MobileInit.js","IS NOT MOBILE DEVICE");
+				pgReady.resolve();
 				deviceReady = true;
 				cordovaIsLoaded = true;
-				pgReady.resolve();
 			}
 			else {
 				report("MobileInit.js","IS MOBILE DEVICE");
