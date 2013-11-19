@@ -2,11 +2,11 @@
 // -------
 define(["jquery", "backbone", "models/Model", "text!templates/view.html", "text!templates/sidebar.html"],
 
-    function($, Backbone, Model, template, sidebar){
+    function($, Backbone, Model, template, bsidebar){
 
         var View = Backbone.View.extend({
 
-            el: ".example",
+            el: "#ui-content",
 
             initialize: function() {
 
@@ -27,7 +27,7 @@ define(["jquery", "backbone", "models/Model", "text!templates/view.html", "text!
 
 				// sidebar
 				// $('#sidebar').html();
-				var sidebarContent = _.template(sidebar, {}); // this.template(dict);
+				var sidebarContent = _.template(bsidebar, {}); // this.template(dict);
 				// Append the result to the view's element.
 				$('#sidebar').html(sidebarContent);
 				// Maintains chainability

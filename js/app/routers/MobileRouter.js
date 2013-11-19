@@ -1,15 +1,15 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "views/Sidebar", "views/Testarea", "collections/Collection"],
+define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "views/Testarea", "collections/Collection"],
         
-    function($, Backbone, UserModel, View, Aboutus, Sidebar, Testarea, Collection) {
+    function($, Backbone, UserModel, View, Aboutus, Testarea, Collection) {
 
         var MobileRouter = Backbone.Router.extend({
 
             initialize: function() {
 
                 // Tells Backbone to start watching for hashchange events
-				report('MobileRouter.js','initialize:');
+				// report('MobileRouter.js','initialize:');
                 Backbone.history.start();
             },
 
@@ -33,9 +33,6 @@ define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "vi
             testarea: function() {
                 new Testarea();
 				// populateDeviceInfo();
-            },
-            sidebar: function() {
-                new Sidebar();
             }
     
         });

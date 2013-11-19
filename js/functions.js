@@ -91,7 +91,7 @@ function populateDeviceInfo(){
 		var receivedElement = parentElement.querySelector('.received');
 		receivedElement.setAttribute('style', 'display:block;');
 		if(!isMobile.any()) {
-			alert('no mobile device');
+			report('populateDeviceInfo()','ERROR: isMobile.any() != true');
 			document.getElementById("device_internet").innerHTML = 'TEST OUT PUT';
 		}
 		else {
@@ -188,7 +188,7 @@ function debugModeEnabled(){
 / ----------------------------------------------------------- */
 function report(logtype,msg){
     try{
-		alert(logtype + ': ' + msg);
+		// alert(logtype + ': ' + msg);
         console.log(logtype + ': ' + msg);
     }catch(e){ 
         // give up

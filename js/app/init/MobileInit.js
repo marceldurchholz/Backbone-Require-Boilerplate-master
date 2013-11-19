@@ -8,6 +8,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
 	report('MobileInit.js','START');
     
+	var webtest = false;
 	
 	// Prevents all anchor click handling
     $.mobile.linkBindingEnabled = false;
@@ -16,55 +17,29 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	// $.mobile.hashListeningEnabled = true;
 	
 	
-	$('body').on("click", "a.showMenu", function (e) {
-		if (menuStatus != true) {
-			$(".ui-page-active").animate({
-				marginLeft: "175px",
-			}, 300, function () {
-				menuStatus = true;
-			});
-			return false;
-		} else {
-			$(".ui-page-active").animate({
-				marginLeft: "0px",
-			}, 300, function () {
-				menuStatus = false;
-			});
-			return false;
-		}
-	});
-	$('body').on("click", "#menuelement a.contentLink", function (e) {
-		$(".ui-page-active").animate({
-			marginLeft: "0px",
-		}, 300, function () {
-			menuStatus = false;
-		});
-	});
-	
-
 	var jqmReady = $.Deferred();
 	var pgReady = $.Deferred();
 
 	
 	var app = {
 		callback: function() {
-			report('var app','app.callback');
+			report('MobileInit.js','var app:callback');
 			deviceReady = true;
 			cordovaIsLoaded = true;
-			report('app.callback','populateDeviceInfo()');
-			setTimeout("populateDeviceInfo();",1000);
+			// setTimeout("populateDeviceInfo();",1000);
+			populateDeviceInfo();
 		},
 		initialize: function() {
-			report('MobileInit.js','var app.initialize();');
+			report('MobileInit.js','var app:initialize');
 			// this.callback = callback;
-			if(isMobile.any()) {
-				report("var app",">> IS NOT MOBILE");
-				this.bindEvents();
-			}
-			else {
-				report("var app",">> IS MOBILE");
+			if(webtest==true) {
+				report("MobileInit.js","IS MOBILE DEVICE");
 				//In case of web we ignore PG but resolve the Deferred Object to trigger initialization
 				pgReady.resolve();
+			}
+			else {
+				report("MobileInit.js","NOT MOBILE DEVICE");
+				this.bindEvents();
 			}
 		},
 		bindEvents: function() {
@@ -107,7 +82,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	
 	
 	$(document).on("pageinit", function(event, ui) {
-	   report('document','pageinit');
+	   report('MobileInit.js','$(document).on("pageinit", function(event, ui) { jqmReady.resolve(); }');
 	   jqmReady.resolve();
 	});
 	/**
@@ -115,11 +90,37 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	 */
 	$.when(jqmReady, pgReady).then(function() {
 	   //Initialization code here
-	   report("$.when","Frameworks ready.");
+	   report("MobileInit.js","$.when(jqmReady, pgReady).then(function() { app.callback(); }");
 	   if(app.callback) {
 		  app.callback();
 	   }
 	});
+
+	$('body').on("click", "a.showMenu", function (e) {
+		if (menuStatus != true) {
+			$(".ui-page-active").animate({
+				marginLeft: "175px",
+			}, 300, function () {
+				menuStatus = true;
+			});
+			return false;
+		} else {
+			$(".ui-page-active").animate({
+				marginLeft: "0px",
+			}, 300, function () {
+				menuStatus = false;
+			});
+			return false;
+		}
+	});
+	$('body').on("click", "#menuelement a.contentLink", function (e) {
+		$(".ui-page-active").animate({
+			marginLeft: "0px",
+		}, 300, function () {
+			menuStatus = false;
+		});
+	});
+	
 
 	/*
 	Backbone.history.bind("route", function (route, router) {

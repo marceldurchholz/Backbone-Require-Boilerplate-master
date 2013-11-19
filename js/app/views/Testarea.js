@@ -6,7 +6,7 @@ define(["jquery", "backbone", "models/Model", "text!templates/testarea.html", "t
 
         var Testarea = Backbone.View.extend({
 
-            el: ".example",
+            el: "#ui-content",
 
             initialize: function() {
 
