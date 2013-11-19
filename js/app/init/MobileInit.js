@@ -104,17 +104,22 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// 'load', 'deviceready', 'offline', and 'online'.
 		bindEvents: function() {
 			document.addEventListener('deviceready', this.onDeviceReady, false);
-			if(!isMobile.any()) this.onDeviceReady();
+			if(!isMobile.any()) {
+				// setTimeout(this.onDeviceReady,1000);
+				this.onDeviceReady();
+			}
 		},
 		// deviceready Event Handler
 		//
 		// The scope of 'this' is the event. In order to call the 'receivedEvent'
 		// function, we must explicity call 'app.receivedEvent(...);'
 		onDeviceReady: function() {
-			// report('MobileInit.js','onDeviceReady');
+			report('MobileInit.js','onDeviceReady');
+			deviceReady = true;
+			cordovaIsLoaded = true;
+			this.receivedEvent();
 			// alert('onDeviceReady');
 			// $(document).on("pageshow", function(event, ui) {
-				app.receivedEvent();
 			// });
 			/*
 			document.addEventListener('DOMComponentsLoaded', function(){
@@ -125,26 +130,34 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	   },
 		// Update DOM on a Received Event
 		receivedEvent: function() {
-			report('MobileInit.js','app.receivedEvent START');
-			deviceReady = true;
-			cordovaIsLoaded = true;
-			// initApp();
-			/*
-			(function($) {
-				jqueryready = true;
-			}(jQuery));
-			*/
-			// alert('app.initialize >> receivedEvent >> Received Event');
-			// report('app.initialize >> receivedEvent','Received Event');
+			setTimeout(function() {
+				report('MobileInit.js','this.receivedEvent START');
+				$( document ).ready(function() {
+					// initApp();
+					/*
+					(function($) {
+						jqueryready = true;
+					}(jQuery));
+					*/
+					// alert('this.initialize >> receivedEvent >> Received Event');
+					// report('this.initialize >> receivedEvent','Received Event');
+				});
+			},0);
 		}
 	};
+	
+	
+	// opened file / location on- or offline?
+	// report('Backbone.history.location.href',Backbone.history.location.href);
 	
 	Backbone.history.bind("route", function (route, router) {
 		report('MobileInit.js','Backbone.history.bind event >> '+router);
 			// alert(router);
 			$( document ).ready(function() {
-				report('functions.js','populateDeviceInfo() when device and document are already ready');
-				if ('router' == 'testarea') populateDeviceInfo();
+				// if ('router' == 'testarea') {
+					report('functions.js','populateDeviceInfo() for testarea when route changed and document ready');
+					setTimeout(populateDeviceInfo,1000);
+				// }
 			});
 				
 		//console.log(window.location.hash);
