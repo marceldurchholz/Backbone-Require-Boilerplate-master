@@ -135,7 +135,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		});
 	});
 	
-/*
+	/*
 	Backbone.history.bind("route", function (route, router) {
 		report('MobileInit.js','Backbone.history.bind event >> '+router);
 		var router = Backbone.history.fragment;
@@ -146,14 +146,13 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 				// report('functions.js','populateDeviceInfo() for testarea when route changed and document ready');
 				// setTimeout("populateDeviceInfo();",3000);
 			// }
-			if (router == 'testarea' || router == '') {
+			if (router == 'testarea') {
 				// alert('bla');
 				populateDeviceInfo();
 			}
-		// });
-		
+		// });		
 	});
-*/
+	*/
 	
 
 	app.initialize();
