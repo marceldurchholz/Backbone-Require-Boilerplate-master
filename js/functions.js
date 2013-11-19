@@ -96,6 +96,9 @@ function populateDeviceInfo(){
 			document.getElementById("device_internet").innerHTML = 'TEST OUT PUT';
 		}
 		else {
+			report('populateDeviceInfo()','INFO: isMobile.any() = true');
+			document.getElementById("device_internet").innerHTML = 'TEST OUT PUT';
+			/*
 			modifyiOS7StatusBar();
 			document.getElementById("user-agent").textContent = navigator.userAgent;
 			document.getElementById("platform").innerHTML = device.platform;
@@ -107,8 +110,9 @@ function populateDeviceInfo(){
 			document.getElementById("height").innerHTML = screen.height;
 			document.getElementById("colorDepth").innerHTML = screen.colorDepth;
 			document.getElementById("device_internet").innerHTML = isConnectedToInternet();
-			// $('#device_conn span').html(getConnectionType());
 			document.getElementById("device_conn").innerHTML = getConnectionType();
+			*/
+			// $('#device_conn span').html(getConnectionType());
 			// $('#device_platform span').html(getDevicePlatform());
 			// $('#device_model span').html(getDeviceModel());
 			// $('#device_os span').html(getOS());
