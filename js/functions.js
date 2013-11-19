@@ -92,12 +92,12 @@ function populateDeviceInfo(){
 		var receivedElement = parentElement.querySelector('.received');
 		receivedElement.setAttribute('style', 'display:block;');
 		if(!isMobile.any()) {
-			report('populateDeviceInfo()','ERROR: isMobile.any() != true');
-			if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'TEST OUT PUT';
+			report('populateDeviceInfo()','isMobile.any NOT true');
+			// if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'TEST OUT PUT';
 		}
 		else {
-			report('populateDeviceInfo()','INFO: isMobile.any() = true');
-			if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'TEST OUT PUT';
+			report('populateDeviceInfo()','isMobile.any IS true');
+			// if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'TEST OUT PUT';
 			/*
 			modifyiOS7StatusBar();
 			document.getElementById("user-agent").textContent = navigator.userAgent;

@@ -22,7 +22,8 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	var app = {
 		callback: function() {
 			report('MobileInit.js','var app:callback');
-			setTimeout("populateDeviceInfo();",3000);
+			// setTimeout("populateDeviceInfo();",3000);
+			populateDeviceInfo();
 			// populateDeviceInfo();
 		},
 		initialize: function() {
@@ -86,7 +87,8 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	   //Initialization code here
 	   report("MobileInit.js","$.when(jqmReady, pgReady).then(function() { app.callback(); }");
 	   if(app.callback) {
-		  app.callback();
+			report('app-callback exiting');
+			app.callback();
 	   }
 	});
 	
