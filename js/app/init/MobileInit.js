@@ -24,8 +24,6 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	var app = {
 		callback: function() {
 			report('MobileInit.js','var app:callback');
-			deviceReady = true;
-			cordovaIsLoaded = true;
 			// setTimeout("populateDeviceInfo();",1000);
 			populateDeviceInfo();
 		},
@@ -34,7 +32,8 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			// this.callback = callback;
 			if(!isMobile.any()) {
 				report("MobileInit.js","IS NOT MOBILE DEVICE");
-				//In case of web we ignore PG but resolve the Deferred Object to trigger initialization
+				deviceReady = true;
+				cordovaIsLoaded = true;
 				pgReady.resolve();
 			}
 			else {
@@ -47,11 +46,6 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			// document.addEventListener('offline', this.onDeviceReady, false);
 			// document.addEventListener('online', this.onDeviceReady, false);
 			document.addEventListener('deviceready', this.onDeviceReady, false);
-			/*
-			if(!isMobile.any()) {
-				this.onDeviceReady();
-			}
-			*/
 		},
 		onDeviceReady: function() {
 			/*
@@ -66,6 +60,8 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			// report('***** var app','receivedEvent');
 			switch(event) {
 				case 'deviceready':
+					deviceReady = true;
+					cordovaIsLoaded = true;
 					pgReady.resolve();
 					/*
 					setTimeout(function() {
