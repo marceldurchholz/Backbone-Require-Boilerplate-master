@@ -1,30 +1,3 @@
-var isMobile = {};
-isMobile = {
-    Android: function() {
-        return navigator.userAgent.match(/Android/i) ? true : false;
-    },
-    BlackBerry: function() {
-        return navigator.userAgent.match(/BlackBerry/i) ? true : false;
-    },
-    iOS: function() {
-        return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
-    },
-    Windows: function() {
-        return navigator.userAgent.match(/IEMobile/i) ? true : false;
-    },
-    any: function() {
-        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
-    }
-};
-
-if(isMobile.any()){ 
-	// alert("document.write >> <script type='text/javascript' src='" + rootURL + "phonegap.js'></script>");
-    document.write("<script type='text/javascript' src='" + rootURL + "phonegap.js'></script>"); 
-    // initApp();
-}else{
-    console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
-}
-
 var menuStatus = false;
 
 var rootURL = "";
@@ -61,6 +34,33 @@ var deviceReady = false;
 
 var jqueryready = false;
 var jqueryReady = false;
+
+var isMobile = {};
+isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i) ? true : false;
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i) ? true : false;
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i) ? true : false;
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
+    }
+};
+
+if(isMobile.any()){ 
+	// alert("document.write >> <script type='text/javascript' src='" + rootURL + "phonegap.js'></script>");
+    document.write("<script type='text/javascript' src='" + rootURL + "phonegap.js'></script>"); 
+    // initApp();
+}else{
+    console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
+}
 
 /* ----------------------------------------------------------- /
     initApp

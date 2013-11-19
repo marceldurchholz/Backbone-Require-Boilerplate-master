@@ -32,13 +32,13 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		initialize: function() {
 			report('MobileInit.js','var app:initialize');
 			// this.callback = callback;
-			if(webtest==true) {
-				report("MobileInit.js","IS MOBILE DEVICE");
+			if(!isMobile.any()) {
+				report("MobileInit.js","IS NOT MOBILE DEVICE");
 				//In case of web we ignore PG but resolve the Deferred Object to trigger initialization
 				pgReady.resolve();
 			}
 			else {
-				report("MobileInit.js","NOT MOBILE DEVICE");
+				report("MobileInit.js","IS MOBILE DEVICE");
 				this.bindEvents();
 			}
 		},
