@@ -22,8 +22,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	var app = {
 		callback: function() {
 			report('MobileInit.js','var app:callback');
-			// setTimeout("populateDeviceInfo();",3000);
-			populateDeviceInfo();
+			setTimeout("populateDeviceInfo();",3000);
 			// populateDeviceInfo();
 		},
 		initialize: function() {
@@ -87,8 +86,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	   //Initialization code here
 	   report("MobileInit.js","$.when(jqmReady, pgReady).then(function() { app.callback(); }");
 	   if(app.callback) {
-			report('app-callback exiting');
-			app.callback();
+		  app.callback();
 	   }
 	});
 	
@@ -137,7 +135,6 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		});
 	});
 	
-	/*
 	Backbone.history.bind("route", function (route, router) {
 		report('MobileInit.js','Backbone.history.bind event >> '+router);
 		var router = Backbone.history.fragment;
@@ -154,7 +151,6 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			}
 		// });		
 	});
-	*/
 	
 
 	app.initialize();

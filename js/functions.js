@@ -95,11 +95,11 @@ function populateDeviceInfo(){
 		*/
 		if(!isMobile.any()) {
 			report('populateDeviceInfo()','isMobile.any NOT true');
-			// if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'TEST OUT PUT';
+			if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'NOT MOBILE';
 		}
 		else {
 			report('populateDeviceInfo()','isMobile.any IS true');
-			// if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'TEST OUT PUT';
+			if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MMOBILE';
 			/*
 			modifyiOS7StatusBar();
 			document.getElementById("user-agent").textContent = navigator.userAgent;
