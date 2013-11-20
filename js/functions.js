@@ -85,12 +85,14 @@ function populateDeviceInfo(){
     report('functions.js','populateDeviceInfo() START');
 	// doAlert('TEST','--> populateDeviceInfo()..');
     try {
+		/*
 		var id = 'devicereadydiv';
 		var parentElement = document.getElementById(id);
 		var listeningElement = parentElement.querySelector('.listening');
 		listeningElement.setAttribute('style', 'display:none;');
 		var receivedElement = parentElement.querySelector('.received');
 		receivedElement.setAttribute('style', 'display:block;');
+		*/
 		if(!isMobile.any()) {
 			report('populateDeviceInfo()','isMobile.any NOT true');
 			// if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'TEST OUT PUT';
