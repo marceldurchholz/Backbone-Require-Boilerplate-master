@@ -215,9 +215,8 @@ function test_SplashScreen(){
         doAlert('App splashscreen will now be shown for a few seconds, then dismissed. If something goes wrong you\'ll have to exit the app manually.','cordova-splashscreen');
         cordova.exec(null, null, 'SplashScreen', 'show', []);
         var splashClear = window.setTimeout(function(){
-                                            cordova.exec(null, null, 'SplashScreen', 'hide', []);
-                                            },2500);
-        
+			cordova.exec(null, null, 'SplashScreen', 'hide', []);
+		},2500);
     }catch(e){ catchError('splashScreenTest()',e); }
 }
 

@@ -14,16 +14,64 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
     $.mobile.hashListeningEnabled = false;
 	// $.mobile.hashListeningEnabled = true;
 	
-	
+
 	var jqmReady = $.Deferred();
 	var pgReady = $.Deferred();
-
+	
+	
+	function populateData(){
+		report('MobileInit.js','populateData() START');
+		// doAlert('TEST','--> populateData()..');
+		try {
+			document.getElementById("user-agent").textContent = navigator.userAgent;
+			document.getElementById("device_internet").innerHTML = 'bla';
+			if (!device) alert('device not defined');
+			document.getElementById("platform").innerHTML = device.platform;
+		} catch(e){ 
+			catchError('populateData()',e); 
+		}
+	}
+	
+	$(document).ready(function(){
+		$(document).on("pageinit", function(event, ui) {
+			$(document).on("pagecreate", function(event, ui) {
+			   report('MobileInit.js','$(document).on("pageinit", function(event, ui) { jqmReady.resolve(); }');
+			   jqmReady.resolve();
+			});
+		});
+	});
+	
+	/*
+	$(document).on("pageinit", function(event, ui) {
+	   report('MobileInit.js','$(document).on("pageinit", function(event, ui) { jqmReady.resolve(); }');
+	   jqmReady.resolve();
+	});
+	*/
+	/**
+	 * General initialization.
+	 */
+	$.when(jqmReady, pgReady).then(function() {
+		//Initialization code here
+		report("MobileInit.js","$.when(jqmReady, pgReady).then(function() { app.callback(); }");
+		if (app.callback) {
+			app.callback();
+		}
+	});
+	
+	Backbone.history.bind("route", function (route, router) {
+		report('MobileInit.js','Backbone.history.bind event >> '+router);
+		var router = Backbone.history.fragment;
+		// alert(router);
+		// report('MobileInit.js','router: '+router);
+		// populateData(router);
+	});
+	
 	
 	var app = {
 		callback: function() {
 			report('MobileInit.js','var app:callback');
-			setTimeout("populateDeviceInfo();",3000);
-			// populateDeviceInfo();
+			// setTimeout("populateData();",3000);
+			populateData();
 		},
 		initialize: function() {
 			report('MobileInit.js','var app:initialize');
@@ -55,7 +103,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			app.receivedEvent('deviceready');
 	   },
 		receivedEvent: function(event) {
-			// report('***** var app','receivedEvent');
+			report('***** var app','receivedEvent');
 			switch(event) {
 				case 'deviceready':
 					deviceReady = true;
@@ -73,28 +121,8 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			}
 		}
 	};
+	app.initialize();
 	
-	
-	$(document).on("pageinit", function(event, ui) {
-	   report('MobileInit.js','$(document).on("pageinit", function(event, ui) { jqmReady.resolve(); }');
-	   jqmReady.resolve();
-	});
-	/**
-	 * General initialization.
-	 */
-	$.when(jqmReady, pgReady).then(function() {
-		//Initialization code here
-		report("MobileInit.js","$.when(jqmReady, pgReady).then(function() { app.callback(); }");
-		$(document).ready(function(){
-			$(document).on("pageinit", function(event, ui) {
-				$(document).on("pagecreate", function(event, ui) {
-					if(app.callback) {
-						app.callback();
-					}
-				}
-			}
-		}
-	});
 	
 	$('body').on("click", "a.footervideolink", function (e) {
 		// alert('footer clicked');
@@ -140,26 +168,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			menuStatus = false;
 		});
 	});
-	
-	Backbone.history.bind("route", function (route, router) {
-		report('MobileInit.js','Backbone.history.bind event >> '+router);
-		var router = Backbone.history.fragment;
-		// alert(router);
-		report('MobileInit.js','router: '+router);
-		// $( document ).ready(function() {
-			// if ('router' == 'testarea') {
-				// report('functions.js','populateDeviceInfo() for testarea when route changed and document ready');
-				// setTimeout("populateDeviceInfo();",3000);
-			// }
-			if (router == 'testarea') {
-				// alert('bla');
-				populateDeviceInfo();
-			}
-		// });		
-	});
-	
 
-	app.initialize();
     // Instantiates a new Mobile Router instance
     new MobileRouter();
 
