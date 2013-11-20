@@ -99,7 +99,7 @@ function populateDeviceInfo(){
 		}
 		else {
 			report('populateDeviceInfo()','isMobile.any IS true');
-			if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MMOBILE';
+			if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MOBILE';
 			/*
 			modifyiOS7StatusBar();
 			document.getElementById("user-agent").textContent = navigator.userAgent;

@@ -83,11 +83,17 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	 * General initialization.
 	 */
 	$.when(jqmReady, pgReady).then(function() {
-	   //Initialization code here
-	   report("MobileInit.js","$.when(jqmReady, pgReady).then(function() { app.callback(); }");
-	   if(app.callback) {
-		  app.callback();
-	   }
+		//Initialization code here
+		report("MobileInit.js","$.when(jqmReady, pgReady).then(function() { app.callback(); }");
+		$(document).ready(function(){
+			$(document).on("pageinit", function(event, ui) {
+				$(document).on("pagecreate", function(event, ui) {
+					if(app.callback) {
+						app.callback();
+					}
+				}
+			}
+		}
 	});
 	
 	$('body').on("click", "a.footervideolink", function (e) {
