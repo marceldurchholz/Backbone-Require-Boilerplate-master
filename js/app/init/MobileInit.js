@@ -144,8 +144,8 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	Backbone.history.bind("route", function (route, router) {
 		report('MobileInit.js','Backbone.history.bind event >> '+router);
 		var router = Backbone.history.fragment;
-		alert(router);
 		// alert(router);
+		report('MobileInit.js','router: '+router);
 		// $( document ).ready(function() {
 			// if ('router' == 'testarea') {
 				// report('functions.js','populateDeviceInfo() for testarea when route changed and document ready');
