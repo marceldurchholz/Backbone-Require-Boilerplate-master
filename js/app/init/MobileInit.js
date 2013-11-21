@@ -1,72 +1,114 @@
 // MobileInit.js
 // -------------
 
-// Include Mobile Specific JavaScript files here (or inside of your Mobile router)
-require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone.validateAll"],
+require(["jquery", "backbone"],
 
-  function($, Backbone, MobileRouter) {
-
-	report('MobileInit.js','START');
-    
-	// Prevents all anchor click handling
-    $.mobile.linkBindingEnabled = false;
-    // Disabling this will prevent jQuery Mobile from handling hash changes
-    $.mobile.hashListeningEnabled = false;
-	// $.mobile.hashListeningEnabled = true;
+  function($, Backbone) {
 	
-
 	var jqmReady = $.Deferred();
 	var pgReady = $.Deferred();
 	
-	
-	function populateData(){
-		report('MobileInit.js','populateData() START');
-		// doAlert('TEST','--> populateData()..');
-		try {
-			document.getElementById("user-agent").textContent = navigator.userAgent;
-			document.getElementById("device_internet").innerHTML = 'bla';
-			if (!device) alert('device not defined');
-			document.getElementById("platform").innerHTML = device.platform;
-		} catch(e){ 
-			catchError('populateData()',e); 
-		}
-	}
-	
-	$(document).ready(function(){
 		$(document).on("pageinit", function(event, ui) {
-			$(document).on("pagecreate", function(event, ui) {
 			   report('MobileInit.js','$(document).on("pageinit", function(event, ui) { jqmReady.resolve(); }');
 			   jqmReady.resolve();
 			});
+			
+	/*
+	// $(document).ready(function(){
+		$(document).on("pageinit", function(event, ui) {
+			   report('MobileInit.js','$(document).on("pageinit", function(event, ui) { jqmReady.resolve(); }');
+			   jqmReady.resolve();
+			$(document).on("pagecreate", function(event, ui) {
+			});
 		});
-	});
+	// });
+	*/
 	
 	/*
 	$(document).on("pageinit", function(event, ui) {
 	   report('MobileInit.js','$(document).on("pageinit", function(event, ui) { jqmReady.resolve(); }');
 	   jqmReady.resolve();
 	});
+
+	$.when(jqmReady).then(function() {
+		//Initialization code here
+		report("MobileInit.js","jqmReady");
+	});
+	$.when(pgReady).then(function() {
+		//Initialization code here
+		report("MobileInit.js","pgReady");
+	});
 	*/
-	/**
-	 * General initialization.
-	 */
 	$.when(jqmReady, pgReady).then(function() {
 		//Initialization code here
 		report("MobileInit.js","$.when(jqmReady, pgReady).then(function() { app.callback(); }");
 		if (app.callback) {
 			app.callback();
+			report('app.callback');
+		}
+		else {
+			alert('app.callback undefined');
 		}
 	});
 	
-	Backbone.history.bind("route", function (route, router) {
-		report('MobileInit.js','Backbone.history.bind event >> '+router);
-		var router = Backbone.history.fragment;
-		// alert(router);
-		// report('MobileInit.js','router: '+router);
-		// populateData(router);
+	$('body').on("click", "a.footervideolink", function (e) {
+		// alert('footer clicked');
+		if (footervideoStatus != true) {
+			$("#footer").animate({
+				height: "60%",
+			}, 300, function () {
+				footervideoStatus = true;
+			});
+			return false;		
+		}
+		else {
+			$("#footer").animate({
+				height: "20px",
+			}, 300, function () {
+				footervideoStatus = false;
+			});
+			return false;
+		}
+	});
+
+	$('body').on("click", "a.showMenu", function (e) {
+		if (menuStatus != true) {
+			$(".ui-page-active").animate({
+				marginLeft: "175px",
+			}, 300, function () {
+				menuStatus = true;
+			});
+			return false;
+		} else {
+			$(".ui-page-active").animate({
+				marginLeft: "0px",
+			}, 300, function () {
+				menuStatus = false;
+			});
+			return false;
+		}
+	});
+	$('body').on("click", "#menuelement a.contentLink", function (e) {
+		$(".ui-page-active").animate({
+			marginLeft: "0px",
+		}, 300, function () {
+			menuStatus = false;
+		});
 	});
 	
-	
+	function populateData(){
+		report('MobileInit.js','populateData() START');
+		// doAlert('TEST','--> populateData()..');
+		try {
+			document.getElementById("device_internet").innerHTML = 'bla';
+			document.getElementById("user-agent").textContent = navigator.userAgent;
+			if (!device) report('device not defined');
+			document.getElementById("platform").innerHTML = device.platform;
+		} catch(e){ 
+			catchError('populateData()',e); 
+		}
+	}
+
 	var app = {
 		callback: function() {
 			report('MobileInit.js','var app:callback');
@@ -120,55 +162,37 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 				break;
 			}
 		}
-	};
+	};	
+
 	app.initialize();
 	
+  }
+
+);
+
+// Include Mobile Specific JavaScript files here (or inside of your Mobile router)
+require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone.validateAll"],
+
+  function($, Backbone, MobileRouter) {
+
+	report('MobileInit.js','START');
+    
+	// Prevents all anchor click handling
+    $.mobile.linkBindingEnabled = false;
+    // Disabling this will prevent jQuery Mobile from handling hash changes
+    $.mobile.hashListeningEnabled = false;
+	// $.mobile.hashListeningEnabled = true;
 	
-	$('body').on("click", "a.footervideolink", function (e) {
-		// alert('footer clicked');
-		if (footervideoStatus != true) {
-			$("#footer").animate({
-				height: "60%",
-			}, 300, function () {
-				footervideoStatus = true;
-			});
-			return false;		
-		}
-		else {
-			$("#footer").animate({
-				height: "20px",
-			}, 300, function () {
-				footervideoStatus = false;
-			});
-			return false;
-		}
-	});
 
-	$('body').on("click", "a.showMenu", function (e) {
-		if (menuStatus != true) {
-			$(".ui-page-active").animate({
-				marginLeft: "175px",
-			}, 300, function () {
-				menuStatus = true;
-			});
-			return false;
-		} else {
-			$(".ui-page-active").animate({
-				marginLeft: "0px",
-			}, 300, function () {
-				menuStatus = false;
-			});
-			return false;
-		}
+	
+	Backbone.history.bind("route", function (route, router) {
+		report('MobileInit.js','Backbone.history.bind event >> '+router);
+		var router = Backbone.history.fragment;
+		// alert(router);
+		// report('MobileInit.js','router: '+router);
+		// populateData(router);
 	});
-	$('body').on("click", "#menuelement a.contentLink", function (e) {
-		$(".ui-page-active").animate({
-			marginLeft: "0px",
-		}, 300, function () {
-			menuStatus = false;
-		});
-	});
-
+	
     // Instantiates a new Mobile Router instance
     new MobileRouter();
 
