@@ -102,8 +102,8 @@ require(["jquery", "backbone"],
 		try {
 			document.getElementById("device_internet").innerHTML = 'bla';
 			document.getElementById("user-agent").textContent = navigator.userAgent;
-			if (!device) report('device not defined');
-			document.getElementById("platform").innerHTML = device.platform;
+			if (!device) alert('device not defined');
+			// document.getElementById("platform").innerHTML = device.platform;
 		} catch(e){ 
 			catchError('populateData()',e); 
 		}
