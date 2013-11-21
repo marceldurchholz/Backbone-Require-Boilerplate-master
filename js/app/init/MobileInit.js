@@ -100,9 +100,10 @@ require(["jquery", "backbone"],
 		report('MobileInit.js','populateData() START');
 		// doAlert('TEST','--> populateData()..');
 		try {
-			document.getElementById("device_internet").innerHTML = 'bla';
-			document.getElementById("user-agent").textContent = navigator.userAgent;
 			if (!device) alert('device not defined');
+			else alert('device defined');
+			// document.getElementById("device_internet").innerHTML = 'bla';
+			// document.getElementById("user-agent").textContent = navigator.userAgent;
 			// document.getElementById("platform").innerHTML = device.platform;
 		} catch(e){ 
 			catchError('populateData()',e); 
@@ -113,7 +114,9 @@ require(["jquery", "backbone"],
 		callback: function() {
 			report('MobileInit.js','var app:callback');
 			// setTimeout("populateData();",3000);
-			populateData();
+			if (!device) alert('device not defined');
+			else alert('device defined');
+			// populateData();
 		},
 		initialize: function() {
 			report('MobileInit.js','var app:initialize');
