@@ -1,12 +1,12 @@
 // Aboutus.js
 // -------
-define(["jquery", "backbone", "models/Model", "text!templates/aboutus.html", "text!templates/sidebar.html"],
+define(["jquery", "backbone", "models/Model", "text!templates/aboutus.html", "text!templates/testarea.html"],
 
-    function($, Backbone, Model, template, sidebar){
+    function($, Backbone, Model, template, testarea){
 
         var Aboutus = Backbone.View.extend({
 
-            el: "#ui-content",
+            el: ".example",
 
             initialize: function() {
 
@@ -20,18 +20,16 @@ define(["jquery", "backbone", "models/Model", "text!templates/aboutus.html", "te
 
             render: function() {
 
-                // Setting the view's template property using the Underscore template method
+				// page
                 this.template = _.template(template, {});
-                // Dynamically updates the UI with the view's template
                 this.$el.html(this.template);
 
 				// sidebar
-				// $('#sidebar').html();
-				var sidebarContent = _.template(sidebar, {}); // this.template(dict);
+				var testareahtml = _.template(testarea, {}); // this.template(dict);
 				// Append the result to the view's element.
-				$('#sidebar').html(sidebarContent);
+				$(this.el).append(testareahtml);
+
 				// Maintains chainability
-				
                 return this;
 
             }

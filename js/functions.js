@@ -1,6 +1,3 @@
-var menuStatus = false;
-var footervideoStatus = false;
-
 var rootURL = "";
 var root = this; // used by pdfbrowser and childbrowser
 var deviceSDID;
@@ -10,6 +7,7 @@ var SDID_DOMAIN = 'phonegap.appinaut.de';
 var SDID_KEY = '633241';
 
 var my_media;
+var deviceReady = false;
 var platformId = null;
 var CameraPopoverOptions = null;
 var pictureUrl = null;
@@ -31,13 +29,47 @@ var badgeToggledOn = false;
 var autoLockIsDisabled = false;
 var cdvBadge = null;
 
-var deviceReady = false;
+var app = {
+    // Application Constructor
+    initialize: function() {
+        this.bindEvents();
+		// alert('var app');
+    },
+    // Bind Event Listeners
+    //
+    // Bind any events that are required on startup. Common events are:
+    // 'load', 'deviceready', 'offline', and 'online'.
+    bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    // deviceready Event Handler
+    //
+    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+    // function, we must explicity call 'app.receivedEvent(...);'
+    onDeviceReady: function() {
+		// alert('onDeviceReady');
+        app.receivedEvent('deviceready');
+		/*
+        document.addEventListener('DOMComponentsLoaded', function(){
+			alert('components are loaded!');
+            console.log("components are loaded!");
+        });
+		*/
+   },
+    // Update DOM on a Received Event
+    receivedEvent: function(id) {
+		// alert('deviceready receivedEvent');
+        deviceReady = true;
+		var parentElement = document.getElementById(id);
+        var listeningElement = parentElement.querySelector('.listening');
+        listeningElement.setAttribute('style', 'display:none;');
+        var receivedElement = parentElement.querySelector('.received');
+        receivedElement.setAttribute('style', 'display:block;');
+        console.log('Received Event: ' + id);
+    }
+};
 
-var jqueryready = false;
-var jqueryReady = false;
-
-var isMobile = {};
-isMobile = {
+isMobile  = {
     Android: function() {
         return navigator.userAgent.match(/Android/i) ? true : false;
     },
@@ -55,110 +87,24 @@ isMobile = {
     }
 };
 
-if(isMobile.any()){ 
-	// alert("document.write >> <script type='text/javascript' src='" + rootURL + "phonegap.js'></script>");
-    document.write("<script type='text/javascript' src='" + rootURL + "phonegap.js'></script>"); 
-    // initApp();
-}else{
-    console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
-}
-
-/* ----------------------------------------------------------- /
-    initApp
-/ ----------------------------------------------------------- */
 /*
-function initApp(){
-    report('TEST','--> initApp()..');  
-    try{
-		// $(document).ready(function(){
-		doAlert('initApp','Native Message');
-		// populateDeviceInfo();
-        // });
-    }catch(e){ catchError('initApp()',e); }            
+if(isMobile.any()){ 
+	// alert("document.write >> <script type='text/javascript' src='" + rootURL + "cordova.js'></script>");
+    document.write("<script type='text/javascript' src='" + rootURL + "cordova.js'></script>"); 
+	// checkInvokeString();
+}else{
+    console.log('NOT-DEVICE-MODE: Skipping loading of [cordova.js] and plugins...');    
+    // initApp();
 }
 */
 
-/* ----------------------------------------------------------- /
- populateDeviceInfo
- / ----------------------------------------------------------- */
-function populateDeviceInfo(){
-    report('functions.js','populateDeviceInfo() START');
-	// doAlert('TEST','--> populateDeviceInfo()..');
-    try {
-		/*
-		var id = 'devicereadydiv';
-		var parentElement = document.getElementById(id);
-		var listeningElement = parentElement.querySelector('.listening');
-		listeningElement.setAttribute('style', 'display:none;');
-		var receivedElement = parentElement.querySelector('.received');
-		receivedElement.setAttribute('style', 'display:block;');
-		*/
-		if(!isMobile.any()) {
-			report('populateDeviceInfo()','isMobile.any NOT true');
-			if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'NOT MOBILE';
-		}
-		else {
-			report('populateDeviceInfo()','isMobile.any IS true');
-			if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MOBILE';
-			/*
-			modifyiOS7StatusBar();
-			document.getElementById("user-agent").textContent = navigator.userAgent;
-			document.getElementById("platform").innerHTML = device.platform;
-			document.getElementById("version").innerHTML = device.version;
-			document.getElementById("uuid").innerHTML = device.uuid;
-			document.getElementById("name").innerHTML = device.name;
-			document.getElementById("model").innerHTML = device.model;
-			document.getElementById("width").innerHTML = screen.width;
-			document.getElementById("height").innerHTML = screen.height;
-			document.getElementById("colorDepth").innerHTML = screen.colorDepth;
-			document.getElementById("device_internet").innerHTML = isConnectedToInternet();
-			document.getElementById("device_conn").innerHTML = getConnectionType();
-			*/
-			// $('#device_conn span').html(getConnectionType());
-			// $('#device_platform span').html(getDevicePlatform());
-			// $('#device_model span').html(getDeviceModel());
-			// $('#device_os span').html(getOS());
-			// $('#device_version span').html(getDeviceVersion());
-			// $('#device_internet span').html(isConnectedToInternet());
-			// doAlert('$(#device_conn span).html(getConnectionType());','--> populateDeviceInfo()..');
-		}
-    }catch(e){ catchError('populateDeviceInfo()',e); }
-}
-
-function isConnectedToInternet(){
-	var connectionType = getConnectionType();
-	return (
-			(connectionType.toUpperCase().indexOf("NO NETWORK",0) == -1) &&
-			(connectionType.toUpperCase().indexOf("UNKNOWN",0) == -1)
-			);
-}
-
-function getConnectionType() {
-	if(cordovaIsLoaded != true){
-		// simulate offline with querystring ?OFFLINE=1
-		if(getURLParameter("OFFLINE") != ""){
-			return "No network connection";	
-		}else{
-			return "wifi";	
-		}		
-	} 
-    var networkState = navigator.connection.type;//navigator.network.connection.type;
-    var states = {};
-    states[Connection.UNKNOWN]  = 'Unknown connection';
-    states[Connection.ETHERNET] = 'Ethernet connection';
-    states[Connection.WIFI]     = 'WiFi connection';
-    states[Connection.CELL_2G]  = 'Cell 2G connection';
-    states[Connection.CELL_3G]  = 'Cell 3G connection';
-    states[Connection.CELL_4G]  = 'Cell 4G connection';
-    states[Connection.NONE]     = 'No network connection';
-    // alert('Connection type: ' + states[networkState]);
-	return states[networkState];
+function catchError(f,e){
+    report('ERROR','ERROR in (' + f + ')[Error Message: ' + e.message + ']');
 }
 
 /* ----------------------------------------------------------- /
     postDeviceReadyActions
 / ----------------------------------------------------------- */
-/*
 function postDeviceReadyActions(){
     //report('TEST','--> postDeviceReadyActions()..');  
     try{
@@ -169,22 +115,40 @@ function postDeviceReadyActions(){
         // initApp();
     }catch(e){ catchError('postDeviceReadyActions()',e); }            
 }
-*/
 
 /* ----------------------------------------------------------- /
     modifyiOS7StatusBar
 / ----------------------------------------------------------- */
 function modifyiOS7StatusBar(){
+    //report('TEST','--> postDeviceReadyActions()..');  
     try{
         StatusBar.overlaysWebView(false);
 		StatusBar.styleLightContent();
 		StatusBar.backgroundColorByName("black");
 		// StatusBar.backgroundColorByHexString("#3e8fd9");
+		/*
 		if (parseFloat(window.device.version) === 7.0) {
 			  document.body.style.marginTop = "20px";
 		}
+		*/
     }catch(e){ catchError('modifyiOS7StatusBar()',e); }            
 }
+
+/* ----------------------------------------------------------- /
+    initApp
+/ ----------------------------------------------------------- */
+/*
+function initApp(){
+    report('TEST','--> initApp()..');  
+    try{
+        $(document).ready(function(){
+			populateDeviceInfo();
+			doAlert('cordovaJsLoaded','Native Message');
+        });
+                                     
+    }catch(e){ catchError('initApp()',e); }            
+}
+*/
 
 function debugModeEnabled(){
     return true; //false;
@@ -195,13 +159,28 @@ function debugModeEnabled(){
 / ----------------------------------------------------------- */
 function report(logtype,msg){
     try{
-		// alert(logtype + ': ' + msg);
-        console.log(logtype + ': ' + msg);
+        console.log(logtype + ': ' + msg);                                                
     }catch(e){ 
         // give up
     }            
 }
 
+/* ----------------------------------------------------------- /
+ populateDeviceInfo
+ / ----------------------------------------------------------- */
+function populateDeviceInfo(){
+    report('TEST','--> populateDeviceInfo()..');
+    try{
+		/*
+        $('#device_platform span').html(getDevicePlatform());
+        $('#device_model span').html(getDeviceModel());
+        $('#device_os span').html(getOS());
+        $('#device_version span').html(getDeviceVersion());
+        */
+        $('#device_conn span').html(getConnectionType());
+        $('#device_internet span').html(isConnectedToInternet());
+    }catch(e){ catchError('populateDeviceInfo()',e); }
+}
 
 /* ----------------------------------------------------------- /
  splashScreenTest
@@ -216,8 +195,9 @@ function test_SplashScreen(){
         doAlert('App splashscreen will now be shown for a few seconds, then dismissed. If something goes wrong you\'ll have to exit the app manually.','cordova-splashscreen');
         cordova.exec(null, null, 'SplashScreen', 'show', []);
         var splashClear = window.setTimeout(function(){
-			cordova.exec(null, null, 'SplashScreen', 'hide', []);
-		},2500);
+                                            cordova.exec(null, null, 'SplashScreen', 'hide', []);
+                                            },2500);
+        
     }catch(e){ catchError('splashScreenTest()',e); }
 }
 
@@ -628,6 +608,10 @@ function getDeviceType(){
 	return type;
 }
 
+
+/* ----------------------------------------------------------- /
+	getOSVersionFromUserAgent
+/ ----------------------------------------------------------- */
 function getOSVersionFromUserAgent(){
 	report('TEST','--> getOSVersionFromUserAgent()..');	
 	try{
@@ -638,18 +622,6 @@ function getOSVersionFromUserAgent(){
 	}catch(e){ catchError('getOSVersionFromUserAgent()',e); }			
 }
 
-function getOS(){
-	var OSName="Unknown OS";
-	if (navigator.appVersion.indexOf("Win")!=-1) OSName="Windows";
-	if (navigator.appVersion.indexOf("Mac")!=-1) OSName="MacOS";
-	if (navigator.appVersion.indexOf("X11")!=-1) OSName="UNIX";
-	if (navigator.appVersion.indexOf("Linux")!=-1) OSName="Linux";	
-	if((navigator.appVersion.indexOf("Mobile")!=-1)) OSName += " Mobile";
-	if(cordovaIsLoaded){
-		OSName = device.platform;
-	}
-	return OSName;	
-}
 
 function getDeviceVersion(){
 	var version;
@@ -711,9 +683,24 @@ function removeNonAlphaNumericChars(str){
 	return str;	
 }
 
+
 function removeProtectedDelimeters(str){		
 	str = str.replace(/[,;|]+/g,'');
 	return str;	
+}
+
+
+function getOS(){
+	var OSName="Unknown OS";
+	if (navigator.appVersion.indexOf("Win")!=-1) OSName="Windows";
+	if (navigator.appVersion.indexOf("Mac")!=-1) OSName="MacOS";
+	if (navigator.appVersion.indexOf("X11")!=-1) OSName="UNIX";
+	if (navigator.appVersion.indexOf("Linux")!=-1) OSName="Linux";	
+	if((navigator.appVersion.indexOf("Mobile")!=-1)) OSName += " Mobile";
+	if(cordovaIsLoaded){
+		OSName = device.platform;
+	}
+	return OSName;	
 }
 
 function openExternalURL(strURL){	
@@ -823,6 +810,39 @@ function clearIntervalVar(iVar){
 		}											
 	}catch(e){ catchError('clearIntervalVar()',e); }					
 }
+
+
+function isConnectedToInternet(){
+	var connectionType = getConnectionType();
+	return (
+			(connectionType.toUpperCase().indexOf("NO NETWORK",0) == -1) &&
+			(connectionType.toUpperCase().indexOf("UNKNOWN",0) == -1)
+			);
+}
+
+
+function getConnectionType() {
+	if(cordovaIsLoaded != true){
+		// simulate offline with querystring ?OFFLINE=1
+		if(getURLParameter("OFFLINE") != ""){
+			return "No network connection";	
+		}else{
+			return "wifi";	
+		}		
+	} 
+    var networkState = navigator.connection.type;//navigator.network.connection.type;
+    var states = {};
+    states[Connection.UNKNOWN]  = 'Unknown connection';
+    states[Connection.ETHERNET] = 'Ethernet connection';
+    states[Connection.WIFI]     = 'WiFi connection';
+    states[Connection.CELL_2G]  = 'Cell 2G connection';
+    states[Connection.CELL_3G]  = 'Cell 3G connection';
+    states[Connection.CELL_4G]  = 'Cell 4G connection';
+    states[Connection.NONE]     = 'No network connection';
+    // alert('Connection type: ' + states[networkState]);
+	return states[networkState];
+}
+
 
 // onSuccess Callback
 //
@@ -954,10 +974,5 @@ function PWreenableAutoLock(){
 
 function powerMgmtError(error){ report('ERROR','powerMgmtError() [error(' + error + ')]'); }
 function powerMgmtSuccess(success){ report('TEST','powerMgmtSuccess() success: ' + powerMgmtSuccess + '...');}
-
-function catchError(f,e){
-    // report('ERROR','ERROR in (' + f + ')[Error Message: ' + e.message + ']');
-	doAlert('ERROR','ERROR in (' + f + ')[Error Message: ' + e.message + ']');
-}
 
 //* DEBUG */ window.console.log('js/global.js loaded...');
