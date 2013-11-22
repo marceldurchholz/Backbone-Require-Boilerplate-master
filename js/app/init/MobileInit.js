@@ -15,10 +15,11 @@ require(["jquery", "backbone"],
 	var pgReady = $.Deferred();
 	
 	// $(document).on("mobileinit", function(event, ui) {
-	$(document).on("mobileinit", function(event, ui) {
-		   alert('MobileInit.js >> pageinit');
-		   jqmReady.resolve();
-		});
+	// $(document).on("mobileinit", function(event, ui) {
+	$(document).ready(function(){
+	   alert('MobileInit.js >> pageinit');
+	   jqmReady.resolve();
+	});
 			
 	/*
 	// $(document).ready(function(){
