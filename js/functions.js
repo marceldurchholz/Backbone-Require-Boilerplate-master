@@ -25,6 +25,9 @@ if(isMobile.any()){
     console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
 }
 
+var menuStatus = false;
+var footervideoStatus = false;
+
 var rootURL = "";
 var root = this; // used by pdfbrowser and childbrowser
 var deviceSDID;
@@ -59,6 +62,24 @@ var deviceReady = false;
 
 var jqueryready = false;
 var jqueryReady = false;
+
+// var pgReady = $.Deferred();
+
+function populateData(){
+	report('MobileInit.js >> populateData() START');
+	// report('MobileInit.js','populateData() START');
+	// doreport('TEST','--> populateData()..');
+	try {
+		// report('populateData');
+		// if (!device) report('device not defined');
+		// else report('device defined');
+		// document.getElementById("device_internet").innerHTML = 'bla';
+		// document.getElementById("user-agent").textContent = navigator.userAgent;
+		// document.getElementById("platform").innerHTML = device.platform;
+	} catch(e){ 
+		catchError('populateData()',e); 
+	}
+}
 
 var app = {
     // Application Constructor
@@ -105,6 +126,41 @@ var app = {
 		// report('app.initialize >> receivedEvent','Received Event');
     }
 };
+var app = {
+	initialize: function() {
+		report('MobileInit.js','var app:initialize');
+		this.bindEvents();
+	},
+	bindEvents: function() {
+		// document.addEventListener('load', this.onDeviceReady, false);
+		// document.addEventListener('offline', this.onDeviceReady, false);
+		// document.addEventListener('online', this.onDeviceReady, false);
+		document.addEventListener('deviceready', this.onDeviceReady, false);
+	},
+	onDeviceReady: function() {
+		/*
+		report('MobileInit.js','onDeviceReady');
+		deviceReady = true;
+		cordovaIsLoaded = true;
+		app.receivedEvent('deviceready');
+		*/
+		app.receivedEvent();
+   },
+	receivedEvent: function(event) {
+		report("MobileInit.js"," var app:receivedEvent");
+		deviceReady = true;
+		cordovaIsLoaded = true;
+		populateDeviceInfo();
+		/*
+		setTimeout(function() {
+			report('MobileInit.js','app.receivedEvent w timeout 0');
+			$( document ).ready(function() {
+				report('MobileInit.js','app.receivedEvent AND document.ready in w timeout 0');
+			});
+		},0);
+		*/
+	}
+};	
 
 /* ----------------------------------------------------------- /
     initApp
@@ -125,36 +181,46 @@ function initApp(){
  populateDeviceInfo
  / ----------------------------------------------------------- */
 function populateDeviceInfo(){
-    // report('TEST','--> populateDeviceInfo()..');
+    report('functions.js','populateDeviceInfo() START');
 	// doAlert('TEST','--> populateDeviceInfo()..');
-    try{
-		modifyiOS7StatusBar();
+    try {
+		/*
 		var id = 'devicereadydiv';
 		var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        listeningElement.setAttribute('style', 'display:none;');
-        var receivedElement = parentElement.querySelector('.received');
-        receivedElement.setAttribute('style', 'display:block;');
-		document.getElementById("user-agent").textContent = navigator.userAgent;
-		document.getElementById("platform").innerHTML = device.platform;
-		document.getElementById("version").innerHTML = device.version;
-		document.getElementById("uuid").innerHTML = device.uuid;
-		document.getElementById("name").innerHTML = device.name;
-		document.getElementById("model").innerHTML = device.model;
-		document.getElementById("width").innerHTML = screen.width;
-		document.getElementById("height").innerHTML = screen.height;
-		document.getElementById("colorDepth").innerHTML = screen.colorDepth;
-		document.getElementById("device_internet").innerHTML = isConnectedToInternet();
-		// document.getElementById("device_conn").innerHTML = getConnectionType();
-		// $('#device_platform span').html(getDevicePlatform());
-        // $('#device_model span').html(getDeviceModel());
-        // $('#device_os span').html(getOS());
-        // $('#device_version span').html(getDeviceVersion());
-        // $('#device_internet span').html(isConnectedToInternet());
-		// doAlert('$(#device_conn span).html(getConnectionType());','--> populateDeviceInfo()..');
-		$( document ).ready(function() {
-			$('#device_conn span').html(getConnectionType());
-		});
+		var listeningElement = parentElement.querySelector('.listening');
+		listeningElement.setAttribute('style', 'display:none;');
+		var receivedElement = parentElement.querySelector('.received');
+		receivedElement.setAttribute('style', 'display:block;');
+		*/
+		if(!isMobile.any()) {
+			report('populateDeviceInfo()','isMobile.any NOT true');
+			if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'NOT MOBILE';
+		}
+		else {
+			report('populateDeviceInfo()','isMobile.any IS true');
+			if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MOBILE';
+			/*
+			modifyiOS7StatusBar();
+			document.getElementById("user-agent").textContent = navigator.userAgent;
+			document.getElementById("platform").innerHTML = device.platform;
+			document.getElementById("version").innerHTML = device.version;
+			document.getElementById("uuid").innerHTML = device.uuid;
+			document.getElementById("name").innerHTML = device.name;
+			document.getElementById("model").innerHTML = device.model;
+			document.getElementById("width").innerHTML = screen.width;
+			document.getElementById("height").innerHTML = screen.height;
+			document.getElementById("colorDepth").innerHTML = screen.colorDepth;
+			document.getElementById("device_internet").innerHTML = isConnectedToInternet();
+			document.getElementById("device_conn").innerHTML = getConnectionType();
+			*/
+			// $('#device_conn span').html(getConnectionType());
+			// $('#device_platform span').html(getDevicePlatform());
+			// $('#device_model span').html(getDeviceModel());
+			// $('#device_os span').html(getOS());
+			// $('#device_version span').html(getDeviceVersion());
+			// $('#device_internet span').html(isConnectedToInternet());
+			// doAlert('$(#device_conn span).html(getConnectionType());','--> populateDeviceInfo()..');
+		}
     }catch(e){ catchError('populateDeviceInfo()',e); }
 }
 
@@ -213,11 +279,9 @@ function modifyiOS7StatusBar(){
 		StatusBar.styleLightContent();
 		StatusBar.backgroundColorByName("black");
 		// StatusBar.backgroundColorByHexString("#3e8fd9");
-		/*
 		if (parseFloat(window.device.version) === 7.0) {
 			  document.body.style.marginTop = "20px";
 		}
-		*/
     }catch(e){ catchError('modifyiOS7StatusBar()',e); }            
 }
 
@@ -230,11 +294,13 @@ function debugModeEnabled(){
 / ----------------------------------------------------------- */
 function report(logtype,msg){
     try{
-        console.log(logtype + ': ' + msg);                                                
+		// alert(logtype + ': ' + msg);
+        console.log(logtype + ': ' + msg);
     }catch(e){ 
         // give up
     }            
 }
+
 
 /* ----------------------------------------------------------- /
  splashScreenTest
@@ -249,9 +315,8 @@ function test_SplashScreen(){
         doAlert('App splashscreen will now be shown for a few seconds, then dismissed. If something goes wrong you\'ll have to exit the app manually.','cordova-splashscreen');
         cordova.exec(null, null, 'SplashScreen', 'show', []);
         var splashClear = window.setTimeout(function(){
-                                            cordova.exec(null, null, 'SplashScreen', 'hide', []);
-                                            },2500);
-        
+			cordova.exec(null, null, 'SplashScreen', 'hide', []);
+		},2500);
     }catch(e){ catchError('splashScreenTest()',e); }
 }
 
