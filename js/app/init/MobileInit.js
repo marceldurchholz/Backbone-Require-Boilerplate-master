@@ -5,11 +5,17 @@ require(["jquery", "backbone"],
 
   function($, Backbone) {
 	
+	// Prevents all anchor click handling
+    $.mobile.linkBindingEnabled = false;
+    // Disabling this will prevent jQuery Mobile from handling hash changes
+    $.mobile.hashListeningEnabled = false;
+	// $.mobile.hashListeningEnabled = true;
+	
 	var jqmReady = $.Deferred();
 	var pgReady = $.Deferred();
 	
 	// $(document).on("mobileinit", function(event, ui) {
-	$(document).on("pageinit", function(event, ui) {
+	$(document).on("mobileinit", function(event, ui) {
 		   alert('MobileInit.js >> pageinit');
 		   jqmReady.resolve();
 		});
@@ -190,9 +196,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
     // Disabling this will prevent jQuery Mobile from handling hash changes
     $.mobile.hashListeningEnabled = false;
 	// $.mobile.hashListeningEnabled = true;
-	
-
-	
+		
 	Backbone.history.bind("route", function (route, router) {
 		report('MobileInit.js','Backbone.history.bind event >> '+router);
 		var router = Backbone.history.fragment;
