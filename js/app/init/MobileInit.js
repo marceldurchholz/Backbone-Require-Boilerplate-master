@@ -177,7 +177,9 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		}
 	};	
 
-	app.initialize();
+	$(document).ready(function(){
+		app.initialize();
+	});
 	
     // Instantiates a new Mobile Router instance
     new MobileRouter();
