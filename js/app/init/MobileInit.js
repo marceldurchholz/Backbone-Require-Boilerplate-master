@@ -110,7 +110,6 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		alert('MobileInit.js >> populateData() START');
 		// report('MobileInit.js','populateData() START');
 		// doAlert('TEST','--> populateData()..');
-		/*
 		try {
 			if (!device) alert('device not defined');
 			else alert('device defined');
@@ -120,7 +119,6 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		} catch(e){ 
 			catchError('populateData()',e); 
 		}
-		*/
 	}
 
 	var app = {
