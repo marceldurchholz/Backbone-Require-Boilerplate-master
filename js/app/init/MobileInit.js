@@ -4,7 +4,7 @@
 // require(["jquery", "backbone"],
 require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone.validateAll"],
 
-  function($, Backbone) {
+  function($, Backbone, MobileRouter) {
 	
 	// Prevents all anchor click handling
     $.mobile.linkBindingEnabled = false;
@@ -114,7 +114,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			alert('populateData');
 			// if (!device) alert('device not defined');
 			// else alert('device defined');
-			// document.getElementById("device_internet").innerHTML = 'bla';
+			document.getElementById("device_internet").innerHTML = 'bla';
 			// document.getElementById("user-agent").textContent = navigator.userAgent;
 			// document.getElementById("platform").innerHTML = device.platform;
 		} catch(e){ 
@@ -179,6 +179,9 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
 	app.initialize();
 	
+    // Instantiates a new Mobile Router instance
+    new MobileRouter();
+
   }
 
 );
