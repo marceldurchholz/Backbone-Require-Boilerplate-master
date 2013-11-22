@@ -18,7 +18,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	// $(document).on("mobileinit", function(event, ui) {
 	// $(document).on("mobileinit", function(event, ui) {
 	$(document).ready(function(){
-	   alert('MobileInit.js >> pageinit');
+	   report('MobileInit.js >> pageinit');
 	   jqmReady.resolve();
 	});
 			
@@ -51,18 +51,18 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	$.when(jqmReady, pgReady).then(function() {
 		//Initialization code here
 		report("MobileInit.js","$.when(jqmReady, pgReady).then(function() { app.callback(); }");
-		alert('both ready');
+		report('both ready');
 		if (app.callback) {
 			app.callback();
 			report('app.callback');
 		}
 		else {
-			alert('app.callback undefined');
+			report('app.callback undefined');
 		}
 	});
 	
 	$('body').on("click", "a.footervideolink", function (e) {
-		// alert('footer clicked');
+		// report('footer clicked');
 		if (footervideoStatus != true) {
 			$("#footer").animate({
 				height: "60%",
@@ -107,13 +107,13 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	});
 	
 	function populateData(){
-		alert('MobileInit.js >> populateData() START');
+		report('MobileInit.js >> populateData() START');
 		// report('MobileInit.js','populateData() START');
-		// doAlert('TEST','--> populateData()..');
+		// doreport('TEST','--> populateData()..');
 		try {
-			alert('populateData');
-			// if (!device) alert('device not defined');
-			// else alert('device defined');
+			// report('populateData');
+			// if (!device) report('device not defined');
+			// else report('device defined');
 			document.getElementById("device_internet").innerHTML = 'bla';
 			// document.getElementById("user-agent").textContent = navigator.userAgent;
 			// document.getElementById("platform").innerHTML = device.platform;
@@ -127,14 +127,14 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			alert('MobileInit.js >> var app:callback');
 			// report('MobileInit.js','var app:callback');
 			// setTimeout("populateData();",3000);
-			// if (!device) alert('device not defined');
-			// else alert('device defined');
+			// if (!device) report('device not defined');
+			// else report('device defined');
 			populateData();
 		},
 		initialize: function() {
 			report('MobileInit.js','var app:initialize');
 			// this.callback = callback;
-			alert("MobileInit.js >> initialize");
+			report("MobileInit.js >> initialize");
 			if(!isMobile.any()) {
 				pgReady.resolve();
 				deviceReady = true;
@@ -161,7 +161,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			app.receivedEvent('deviceready');
 	   },
 		receivedEvent: function(event) {
-			alert("MobileInit.js >> receivedEvent");
+			report("MobileInit.js >> receivedEvent");
 			report('***** var app','receivedEvent');
 			deviceReady = true;
 			cordovaIsLoaded = true;
@@ -203,7 +203,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	Backbone.history.bind("route", function (route, router) {
 		report('MobileInit.js','Backbone.history.bind event >> '+router);
 		var router = Backbone.history.fragment;
-		// alert(router);
+		// report(router);
 		// report('MobileInit.js','router: '+router);
 		// populateData(router);
 	});
@@ -224,12 +224,12 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	// report('Backbone.history.location.href',Backbone.history.location.href);
 	/*
 	window.addEventListener('jqm-ready', function(){
-		alert("detected jqm-ready");
+		report("detected jqm-ready");
 		// run some code
 	});
 	document.addEventListener('mobileinit', function(){
 		// ^----- TYPO HERE (should be mobileinit)
-		alert('mobileinit');
+		report('mobileinit');
 	});
 	*/
 	/*
