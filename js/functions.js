@@ -82,51 +82,6 @@ function populateData(){
 }
 
 var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-		report('functions.js','app.initialize();');
-		// alert('var app');
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-		// this.onDeviceReady();
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicity call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-		// alert('onDeviceReady');
-        app.receivedEvent();
-        /*
-		document.addEventListener('DOMComponentsLoaded', function(){
-			alert('DOMComponentsLoaded are loaded!');
-            console.log("DOMComponentsLoaded are loaded!");
-        });
-		*/
-   },
-    // Update DOM on a Received Event
-    receivedEvent: function() {
-		// alert('deviceready receivedEvent');
-        deviceReady = true;
-		cordovaIsLoaded = true;
-		// initApp();
-		populateDeviceInfo();
-		/*
-		(function($) {
-			jqueryready = true;
-		}(jQuery));
-        */
-		// alert('app.initialize >> receivedEvent >> Received Event');
-		// report('app.initialize >> receivedEvent','Received Event');
-    }
-};
-var app = {
 	initialize: function() {
 		report('MobileInit.js','var app:initialize');
 		this.bindEvents();
