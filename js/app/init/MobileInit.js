@@ -8,8 +8,9 @@ require(["jquery", "backbone"],
 	var jqmReady = $.Deferred();
 	var pgReady = $.Deferred();
 	
-	$(document).on("mobileinit", function(event, ui) {
-		   report('MobileInit.js','$(document).on("mobileinit", function(event, ui) { jqmReady.resolve(); }');
+	// $(document).on("mobileinit", function(event, ui) {
+	$(document).on("pageinit", function(event, ui) {
+		   alert('MobileInit.js >> pageinit');
 		   jqmReady.resolve();
 		});
 			
@@ -42,6 +43,8 @@ require(["jquery", "backbone"],
 	$.when(jqmReady, pgReady).then(function() {
 		//Initialization code here
 		report("MobileInit.js","$.when(jqmReady, pgReady).then(function() { app.callback(); }");
+		alert('both ready');
+		/*
 		if (app.callback) {
 			app.callback();
 			report('app.callback');
@@ -49,6 +52,7 @@ require(["jquery", "backbone"],
 		else {
 			alert('app.callback undefined');
 		}
+		*/
 	});
 	
 	$('body').on("click", "a.footervideolink", function (e) {
@@ -125,8 +129,8 @@ require(["jquery", "backbone"],
 		initialize: function() {
 			report('MobileInit.js','var app:initialize');
 			// this.callback = callback;
+			alert("MobileInit.js >> initialize");
 			if(!isMobile.any()) {
-				report("MobileInit.js","IS NOT MOBILE DEVICE");
 				pgReady.resolve();
 				deviceReady = true;
 				cordovaIsLoaded = true;
@@ -152,6 +156,7 @@ require(["jquery", "backbone"],
 			app.receivedEvent('deviceready');
 	   },
 		receivedEvent: function(event) {
+			alert("MobileInit.js >> receivedEvent");
 			report('***** var app','receivedEvent');
 			deviceReady = true;
 			cordovaIsLoaded = true;
