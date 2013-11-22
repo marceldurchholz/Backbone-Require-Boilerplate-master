@@ -52,7 +52,6 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		//Initialization code here
 		report("MobileInit.js","$.when(jqmReady, pgReady).then(function() { app.callback(); }");
 		alert('both ready');
-		/*
 		if (app.callback) {
 			app.callback();
 			report('app.callback');
@@ -60,7 +59,6 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		else {
 			alert('app.callback undefined');
 		}
-		*/
 	});
 	
 	$('body').on("click", "a.footervideolink", function (e) {
@@ -129,7 +127,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		callback: function() {
 			alert('MobileInit.js >> var app:callback');
 			// report('MobileInit.js','var app:callback');
-			// setTimeout("populateData();",3000);
+			setTimeout("populateData();",3000);
 			// if (!device) alert('device not defined');
 			// else alert('device defined');
 			// populateData();
