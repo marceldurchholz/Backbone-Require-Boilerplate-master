@@ -8,10 +8,10 @@ require(["jquery", "backbone"],
 	var jqmReady = $.Deferred();
 	var pgReady = $.Deferred();
 	
-		$(document).on("pageinit", function(event, ui) {
-			   report('MobileInit.js','$(document).on("pageinit", function(event, ui) { jqmReady.resolve(); }');
-			   jqmReady.resolve();
-			});
+	$(document).on("mobileinit", function(event, ui) {
+		   report('MobileInit.js','$(document).on("mobileinit", function(event, ui) { jqmReady.resolve(); }');
+		   jqmReady.resolve();
+		});
 			
 	/*
 	// $(document).ready(function(){
@@ -97,8 +97,10 @@ require(["jquery", "backbone"],
 	});
 	
 	function populateData(){
-		report('MobileInit.js','populateData() START');
+		alert('MobileInit.js >> populateData() START');
+		// report('MobileInit.js','populateData() START');
 		// doAlert('TEST','--> populateData()..');
+		/*
 		try {
 			if (!device) alert('device not defined');
 			else alert('device defined');
@@ -108,14 +110,16 @@ require(["jquery", "backbone"],
 		} catch(e){ 
 			catchError('populateData()',e); 
 		}
+		*/
 	}
 
 	var app = {
 		callback: function() {
-			report('MobileInit.js','var app:callback');
+			alert('MobileInit.js >> var app:callback');
+			// report('MobileInit.js','var app:callback');
 			// setTimeout("populateData();",3000);
-			if (!device) alert('device not defined');
-			else alert('device defined');
+			// if (!device) alert('device not defined');
+			// else alert('device defined');
 			// populateData();
 		},
 		initialize: function() {
@@ -149,21 +153,17 @@ require(["jquery", "backbone"],
 	   },
 		receivedEvent: function(event) {
 			report('***** var app','receivedEvent');
-			switch(event) {
-				case 'deviceready':
-					deviceReady = true;
-					cordovaIsLoaded = true;
-					pgReady.resolve();
-					/*
-					setTimeout(function() {
-						report('MobileInit.js','app.receivedEvent w timeout 0');
-						$( document ).ready(function() {
-							report('MobileInit.js','app.receivedEvent AND document.ready in w timeout 0');
-						});
-					},0);
-					*/
-				break;
-			}
+			deviceReady = true;
+			cordovaIsLoaded = true;
+			pgReady.resolve();
+			/*
+			setTimeout(function() {
+				report('MobileInit.js','app.receivedEvent w timeout 0');
+				$( document ).ready(function() {
+					report('MobileInit.js','app.receivedEvent AND document.ready in w timeout 0');
+				});
+			},0);
+			*/
 		}
 	};	
 
