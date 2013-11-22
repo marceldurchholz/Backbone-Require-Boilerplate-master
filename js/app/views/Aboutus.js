@@ -6,7 +6,7 @@ define(["jquery", "backbone", "models/Model", "text!templates/aboutus.html", "te
 
         var Aboutus = Backbone.View.extend({
 
-            el: ".example",
+            el: "#ui-content",
 
             initialize: function() {
 
@@ -26,10 +26,12 @@ define(["jquery", "backbone", "models/Model", "text!templates/aboutus.html", "te
                 this.$el.html(this.template);
 
 				// sidebar
-				var testareahtml = _.template(sidebar, {}); // this.template(dict);
+				// $('#sidebar').html();
+				var sidebarContent = _.template(sidebar, {}); // this.template(dict);
 				// Append the result to the view's element.
-				$(this.el).append(testareahtml);
+				$('#sidebar').html(sidebarContent);
 				// Maintains chainability
+				
                 return this;
 
             }
