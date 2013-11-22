@@ -114,7 +114,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			// report('populateData');
 			// if (!device) report('device not defined');
 			// else report('device defined');
-			document.getElementById("device_internet").innerHTML = 'bla';
+			// document.getElementById("device_internet").innerHTML = 'bla';
 			// document.getElementById("user-agent").textContent = navigator.userAgent;
 			// document.getElementById("platform").innerHTML = device.platform;
 		} catch(e){ 
@@ -124,12 +124,12 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
 	var app = {
 		callback: function() {
-			alert('MobileInit.js >> var app:callback');
+			// alert('MobileInit.js >> var app:callback');
 			// report('MobileInit.js','var app:callback');
 			// setTimeout("populateData();",3000);
 			// if (!device) report('device not defined');
 			// else report('device defined');
-			populateData();
+			// populateData();
 		},
 		initialize: function() {
 			report('MobileInit.js','var app:initialize');

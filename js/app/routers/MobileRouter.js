@@ -16,8 +16,8 @@ define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "vi
             // All of your Backbone Routes (add more)
             routes: {
                 // When there is no hash bang on the url, the home method is called
-                "": "testarea",
-                "home": "testarea",
+                "": "home",
+                "home": "home",
 				"aboutus" : "aboutus",
 				"testarea" : "testarea"
             },
