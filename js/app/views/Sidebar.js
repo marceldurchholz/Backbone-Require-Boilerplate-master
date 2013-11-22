@@ -1,10 +1,10 @@
-// Testarea.js
+// Sidebar.js
 // -------
-define(["jquery", "backbone", "models/Model", "text!templates/testarea.html", "text!templates/sidebar.html"],
+define(["jquery", "backbone", "models/Model", "text!templates/sidebar.html", "text!templates/testarea.html"],
 
-    function($, Backbone, Model, template, sidebar){
+    function($, Backbone, Model, template, testarea){
 
-        var Testarea = Backbone.View.extend({
+        var Sidebar = Backbone.View.extend({
 
             el: ".example",
 
@@ -25,10 +25,6 @@ define(["jquery", "backbone", "models/Model", "text!templates/testarea.html", "t
                 // Dynamically updates the UI with the view's template
                 this.$el.html(this.template);
 
-				// sidebar
-				var testareahtml = _.template(sidebar, {}); // this.template(dict);
-				// Append the result to the view's element.
-				$(this.el).append(testareahtml);
 				// Maintains chainability
                 return this;
 
@@ -36,7 +32,7 @@ define(["jquery", "backbone", "models/Model", "text!templates/testarea.html", "t
 
         });
 
-        return Testarea;
+        return Sidebar;
 
     }
 

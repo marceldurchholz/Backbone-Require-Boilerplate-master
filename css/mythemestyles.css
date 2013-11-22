@@ -1,0 +1,209 @@
+.ui-btn-text *, 
+.flaticonbutton,
+.ui-btn, .ui-mini, .ui-btn-up-b {
+	padding:0 !important;
+	margin:0 !important;
+	height:9px !important !important;
+	max-width:22px !important;
+	min-width:12px !important;
+	width:15% !important;
+	display:inline-block !important;
+	float:center !important;
+}
+
+#recommendperson {
+	border:10px solid #000;
+}
+
+#popup {
+	text-align:center !important;
+	float:center !important;
+}
+
+.popup {
+	/* IE 8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)" !important;
+
+	/* IE 5-7 */
+	filter: alpha(opacity=50) !important;
+
+	/* Netscape */
+	-moz-opacity: 0.5 !important;
+
+	/* Safari 1.x */
+	-khtml-opacity: 0.5 !important;
+
+	/* Good browsers */
+	opacity: 0.5 !important;
+}
+
+.ui-btn, .ui-shadow, .ui-btn-corner-all, 
+.ui-btn-up, .ui-btn-hover, .ui-btn-active, 
+.ui-btn-up-a, .ui-btn-hover-1, .ui-btn-active-a,
+.ui-btn-up-b, .ui-btn-hover-b, .ui-btn-active-b,
+.ui-btn-up-c, .ui-btn-hover-c, .ui-btn-active-c,
+.ui-btn-up-d, .ui-btn-hover-d, .ui-btn-active-d, 
+.ui-btn, .ui-shadow, .ui-btn-corner-all, .ui-mini, .ui-btn-up-b , 
+.ui-focus {
+	font-weight:normal !important;
+	color:#fff !important;
+	font-size:14px !important;
+	text-decoration:none !important;
+	background-color:transparent !important;
+	background-image:none !important;
+	background:none !important;
+	border:none !important;
+}
+.ui-btn-inner {
+	font-weight:normal !important;
+	color:#fff !important;
+	font-size:14px !important;
+	text-decoration:none !important;
+	background-color:transparent !important;
+	background-image:none !important;
+	background:none !important;
+	border:none !important;
+	padding:0px !important;
+	margin:0px !important;
+	border:none !important
+}
+
+/* reset buttons */
+/*
+a[data-role="button"][data-theme="reset"] {
+    border-radius: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px;
+    box-shadow: none !important; -webkit-box-shadow: none !important; -moz-box-shadow: none !important;
+    text-decoration: none;
+}
+a[data-role="button"][data-theme="reset"] .ui-btn-inner {
+	color: white;
+	overflow: visible;
+	text-shadow: 0 -1px 0 #000;
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+	border: 1px solid #333;
+	border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;
+	background: #333;
+	box-shadow: 0 1px 0 rgba(255,255,255, 0.25), inset 0 1px 1px rgba(0,0,0, 0.2);
+		-webkit-box-shadow: 0 1px 0 rgba(255,255,255, 0.25), inset 0 1px 1px rgba(0,0,0, 0.2);
+		-moz-box-shadow: 0 1px 0 rgba(255,255,255, 0.25), inset 0 1px 1px rgba(0,0,0, 0.2);
+	}
+*/
+/* no-background */
+/*
+a[data-role="button"][data-theme="reset"].app-theme-none .ui-btn-inner {
+	color: #222;
+	background: none;
+	border: none;
+	box-shadow: none;
+	text-shadow: none;
+	}
+*/
+/* EXAMPLES */
+/*
+<!-- normal button 
+<a href="#page2"
+   data-role="button">Default button
+</a>  
+-->
+<!-- reset only 
+<a href="#another-page"
+    data-role="button"
+    data-theme="reset">Reset button
+</a>
+-->
+<!-- no-background 
+<a href="#another-page"
+    data-role="button"
+    data-theme="reset"
+    class="app-theme-none">No-background
+</a>
+-->
+*/
+/* /EXAMPLES */
+
+/*
+#popupPanel-popup {
+    right: 0 !important;
+    left: auto !important;
+}
+#popupPanel {
+    width: 200px !important;
+    border: 1px solid #000 !important;
+    border-right: none !important;
+    background: rgba(0,0,0,.5) !important;
+    margin: -1px 0 !important;
+}
+#popupPanel .ui-btn {
+    margin: 2em 15px !important;
+}
+*/
+
+#popuppanel-popup
+{
+    width: 100%;
+}
+#popuppanel
+{
+    border: 1px solid #000;
+    border-bottom: none;
+    background: rgba(00,00,00,.3);
+    margin: -1px 0;
+}
+#popuppanel .ui-btn
+{
+    margin: 3em 15px;
+}
+
+.btn-popup-cancel
+{
+    border: 1px solid #000000;
+    background: #bf0903 ;
+    font-weight: bold;
+    color: #ffffff ;
+    text-shadow: 0 0 0;
+    background-image: -webkit-gradient(linear, left top, left bottom, from( #fc7d79 ), to( #bb0802 )); /* Saf4 , Chrome */
+    background-image: -webkit-linear-gradient( #fc7d79 , #bb0802 ); /* Chrome 10 , Saf5.1  */
+    background-image: -moz-linear-gradient( #fc7d79 , #bb0802 ); /* FF3.6 */
+    background-image: -ms-linear-gradient( #fc7d79 /, #bb0802 ); /* IE10 */
+    background-image: -o-linear-gradient( #fc7d79 , #bb0802 ); /* Opera 11.10  */
+    background-image: linear-gradient( #fc7d79 , #bb0802 );
+}
+.popup-content
+{
+    background: rgba(0,0,0,.7);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.ui-collapsible-content, .ui-body-none {
+	padding-right:0px !important;
+	padding:10px 0px !important;
+}
+
+.listItemNoIcon .ui-icon {
+ display: none !important;
+ height:0px !important;
+ width:0px !important;
+ font-size:1px;
+}
+
+.ui-btn-inner {
+	padding-right:0px !important;
+	padding-top:0px !important;
+	margin:0px !important;
+	margin-top:0px !important;
+}
+
+#ios7statusbar
+{
+    width:100%;
+    height:20px;
+    background-color:white;
+    position:fixed;
+    z-index:100;
+}
+ 
+.ios7 .ui-page {
+    margin-top: 20px;
+}
