@@ -1014,4 +1014,447 @@ function catchError(f,e){
 	doAlert('ERROR','ERROR in (' + f + ')[Error Message: ' + e.message + ']');
 }
 
+
+
+
+
+
+/*
+CAMERA AND VIDEO FUNCTIONS
+*/
+function captureVideoAction() {
+	// alert('bla1');
+	clearStatus();
+	// var options = extractOptions();
+	var options = { limit: 1, duration: 12 };
+	log('Getting video without photo options: ' + JSON.stringify(options));
+	// nur audio aufnehmen: navigator.device.capture.captureAudio
+	var popoverHandle = navigator.device.capture.captureVideo(getVideoWin, onGetVideoError, options);
+	// Reposition the popover if the orientation changes.
+	window.onorientationchange = function() {
+		var newPopoverOptions = new CameraPopoverOptions(0, 0, 100, 100, 0);
+		popoverHandle.setPosition(newPopoverOptions);
+	}
+	// alert('bla4');
+}
+function getVideoWin(data) {
+	// alert('bla2');
+	setVideo(data);
+	console.log('CALLBACK!');
+	console.log(JSON.stringify(data));
+}
+function onGetVideoError(e) {
+	// log('Error getting picture: ' + e.code);
+	// alert('bla3');
+	console.log('Video capture failed');
+}
+
+function uploadImage() {
+	var ft = new FileTransfer(),
+	uploadcomplete=0,
+	progress = 0,
+	options = new FileUploadOptions();
+	options.fileKey="photo";
+	options.fileName='test.jpg';
+	options.mimeType="image/jpeg";
+	ft.onprogress = function(progressEvent) {
+		log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
+	};
+	var server = "http://cordova-filetransfer.jitsu.com";
+
+	ft.upload(pictureUrl, server + '/upload', win, fail, options);
+	function win(information_back){
+		log('upload complete');
+	}
+	function fail(message) {
+		log('upload failed: ' + JSON.stringify(message));
+	}
+}
+
+
+// capture video page
+
+var my_media;
+var deviceReady = false;
+var platformId = null;
+var CameraPopoverOptions = null;
+var pictureUrl = null;
+var fileObj = null;
+var fileEntry = null;
+var pageStartTime = +new Date();
+
+//default camera options
+var camQualityDefault = ['quality value', 50];
+var camDestinationTypeDefault = ['FILE_URI', 1];
+var camPictureSourceTypeDefault = ['CAMERA', 1];
+var camAllowEditDefault = ['allowEdit', false];
+var camEncodingTypeDefault = ['JPEG', 0];
+var camMediaTypeDefault = ['mediaType', 0];
+var camCorrectOrientationDefault = ['correctOrientation', false];
+var camSaveToPhotoAlbumDefault = ['saveToPhotoAlbum', true];
+
+//-------------------------------------------------------------------------
+// Camera
+//-------------------------------------------------------------------------
+
+function clearStatus() {
+	document.getElementById('camera_status').innerHTML = '';
+	document.getElementById('camera_image').src = 'about:blank';
+	var canvas = document.getElementById('canvas');
+	canvas.width = canvas.height = 1;
+	pictureUrl = null;
+	fileObj = null;
+	fileEntry = null;
+}
+
+function log(value) {
+	console.log(value);
+	document.getElementById('camera_status').textContent += (new Date() - pageStartTime) / 1000 + ': ' + value + '\n';
+}
+
+function setPicture(url, callback) {
+	try {
+		window.atob(url);
+		// if we got here it is a base64 string (DATA_URL)
+		url = "data:image/jpeg;base64," + url;
+	} catch (e) {
+		// not DATA_URL
+		log('URL: ' + url.slice(0, 100));
+	}    
+
+	pictureUrl = url;
+	var img = document.getElementById('camera_image');
+	var startTime = new Date();
+	img.src = url;
+	img.onloadend = function() {
+		log('Image tag load time: ' + (new Date() - startTime));
+		callback && callback();
+	};
+}
+
+function onGetPictureError(e) {
+	log('Error getting picture: ' + e.code);
+}
+
+function getPicture() {
+	clearStatus();
+	var options = extractOptions();
+	log('Getting picture with options: ' + JSON.stringify(options));
+	var popoverHandle = navigator.camera.getPicture(getPictureWin, onGetPictureError, options);
+
+	// Reposition the popover if the orientation changes.
+	window.onorientationchange = function() {
+		var newPopoverOptions = new CameraPopoverOptions(0, 0, 100, 100, 0);
+		popoverHandle.setPosition(newPopoverOptions);
+	}
+}
+
+function getPictureWin(data) {
+	setPicture(data);
+	// TODO: Fix resolveLocalFileSystemURI to work with native-uri.
+	if (pictureUrl.indexOf('file:') == 0) {
+		resolveLocalFileSystemURI(data, function(e) {
+			fileEntry = e;
+			logCallback('resolveLocalFileSystemURI()', true)(e);
+		}, logCallback('resolveLocalFileSystemURI()', false));
+	} else if (pictureUrl.indexOf('data:image/jpeg;base64' == 0)) {
+		// do nothing
+	} else {
+		var path = pictureUrl.replace(/^file:\/\/(localhost)?/, '').replace(/%20/g, ' ');
+		fileEntry = new FileEntry('image_name.png', path);
+	}
+}
+
+// TODO: File Transfer onProgress Download
+// http://www.raymondcamden.com/index.cfm/2013/5/1/Using-the-Progress-event-in-PhoneGap-file-transfers
+
+/*
+
+*/
+
+// Upload files to server
+function uploadFile(mediaFile) {
+	log('class uploadFile started');
+	try {
+		log('uploading '+mediaFile.fullPath);
+		log('uploading '+mediaFile.name);
+		// var ft = new FileTransfer(),
+		// path = mediaFile.fullPath,
+		// name = mediaFile.name;
+		// ft.upload(path,
+			// "http://mobile001.appinaut.de/upload.php",
+			// function(result) {
+				// console.log('Upload success: ' + result.responseCode);
+				// console.log(result.bytesSent + ' bytes sent');
+			// },
+			// function(error) {
+				// console.log('Error uploading file ' + path + ': ' + error.code);
+			// },
+			// { fileName: name }
+		// );
+	} catch (e) {
+		// not DATA_URL
+		log('class new FileTransfer not possible');
+	}
+	try {
+		// do
+		// console.log('video will now be played');
+		// window.plugins.videoPlayer.play('file://'+path);
+		// window.plugins.videoPlayer.play(path);
+		// navigator.videoPlayer.play(path);
+		// //  console.log("<video controls='controls'><source src='3.mp4' type='video/mp4' /></video>");
+		// if (! mediaFile) {
+			// mediaFile = new Media(mediaFile, null, mediaOnError);
+		// }
+		// my_media.play();
+	} catch (E) {
+		// else
+		console.log('video cannot be played');
+	}
+	
+	console.log('video will now be logged');
+	// console.log("<video id='video_player' controls src='#' style='position: absolute; width: 320px; height: 200px;'></video>");
+	var video_player = document.getElementById('video_player');
+	var startTime = new Date();
+	alert(mediaFile.fullPath);			
+	video_player.src = mediaFile.fullPath;
+	video_player.onloadend = function() {
+		consol.log('Video load time: ' + (new Date() - startTime));
+	};
+	console.log('video will now be played');
+	my_media = new Media(mediaFile.fullPath, mediaOnSuccess, mediaOnError);
+	my_media.play()
+	
+	log('class uploadFile ended');
+}	
+
+function mediaOnSuccess(data) {
+	// nothing yet
+}
+
+function mediaOnError(error) {
+	// $("#playMediaProperties").empty();
+	// $("#playMediaProperties").append("ERROR: Cannot play audio. Code: " + error.code + " Message: " + error.message + "<br/>");
+	// clearInterval(mediaTimer);
+	// mediaTimer = null;        
+	// my_media.release();
+	// my_media = null;
+	console.log("Error playbacking media");
+}	
+
+function setVideo(mediaFiles) {
+	// , callback
+	try {
+		var i, path, len;
+		for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+			// name: The name of the file, without path information. (DOMString)
+			// fullPath: The full path of the file, including the name. (DOMString)
+			// type: The file's mime type (DOMString)
+			// lastModifiedDate: The date and time when the file was last modified. (Date)
+			// size: The size of the file, in bytes. (Number)
+			// mediaFiles[0].getFormatData(function(data) {
+				// if(data.duration > 30) {
+					// Tell the user the video is too long
+				// } else {
+					// Video is less than the max duration...all good
+				// }
+			// });
+			var path = mediaFiles[i].fullPath;
+			log('path ['+i+']:'+path);
+			var name = mediaFiles[i].name;
+			log('name ['+i+']:'+name);
+			// do something interesting with the file
+			uploadFile(mediaFiles[i]);
+		}
+		// console.log('stringifiedjsondata: '+JSON.stringify(mediaFiles));
+		// window.atob(url);
+		// if we got here it is a base64 string (DATA_URL)
+		// url = "data:image/jpeg;base64," + url;
+	} catch (e) {
+		// not DATA_URL
+		// log('mediaFiles: ' + mediaFiles.slice(0, 100));
+	}    
+	log('set video function end');
+
+	// pictureUrl = path;
+	// var vid = document.getElementById('camera_video');
+	// var startTime = new Date();
+	// vid.src = url;
+	// vid.onloadend = function() {
+		// log('Image tag load time: ' + (new Date() - startTime));
+		// callback && callback();
+	// };
+}
+
+function captureVideoAction() {
+	// alert('bla1');
+	clearStatus();
+	// var options = extractOptions();
+	var options = { limit: 1, duration: 12 };
+	log('Getting video without photo options: ' + JSON.stringify(options));
+	// nur audio aufnehmen: navigator.device.capture.captureAudio
+	var popoverHandle = navigator.device.capture.captureVideo(getVideoWin, onGetVideoError, options);
+	// Reposition the popover if the orientation changes.
+	window.onorientationchange = function() {
+		var newPopoverOptions = new CameraPopoverOptions(0, 0, 100, 100, 0);
+		popoverHandle.setPosition(newPopoverOptions);
+	}
+	// alert('bla4');
+}
+function getVideoWin(data) {
+	// alert('bla2');
+	setVideo(data);
+	console.log('CALLBACK!');
+	console.log(JSON.stringify(data));
+}
+function onGetVideoError(e) {
+	// log('Error getting picture: ' + e.code);
+	// alert('bla3');
+	console.log('Video capture failed');
+}
+
+function uploadImage() {
+	var ft = new FileTransfer(),
+	uploadcomplete=0,
+	progress = 0,
+	options = new FileUploadOptions();
+	options.fileKey="photo";
+	options.fileName='test.jpg';
+	options.mimeType="image/jpeg";
+	ft.onprogress = function(progressEvent) {
+		log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
+	};
+	var server = "http://cordova-filetransfer.jitsu.com";
+
+	ft.upload(pictureUrl, server + '/upload', win, fail, options);
+	function win(information_back){
+		log('upload complete');
+	}
+	function fail(message) {
+		log('upload failed: ' + JSON.stringify(message));
+	}
+}
+
+function logCallback(apiName, success) {
+	return function() {
+		log('Call to ' + apiName + (success ? ' success: ' : ' failed: ') + JSON.stringify([].slice.call(arguments)));
+	};
+}
+
+// Select image from library using a NATIVE_URI destination type
+// This calls FileEntry.getMetadata, FileEntry.setMetadata, FileEntry.getParent, FileEntry.file, and FileReader.readAsDataURL.
+function readFile() {
+	function onFileReadAsDataURL(evt) {
+		var img = document.getElementById('camera_image');
+		img.style.visibility = "visible";
+		img.style.display = "block";
+		img.src = evt.target.result;
+		log("FileReader.readAsDataURL success");
+	};
+
+	function onFileReceived(file) {
+		log('Got file: ' + JSON.stringify(file));
+		fileObj = file;
+
+		var reader = new FileReader();
+		reader.onload = function() {
+			log('FileReader.readAsDataURL() - length = ' + reader.result.length);
+		};
+		reader.onerror = logCallback('FileReader.readAsDataURL', false);
+		reader.readAsDataURL(file);
+	};
+	// Test out onFileReceived when the file object was set via a native <input> elements.
+	if (fileObj) {
+		onFileReceived(fileObj);
+	} else {
+		fileEntry.file(onFileReceived, logCallback('FileEntry.file', false));
+	}
+}
+function getFileInfo() {
+	// Test FileEntry API here.
+	fileEntry.getMetadata(logCallback('FileEntry.getMetadata', true), logCallback('FileEntry.getMetadata', false));
+	fileEntry.setMetadata(logCallback('FileEntry.setMetadata', true), logCallback('FileEntry.setMetadata', false), { "com.apple.MobileBackup": 1 });
+	fileEntry.getParent(logCallback('FileEntry.getParent', true), logCallback('FileEntry.getParent', false));
+	fileEntry.getParent(logCallback('FileEntry.getParent', true), logCallback('FileEntry.getParent', false));
+};
+
+// Copy image from library using a NATIVE_URI destination type
+// This calls FileEntry.copyTo and FileEntry.moveTo.
+function copyImage() {
+	var onFileSystemReceived = function(fileSystem) {
+		var destDirEntry = fileSystem.root;
+
+		// Test FileEntry API here.
+		fileEntry.copyTo(destDirEntry, 'copied_file.png', logCallback('FileEntry.copyTo', true), logCallback('FileEntry.copyTo', false));
+		fileEntry.moveTo(destDirEntry, 'moved_file.png', logCallback('FileEntry.moveTo', true), logCallback('FileEntry.moveTo', false));
+	};
+
+	window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, onFileSystemReceived, null);
+};
+
+
+function extractOptions() {
+	var els = document.querySelectorAll('#image-options select');
+	var ret = {};
+	for (var i = 0, el; el = els[i]; ++i) {
+		var value = el.value;
+		if (value === '') continue;
+		if (el.isBool) {
+			ret[el.keyName] = !!value;
+		} else {
+			ret[el.keyName] = +value;
+		}
+	}
+	return ret;
+}
+
+function createOptionsEl(name, values, selectionDefault) {
+	var container = document.createElement('div');
+	container.style.display = 'inline-block';
+	container.appendChild(document.createTextNode(name + ': '));
+	var select = document.createElement('select');
+	select.keyName = name;
+	container.appendChild(select);
+	
+	// if we didn't get a default value, insert the blank <default> entry
+	if (selectionDefault == undefined) {
+		var opt = document.createElement('option');
+		opt.value = '';
+		opt.text = '<default>';
+		select.appendChild(opt);
+	}
+	
+	select.isBool = typeof values == 'boolean';
+	if (select.isBool) {
+		values = {'true': 1, 'false': 0};
+	}
+	
+	for (var k in values) {
+		var opt = document.createElement('option');
+		opt.value = values[k];
+		opt.textContent = k;
+		if (selectionDefault) {
+			if (selectionDefault[0] == k) {
+				opt.selected = true;
+			}
+		}
+		select.appendChild(opt);
+	}
+	var optionsDiv = document.getElementById('image-options');
+	/*
+	if (typeof (optionsDiv) != undefined && typeof (optionsDiv) != null && typeof (optionsDiv) != 'undefined') {
+		// console.log('optionsDiv exists');
+	}
+	else {
+		//  create a new option div
+		var optionsDivCreate = document.createElement('div');
+		optionsDivCreate.id = 'image-options';
+		document.body.appendChild(optionsDivCreate);
+		// container.appendChild(optionsDivCreate);
+		// console.log('optionsDiv NOT exists');
+	}
+	*/
+	optionsDiv.appendChild(container);
+}
+
 //* DEBUG */ window.console.log('js/global.js loaded...');
