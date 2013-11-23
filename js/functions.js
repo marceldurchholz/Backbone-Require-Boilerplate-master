@@ -74,8 +74,8 @@ function populateData(){
 		// if (!device) report('device not defined');
 		// else report('device defined');
 		// document.getElementById("device_internet").innerHTML = 'bla';
-		// document.getElementById("user-agent").textContent = navigator.userAgent;
-		// document.getElementById("platform").innerHTML = device.platform;
+		document.getElementById("user-agent").textContent = navigator.userAgent;
+		document.getElementById("platform").innerHTML = device.platform;
 	} catch(e){ 
 		catchError('populateData()',e); 
 	}
