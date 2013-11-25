@@ -25,6 +25,8 @@ if(isMobile.any()){
     console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
 }
 
+var currentHash = window.location.hash;
+
 var menuStatus = false;
 var footervideoStatus = false;
 
@@ -163,8 +165,9 @@ function populateDeviceInfo(){
 	// $("#page-content").on('pagebeforeshow', function() {
 	// });
     try {
-// myapp.js
-// ---------------
+		// myapp.js
+		// ---------------
+		// alert(window.location.hash);
         /*
 		var id = 'devicereadydiv';
 		var parentElement = document.getElementById(id);
@@ -173,39 +176,45 @@ function populateDeviceInfo(){
 		var receivedElement = parentElement.querySelector('.received');
 		receivedElement.setAttribute('style', 'display:block;');
 		*/
-		if(!isMobile.any()) {
-			report('populateDeviceInfo()','isMobile.any NOT true');
-			alert('populateDeviceInfo');
-			document.getElementById("device_internet").innerHTML = 'NOT MOBILE';
+		currentHash = window.location.hash;
+		if (currentHash=='') currentHash = '#home';
+		// alert('functions.js, hash: '+currentHash);
+		switch(currentHash) {
+			case "#home":
+			if(!isMobile.any()) {
+				report('populateDeviceInfo()','isMobile.any NOT true');
+				// alert('populateDeviceInfo');
+				document.getElementById("device_internet").innerHTML = 'NOT MOBILE';
+			}
+			else {
+				report('populateDeviceInfo()','isMobile.any IS true');
+				// alert('populateDeviceInfo');
+				// document.getElementById("device_internet").innerHTML = 'IS MOBILE';
+				modifyiOS7StatusBar();
+				document.getElementById("device_internet").innerHTML = isConnectedToInternet();
+				// if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MOBILE';
+				document.getElementById("user_agent").innerHTML = navigator.userAgent;
+				document.getElementById("platform").innerHTML = device.platform;
+				document.getElementById("version").innerHTML = device.version;
+				document.getElementById("uuid").innerHTML = device.uuid;
+				document.getElementById("name").innerHTML = device.name;
+				document.getElementById("model").innerHTML = device.model;
+				document.getElementById("width").innerHTML = screen.width;
+				document.getElementById("height").innerHTML = screen.height;
+				document.getElementById("colorDepth").innerHTML = screen.colorDepth;
+				document.getElementById("device_conn").innerHTML = getConnectionType();
+				// $('#device_conn span').html(getConnectionType());
+				// $('#device_platform span').html(getDevicePlatform());
+				// $('#device_model span').html(getDeviceModel());
+				// $('#device_os span').html(getOS());
+				// $('#device_version span').html(getDeviceVersion());
+				// $('#device_internet span').html(isConnectedToInternet());
+				// doAlert('$(#device_conn span).html(getConnectionType());','--> populateDeviceInfo()..');
+			}
 		}
-		else {
-			report('populateDeviceInfo()','isMobile.any IS true');
-			alert('populateDeviceInfo');
-			document.getElementById("device_internet").innerHTML = 'IS MOBILE';
-			// document.getElementById("device_internet").innerHTML = isConnectedToInternet();
-			// if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MOBILE';
-			/*
-			modifyiOS7StatusBar();
-			document.getElementById("user_agent").innerHTML = navigator.userAgent;
-			document.getElementById("platform").innerHTML = device.platform;
-			document.getElementById("version").innerHTML = device.version;
-			document.getElementById("uuid").innerHTML = device.uuid;
-			document.getElementById("name").innerHTML = device.name;
-			document.getElementById("model").innerHTML = device.model;
-			document.getElementById("width").innerHTML = screen.width;
-			document.getElementById("height").innerHTML = screen.height;
-			document.getElementById("colorDepth").innerHTML = screen.colorDepth;
-			document.getElementById("device_conn").innerHTML = getConnectionType();
-			*/
-			// $('#device_conn span').html(getConnectionType());
-			// $('#device_platform span').html(getDevicePlatform());
-			// $('#device_model span').html(getDeviceModel());
-			// $('#device_os span').html(getOS());
-			// $('#device_version span').html(getDeviceVersion());
-			// $('#device_internet span').html(isConnectedToInternet());
-			// doAlert('$(#device_conn span).html(getConnectionType());','--> populateDeviceInfo()..');
-		}
-    }catch(e){ catchError('populateDeviceInfo()',e); }
+	}catch(e){ 
+		catchError('populateDeviceInfo()',e); 
+	}
 }
 
 function isConnectedToInternet(){

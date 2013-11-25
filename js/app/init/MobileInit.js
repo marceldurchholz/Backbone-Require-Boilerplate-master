@@ -6,13 +6,21 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
   function($, Backbone, MobileRouter) {
 
-    // Prevents all anchor click handling
-    $.mobile.linkBindingEnabled = false;
-
-    // Disabling this will prevent jQuery Mobile from handling hash changes
-    $.mobile.hashListeningEnabled = false;
-	
+	$.support.cors = true;
 	$.mobile.allowCrossDomainPages = true;
+    $.mobile.linkBindingEnabled = false;
+    $.mobile.hashListeningEnabled = false;	
+	$.mobile.allowCrossDomainPages = true;
+
+	$(window).bind('hashchange', function(){
+		// currentHash = window.location.hash;
+		// console.log(window.location.hash);
+		alert('MobileInit.js '+window.location.hash);
+		setTimeout(function() {
+			// alert("Hello");
+			populateDeviceInfo();
+		},1000);
+	});
 	
 	app.initialize();
 	/*

@@ -11,6 +11,12 @@ define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "vi
                 // Tells Backbone to start watching for hashchange events
 				// report('MobileRouter.js','initialize:');
                 Backbone.history.start();
+				$.when(dd, jqd).done(function doInit() {
+					setTimeout(function() {
+						// alert("Hello");
+						populateDeviceInfo();
+					},1000);
+				});
             },
 
             // All of your Backbone Routes (add more)
@@ -24,8 +30,7 @@ define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "vi
 			
             home: function() {
 				new View();
-                alert('new View');
-				$.when(dd, jqd).done(populateDeviceInfo);
+                // alert('new View');
 				// alert('bla');
             },
             aboutus: function() {

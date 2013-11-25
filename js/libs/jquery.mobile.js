@@ -4,7 +4,9 @@ var jqd = $.Deferred();
 $(document).bind("mobileinit", function(){
 	$.support.cors = true;
 	$.mobile.allowCrossDomainPages = true;
-	alert('mobileinit');
+    $.mobile.linkBindingEnabled = false;
+    $.mobile.hashListeningEnabled = false;	
+	$.mobile.allowCrossDomainPages = true;
 	jqd.resolve();
 });
 
