@@ -161,7 +161,7 @@ function populateDeviceInfo(){
 		else {
 			report('populateDeviceInfo()','isMobile.any IS true');
 			// if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MOBILE';
-			$( document ).ready(function() {
+			$(document).on('pageinit', function($){
 				document.getElementById("device_internet").innerHTML = isConnectedToInternet();
 			});
 			/*
