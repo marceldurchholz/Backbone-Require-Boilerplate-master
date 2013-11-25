@@ -15,15 +15,17 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	$.mobile.allowCrossDomainPages = true;
 	
 	app.initialize();
+	/*
 	$.when(dd, jqd).done(doInit);
 	
 	function doInit() {
 		alert('both ready');
-		$(document).on("pageinit", function(){
+		// $(document).on("pageinit", function(){
 			alert('pagecreate');
 			populateDeviceInfo();
-		});	
+		// });	
 	}
+	*/
 	
 	// report('MobileInit.js','document.ready END');	
 
