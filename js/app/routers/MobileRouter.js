@@ -24,7 +24,9 @@ define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "vi
 			
             home: function() {
 				new View();
-                // alert('bla');
+                alert('new View');
+				// populateDeviceInfo();
+				// alert('bla');
             },
             aboutus: function() {
                 new Aboutus();

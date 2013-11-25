@@ -176,12 +176,12 @@ function populateDeviceInfo(){
 		if(!isMobile.any()) {
 			report('populateDeviceInfo()','isMobile.any NOT true');
 			alert('populateDeviceInfo');
-			// document.getElementById("device_internet").innerHTML = 'NOT MOBILE';
+			document.getElementById("device_internet").innerHTML = 'NOT MOBILE';
 		}
 		else {
 			report('populateDeviceInfo()','isMobile.any IS true');
 			alert('populateDeviceInfo');
-			// document.getElementById("device_internet").innerHTML = 'IS MOBILE';
+			document.getElementById("device_internet").innerHTML = 'IS MOBILE';
 			// document.getElementById("device_internet").innerHTML = isConnectedToInternet();
 			// if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MOBILE';
 			/*

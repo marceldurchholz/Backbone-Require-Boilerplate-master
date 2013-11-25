@@ -19,8 +19,8 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	
 	function doInit() {
 		alert('both ready');
-		$(document).on("pageshow", function(){
-			alert('pageshow');
+		$(document).on("pageinit", function(){
+			alert('pagecreate');
 			populateDeviceInfo();
 		});	
 	}
