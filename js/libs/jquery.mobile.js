@@ -1,3 +1,11 @@
+var dd = $.Deferred();
+var jqd = $.Deferred();
+
+$(document).bind("mobileinit", function(){
+	alert('mobileinit');
+	jqd.resolve();
+});
+
 /*!
 * jQuery Mobile 1.3.2
 * Git HEAD hash: 528cf0e96940644ea644096bfeb913ed920ffaef <> Date: Fri Jul 19 2013 22:17:57 UTC

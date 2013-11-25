@@ -83,6 +83,18 @@ function populateData(){
 }
 */
 
+/*
+require(["jquery"],
+	function($) {
+		$(document).on("pageshow", function(){
+			alert('pageshow');
+			document.getElementById("device_internet").innerHTML = 'NOT MOBILE';
+		});
+       // Instantiates a new Mobile Router instance
+		new MobileRouter();
+	}
+);
+*/
 		var app = {
 			initialize: function() {
 				report('MobileInit.js','var app:initialize');
@@ -90,7 +102,7 @@ function populateData(){
 			},
 			bindEvents: function() {
 				if(!isMobile.any()) {
-				this.onDeviceReady();
+					this.onDeviceReady();
 				}
 				else {
 					// document.addEventListener('load', this.onDeviceReady, false);
@@ -100,8 +112,8 @@ function populateData(){
 				}
 			},
 			onDeviceReady: function() {
-				/*
 				report('MobileInit.js','onDeviceReady');
+				/*
 				deviceReady = true;
 				cordovaIsLoaded = true;
 				app.receivedEvent('deviceready');
@@ -112,7 +124,8 @@ function populateData(){
 				report("MobileInit.js"," var app:receivedEvent");
 				deviceReady = true;
 				cordovaIsLoaded = true;
-				populateDeviceInfo();
+				dd.resolve();
+				// populateDeviceInfo();
 				/*
 				setTimeout(function() {
 					report('MobileInit.js','app.receivedEvent w timeout 0');
@@ -141,20 +154,18 @@ function initApp(){
 
 /* ----------------------------------------------------------- /
  populateDeviceInfo
- / ----------------------------------------------------------- */
+/ ----------------------------------------------------------- */
 function populateDeviceInfo(){
-	$(document).on("pageshow", function(){
-		alert('bla');
-	});
 	report('functions.js','populateDeviceInfo() START');
 	// doAlert('TEST','--> populateDeviceInfo()..');
 	// $( document ).delegate("#pageid", "pageinit", function() {  
 	// $( document ).ready(function() {
 	// $("#page-content").on('pagebeforeshow', function() {
-		console.log('PAGEINIT');    
 	// });
     try {
-		/*
+// myapp.js
+// ---------------
+        /*
 		var id = 'devicereadydiv';
 		var parentElement = document.getElementById(id);
 		var listeningElement = parentElement.querySelector('.listening');
@@ -164,14 +175,14 @@ function populateDeviceInfo(){
 		*/
 		if(!isMobile.any()) {
 			report('populateDeviceInfo()','isMobile.any NOT true');
-			if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'NOT MOBILE';
+			alert('pageshow');
+			document.getElementById("device_internet").innerHTML = 'NOT MOBILE';
 		}
 		else {
 			report('populateDeviceInfo()','isMobile.any IS true');
 			// if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MOBILE';
-			$(document).on("pageshow", function(){
-				document.getElementById("device_internet").innerHTML = isConnectedToInternet();
-			});
+			console.log('pageshow');
+			document.getElementById("device_internet").innerHTML = isConnectedToInternet();
 			/*
 			modifyiOS7StatusBar();
 			document.getElementById("user_agent").innerHTML = navigator.userAgent;

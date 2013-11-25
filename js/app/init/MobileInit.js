@@ -11,11 +11,21 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
     // Disabling this will prevent jQuery Mobile from handling hash changes
     $.mobile.hashListeningEnabled = false;
-
+	
+	$.mobile.allowCrossDomainPages = true;
+	
 	// $( document ).ready(function() {
 		// Handler for .ready() called.
 		// report('MobileInit.js','document.ready START');
 		app.initialize();
+		$.when(dd, jqd).done(doInit);
+		function doInit() {
+			alert('both ready');
+			$(document).on("pageshow", function(){
+				alert('pageshow');
+				populateDeviceInfo();
+			});	
+		}
 		// report('MobileInit.js','document.ready END');	
 
 		$('body').on("vclick", "a.footervideolink", function (e) {
