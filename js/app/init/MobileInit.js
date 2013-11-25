@@ -69,6 +69,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			marginLeft: "0px",
 		}, 300, function () {
 			menuStatus = false;
+			// $.mobile.changePage( "#aboutus", { transition: "slideup", changeHash: true });
 		});
 	});
 	
