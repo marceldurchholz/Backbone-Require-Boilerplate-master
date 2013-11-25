@@ -161,7 +161,9 @@ function populateDeviceInfo(){
 		else {
 			report('populateDeviceInfo()','isMobile.any IS true');
 			// if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MOBILE';
-			document.getElementById("device_internet").innerHTML = isConnectedToInternet();
+			$( document ).ready(function() {
+				document.getElementById("device_internet").innerHTML = isConnectedToInternet();
+			});
 			/*
 			modifyiOS7StatusBar();
 			document.getElementById("user_agent").innerHTML = navigator.userAgent;
