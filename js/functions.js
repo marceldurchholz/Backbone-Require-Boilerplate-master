@@ -83,42 +83,47 @@ function populateData(){
 }
 */
 
-var app = {
-	initialize: function() {
-		report('MobileInit.js','var app:initialize');
-		this.bindEvents();
-	},
-	bindEvents: function() {
-		// document.addEventListener('load', this.onDeviceReady, false);
-		// document.addEventListener('offline', this.onDeviceReady, false);
-		// document.addEventListener('online', this.onDeviceReady, false);
-		document.addEventListener('deviceready', this.onDeviceReady, false);
-	},
-	onDeviceReady: function() {
-		/*
-		report('MobileInit.js','onDeviceReady');
-		deviceReady = true;
-		cordovaIsLoaded = true;
-		app.receivedEvent('deviceready');
-		*/
-		app.receivedEvent();
-   },
-	receivedEvent: function(event) {
-		report("MobileInit.js"," var app:receivedEvent");
-		deviceReady = true;
-		cordovaIsLoaded = true;
-		populateDeviceInfo();
-		/*
-		setTimeout(function() {
-			report('MobileInit.js','app.receivedEvent w timeout 0');
-			$( document ).ready(function() {
-				report('MobileInit.js','app.receivedEvent AND document.ready in w timeout 0');
-			});
-		},0);
-		*/
-	}
-};	
-
+		var app = {
+			initialize: function() {
+				report('MobileInit.js','var app:initialize');
+				this.bindEvents();
+			},
+			bindEvents: function() {
+				if(!isMobile.any()) {
+				this.onDeviceReady();
+				}
+				else {
+					// document.addEventListener('load', this.onDeviceReady, false);
+					// document.addEventListener('offline', this.onDeviceReady, false);
+					// document.addEventListener('online', this.onDeviceReady, false);
+					document.addEventListener('deviceready', this.onDeviceReady, false);
+				}
+			},
+			onDeviceReady: function() {
+				/*
+				report('MobileInit.js','onDeviceReady');
+				deviceReady = true;
+				cordovaIsLoaded = true;
+				app.receivedEvent('deviceready');
+				*/
+				app.receivedEvent();
+		   },
+			receivedEvent: function(event) {
+				report("MobileInit.js"," var app:receivedEvent");
+				deviceReady = true;
+				cordovaIsLoaded = true;
+				populateDeviceInfo();
+				/*
+				setTimeout(function() {
+					report('MobileInit.js','app.receivedEvent w timeout 0');
+					$( document ).ready(function() {
+						report('MobileInit.js','app.receivedEvent AND document.ready in w timeout 0');
+					});
+				},0);
+				*/
+			}
+		};
+		
 /* ----------------------------------------------------------- /
     initApp
 / ----------------------------------------------------------- */
@@ -155,7 +160,9 @@ function populateDeviceInfo(){
 		}
 		else {
 			report('populateDeviceInfo()','isMobile.any IS true');
-			if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MOBILE';
+			// if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MOBILE';
+			document.getElementById("device_internet").innerHTML = isConnectedToInternet();
+			/*
 			modifyiOS7StatusBar();
 			document.getElementById("user_agent").innerHTML = navigator.userAgent;
 			document.getElementById("platform").innerHTML = device.platform;
@@ -166,9 +173,7 @@ function populateDeviceInfo(){
 			document.getElementById("width").innerHTML = screen.width;
 			document.getElementById("height").innerHTML = screen.height;
 			document.getElementById("colorDepth").innerHTML = screen.colorDepth;
-			document.getElementById("device_internet").innerHTML = isConnectedToInternet();
 			document.getElementById("device_conn").innerHTML = getConnectionType();
-			/*
 			*/
 			// $('#device_conn span').html(getConnectionType());
 			// $('#device_platform span').html(getDevicePlatform());
