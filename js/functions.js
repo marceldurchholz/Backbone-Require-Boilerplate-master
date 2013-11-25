@@ -145,6 +145,11 @@ function initApp(){
 function populateDeviceInfo(){
     report('functions.js','populateDeviceInfo() START');
 	// doAlert('TEST','--> populateDeviceInfo()..');
+	// $( document ).delegate("#pageid", "pageinit", function() {  
+	$( document ).ready(function() {
+	// $("#page-content").on('pagebeforeshow', function() {
+		console.log('PAGEINIT');    
+	});
     try {
 		/*
 		var id = 'devicereadydiv';
@@ -161,9 +166,7 @@ function populateDeviceInfo(){
 		else {
 			report('populateDeviceInfo()','isMobile.any IS true');
 			// if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MOBILE';
-			$(document).on('pageinit', function($){
-				document.getElementById("device_internet").innerHTML = isConnectedToInternet();
-			});
+			document.getElementById("device_internet").innerHTML = isConnectedToInternet();
 			/*
 			modifyiOS7StatusBar();
 			document.getElementById("user_agent").innerHTML = navigator.userAgent;

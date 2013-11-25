@@ -12,11 +12,11 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
     // Disabling this will prevent jQuery Mobile from handling hash changes
     $.mobile.hashListeningEnabled = false;
 
-	$( document ).ready(function() {
+	// $( document ).ready(function() {
 		// Handler for .ready() called.
-		report('MobileInit.js','document.ready START');
+		// report('MobileInit.js','document.ready START');
 		app.initialize();
-		report('MobileInit.js','document.ready END');	
+		// report('MobileInit.js','document.ready END');	
 
 		$('body').on("click", "a.footervideolink", function (e) {
 			// report('footer clicked');
@@ -62,7 +62,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 				menuStatus = false;
 			});
 		});
-	});
+	// });
 	
        // Instantiates a new Mobile Router instance
     new MobileRouter();
