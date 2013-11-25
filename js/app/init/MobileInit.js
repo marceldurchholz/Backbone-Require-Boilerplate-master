@@ -14,67 +14,65 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	
 	$.mobile.allowCrossDomainPages = true;
 	
-	// $( document ).ready(function() {
-		// Handler for .ready() called.
-		// report('MobileInit.js','document.ready START');
-		app.initialize();
-		$.when(dd, jqd).done(doInit);
-		function doInit() {
-			alert('both ready');
-			$(document).on("pageshow", function(){
-				alert('pageshow');
-				populateDeviceInfo();
-			});	
+	app.initialize();
+	$.when(dd, jqd).done(doInit);
+	
+	function doInit() {
+		alert('both ready');
+		$(document).on("pageshow", function(){
+			alert('pageshow');
+			populateDeviceInfo();
+		});	
+	}
+	
+	// report('MobileInit.js','document.ready END');	
+
+	$('body').on("vclick", "a.footervideolink", function (e) {
+		// report('footer clicked');
+		if (footervideoStatus != true) {
+			$("#footer").animate({
+				height: "60%",
+			}, 300, function () {
+				footervideoStatus = true;
+			});
+			return false;		
 		}
-		// report('MobileInit.js','document.ready END');	
+		else {
+			$("#footer").animate({
+				height: "20px",
+			}, 300, function () {
+				footervideoStatus = false;
+			});
+			return false;
+		}
+	});
 
-		$('body').on("vclick", "a.footervideolink", function (e) {
-			// report('footer clicked');
-			if (footervideoStatus != true) {
-				$("#footer").animate({
-					height: "60%",
-				}, 300, function () {
-					footervideoStatus = true;
-				});
-				return false;		
-			}
-			else {
-				$("#footer").animate({
-					height: "20px",
-				}, 300, function () {
-					footervideoStatus = false;
-				});
-				return false;
-			}
-		});
-
-		$('body').on("vclick", "a.showMenu", function (e) {
-			if (menuStatus != true) {
-				$(".ui-page-active").animate({
-					marginLeft: "175px",
-				}, 300, function () {
-					menuStatus = true;
-				});
-				return false;
-			} else {
-				$(".ui-page-active").animate({
-					marginLeft: "0px",
-				}, 300, function () {
-					menuStatus = false;
-				});
-				return false;
-			}
-		});
-		$('body').on("vclick", "#menuelement a.contentLink", function (e) {
+	$('body').on("vclick", "a.showMenu", function (e) {
+		if (menuStatus != true) {
+			$(".ui-page-active").animate({
+				marginLeft: "175px",
+			}, 300, function () {
+				menuStatus = true;
+			});
+			return false;
+		} else {
 			$(".ui-page-active").animate({
 				marginLeft: "0px",
 			}, 300, function () {
 				menuStatus = false;
 			});
+			return false;
+		}
+	});
+	$('body').on("vclick", "#menuelement a.contentLink", function (e) {
+		$(".ui-page-active").animate({
+			marginLeft: "0px",
+		}, 300, function () {
+			menuStatus = false;
 		});
-	// });
+	});
 	
-       // Instantiates a new Mobile Router instance
+	// Instantiates a new Mobile Router instance
     new MobileRouter();
 
   }

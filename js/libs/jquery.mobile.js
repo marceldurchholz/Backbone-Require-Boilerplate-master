@@ -2,6 +2,8 @@ var dd = $.Deferred();
 var jqd = $.Deferred();
 
 $(document).bind("mobileinit", function(){
+	$.support.cors = true;
+	$.mobile.allowCrossDomainPages = true;
 	alert('mobileinit');
 	jqd.resolve();
 });
