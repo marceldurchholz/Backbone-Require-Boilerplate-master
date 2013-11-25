@@ -23,8 +23,8 @@ define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "vi
             },
 			
             home: function() {
-                // alert('bla');
 				new View();
+                // alert('bla');
             },
             aboutus: function() {
                 new Aboutus();

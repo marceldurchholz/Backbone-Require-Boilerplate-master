@@ -65,6 +65,7 @@ var jqueryReady = false;
 
 // var pgReady = $.Deferred();
 
+/*
 function populateData(){
 	report('MobileInit.js >> populateData() START');
 	// report('MobileInit.js','populateData() START');
@@ -74,12 +75,13 @@ function populateData(){
 		// if (!device) report('device not defined');
 		// else report('device defined');
 		// document.getElementById("device_internet").innerHTML = 'bla';
-		document.getElementById("user-agent").textContent = navigator.userAgent;
+		document.getElementById("user_agent").textContent = navigator.userAgent;
 		document.getElementById("platform").innerHTML = device.platform;
 	} catch(e){ 
 		catchError('populateData()',e); 
 	}
 }
+*/
 
 var app = {
 	initialize: function() {
@@ -155,7 +157,7 @@ function populateDeviceInfo(){
 			report('populateDeviceInfo()','isMobile.any IS true');
 			if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MOBILE';
 			modifyiOS7StatusBar();
-			document.getElementById("user-agent").textContent = navigator.userAgent;
+			document.getElementById("user_agent").innerHTML = navigator.userAgent;
 			document.getElementById("platform").innerHTML = device.platform;
 			document.getElementById("version").innerHTML = device.version;
 			document.getElementById("uuid").innerHTML = device.uuid;
