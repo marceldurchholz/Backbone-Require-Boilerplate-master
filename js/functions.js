@@ -555,6 +555,7 @@ function doAlert(message, title){
 		}else{
 			alert(alertTitle + "\n\n" + alertText);
 		}	
+		alert('VERBOSE >> doAlert() --> [' + alertTitle + ' | ' + alertText);
 		report('VERBOSE','doAlert() --> [' + alertTitle + ' | ' + alertText);
 		return false;		
 	}catch(ex){
