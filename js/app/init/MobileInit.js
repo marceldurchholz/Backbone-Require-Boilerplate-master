@@ -18,7 +18,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		app.initialize();
 		// report('MobileInit.js','document.ready END');	
 
-		$('body').on("click", "a.footervideolink", function (e) {
+		$('body').on("vclick", "a.footervideolink", function (e) {
 			// report('footer clicked');
 			if (footervideoStatus != true) {
 				$("#footer").animate({
@@ -38,7 +38,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			}
 		});
 
-		$('body').on("click", "a.showMenu", function (e) {
+		$('body').on("vclick", "a.showMenu", function (e) {
 			if (menuStatus != true) {
 				$(".ui-page-active").animate({
 					marginLeft: "175px",
@@ -55,7 +55,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 				return false;
 			}
 		});
-		$('body').on("click", "#menuelement a.contentLink", function (e) {
+		$('body').on("vclick", "#menuelement a.contentLink", function (e) {
 			$(".ui-page-active").animate({
 				marginLeft: "0px",
 			}, 300, function () {
@@ -70,3 +70,6 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
   }
 
 );
+
+
+

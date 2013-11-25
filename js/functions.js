@@ -143,13 +143,16 @@ function initApp(){
  populateDeviceInfo
  / ----------------------------------------------------------- */
 function populateDeviceInfo(){
-    report('functions.js','populateDeviceInfo() START');
+	$(document).on("pageshow", function(){
+		alert('bla');
+	});
+	report('functions.js','populateDeviceInfo() START');
 	// doAlert('TEST','--> populateDeviceInfo()..');
 	// $( document ).delegate("#pageid", "pageinit", function() {  
-	$( document ).ready(function() {
+	// $( document ).ready(function() {
 	// $("#page-content").on('pagebeforeshow', function() {
 		console.log('PAGEINIT');    
-	});
+	// });
     try {
 		/*
 		var id = 'devicereadydiv';
@@ -166,7 +169,9 @@ function populateDeviceInfo(){
 		else {
 			report('populateDeviceInfo()','isMobile.any IS true');
 			// if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MOBILE';
-			document.getElementById("device_internet").innerHTML = isConnectedToInternet();
+			$(document).on("pageshow", function(){
+				document.getElementById("device_internet").innerHTML = isConnectedToInternet();
+			});
 			/*
 			modifyiOS7StatusBar();
 			document.getElementById("user_agent").innerHTML = navigator.userAgent;
