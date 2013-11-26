@@ -1110,6 +1110,8 @@ function setPicture(url, callback) {
 		log('Image tag load time: ' + (new Date() - startTime));
 		callback && callback();
 	};
+	alert(url);
+	movepic(url);
 }
 
 function onGetPictureError(e) {
@@ -1145,74 +1147,38 @@ function getPictureWin(data) {
 	}
 }
 
-// TODO: File Transfer onProgress Download
-// http://www.raymondcamden.com/index.cfm/2013/5/1/Using-the-Progress-event-in-PhoneGap-file-transfers
-
-/*
-
-*/
-
-function gotFSx(fileSystem) {
-        fileSystem.root.getFile("readme.txt", {create: true, exclusive: false}, gotFileEntry, fail);
-}
-function gotFileEntry(fileEntry) {
-	fileEntry.createWriter(gotFileWriter, fail);
-}
-function gotFileWriter(writer) {
-	writer.onwriteend = function(evt) {
-		console.log("contents of file now 'some sample text'");
-		writer.truncate(11);  
-		writer.onwriteend = function(evt) {
-			console.log("contents of file now 'some sample'");
-			writer.seek(4);
-			writer.write(" different text");
-			writer.onwriteend = function(evt){
-				console.log("contents of file now 'some different text'");
-			}
-		};
-	};
-	writer.write("some sample text");
-}
-function fail(error) {
-	console.log(error.code);
-}
-	
-//Callback function when the file has been moved successfully - inserting the complete path
-function successMove(entry) {
-    //Store imagepath in session for future use
-    // like to store it in database
-	alert(entry.fullPath);
-    sessionStorage.setItem('imagepath', entry.fullPath);
-}
-
-function resOnError(error) {
-    alert(error.code);
-}
-
 function movePic(file){ 
     window.resolveLocalFileSystemURI(file, resolveOnSuccess, resOnError); 
 } 
+
 //Callback function when the file system uri has been resolved
 function resolveOnSuccess(entry){ 
     var d = new Date();
     var n = d.getTime();
     //new file name
-    var newFileName = n + ".mov";
-    var myFolderApp = "MyAppFolder";
-	alert(newFileName);
-	/*
+    var newFileName = n + ".jpg";
+    var myFolderApp = "EasyPacking";
+
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) {      
     //The folder is created if doesn't exist
-		fileSys.root.getDirectory( myFolderApp,
-			{create:true, exclusive: false},
-			function(directory) {
-				alert('moving action');
-				// entry.moveTo(directory, newFileName,  successMove, resOnError);
-			},
-			resOnError);
-		},
+    fileSys.root.getDirectory( myFolderApp,
+                    {create:true, exclusive: false},
+                    function(directory) {
+                        entry.moveTo(directory, newFileName,  successMove, resOnError);
+                    },
+                    resOnError);
+                    },
     resOnError);
-	*/
+}
+
+//Callback function when the file has been moved successfully - inserting the complete path
+function successMove(entry) {
+    //I do my insert with "entry.fullPath" as for the path
+	alert('success');
+}
+
+function resOnError(error) {
+    alert(error.code);
 }
 
 // Upload files to server
@@ -1221,7 +1187,7 @@ function uploadFile(mediaFile) {
 	
 	
 	try {
-		movePic(mediaFile);
+		// movePic(mediaFile);
 		log('uploading '+mediaFile.fullPath);
 		log('uploading '+mediaFile.name);
 		// var ft = new FileTransfer(),
