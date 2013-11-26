@@ -1133,7 +1133,7 @@ function setPicture(url, callback) {
 		  }, function (error) {
 			alert("Some error");
 		  });
-	})
+	});
 	// movepic(url);
 	img.src = url;
 	img.onloadend = function() {
