@@ -157,7 +157,7 @@ function initApp(){
 function populateDeviceInfoTimer() {
 	setTimeout(function() {
 		populateDeviceInfo();
-	},500);
+	},100);
 }
 
 /* ----------------------------------------------------------- /

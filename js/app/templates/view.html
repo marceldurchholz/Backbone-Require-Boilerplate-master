@@ -9,15 +9,14 @@
 <div id='tests'>
 	<h4>CAMERA</h4>
 	<input type='button' onclick="getPicture();" value='camera.getPicture()'/>
-	<h4>img:</h4>
 	<div style='width:100%; height:100px;'>
 		<img width="100" id="camera_image">
 	</div>
 	<h4>VIDEO</h4>
+	<input type='button' onclick="captureVideoAction();" value='captureVideoAction()'/>
 	<div id="videobox">
 		<video id='video_player' controls src='' style='width:100%; height:100px;'></video>
 	</div>
-	<input type='button' onclick="captureVideoAction();" value='captureVideoAction()'/>
 	<h4>device_internet: <span id="device_internet">nix</span></h4>
 	<h4>device_conn: <span id="device_conn"></span></h4>
 	<h4>Platform: <span id="platform"></span></h4>
