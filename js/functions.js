@@ -1196,14 +1196,14 @@ function uploadFile(mediaFile) {
 	// console.log("<video id='video_player' controls src='#' style='position: absolute; width: 320px; height: 200px;'></video>");
 	var video_player = document.getElementById('video_player');
 	var startTime = new Date();
-	// alert(mediaFile.fullPath);			
+	alert(mediaFile.fullPath);			
 	video_player.src = mediaFile.fullPath;
 	video_player.onloadend = function() {
 		consol.log('Video load time: ' + (new Date() - startTime));
 	};
 	console.log('video will now be played');
-	// my_media = new Media(mediaFile.fullPath, mediaOnSuccess, mediaOnError);
-	// my_media.play()
+	my_media = new Media(mediaFile.fullPath, mediaOnSuccess, mediaOnError);
+	my_media.play()
 	
 	log('class uploadFile ended');
 }	
