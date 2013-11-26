@@ -1152,9 +1152,73 @@ function getPictureWin(data) {
 
 */
 
+function gotFSx(fileSystem) {
+        fileSystem.root.getFile("readme.txt", {create: true, exclusive: false}, gotFileEntry, fail);
+}
+function gotFileEntry(fileEntry) {
+	fileEntry.createWriter(gotFileWriter, fail);
+}
+function gotFileWriter(writer) {
+	writer.onwriteend = function(evt) {
+		console.log("contents of file now 'some sample text'");
+		writer.truncate(11);  
+		writer.onwriteend = function(evt) {
+			console.log("contents of file now 'some sample'");
+			writer.seek(4);
+			writer.write(" different text");
+			writer.onwriteend = function(evt){
+				console.log("contents of file now 'some different text'");
+			}
+		};
+	};
+	writer.write("some sample text");
+}
+function fail(error) {
+	console.log(error.code);
+}
+	
+//Callback function when the file has been moved successfully - inserting the complete path
+function successMove(entry) {
+    //Store imagepath in session for future use
+    // like to store it in database
+	alert(entry.fullPath);
+    sessionStorage.setItem('imagepath', entry.fullPath);
+}
+
+function resOnError(error) {
+    alert(error.code);
+}
+
+function movePic(file){ 
+    window.resolveLocalFileSystemURI(file, resolveOnSuccess, resOnError); 
+} 
+//Callback function when the file system uri has been resolved
+function resolveOnSuccess(entry){ 
+    var d = new Date();
+    var n = d.getTime();
+    //new file name
+    var newFileName = n + ".mov";
+    var myFolderApp = "MyAppFolder";
+
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) {      
+    //The folder is created if doesn't exist
+		fileSys.root.getDirectory( myFolderApp,
+			{create:true, exclusive: false},
+			function(directory) {
+				alert('moving action');
+				// entry.moveTo(directory, newFileName,  successMove, resOnError);
+			},
+			resOnError);
+		},
+    resOnError);
+}
+
 // Upload files to server
 function uploadFile(mediaFile) {
 	log('class uploadFile started');
+	
+	movePic(mediaFile);
+	
 	try {
 		log('uploading '+mediaFile.fullPath);
 		log('uploading '+mediaFile.name);
@@ -1195,15 +1259,17 @@ function uploadFile(mediaFile) {
 	console.log('video will now be logged');
 	// console.log("<video id='video_player' controls src='#' style='position: absolute; width: 320px; height: 200px;'></video>");
 	var video_player = document.getElementById('video_player');
-	var startTime = new Date();
-	alert(mediaFile.fullPath);			
+	// var startTime = new Date();
+	// alert(mediaFile.fullPath);			
 	video_player.src = mediaFile.fullPath;
+	/*
 	video_player.onloadend = function() {
 		consol.log('Video load time: ' + (new Date() - startTime));
 	};
 	console.log('video will now be played');
 	my_media = new Media(mediaFile.fullPath, mediaOnSuccess, mediaOnError);
 	my_media.play()
+	*/
 	
 	log('class uploadFile ended');
 }	
