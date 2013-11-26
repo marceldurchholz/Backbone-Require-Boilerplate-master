@@ -157,6 +157,7 @@ function initApp(){
 function populateDeviceInfoTimer() {
 	setTimeout(function() {
 		populateDeviceInfo();
+		window.scrollTo(0, 1); 
 	},100);
 }
 
