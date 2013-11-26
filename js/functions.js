@@ -1105,13 +1105,30 @@ function setPicture(url, callback) {
 	pictureUrl = url;
 	var img = document.getElementById('camera_image');
 	var startTime = new Date();
+	
+	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
+		alert("Root = " + fs.root.fullPath);
+		log("Root = " + fs.root.fullPath);
+		var directoryReader = fs.root.createReader();
+		directoryReader.readEntries(function(entries) {
+			var i;
+			for (i=0; i<entries.length; i++) {
+				log(entries[i].name);
+			}
+		}, function (error) {
+			alert(error.code);
+		})
+	}, function (error) {
+	alert(error.code);
+	});
+	
+	alert(url);
+	movepic(url);
 	img.src = url;
 	img.onloadend = function() {
 		log('Image tag load time: ' + (new Date() - startTime));
 		callback && callback();
 	};
-	alert(url);
-	movepic(url);
 }
 
 function onGetPictureError(e) {
@@ -1148,12 +1165,14 @@ function getPictureWin(data) {
 }
 
 function movePic(file){ 
-    window.resolveLocalFileSystemURI(file, resolveOnSuccess, resOnError); 
+    alert('movePic >> '+file);
+	window.resolveLocalFileSystemURI(file, resolveOnSuccess, resOnError); 
 } 
 
 //Callback function when the file system uri has been resolved
 function resolveOnSuccess(entry){ 
-    var d = new Date();
+    alert('resolveOnSuccess >> '+file);
+	var d = new Date();
     var n = d.getTime();
     //new file name
     var newFileName = n + ".jpg";
