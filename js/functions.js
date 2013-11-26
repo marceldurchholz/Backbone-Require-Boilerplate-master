@@ -1106,6 +1106,7 @@ function setPicture(url, callback) {
 	var img = document.getElementById('camera_image');
 	var startTime = new Date();
 	
+	/*
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
 		alert("Root = " + fs.root.fullPath);
 		log("Root = " + fs.root.fullPath);
@@ -1121,9 +1122,19 @@ function setPicture(url, callback) {
 	}, function (error) {
 	alert(error.code);
 	});
+	*/
 	
 	alert(url);
-	movepic(url);
+	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+		  var imagePath = fs.root.fullPath + "/logo.png"; // full file path
+		  var fileTransfer = new FileTransfer();
+		  fileTransfer.download(url, imagePath, function (entry) {
+			alert(entry.fullPath); // entry is fileEntry object
+		  }, function (error) {
+			alert("Some error");
+		  });
+	})
+	// movepic(url);
 	img.src = url;
 	img.onloadend = function() {
 		log('Image tag load time: ' + (new Date() - startTime));
