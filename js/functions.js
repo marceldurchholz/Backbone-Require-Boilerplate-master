@@ -1314,7 +1314,7 @@ function setVideo(mediaFiles) {
 			var name = mediaFiles[i].name;
 			log('name ['+i+']:'+name);
 			// do something interesting with the file
-			uploadFile(mediaFiles[i]);
+			// uploadFile(mediaFiles[i]);
 		}
 		// console.log('stringifiedjsondata: '+JSON.stringify(mediaFiles));
 		// window.atob(url);
