@@ -86,6 +86,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			fillTable: function(callback) {
 				this.db.transaction(
 					function(tx) {
+						/*
 						var sql =
 							"CREATE TABLE IF NOT EXISTS employee ( " +
 							"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -96,13 +97,14 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 							"deleted INTEGER, " +
 							"lastModified VARCHAR(50))";
 						tx.executeSql(sql);
+						*/
 						// sample data 
 						/*
 						tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (5,'Steven','Wells','Software Architect','617-000-0012','false','2013-11-09 22:14:19')");
 						tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (4,'Amy','Jones','Sales Representative','617-000-0011','false','2013-11-09 22:14:19')");
 						tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (3,'Kathleen','Byrne','Sales Representative','617-000-0010','false','2013-11-09 22:14:19')");
-						tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (2,'Gary','Donovan','Marketing','617-000-0009','false','2013-11-09 22:14:19')");
 						*/
+						tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (2,'Gary','Donovan','Marketing','617-000-0009','false','2013-11-09 22:14:19')");
 						tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (1,'Lisa','Wong','Marketing Manager','617-000-0008','false','2013-11-09 22:14:19')");
 					},
 					this.txErrorHandler,
@@ -299,15 +301,20 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			menuStatus = false;
 			// $.mobile.changePage( "#aboutus", { transition: "slideup", changeHash: true });
 		});
+		return false;
 	});
 	
 	$('body').on('vclick', '#reset', function() {
 		report('reset');
 		dao.dropTable(function() {
-		   dao.createTable();
+		   // dao.createTable();
 		});
 	});
 
+	$('body').on('vclick', '#create', function() {
+		report('create');
+		dao.createTable();
+	});
 
 	$('body').on('vclick', '#sync', function() {
 		report('sync');
