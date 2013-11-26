@@ -10,7 +10,6 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	$.mobile.allowCrossDomainPages = true;
     $.mobile.linkBindingEnabled = false;
     $.mobile.hashListeningEnabled = false;	
-	$.mobile.allowCrossDomainPages = true;
 
 	$(window).bind('hashchange', function(){
 		// currentHash = window.location.hash;

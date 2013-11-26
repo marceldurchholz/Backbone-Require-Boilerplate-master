@@ -6,7 +6,6 @@ $(document).bind("mobileinit", function(){
 	$.mobile.allowCrossDomainPages = true;
     $.mobile.linkBindingEnabled = false;
     $.mobile.hashListeningEnabled = false;	
-	$.mobile.allowCrossDomainPages = true;
 	jqd.resolve();
 });
 
