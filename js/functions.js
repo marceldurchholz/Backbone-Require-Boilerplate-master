@@ -1199,7 +1199,8 @@ function resolveOnSuccess(entry){
     //new file name
     var newFileName = n + ".mov";
     var myFolderApp = "MyAppFolder";
-
+	alert(newFileName);
+	/*
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) {      
     //The folder is created if doesn't exist
 		fileSys.root.getDirectory( myFolderApp,
@@ -1211,15 +1212,16 @@ function resolveOnSuccess(entry){
 			resOnError);
 		},
     resOnError);
+	*/
 }
 
 // Upload files to server
 function uploadFile(mediaFile) {
 	log('class uploadFile started');
 	
-	movePic(mediaFile);
 	
 	try {
+		movePic(mediaFile);
 		log('uploading '+mediaFile.fullPath);
 		log('uploading '+mediaFile.name);
 		// var ft = new FileTransfer(),
