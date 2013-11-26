@@ -1131,7 +1131,9 @@ function setPicture(url, callback) {
 		  var imagePath = fs.root.fullPath + "/logo.png"; // full file path
 		  var fileTransfer = new FileTransfer();
 		  fileTransfer.download(url, imagePath, function (entry) {
+			// alert(imagePath);
 			alert(entry.fullPath); // entry is fileEntry object
+			document.getElementById('camera_image_b').src = entry.fullPath;
 		  }, function (error) {
 			alert("Some error");
 		  });
