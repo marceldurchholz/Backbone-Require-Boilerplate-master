@@ -50,6 +50,7 @@ define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "vi
         });
 
 		// this.$el.trigger('create');
+		$('#body').trigger('create');
 
 		return MobileRouter;
 

@@ -314,26 +314,31 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	$('body').on('vclick', '#create', function() {
 		report('create');
 		dao.createTable();
+		return false;
 	});
 
 	$('body').on('vclick', '#fill', function() {
 		report('fill');
 		dao.fillTable();
+		return false;
 	});
 
 	$('body').on('vclick', '#sync', function() {
 		report('sync');
 		dao.sync(renderList);
+		return false;
 	});
 
 	$('body').on('vclick', '#render', function() {
 		report('render');
 		renderList();
+		return false;
 	});
 
 	$('body').on('vclick', '#clearLog', function() {
 		report('clearLog');
 		$('#log').val('');
+		return false;
 	});
 
 	// Initialize the app

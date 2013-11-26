@@ -282,11 +282,9 @@ function modifyiOS7StatusBar(){
 		StatusBar.styleLightContent();
 		StatusBar.backgroundColorByName("black");
 		// StatusBar.backgroundColorByHexString("#3e8fd9");
-		/*
 		if (parseFloat(window.device.version) === 7.0) {
 			  document.body.style.marginTop = "20px";
 		}
-		*/
     }catch(e){ catchError('modifyiOS7StatusBar()',e); }            
 }
 
