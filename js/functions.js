@@ -157,7 +157,7 @@ function initApp(){
 function populateDeviceInfoTimer() {
 	setTimeout(function() {
 		populateDeviceInfo();
-		window.scrollTo(0, 1); 
+		// window.scrollTo(0, 1); 
 	},100);
 }
 
@@ -888,10 +888,11 @@ function isiPhone(){
 }
 
 
+/*
 function scrollToTop(){
 	$(window).scrollTop(0); //window.scrollTo(0,0);
 }
-
+*/
 
 function getURLParameter(name) {
   name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");

@@ -34,7 +34,8 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	
 		window.dao =  {
 
-			syncURL: "../api/employees",
+			// syncURL: "../api/employees",
+			syncURL: "http://coenraets.org/offline-sync/api/employees?modifiedSince=2012-03-01%2010:20:56",
 
 			initialize: function(callback) {
 				var self = this;
