@@ -10,6 +10,12 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	$.mobile.allowCrossDomainPages = true;
     $.mobile.linkBindingEnabled = false;
     $.mobile.hashListeningEnabled = false;	
+	$.mobile.buttonMarkup.hoverDelay = 0;
+	$.mobile.defaultPageTransition = 'none'; 
+	$.mobile.defaultDialogTransition = "none";
+	$.mobile.page.prototype.options.degradeInputs.date = true;
+	$.mobile.page.prototype.options.domCache = false;
+	$.mobile.ignoreContentEnabled=true;
 
 	$.when(dd, jqd).done(function doInit() {
 		populateDeviceInfoTimer();

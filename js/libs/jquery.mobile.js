@@ -6,6 +6,12 @@ $(document).bind("mobileinit", function(){
 	$.mobile.allowCrossDomainPages = true;
     $.mobile.linkBindingEnabled = false;
     $.mobile.hashListeningEnabled = false;	
+	$.mobile.buttonMarkup.hoverDelay = 0;
+	$.mobile.defaultPageTransition = 'none'; 
+	$.mobile.defaultDialogTransition = "none";
+	$.mobile.page.prototype.options.degradeInputs.date = true;
+	$.mobile.page.prototype.options.domCache = false;
+	$.mobile.ignoreContentEnabled=true;
 	jqd.resolve();
 });
 

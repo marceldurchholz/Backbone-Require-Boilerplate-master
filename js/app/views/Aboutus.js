@@ -32,6 +32,9 @@ define(["jquery", "backbone", "models/Model", "text!templates/aboutus.html", "te
                 // this.$el.html(this.template);
 				$('#page-content').html(template);
 
+				// this.$el.trigger('create');
+				$('#body').trigger('create');
+
                 return this;
 
             }

@@ -4,7 +4,18 @@ define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "vi
         
     function($, Backbone, UserModel, View, Aboutus, Testarea, Collection) {
 
-        var MobileRouter = Backbone.Router.extend({
+		$.support.cors = true;
+		$.mobile.allowCrossDomainPages = true;
+		$.mobile.linkBindingEnabled = false;
+		$.mobile.hashListeningEnabled = false;	
+		$.mobile.buttonMarkup.hoverDelay = 0;
+		$.mobile.defaultPageTransition = 'none'; 
+		$.mobile.defaultDialogTransition = "none";
+		$.mobile.page.prototype.options.degradeInputs.date = true;
+		$.mobile.page.prototype.options.domCache = false;
+		$.mobile.ignoreContentEnabled=true;
+
+		var MobileRouter = Backbone.Router.extend({
 
             initialize: function() {
 
@@ -37,6 +48,8 @@ define(["jquery", "backbone", "models/Model", "views/View", "views/Aboutus", "vi
             }
     
         });
+
+		// this.$el.trigger('create');
 
 		return MobileRouter;
 

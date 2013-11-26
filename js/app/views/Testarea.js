@@ -32,6 +32,9 @@ define(["jquery", "backbone", "models/Model", "text!templates/testarea.html", "t
                 // this.$el.html(this.template);
                 this.$el.html(this.template);
 
+				// this.$el.trigger('create');
+				$('#body').trigger('create');
+				
                 return this;
 
             }
