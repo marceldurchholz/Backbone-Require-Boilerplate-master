@@ -11,31 +11,19 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
     $.mobile.linkBindingEnabled = false;
     $.mobile.hashListeningEnabled = false;	
 
+	$.when(dd, jqd).done(function doInit() {
+		populateDeviceInfoTimer();
+		// Returns the MobileRouter class
+	});
+	app.initialize();
+
 	$(window).bind('hashchange', function(){
 		// currentHash = window.location.hash;
 		// console.log(window.location.hash);
-		alert('MobileInit.js '+window.location.hash);
-		setTimeout(function() {
-			// alert("Hello");
-			populateDeviceInfo();
-		},1000);
+		// alert('MobileInit.js '+window.location.hash);
+		populateDeviceInfoTimer();
 	});
-	
-	app.initialize();
-	/*
-	$.when(dd, jqd).done(doInit);
-	
-	function doInit() {
-		alert('both ready');
-		// $(document).on("pageinit", function(){
-			alert('pagecreate');
-			populateDeviceInfo();
-		// });	
-	}
-	*/
-	
-	// report('MobileInit.js','document.ready END');	
-
+		
 	$('body').on("vclick", "a.footervideolink", function (e) {
 		// report('footer clicked');
 		if (footervideoStatus != true) {
