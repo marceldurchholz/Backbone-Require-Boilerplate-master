@@ -183,6 +183,7 @@ function populateDeviceInfo(){
 			
 				window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 					imagePath = fs.root.fullPath + "/logo.png"; // full file path
+					alert(imagePath);
 					document.getElementById('camera_image_b').src = imagePath;
 				});
 
