@@ -56,7 +56,8 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 									log('Employee table does not exist in local SQLite database');
 									self.createTable(callback);
 								}
-							});
+						});
+						self.sync(renderList);
 					}
 				)
 
