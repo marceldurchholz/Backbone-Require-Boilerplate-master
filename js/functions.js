@@ -1072,76 +1072,6 @@ function catchError(f,e){
 /*
 CAMERA AND VIDEO FUNCTIONS
 */
-function captureVideoAction() {
-	// alert('bla1');
-	// clearStatus();
-	// var options = extractOptions();
-	var options = { limit: 1, duration: 12 };
-	log('Getting video without photo options: ' + JSON.stringify(options));
-	// nur audio aufnehmen: navigator.device.capture.captureAudio
-	var popoverHandle = navigator.device.capture.captureVideo(getVideoWin, onGetVideoError, options);
-	// Reposition the popover if the orientation changes.
-	window.onorientationchange = function() {
-		var newPopoverOptions = new CameraPopoverOptions(0, 0, 100, 100, 0);
-		popoverHandle.setPosition(newPopoverOptions);
-	}
-	// alert('bla4');
-}
-function getVideoWin(data) {
-	// alert('bla2');
-	setVideo(data);
-	// console.log('CALLBACK!');
-	// console.log(JSON.stringify(data));
-}
-function onGetVideoError(e) {
-	// log('Error getting picture: ' + e.code);
-	// alert('bla3');
-	console.log('Video capture failed');
-}
-
-function uploadImage() {
-	var ft = new FileTransfer(),
-	uploadcomplete=0,
-	progress = 0,
-	options = new FileUploadOptions();
-	options.fileKey="photo";
-	options.fileName='test.jpg';
-	options.mimeType="image/jpeg";
-	ft.onprogress = function(progressEvent) {
-		log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
-	};
-	var server = "http://cordova-filetransfer.jitsu.com";
-
-	ft.upload(pictureUrl, server + '/upload', win, fail, options);
-	function win(information_back){
-		log('upload complete');
-	}
-	function fail(message) {
-		log('upload failed: ' + JSON.stringify(message));
-	}
-}
-
-
-// capture video page
-
-var my_media;
-var deviceReady = false;
-var platformId = null;
-var CameraPopoverOptions = null;
-var pictureUrl = null;
-var fileObj = null;
-var fileEntry = null;
-var pageStartTime = +new Date();
-
-//default camera options
-var camQualityDefault = ['quality value', 50];
-var camDestinationTypeDefault = ['FILE_URI', 1];
-var camPictureSourceTypeDefault = ['CAMERA', 1];
-var camAllowEditDefault = ['allowEdit', false];
-var camEncodingTypeDefault = ['JPEG', 0];
-var camMediaTypeDefault = ['mediaType', 0];
-var camCorrectOrientationDefault = ['correctOrientation', false];
-var camSaveToPhotoAlbumDefault = ['saveToPhotoAlbum', true];
 
 //-------------------------------------------------------------------------
 // Camera
@@ -1294,7 +1224,7 @@ function mediaOnError(error) {
 
 function captureVideoAction() {
 	// alert('bla1');
-	// clearStatus();
+	clearStatus();
 	// var options = extractOptions();
 	var options = { limit: 1, duration: 12 };
 	// log('Getting video without photo options: ' + JSON.stringify(options));
