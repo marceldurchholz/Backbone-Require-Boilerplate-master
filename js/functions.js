@@ -1105,6 +1105,9 @@ function setPicture(url, callback) {
 	pictureUrl = url;
 	var img = document.getElementById('camera_image');
 	var startTime = new Date();
+	img.src = url;
+	
+	alert(url);
 	
 	/*
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
@@ -1122,7 +1125,8 @@ function setPicture(url, callback) {
 	}, function (error) {
 	alert(error.code);
 	});
-	
+	*/
+
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 		  var imagePath = fs.root.fullPath + "/logo.png"; // full file path
 		  var fileTransfer = new FileTransfer();
@@ -1132,12 +1136,7 @@ function setPicture(url, callback) {
 			alert("Some error");
 		  });
 	});
-	*/
-	
-	alert(url);
-	
-	// movepic(url);
-	img.src = url;
+
 	img.onloadend = function() {
 		log('Image tag load time: ' + (new Date() - startTime));
 		callback && callback();
@@ -1177,49 +1176,17 @@ function getPictureWin(data) {
 	}
 }
 
-function movePic(file){ 
-    alert('movePic >> '+file);
-	window.resolveLocalFileSystemURI(file, resolveOnSuccess, resOnError); 
-} 
+// TODO: File Transfer onProgress Download
+// http://www.raymondcamden.com/index.cfm/2013/5/1/Using-the-Progress-event-in-PhoneGap-file-transfers
 
-//Callback function when the file system uri has been resolved
-function resolveOnSuccess(entry){ 
-    alert('resolveOnSuccess >> '+file);
-	var d = new Date();
-    var n = d.getTime();
-    //new file name
-    var newFileName = n + ".jpg";
-    var myFolderApp = "EasyPacking";
+/*
 
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) {      
-    //The folder is created if doesn't exist
-    fileSys.root.getDirectory( myFolderApp,
-                    {create:true, exclusive: false},
-                    function(directory) {
-                        entry.moveTo(directory, newFileName,  successMove, resOnError);
-                    },
-                    resOnError);
-                    },
-    resOnError);
-}
-
-//Callback function when the file has been moved successfully - inserting the complete path
-function successMove(entry) {
-    //I do my insert with "entry.fullPath" as for the path
-	alert('success');
-}
-
-function resOnError(error) {
-    alert(error.code);
-}
+*/
 
 // Upload files to server
 function uploadFile(mediaFile) {
 	log('class uploadFile started');
-	
-	
 	try {
-		// movePic(mediaFile);
 		log('uploading '+mediaFile.fullPath);
 		log('uploading '+mediaFile.name);
 		// var ft = new FileTransfer(),
@@ -1259,17 +1226,15 @@ function uploadFile(mediaFile) {
 	console.log('video will now be logged');
 	// console.log("<video id='video_player' controls src='#' style='position: absolute; width: 320px; height: 200px;'></video>");
 	var video_player = document.getElementById('video_player');
-	// var startTime = new Date();
+	var startTime = new Date();
 	// alert(mediaFile.fullPath);			
 	video_player.src = mediaFile.fullPath;
-	/*
 	video_player.onloadend = function() {
 		consol.log('Video load time: ' + (new Date() - startTime));
 	};
 	console.log('video will now be played');
 	my_media = new Media(mediaFile.fullPath, mediaOnSuccess, mediaOnError);
 	my_media.play()
-	*/
 	
 	log('class uploadFile ended');
 }	
