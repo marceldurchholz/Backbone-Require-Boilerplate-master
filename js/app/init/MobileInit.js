@@ -316,6 +316,11 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		dao.createTable();
 	});
 
+	$('body').on('vclick', '#fill', function() {
+		report('fill');
+		dao.fillTable();
+	});
+
 	$('body').on('vclick', '#sync', function() {
 		report('sync');
 		dao.sync(renderList);
