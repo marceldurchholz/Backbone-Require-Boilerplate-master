@@ -1122,9 +1122,7 @@ function setPicture(url, callback) {
 	}, function (error) {
 	alert(error.code);
 	});
-	*/
 	
-	alert(url);
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 		  var imagePath = fs.root.fullPath + "/logo.png"; // full file path
 		  var fileTransfer = new FileTransfer();
@@ -1134,6 +1132,10 @@ function setPicture(url, callback) {
 			alert("Some error");
 		  });
 	});
+	*/
+	
+	alert(url);
+	
 	// movepic(url);
 	img.src = url;
 	img.onloadend = function() {
