@@ -1074,7 +1074,7 @@ CAMERA AND VIDEO FUNCTIONS
 */
 function captureVideoAction() {
 	// alert('bla1');
-	clearStatus();
+	// clearStatus();
 	// var options = extractOptions();
 	var options = { limit: 1, duration: 12 };
 	log('Getting video without photo options: ' + JSON.stringify(options));
@@ -1090,8 +1090,8 @@ function captureVideoAction() {
 function getVideoWin(data) {
 	// alert('bla2');
 	setVideo(data);
-	console.log('CALLBACK!');
-	console.log(JSON.stringify(data));
+	// console.log('CALLBACK!');
+	// console.log(JSON.stringify(data));
 }
 function onGetVideoError(e) {
 	// log('Error getting picture: ' + e.code);
@@ -1187,7 +1187,7 @@ function onGetPictureError(e) {
 }
 
 function getPicture() {
-	clearStatus();
+	// clearStatus();
 	var options = extractOptions();
 	log('Getting picture with options: ' + JSON.stringify(options));
 	var popoverHandle = navigator.camera.getPicture(getPictureWin, onGetPictureError, options);
@@ -1292,6 +1292,33 @@ function mediaOnError(error) {
 	console.log("Error playbacking media");
 }	
 
+function captureVideoAction() {
+	// alert('bla1');
+	// clearStatus();
+	// var options = extractOptions();
+	var options = { limit: 1, duration: 12 };
+	// log('Getting video without photo options: ' + JSON.stringify(options));
+	// nur audio aufnehmen: navigator.device.capture.captureAudio
+	var popoverHandle = navigator.device.capture.captureVideo(getVideoWin, onGetVideoError, options);
+	// Reposition the popover if the orientation changes.
+	window.onorientationchange = function() {
+		var newPopoverOptions = new CameraPopoverOptions(0, 0, 100, 100, 0);
+		popoverHandle.setPosition(newPopoverOptions);
+	}
+	// alert('bla4');
+}
+function getVideoWin(data) {
+	// alert('bla2');
+	setVideo(data);
+	// console.log('CALLBACK!');
+	// console.log(JSON.stringify(data));
+}
+function onGetVideoError(e) {
+	// log('Error getting picture: ' + e.code);
+	// alert('bla3');
+	console.log('Video capture failed');
+}
+
 function setVideo(mediaFiles) {
 	// , callback
 	try {
@@ -1334,33 +1361,6 @@ function setVideo(mediaFiles) {
 		// log('Image tag load time: ' + (new Date() - startTime));
 		// callback && callback();
 	// };
-}
-
-function captureVideoAction() {
-	// alert('bla1');
-	clearStatus();
-	// var options = extractOptions();
-	var options = { limit: 1, duration: 12 };
-	log('Getting video without photo options: ' + JSON.stringify(options));
-	// nur audio aufnehmen: navigator.device.capture.captureAudio
-	var popoverHandle = navigator.device.capture.captureVideo(getVideoWin, onGetVideoError, options);
-	// Reposition the popover if the orientation changes.
-	window.onorientationchange = function() {
-		var newPopoverOptions = new CameraPopoverOptions(0, 0, 100, 100, 0);
-		popoverHandle.setPosition(newPopoverOptions);
-	}
-	// alert('bla4');
-}
-function getVideoWin(data) {
-	// alert('bla2');
-	setVideo(data);
-	console.log('CALLBACK!');
-	console.log(JSON.stringify(data));
-}
-function onGetVideoError(e) {
-	// log('Error getting picture: ' + e.code);
-	// alert('bla3');
-	console.log('Video capture failed');
 }
 
 function uploadImage() {
