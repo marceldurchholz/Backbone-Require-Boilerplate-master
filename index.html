@@ -47,7 +47,21 @@
 		}, false);
 	</script>
 	<script src="js/functions.js"></script>
+	<script type="text/javascript" src="js/localdatabasesync.js"></script>
+	<script src="js/adapters/memory-adapter.js"></script>
 	<script src="js/detectmobile.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			window.scrollTo(0, 1); 
+			$.getScript( "js/jqmactions.js", function( data, textStatus, jqxhr ) { });
+			$.mobile.document.unbind("pageshow");
+			$.mobile.document.bind("pageshow", $.mobile.ajaxwhenpageshowed );
+		});
+		$.mobile.ajaxwhenpageshowed = function ajaxwhenpageshowed() {			
+			window.scrollTo(0, 1); 
+			$.getScript( "js/jqmactions.js", function( data, textStatus, jqxhr ) { });
+		};
+	</script>
 	<!--
 	<script type="text/javascript">
 		window.setTimeout(function() {
