@@ -181,7 +181,7 @@ function populateDeviceInfo(){
 		switch(currentHash) {
 			case "#home":
 			
-				if (isMobile.any()) {
+				if (!isMobile.any()) {
 					window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 						imagePath = fs.root.fullPath + "/logo.png"; // full file path
 						alert(imagePath);
@@ -1140,17 +1140,19 @@ function setPicture(url, callback) {
 	});
 	*/
 
-	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
-		  imagePath = fs.root.fullPath + "/logo.png"; // full file path
-		  var fileTransfer = new FileTransfer();
-		  fileTransfer.download(url, imagePath, function (entry) {
-			// alert(imagePath);
-			alert(entry.fullPath); // entry is fileEntry object
-			document.getElementById('camera_image_b').src = entry.fullPath;
-		  }, function (error) {
-			alert("Some error");
-		  });
-	});
+	if (isMobile.any()) {
+		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+			  imagePath = fs.root.fullPath + "/logo.png"; // full file path
+			  var fileTransfer = new FileTransfer();
+			  fileTransfer.download(url, imagePath, function (entry) {
+				// alert(imagePath);
+				alert(entry.fullPath); // entry is fileEntry object
+				document.getElementById('camera_image_b').src = entry.fullPath;
+			  }, function (error) {
+				alert("Some error");
+			  });
+		});
+	}
 
 	img.onloadend = function() {
 		log('Image tag load time: ' + (new Date() - startTime));
@@ -1414,9 +1416,10 @@ function copyImage() {
 		fileEntry.moveTo(destDirEntry, 'moved_file.png', logCallback('FileEntry.moveTo', true), logCallback('FileEntry.moveTo', false));
 	};
 
-	window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, onFileSystemReceived, null);
+	if (isMobile.any()) {
+		window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, onFileSystemReceived, null);
+	}
 };
-
 
 function extractOptions() {
 	var els = document.querySelectorAll('#image-options select');
