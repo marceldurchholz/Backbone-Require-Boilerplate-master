@@ -1,8 +1,8 @@
 // Testarea.js
 // -------
-define(["jquery", "backbone", "models/Model", "text!templates/testarea.html", "text!templates/sidebar.html"],
+define(["jquery", "backbone", "text!templates/testarea.html", "text!templates/sidebar.html"],
 
-    function($, Backbone, Model, template, sidebar){
+    function($, Backbone, template, sidebar){
 
         var Testarea = Backbone.View.extend({
 

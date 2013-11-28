@@ -181,7 +181,7 @@ function populateDeviceInfo(){
 		switch(currentHash) {
 			case "#home":
 			
-				if (!isMobile.any()) {
+				if (isMobile.any()) {
 					window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 						imagePath = fs.root.fullPath + "/logo.png"; // full file path
 						alert(imagePath);

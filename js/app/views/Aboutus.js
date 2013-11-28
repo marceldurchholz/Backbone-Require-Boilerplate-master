@@ -1,8 +1,8 @@
 // Aboutus.js
 // -------
-define(["jquery", "backbone", "models/Model", "text!templates/aboutus.html", "text!templates/sidebar.html"],
+define(["jquery", "backbone", "text!templates/aboutus.html", "text!templates/sidebar.html"],
 
-    function($, Backbone, Model, template, sidebar){
+    function($, Backbone, template, sidebar){
 
         var Aboutus = Backbone.View.extend({
 
