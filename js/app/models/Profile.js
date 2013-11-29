@@ -8,7 +8,7 @@ function($, Backbone, MobileRouter) {
 
 		var Profile = Backbone.Model.extend( {
 			defaults: {
-				id: '100000853413637',
+				id: '',
 				first_name: '',
 				last_name: '',
 				username: '',
@@ -104,7 +104,7 @@ function($, Backbone, MobileRouter) {
 				alert('model changed');
 			}
 		});
-        // this.set({ src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/mdurchholz.jpg', id: '100000853413637' });
+        // this.set({ src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/mdurchholz.jpg', id: '' });
 		
 		return Profile;
 

@@ -7,21 +7,22 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 		var View = Backbone.View.extend({
 
             el: "#page-content",
+			attributes: {"data-role": 'content'},
 
             initialize: function() {
-
-				// var myModel = new Profile;
-				// myModel.set({id: new System(), profileData: new Profile()});
-				
-				this.modelData = new Backbone.Model();
+				this.modelData = new Backbone.Model({systemData: new System(), profileData: new Profile()});
+				// alert('initialize');
+				// this.modelData.set({systemData: new System(), profileData: new Profile()});
 				// alert(this.modelData);
 				// this.model = model;
-				this.modelData.set({systemData: new System(), profileData: new Profile()});
 				// var obj = this.modelData;
 				// alert(this.modelData.get('systemData').get('version'));
 				// alert(JSON.stringify(obj, null, 4));
 				// var view = new GridView({model: model});
-				this.modelData.bind("change", this.render);
+				// this.modelData.bind("change", this.render);
+				// this.modelData.bind('change', this.update);
+				// this.listenTo( this.modelData, 'change', this.render );
+				// this.modelData.bind('reset', this.render, this);
 				// this.modelData.on("change", this.render, this);
 				/*
 				this.systemData = new System();
@@ -34,57 +35,35 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				// this.modelData.on('change',this.render, this);
 				
                 this.render();
-
-            },
-			/*			
-		    changeHandler: function(val) {
-				// this.render();
-				// this.profileData.set({ src: 'Enter color value' });
-				// alert('model has changed in view');
-				// alert(val.attributes.id);
-			},
-			*/
+            },			
             events: {
 				'click .login': 'login',
-				'click .logout': 'logout'
+				'click .logout': 'logout',
+				'click .kickbtn': 'updateProfileDataBtnClicked'
             },
 			
 			login: function () {
-				$(document).trigger('login');
+				// $(document).trigger('login');
+				// return false;
+				this.modelData.get('profileData').set( {id: '100000853413637'} );
+				this.render();
 				return false;
 			},
 			logout: function () {
-				$(document).trigger('logout');
+				this.modelData.get('profileData').set( {id: ''} );
+				this.render();
 				return false;
 			},
-			updateProfileDataBrnClicked: function(e) {
-				alert('bla');
-				// alert(JSON.stringify(e, null, 4));
-				printObject(e);
-				// alert(e);
-				// this.modelData.set({ id: '12354' });
-				// var blaData = this.modelData.get('id');
-				// var foo = blaData.get('id');
-				// alert(foo);
-				// this.modelData.set('profileData').set({ id: '555' })
-				// this.render;
-				// return false;
+			updateProfileDataBtnClicked: function() {
+				this.modelData.get('profileData').set( {id: '100000853413637'} );
+				this.render();
+				return false;
 			},
             render: function() {
-				// this.modelData.set({ src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/mdurchholz.jpg', id: '100000853413637' });
-				
-				$('#page-content').on("vclick", "#updateProfileDataBtn", this.updateProfileDataBrnClicked);
-				
-				// sidebar
-                this.sidebar = _.template(sidebar, {});
-				// Append the result to the view's element.
+				this.sidebar = _.template(sidebar, {});
 				$('#sidebar').html(sidebar);
-				// Maintains chainability
 				
-                // Setting the view's template property using the Underscore template method
-                // this.template = _.template(template, {});
-				// template = _.template(template, {src: this.profileData.attributes.src, id: this.profileData.attributes.id, first_name: this.profileData.attributes.first_name, last_name: this.profileData.attributes.last_name}, {variable: 'profileData'});
-				template = _.template(template, {
+				this._template = _.template(template, {
 					id: this.modelData.get('profileData').get('id'), 
 					src: this.modelData.get('profileData').get('src'), 
 					first_name: this.modelData.get('profileData').get('first_name'), 
@@ -92,17 +71,10 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 					version: this.modelData.get('systemData').get('version')
 					}, {variable: 'modelData'}
 				);
-				// template = _.template(template, {version: this.modelData.attributes.version}, {variable: 'modelData'});
+				this.$el.html(this._template);
 				
-                // Dynamically updates the UI with the view's template
-                // this.$el.html(this.template);
-				$('#page-content').html(template);
-
-				// this.$el.trigger('create');
 				$('#body').trigger('create');
-
                 return this;
-
             }
 
         });

@@ -8,16 +8,16 @@
 </div>
 <div id='tests'>
 
-	<input type='button' id='updateProfileDataBtn' class='updateProfileDataBtn' value='updateProfileData'/>
-
-	<%= modelData.id %> <br>
 	<!--
-	<%= modelData.version %> <br>
-	<%= modelData.src %> <br>
-	<%= modelData.first_name %> <br>
-	<%= modelData.last_name %> <br>
-	<img id="profilePicture" style="height:100px;" src="<%= modelData.src %>">
+	<input type='button' id='updateProfileDataBtn' value='updateProfileData'/>
 	-->
+
+	<%= modelData.version %> <br>
+	<!--
+	<img id="profilePicture" style="height:100px;" src="<%= modelData.src %>">
+	<a href="#" class="kickbtn">updateProfileDataBtn</a> <br>
+	-->
+	<br><br>
 	
 	<ul>
 		<% if (modelData.id) { %> <br>
@@ -25,6 +25,13 @@
 				<img src="https://graph.facebook.com/<%= modelData.id %>/picture?width=150&height=150"/> <br>
 				<%= modelData.lastname %> <br>
 			</a></li>
+			<li>
+				<%= modelData.id %> <br>
+				<%= modelData.first_name %> <br>
+				<%= modelData.last_name %> <br>
+				<%= modelData.src %> <br>
+				<img id="profilePicture" style="height:100px;" src="<%= modelData.src %>"> <br>
+			</li>
 			<li><a href="#" class="logout">Logout</a></li>
 		<% } else { %>
 			<li><a href="#" class="login">Login</a></li>
