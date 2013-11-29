@@ -35,9 +35,9 @@ function($, Backbone, MobileRouter) {
 						// alert(rootPath);
 						window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 							// profilePicture.src = fs.root.fullPath + "/photoshot.png";
-							this.set( {src: fs.root.fullPath + "/photoshot.png"} );
+							// this.set( {src: fs.root.fullPath + "/photoshot.png"} );
 							// fs.root.fullPath + "/photoshot.png"
-							alert('xyz: '+fs.root.fullPath + '/photoshot.png');
+							// alert('xyz: '+fs.root.fullPath + '/photoshot.png');
 							if (checkFileExists(fs.root.fullPath + "/photoshot.png")) {							
 								alert('existing: '+fs.root.fullPath + '/photoshot.png'); // File Exists
 								this.set( {src: fs.root.fullPath + "/photoshot.png"} );

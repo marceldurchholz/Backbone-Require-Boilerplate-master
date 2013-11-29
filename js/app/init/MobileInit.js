@@ -18,6 +18,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	$.mobile.ignoreContentEnabled=true;
 
 	$.when(dd, jqd).done(function doInit() {
+		/*
 		var isTouch = !!('ontouchstart' in window);
 		document.getElementById('body').setAttribute('class', isTouch ? 'touch' : 'desktop');    
 		$('.scrollable').pullToRefresh({
@@ -29,7 +30,9 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 				return def.promise();
 			}
 		});
-		populateDeviceInfoTimer();
+		*/
+		modifyiOS7StatusBar();
+		// populateDeviceInfoTimer();
 		// Returns the MobileRouter class
 	});
 
@@ -47,7 +50,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		window.dao =  {
 
 			// syncURL: "../api/employees",
-			syncURL: "http://coenraets.org/offline-sync/api/employees?modifiedSince=2012-03-01%2010:20:56",
+			syncURL: "http://coenraets.org/offline-sync/api/employees?modifiedSince=2010-03-01%2010:20:56",
 
 			initialize: function(callback) {
 				var self = this;
@@ -61,11 +64,11 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 						tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='employee'", this.txErrorHandler,
 							function(tx, results) {
 								if (results.rows.length == 1) {
-									log('Using existing Employee table in local SQLite database');
+									console.log('Using existing Employee table in local SQLite database');
 								}
 								else
 								{
-									log('Employee table does not exist in local SQLite database');
+									console.log('Employee table does not exist in local SQLite database');
 									self.createTable(callback);
 								}
 						});
@@ -91,7 +94,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 					},
 					this.txErrorHandler,
 					function() {
-						log('Table employee successfully CREATED in local SQLite database');
+						console.log('Table employee successfully CREATED in local SQLite database');
 						callback();
 					}
 				);
@@ -123,7 +126,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 					},
 					this.txErrorHandler,
 					function() {
-						log('Table employee successfully FILLED in local SQLite database');
+						console.log('Table employee successfully FILLED in local SQLite database');
 						callback();
 					}
 				);
@@ -136,7 +139,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 					},
 					this.txErrorHandler,
 					function() {
-						log('Table employee successfully DROPPED in local SQLite database');
+						console.log('Table employee successfully DROPPED in local SQLite database');
 						callback();
 					}
 				);
@@ -146,7 +149,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 				this.db.transaction(
 					function(tx) {
 						var sql = "SELECT * FROM EMPLOYEE";
-						log('Local SQLite database: "SELECT * FROM EMPLOYEE"');
+						console.log('Local SQLite database: "SELECT * FROM EMPLOYEE"');
 						tx.executeSql(sql, this.txErrorHandler,
 							function(tx, results) {
 								var len = results.rows.length,
@@ -155,7 +158,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 								for (; i < len; i = i + 1) {
 									employees[i] = results.rows.item(i);
 								}
-								log(len + ' rows found');
+								console.log(len + ' rows found');
 								callback(employees);
 							}
 						);
@@ -170,7 +173,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 						tx.executeSql(sql, this.txErrorHandler,
 							function(tx, results) {
 								var lastSync = results.rows.item(0).lastSync;
-								log('Last local timestamp is ' + lastSync);
+								console.log('Last local timestamp is ' + lastSync);
 								callback(lastSync);
 							}
 						);
@@ -180,14 +183,14 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
 			sync: function(callback) {
 				var self = this;
-				log('Starting synchronization...');
+				console.log('Starting synchronization...');
 				this.getLastSync(function(lastSync){
 					self.getChanges(self.syncURL, lastSync,
 						function (changes) {
 							if (changes.length > 0) {
 								self.applyChanges(changes, callback);
 							} else {
-								log('Nothing to synchronize');
+								console.log('Nothing to synchronize');
 								callback();
 							}
 						}
@@ -202,7 +205,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 					data: {modifiedSince: modifiedSince},
 					dataType:"json",
 					success:function (data) {
-						log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
+						console.log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
 						callback(data);
 					},
 					error: function(model, response) {
@@ -219,15 +222,15 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 						var sql =
 							"INSERT OR REPLACE INTO employee (id, firstName, lastName, title, officePhone, deleted, lastModified) " +
 							"VALUES (?, ?, ?, ?, ?, ?, ?)";
-						log('Inserting or Updating in local database:');
+						console.log('Inserting or Updating in local database:');
 						var e;
 						for (var i = 0; i < l; i++) {
 							e = employees[i];
-							log(e.id + ' ' + e.firstName + ' ' + e.lastName + ' ' + e.title + ' ' + e.officePhone + ' ' + e.deleted + ' ' + e.lastModified);
+							console.log(e.id + ' ' + e.firstName + ' ' + e.lastName + ' ' + e.title + ' ' + e.officePhone + ' ' + e.deleted + ' ' + e.lastModified);
 							var params = [e.id, e.firstName, e.lastName, e.title, e.officePhone, e.deleted, e.lastModified];
 							tx.executeSql(sql, params);
 						}
-						log('Synchronization complete (' + l + ' items synchronized)');
+						console.log('Synchronization complete (' + l + ' items synchronized)');
 					},
 					this.txErrorHandler,
 					function(tx) {
@@ -248,7 +251,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	}
 
 	function renderList(employees) {
-		log('Rendering list using local SQLite data...');
+		console.log('Rendering list using local SQLite data...');
 		dao.findAll(function(employees) {
 			$('#list').empty();
 			var l = employees.length;
@@ -266,25 +269,26 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		});
 	}
 
+	/*
 	function log(msg) {
 		$('#log').val($('#log').val() + msg + '\n');
 	}
-
+	*/
 
 	window.addEventListener('load', function () {
 		new FastClick(document.body);
 	}, false);
 
 	// $(document).on('login', function () {
+	/*
 	$('body').on("login", function () {
 		alert('doing action login');
-		/*
 		FB.login(function(response) {
 			alert("Logged In");
 		}, {scope: 'publish_actions,user_status,friends_status,read_stream'});
-		*/
 		return false;
 	});
+	*/
 	
 	$('#footervideolink').on("vclick", function (e) {
 		// report('footer clicked');

@@ -163,6 +163,13 @@ function checkFileExists(fileName){
     return (http.status != 404);
 }
 
+function printObject(o) {
+  var out = '';
+  for (var p in o) {
+    out += p + ': ' + o[p] + '\n';
+  }
+  alert(out);
+}
 
 /* ----------------------------------------------------------- /
  populateDeviceInfo (incl. Timer)
@@ -172,14 +179,6 @@ function populateDeviceInfoTimer() {
 		populateDeviceInfo();
 		// window.scrollTo(0, 1); 
 	},3000);
-}
-
-function printObject(o) {
-  var out = '';
-  for (var p in o) {
-    out += p + ': ' + o[p] + '\n';
-  }
-  alert(out);
 }
 
 function populateDeviceInfo(){
@@ -211,16 +210,17 @@ function populateDeviceInfo(){
 				listeningElement.setAttribute('style', 'display:none;');
 				var receivedElement = parentElement.querySelector('.received');
 				receivedElement.setAttribute('style', 'display:block;');
+/*
 				if(!isMobile.any()) {
 					report('populateDeviceInfo()','isMobile.any NOT true');
 					// alert('populateDeviceInfo');
 					document.getElementById("device_internet").innerHTML = 'NOT MOBILE';
 				}
 				else {
+*/
 					report('populateDeviceInfo()','isMobile.any IS true');
 					// alert('populateDeviceInfo');
 					// document.getElementById("device_internet").innerHTML = 'IS MOBILE';
-					modifyiOS7StatusBar();
 
 					var id = 'devicereadydiv';
 					var parentElement = document.getElementById(id);
@@ -229,17 +229,17 @@ function populateDeviceInfo(){
 					var receivedElement = parentElement.querySelector('.received');
 					receivedElement.setAttribute('style', 'display:block;');
 
-					document.getElementById("device_internet").innerHTML = isConnectedToInternet();
-					// if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MOBILE';
+					// document.getElementById("device_internet").innerHTML = isConnectedToInternet();
 					document.getElementById("user_agent").innerHTML = navigator.userAgent;
-					document.getElementById("platform").innerHTML = device.platform;
-					// document.getElementById("version").innerHTML = device.version;
-					document.getElementById("uuid").innerHTML = device.uuid;
-					document.getElementById("name").innerHTML = device.name;
-					document.getElementById("model").innerHTML = device.model;
 					document.getElementById("width").innerHTML = screen.width;
 					document.getElementById("height").innerHTML = screen.height;
 					document.getElementById("colorDepth").innerHTML = screen.colorDepth;
+					// if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MOBILE';
+					// document.getElementById("platform").innerHTML = device.platform;
+					// document.getElementById("version").innerHTML = device.version;
+					// document.getElementById("uuid").innerHTML = device.uuid;
+					// document.getElementById("name").innerHTML = device.name;
+					// document.getElementById("model").innerHTML = device.model;
 					// document.getElementById("device_conn").innerHTML = getConnectionType();
 					// $('#device_conn span').html(getConnectionType());
 					// $('#device_platform span').html(getDevicePlatform());
@@ -248,7 +248,7 @@ function populateDeviceInfo(){
 					// $('#device_version span').html(getDeviceVersion());
 					// $('#device_internet span').html(isConnectedToInternet());
 					// doAlert('$(#device_conn span).html(getConnectionType());','--> populateDeviceInfo()..');
-				}
+//				}
 			break;
 		}
 	}catch(e){ 
@@ -306,18 +306,23 @@ function postDeviceReadyActions(){
     modifyiOS7StatusBar
 / ----------------------------------------------------------- */
 function modifyiOS7StatusBar(){
-    try{
-        StatusBar.overlaysWebView(false);
-		// StatusBar.styleLightContent();
-		StatusBar.backgroundColorByName("black");
-		document.body.style.marginTop = "20px";
-		// StatusBar.backgroundColorByHexString("#3e8fd9");
-		/*
-		if (parseFloat(window.device.version) === 7.0) {
-			  document.body.style.marginTop = "20px";
-		}
-		*/
-    }catch(e){ catchError('modifyiOS7StatusBar()',e); }            
+    if (isMobile.any()) {
+		try{
+			StatusBar.overlaysWebView(true);
+			StatusBar.styleLightContent();
+			StatusBar.backgroundColorByName("black");
+			document.body.style.marginTop = "20px";
+			// StatusBar.backgroundColorByHexString("#3e8fd9");
+			/*
+			if (parseFloat(window.device.version) === 7.0) {
+				  document.body.style.marginTop = "20px";
+			}
+			*/
+		} catch(e){ catchError('modifyiOS7StatusBar()',e); }
+	}
+	else {
+	console.log('not mobile: statusbar not modified');
+	}
 }
 
 function debugModeEnabled(){

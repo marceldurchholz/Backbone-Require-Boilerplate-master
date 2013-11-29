@@ -10,12 +10,11 @@
 
 	<!--
 	<input type='button' id='updateProfileDataBtn' value='updateProfileData'/>
+	<%= modelData.version %> <br>
 	-->
 
-	<%= modelData.version %> <br>
 	<!--
 	<img id="profilePicture" style="height:100px;" src="<%= modelData.src %>">
-	<a href="#" class="kickbtn">updateProfileDataBtn</a> <br>
 	-->
 	<br><br>
 	
@@ -111,13 +110,13 @@
 	<div id="videobox">
 		<video id='video_player' controls style='width:100%; height:100px;'></video>
 	</div>
-	<h4>device_internet: <span id="device_internet">nix</span></h4>
+	<h4>device_internet: <span id="device_internet"><%= modelData.device_internet %></span></h4>
 	<h4>device_conn: <span id="device_conn"></span></h4>
-	<h4>Platform: <span id="platform"></span></h4>
+	<h4>Platform: <span id="platform"><%= modelData.platform %></span></h4>
 	<h4>Version: <span id="version"><%= modelData.version %></span></h4>
-	<h4>UUID: <span id="uuid"></span></h4>
-	<h4>Name: <span id="name"></span></h4>
-	<h4>Model: <span id="model"></span></h4>
+	<h4>UUID: <span id="uuid"><%= modelData.uuid %></span></h4>
+	<h4>Name: <span id="name"><%= modelData.name %></span></h4>
+	<h4>Model: <span id="model"><%= modelData.model %></span></h4>
 	<h4>Width: <span id="width"></span>, Height: <span id="height"></span>, Color Depth: <span id="colorDepth"></span></h4>
 	<h4>User-Agent: <span id="user_agent"></span></h4>
 	<h4>canvas: <canvas id="canvas" width="1" height="1"></canvas></h4>

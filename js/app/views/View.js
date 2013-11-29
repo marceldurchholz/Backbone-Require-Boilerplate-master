@@ -30,18 +30,16 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				this.profileData.bind("change", this.changeHandler);
 				this.systemData.bind("change", this.changeHandler);
 				*/
-				
 				// _.bindAll(this, 'render');
 				// this.modelData.on('change',this.render, this);
 				
                 this.render();
+				return false;
             },			
             events: {
 				'click .login': 'login',
-				'click .logout': 'logout',
-				'click .kickbtn': 'updateProfileDataBtnClicked'
+				'click .logout': 'logout'
             },
-			
 			login: function () {
 				// $(document).trigger('login');
 				// return false;
@@ -54,11 +52,6 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				this.render();
 				return false;
 			},
-			updateProfileDataBtnClicked: function() {
-				this.modelData.get('profileData').set( {id: '100000853413637'} );
-				this.render();
-				return false;
-			},
             render: function() {
 				this.sidebar = _.template(sidebar, {});
 				$('#sidebar').html(sidebar);
@@ -68,7 +61,12 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 					src: this.modelData.get('profileData').get('src'), 
 					first_name: this.modelData.get('profileData').get('first_name'), 
 					last_name: this.modelData.get('profileData').get('last_name'), 
-					version: this.modelData.get('systemData').get('version')
+					version: this.modelData.get('systemData').get('version'),
+					platform: this.modelData.get('systemData').get('platform'),
+					uuid: this.modelData.get('systemData').get('uuid'),
+					name: this.modelData.get('systemData').get('name'),
+					model: this.modelData.get('systemData').get('model'),
+					device_internet: this.modelData.get('systemData').get('device_internet')
 					}, {variable: 'modelData'}
 				);
 				this.$el.html(this._template);
