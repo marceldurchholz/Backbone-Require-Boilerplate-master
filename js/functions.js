@@ -308,8 +308,9 @@ function postDeviceReadyActions(){
 function modifyiOS7StatusBar(){
     try{
         StatusBar.overlaysWebView(false);
-		StatusBar.styleLightContent();
+		// StatusBar.styleLightContent();
 		StatusBar.backgroundColorByName("black");
+		document.body.style.marginTop = "20px";
 		// StatusBar.backgroundColorByHexString("#3e8fd9");
 		/*
 		if (parseFloat(window.device.version) === 7.0) {

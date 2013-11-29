@@ -13,12 +13,16 @@ function($, Backbone, MobileRouter) {
 				last_name: '',
 				username: '',
 				password: '',
-				src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/default.jpg'
+				src: 'data/profilepictures/default.jpg'
 			},
 			initialize: function() {
 				// this.bind("change", this.changeHandler);
+				
+				// this.set( {src: 'a'} );
+				// alert(this.get('id'));
+				
 				if (isMobile.any()) {
-					$.when(dd, jqd).done(function populateProfilePicture() {
+					// $.when(dd, jqd).done(function populateProfilePicture() {
 						// alert(window.location.hash);
 						// location.href.replace(location.hash,"")
 						// var bla = window.location.href.split(/[/]/)[1];
@@ -26,25 +30,27 @@ function($, Backbone, MobileRouter) {
 						// alert(bla);
 						// var rootPath = window.location.href.split(location.search||location.hash||/[?#]/)[0];
 						// rootPath = rootPath.replace(/index.html/g, ""); // window.location.href;
-						var rootPath = document.location.href.replace(window.location.href.split('/').pop(), ""); // window.location.href;
+						// var rootPath = document.location.href.replace(window.location.href.split('/').pop(), ""); // window.location.href;
 						// var rbPath = replace("index","bla");
-						alert(rootPath);
+						// alert(rootPath);
 						window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
-							profilePicture.src = fs.root.fullPath + "/photoshot.png";
+							// profilePicture.src = fs.root.fullPath + "/photoshot.png";
+							this.set( {src: fs.root.fullPath + "/photoshot.png"} );
 							// fs.root.fullPath + "/photoshot.png"
 							alert('xyz: '+fs.root.fullPath + '/photoshot.png');
-							if (checkFileExists(profilePicture.src)) {							
+							if (checkFileExists(fs.root.fullPath + "/photoshot.png")) {							
 								alert('existing: '+fs.root.fullPath + '/photoshot.png'); // File Exists
-								this.set({src: fs.root.fullPath + '/photoshot.png'});
+								this.set( {src: fs.root.fullPath + "/photoshot.png"} );
 							} else {
 								alert('is not existing: ' + fs.root.fullPath + '/photoshot.png'); //  File Does Not Exist
-								var setto = rootPath+'data/profilepictures/default.png';
+								// var setto = rootPath+'data/profilepictures/default.png';
+								// var setto = 'data/profilepictures/default.png';
 								// this.set({src: 'data/profilepictures/default.png'});
-								alert('setto: ' + setto);
-								this.set({src: setto});
+								alert('setto: ' + 'data/profilepictures/default.png');
+								this.set({src: 'data/profilepictures/default.png'});
 							}
 						});
-					});
+					// });
 				}
 				/*
 				else {
