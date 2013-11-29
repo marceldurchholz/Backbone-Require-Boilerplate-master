@@ -156,24 +156,24 @@ function initApp(){
 }
 */
 
-function populateDeviceInfoTimer() {
-	setTimeout(function() {
-		populateDeviceInfo();
-		// window.scrollTo(0, 1); 
-	},100);
-}
-
 function checkFileExists(fileName){
-
     var http = new XMLHttpRequest();
     http.open('HEAD', fileName, false);
     http.send(null);
     return (http.status != 404);
 }
 
+
 /* ----------------------------------------------------------- /
- populateDeviceInfo
+ populateDeviceInfo (incl. Timer)
 / ----------------------------------------------------------- */
+function populateDeviceInfoTimer() {
+	setTimeout(function() {
+		populateDeviceInfo();
+		// window.scrollTo(0, 1); 
+	},3000);
+}
+
 function populateDeviceInfo(){
 	report('functions.js','populateDeviceInfo() START');
 	// doAlert('TEST','--> populateDeviceInfo()..');
@@ -225,7 +225,7 @@ function populateDeviceInfo(){
 					// if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MOBILE';
 					document.getElementById("user_agent").innerHTML = navigator.userAgent;
 					document.getElementById("platform").innerHTML = device.platform;
-					document.getElementById("version").innerHTML = device.version;
+					// document.getElementById("version").innerHTML = device.version;
 					document.getElementById("uuid").innerHTML = device.uuid;
 					document.getElementById("name").innerHTML = device.name;
 					document.getElementById("model").innerHTML = device.model;

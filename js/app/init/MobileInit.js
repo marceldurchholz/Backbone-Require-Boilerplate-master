@@ -22,13 +22,14 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// Returns the MobileRouter class
 	});
 
+	/*
 	$(window).bind('hashchange', function(){
 		// currentHash = window.location.hash;
 		// console.log(window.location.hash);
 		// alert('MobileInit.js '+window.location.hash);
 		populateDeviceInfoTimer();
 	});
-		
+	*/	
 
 	if (isMobile.any()) {
 	
@@ -275,8 +276,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	});
 	
 
-	/*
-	$('body').on("vclick", ["a.footervideolink"], function (e) {
+	$('#footervideolink').on("vclick", function (e) {
 		// report('footer clicked');
 		if (footervideoStatus != true) {
 			$("#footer").animate({
@@ -284,7 +284,6 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			}, 300, function () {
 				footervideoStatus = true;
 			});
-			return false;		
 		}
 		else {
 			$("#footer").animate({
@@ -292,39 +291,39 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			}, 300, function () {
 				footervideoStatus = false;
 			});
-			return false;
 		}
+		return false;
 	});
-	*/
 
-	$('body').on("vclick", "a.showMenu", function (e) {
+	$('#showMenu').on("vclick", function (e) {
 		if (menuStatus != true) {
 			$(".ui-page-active").animate({
 				marginLeft: "175px",
 			}, 300, function () {
 				menuStatus = true;
 			});
-			return false;
 		} else {
 			$(".ui-page-active").animate({
 				marginLeft: "0px",
 			}, 300, function () {
 				menuStatus = false;
 			});
-			return false;
 		}
+		return false;
 	});
-	$('body').on("vclick", "#menuelement a.contentLink", function (e) {
+	$('#sidebar').on("vclick", "#menuelement a.contentLink", function (e) {
 		$(".ui-page-active").animate({
 			marginLeft: "0px",
 		}, 300, function () {
 			menuStatus = false;
-			alert('getURLParameter(window.location.href): ' + getURLParameter(window.location.href));
+			// alert('getURLParameter(window.location.href): ' + getURLParameter(window.location.href));
 			// $.mobile.changePage( "#aboutus", { transition: "slideup", changeHash: true });
+			// $.mobile.changePage( "#aboutus" , { reverse: false, changeHash: false } );
 		});
-		return false;
+		// return false;
 	});
 	
+	/*
 	$('body').on('vclick', '#reset', function() {
 		report('reset');
 		dao.dropTable(function() {
@@ -361,6 +360,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		$('#log').val('');
 		return false;
 	});
+	*/
 
 	// Initialize the app
 	app.initialize();

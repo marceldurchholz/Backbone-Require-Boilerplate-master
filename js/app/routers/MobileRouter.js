@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "views/View", "views/Aboutus", "views/Testarea", "collections/Collection"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Testarea", "collections/Collection"],
         
-    function($, Backbone, Profile, View, Aboutus, Testarea, Collection) {
+    function($, Backbone, Profile, System, View, Aboutus, Testarea, Collection) {
 
 		$.support.cors = true;
 		$.mobile.allowCrossDomainPages = true;

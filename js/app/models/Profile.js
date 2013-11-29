@@ -8,6 +8,7 @@ function($, Backbone, MobileRouter) {
 
 		var Profile = Backbone.Model.extend( {
 			defaults: {
+				id: '',
 				first_name: '',
 				last_name: '',
 				username: '',
@@ -15,18 +16,14 @@ function($, Backbone, MobileRouter) {
 				src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/default.jpg'
 			},
 			initialize: function() {
-				
 				// this.bind("change", this.changeHandler);
-				
 				if (isMobile.any()) {
-				
 					$.when(dd, jqd).done(function populateProfilePicture() {
 						// alert(window.location.hash);
 						// location.href.replace(location.hash,"")
 						// var bla = window.location.href.split(/[/]/)[1];
 						// var bla = window.location.href.split('/').pop();
 						// alert(bla);
-						
 						// var rootPath = window.location.href.split(location.search||location.hash||/[?#]/)[0];
 						// rootPath = rootPath.replace(/index.html/g, ""); // window.location.href;
 						var rootPath = document.location.href.replace(window.location.href.split('/').pop(), ""); // window.location.href;
@@ -48,9 +45,18 @@ function($, Backbone, MobileRouter) {
 							}
 						});
 					});
-					
 				}
+				/*
+				else {
+					this.set({
+						src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/mdurchholz.jpg', 
+						first_name: 'Franz', 
+						last_name: 'Mustermann'
+					});
+				}
+				*/
 				
+				/*
 				if (isMobile.any()) {
 				
 					alert('downloading file');
@@ -90,15 +96,17 @@ function($, Backbone, MobileRouter) {
 				else {
 					this.set({src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/default.jpg'});
 				}
+				*/
 				
 			},
 			changeHandler : function(event){
 				// console.log('Model have been changed:', this.toJSON());
 				alert('model changed');
 			}
-		} );
+		});
+        // this.set({ src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/mdurchholz.jpg', id: '100000853413637' });
 		
-        return Profile;
+		return Profile;
 
     }
 

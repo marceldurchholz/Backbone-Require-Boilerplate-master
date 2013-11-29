@@ -8,10 +8,15 @@
 </div>
 <div id='tests'>
 
-	<% if (profileData.id) { %>
+	* <%= modelData.version %> * <br>
+	* <%= modelData.id %> * <br>
+	--- <br>
+	<%= modelData.first_name %> <%= modelData.last_name %> <br>
+	--- <br>
+	<% if (modelData.id) { %>
 	<li><a href="#me">
-		<img src="https://graph.facebook.com/<%= profileData.id %>/picture?width=150&height=150"/> <br>
-		<%= profileData.lastname %> <br>
+		<img src="https://graph.facebook.com/<%= modelData.id %>/picture?width=150&height=150"/> <br>
+		<%= modelData.lastname %> <br>
 	</a></li>
 	<li><a href="#" class="logout">Logout</a></li>
 	<% } else { %>
@@ -19,9 +24,9 @@
 	<% } %>
 
 	<br><br>
-	<% if (profileData.id) { %> <br>
-		<%= profileData.src %> <br>
-		<img id="profilePicture" style="height:100px;" src="<%= profileData.src %>">
+	<% if (modelData.id) { %> <br>
+		<%= modelData.src %> <br>
+		<img id="profilePicture" style="height:100px;" src="<%= modelData.src %>">
 	<% } %>
 	
 	<h4>Local Database Storage</h4>
@@ -100,7 +105,7 @@
 	<h4>device_internet: <span id="device_internet">nix</span></h4>
 	<h4>device_conn: <span id="device_conn"></span></h4>
 	<h4>Platform: <span id="platform"></span></h4>
-	<h4>Version: <span id="version"></span></h4>
+	<h4>Version: <span id="version"><%= modelData.version %></span></h4>
 	<h4>UUID: <span id="uuid"></span></h4>
 	<h4>Name: <span id="name"></span></h4>
 	<h4>Model: <span id="model"></span></h4>
