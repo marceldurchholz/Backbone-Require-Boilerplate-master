@@ -17,7 +17,7 @@ function($, Backbone, MobileRouter) {
 				if (isMobile.any()) {
 					alert('location.hostname ' + location.hostname);
 					window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) { 
-						// profilePicture.src = fs.root.fullPath + "/logo.png";
+						profilePicture.src = fs.root.fullPath + "/logo.png";
 						// fs.root.fullPath + "/logo.png"
 						alert('xyz: '+fs.root.fullPath + '/logo.png');
 						if (checkFileExists(profilePicture.src)) {							
