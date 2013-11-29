@@ -1,8 +1,8 @@
 // View.js
 // -------
-define(["jquery", "backbone", "models/Profile", "text!templates/view.html", "text!templates/sidebar.html"],
+define(["jquery", "backbone", "jquerypulltorefresh", "models/Profile", "text!templates/view.html", "text!templates/sidebar.html"],
 
-    function($, Backbone, Profile, template, sidebar){
+    function($, Backbone, Jquerypulltorefresh, Profile, template, sidebar){
 		
         var View = Backbone.View.extend({
 
@@ -53,7 +53,17 @@ define(["jquery", "backbone", "models/Profile", "text!templates/view.html", "tex
 				$('#sidebar').html(sidebar);
 				// Maintains chainability
 				
+				$('.scrollable').pullToRefresh({
+					callback: function() {
+						var def = $.Deferred();
+						
+						setTimeout(function() {
+							def.resolve();      
+						}, 3000); 
 
+						return def.promise();
+					}
+				});
 				
                 // Setting the view's template property using the Underscore template method
                 // this.template = _.template(template, {});

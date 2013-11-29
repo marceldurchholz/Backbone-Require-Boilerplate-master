@@ -16,6 +16,8 @@ require.config({
       "jqueryui": "../libs/jqueryui",
 
       "jquerymobile": "../libs/jquery.mobile",
+	  
+      "jquerypulltorefresh": "../libs/jquery.plugin.pullToRefresh",
 
       "underscore": "../libs/lodash",
 
@@ -37,8 +39,11 @@ require.config({
   shim: {
 
       // jQuery Mobile
-      "jquerymobile": ["jquery"],
+      "jquerypulltorefresh": ["jquery"],
 
+      // jQuery pull to refresh
+      "jquerymobile": ["jquery"],
+	  
       // Twitter Bootstrap jQuery plugins
       "bootstrap": ["jquery"],
 

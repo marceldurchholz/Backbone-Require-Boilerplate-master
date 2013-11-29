@@ -274,6 +274,8 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		return false;
 	});
 	
+
+	/*
 	$('body').on("vclick", ["a.footervideolink"], function (e) {
 		// report('footer clicked');
 		if (footervideoStatus != true) {
@@ -293,6 +295,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			return false;
 		}
 	});
+	*/
 
 	$('body').on("vclick", "a.showMenu", function (e) {
 		if (menuStatus != true) {
