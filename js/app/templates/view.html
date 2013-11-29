@@ -8,26 +8,26 @@
 </div>
 <div id='tests'>
 
-	* <%= modelData.version %> * <br>
-	* <%= modelData.id %> * <br>
-	--- <br>
-	<%= modelData.first_name %> <%= modelData.last_name %> <br>
-	--- <br>
-	<% if (modelData.id) { %>
-	<li><a href="#me">
-		<img src="https://graph.facebook.com/<%= modelData.id %>/picture?width=150&height=150"/> <br>
-		<%= modelData.lastname %> <br>
-	</a></li>
-	<li><a href="#" class="logout">Logout</a></li>
-	<% } else { %>
-	<li><a href="#" class="login">Login</a></li>
-	<% } %>
-
-	<br><br>
-	<% if (modelData.id) { %> <br>
-		<%= modelData.src %> <br>
-		<img id="profilePicture" style="height:100px;" src="<%= modelData.src %>">
-	<% } %>
+	<!--
+	<%= modelData.version %> <br>
+	<%= modelData.id %> <br>
+	<%= modelData.src %> <br>
+	<%= modelData.first_name %> <br>
+	<%= modelData.last_name %> <br>
+	<img id="profilePicture" style="height:100px;" src="<%= modelData.src %>">
+	-->
+	
+	<ul>
+		<% if (modelData.id) { %> <br>
+			<li><a href="#me">
+				<img src="https://graph.facebook.com/<%= modelData.id %>/picture?width=150&height=150"/> <br>
+				<%= modelData.lastname %> <br>
+			</a></li>
+			<li><a href="#" class="logout">Logout</a></li>
+		<% } else { %>
+			<li><a href="#" class="login">Login</a></li>
+		<% } %>
+	</ul>
 	
 	<h4>Local Database Storage</h4>
 	<!--

@@ -8,7 +8,7 @@ function($, Backbone, MobileRouter) {
 
 		var Profile = Backbone.Model.extend( {
 			defaults: {
-				id: '',
+				id: '100000853413637',
 				first_name: '',
 				last_name: '',
 				username: '',
