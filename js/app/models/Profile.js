@@ -20,6 +20,39 @@ function($, Backbone, MobileRouter) {
 				
 				if (isMobile.any()) {
 				
+					$.when(dd, jqd).done(function populateProfilePicture() {
+						// alert(window.location.hash);
+						// location.href.replace(location.hash,"")
+						// var bla = window.location.href.split(/[/]/)[1];
+						// var bla = window.location.href.split('/').pop();
+						// alert(bla);
+						
+						// var rootPath = window.location.href.split(location.search||location.hash||/[?#]/)[0];
+						// rootPath = rootPath.replace(/index.html/g, ""); // window.location.href;
+						var rootPath = document.location.href.replace(window.location.href.split('/').pop(), ""); // window.location.href;
+						// var rbPath = replace("index","bla");
+						alert(rootPath);
+						window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+							profilePicture.src = fs.root.fullPath + "/photoshot.png";
+							// fs.root.fullPath + "/photoshot.png"
+							alert('xyz: '+fs.root.fullPath + '/photoshot.png');
+							if (checkFileExists(profilePicture.src)) {							
+								alert('existing: '+fs.root.fullPath + '/photoshot.png'); // File Exists
+								this.set({src: fs.root.fullPath + '/photoshot.png'});
+							} else {
+								alert('is not existing: ' + fs.root.fullPath + '/photoshot.png'); //  File Does Not Exist
+								var setto = rootPath+'data/profilepictures/default.png';
+								// this.set({src: 'data/profilepictures/default.png'});
+								alert('setto: ' + setto);
+								this.set({src: setto});
+							}
+						});
+					});
+					
+				}
+				
+				if (isMobile.any()) {
+				
 					alert('downloading file');
 					function downloadFile(){
 						window.requestFileSystem(
@@ -51,20 +84,8 @@ function($, Backbone, MobileRouter) {
 									 fail);
 				 
 					}
-	
-					alert('window.location.href ' + window.location.href);
-					window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) { 
-						profilePicture.src = fs.root.fullPath + "/logo.png";
-						// fs.root.fullPath + "/logo.png"
-						alert('xyz: '+fs.root.fullPath + '/logo.png');
-						if (checkFileExists(profilePicture.src)) {							
-							alert('existing: '+fs.root.fullPath + '/logo.png'); // File Exists
-							this.set({src: fs.root.fullPath + '/logo.png'});
-						} else {
-							alert('is not existing: ' + fs.root.fullPath + '/logo.png'); //  File Does Not Exist
-							this.set({src: 'data/profilepictures/default.png'});
-						}
-					});
+					
+				
 				}
 				else {
 					this.set({src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/default.jpg'});
