@@ -48,8 +48,8 @@ define(["jquery", "backbone", "models/Profile", "text!templates/view.html", "tex
 				// $('#profilePicture').src = '';
 				// profilePicture.src = '';
 				
-				// this.changeHandler('a');
-				// this.profilePictureModel.set({ src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/default.jpg' });
+				this.profilePictureModel.set({ src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/mdurchholz.jpg' });
+				
 				
 				// alert('2');
 				// $('#body').trigger('create');
