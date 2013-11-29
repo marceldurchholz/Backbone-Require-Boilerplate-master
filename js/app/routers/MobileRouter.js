@@ -22,6 +22,7 @@ define(["jquery", "backbone", "models/Profile", "views/View", "views/Aboutus", "
                 // Tells Backbone to start watching for hashchange events
 				// report('MobileRouter.js','initialize:');
                 Backbone.history.start();
+				// alert('aaa');
             },
 
             // All of your Backbone Routes (add more)

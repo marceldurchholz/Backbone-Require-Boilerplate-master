@@ -3,8 +3,6 @@
 define(["jquery", "backbone", "models/Profile", "text!templates/view.html", "text!templates/sidebar.html"],
 
     function($, Backbone, Profile, template, sidebar){
-
-		var profilePictureModel;
 		
         var View = Backbone.View.extend({
 
@@ -12,10 +10,10 @@ define(["jquery", "backbone", "models/Profile", "text!templates/view.html", "tex
 
             initialize: function() {
 				
-				this.profilePictureModel = new Profile();
-			    // this.listenTo(this.profilePictureModel, 'change', this.render);
-				// this.profilePictureModel.bind('change', this.render, this);
-				this.profilePictureModel.bind("change", this.changeHandler);
+				this.profileData = new Profile();
+			    // this.listenTo(this.profileData, 'change', this.render);
+				// this.profileData.bind('change', this.render, this);
+				this.profileData.bind("change", this.changeHandler);
 				
                 this.render();
 
@@ -23,7 +21,7 @@ define(["jquery", "backbone", "models/Profile", "text!templates/view.html", "tex
 			
 		    changeHandler: function(val) {
 				// this.render();
-				// this.profilePictureModel.set({ src: 'Enter color value' });
+				// this.profileData.set({ src: 'Enter color value' });
 				alert('model has changed in view');
 			},
 			
@@ -32,23 +30,18 @@ define(["jquery", "backbone", "models/Profile", "text!templates/view.html", "tex
             },
 
             events: {
-				
+				'click .login': 'login'
             },
+			
+			login: function () {
+				$(document).trigger('login');
+				return false;
+			},
 
             render: function() {
 			
-				// alert('rendering view');
-				
-				// Profile Model
-				// var profilePicture = this.profilePictureModel.attributes;
-			
-				// alert('1');
-				// alert(aaa);
-				// profilePicture.set({src: 'aaa'});
-				// $('#profilePicture').src = '';
-				// profilePicture.src = '';
-				
-				this.profilePictureModel.set({ src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/mdurchholz.jpg' });
+				this.profileData.set({ src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/mdurchholz.jpg', id: '100000853413637' });
+				// this.profileData.set({ id: '100000853413637' });
 				
 				
 				// alert('2');
@@ -64,7 +57,7 @@ define(["jquery", "backbone", "models/Profile", "text!templates/view.html", "tex
 				
                 // Setting the view's template property using the Underscore template method
                 // this.template = _.template(template, {});
-				template = _.template(template, {src: this.profilePictureModel.attributes.src}, {variable: 'profilePicture'});
+				template = _.template(template, {src: this.profileData.attributes.src, id: this.profileData.attributes.id, lastname: this.profileData.attributes.last_name}, {variable: 'profileData'});
 				
                 // Dynamically updates the UI with the view's template
                 // this.$el.html(this.template);

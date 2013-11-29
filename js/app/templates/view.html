@@ -8,8 +8,21 @@
 </div>
 <div id='tests'>
 
-	<%= profilePicture.src %><br>
-	<img id="profilePicture" style="height:100px;" src="<%= profilePicture.src %>">
+<% if (profileData.id) { %>
+<li><a href="#me">
+    <img src="https://graph.facebook.com/<%= profileData.id %>/picture?width=150&height=150"/> <br>
+    <%= profileData.lastname %> <br>
+</a></li>
+<li><a href="#" class="logout">Logout</a></li>
+<% } else { %>
+<li><a href="#" class="login">Login</a></li>
+<% } %>
+
+	<br><br>
+	<% if (profileData.id) { %> <br>
+		<%= profileData.src %> <br>
+		<img id="profilePicture" style="height:100px;" src="<%= profileData.src %>">
+	<% } %>
 
 	<h4>Local Database Storage</h4>
 	<!--

@@ -259,7 +259,22 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	}
 
 
-	$('body').on("vclick", "a.footervideolink", function (e) {
+	window.addEventListener('load', function () {
+		new FastClick(document.body);
+	}, false);
+
+	// $(document).on('login', function () {
+	$('body').on("login", function () {
+		alert('doing action login');
+		/*
+		FB.login(function(response) {
+			alert("Logged In");
+		}, {scope: 'publish_actions,user_status,friends_status,read_stream'});
+		*/
+		return false;
+	});
+	
+	$('body').on("vclick", ["a.footervideolink"], function (e) {
 		// report('footer clicked');
 		if (footervideoStatus != true) {
 			$("#footer").animate({
@@ -301,6 +316,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			marginLeft: "0px",
 		}, 300, function () {
 			menuStatus = false;
+			alert('getURLParameter(window.location.href): ' + getURLParameter(window.location.href));
 			// $.mobile.changePage( "#aboutus", { transition: "slideup", changeHash: true });
 		});
 		return false;

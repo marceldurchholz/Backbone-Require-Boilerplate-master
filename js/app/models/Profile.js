@@ -8,6 +8,10 @@ function($, Backbone, MobileRouter) {
 
 		var Profile = Backbone.Model.extend( {
 			defaults: {
+				first_name: '',
+				last_name: '',
+				username: '',
+				password: '',
 				src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/default.jpg'
 			},
 			initialize: function() {
@@ -15,7 +19,40 @@ function($, Backbone, MobileRouter) {
 				// this.bind("change", this.changeHandler);
 				
 				if (isMobile.any()) {
-					alert('location.hostname ' + location.hostname);
+				
+					alert('downloading file');
+					function downloadFile(){
+						window.requestFileSystem(
+									 LocalFileSystem.PERSISTENT, 0, 
+									 function onFileSystemSuccess(fileSystem) {
+									 fileSystem.root.getFile(
+												 "dummy.html", {create: true, exclusive: false}, 
+												 function gotFileEntry(fileEntry){
+												 var sPath = fileEntry.fullPath.replace("dummy.html","");
+												 var fileTransfer = new FileTransfer();
+												 fileEntry.remove();
+												 fileTransfer.download(
+														   "http://www.w3.org/2011/web-apps-ws/papers/Nitobi.pdf",
+														   sPath + "theFile.pdf",
+														   function(theFile) {
+															   alert("download complete: " + theFile.toURI());
+															   // console.log("download complete: " + theFile.toURI());
+															   // showLink(theFile.toURI());
+														   },
+														   function(error) {
+															   console.log("download error source " + error.source);
+															   console.log("download error target " + error.target);
+															   console.log("upload error code: " + error.code);
+														   }
+														   );
+												 }, 
+												 fail);
+									 }, 
+									 fail);
+				 
+					}
+	
+					alert('window.location.href ' + window.location.href);
 					window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) { 
 						profilePicture.src = fs.root.fullPath + "/logo.png";
 						// fs.root.fullPath + "/logo.png"
@@ -32,6 +69,7 @@ function($, Backbone, MobileRouter) {
 				else {
 					this.set({src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/default.jpg'});
 				}
+				
 			},
 			changeHandler : function(event){
 				// console.log('Model have been changed:', this.toJSON());
