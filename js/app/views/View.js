@@ -10,6 +10,9 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 
             initialize: function() {
 
+				// var myModel = new Profile;
+				// myModel.set({id: new System(), profileData: new Profile()});
+				
 				this.modelData = new Backbone.Model();
 				// alert(this.modelData);
 				// this.model = model;
@@ -19,6 +22,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				// alert(JSON.stringify(obj, null, 4));
 				// var view = new GridView({model: model});
 				this.modelData.bind("change", this.render);
+				// this.modelData.on("change", this.render, this);
 				/*
 				this.systemData = new System();
 				this.profileData = new Profile();
@@ -32,14 +36,14 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
                 this.render();
 
             },
-			
+			/*			
 		    changeHandler: function(val) {
 				// this.render();
 				// this.profileData.set({ src: 'Enter color value' });
-				alert('model has changed in view');
+				// alert('model has changed in view');
 				// alert(val.attributes.id);
 			},
-			
+			*/
             events: {
 				'click .login': 'login',
 				'click .logout': 'logout'
@@ -53,25 +57,29 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				$(document).trigger('logout');
 				return false;
 			},
-
+			updateProfileDataBrnClicked: function(e) {
+				alert('bla');
+				// alert(JSON.stringify(e, null, 4));
+				printObject(e);
+				// alert(e);
+				// this.modelData.set({ id: '12354' });
+				// var blaData = this.modelData.get('id');
+				// var foo = blaData.get('id');
+				// alert(foo);
+				// this.modelData.set('profileData').set({ id: '555' })
+				// this.render;
+				// return false;
+			},
             render: function() {
 				// this.modelData.set({ src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/mdurchholz.jpg', id: '100000853413637' });
+				
+				$('#page-content').on("vclick", "#updateProfileDataBtn", this.updateProfileDataBrnClicked);
 				
 				// sidebar
                 this.sidebar = _.template(sidebar, {});
 				// Append the result to the view's element.
 				$('#sidebar').html(sidebar);
 				// Maintains chainability
-				
-				$('.scrollable').pullToRefresh({
-					callback: function() {
-						var def = $.Deferred();
-						setTimeout(function() {
-							def.resolve();      
-						}, 3000); 
-						return def.promise();
-					}
-				});
 				
                 // Setting the view's template property using the Underscore template method
                 // this.template = _.template(template, {});

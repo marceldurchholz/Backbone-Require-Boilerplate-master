@@ -18,6 +18,17 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	$.mobile.ignoreContentEnabled=true;
 
 	$.when(dd, jqd).done(function doInit() {
+		var isTouch = !!('ontouchstart' in window);
+		document.getElementById('body').setAttribute('class', isTouch ? 'touch' : 'desktop');    
+		$('.scrollable').pullToRefresh({
+			callback: function() {
+				var def = $.Deferred();
+				setTimeout(function() {
+					def.resolve();      
+				}, 3000); 
+				return def.promise();
+			}
+		});
 		populateDeviceInfoTimer();
 		// Returns the MobileRouter class
 	});
@@ -275,7 +286,6 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		return false;
 	});
 	
-
 	$('#footervideolink').on("vclick", function (e) {
 		// report('footer clicked');
 		if (footervideoStatus != true) {

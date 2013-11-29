@@ -174,6 +174,14 @@ function populateDeviceInfoTimer() {
 	},3000);
 }
 
+function printObject(o) {
+  var out = '';
+  for (var p in o) {
+    out += p + ': ' + o[p] + '\n';
+  }
+  alert(out);
+}
+
 function populateDeviceInfo(){
 	report('functions.js','populateDeviceInfo() START');
 	// doAlert('TEST','--> populateDeviceInfo()..');
