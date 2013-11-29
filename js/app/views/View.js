@@ -1,8 +1,8 @@
 // View.js
 // -------
-define(["jquery", "backbone", "jquerypulltorefresh", "models/Profile", "text!templates/view.html", "text!templates/sidebar.html"],
+define(["jquery", "backbone", "models/Profile", "text!templates/view.html", "text!templates/sidebar.html"],
 
-    function($, Backbone, Jquerypulltorefresh, Profile, template, sidebar){
+    function($, Backbone, Profile, template, sidebar){
 		
         var View = Backbone.View.extend({
 

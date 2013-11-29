@@ -54,7 +54,7 @@ require.config({
       "backbone": {
 
         // Depends on underscore/lodash and jQuery
-        "deps": ["underscore", "jquery"],
+        "deps": ["underscore", "jquery", "jquerypulltorefresh", "jquerymobile"],
 
         // Exports the global window.Backbone object
         "exports": "Backbone"

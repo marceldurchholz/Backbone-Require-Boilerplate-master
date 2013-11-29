@@ -52,7 +52,7 @@ define(["jquery", "backbone", "models/Profile", "views/View", "views/Aboutus", "
 
 		// this.$el.trigger('create');
 		$('#body').trigger('create');
-
+		$(window).scrollTop(0);
 		return MobileRouter;
 
     }

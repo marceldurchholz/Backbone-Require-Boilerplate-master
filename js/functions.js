@@ -232,7 +232,7 @@ function populateDeviceInfo(){
 					document.getElementById("width").innerHTML = screen.width;
 					document.getElementById("height").innerHTML = screen.height;
 					document.getElementById("colorDepth").innerHTML = screen.colorDepth;
-					document.getElementById("device_conn").innerHTML = getConnectionType();
+					// document.getElementById("device_conn").innerHTML = getConnectionType();
 					// $('#device_conn span').html(getConnectionType());
 					// $('#device_platform span').html(getDevicePlatform());
 					// $('#device_model span').html(getDeviceModel());
