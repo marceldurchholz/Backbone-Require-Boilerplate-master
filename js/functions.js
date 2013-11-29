@@ -163,6 +163,14 @@ function populateDeviceInfoTimer() {
 	},100);
 }
 
+function checkFileExists(fileName){
+
+    var http = new XMLHttpRequest();
+    http.open('HEAD', fileName, false);
+    http.send(null);
+    return (http.status != 404);
+}
+
 /* ----------------------------------------------------------- /
  populateDeviceInfo
 / ----------------------------------------------------------- */

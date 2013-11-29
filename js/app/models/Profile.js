@@ -10,16 +10,16 @@ function($, Backbone, MobileRouter) {
 			defaults: {
 				src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/default.jpg'
 			},
-			initialize: function(){
-				// alert("var Profile initialized");
-				// this.set({src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/mdurchholz.jpg'});
-				/*
+			initialize: function() {
+				
+				// this.bind("change", this.changeHandler);
+				
 				if (isMobile.any()) {
 					alert('location.hostname ' + location.hostname);
 					window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) { 
 						// profilePicture.src = fs.root.fullPath + "/logo.png";
 						// fs.root.fullPath + "/logo.png"
-						if (checkFileExists(profilePicture.src)) {
+						if (checkFileExists(profilePicture.src)) {							
 							alert('existing: '+fs.root.fullPath + '/logo.png'); // File Exists
 							this.set({src: fs.root.fullPath + '/logo.png'});
 						} else {
@@ -29,23 +29,14 @@ function($, Backbone, MobileRouter) {
 					});
 				}
 				else {
-					this.set({src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/mdurchholz.jpg'});
+					this.set({src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/default.jpg'});
 				}
-				*/
-				this.set({src: 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public/data/profilepictures/mdurchholz.jpg'});
+			},
+			changeHandler : function(event){
+				// console.log('Model have been changed:', this.toJSON());
+				alert('model changed');
 			}
 		} );
-		
-		// var profilePicture = {}; // new Object();
-				
-		// Profile.title = 'foo';
-		// var amodel = new Profile();
-		// amodel.set({title: 'Stewie Griffin'});
-		
-		
-		// var profile = new Profile();
-
-		// alert(Profile.title);
 		
         return Profile;
 
