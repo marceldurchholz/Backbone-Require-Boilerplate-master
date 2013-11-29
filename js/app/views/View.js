@@ -15,15 +15,20 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				// this.model = model;
 				this.modelData.set({systemData: new System(), profileData: new Profile()});
 				// var obj = this.modelData;
-				alert(this.modelData.get('systemData').get('version'));
+				// alert(this.modelData.get('systemData').get('version'));
 				// alert(JSON.stringify(obj, null, 4));
 				// var view = new GridView({model: model});
+				this.modelData.bind("change", this.render);
 				/*
 				this.systemData = new System();
 				this.profileData = new Profile();
 				this.profileData.bind("change", this.changeHandler);
 				this.systemData.bind("change", this.changeHandler);
 				*/
+				
+				// _.bindAll(this, 'render');
+				// this.modelData.on('change',this.render, this);
+				
                 this.render();
 
             },
@@ -35,16 +40,17 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				// alert(val.attributes.id);
 			},
 			
-            alertHandler: function() {
-				alert('alertHandler');
-            },
-
             events: {
-				'click .login': 'login'
+				'click .login': 'login',
+				'click .logout': 'logout'
             },
 			
 			login: function () {
 				$(document).trigger('login');
+				return false;
+			},
+			logout: function () {
+				$(document).trigger('logout');
 				return false;
 			},
 
