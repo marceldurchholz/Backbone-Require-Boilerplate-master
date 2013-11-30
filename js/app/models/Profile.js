@@ -16,6 +16,7 @@ function($, Backbone, MobileRouter) {
 				src: 'data/profilepictures/default.jpg'
 			},
 			
+			/*
 			getProfilePicture: function(t,P) {
 				if (!isMobile.any()) {
 					var fs = {
@@ -51,6 +52,7 @@ function($, Backbone, MobileRouter) {
 					});
 				}
 			},
+			*/
 			
 			initialize: function() {
 

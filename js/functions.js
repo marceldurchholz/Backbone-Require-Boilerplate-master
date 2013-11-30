@@ -128,6 +128,7 @@ var app = {
 		report("MobileInit.js"," var app:receivedEvent");
 		deviceReady = true;
 		cordovaIsLoaded = true;
+		modifyiOS7StatusBar();
 		dd.resolve();
 		// populateDeviceInfo();
 		/*
@@ -311,13 +312,10 @@ function modifyiOS7StatusBar(){
 			StatusBar.overlaysWebView(true);
 			StatusBar.styleLightContent();
 			StatusBar.backgroundColorByName("black");
-			document.body.style.marginTop = "20px";
-			// StatusBar.backgroundColorByHexString("#3e8fd9");
-			/*
 			if (parseFloat(window.device.version) === 7.0) {
-				  document.body.style.marginTop = "20px";
+				document.body.style.marginTop = "20px";
 			}
-			*/
+			// StatusBar.backgroundColorByHexString("#3e8fd9");
 		} catch(e){ catchError('modifyiOS7StatusBar()',e); }
 	}
 	else {
