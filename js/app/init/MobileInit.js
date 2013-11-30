@@ -229,9 +229,11 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 					alert(tx.message);
 				}
 			};
-				dao.initialize(function() {
+			/*
+			dao.initialize(function() {
 				alert('database initialized');
 			});
+			*/
 		}
 		
 		// populateDeviceInfoTimer();
@@ -266,12 +268,6 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			}
 		});
 	}
-
-	/*
-	function log(msg) {
-		$('#log').val($('#log').val() + msg + '\n');
-	}
-	*/
 
 	window.addEventListener('load', function () {
 		new FastClick(document.body);
@@ -310,7 +306,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	$('#showMenu').on("vclick", function (e) {
 		if (menuStatus != true) {
 			$(".ui-page-active").animate({
-				marginLeft: "175px",
+				marginLeft: "190px",
 			}, 300, function () {
 				menuStatus = true;
 			});
