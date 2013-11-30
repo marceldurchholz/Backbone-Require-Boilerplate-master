@@ -1,12 +1,29 @@
 // EmployeeCollection.js
 // -------------
-define(["jquery","backbone","models/Employee"],
+define(["jquery","backbone"],
 
-  function($, Backbone, Employee) {
+  function($, Backbone) {
 
     // Creates a new Backbone Collection class object
     var EmployeeCollection = Backbone.Collection.extend({
 
+		// url: 'http://jsfiddle.net/gh/gist/response.json/1431041/',
+		// url: 'http://mobile002.appinaut.de/api/employees/',
+		url: 'http://coenraets.org/offline-sync/api/employees',
+
+		parse: function (response, xhr) {
+			// alert('response'+response);
+			if(response.type =="read"){
+				return response;
+			};
+		},
+		
+		initialize: function() {
+			console.log("Employees initialize");
+		}
+		
+		
+		/*
 		model: Employee,
 		// url:"../api/employees",
 		initialize: function () {

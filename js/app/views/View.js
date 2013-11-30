@@ -10,6 +10,14 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 			attributes: {"data-role": 'content'},
 
             initialize: function() {
+			
+				/*
+				dao.findAll(doAlert);
+				function doAlert() {
+					alert('bla');
+				}
+				*/
+				
 				this.modelData = new Backbone.Model({systemData: new System(), profileData: new Profile()});
 				// alert('initialize');
 				// this.modelData.set({systemData: new System(), profileData: new Profile()});

@@ -303,7 +303,10 @@ window.dao = {
 						console.log(len + ' rows found');
 						alert(employees);
 						alert(employees.toJSON);
-						JSON.stringify(employees);
+						
+						// for (var i = 0; i < l; i++) {
+						// e = employees[i];
+
 						callback(employees);
 					}
 				);
