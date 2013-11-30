@@ -21,216 +21,191 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		new FastClick(document.body);
 	}, false);
 
-	if (isMobile.any()) {
-		window.dao =  {
+	window.dao =  {
 
-			// syncURL: "../api/employees",
-			syncURL: "http://coenraets.org/offline-sync/api/employees?modifiedSince=2010-03-01%2010:20:56",
+		// syncURL: "../api/employees",
+		syncURL: "http://coenraets.org/offline-sync/api/employees?modifiedSince=2010-03-01%2010:20:56",
 
-			initialize: function(callback) {
-				var self = this;
-				this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
+		initialize: function(callback) {
+			var self = this;
+			// renderList();
+			this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 
-				// Testing if the table exists is not needed and is here for logging purpose only. We can invoke createTable
-				// no matter what. The 'IF NOT EXISTS' clause will make sure the CREATE statement is issued only if the table
-				// does not already exist.
-				this.db.transaction(
-					function(tx) {
-						tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='employee'", this.txErrorHandler,
-							function(tx, results) {
-								if (results.rows.length == 1) {
-									console.log('Using existing Employee table in local SQLite database');
-								}
-								else
-								{
-									console.log('Employee table does not exist in local SQLite database');
-									self.createTable(callback);
-								}
-						});
-						self.sync(renderList);
-					}
-				)
+			// Testing if the table exists is not needed and is here for logging purpose only. We can invoke createTable
+			// no matter what. The 'IF NOT EXISTS' clause will make sure the CREATE statement is issued only if the table
+			// does not already exist.
+			this.db.transaction(
+				function(tx) {
+					tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='employee'", this.txErrorHandler,
+						function(tx, results) {
+							if (results.rows.length == 1) {
+								console.log('Using existing Employee table in local SQLite database');
+							}
+							else
+							{
+								console.log('Employee table does not exist in local SQLite database');
+								self.createTable(callback);
+							}
+					});
+					self.sync(renderList);
+				}
+			)
 
-			},
-				
-			createTable: function(callback) {
-				this.db.transaction(
-					function(tx) {
-						var sql =
-							"CREATE TABLE IF NOT EXISTS employee ( " +
-							"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-							"firstName VARCHAR(50), " +
-							"lastName VARCHAR(50), " +
-							"title VARCHAR(50), " +
-							"officePhone VARCHAR(50), " +
-							"deleted INTEGER, " +
-							"lastModified VARCHAR(50))";
-						tx.executeSql(sql);
-					},
-					this.txErrorHandler,
-					function() {
-						console.log('Table employee successfully CREATED in local SQLite database');
-						callback();
-					}
-				);
-			},
+		},
 			
-			fillTable: function(callback) {
-				this.db.transaction(
-					function(tx) {
-						// sample data 
-						/*
-						tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (5,'Steven','Wells','Software Architect','617-000-0012','false','2013-11-09 22:14:19')");
-						tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (4,'Amy','Jones','Sales Representative','617-000-0011','false','2013-11-09 22:14:19')");
-						tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (3,'Kathleen','Byrne','Sales Representative','617-000-0010','false','2013-11-09 22:14:19')");
-						*/
-						tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (2,'Gary','Donovan','Marketing','617-000-0009','1','2013-11-09 22:14:19')");
-						tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (1,'Lisa','Wong','Marketing Manager','617-000-0008','0','2013-11-09 22:14:19')");
-					},
-					this.txErrorHandler,
-					function() {
-						console.log('Table employee successfully FILLED in local SQLite database');
-						callback();
-					}
-				);
-			},
+		createTable: function(callback) {
+			this.db.transaction(
+				function(tx) {
+					var sql =
+						"CREATE TABLE IF NOT EXISTS employee ( " +
+						"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+						"firstName VARCHAR(50), " +
+						"lastName VARCHAR(50), " +
+						"title VARCHAR(50), " +
+						"officePhone VARCHAR(50), " +
+						"deleted INTEGER, " +
+						"lastModified VARCHAR(50))";
+					tx.executeSql(sql);
+				},
+				this.txErrorHandler,
+				function() {
+					console.log('Table employee successfully CREATED in local SQLite database');
+					callback();
+				}
+			);
+		},
+		
+		fillTable: function(callback) {
+			this.db.transaction(
+				function(tx) {
+					// sample data 
+					/*
+					tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (5,'Steven','Wells','Software Architect','617-000-0012','false','2013-11-09 22:14:19')");
+					tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (4,'Amy','Jones','Sales Representative','617-000-0011','false','2013-11-09 22:14:19')");
+					tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (3,'Kathleen','Byrne','Sales Representative','617-000-0010','false','2013-11-09 22:14:19')");
+					*/
+					tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (2,'Gary','Donovan','Marketing','617-000-0009','1','2013-11-09 22:14:19')");
+					tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (1,'Lisa','Wong','Marketing Manager','617-000-0008','0','2013-11-09 22:14:19')");
+				},
+				this.txErrorHandler,
+				function() {
+					console.log('Table employee successfully FILLED in local SQLite database');
+					callback();
+				}
+			);
+		},
 
-			dropTable: function(callback) {
-				this.db.transaction(
-					function(tx) {
-						tx.executeSql('DROP TABLE IF EXISTS employee');
-					},
-					this.txErrorHandler,
-					function() {
-						console.log('Table employee successfully DROPPED in local SQLite database');
-						callback();
-					}
-				);
-			},
+		dropTable: function(callback) {
+			this.db.transaction(
+				function(tx) {
+					tx.executeSql('DROP TABLE IF EXISTS employee');
+				},
+				this.txErrorHandler,
+				function() {
+					console.log('Table employee successfully DROPPED in local SQLite database');
+					callback();
+				}
+			);
+		},
 
-			findAll: function(callback) {
-				this.db.transaction(
-					function(tx) {
-						var sql = "SELECT * FROM EMPLOYEE";
-						console.log('Local SQLite database: "SELECT * FROM EMPLOYEE"');
-						tx.executeSql(sql, this.txErrorHandler,
-							function(tx, results) {
-								var len = results.rows.length,
-									employees = [],
-									i = 0;
-								for (; i < len; i = i + 1) {
-									employees[i] = results.rows.item(i);
-								}
-								console.log(len + ' rows found');
-								callback(employees);
+		findAll: function(callback) {
+			this.db.transaction(
+				function(tx) {
+					var sql = "SELECT * FROM EMPLOYEE";
+					console.log('Local SQLite database: "SELECT * FROM EMPLOYEE"');
+					tx.executeSql(sql, this.txErrorHandler,
+						function(tx, results) {
+							var len = results.rows.length,
+								employees = [],
+								i = 0;
+							for (; i < len; i = i + 1) {
+								employees[i] = results.rows.item(i);
 							}
-						);
-					}
-				);
-			},
-
-			getLastSync: function(callback) {
-				this.db.transaction(
-					function(tx) {
-						var sql = "SELECT MAX(lastModified) as lastSync FROM employee";
-						tx.executeSql(sql, this.txErrorHandler,
-							function(tx, results) {
-								var lastSync = results.rows.item(0).lastSync;
-								console.log('Last local timestamp is ' + lastSync);
-								callback(lastSync);
-							}
-						);
-					}
-				);
-			},
-
-			sync: function(callback) {
-				var self = this;
-				console.log('Starting synchronization...');
-				this.getLastSync(function(lastSync){
-					self.getChanges(self.syncURL, lastSync,
-						function (changes) {
-							if (changes.length > 0) {
-								self.applyChanges(changes, callback);
-							} else {
-								console.log('Nothing to synchronize');
-								callback();
-							}
+							console.log(len + ' rows found');
+							callback(employees);
 						}
 					);
-				});
+				}
+			);
+		},
 
-			},
-
-			getChanges: function(syncURL, modifiedSince, callback) {
-				$.ajax({
-					url: syncURL,
-					data: {modifiedSince: modifiedSince},
-					dataType:"json",
-					success:function (data) {
-						console.log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
-						callback(data);
-					},
-					error: function(model, response) {
-						alert(response.responseText);
-					}
-				});
-
-			},
-
-			applyChanges: function(employees, callback) {
-				this.db.transaction(
-					function(tx) {
-						var l = employees.length;
-						var sql =
-							"INSERT OR REPLACE INTO employee (id, firstName, lastName, title, officePhone, deleted, lastModified) " +
-							"VALUES (?, ?, ?, ?, ?, ?, ?)";
-						console.log('Inserting or Updating in local database:');
-						var e;
-						for (var i = 0; i < l; i++) {
-							e = employees[i];
-							console.log(e.id + ' ' + e.firstName + ' ' + e.lastName + ' ' + e.title + ' ' + e.officePhone + ' ' + e.deleted + ' ' + e.lastModified);
-							var params = [e.id, e.firstName, e.lastName, e.title, e.officePhone, e.deleted, e.lastModified];
-							tx.executeSql(sql, params);
+		getLastSync: function(callback) {
+			this.db.transaction(
+				function(tx) {
+					var sql = "SELECT MAX(lastModified) as lastSync FROM employee";
+					tx.executeSql(sql, this.txErrorHandler,
+						function(tx, results) {
+							var lastSync = results.rows.item(0).lastSync;
+							console.log('Last local timestamp is ' + lastSync);
+							callback(lastSync);
 						}
-						console.log('Synchronization complete (' + l + ' items synchronized)');
-					},
-					this.txErrorHandler,
-					function(tx) {
-						callback();
+					);
+				}
+			);
+		},
+
+		sync: function(callback) {
+			var self = this;
+			console.log('Starting synchronization...');
+			this.getLastSync(function(lastSync){
+				self.getChanges(self.syncURL, lastSync,
+					function (changes) {
+						if (changes.length > 0) {
+							self.applyChanges(changes, callback);
+						} else {
+							console.log('Nothing to synchronize');
+							callback();
+						}
 					}
 				);
-			},
+			});
 
-			txErrorHandler: function(tx) {
-				alert(tx.message);
-			}
-		};
-	}
-		
-	$.when(dd, jqd).done(function doInit() {
-		alert('dd and jqd ready');
-		dao.initialize(function() {
-			alert('database initialized');
-		});
+		},
 
-		/*
-		var isTouch = !!('ontouchstart' in window);
-		document.getElementById('body').setAttribute('class', isTouch ? 'touch' : 'desktop');    
-		$('.scrollable').pullToRefresh({
-			callback: function() {
-				var def = $.Deferred();
-				setTimeout(function() {
-					def.resolve();      
-				}, 3000); 
-				return def.promise();
-			}
-		});
-		*/
-		
-		// populateDeviceInfoTimer();
-		// Returns the MobileRouter class
-	});
+		getChanges: function(syncURL, modifiedSince, callback) {
+			$.ajax({
+				url: syncURL,
+				data: {modifiedSince: modifiedSince},
+				dataType:"json",
+				success:function (data) {
+					console.log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
+					callback(data);
+				},
+				error: function(model, response) {
+					alert(response.responseText);
+				}
+			});
+
+		},
+
+		applyChanges: function(employees, callback) {
+			this.db.transaction(
+				function(tx) {
+					var l = employees.length;
+					var sql =
+						"INSERT OR REPLACE INTO employee (id, firstName, lastName, title, officePhone, deleted, lastModified) " +
+						"VALUES (?, ?, ?, ?, ?, ?, ?)";
+					console.log('Inserting or Updating in local database:');
+					var e;
+					for (var i = 0; i < l; i++) {
+						e = employees[i];
+						console.log(e.id + ' ' + e.firstName + ' ' + e.lastName + ' ' + e.title + ' ' + e.officePhone + ' ' + e.deleted + ' ' + e.lastModified);
+						var params = [e.id, e.firstName, e.lastName, e.title, e.officePhone, e.deleted, e.lastModified];
+						tx.executeSql(sql, params);
+					}
+					console.log('Synchronization complete (' + l + ' items synchronized)');
+				},
+				this.txErrorHandler,
+				function(tx) {
+					callback();
+				}
+			);
+		},
+
+		txErrorHandler: function(tx) {
+			alert(tx.message);
+		}
+	};
 
 	/*
 	$(window).bind('hashchange', function(){
@@ -360,6 +335,28 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
 	// Initialize the app
 	app.initialize();
+
+	$.when(dd, jqd).done(function doInit() {
+		alert('dd and jqd ready');
+		// if (isMobile.any()) {
+			dao.initialize(function() {
+				alert('database initialized');
+			});
+		// }
+		var isTouch = !!('ontouchstart' in window);
+		document.getElementById('body').setAttribute('class', isTouch ? 'touch' : 'desktop');    
+		$('.scrollable').pullToRefresh({
+			callback: function() {
+				var def = $.Deferred();
+				setTimeout(function() {
+					def.resolve();
+				}, 3000);
+				return def.promise();
+			}
+		});
+		// populateDeviceInfoTimer();
+		// Returns the MobileRouter class
+	});
 	
 	// Instantiates a new Mobile Router instance
     new MobileRouter();
