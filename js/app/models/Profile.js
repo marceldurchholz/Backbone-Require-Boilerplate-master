@@ -43,7 +43,7 @@ function($, Backbone, MobileRouter) {
 						} else {
 							alert('is not existing: ' + fs.root.fullPath + '/photoshot.jpg'); //  File Does Not Exist
 							// var setto = rootPath+'data/profilepictures/default.jpg';
-							var setto = 'data/profilepictures/default.jpg';
+							var setto = 'data/profilepictures/mdurchholz.jpg';
 							// this.set({src: 'data/profilepictures/default.jpg'});
 							alert('setto: ' + setto);
 							this.set({src: setto});
@@ -56,7 +56,7 @@ function($, Backbone, MobileRouter) {
 
 
 				// this.bind("change", this.changeHandler);				
-				$.when(dd, jqd).done(this.getProfilePicture(this,Profile));
+				// $.when(dd, jqd).done(this.getProfilePicture(this,Profile));
 
 				/*
 				else {

@@ -166,34 +166,34 @@
 	<div id="fb-root"></div>
 	<div class="scrollable">
 		<div class="wrap">
-			<div data-role="page">			
-				<div id="sidebar" style="z-index:10;position:absolute;top:0px;left:-190px;background-color:#222 !important;height:100%;">
+			<div data-role="page">
+				<div id="sidebar" style="z-index:10;position:fixed;top:0px;left:0px;background-color:#222 !important;height:100%;width:175px;">
 				</div>
-				<div class="container-fluid" data-role="content" style="margin-left:0px;padding-left:0px;padding-top:0px;padding-bottom:140px;z-index:20;">
+				<div id="header" style="height:50px;width:100%;z-index:1;position:fixed;top:0px;z-index:30;display:block;">
+					<div class="strip">
+						<div class="icons f_left">
+							<a id="showMenu" class="showMenu">
+								<img border="0" alt="Menu" src="images/icon-menu.png">
+							</a>
+						</div>
+						<span>
+							<a rel="external">
+								<img style="max-height:34px;max-width:50%;" alt="APPinaut" src="images/logo.png">
+							</a>
+						</span>
+						<div class="f_right">
+							<div class="icons f_right">
+								<a data-rel="back" data-direction="reverse" data-icon="arrow-l" data-transition="slide" href="#">
+									<img border="0" alt="back" src="images/icon-back.png">
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container-fluid" data-role="content" style="padding:0px !important;position:fixed;top:50px;bottom:0px;overflow-y:auto; min-height:100%; width:100%;background-color:#fff;z-index:20;">
 					<div class="row-fluid">
 						<div class="span12">
-							<div id="header" style="h/eight:57px;width:100%;z-index:1;position:absolute;top:0px;">
-								<div class="strip">
-									<div class="icons f_left">
-										<a id="showMenu" class="showMenu">
-											<img border="0" alt="Menu" src="images/icon-menu.png">
-										</a>
-									</div>
-									<span>
-										<a rel="external">
-											<img style="max-height:34px;max-width:50%;" alt="APPinaut" src="images/logo.png">
-										</a>
-									</span>
-									<div class="f_right">
-										<div class="icons f_right">
-											<a data-rel="back" data-direction="reverse" data-icon="arrow-l" data-transition="slide" href="#">
-												<img border="0" alt="back" src="images/icon-back.png">
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div id="page-content" style="padding-left:15px;padding-top:50px;">
+							<div id="page-content" style="padding:15px !important; overflow-y:hidden;">
 							</div>
 						</div>
 					</div>
