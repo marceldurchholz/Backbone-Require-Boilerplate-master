@@ -3,21 +3,28 @@
 define(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone.validateAll"],
 	function($, Backbone, MobileRouter) {
 		var Employee = Backbone.Model.extend( {
+			/*
+			urlRoot:"http://mobile002.appinaut.de/api/employees/",
+			initialize:function () {
+				this.reports = new EmployeeCollection();
+				this.reports.url = 'http://mobile002.appinaut.de/api/employees/' + this.id + '/reports';
+			}
+			*/
 			defaults: {
-				id: 'default_id',
-				firstName: 'default_firstName',
-				lastName: 'default_lastName',
-				title: 'default_title',
-				officePhone: 'default_officePhone',
-				deleted: 'default_deleted',
-				lastModified: 'default_lastModified',
+				name: "No Slot", 
+				butter: false, 
+				time: "3pm",
+				icon: "plus",
+				deladd: "ADD"
 			},
 			initialize: function() {
-				if(isMobile.any()) {
-					this.set({version: device.version});
-					// this.set({version: 'bla'});
-				}
+				this.bind("change:butter", function(){
+					if (this.model.butter == false) {
+						this.set({name: this.defaults.name});
+					};
+				});
 			}
+			
 		} );
         return Employee;
     }

@@ -21,10 +21,11 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		new FastClick(document.body);
 	}, false);
 
-	window.dao =  {
+	window.dao = {
 
 		// syncURL: "../api/employees",
-		syncURL: "http://coenraets.org/offline-sync/api/employees?modifiedSince=2010-03-01%2010:20:56",
+		// syncURL: "http://coenraets.org/offline-sync/api/employees?modifiedSince=2010-03-01%2010:20:56",
+		syncURL: "http://mobile002.appinaut.de/api/employees/",
 
 		initialize: function(callback) {
 			var self = this;
@@ -75,15 +76,14 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			);
 		},
 		
+		/*
 		fillTable: function(callback) {
 			this.db.transaction(
 				function(tx) {
 					// sample data 
-					/*
-					tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (5,'Steven','Wells','Software Architect','617-000-0012','false','2013-11-09 22:14:19')");
-					tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (4,'Amy','Jones','Sales Representative','617-000-0011','false','2013-11-09 22:14:19')");
-					tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (3,'Kathleen','Byrne','Sales Representative','617-000-0010','false','2013-11-09 22:14:19')");
-					*/
+					// tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (5,'Steven','Wells','Software Architect','617-000-0012','false','2013-11-09 22:14:19')");
+					// tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (4,'Amy','Jones','Sales Representative','617-000-0011','false','2013-11-09 22:14:19')");
+					// tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (3,'Kathleen','Byrne','Sales Representative','617-000-0010','false','2013-11-09 22:14:19')");
 					tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (2,'Gary','Donovan','Marketing','617-000-0009','1','2013-11-09 22:14:19')");
 					tx.executeSql("INSERT INTO employee (id,firstName,lastName,title,officePhone,deleted,lastmodified) VALUES (1,'Lisa','Wong','Marketing Manager','617-000-0008','0','2013-11-09 22:14:19')");
 				},
@@ -107,42 +107,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 				}
 			);
 		},
-
-		findAll: function(callback) {
-			this.db.transaction(
-				function(tx) {
-					var sql = "SELECT * FROM EMPLOYEE";
-					console.log('Local SQLite database: "SELECT * FROM EMPLOYEE"');
-					tx.executeSql(sql, this.txErrorHandler,
-						function(tx, results) {
-							var len = results.rows.length,
-								employees = [],
-								i = 0;
-							for (; i < len; i = i + 1) {
-								employees[i] = results.rows.item(i);
-							}
-							console.log(len + ' rows found');
-							callback(employees);
-						}
-					);
-				}
-			);
-		},
-
-		getLastSync: function(callback) {
-			this.db.transaction(
-				function(tx) {
-					var sql = "SELECT MAX(lastModified) as lastSync FROM employee";
-					tx.executeSql(sql, this.txErrorHandler,
-						function(tx, results) {
-							var lastSync = results.rows.item(0).lastSync;
-							console.log('Last local timestamp is ' + lastSync);
-							callback(lastSync);
-						}
-					);
-				}
-			);
-		},
+		*/
 
 		sync: function(callback) {
 			var self = this;
@@ -160,6 +125,21 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 				);
 			});
 
+		},
+
+		getLastSync: function(callback) {
+			this.db.transaction(
+				function(tx) {
+					var sql = "SELECT MAX(lastModified) as lastSync FROM employee";
+					tx.executeSql(sql, this.txErrorHandler,
+						function(tx, results) {
+							var lastSync = results.rows.item(0).lastSync;
+							console.log('Last local timestamp is ' + lastSync);
+							callback(lastSync);
+						}
+					);
+				}
+			);
 		},
 
 		getChanges: function(syncURL, modifiedSince, callback) {
@@ -198,6 +178,27 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 				this.txErrorHandler,
 				function(tx) {
 					callback();
+				}
+			);
+		},
+		
+		findAll: function(callback) {
+			this.db.transaction(
+				function(tx) {
+					var sql = "SELECT * FROM EMPLOYEE";
+					console.log('Local SQLite database: "SELECT * FROM EMPLOYEE"');
+					tx.executeSql(sql, this.txErrorHandler,
+						function(tx, results) {
+							var len = results.rows.length,
+								employees = [],
+								i = 0;
+							for (; i < len; i = i + 1) {
+								employees[i] = results.rows.item(i);
+							}
+							console.log(len + ' rows found');
+							callback(employees);
+						}
+					);
 				}
 			);
 		},
@@ -337,12 +338,12 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	app.initialize();
 
 	$.when(dd, jqd).done(function doInit() {
-		alert('dd and jqd ready');
-		// if (isMobile.any()) {
+		// alert('dd and jqd ready');
+		if (isMobile.any()) {
 			dao.initialize(function() {
-				alert('database initialized');
+				// alert('database initialized');
 			});
-		// }
+		}
 		var isTouch = !!('ontouchstart' in window);
 		document.getElementById('body').setAttribute('class', isTouch ? 'touch' : 'desktop');    
 		$('.scrollable').pullToRefresh({

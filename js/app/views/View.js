@@ -34,7 +34,6 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				// this.modelData.on('change',this.render, this);
 				
                 this.render();
-				return false;
             },			
             events: {
 				'click .login': 'login',

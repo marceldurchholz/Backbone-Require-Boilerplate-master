@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Testarea", "collections/Collection"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/EmployeeListItemView", "views/Testarea", "collections/Collection"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Testarea, Collection) {
+    function($, Backbone, Profile, System, View, Aboutus, EmployeeListItemView, Testarea, Collection) {
 
 		$.support.cors = true;
 		$.mobile.allowCrossDomainPages = true;
@@ -31,21 +31,21 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
                 "": "home",
                 "home": "home",
 				"aboutus" : "aboutus",
+				"employeeListItemView" : "employeeListItemView",
 				"testarea" : "testarea"
             },
 			
             home: function() {
 				new View();
-                // alert('new View');
-				// alert('bla');
             },
             aboutus: function() {
                 new Aboutus();
-				// populateDeviceInfo();
+            },
+            employeeListItemView: function() {
+                new EmployeeListItemView();
             },
             testarea: function() {
                 new Testarea();
-				// populateDeviceInfo();
             }
     
         });

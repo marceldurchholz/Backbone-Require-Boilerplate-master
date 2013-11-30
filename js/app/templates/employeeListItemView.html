@@ -1,0 +1,9 @@
+aaaa
+<table>
+	<% _.each(collection, function(data) { %>
+	<tr>
+		<td><a href=""><%= data.get('Name') %></a></td>
+		<td><a href=""><%= data.get('Image') %></a></td>
+	</tr>
+	<% }); %>
+</table>
