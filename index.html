@@ -164,11 +164,11 @@
 </head>
 <body id="body" style="background-color:#333 !important;">
 	<div id="fb-root"></div>
-	<div class="scrollable">
-		<div class="wrap">
-			<div data-role="page">
-				<div id="sidebar" style="z-index:10;position:fixed;top:0px;left:0px;background-color:#222 !important;height:100%;width:175px;">
-				</div>
+		
+		<div data-role="page">
+			<div id="sidebar" style="z-index:10;position:fixed;top:0px;left:0px;background-color:#222 !important;height:100%;width:190px;">
+			</div>
+			<div id="flexiblecontent">
 				<div id="header" style="height:50px;width:100%;z-index:1;position:fixed;top:0px;z-index:30;display:block;">
 					<div class="strip">
 						<div class="icons f_left">
@@ -190,17 +190,22 @@
 						</div>
 					</div>
 				</div>
-				<div class="container-fluid" data-role="content" style="padding:0px !important;position:fixed;top:50px;bottom:0px;overflow-y:auto; min-height:100%; width:100%;background-color:#fff;z-index:20;">
-					<div class="row-fluid">
-						<div class="span12">
-							<div id="page-content" style="padding:15px !important; overflow-y:hidden;">
+				<div class="scrollable">
+					<div class="wrap">
+						<div class="container-fluid" data-role="content" style="padding:0px !important;position:fixed;top:50px;bottom:0px;overflow-y:auto; min-height:100%; width:100%;background-color:#fff;z-index:20;">
+							<div class="row-fluid">
+								<div class="span12">
+									<div id="page-content" style="padding:15px !important; overflow-y:hidden;">
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+
 			</div>
 		</div>
-	</div>
+			
 	<div class="clear"></div>
 	<div id="footer" style="width:100%;z-index:999;font-size:1.6em;">
 		<div class="strip">

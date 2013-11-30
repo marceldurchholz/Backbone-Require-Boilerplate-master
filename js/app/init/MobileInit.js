@@ -305,13 +305,13 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
 	$('#showMenu').on("vclick", function (e) {
 		if (menuStatus != true) {
-			$(".ui-page-active").animate({
+			$("#flexiblecontent").animate({
 				marginLeft: "190px",
 			}, 300, function () {
 				menuStatus = true;
 			});
 		} else {
-			$(".ui-page-active").animate({
+			$("#flexiblecontent").animate({
 				marginLeft: "0px",
 			}, 300, function () {
 				menuStatus = false;
@@ -320,7 +320,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		return false;
 	});
 	$('#sidebar').on("vclick", "#menuelement a.contentLink", function (e) {
-		$(".ui-page-active").animate({
+		$("#flexiblecontent").animate({
 			marginLeft: "0px",
 		}, 300, function () {
 			menuStatus = false;
