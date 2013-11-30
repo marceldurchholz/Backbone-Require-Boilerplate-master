@@ -24,16 +24,23 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Em
 					$('pre').html( JSON.stringify( data, '', '  ' ) );
 				});
 				*/
-				alert('rendering');
+				// alert('rendering');
 				var myCollection = new EmployeeCollection();
 				// myCollection.bind("change", this.render, this);
-
+				
+				// alert(myCollection.toString());
+				
 				myCollection.fetch({
 				  error: function(e) {
 					alert('error');
 				  },
 				  success: function() {
 					alert('success');
+					alert(myCollection.toJSON());
+					alert(myCollection.toString());
+					alert(myCollection.toString);
+					// printObject(myCollection);
+					// alert(myCollection);
 					// Do Something
 					// This is called when all add, remove and update operations have been done
 				  }
@@ -55,12 +62,11 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Em
 					}
 				});
 				*/
-				
-				alert(myCollection.toJSON());
-				// alert(myCollection);
-				printObject(myCollection);
-				
-				this._template = _.template(template, {myCollection: myCollection});				
+				// var b = new Backbone.Collection;
+				// b = [{"id":2,"firstName":"Lisa","lastName":"Taylor","title":"VP of Marketing","officePhone":"617-522-5588","lastModified":"2011-06-01 01:00:00","deleted":false}];
+				// var a = b.toString();
+				// this._template = _.template(template, {myCollection: myCollection});
+				this._template = _.template(template, {myCollection: myCollection.toString});
 				this.$el.html(this._template);
 				$('#body').trigger('create');
                 return this;
