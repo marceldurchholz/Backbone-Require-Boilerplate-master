@@ -21,6 +21,8 @@ require.config({
 
       "underscore": "../libs/lodash",
 
+      "functions": "../functions",
+
       "backbone": "../libs/backbone",
 
       // Plugins
@@ -54,7 +56,7 @@ require.config({
       "backbone": {
 
         // Depends on underscore/lodash and jQuery
-        "deps": ["underscore", "jquery", "jquerypulltorefresh", "jquerymobile"],
+        "deps": ["functions", "underscore", "jquery", "jquerypulltorefresh", "jquerymobile"],
 
         // Exports the global window.Backbone object
         "exports": "Backbone"
