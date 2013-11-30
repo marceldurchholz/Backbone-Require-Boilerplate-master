@@ -257,7 +257,7 @@ window.dao = {
 				callback(data);
 			},
 			error: function(model, response) {
-				alert(response.responseText);
+				console.log(response.responseText);
 			}
 		});
 
@@ -301,8 +301,8 @@ window.dao = {
 							employees[i] = results.rows.item(i);
 						}
 						console.log(len + ' rows found');
-						alert(employees);
-						alert(employees.toJSON);
+						// alert(employees);
+						// alert(employees.toJSON);
 						
 						// for (var i = 0; i < l; i++) {
 						// e = employees[i];

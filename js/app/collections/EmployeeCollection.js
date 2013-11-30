@@ -19,6 +19,7 @@ define(["jquery","backbone"],
 		},
 		
 		initialize: function() {
+			// this.fetch;
 			console.log("Employees initialize");
 		}
 		
