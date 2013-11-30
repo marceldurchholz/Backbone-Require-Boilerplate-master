@@ -60,7 +60,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Em
 				// alert(myCollection);
 				printObject(myCollection);
 				
-				this._template = _.template(template, {});				
+				this._template = _.template(template, {myCollection: myCollection});				
 				this.$el.html(this._template);
 				$('#body').trigger('create');
                 return this;
