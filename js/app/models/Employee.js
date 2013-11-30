@@ -1,8 +1,8 @@
-// System.js
+// Employee.js
 // --------
 define(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone.validateAll"],
 	function($, Backbone, MobileRouter) {
-		var System = Backbone.Model.extend( {
+		var Employee = Backbone.Model.extend( {
 			defaults: {
 				id: 'default_id',
 				firstName: 'default_firstName',
@@ -19,6 +19,6 @@ define(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone.
 				}
 			}
 		} );
-        return System;
+        return Employee;
     }
 );
