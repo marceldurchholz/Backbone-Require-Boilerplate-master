@@ -106,7 +106,7 @@ $('#body').each(function() {
 });
 
 function renderList(employees) {
-	alert('Rendering list using local SQLite data...');
+	// alert('Rendering list using local SQLite data...');
 	dao.findAll(function(employees) {
 		$('#list').empty();
 		var l = employees.length;
@@ -299,6 +299,9 @@ window.dao = {
 							employees[i] = results.rows.item(i);
 						}
 						console.log(len + ' rows found');
+						alert(employees);
+						alert(employees.toJSON);
+						JSON.stringify(employees);
 						callback(employees);
 					}
 				);
