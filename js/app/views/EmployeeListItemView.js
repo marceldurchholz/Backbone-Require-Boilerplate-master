@@ -40,7 +40,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Em
 				});
 				
 				// printObject(myCollection);
-				myCollection.add({id: 'bla'});
+				// myCollection.add({id: 'bla'});
 				
 				/*
 				myCollection.fetch({
@@ -56,9 +56,9 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Em
 				});
 				*/
 				
-				// alert(myCollection.toJSON());
-				// alert(myCollection);
-				// printObject(myCollection);
+				alert(myCollection.toJSON());
+				alert(myCollection);
+				printObject(myCollection);
 				
 				this._template = _.template(template, {});				
 				this.$el.html(this._template);
