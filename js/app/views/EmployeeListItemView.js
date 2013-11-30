@@ -36,10 +36,10 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Em
 				  },
 				  success: function() {
 					alert('success');
-					alert(myCollection.toJSON());
+					// alert(myCollection.toJSON());
 					alert(myCollection.toString());
-					alert(myCollection.toString);
-					// printObject(myCollection);
+					// alert(myCollection.toString);
+					printObject(myCollection.toString());
 					// alert(myCollection);
 					// Do Something
 					// This is called when all add, remove and update operations have been done
