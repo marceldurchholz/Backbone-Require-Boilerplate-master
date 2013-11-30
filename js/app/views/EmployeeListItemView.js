@@ -57,7 +57,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Em
 				*/
 				
 				alert(myCollection.toJSON());
-				alert(myCollection);
+				// alert(myCollection);
 				printObject(myCollection);
 				
 				this._template = _.template(template, {});				
