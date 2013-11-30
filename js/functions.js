@@ -100,10 +100,12 @@ require(["jquery"],
 );
 */
 
+/*
 $('#body').each(function() {
    //this points to item
    alert('this is a jquery alert');
 });
+*/
 
 function renderList(employees) {
 	// alert('Rendering list using local SQLite data...');
