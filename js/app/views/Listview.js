@@ -18,40 +18,39 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 						model: profiles
 					});
 					// When profiles have been successfully grabbed, display them using profile template
-					profiles.bind('all', function (e) {
+					profiles.bind('sync', function (e) {
 						alert(e);
 						alert('a');
 						profilesView.render();
 					});
+					/*
 					profiles.fetch({
 						success: function(response,xhr) {
 							console.log("Inside success");
 							alert('success');
 							alert(response);
 							console.log(response);
-							this.render();
 						},
-							error: function (errorResponse) {
+						error: function (errorResponse) {
 							alert('error');
 							alert(errorResponse);
 							console.log(errorResponse);
-							this.render();
 						}
 					});
-
-					// profiles.fetch();
-					
+					*/
 					// this.render();
+
+					profiles.fetch({reset: true});
+					// profiles.reset();
+					this.render();
 				},
 				render: function() {
-					alert('rendering');
+					alert('rendering in Listview.js');
+					// profiles.fetch();
 					this.sidebar = _.template(sidebar, {});
 					$('#sidebar').html(sidebar);
 					
-					this._template = _.template(listview, 
-						{}, 
-						{}
-					);
+					this._template = _.template(listview);
 
 					this.$el.html(this._template);
 

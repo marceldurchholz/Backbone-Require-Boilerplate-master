@@ -8,12 +8,18 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
                     el: "#profiles",
                     // template: _.template($('#profileTemplate').html()),
 					template: _.template(profileView),
+					initialize: function() {
+						alert('initializing in ProfileView.js');
+					},
                     render: function(eventName) {
                         _.each(this.model.models, function(profile){
                             var profileTemplate = this.template(profile.toJSON());
                             $(this.el).append(profileTemplate);
                         }, this);
 
+						alert('rendering in ProfileView.js');
+						this.$el.html(this._template);
+						$('#body').trigger('create');
                         return this;
 /*
 				this.sidebar = _.template(sidebar, {});
