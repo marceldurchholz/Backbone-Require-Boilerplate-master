@@ -23,17 +23,34 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 						alert('a');
 						profilesView.render();
 					});
-					profiles.fetch();
+					profiles.fetch({
+						success: function(response,xhr) {
+							console.log("Inside success");
+							alert('success');
+							alert(response);
+							console.log(response);
+							this.render();
+						},
+							error: function (errorResponse) {
+							alert('error');
+							alert(errorResponse);
+							console.log(errorResponse);
+							this.render();
+						}
+					});
+
+					// profiles.fetch();
 					
-					this.render();
+					// this.render();
 				},
 				render: function() {
+					alert('rendering');
 					this.sidebar = _.template(sidebar, {});
 					$('#sidebar').html(sidebar);
 					
 					this._template = _.template(listview, 
 						{}, 
-						{variable: 'modelData'}
+						{}
 					);
 
 					this.$el.html(this._template);
