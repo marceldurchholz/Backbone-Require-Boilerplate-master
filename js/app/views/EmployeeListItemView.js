@@ -8,7 +8,17 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Em
             el: "#page-content",
 			attributes: {"data-role": 'content'},
             initialize: function() {
-                this.render();
+                // this.render();
+				var profiles = new ProfileList(); 
+				var profilesView = new ProfileView({
+					model: profiles
+				});
+				// When profiles have been successfully grabbed,
+				// display them using profile template
+				profiles.bind('reset', function () {
+					profilesView.render();
+				});
+				profiles.fetch();
             },
             render: function() {
 				this.sidebar = _.template(sidebar, {});
@@ -25,26 +35,35 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Em
 				});
 				*/
 				// alert('rendering');
+				/*
 				var myCollection = new EmployeeCollection();
 				// myCollection.bind("change", this.render, this);
 				
 				// alert(myCollection.toString());
 				
-				myCollection.fetch({
-				  error: function(e) {
-					alert('error');
-				  },
-				  success: function() {
-					alert('success');
-					// alert(myCollection.toJSON());
-					alert(myCollection.toString());
-					// alert(myCollection.toString);
-					printObject(myCollection.toString());
-					// alert(myCollection);
-					// Do Something
-					// This is called when all add, remove and update operations have been done
-				  }
-				});
+				if (isMobile.any()) {
+					myCollection.fetch({
+					  error: function(e) {
+						alert('error');
+					  },
+					  success: function() {
+						alert('success');
+						// alert(myCollection.toJSON());
+						alert(myCollection.toString());
+						// alert(myCollection.toString);
+						// printObject(myCollection.toString());
+						// alert(myCollection);
+						// Do Something
+						// This is called when all add, remove and update operations have been done
+					  }
+					});
+				}
+				else {
+					var b = new Backbone.Collection;
+					// b = [{"id":2,"firstName":"Lisa","lastName":"Taylor","title":"VP of Marketing","officePhone":"617-522-5588","lastModified":"2011-06-01 01:00:00","deleted":false}];
+					// var a = b.toString();
+				}
+				*/
 				
 				// printObject(myCollection);
 				// myCollection.add({id: 'bla'});
@@ -62,11 +81,22 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Em
 					}
 				});
 				*/
-				// var b = new Backbone.Collection;
-				// b = [{"id":2,"firstName":"Lisa","lastName":"Taylor","title":"VP of Marketing","officePhone":"617-522-5588","lastModified":"2011-06-01 01:00:00","deleted":false}];
-				// var a = b.toString();
+				
+				var Profile = Backbone.Model.extend();
+				var ProfileList = Backbone.Collection.extend({
+				   model: Profile,
+				   url: 'http://coenraets.org/offline-sync/api/employees'
+				});
+				var profiles = new ProfileList();
+				profiles.bind('reset', function () { 
+					console.log('bla');
+					// profiles.reset();
+					this._template = _.template(template, {collection: profiles});
+					// console.log(profiles); 
+				});
+				profiles.reset();
+									
 				// this._template = _.template(template, {myCollection: myCollection});
-				this._template = _.template(template, {myCollection: myCollection.toString});
 				this.$el.html(this._template);
 				$('#body').trigger('create');
                 return this;
