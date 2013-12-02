@@ -9,15 +9,8 @@ define(["jquery", "backbone", "models/Profile"],
 		model: Profile,
 		// url: 'profiles.jsonx'
 		url: 'http://mobile002.appinaut.de/api/employees/index.php', 
+		
 		/*
-		parse: function (response, xhr) {
-			if(response.type =="read"){
-				console.log(response[0]);
-				// alert(response[0]);
-				return response[0];
-			};
-		},
-
 		parse: function(response, xhr) {
 			return response[0];
 			alert('response in parse ' + response.length);
@@ -30,12 +23,14 @@ define(["jquery", "backbone", "models/Profile"],
 		*/
 		initialize: function() {
 			// this.myProfiles = new JobCollection();
+			/*
 			var data = [
 				{ id: "a", name: "path1" },
 				{ id: "b", name: "path2" },
 			];
 			
 			console.log("ProfileCollection initialize");
+			/*
 			this.fetch({
 			   error: function () {
 				 console.log("fetching error!!"); 
@@ -47,6 +42,8 @@ define(["jquery", "backbone", "models/Profile"],
 				console.log('done');
 				console.log('length1:' +  this.length);
 			});
+			*/
+			console.log('bla');
 			// this.parse();
 		}
 	});

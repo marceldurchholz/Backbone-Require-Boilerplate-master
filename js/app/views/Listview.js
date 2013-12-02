@@ -43,22 +43,35 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 					// var profilesObj = new ProfileList();
 					// var profiles = profilesObj[0];
 					// profilesView.add({name: 'bla'});
+					var profiles = new ProfileList();
+					var profilesView = new ProfileView({
+						model: this.profiles
+					});
 					profiles.bind('sync', function (e) {
 						// alert(e);
+						// this.fetch();
 						alert('syncing profile through BIND');
 						profilesView.render();
+						// console.log(profiles);
 					});
+					this.profiles = profiles;
 
 					// profiles.fetch();
 					this.render();
 				},
 				render: function() {
-					var profiles = new ProfileList();
-					var profilesView = new ProfileView({
-						model: profiles
-					});
+
 					alert('rendering usual');
-					console.log(profiles);
+					
+					// profiles.fetch({
+					this.profiles.fetch({
+					  success: function(collection){
+						// This code block will be triggered only after receiving the data.
+						console.log(collection.toJSON()); 
+					  }
+					});
+				
+					// this.profiles.reset();
 					// alert('rendering in Listview.js');
 					// profiles.fetch();
 					this.sidebar = _.template(sidebar, {});
