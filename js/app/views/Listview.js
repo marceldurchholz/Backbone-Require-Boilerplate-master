@@ -101,7 +101,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 				},
 				myCollectionLoaded: function(e){
 					// console.log(e);
-					alert('***** myCollectionLoaded called: ' + e);
+					console.log('***** myCollectionLoaded called: ' + e);
 					// console.log(e);
 					/*
 					if (isMobile.any()) {

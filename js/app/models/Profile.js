@@ -6,7 +6,7 @@ function($, Backbone, MobileRouter) {
 
         var Profile = Backbone.Model.extend({
 			defaults: {
-				id : '0',
+				id : '',
 				name : 'niemand'
 			},
 			/*

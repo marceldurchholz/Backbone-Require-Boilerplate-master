@@ -1,8 +1,8 @@
 // ProfileView.js
 // -------
-define(["jquery", "backbone", "models/Profile", "models/System", "text!templates/view.html", "text!templates/sidebar.html", "text!templates/profileView.html"],
+define(["jquery", "backbone", "models/Profile", "models/System", "text!templates/view.html", "text!templates/sidebar.html", "collections/ProfileList", "text!templates/profileView.html"],
 
-    function($, Backbone, Profile, System, template, sidebar, profileView){
+    function($, Backbone, Profile, System, template, sidebar, ProfileList, profileView){
 		
 		var ProfileView = Backbone.View.extend({
 			el: "#profiles",
@@ -12,48 +12,81 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				console.log('initializing ProfileView.js');
 				// this.render();
 			},
+			paintThings: function() {
+				alert('paintThings');
+			},
+			insertProfiles: function(profile) {
+				  // book.publish();
+				  console.log(profile);
+				  // alert(book.get('id'));
+				  htmlContent = _.template(profileView, {id: profile.get('id'), name: profile.get('name')}, {variable: 'profile'});
+				  // alert(htmlContent);
+				  $(this.el).append(htmlContent);
+				},
 			render: function() {
-				console.log('loading profileview.js');
+				console.log('rendering in ProfileView.js');
+				// console.log('loading profileview.js');
 				// console.log(this.collection);
 				/*
 				this.model
 				this.model = '[{"id":1,"name":"Lisa"},{"id":2,"name":"Paul"}]';
 				*/
+				
 				if (isMobile.any()) {
 					// alert(JSON.stringify(this.foo));
 					alert(JSON.stringify(this.collection));
 				}
 				else {
-					this.bla = new Object ([{"id":1,"name":"Lisa"},{"id":2,"name":"Paul"}]);
-					this.foo = [this.bla];
-					alert(JSON.stringify(this.foo));
+					this.profil1 = new Profile({ name: "Vanessa", id: "1" });
+					this.profil2 = new Profile({ name: "Connie", id: "2" });
+					this.collection = new ProfileList([ this.profil1, this.profil2 ]);
+					// this.bla = new Object ([{"id":1,"name":"Lisa"},{"id":2,"name":"Paul"}]);
+					// this.foo = [this.bla];
+					alert(JSON.stringify(this.collection));
 				}
+				
 				// this.collection = collection;
 				// _.each(this.model.models, function(profile){
 				// alert('each function');
+				
+				var htmlContent = '';
+				
 				if (isMobile.any()) {
-					_.each(this.foo, function(profile){
-						// var profileTemplate = this.template(profile.toJSON());
-						// $(this.el).append(profileTemplate);
-						alert(JSON.stringify(profile));
-					}, this);
-				} else {
 					_.each(this.collection, function(profile){
 						// var profileTemplate = this.template(profile.toJSON());
 						// $(this.el).append(profileTemplate);
 						alert(JSON.stringify(profile));
 					}, this);
+				} else {
+					// this.collection.models.each(this.paintThings);
+					this.collection.each(this.insertProfiles, this);
+					/*
+					_.each(this.collection, function(profile){
+						// var profileTemplate = this.template(profile.toJSON());
+						// $(this.el).append(profileTemplate);
+						// htmlContent = _.template(profileView, {id: this.collection.get(profile)}, {variable: 'profile'});
+						console.log(this.collection);
+						console.log('xxx');
+						// alert('each');
+						alert(htmlContent);
+						// alert(JSON.stringify(profile));
+					}, this);
+					*/
 				}
+			  // var x = this.$el.append('dsfsdfsd');
+			  // x.innerHTML = 'jkdkfjsd';
+			  // alert(x);
 
 				/*
 				*/
 				// alert($('#profiles').html());
 				// alert($('#profiles').html());
 
-				console.log('rendering in ProfileView.js');
 				// var _profileView = _.template((profileView, {}, {}));
-				this._profileView = _.template(profileView, {}, {});
-				this.$el.html(this._profileView);
+				
+				// this._profileView = _.template(profileView, {}, {});
+				// this.$el.html(this._profileView);
+				
 				// this.$el.html(profileView);
 				// $('#body').html( "nothing" );
 				// this.nestedView.setElement( this.$el.find('.selector') ).render();
