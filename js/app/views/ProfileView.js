@@ -19,11 +19,15 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				this.model
 				this.model = '[{"id":1,"name":"Lisa"},{"id":2,"name":"Paul"}]';
 				*/
+				this.bla = new Object ('[{"id":1,"name":"Lisa"},{"id":2,"name":"Paul"}]');
+				this.foo = [this.bla];
+				// this.collection = collection;
 				// _.each(this.model.models, function(profile){
-				_.each(this.collection, function(profile){
+				// alert('each function');
+				_.each(this.bla, function(profile){
 					// var profileTemplate = this.template(profile.toJSON());
 					// $(this.el).append(profileTemplate);
-					alert('each function');
+					console.log(profile);
 				}, this);
 				/*
 				*/
