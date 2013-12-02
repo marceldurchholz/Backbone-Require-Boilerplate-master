@@ -20,11 +20,13 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				this.model = '[{"id":1,"name":"Lisa"},{"id":2,"name":"Paul"}]';
 				*/
 				// _.each(this.model.models, function(profile){
+				/*
 				_.each(this.collection, function(profile){
 					// var profileTemplate = this.template(profile.toJSON());
 					// $(this.el).append(profileTemplate);
 					alert('each function');
 				}, this);
+				*/
 				/*
 				*/
 				// alert($('#profiles').html());

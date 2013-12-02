@@ -92,8 +92,8 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 					this.myCollection = myCollection;
 					this.myCollection.bind('all',this.myCollectionLoaded, this);
 					this.myCollection.fetch();
-					this.myCollection.add({ name: 'Hans', id: 1 });
-					this.myCollection.add({ name: 'Werner', id: 2 });
+					// this.myCollection.add({ name: 'Hans', id: 1 });
+					// this.myCollection.add({ name: 'Werner', id: 2 });
 					
 					// console.log(myCollection);
 					// this.render();
@@ -102,6 +102,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 					console.log(e);
 					console.log('***** myCollectionLoaded called: ' + e);
 					// console.log(e);
+					/*
 					if (isMobile.any()) {
 						if (e=='success') {
 							this.render();
@@ -113,6 +114,8 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 					else {
 						this.render();
 					}
+					*/
+					this.render();
 				},
 				render: function() {
 					
