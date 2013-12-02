@@ -18,7 +18,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 			insertProfiles: function(profile) {
 				  // book.publish();
 				  console.log(profile);
-				  // alert(book.get('id'));
+				  alert(profile.get('name'));
 				  htmlContent = _.template(profileView, {id: profile.get('id'), name: profile.get('name')}, {variable: 'profile'});
 				  // alert(htmlContent);
 				  $(this.el).append(htmlContent);
@@ -37,8 +37,13 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 					alert(JSON.stringify(this.collection));
 				}
 				else {
-					this.profil1 = new Profile({ name: "Vanessa", id: "1" });
-					this.profil2 = new Profile({ name: "Connie", id: "2" });
+					// var transformed = JSON.parse('{"p": 5}', function(k, v) { if (k === "") return v; return v * 2; });
+					// // var bla = JSON.parse('{"id":"1","name":"Lisa"},{"id":"2","name":"Paul"}');
+					var xxx = eval( '[{"id":"1","name":"Vanessa"},{"id":"2","name":"Connie"}]' );
+					alert(xxx);
+					alert(JSON.stringify(xxx));
+					this.profil1 = new Profile({ id: "1", name: "Vanessa" });
+					this.profil2 = new Profile({ id: "2", name: "Connie" });
 					this.collection = new ProfileList([ this.profil1, this.profil2 ]);
 					// this.bla = new Object ([{"id":1,"name":"Lisa"},{"id":2,"name":"Paul"}]);
 					// this.foo = [this.bla];
@@ -52,11 +57,14 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				var htmlContent = '';
 				
 				if (isMobile.any()) {
+					this.collection.each(this.insertProfiles, this);
+					/*
 					_.each(this.collection, function(profile){
 						// var profileTemplate = this.template(profile.toJSON());
 						// $(this.el).append(profileTemplate);
 						alert(JSON.stringify(profile));
 					}, this);
+					*/
 				} else {
 					// this.collection.models.each(this.paintThings);
 					this.collection.each(this.insertProfiles, this);
