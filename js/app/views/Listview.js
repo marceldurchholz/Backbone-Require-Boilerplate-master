@@ -8,11 +8,11 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 
 				el: "#page-content",
 				attributes: {"data-role": 'content'},
-				template: _.template(),
+				// template: _.template(listview),
 
 				initialize: function() {
-					this.modelData = new Backbone.Model({systemData: new System(), profileData: new Profile()});
-					
+					// this.modelData = new Backbone.Model({systemData: new System(), profileData: new Profile()});
+					/*
 					var profiles = new ProfileList();
 					var profilesView = new ProfileView({
 						model: profiles
@@ -23,9 +23,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 						// alert('a');
 						this.render();
 					});
-					/*
-					profiles.fetch({reset: true});
-					*/
+					// profiles.fetch({reset: true});
 					profiles.fetch({
 						success: function(response,xhr) {
 							console.log("Inside success");
@@ -41,16 +39,38 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 						}
 					});
 					// profiles.reset();
+					*/
+					// var profilesObj = new ProfileList();
+					// var profiles = profilesObj[0];
+					// profilesView.add({name: 'bla'});
+					profiles.bind('sync', function (e) {
+						// alert(e);
+						alert('syncing profile through BIND');
+						profilesView.render();
+					});
+
+					// profiles.fetch();
 					this.render();
 				},
 				render: function() {
-					alert('rendering in Listview.js');
+					var profiles = new ProfileList();
+					var profilesView = new ProfileView({
+						model: profiles
+					});
+					alert('rendering usual');
+					console.log(profiles);
+					// alert('rendering in Listview.js');
 					// profiles.fetch();
 					this.sidebar = _.template(sidebar, {});
 					$('#sidebar').html(sidebar);
 					
-					this._template = _.template(listview);
+					this._template = _.template(listview, {});
+					// $('#profiles').html('bla');
 					this.$el.html(this._template);
+					
+					this.nestedView = new ProfileView();
+					// this.$el.append( this.nestedView.render().el );
+					this.nestedView.setElement( this.$el.find('.selector') ).render();
 
 					
 					/*
