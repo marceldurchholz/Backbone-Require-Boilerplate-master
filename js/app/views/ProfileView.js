@@ -19,30 +19,31 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				this.model
 				this.model = '[{"id":1,"name":"Lisa"},{"id":2,"name":"Paul"}]';
 				*/
-				this.bla = new Object ([{"id":1,"name":"Lisa"},{"id":2,"name":"Paul"}]);
-				this.foo = [this.bla];
-				
-				if (!isMobile.any()) {
-					alert(JSON.stringify(this.foo));
-				}
-				else {
+				if (isMobile.any()) {
 					// alert(JSON.stringify(this.foo));
 					alert(JSON.stringify(this.collection));
+				}
+				else {
+					this.bla = new Object ([{"id":1,"name":"Lisa"},{"id":2,"name":"Paul"}]);
+					this.foo = [this.bla];
+					alert(JSON.stringify(this.foo));
 				}
 				// this.collection = collection;
 				// _.each(this.model.models, function(profile){
 				// alert('each function');
-				_.each(this.foo, function(profile){
-					// var profileTemplate = this.template(profile.toJSON());
-					// $(this.el).append(profileTemplate);
-					alert(JSON.stringify(profile));
-				}, this);
-				
-				_.each(this.collection, function(profile){
-					// var profileTemplate = this.template(profile.toJSON());
-					// $(this.el).append(profileTemplate);
-					alert(JSON.stringify(profile));
-				}, this);
+				if (isMobile.any()) {
+					_.each(this.foo, function(profile){
+						// var profileTemplate = this.template(profile.toJSON());
+						// $(this.el).append(profileTemplate);
+						alert(JSON.stringify(profile));
+					}, this);
+				} else {
+					_.each(this.collection, function(profile){
+						// var profileTemplate = this.template(profile.toJSON());
+						// $(this.el).append(profileTemplate);
+						alert(JSON.stringify(profile));
+					}, this);
+				}
 
 				/*
 				*/
