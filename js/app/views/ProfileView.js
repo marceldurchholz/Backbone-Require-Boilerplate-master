@@ -13,6 +13,8 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				this.render();
 			},
 			render: function() {
+				console.log(this.collection);
+				/*
 				this.model
 				this.model = '[{"id":1,"name":"Lisa"},{"id":2,"name":"Paul"}]';
 				_.each(this.model.models, function(profile){
@@ -20,7 +22,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 					// $(this.el).append(profileTemplate);
 					alert('each function');
 				}, this);
-				
+				*/
 				// alert($('#profiles').html());
 				// alert($('#profiles').html());
 

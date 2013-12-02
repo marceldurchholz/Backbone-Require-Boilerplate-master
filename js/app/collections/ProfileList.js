@@ -10,6 +10,22 @@ define(["jquery", "backbone", "models/Profile"],
 		// url: 'profiles.jsonx'
 		url: 'http://mobile002.appinaut.de/api/employees/index.php', 
 		
+		initialize: function() {
+			alert('collection initializing');
+			/*
+			var myCollection = new ProfileList([
+				new Profile({ name: 'hans', id: 200}),
+				new Profile({ title: 'peter', id: 250}),
+				new Profile({ title: 'werner', id: 100}),
+				new Profile({ title: 'connie', id: 10})
+				// Add more here
+			]);
+			*/
+			// console.log(this);
+			// this.add({ name: 'fred', id: 20 });
+			// console.log(this);
+			// this.ProfileList = myCollection;
+		},
 		/*
 		parse: function(response, xhr) {
 			return response[0];
@@ -21,31 +37,6 @@ define(["jquery", "backbone", "models/Profile"],
 			};
 		},
 		*/
-		initialize: function() {
-			// this.myProfiles = new JobCollection();
-			/*
-			var data = [
-				{ id: "a", name: "path1" },
-				{ id: "b", name: "path2" },
-			];
-			
-			console.log("ProfileCollection initialize");
-			/*
-			this.fetch({
-			   error: function () {
-				 console.log("fetching error!!"); 
-			   },
-			   success: function () {
-				  console.log("fetching success"); 
-			   }
-			}).complete(function () {
-				console.log('done');
-				console.log('length1:' +  this.length);
-			});
-			*/
-			console.log('bla');
-			// this.parse();
-		}
 	});
 
     // Returns the Model class

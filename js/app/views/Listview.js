@@ -43,6 +43,8 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 					// var profilesObj = new ProfileList();
 					// var profiles = profilesObj[0];
 					// profilesView.add({name: 'bla'});
+					
+					/*
 					var profiles = new ProfileList();
 					var profilesView = new ProfileView({
 						model: this.profiles
@@ -55,21 +57,73 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 						// console.log(profiles);
 					});
 					this.profiles = profiles;
+					*/
 
+					/*
+					Profile.donuts.bind("add", function(donut) { 
+					  alert("added " + donut.get("name")); 
+					});
+					*/
+										
+					/*
+					myCollection = new ProfileList([
+						new Profile({ name: 'hans', id: 200}),
+						new Profile({ title: 'peter', id: 250}),
+						new Profile({ title: 'werner', id: 100}),
+						new Profile({ title: 'connie', id: 10})
+						// Add more here
+					]);
+					*/
+					
+					
+					// this.listenTo(this, 'change', this.render);
+					/*
+					this.myCollection.bind('reset',function(e) {
+						alert(e.length);
+						// alert('a');
+						// this.render();
+						// alert('blafoobla');
+					});
+					*/
+					// console.log(myCollection.toJSON());
 					// profiles.fetch();
+					
+					var myCollection = new ProfileList();
+					this.myCollection = myCollection;
+					this.myCollection.bind('all',this.myCollectionChanged, this);
+					this.myCollection.add({ name: 'fred', id: 20 });
+					// console.log(myCollection);
+					this.render();
+				},
+				myCollectionChanged: function(e){
+					console.log('myCollectionChanged called: ' + e);
 					this.render();
 				},
 				render: function() {
-
-					alert('rendering usual');
 					
-					// profiles.fetch({
-					this.profiles.fetch({
+					/*
+					var hansmustermannprofile = new Profile({
+						id : "1",
+						name : "Hans Mustermann"
+					});
+					// console.log(hansmustermannprofile);
+					*/
+					// var myCollection = new ProfileList();
+					// myCollection.add(hansmustermannprofile);
+					
+					// this.listenTo(this.model, 'change', this.render);
+					
+					console.log('rendering usual');
+					// this.myCollection.reset();
+					/*
+					this.myCollection.fetch({
 					  success: function(collection){
 						// This code block will be triggered only after receiving the data.
-						console.log(collection.toJSON()); 
+						// console.log(collection.toJSON()); 
+						alert('success');
 					  }
 					});
+					*/
 				
 					// this.profiles.reset();
 					// alert('rendering in Listview.js');
@@ -81,9 +135,11 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 					// $('#profiles').html('bla');
 					this.$el.html(this._template);
 					
-					this.nestedView = new ProfileView();
+					this.nestedView = new ProfileView({collection: this.myCollection});
+					this._nestedView = this.nestedView;
+					
 					// this.$el.append( this.nestedView.render().el );
-					this.nestedView.setElement( this.$el.find('.selector') ).render();
+					this._nestedView.setElement( this.$el.find('.selector') ).render();
 
 					
 					/*
