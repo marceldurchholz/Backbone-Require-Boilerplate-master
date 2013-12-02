@@ -9,24 +9,28 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 			// template: _.template($('#profileTemplate').html()),
 			// template: _.template(profileView),
 			initialize: function() {
-				alert('initializing ProfileView.js');
-				this.render();
+				console.log('initializing ProfileView.js');
+				// this.render();
 			},
 			render: function() {
+				console.log('loading profileview.js');
 				console.log(this.collection);
 				/*
 				this.model
 				this.model = '[{"id":1,"name":"Lisa"},{"id":2,"name":"Paul"}]';
-				_.each(this.model.models, function(profile){
+				*/
+				// _.each(this.model.models, function(profile){
+				_.each(this.collection, function(profile){
 					// var profileTemplate = this.template(profile.toJSON());
 					// $(this.el).append(profileTemplate);
 					alert('each function');
 				}, this);
+				/*
 				*/
 				// alert($('#profiles').html());
 				// alert($('#profiles').html());
 
-				alert('rendering in ProfileView.js');
+				console.log('rendering in ProfileView.js');
 				// var _profileView = _.template((profileView, {}, {}));
 				this._profileView = _.template(profileView, {}, {});
 				this.$el.html(this._profileView);
@@ -35,7 +39,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				// this.nestedView.setElement( this.$el.find('.selector') ).render();
 				
 				// $( "page-content" ).html( "blafoo" );
-				$('#body').trigger('create');
+				// $('#body').trigger('create');
 				return this;
 /*
 		this.sidebar = _.template(sidebar, {});

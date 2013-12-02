@@ -90,14 +90,29 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 					
 					var myCollection = new ProfileList();
 					this.myCollection = myCollection;
-					this.myCollection.bind('all',this.myCollectionChanged, this);
-					this.myCollection.add({ name: 'fred', id: 20 });
+					this.myCollection.bind('all',this.myCollectionLoaded, this);
+					this.myCollection.fetch();
+					this.myCollection.add({ name: 'Hans', id: 1 });
+					this.myCollection.add({ name: 'Werner', id: 2 });
+					
 					// console.log(myCollection);
-					this.render();
+					// this.render();
 				},
-				myCollectionChanged: function(e){
-					console.log('myCollectionChanged called: ' + e);
-					this.render();
+				myCollectionLoaded: function(e){
+					console.log(e);
+					console.log('***** myCollectionLoaded called: ' + e);
+					// console.log(e);
+					if (isMobile.any()) {
+						if (e=='success') {
+							this.render();
+						}
+						else if (e=='error') {
+							alert('error');
+						}
+					}
+					else {
+						this.render();
+					}
 				},
 				render: function() {
 					
@@ -113,7 +128,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 					
 					// this.listenTo(this.model, 'change', this.render);
 					
-					console.log('rendering usual');
+					console.log('rendering Listview.js');
 					// this.myCollection.reset();
 					/*
 					this.myCollection.fetch({
@@ -135,11 +150,11 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 					// $('#profiles').html('bla');
 					this.$el.html(this._template);
 					
-					this.nestedView = new ProfileView({collection: this.myCollection});
+					this.nestedView = new ProfileView({collection: this.myCollection}).render();
 					this._nestedView = this.nestedView;
 					
 					// this.$el.append( this.nestedView.render().el );
-					this._nestedView.setElement( this.$el.find('.selector') ).render();
+					this._nestedView.setElement( this.$el.find('.selector') );
 
 					
 					/*

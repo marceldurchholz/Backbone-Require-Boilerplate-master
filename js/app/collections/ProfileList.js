@@ -11,7 +11,7 @@ define(["jquery", "backbone", "models/Profile"],
 		url: 'http://mobile002.appinaut.de/api/employees/index.php', 
 		
 		initialize: function() {
-			alert('collection initializing');
+			console.log('collection initializing');
 			/*
 			var myCollection = new ProfileList([
 				new Profile({ name: 'hans', id: 200}),
