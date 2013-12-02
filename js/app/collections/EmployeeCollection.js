@@ -12,9 +12,11 @@ define(["jquery","backbone"],
 		url: 'http://coenraets.org/offline-sync/api/employees',
 
 		parse: function (response, xhr) {
-			// alert('response'+response);
+			alert('response in parse ' + response.length);
+			alert('response[0] in parse ' + + response[0].length);
+			alert('returning response[0] in parse');
 			if(response.type =="read"){
-				return response;
+				return response[0];
 			};
 		},
 		

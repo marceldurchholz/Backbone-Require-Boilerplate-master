@@ -7,18 +7,25 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
                 var ProfileView = Backbone.View.extend({
                     el: "#profiles",
                     // template: _.template($('#profileTemplate').html()),
-					template: _.template(profileView),
+					// template: _.template(profileView),
 					initialize: function() {
-						alert('initializing in ProfileView.js');
+						alert('initializing ProfileView.js');
+						this.render(this);
 					},
                     render: function(eventName) {
-                        _.each(this.model.models, function(profile){
+                        /*
+						_.each(this.model.models, function(profile){
                             var profileTemplate = this.template(profile.toJSON());
                             $(this.el).append(profileTemplate);
                         }, this);
+						*/
+						
+						// alert($('#profiles').html());
+						// alert($('#profiles').html());
 
 						alert('rendering in ProfileView.js');
-						this.$el.html(this._template);
+						// this.$el.html(this._template);
+						$( "page-content" ).html( "blafoo" );
 						$('#body').trigger('create');
                         return this;
 /*

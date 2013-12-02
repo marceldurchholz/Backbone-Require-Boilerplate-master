@@ -20,15 +20,18 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 					// When profiles have been successfully grabbed, display them using profile template
 					profiles.bind('sync', function (e) {
 						alert(e);
-						alert('a');
-						profilesView.render();
+						// alert('a');
+						this.render();
 					});
 					/*
+					profiles.fetch({reset: true});
+					*/
 					profiles.fetch({
 						success: function(response,xhr) {
 							console.log("Inside success");
 							alert('success');
 							alert(response);
+							alert(response[0]);
 							console.log(response);
 						},
 						error: function (errorResponse) {
@@ -37,10 +40,6 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 							console.log(errorResponse);
 						}
 					});
-					*/
-					// this.render();
-
-					profiles.fetch({reset: true});
 					// profiles.reset();
 					this.render();
 				},
@@ -51,7 +50,6 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 					$('#sidebar').html(sidebar);
 					
 					this._template = _.template(listview);
-
 					this.$el.html(this._template);
 
 					
@@ -72,7 +70,8 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 					this.$el.html(this._template);
 					*/
 					
-					$('#body').trigger('create');
+					// $('#body').trigger('create');
+					this.$el.trigger('create');
 					return this;
 				}
 				
