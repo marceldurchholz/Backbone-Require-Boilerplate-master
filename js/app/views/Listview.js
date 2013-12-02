@@ -90,13 +90,14 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 					
 					var myCollection = new ProfileList();
 					this.myCollection = myCollection;
-					this.myCollection.bind('all',this.myCollectionLoaded, this);
+					this.myCollection.bind('sync',this.myCollectionLoaded, this);
+					// this.myCollection.bind('sync',this.myCollectionLoaded, this);
 					this.myCollection.fetch();
 					// this.myCollection.add({ name: 'Hans', id: 1 });
 					// this.myCollection.add({ name: 'Werner', id: 2 });
 					
 					// console.log(myCollection);
-					// this.render();
+					if(!isMobile.any()) this.myCollectionLoaded();
 				},
 				myCollectionLoaded: function(e){
 					// console.log(e);

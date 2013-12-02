@@ -14,21 +14,36 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 			},
 			render: function() {
 				console.log('loading profileview.js');
-				console.log(this.collection);
+				// console.log(this.collection);
 				/*
 				this.model
 				this.model = '[{"id":1,"name":"Lisa"},{"id":2,"name":"Paul"}]';
 				*/
-				this.bla = new Object ('[{"id":1,"name":"Lisa"},{"id":2,"name":"Paul"}]');
+				this.bla = new Object ([{"id":1,"name":"Lisa"},{"id":2,"name":"Paul"}]);
 				this.foo = [this.bla];
+				
+				if (!isMobile.any()) {
+					alert(JSON.stringify(this.foo));
+				}
+				else {
+					// alert(JSON.stringify(this.foo));
+					alert(JSON.stringify(this.collection));
+				}
 				// this.collection = collection;
 				// _.each(this.model.models, function(profile){
 				// alert('each function');
-				_.each(this.bla, function(profile){
+				_.each(this.foo, function(profile){
 					// var profileTemplate = this.template(profile.toJSON());
 					// $(this.el).append(profileTemplate);
-					console.log(profile);
+					alert(JSON.stringify(profile));
 				}, this);
+				
+				_.each(this.collection, function(profile){
+					// var profileTemplate = this.template(profile.toJSON());
+					// $(this.el).append(profileTemplate);
+					alert(JSON.stringify(profile));
+				}, this);
+
 				/*
 				*/
 				// alert($('#profiles').html());
