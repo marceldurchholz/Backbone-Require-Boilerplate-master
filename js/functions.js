@@ -143,12 +143,12 @@ window.dao = {
 				tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='employee'", this.txErrorHandler,
 					function(tx, results) {
 						if (results.rows.length == 1) {
-							console.log('Using existing Employee table in local SQLite database');
+							alert('Using existing Employee table in local SQLite database');
 							self.sync();
 						}
 						else
 						{
-							console.log('Employee table does not exist in local SQLite database');
+							alert('Employee table does not exist in local SQLite database');
 							self.createTable(sync);
 						}
 				});
@@ -163,6 +163,7 @@ window.dao = {
 	},
 	*/
 	createTable: function(callback) {
+		alert('createTable');
 		this.db.transaction(
 			function(tx) {
 				var sql =
@@ -218,6 +219,7 @@ window.dao = {
 	*/
 
 	sync: function(callback) {
+		alert('sync');
 		var self = this;
 		console.log('Starting synchronization...');
 		this.getLastSync(function(lastSync){
