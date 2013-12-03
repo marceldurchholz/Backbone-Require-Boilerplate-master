@@ -10,7 +10,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 			attributes: {"data-role": 'content'},
 
             initialize: function() {
-			
+				log('view: initialize');
 				/*
 				dao.findAll(doAlert);
 				function doAlert() {
@@ -60,6 +60,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				return false;
 			},
             render: function() {
+				log('view: render');
 				this.sidebar = _.template(sidebar, {});
 				$('#sidebar').html(sidebar);
 				

@@ -1,3 +1,6 @@
+var pageStartTime = +new Date();
+var loginfo = '';
+
 var isMobile = {};
 isMobile = {
     Android: function() {
@@ -22,8 +25,23 @@ if(isMobile.any()){
     document.write("<script type='text/javascript' src='" + rootURL + "phonegap.js'></script>"); 
     // initApp();
 }else{
-    console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
+    log('NOT-DEVICE-MODE: Skipping loading of phonegap.js and plugins...');
 }
+
+/*
+log('aaa');
+log('bbb');
+log('aaa');
+log('bbb');
+log('aaa');
+log('bbb');
+log('aaa');
+log('bbb');
+log('aaa');
+log('bbb');
+log('aaa');
+log('bbb');
+*/
 
 var currentHash = window.location.hash;
 
@@ -46,7 +64,6 @@ var CameraPopoverOptions = null;
 var pictureUrl = null;
 var fileObj = null;
 var fileEntry = null;
-var pageStartTime = +new Date();
 
 //default camera options
 var camQualityDefault = ['quality value', 50];
@@ -114,6 +131,7 @@ var dao = {
 	// syncURL: "http://mobile002.appinaut.de/api/employees/",
 
 	initialize: function(callback) {
+		log('dao: initialize');
 		var self = this;
 		// renderList();
 		this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
@@ -126,11 +144,11 @@ var dao = {
 				tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='employee'", this.txErrorHandler,
 					function(tx, results) {
 						if (results.rows.length == 1) {
-							console.log('Using existing Employee table in local SQLite database');
+							log('Using existing Employee table in local SQLite database');
 						}
 						else
 						{
-							console.log('Employee table does not exist in local SQLite database');
+							log('Employee table does not exist in local SQLite database');
 							self.createTable(callback);
 						}
 				});
@@ -142,10 +160,12 @@ var dao = {
 	},
 		
 	syncComplete: function(callback) {
+		log('dao: syncComplete');
 		self.sync(renderList);
 	},
 	
 	createTable: function(callback) {
+		log('dao: createTable');
 		this.db.transaction(
 			function(tx) {
 				var sql =
@@ -161,7 +181,7 @@ var dao = {
 			},
 			this.txErrorHandler,
 			function() {
-				console.log('Table employee successfully CREATED in local SQLite database');
+				log('Table employee successfully CREATED in local SQLite database');
 				callback();
 			}
 		);
@@ -201,8 +221,9 @@ var dao = {
 	*/
 
 	sync: function(callback) {
+		log('dao: sync');
 		var self = this;
-		console.log('Starting synchronization...');
+		log('Starting synchronization...');
 		this.getLastSync(function(lastSync){
 			self.getChanges(self.syncURL, lastSync,
 				function (changes) {
@@ -210,7 +231,7 @@ var dao = {
 						self.applyChanges(changes, callback);
 					} else {
 						alert('Nothing to synchronize');
-						console.log('Nothing to synchronize');
+						log('Nothing to synchronize');
 						callback();
 					}
 				}
@@ -220,13 +241,14 @@ var dao = {
 	},
 
 	getLastSync: function(callback) {
+		log('dao: getLastSync');
 		this.db.transaction(
 			function(tx) {
 				var sql = "SELECT MAX(lastModified) as lastSync FROM employee";
 				tx.executeSql(sql, this.txErrorHandler,
 					function(tx, results) {
 						var lastSync = results.rows.item(0).lastSync;
-						console.log('Last local timestamp is ' + lastSync);
+						log('Last local timestamp is ' + lastSync);
 						callback(lastSync);
 					}
 				);
@@ -235,38 +257,40 @@ var dao = {
 	},
 
 	getChanges: function(syncURL, modifiedSince, callback) {
+		log('dao: getChanges');
 		$.ajax({
 			url: syncURL,
 			data: {modifiedSince: modifiedSince},
 			dataType:"json",
 			success:function (data) {
-				console.log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
+				log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
 				callback(data);
 			},
 			error: function(model, response) {
-				console.log(response.responseText);
+				log(response.responseText);
 			}
 		});
 
 	},
 
 	applyChanges: function(employees, callback) {
+		log('dao: applyChanges');
 		this.db.transaction(
 			function(tx) {
 				var l = employees.length;
 				var sql =
 					"INSERT OR REPLACE INTO employee (id, firstName, lastName, title, officePhone, deleted, lastModified) " +
 					"VALUES (?, ?, ?, ?, ?, ?, ?)";
-				console.log('Inserting or Updating in local database:');
+				log('Inserting or Updating in local database:');
 				var e;
 				for (var i = 0; i < l; i++) {
 					e = employees[i];
-					console.log(e.id + ' ' + e.firstName + ' ' + e.lastName + ' ' + e.title + ' ' + e.officePhone + ' ' + e.deleted + ' ' + e.lastModified);
+					log(e.id + ' ' + e.firstName + ' ' + e.lastName + ' ' + e.title + ' ' + e.officePhone + ' ' + e.deleted + ' ' + e.lastModified);
 					var params = [e.id, e.firstName, e.lastName, e.title, e.officePhone, e.deleted, e.lastModified];
 					tx.executeSql(sql, params);
 				}
 				alert('Synchronization complete (' + l + ' items synchronized)');
-				console.log('Synchronization complete (' + l + ' items synchronized)');
+				log('Synchronization complete (' + l + ' items synchronized)');
 			},
 			this.txErrorHandler,
 			function(tx) {
@@ -275,16 +299,12 @@ var dao = {
 		);
 	},
 	
-    txErrorHandler: function(tx) {
-        alert(tx.message);
-		console.log(tx.message);
-    },
-	
 	findAll: function(callback) {
+		log('dao: findAll');
 		this.db.transaction(
 			function(tx) {
 				var sql = "SELECT * FROM EMPLOYEE";
-				console.log('Local SQLite database: "SELECT * FROM EMPLOYEE"');
+				log('Local SQLite database: "SELECT * FROM EMPLOYEE"');
 				tx.executeSql(sql, this.txErrorHandler,
 					function(tx, results) {
 						var len = results.rows.length,
@@ -293,7 +313,7 @@ var dao = {
 						for (; i < len; i = i + 1) {
 							employees[i] = results.rows.item(i);
 						}
-						console.log(len + ' rows found');
+						log(len + ' rows found');
 						// alert(employees);
 						// alert(employees.toJSON);
 						
@@ -308,11 +328,14 @@ var dao = {
 	},
 
 	txErrorHandler: function(tx) {
+		log('dao: txErrorHandler: '+tx.message);
 		alert(tx.message);
+		// log(tx.message);
 	}
 };
 
 function renderList(employees) {
+	log('dao: renderList');
 	// alert('Rendering list using local SQLite data...');
 	dao.findAll(function(employees) {
 		$('#list').empty();
@@ -334,21 +357,22 @@ function renderList(employees) {
 
 var app = {
 	initialize: function() {
-		report('MobileInit.js','var app:initialize');
+		log('app: initialize');
 		this.bindEvents();
 	},
 	bindEvents: function() {
+		log('app: bindEvents');
 		document.addEventListener('deviceready', this.onDeviceReady, false);
 		if(!isMobile.any()) { this.onDeviceReady(); }
 	},
 	onDeviceReady: function() {
-		report('MobileInit.js','onDeviceReady');
+		log('app: onDeviceReady');
 		deviceReady = true;
 		cordovaIsLoaded = true;
 		app.receivedEvent();
    },
 	receivedEvent: function(event) {
-		report("MobileInit.js"," var app:receivedEvent");
+		log("app: receivedEvent");
 		dd.resolve();
 		// populateDeviceInfo();
 		/*
@@ -403,7 +427,7 @@ function populateDeviceInfoTimer() {
 }
 
 function populateDeviceInfo(){
-	report('functions.js','populateDeviceInfo() START');
+	log('functions.js >> populateDeviceInfo() START');
 	// doAlert('TEST','--> populateDeviceInfo()..');
 	// $( document ).delegate("#pageid", "pageinit", function() {  
 	// $( document ).ready(function() {
@@ -539,7 +563,7 @@ function modifyiOS7StatusBar(){
 		} catch(e){ catchError('modifyiOS7StatusBar()',e); }
 	}
 	else {
-	console.log('not mobile: statusbar not modified');
+	log('not mobile: statusbar not modified');
 	}
 }
 
@@ -553,7 +577,8 @@ function debugModeEnabled(){
 function report(logtype,msg){
     try{
 		// alert(logtype + ': ' + msg);
-        console.log(logtype + ': ' + msg);
+        // console.log(logtype + ': ' + msg);
+		log(logtype + ': ' + msg);
     }catch(e){ 
         // give up
     }            
@@ -1342,9 +1367,31 @@ function clearStatus() {
 	fileEntry = null;
 }
 
+function createScrollable() {
+	document.getElementById('body').setAttribute('class', isTouch ? 'touch' : 'desktop');    
+	$('.scrollable').pullToRefresh({
+		callback: function() {
+			var def = $.Deferred();
+			setTimeout(function() {
+				def.resolve();
+			}, 3000);
+			return def.promise();
+		}
+	});
+}
+
 function log(value) {
-	console.log(value);
-	document.getElementById('camera_status').textContent += (new Date() - pageStartTime) / 1000 + ': ' + value + '\n';
+	// console.log('>> '+value);
+	// window.loginfo = value;
+	// alert('a');
+	// alert(value);
+	if (value!=undefined && value!=NaN && value!='') window.loginfo += (new Date() - pageStartTime) / 1000 + ': ' + value + '<br/>';
+	// if (window.loginfo!=undefined) alert(window.loginfo);
+	// alert(window.loginfo);
+	// document.getElementById('camera_status').textContent += (new Date() - pageStartTime) / 1000 + ': ' + value + '\n';
+	// $('.logtexarea').append('blabla');
+	/*
+	*/
 }
 
 function setPicture(url, callback) {
