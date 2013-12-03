@@ -226,7 +226,7 @@ window.dao = {
 			self.getChanges(self.syncURL, lastSync,
 				function (changes) {
 					if (changes.length > 0) {
-						self.applyChanges(changes, callback);
+						self.applyChanges(changes, renderlist);
 					} else {
 						alert('Nothing to synchronize');
 						console.log('Nothing to synchronize');
@@ -277,16 +277,16 @@ window.dao = {
 				var sql =
 					"INSERT OR REPLACE INTO employee (id, firstName, lastName, title, officePhone, deleted, lastModified) " +
 					"VALUES (?, ?, ?, ?, ?, ?, ?)";
-				log('Inserting or Updating in local database:');
+				console.log('Inserting or Updating in local database:');
 				var e;
 				for (var i = 0; i < l; i++) {
 					e = employees[i];
-					log(e.id + ' ' + e.firstName + ' ' + e.lastName + ' ' + e.title + ' ' + e.officePhone + ' ' + e.deleted + ' ' + e.lastModified);
+					console.log(e.id + ' ' + e.firstName + ' ' + e.lastName + ' ' + e.title + ' ' + e.officePhone + ' ' + e.deleted + ' ' + e.lastModified);
 					var params = [e.id, e.firstName, e.lastName, e.title, e.officePhone, e.deleted, e.lastModified];
 					tx.executeSql(sql, params);
 				}
 				alert('Synchronization complete (' + l + ' items synchronized)');
-				log('Synchronization complete (' + l + ' items synchronized)');
+				console.log('Synchronization complete (' + l + ' items synchronized)');
 			},
 			this.txErrorHandler,
 			function(tx) {
@@ -299,7 +299,7 @@ window.dao = {
 		this.db.transaction(
 			function(tx) {
 				var sql = "SELECT * FROM EMPLOYEE";
-				log('Local SQLite database: "SELECT * FROM EMPLOYEE"');
+				console.log('Local SQLite database: "SELECT * FROM EMPLOYEE"');
 				tx.executeSql(sql, this.txErrorHandler,
 					function(tx, results) {
 						var len = results.rows.length,
@@ -308,7 +308,7 @@ window.dao = {
 						for (; i < len; i = i + 1) {
 							employees[i] = results.rows.item(i);
 						}
-						log(len + ' rows found');
+						console.log(len + ' rows found');
 						// alert(employees);
 						// alert(employees.toJSON);
 						
