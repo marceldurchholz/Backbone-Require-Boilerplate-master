@@ -147,7 +147,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// });
 	
 		if (isMobile.any()) { 
-			dao.initialize();
+			// dao.initialize();
 		}
 		
 		// var isTouch = !!('ontouchstart' in window);

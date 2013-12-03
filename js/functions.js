@@ -238,7 +238,6 @@ window.dao = {
 				}
 			);
 		});
-
 	},
 
 	getLastSync: function(callback) {

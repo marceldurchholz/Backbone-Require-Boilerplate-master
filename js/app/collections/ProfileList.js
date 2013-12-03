@@ -53,9 +53,48 @@ define(["jquery", "backbone", "models/Profile"],
 				function() {
 					alert('Table profiles successfully CREATED in local SQLite database');
 					// callback();
+					self.sync();
 				}
 			);
 		},
+		sync: function() {
+			alert('sync profiles');
+			// var self = this;
+			alert('Starting synchronization...');
+			self.getLastSync(function(lastSync){
+				alert('inner function self.getLastSync(f...');
+				/*
+				self.getChanges(self.syncURL, lastSync,
+					function (changes) {
+						if (changes.length > 0) {
+							alert('applyChanges(changes, renderlist)');
+							self.applyChanges(changes, renderlist);
+						} else {
+							alert('Nothing to synchronize');
+							console.log('Nothing to synchronize');
+							renderList();
+						}
+					}
+				);
+				*/
+			});
+		},
+		getLastSync: function(callback) {
+			alert('getLastSync');
+			this.db.transaction(
+				function(tx) {
+					var sql = "SELECT MAX(lastModified) as lastSync FROM employee";
+					tx.executeSql(sql, this.txErrorHandler,
+						function(tx, results) {
+							var lastSync = results.rows.item(0).lastSync;
+							alert('Last local timestamp is ' + lastSync);
+							// callback(lastSync);
+						}
+					);
+				}
+			);
+		},
+		
 		txErrorHandler: function(tx) {
 			alert(tx.message);
 			log(tx.message);
