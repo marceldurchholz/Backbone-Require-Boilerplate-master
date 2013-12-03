@@ -1385,7 +1385,10 @@ function log(value) {
 	// window.loginfo = value;
 	// alert('a');
 	// alert(value);
-	if (value!=undefined && value!=NaN && value!='') window.loginfo += (new Date() - pageStartTime) / 1000 + ': ' + value + '<br/>';
+	
+	alert(value);
+	// if (value!=undefined && value!=NaN && value!='') window.loginfo += (new Date() - pageStartTime) / 1000 + ': ' + value + '<br/>';
+	
 	// if (window.loginfo!=undefined) alert(window.loginfo);
 	// alert(window.loginfo);
 	// document.getElementById('camera_status').textContent += (new Date() - pageStartTime) / 1000 + ': ' + value + '\n';
