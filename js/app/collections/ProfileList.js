@@ -22,19 +22,19 @@ define(["jquery", "backbone", "models/Profile"],
 						function(tx, results) {
 							if (results.rows.length == 1) {
 								alert('Using existing profiles table in local SQLite database');
-								self.sync();
+								// self.sync();
 							}
 							else
 							{
 								alert('profiles table does not exist in local SQLite database');
-								self.createTable(self.sync);
+								self.createTable();
 							}
 					});
 					// self.sync(renderList);
 				}
 			)
 		},
-		createTable: function(callback) {
+		createTable: function() {
 			alert('createTable profiles');
 			this.db.transaction(
 				function(tx) {
@@ -64,10 +64,10 @@ define(["jquery", "backbone", "models/Profile"],
 			self.getLastSync(function(lastSync){
 				// alert('getting profiles beginning from ' + lastSync);
 				// alert('self.url: ' + self.url);
+						/*
 				self.getChanges(self.url, lastSync,
 					function (changes) {
 						alert('now doing soimething with these changes');
-						/*
 						if (changes.length > 0) {
 							alert('applyChanges(changes, renderlist)');
 							self.applyChanges(changes, renderlist);
@@ -76,15 +76,16 @@ define(["jquery", "backbone", "models/Profile"],
 							console.log('Nothing to synchronize');
 							renderList();
 						}
-						*/
 					}
 				);
+						*/
 			});
 		},
 		getLastSync: function(callback) {
 			alert('getLastSync');
 			this.db.transaction(
 				function(tx) {
+					alert('doing MAX sql request');
 					var sql = "SELECT MAX(lastModified) as lastSync FROM profiles";
 					tx.executeSql(sql, this.txErrorHandler,
 						function(tx, results) {
