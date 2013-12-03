@@ -242,13 +242,14 @@ window.dao = {
 	},
 
 	getLastSync: function(callback) {
+		alert('getLastSync');
 		this.db.transaction(
 			function(tx) {
 				var sql = "SELECT MAX(lastModified) as lastSync FROM employee";
 				tx.executeSql(sql, this.txErrorHandler,
 					function(tx, results) {
 						var lastSync = results.rows.item(0).lastSync;
-						log('Last local timestamp is ' + lastSync);
+						console.log('Last local timestamp is ' + lastSync);
 						callback(lastSync);
 					}
 				);
