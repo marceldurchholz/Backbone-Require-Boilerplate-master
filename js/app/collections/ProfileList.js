@@ -27,27 +27,40 @@ define(["jquery", "backbone", "models/Profile"],
 							else
 							{
 								alert('profiles table does not exist in local SQLite database');
-								// self.createTable(self.sync);
+								self.createTable();
 							}
 					});
 					// self.sync(renderList);
 				}
 			)
-
-			/*
-			var myCollection = new ProfileList([
-				new Profile({ name: 'hans', id: 200}),
-				new Profile({ title: 'peter', id: 250}),
-				new Profile({ title: 'werner', id: 100}),
-				new Profile({ title: 'connie', id: 10})
-				// Add more here
-			]);
-			*/
-			// console.log(this);
-			// this.add({ name: 'fred', id: 20 });
-			// console.log(this);
-			// this.ProfileList = myCollection;
 		},
+		createTable: function() {
+			alert('createTable profiles');
+			this.db.transaction(
+				function(tx) {
+					var sql =
+						"CREATE TABLE IF NOT EXISTS profiles ( " +
+						"id VARCHAR(100) PRIMARY KEY, " +
+						"username VARCHAR(100), " +
+						"password VARCHAR(100), " +
+						"fullname VARCHAR(100), " +
+						"slogan VARCHAR(500), " +
+						"perstext VARCHAR(500), " +
+						"device VARCHAR(100))";
+					tx.executeSql(sql);
+				},
+				this.txErrorHandler,
+				function() {
+					alert('Table profiles successfully CREATED in local SQLite database');
+					// callback();
+				}
+			);
+		},
+		txErrorHandler: function(tx) {
+			alert(tx.message);
+			log(tx.message);
+		}
+
 		/*
 		parse: function(response, xhr) {
 			return response[0];
