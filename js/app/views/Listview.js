@@ -11,7 +11,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 				initialize: function() {
 					var myCollection = new ProfileList();
 					this.myCollection = myCollection;
-					this.myCollection.bind('sync',this.myCollectionLoaded, this);
+					// this.myCollection.bind('sync',this.myCollectionLoaded, this);
 					this.myCollection.fetch();
 					if(!isMobile.any()) this.myCollectionLoaded();
 					// this.myCollection.fetch();
