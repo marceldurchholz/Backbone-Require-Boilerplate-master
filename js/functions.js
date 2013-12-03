@@ -124,7 +124,7 @@ $('#body').each(function() {
 });
 */
 
-var dao = {
+window.dao = {
 
 	// syncURL: "../api/employees",
 	syncURL: "http://coenraets.org/offline-sync/api/employees?modifiedSince=2010-03-01%2010:20:56",
@@ -143,16 +143,16 @@ var dao = {
 				tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='employee'", this.txErrorHandler,
 					function(tx, results) {
 						if (results.rows.length == 1) {
-							log('Using existing Employee table in local SQLite database');
+							console.log('Using existing Employee table in local SQLite database');
 						}
 						else
 						{
-							log('Employee table does not exist in local SQLite database');
+							console.log('Employee table does not exist in local SQLite database');
 							self.createTable(callback);
 						}
 				});
+				self.sync(renderList);
 				// self.sync(renderList);
-				self.sync(syncComplete);
 			}
 		)
 
@@ -178,7 +178,7 @@ var dao = {
 			},
 			this.txErrorHandler,
 			function() {
-				log('Table employee successfully CREATED in local SQLite database');
+				console.log('Table employee successfully CREATED in local SQLite database');
 				callback();
 			}
 		);
@@ -219,7 +219,7 @@ var dao = {
 
 	sync: function(callback) {
 		var self = this;
-		log('Starting synchronization...');
+		console.log('Starting synchronization...');
 		this.getLastSync(function(lastSync){
 			self.getChanges(self.syncURL, lastSync,
 				function (changes) {
@@ -227,7 +227,7 @@ var dao = {
 						self.applyChanges(changes, callback);
 					} else {
 						alert('Nothing to synchronize');
-						log('Nothing to synchronize');
+						console.log('Nothing to synchronize');
 						callback();
 					}
 				}
