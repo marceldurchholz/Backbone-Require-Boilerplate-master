@@ -149,7 +149,8 @@ window.dao = {
 						else
 						{
 							alert('Employee table does not exist in local SQLite database');
-							self.createTable(sync);
+							self.createTable(self.sync);
+							alert('after cuntion call self.createTable(self.sync)');
 						}
 				});
 				// self.sync(renderList);
