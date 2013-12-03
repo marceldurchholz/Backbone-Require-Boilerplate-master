@@ -62,7 +62,7 @@ define(["jquery", "backbone", "models/Profile"],
 		txErrorHandler: function(tx) {
 			alert(tx.message);
 			console.log(tx.message);
-		}
+		},
 		request: function() {		
 			alert('request profiles');
 			var self = this;
