@@ -132,7 +132,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
 	$.when(dd, jqd).done(function doInit() {
 		// WHEN DOM READY (!!!)
-		$(function(){
+		// $(function(){
 			// alert(window.loginfo);
 			// Backbone code in here
 			modifyiOS7StatusBar();
@@ -141,7 +141,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			// alert('b');
 			if (window.loginfo) $("#debug").append(window.loginfo);
 			// alert($("#log").text());
-		});
+		// });
 	
 		log('dd and jqd ready');
 		if (isMobile.any()) { dao.initialize(function(e) { log('database initialized'); } ); }
