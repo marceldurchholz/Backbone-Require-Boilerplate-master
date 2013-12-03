@@ -223,12 +223,12 @@ window.dao = {
 		alert('sync');
 		var self = this;
 		alert('Starting synchronization...');
-		this.getLastSync(function(lastSync){
+		self.getLastSync(function(lastSync){
 			self.getChanges(self.syncURL, lastSync,
 				function (changes) {
 					if (changes.length > 0) {
 						alert('applyChanges(changes, renderlist)');
-						self.applyChanges(changes, renderlist);
+						self.applyChanges(changes, this.renderlist);
 					} else {
 						alert('Nothing to synchronize');
 						console.log('Nothing to synchronize');
@@ -270,7 +270,6 @@ window.dao = {
 				console.log(response.responseText);
 			}
 		});
-
 	},
 
 	applyChanges: function(employees, callback) {

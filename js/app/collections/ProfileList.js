@@ -59,7 +59,7 @@ define(["jquery", "backbone", "models/Profile"],
 		},
 		sync: function() {
 			alert('sync profiles');
-			// var self = this;
+			var self = this;
 			alert('Starting synchronization...');
 			self.getLastSync(function(lastSync){
 				alert('inner function self.getLastSync(f...');
