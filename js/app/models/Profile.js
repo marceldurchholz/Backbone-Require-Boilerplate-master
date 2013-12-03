@@ -5,11 +5,15 @@ define(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone.
 function($, Backbone, MobileRouter) {
 
         var Profile = Backbone.Model.extend({
+			/*
 			defaults: {
 				id : '',
-				name : 'niemand'
-			},
-			/*
+				fullname : '',
+				device: '',
+				credits: '',
+				pictureurl: '',
+			}
+			/*,
 			url : function() {
 				// Important! It's got to know where to send its REST calls. 
 				// In this case, POST to '/donuts' and PUT to '/donuts/:id'

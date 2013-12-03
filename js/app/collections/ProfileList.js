@@ -8,7 +8,8 @@ define(["jquery", "backbone", "models/Profile"],
 	var ProfileList = Backbone.Collection.extend({
 		model: Profile,
 		// url: 'profiles.jsonx'
-		url: 'http://mobile002.appinaut.de/api/employees/index.php', 
+		// url: 'http://mobile002.appinaut.de/api/employees/index.php', 
+		url: 'http://dominik-lohmann.de:5000/users/',
 		
 		initialize: function() {
 			console.log('collection initializing');
