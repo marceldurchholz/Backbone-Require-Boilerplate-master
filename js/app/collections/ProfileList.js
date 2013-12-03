@@ -22,7 +22,7 @@ define(["jquery", "backbone", "models/Profile"],
 						function(tx, results) {
 							if (results.rows.length == 1) {
 								alert('Using existing profiles table in local SQLite database');
-								// self.sync();
+								self.sync();
 							}
 							else
 							{
@@ -34,7 +34,7 @@ define(["jquery", "backbone", "models/Profile"],
 				}
 			)
 		},
-		createTable: function() {
+		createTable: function(callback) {
 			alert('createTable profiles');
 			this.db.transaction(
 				function(tx) {
