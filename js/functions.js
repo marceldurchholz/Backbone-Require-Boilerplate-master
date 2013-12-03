@@ -124,14 +124,13 @@ $('#body').each(function() {
 });
 */
 
-window.dao = {
+var dao = {
 
 	// syncURL: "../api/employees",
 	syncURL: "http://coenraets.org/offline-sync/api/employees?modifiedSince=2010-03-01%2010:20:56",
 	// syncURL: "http://mobile002.appinaut.de/api/employees/",
 
 	initialize: function(callback) {
-		log('dao: initialize');
 		var self = this;
 		// renderList();
 		this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
@@ -144,11 +143,11 @@ window.dao = {
 				tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='employee'", this.txErrorHandler,
 					function(tx, results) {
 						if (results.rows.length == 1) {
-							alert('Using existing Employee table in local SQLite database');
+							log('Using existing Employee table in local SQLite database');
 						}
 						else
 						{
-							alert('Employee table does not exist in local SQLite database');
+							log('Employee table does not exist in local SQLite database');
 							self.createTable(callback);
 						}
 				});
@@ -160,12 +159,10 @@ window.dao = {
 	},
 		
 	syncComplete: function(callback) {
-		log('dao: syncComplete');
 		self.sync(renderList);
 	},
 	
 	createTable: function(callback) {
-		log('dao: createTable');
 		this.db.transaction(
 			function(tx) {
 				var sql =
@@ -221,7 +218,6 @@ window.dao = {
 	*/
 
 	sync: function(callback) {
-		log('dao: sync');
 		var self = this;
 		log('Starting synchronization...');
 		this.getLastSync(function(lastSync){
@@ -241,7 +237,6 @@ window.dao = {
 	},
 
 	getLastSync: function(callback) {
-		log('dao: getLastSync');
 		this.db.transaction(
 			function(tx) {
 				var sql = "SELECT MAX(lastModified) as lastSync FROM employee";
@@ -257,7 +252,6 @@ window.dao = {
 	},
 
 	getChanges: function(syncURL, modifiedSince, callback) {
-		log('dao: getChanges');
 		$.ajax({
 			url: syncURL,
 			data: {modifiedSince: modifiedSince},
@@ -274,7 +268,6 @@ window.dao = {
 	},
 
 	applyChanges: function(employees, callback) {
-		log('dao: applyChanges');
 		this.db.transaction(
 			function(tx) {
 				var l = employees.length;
@@ -300,7 +293,6 @@ window.dao = {
 	},
 	
 	findAll: function(callback) {
-		log('dao: findAll');
 		this.db.transaction(
 			function(tx) {
 				var sql = "SELECT * FROM EMPLOYEE";
@@ -328,14 +320,12 @@ window.dao = {
 	},
 
 	txErrorHandler: function(tx) {
-		log('dao: txErrorHandler: '+tx.message);
 		alert(tx.message);
-		// log(tx.message);
+		log(tx.message);
 	}
 };
 
 function renderList(employees) {
-	log('dao: renderList');
 	// alert('Rendering list using local SQLite data...');
 	dao.findAll(function(employees) {
 		$('#list').empty();
@@ -357,22 +347,21 @@ function renderList(employees) {
 
 var app = {
 	initialize: function() {
-		log('app: initialize');
+		log('MobileInit.js >> var app:initialize');
 		this.bindEvents();
 	},
 	bindEvents: function() {
-		log('app: bindEvents');
 		document.addEventListener('deviceready', this.onDeviceReady, false);
 		if(!isMobile.any()) { this.onDeviceReady(); }
 	},
 	onDeviceReady: function() {
-		log('app: onDeviceReady');
+		log('MobileInit.js >> onDeviceReady');
 		deviceReady = true;
 		cordovaIsLoaded = true;
 		app.receivedEvent();
    },
 	receivedEvent: function(event) {
-		log("app: receivedEvent");
+		log("MobileInit.js >> var app:receivedEvent");
 		dd.resolve();
 		// populateDeviceInfo();
 		/*
@@ -1385,10 +1374,7 @@ function log(value) {
 	// window.loginfo = value;
 	// alert('a');
 	// alert(value);
-	
-	alert(value);
-	// if (value!=undefined && value!=NaN && value!='') window.loginfo += (new Date() - pageStartTime) / 1000 + ': ' + value + '<br/>';
-	
+	if (value!=undefined && value!=NaN && value!='') window.loginfo += (new Date() - pageStartTime) / 1000 + ': ' + value + '<br/>';
 	// if (window.loginfo!=undefined) alert(window.loginfo);
 	// alert(window.loginfo);
 	// document.getElementById('camera_status').textContent += (new Date() - pageStartTime) / 1000 + ': ' + value + '\n';
