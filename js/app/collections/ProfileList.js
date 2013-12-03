@@ -89,6 +89,7 @@ define(["jquery", "backbone", "models/Profile"],
 				function(tx) {
 					alert('doing MAX sql request');
 					var sql = "SELECT MAX(lastModified) as lastSync FROM profiles";
+					this.txErrorHandler('testalert');
 					tx.executeSql(sql, this.txErrorHandler,
 						function(tx, results) {
 							var lastSync = results.rows.item(0).lastSync;

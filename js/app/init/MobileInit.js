@@ -131,7 +131,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	app.initialize();
 
 	$.when(dd, jqd).done(function doInit() {
-		log('dd and jqd ready');
+		console.log('dd and jqd ready');
 		// WHEN DOM READY (!!!)
 		// $(function(){
 			// alert(window.loginfo);
@@ -155,10 +155,10 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// Returns the MobileRouter class
 	
 	// Instantiates a new Mobile Router instance
-    new MobileRouter();
 
 	});
 	
+    new MobileRouter();
   }
 
 );
