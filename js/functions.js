@@ -144,24 +144,24 @@ window.dao = {
 					function(tx, results) {
 						if (results.rows.length == 1) {
 							console.log('Using existing Employee table in local SQLite database');
+							self.sync();
 						}
 						else
 						{
 							console.log('Employee table does not exist in local SQLite database');
-							self.createTable(callback);
+							self.createTable(sync);
 						}
 				});
-				self.sync(renderList);
 				// self.sync(renderList);
 			}
 		)
 
 	},
-		
+	/*
 	syncComplete: function(callback) {
 		self.sync(renderList);
 	},
-	
+	*/
 	createTable: function(callback) {
 		this.db.transaction(
 			function(tx) {
@@ -228,7 +228,8 @@ window.dao = {
 					} else {
 						alert('Nothing to synchronize');
 						console.log('Nothing to synchronize');
-						callback();
+						// callback();
+						self.renderList();
 					}
 				}
 			);

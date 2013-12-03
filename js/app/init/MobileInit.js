@@ -139,15 +139,18 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			
 			// modifyiOS7StatusBar();
 			// if (isMobile.any()) createScrollable();
-			if (window.loginfo) $("#debug").append(window.loginfo);
+			// if (window.loginfo) $("#debug").append(window.loginfo);
 			
 			// alert('bla'+window.loginfo);
 			// alert('b');
 			// alert($("#log").text());
 		// });
 	
-		if (isMobile.any()) { dao.initialize(function(e) { log('database initialized'); } ); }
-		var isTouch = !!('ontouchstart' in window);
+		if (isMobile.any()) { 
+			dao.initialize();
+		}
+		
+		// var isTouch = !!('ontouchstart' in window);
 		// populateDeviceInfoTimer();
 		// Returns the MobileRouter class
 	
