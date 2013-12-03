@@ -124,7 +124,7 @@ $('#body').each(function() {
 });
 */
 
-var dao = {
+window.dao = {
 
 	// syncURL: "../api/employees",
 	syncURL: "http://coenraets.org/offline-sync/api/employees?modifiedSince=2010-03-01%2010:20:56",
@@ -144,11 +144,11 @@ var dao = {
 				tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='employee'", this.txErrorHandler,
 					function(tx, results) {
 						if (results.rows.length == 1) {
-							log('Using existing Employee table in local SQLite database');
+							alert('Using existing Employee table in local SQLite database');
 						}
 						else
 						{
-							log('Employee table does not exist in local SQLite database');
+							alert('Employee table does not exist in local SQLite database');
 							self.createTable(callback);
 						}
 				});
