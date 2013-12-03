@@ -27,7 +27,7 @@ define(["jquery", "backbone", "models/Profile"],
 							else
 							{
 								alert('profiles table does not exist in local SQLite database');
-								self.createTable();
+								self.createTable(sync);
 							}
 					});
 					// self.sync(renderList);
@@ -52,8 +52,8 @@ define(["jquery", "backbone", "models/Profile"],
 				this.txErrorHandler,
 				function() {
 					alert('Table profiles successfully CREATED in local SQLite database');
-					// callback();
-					self.sync();
+					callback();
+					// self.sync();
 				}
 			);
 		},
