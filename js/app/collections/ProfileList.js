@@ -62,10 +62,12 @@ define(["jquery", "backbone", "models/Profile"],
 			var self = this;
 			alert('Starting synchronization...');
 			self.getLastSync(function(lastSync){
-				alert('inner function self.getLastSync(f...');
-				/*
-				self.getChanges(self.syncURL, lastSync,
+				alert('getting profiles beginning from ' + lastSync);
+				alert('self.url: ' + self.url);
+				self.getChanges(self.url, lastSync,
 					function (changes) {
+						alert('now doing soimething with these changes');
+						/*
 						if (changes.length > 0) {
 							alert('applyChanges(changes, renderlist)');
 							self.applyChanges(changes, renderlist);
@@ -74,27 +76,42 @@ define(["jquery", "backbone", "models/Profile"],
 							console.log('Nothing to synchronize');
 							renderList();
 						}
+						*/
 					}
 				);
-				*/
 			});
 		},
 		getLastSync: function(callback) {
 			alert('getLastSync');
 			this.db.transaction(
 				function(tx) {
-					var sql = "SELECT MAX(lastModified) as lastSync FROM employee";
+					var sql = "SELECT MAX(lastModified) as lastSync FROM profiles";
 					tx.executeSql(sql, this.txErrorHandler,
 						function(tx, results) {
 							var lastSync = results.rows.item(0).lastSync;
 							alert('Last local timestamp is ' + lastSync);
-							// callback(lastSync);
+							callback(lastSync);
 						}
 					);
 				}
 			);
 		},
-		
+		getChanges: function(syncURL, modifiedSince, callback) {
+			alert('getChanges');
+			$.ajax({
+				url: syncURL,
+				data: {modifiedSince: modifiedSince},
+				dataType:"json",
+				success:function (data) {
+					alert("The server returned " + data.length + " changes that occurred after " + modifiedSince);
+					callback(data);
+				},
+				error: function(model, response) {
+					alert(response.responseText);
+				}
+			});
+		},
+
 		txErrorHandler: function(tx) {
 			alert(tx.message);
 			log(tx.message);
