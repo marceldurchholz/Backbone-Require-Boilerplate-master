@@ -14,26 +14,28 @@ define(["jquery", "backbone", "models/Profile"],
 		
 		initialize: function() {
 			console.log('collection initializing');
-			this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 			var self = this;
+			this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 			this.db.transaction(
 				function(tx) {
 					tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='profiles'", this.txErrorHandler,
 						function(tx, results) {
 							if (results.rows.length == 1) {
 								alert('Using existing profiles table in local SQLite database');
-								self.sync();
+								// self.sync();
 							}
 							else
 							{
 								alert('profiles table does not exist in local SQLite database');
-								self.createTable();
+								// self.createTable();
 							}
 					});
 					// self.sync(renderList);
 				}
 			)
-		},
+		}
+		/*
+		,
 		createTable: function() {
 			alert('createTable profiles');
 			this.db.transaction(
@@ -65,7 +67,6 @@ define(["jquery", "backbone", "models/Profile"],
 			self.getLastSync(function(lastSync){
 				// alert('getting profiles beginning from ' + lastSync);
 				// alert('self.url: ' + self.url);
-						/*
 				self.getChanges(self.url, lastSync,
 					function (changes) {
 						alert('now doing soimething with these changes');
@@ -79,7 +80,6 @@ define(["jquery", "backbone", "models/Profile"],
 						}
 					}
 				);
-						*/
 			});
 		},
 		getLastSync: function(callback) {
@@ -119,7 +119,7 @@ define(["jquery", "backbone", "models/Profile"],
 			alert(tx.message);
 			log(tx.message);
 		}
-
+		*/
 		/*
 		parse: function(response, xhr) {
 			return response[0];
