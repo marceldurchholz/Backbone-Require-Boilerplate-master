@@ -62,8 +62,8 @@ define(["jquery", "backbone", "models/Profile"],
 			var self = this;
 			alert('Starting synchronization...');
 			self.getLastSync(function(lastSync){
-				alert('getting profiles beginning from ' + lastSync);
-				alert('self.url: ' + self.url);
+				// alert('getting profiles beginning from ' + lastSync);
+				// alert('self.url: ' + self.url);
 				self.getChanges(self.url, lastSync,
 					function (changes) {
 						alert('now doing soimething with these changes');
