@@ -222,11 +222,12 @@ window.dao = {
 	sync: function(callback) {
 		alert('sync');
 		var self = this;
-		console.log('Starting synchronization...');
+		alert('Starting synchronization...');
 		this.getLastSync(function(lastSync){
 			self.getChanges(self.syncURL, lastSync,
 				function (changes) {
 					if (changes.length > 0) {
+						alert('applyChanges(changes, renderlist)');
 						self.applyChanges(changes, renderlist);
 					} else {
 						alert('Nothing to synchronize');
@@ -272,6 +273,7 @@ window.dao = {
 	},
 
 	applyChanges: function(employees, callback) {
+		alert('applyChanges');
 		this.db.transaction(
 			function(tx) {
 				var l = employees.length;
