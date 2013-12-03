@@ -228,7 +228,7 @@ window.dao = {
 				function (changes) {
 					if (changes.length > 0) {
 						alert('applyChanges(changes, renderlist)');
-						self.applyChanges(changes, this.renderlist);
+						self.applyChanges(changes, renderlist);
 					} else {
 						alert('Nothing to synchronize');
 						console.log('Nothing to synchronize');
