@@ -232,7 +232,7 @@ window.dao = {
 						alert('Nothing to synchronize');
 						console.log('Nothing to synchronize');
 						// callback();
-						self.renderList();
+						renderList();
 					}
 				}
 			);
@@ -297,6 +297,7 @@ window.dao = {
 	},
 	
 	findAll: function(callback) {
+		alert('findAll');
 		this.db.transaction(
 			function(tx) {
 				var sql = "SELECT * FROM EMPLOYEE";
@@ -330,6 +331,7 @@ window.dao = {
 };
 
 function renderList(employees) {
+	alert('renderList');
 	// alert('Rendering list using local SQLite data...');
 	dao.findAll(function(employees) {
 		$('#list').empty();
