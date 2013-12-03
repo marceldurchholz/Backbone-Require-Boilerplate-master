@@ -55,14 +55,21 @@ define(["jquery", "backbone", "models/Profile"],
 				function() {
 					alert('Table profiles successfully CREATED in local SQLite database');
 					// callback();
-					self.request();
+					// self.request();
 				}
 			);
 		},
 		txErrorHandler: function(tx) {
-			alert(tx.message);
-			console.log(tx.message);
+			alert('ERROR txErrorHandler');
+			// alert(tx.message);
+			// console.log(tx.message);
 		},
+		sync: function() {
+			alert('sync profiles');
+			// var self = this;
+			// self.request();
+		}
+		/*
 		request: function() {		
 			alert('request profiles');
 			var self = this;
@@ -86,12 +93,7 @@ define(["jquery", "backbone", "models/Profile"],
 				);
 			});
 			*/
-		},
-		sync: function() {
-			alert('sync profiles');
-			var self = this;
-			self.request();
-		}
+		// },
 		/*,
 		getLastSync: function(callback) {
 			alert('getLastSync');
