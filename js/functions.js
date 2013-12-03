@@ -107,26 +107,7 @@ $('#body').each(function() {
 });
 */
 
-function renderList(employees) {
-	// alert('Rendering list using local SQLite data...');
-	dao.findAll(function(employees) {
-		$('#list').empty();
-		var l = employees.length;
-		for (var i = 0; i < l; i++) {
-			var employee = employees[i];
-			$('#list').append('<tr>' +
-				'<td>' + employee.id + '</td>' +
-				'<td>' +employee.firstName + '</td>' +
-				'<td>' + employee.lastName + '</td>' +
-				'<td>' + employee.title + '</td>' +
-				'<td>' + employee.officePhone + '</td>' +
-				'<td>' + employee.deleted + '</td>' +
-				'<td>' + employee.lastModified + '</td></tr>');
-		}
-	});
-}
-
-window.dao = {
+var dao = {
 
 	// syncURL: "../api/employees",
 	syncURL: "http://coenraets.org/offline-sync/api/employees?modifiedSince=2010-03-01%2010:20:56",
@@ -153,12 +134,17 @@ window.dao = {
 							self.createTable(callback);
 						}
 				});
-				self.sync(renderList);
+				// self.sync(renderList);
+				self.sync(syncComplete);
 			}
 		)
 
 	},
 		
+	syncComplete: function(callback) {
+		self.sync(renderList);
+	},
+	
 	createTable: function(callback) {
 		this.db.transaction(
 			function(tx) {
@@ -223,6 +209,7 @@ window.dao = {
 					if (changes.length > 0) {
 						self.applyChanges(changes, callback);
 					} else {
+						alert('Nothing to synchronize');
 						console.log('Nothing to synchronize');
 						callback();
 					}
@@ -278,6 +265,7 @@ window.dao = {
 					var params = [e.id, e.firstName, e.lastName, e.title, e.officePhone, e.deleted, e.lastModified];
 					tx.executeSql(sql, params);
 				}
+				alert('Synchronization complete (' + l + ' items synchronized)');
 				console.log('Synchronization complete (' + l + ' items synchronized)');
 			},
 			this.txErrorHandler,
@@ -286,6 +274,11 @@ window.dao = {
 			}
 		);
 	},
+	
+    txErrorHandler: function(tx) {
+        alert(tx.message);
+		console.log(tx.message);
+    },
 	
 	findAll: function(callback) {
 		this.db.transaction(
@@ -319,37 +312,43 @@ window.dao = {
 	}
 };
 
-	
+function renderList(employees) {
+	// alert('Rendering list using local SQLite data...');
+	dao.findAll(function(employees) {
+		$('#list').empty();
+		var l = employees.length;
+		for (var i = 0; i < l; i++) {
+			var employee = employees[i];
+			$('#list').append('<tr>' +
+				'<td>' + employee.id + '</td>' +
+				'<td>' +employee.firstName + '</td>' +
+				'<td>' + employee.lastName + '</td>' +
+				'<td>' + employee.title + '</td>' +
+				'<td>' + employee.officePhone + '</td>' +
+				'<td>' + employee.deleted + '</td>' +
+				'<td>' + employee.lastModified + '</td></tr>');
+		}
+	});
+}
+
+
 var app = {
 	initialize: function() {
 		report('MobileInit.js','var app:initialize');
 		this.bindEvents();
 	},
 	bindEvents: function() {
-		if(!isMobile.any()) {
-			this.onDeviceReady();
-		}
-		else {
-			// document.addEventListener('load', this.onDeviceReady, false);
-			// document.addEventListener('offline', this.onDeviceReady, false);
-			// document.addEventListener('online', this.onDeviceReady, false);
-			document.addEventListener('deviceready', this.onDeviceReady, false);
-		}
+		document.addEventListener('deviceready', this.onDeviceReady, false);
+		if(!isMobile.any()) { this.onDeviceReady(); }
 	},
 	onDeviceReady: function() {
 		report('MobileInit.js','onDeviceReady');
-		/*
 		deviceReady = true;
 		cordovaIsLoaded = true;
-		app.receivedEvent('deviceready');
-		*/
 		app.receivedEvent();
    },
 	receivedEvent: function(event) {
 		report("MobileInit.js"," var app:receivedEvent");
-		deviceReady = true;
-		cordovaIsLoaded = true;
-		modifyiOS7StatusBar();
 		dd.resolve();
 		// populateDeviceInfo();
 		/*

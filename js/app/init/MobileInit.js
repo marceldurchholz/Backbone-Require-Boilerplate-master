@@ -133,7 +133,9 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	$.when(dd, jqd).done(function doInit() {
 		// alert('dd and jqd ready');
 		if (isMobile.any()) {
-			dao.initialize(function() {
+			modifyiOS7StatusBar();
+			dao.initialize(function(e) {
+				alert(e);
 				// alert('database initialized');
 			});
 		}
@@ -150,11 +152,12 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		});
 		// populateDeviceInfoTimer();
 		// Returns the MobileRouter class
-	});
 	
 	// Instantiates a new Mobile Router instance
     new MobileRouter();
 
+	});
+	
   }
 
 );
