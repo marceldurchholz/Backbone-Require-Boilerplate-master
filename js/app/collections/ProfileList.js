@@ -9,6 +9,7 @@ define(["jquery", "backbone", "models/Profile"],
 		model: Profile,
 		// url: 'profiles.jsonx'
 		// url: 'http://mobile002.appinaut.de/api/employees/index.php', 
+		// url: 'http://coenraets.org/offline-sync/api/employees?modifiedSince=2012-03-01%2010:20:56',
 		url: 'http://dominik-lohmann.de:5000/users/',
 		
 		initialize: function() {
@@ -46,6 +47,7 @@ define(["jquery", "backbone", "models/Profile"],
 						"fullname VARCHAR(100), " +
 						"slogan VARCHAR(500), " +
 						"perstext VARCHAR(500), " +
+						"lastModified VARCHAR(500), " +
 						"device VARCHAR(100))";
 					tx.executeSql(sql);
 				},
