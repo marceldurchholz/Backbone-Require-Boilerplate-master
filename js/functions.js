@@ -329,7 +329,7 @@ window.dao = {
 
 	txErrorHandler: function(tx) {
 		alert(tx.message);
-		log(tx.message);
+		console.log(tx.message);
 	}
 };
 
@@ -356,7 +356,7 @@ function renderList(employees) {
 
 var app = {
 	initialize: function() {
-		log('MobileInit.js >> var app:initialize');
+		console.log('MobileInit.js >> var app:initialize');
 		this.bindEvents();
 	},
 	bindEvents: function() {
@@ -364,13 +364,13 @@ var app = {
 		if(!isMobile.any()) { this.onDeviceReady(); }
 	},
 	onDeviceReady: function() {
-		log('MobileInit.js >> onDeviceReady');
+		console.log('MobileInit.js >> onDeviceReady');
 		deviceReady = true;
 		cordovaIsLoaded = true;
 		app.receivedEvent();
    },
 	receivedEvent: function(event) {
-		log("MobileInit.js >> var app:receivedEvent");
+		console.log("MobileInit.js >> var app:receivedEvent");
 		dd.resolve();
 		// populateDeviceInfo();
 		/*
@@ -425,7 +425,7 @@ function populateDeviceInfoTimer() {
 }
 
 function populateDeviceInfo(){
-	log('functions.js >> populateDeviceInfo() START');
+	console.log('functions.js >> populateDeviceInfo() START');
 	// doAlert('TEST','--> populateDeviceInfo()..');
 	// $( document ).delegate("#pageid", "pageinit", function() {  
 	// $( document ).ready(function() {
@@ -561,7 +561,7 @@ function modifyiOS7StatusBar(){
 		} catch(e){ catchError('modifyiOS7StatusBar()',e); }
 	}
 	else {
-	log('not mobile: statusbar not modified');
+	console.log('not mobile: statusbar not modified');
 	}
 }
 
@@ -576,7 +576,7 @@ function report(logtype,msg){
     try{
 		// alert(logtype + ': ' + msg);
         // console.log(logtype + ': ' + msg);
-		log(logtype + ': ' + msg);
+		console.log(logtype + ': ' + msg);
     }catch(e){ 
         // give up
     }            
@@ -1378,20 +1378,6 @@ function createScrollable() {
 	});
 }
 
-function log(value) {
-	// console.log('>> '+value);
-	// window.loginfo = value;
-	// alert('a');
-	// alert(value);
-	if (value!=undefined && value!=NaN && value!='') window.loginfo += (new Date() - pageStartTime) / 1000 + ': ' + value + '<br/>';
-	// if (window.loginfo!=undefined) alert(window.loginfo);
-	// alert(window.loginfo);
-	// document.getElementById('camera_status').textContent += (new Date() - pageStartTime) / 1000 + ': ' + value + '\n';
-	// $('.logtexarea').append('blabla');
-	/*
-	*/
-}
-
 function setPicture(url, callback) {
 	try {
 		window.atob(url);
@@ -1399,7 +1385,7 @@ function setPicture(url, callback) {
 		url = "data:image/jpeg;base64," + url;
 	} catch (e) {
 		// not DATA_URL
-		log('URL: ' + url.slice(0, 100));
+		console.log('URL: ' + url.slice(0, 100));
 	}    
 
 	pictureUrl = url;
@@ -1412,12 +1398,12 @@ function setPicture(url, callback) {
 	/*
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
 		alert("Root = " + fs.root.fullPath);
-		log("Root = " + fs.root.fullPath);
+		console.log("Root = " + fs.root.fullPath);
 		var directoryReader = fs.root.createReader();
 		directoryReader.readEntries(function(entries) {
 			var i;
 			for (i=0; i<entries.length; i++) {
-				log(entries[i].name);
+				console.log(entries[i].name);
 			}
 		}, function (error) {
 			alert(error.code);
@@ -1442,19 +1428,19 @@ function setPicture(url, callback) {
 	}
 
 	img.onloadend = function() {
-		log('Image tag load time: ' + (new Date() - startTime));
+		console.log('Image tag load time: ' + (new Date() - startTime));
 		callback && callback();
 	};
 }
 
 function onGetPictureError(e) {
-	log('Error getting picture: ' + e.code);
+	console.log('Error getting picture: ' + e.code);
 }
 
 function getPicture() {
 	// clearStatus();
 	var options = extractOptions();
-	log('Getting picture with options: ' + JSON.stringify(options));
+	console.log('Getting picture with options: ' + JSON.stringify(options));
 	var popoverHandle = navigator.camera.getPicture(getPictureWin, onGetPictureError, options);
 
 	// Reposition the popover if the orientation changes.
@@ -1489,10 +1475,10 @@ function getPictureWin(data) {
 
 // Upload files to server
 function uploadFile(mediaFile) {
-	log('class uploadFile started');
+	console.log('class uploadFile started');
 	try {
-		log('uploading '+mediaFile.fullPath);
-		log('uploading '+mediaFile.name);
+		console.log('uploading '+mediaFile.fullPath);
+		console.log('uploading '+mediaFile.name);
 		// var ft = new FileTransfer(),
 		// path = mediaFile.fullPath,
 		// name = mediaFile.name;
@@ -1509,7 +1495,7 @@ function uploadFile(mediaFile) {
 		// );
 	} catch (e) {
 		// not DATA_URL
-		log('class new FileTransfer not possible');
+		console.log('class new FileTransfer not possible');
 	}
 	try {
 		// do
@@ -1540,7 +1526,7 @@ function uploadFile(mediaFile) {
 	my_media = new Media(mediaFile.fullPath, mediaOnSuccess, mediaOnError);
 	my_media.play()
 	
-	log('class uploadFile ended');
+	console.log('class uploadFile ended');
 }	
 
 function mediaOnSuccess(data) {
@@ -1601,9 +1587,9 @@ function setVideo(mediaFiles) {
 				// }
 			// });
 			var path = mediaFiles[i].fullPath;
-			log('path ['+i+']:'+path);
+			console.log('path ['+i+']:'+path);
 			var name = mediaFiles[i].name;
-			log('name ['+i+']:'+name);
+			console.log('name ['+i+']:'+name);
 			// do something interesting with the file
 			uploadFile(mediaFiles[i]);
 		}
@@ -1615,7 +1601,7 @@ function setVideo(mediaFiles) {
 		// not DATA_URL
 		// log('mediaFiles: ' + mediaFiles.slice(0, 100));
 	}    
-	log('set video function end');
+	console.log('set video function end');
 
 	// pictureUrl = path;
 	// var vid = document.getElementById('camera_video');
@@ -1636,22 +1622,37 @@ function uploadImage() {
 	options.fileName='test.jpg';
 	options.mimeType="image/jpeg";
 	ft.onprogress = function(progressEvent) {
-		log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
+		console.log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
 	};
 	var server = "http://cordova-filetransfer.jitsu.com";
 
 	ft.upload(pictureUrl, server + '/upload', win, fail, options);
 	function win(information_back){
-		log('upload complete');
+		console.log('upload complete');
 	}
 	function fail(message) {
-		log('upload failed: ' + JSON.stringify(message));
+		console.log('upload failed: ' + JSON.stringify(message));
 	}
+}
+
+function log(value) {
+	// console.log('>> '+value);
+	// window.loginfo = value;
+	// alert('a');
+	// alert(value);
+	alert(value);
+	// if (value!=undefined && value!=NaN && value!='') window.loginfo += (new Date() - pageStartTime) / 1000 + ': ' + value + '<br/>';
+	// if (window.loginfo!=undefined) alert(window.loginfo);
+	// alert(window.loginfo);
+	// document.getElementById('camera_status').textContent += (new Date() - pageStartTime) / 1000 + ': ' + value + '\n';
+	// $('.logtexarea').append('blabla');
+	/*
+	*/
 }
 
 function logCallback(apiName, success) {
 	return function() {
-		log('Call to ' + apiName + (success ? ' success: ' : ' failed: ') + JSON.stringify([].slice.call(arguments)));
+		console.log('Call to ' + apiName + (success ? ' success: ' : ' failed: ') + JSON.stringify([].slice.call(arguments)));
 	};
 }
 
@@ -1663,16 +1664,16 @@ function readFile() {
 		img.style.visibility = "visible";
 		img.style.display = "block";
 		img.src = evt.target.result;
-		log("FileReader.readAsDataURL success");
+		console.log("FileReader.readAsDataURL success");
 	};
 
 	function onFileReceived(file) {
-		log('Got file: ' + JSON.stringify(file));
+		console.log('Got file: ' + JSON.stringify(file));
 		fileObj = file;
 
 		var reader = new FileReader();
 		reader.onload = function() {
-			log('FileReader.readAsDataURL() - length = ' + reader.result.length);
+			console.log('FileReader.readAsDataURL() - length = ' + reader.result.length);
 		};
 		reader.onerror = logCallback('FileReader.readAsDataURL', false);
 		reader.readAsDataURL(file);
