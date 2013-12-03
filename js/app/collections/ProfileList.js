@@ -14,9 +14,8 @@ define(["jquery", "backbone", "models/Profile"],
 		
 		initialize: function() {
 			console.log('collection initializing');
-
-			var self = this;
 			this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
+			var self = this;
 			this.db.transaction(
 				function(tx) {
 					tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='profiles'", this.txErrorHandler,
@@ -54,7 +53,7 @@ define(["jquery", "backbone", "models/Profile"],
 				this.txErrorHandler,
 				function() {
 					alert('Table profiles successfully CREATED in local SQLite database');
-					callback();
+					// callback();
 					// self.sync();
 				}
 			);
