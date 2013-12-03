@@ -13,6 +13,27 @@ define(["jquery", "backbone", "models/Profile"],
 		
 		initialize: function() {
 			console.log('collection initializing');
+
+			var self = this;
+			this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
+			this.db.transaction(
+				function(tx) {
+					tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='profiles'", this.txErrorHandler,
+						function(tx, results) {
+							if (results.rows.length == 1) {
+								alert('Using existing profiles table in local SQLite database');
+								// self.sync();
+							}
+							else
+							{
+								alert('profiles table does not exist in local SQLite database');
+								// self.createTable(self.sync);
+							}
+					});
+					// self.sync(renderList);
+				}
+			)
+
 			/*
 			var myCollection = new ProfileList([
 				new Profile({ name: 'hans', id: 200}),

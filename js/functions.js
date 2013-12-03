@@ -257,16 +257,17 @@ window.dao = {
 	},
 
 	getChanges: function(syncURL, modifiedSince, callback) {
+		alert('getChanges');
 		$.ajax({
 			url: syncURL,
 			data: {modifiedSince: modifiedSince},
 			dataType:"json",
 			success:function (data) {
-				log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
+				console.log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
 				callback(data);
 			},
 			error: function(model, response) {
-				log(response.responseText);
+				console.log(response.responseText);
 			}
 		});
 
