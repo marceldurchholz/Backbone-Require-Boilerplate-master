@@ -13,11 +13,6 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 					this.myCollection = myCollection;
 					this.myCollection.bind('sync',this.myCollectionLoaded, this);
 					this.myCollection.fetch();
-					if (isMobile.any()) {
-						dao.initialize(function() {
-							alert('database initialized');
-						});
-					}
 					if(!isMobile.any()) this.myCollectionLoaded();
 					// this.myCollection.fetch();
 					// this.render();

@@ -150,7 +150,6 @@ window.dao = {
 						else
 						{
 							console.log('Employee table does not exist in local SQLite database');
-							callback();
 							self.createTable(callback);
 						}
 				});
@@ -184,7 +183,7 @@ window.dao = {
 	
 	sync: function(callback) {
 		var self = this;
-		console.log('Starting synchronization...');
+		alert('Starting synchronization...');
 		this.getLastSync(function(lastSync){
 			self.getChanges(self.syncURL, lastSync,
 				function (changes) {
@@ -234,6 +233,7 @@ window.dao = {
 	*/
 
 	getLastSync: function(callback) {
+		alert('getLastSync');
 		this.db.transaction(
 			function(tx) {
 				var sql = "SELECT MAX(lastModified) as lastSync FROM employee";
@@ -249,6 +249,7 @@ window.dao = {
 	},
 
 	getChanges: function(syncURL, modifiedSince, callback) {
+		alert('getChanges');
 		$.ajax({
 			url: syncURL,
 			data: {modifiedSince: modifiedSince},
@@ -265,6 +266,7 @@ window.dao = {
 	},
 
 	applyChanges: function(employees, callback) {
+		alert('applyChanges');
 		this.db.transaction(
 			function(tx) {
 				var l = employees.length;
@@ -289,6 +291,7 @@ window.dao = {
 	},
 	
 	findAll: function(callback) {
+		alert('findAll');
 		this.db.transaction(
 			function(tx) {
 				var sql = "SELECT * FROM EMPLOYEE";
