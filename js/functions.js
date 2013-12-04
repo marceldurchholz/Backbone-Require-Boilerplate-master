@@ -108,7 +108,7 @@ $('#body').each(function() {
 */
 
 function renderList(employees) {
-	// alert('Rendering list using local SQLite data...');
+	alert('Rendering list using local SQLite data...');
 	dao.findAll(function(employees) {
 		$('#list').empty();
 		var l = employees.length;
@@ -189,8 +189,9 @@ window.dao = {
 				function (changes) {
 					if (changes.length > 0) {
 						self.applyChanges(changes, callback);
+						alert('Something to synchronize');
 					} else {
-						console.log('Nothing to synchronize');
+						alert('Nothing to synchronize');
 						callback();
 					}
 				}
