@@ -18,6 +18,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 					// this.render();
 				},
 				myCollectionLoaded: function(e){
+					alert('myCollectionLoaded');
 					console.log('***** myCollectionLoaded called: ' + JSON.stringify(e));
 					// console.log(e);
 					/*
@@ -36,7 +37,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 					this.render();
 				},
 				render: function() {
-					console.log('rendering Listview.js');
+					alert('rendering Listview.js');
 					
 					this.sidebar = _.template(sidebar, {});
 					$('#sidebar').html(sidebar);
