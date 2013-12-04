@@ -132,6 +132,16 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
 	$.when(dd, jqd).done(function doInit() {
 		// alert('dd and jqd ready');
+		/*
+		if (isMobile.any()) {
+			dao.initialize(function() {
+				// alert('database initialized');
+				alert('inner dao.initialize');
+				renderList();
+			});
+		}
+		alert('outer dao.initialize');
+		*/
 		var isTouch = !!('ontouchstart' in window);
 		document.getElementById('body').setAttribute('class', isTouch ? 'touch' : 'desktop');    
 		$('.scrollable').pullToRefresh({

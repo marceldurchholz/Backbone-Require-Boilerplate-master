@@ -136,6 +136,7 @@ window.dao = {
 		alert(bla);
 	},
 	initialize: function(callback) {
+		alert('bbb');
 		var self = this;
 		// renderList();
 		this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
