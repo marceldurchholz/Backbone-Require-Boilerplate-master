@@ -1,6 +1,3 @@
-var pageStartTime = +new Date();
-var loginfo = '';
-
 var isMobile = {};
 isMobile = {
     Android: function() {
@@ -25,23 +22,8 @@ if(isMobile.any()){
     document.write("<script type='text/javascript' src='" + rootURL + "phonegap.js'></script>"); 
     // initApp();
 }else{
-    log('NOT-DEVICE-MODE: Skipping loading of phonegap.js and plugins...');
+    console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
 }
-
-/*
-log('aaa');
-log('bbb');
-log('aaa');
-log('bbb');
-log('aaa');
-log('bbb');
-log('aaa');
-log('bbb');
-log('aaa');
-log('bbb');
-log('aaa');
-log('bbb');
-*/
 
 var currentHash = window.location.hash;
 
@@ -64,6 +46,7 @@ var CameraPopoverOptions = null;
 var pictureUrl = null;
 var fileObj = null;
 var fileEntry = null;
+var pageStartTime = +new Date();
 
 //default camera options
 var camQualityDefault = ['quality value', 50];
@@ -124,6 +107,24 @@ $('#body').each(function() {
 });
 */
 
+function renderList(employees) {
+	// alert('Rendering list using local SQLite data...');
+	dao.findAll(function(employees) {
+		$('#list').empty();
+		var l = employees.length;
+		for (var i = 0; i < l; i++) {
+			var employee = employees[i];
+			$('#list').append('<tr>' +
+				'<td>' + employee.id + '</td>' +
+				'<td>' +employee.firstName + '</td>' +
+				'<td>' + employee.lastName + '</td>' +
+				'<td>' + employee.title + '</td>' +
+				'<td>' + employee.officePhone + '</td>' +
+				'<td>' + employee.deleted + '</td>' +
+				'<td>' + employee.lastModified + '</td></tr>');
+		}
+	});
+}
 
 window.dao = {
 
@@ -144,28 +145,21 @@ window.dao = {
 				tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='employee'", this.txErrorHandler,
 					function(tx, results) {
 						if (results.rows.length == 1) {
-							alert('Using existing Employee table in local SQLite database');
-							self.sync();
+							console.log('Using existing Employee table in local SQLite database');
 						}
 						else
 						{
-							alert('Employee table does not exist in local SQLite database');
-							self.createTable(self.sync);
-							alert('after cuntion call self.createTable(self.sync)');
+							console.log('Employee table does not exist in local SQLite database');
+							self.createTable(callback);
 						}
 				});
-				// self.sync(renderList);
+				self.sync(renderList);
 			}
 		)
 
 	},
-	/*
-	syncComplete: function(callback) {
-		self.sync(renderList);
-	},
-	*/
+		
 	createTable: function(callback) {
-		alert('createTable');
 		this.db.transaction(
 			function(tx) {
 				var sql =
@@ -221,28 +215,24 @@ window.dao = {
 	*/
 
 	sync: function(callback) {
-		alert('sync');
 		var self = this;
-		alert('Starting synchronization...');
-		self.getLastSync(function(lastSync){
+		console.log('Starting synchronization...');
+		this.getLastSync(function(lastSync){
 			self.getChanges(self.syncURL, lastSync,
 				function (changes) {
 					if (changes.length > 0) {
-						alert('applyChanges(changes, renderlist)');
-						self.applyChanges(changes, renderlist);
+						self.applyChanges(changes, callback);
 					} else {
-						alert('Nothing to synchronize');
 						console.log('Nothing to synchronize');
-						// callback();
-						renderList();
+						callback();
 					}
 				}
 			);
 		});
+
 	},
 
 	getLastSync: function(callback) {
-		alert('getLastSync');
 		this.db.transaction(
 			function(tx) {
 				var sql = "SELECT MAX(lastModified) as lastSync FROM employee";
@@ -258,7 +248,6 @@ window.dao = {
 	},
 
 	getChanges: function(syncURL, modifiedSince, callback) {
-		alert('getChanges');
 		$.ajax({
 			url: syncURL,
 			data: {modifiedSince: modifiedSince},
@@ -271,10 +260,10 @@ window.dao = {
 				console.log(response.responseText);
 			}
 		});
+
 	},
 
 	applyChanges: function(employees, callback) {
-		alert('applyChanges');
 		this.db.transaction(
 			function(tx) {
 				var l = employees.length;
@@ -289,7 +278,6 @@ window.dao = {
 					var params = [e.id, e.firstName, e.lastName, e.title, e.officePhone, e.deleted, e.lastModified];
 					tx.executeSql(sql, params);
 				}
-				alert('Synchronization complete (' + l + ' items synchronized)');
 				console.log('Synchronization complete (' + l + ' items synchronized)');
 			},
 			this.txErrorHandler,
@@ -300,7 +288,6 @@ window.dao = {
 	},
 	
 	findAll: function(callback) {
-		alert('findAll');
 		this.db.transaction(
 			function(tx) {
 				var sql = "SELECT * FROM EMPLOYEE";
@@ -329,48 +316,40 @@ window.dao = {
 
 	txErrorHandler: function(tx) {
 		alert(tx.message);
-		console.log(tx.message);
 	}
 };
 
-function renderList(employees) {
-	alert('renderList');
-	// alert('Rendering list using local SQLite data...');
-	dao.findAll(function(employees) {
-		$('#list').empty();
-		var l = employees.length;
-		for (var i = 0; i < l; i++) {
-			var employee = employees[i];
-			$('#list').append('<tr>' +
-				'<td>' + employee.id + '</td>' +
-				'<td>' +employee.firstName + '</td>' +
-				'<td>' + employee.lastName + '</td>' +
-				'<td>' + employee.title + '</td>' +
-				'<td>' + employee.officePhone + '</td>' +
-				'<td>' + employee.deleted + '</td>' +
-				'<td>' + employee.lastModified + '</td></tr>');
-		}
-	});
-}
-
-
+	
 var app = {
 	initialize: function() {
-		console.log('MobileInit.js >> var app:initialize');
+		report('MobileInit.js','var app:initialize');
 		this.bindEvents();
 	},
 	bindEvents: function() {
-		document.addEventListener('deviceready', this.onDeviceReady, false);
-		if(!isMobile.any()) { this.onDeviceReady(); }
+		if(!isMobile.any()) {
+			this.onDeviceReady();
+		}
+		else {
+			// document.addEventListener('load', this.onDeviceReady, false);
+			// document.addEventListener('offline', this.onDeviceReady, false);
+			// document.addEventListener('online', this.onDeviceReady, false);
+			document.addEventListener('deviceready', this.onDeviceReady, false);
+		}
 	},
 	onDeviceReady: function() {
-		console.log('MobileInit.js >> onDeviceReady');
+		report('MobileInit.js','onDeviceReady');
+		/*
 		deviceReady = true;
 		cordovaIsLoaded = true;
+		app.receivedEvent('deviceready');
+		*/
 		app.receivedEvent();
    },
 	receivedEvent: function(event) {
-		console.log("MobileInit.js >> var app:receivedEvent");
+		report("MobileInit.js"," var app:receivedEvent");
+		deviceReady = true;
+		cordovaIsLoaded = true;
+		modifyiOS7StatusBar();
 		dd.resolve();
 		// populateDeviceInfo();
 		/*
@@ -425,7 +404,7 @@ function populateDeviceInfoTimer() {
 }
 
 function populateDeviceInfo(){
-	console.log('functions.js >> populateDeviceInfo() START');
+	report('functions.js','populateDeviceInfo() START');
 	// doAlert('TEST','--> populateDeviceInfo()..');
 	// $( document ).delegate("#pageid", "pageinit", function() {  
 	// $( document ).ready(function() {
@@ -575,8 +554,7 @@ function debugModeEnabled(){
 function report(logtype,msg){
     try{
 		// alert(logtype + ': ' + msg);
-        // console.log(logtype + ': ' + msg);
-		console.log(logtype + ': ' + msg);
+        console.log(logtype + ': ' + msg);
     }catch(e){ 
         // give up
     }            
@@ -1365,17 +1343,9 @@ function clearStatus() {
 	fileEntry = null;
 }
 
-function createScrollable() {
-	document.getElementById('body').setAttribute('class', isTouch ? 'touch' : 'desktop');    
-	$('.scrollable').pullToRefresh({
-		callback: function() {
-			var def = $.Deferred();
-			setTimeout(function() {
-				def.resolve();
-			}, 3000);
-			return def.promise();
-		}
-	});
+function log(value) {
+	console.log(value);
+	document.getElementById('camera_status').textContent += (new Date() - pageStartTime) / 1000 + ': ' + value + '\n';
 }
 
 function setPicture(url, callback) {
@@ -1385,7 +1355,7 @@ function setPicture(url, callback) {
 		url = "data:image/jpeg;base64," + url;
 	} catch (e) {
 		// not DATA_URL
-		console.log('URL: ' + url.slice(0, 100));
+		log('URL: ' + url.slice(0, 100));
 	}    
 
 	pictureUrl = url;
@@ -1398,12 +1368,12 @@ function setPicture(url, callback) {
 	/*
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
 		alert("Root = " + fs.root.fullPath);
-		console.log("Root = " + fs.root.fullPath);
+		log("Root = " + fs.root.fullPath);
 		var directoryReader = fs.root.createReader();
 		directoryReader.readEntries(function(entries) {
 			var i;
 			for (i=0; i<entries.length; i++) {
-				console.log(entries[i].name);
+				log(entries[i].name);
 			}
 		}, function (error) {
 			alert(error.code);
@@ -1428,19 +1398,19 @@ function setPicture(url, callback) {
 	}
 
 	img.onloadend = function() {
-		console.log('Image tag load time: ' + (new Date() - startTime));
+		log('Image tag load time: ' + (new Date() - startTime));
 		callback && callback();
 	};
 }
 
 function onGetPictureError(e) {
-	console.log('Error getting picture: ' + e.code);
+	log('Error getting picture: ' + e.code);
 }
 
 function getPicture() {
 	// clearStatus();
 	var options = extractOptions();
-	console.log('Getting picture with options: ' + JSON.stringify(options));
+	log('Getting picture with options: ' + JSON.stringify(options));
 	var popoverHandle = navigator.camera.getPicture(getPictureWin, onGetPictureError, options);
 
 	// Reposition the popover if the orientation changes.
@@ -1475,10 +1445,10 @@ function getPictureWin(data) {
 
 // Upload files to server
 function uploadFile(mediaFile) {
-	console.log('class uploadFile started');
+	log('class uploadFile started');
 	try {
-		console.log('uploading '+mediaFile.fullPath);
-		console.log('uploading '+mediaFile.name);
+		log('uploading '+mediaFile.fullPath);
+		log('uploading '+mediaFile.name);
 		// var ft = new FileTransfer(),
 		// path = mediaFile.fullPath,
 		// name = mediaFile.name;
@@ -1495,7 +1465,7 @@ function uploadFile(mediaFile) {
 		// );
 	} catch (e) {
 		// not DATA_URL
-		console.log('class new FileTransfer not possible');
+		log('class new FileTransfer not possible');
 	}
 	try {
 		// do
@@ -1526,7 +1496,7 @@ function uploadFile(mediaFile) {
 	my_media = new Media(mediaFile.fullPath, mediaOnSuccess, mediaOnError);
 	my_media.play()
 	
-	console.log('class uploadFile ended');
+	log('class uploadFile ended');
 }	
 
 function mediaOnSuccess(data) {
@@ -1587,9 +1557,9 @@ function setVideo(mediaFiles) {
 				// }
 			// });
 			var path = mediaFiles[i].fullPath;
-			console.log('path ['+i+']:'+path);
+			log('path ['+i+']:'+path);
 			var name = mediaFiles[i].name;
-			console.log('name ['+i+']:'+name);
+			log('name ['+i+']:'+name);
 			// do something interesting with the file
 			uploadFile(mediaFiles[i]);
 		}
@@ -1601,7 +1571,7 @@ function setVideo(mediaFiles) {
 		// not DATA_URL
 		// log('mediaFiles: ' + mediaFiles.slice(0, 100));
 	}    
-	console.log('set video function end');
+	log('set video function end');
 
 	// pictureUrl = path;
 	// var vid = document.getElementById('camera_video');
@@ -1622,37 +1592,22 @@ function uploadImage() {
 	options.fileName='test.jpg';
 	options.mimeType="image/jpeg";
 	ft.onprogress = function(progressEvent) {
-		console.log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
+		log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
 	};
 	var server = "http://cordova-filetransfer.jitsu.com";
 
 	ft.upload(pictureUrl, server + '/upload', win, fail, options);
 	function win(information_back){
-		console.log('upload complete');
+		log('upload complete');
 	}
 	function fail(message) {
-		console.log('upload failed: ' + JSON.stringify(message));
+		log('upload failed: ' + JSON.stringify(message));
 	}
-}
-
-function log(value) {
-	// console.log('>> '+value);
-	// window.loginfo = value;
-	// alert('a');
-	// alert(value);
-	alert(value);
-	// if (value!=undefined && value!=NaN && value!='') window.loginfo += (new Date() - pageStartTime) / 1000 + ': ' + value + '<br/>';
-	// if (window.loginfo!=undefined) alert(window.loginfo);
-	// alert(window.loginfo);
-	// document.getElementById('camera_status').textContent += (new Date() - pageStartTime) / 1000 + ': ' + value + '\n';
-	// $('.logtexarea').append('blabla');
-	/*
-	*/
 }
 
 function logCallback(apiName, success) {
 	return function() {
-		console.log('Call to ' + apiName + (success ? ' success: ' : ' failed: ') + JSON.stringify([].slice.call(arguments)));
+		log('Call to ' + apiName + (success ? ' success: ' : ' failed: ') + JSON.stringify([].slice.call(arguments)));
 	};
 }
 
@@ -1664,16 +1619,16 @@ function readFile() {
 		img.style.visibility = "visible";
 		img.style.display = "block";
 		img.src = evt.target.result;
-		console.log("FileReader.readAsDataURL success");
+		log("FileReader.readAsDataURL success");
 	};
 
 	function onFileReceived(file) {
-		console.log('Got file: ' + JSON.stringify(file));
+		log('Got file: ' + JSON.stringify(file));
 		fileObj = file;
 
 		var reader = new FileReader();
 		reader.onload = function() {
-			console.log('FileReader.readAsDataURL() - length = ' + reader.result.length);
+			log('FileReader.readAsDataURL() - length = ' + reader.result.length);
 		};
 		reader.onerror = logCallback('FileReader.readAsDataURL', false);
 		reader.readAsDataURL(file);

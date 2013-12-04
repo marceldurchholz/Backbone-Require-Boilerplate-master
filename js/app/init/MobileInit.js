@@ -131,34 +131,30 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	app.initialize();
 
 	$.when(dd, jqd).done(function doInit() {
-		console.log('dd and jqd ready');
-		// WHEN DOM READY (!!!)
-		// $(function(){
-			// alert(window.loginfo);
-			// Backbone code in here
-			
-			// modifyiOS7StatusBar();
-			// if (isMobile.any()) createScrollable();
-			// if (window.loginfo) $("#debug").append(window.loginfo);
-			
-			// alert('bla'+window.loginfo);
-			// alert('b');
-			// alert($("#log").text());
-		// });
-	
-		if (isMobile.any()) { 
-			// dao.initialize();
+		// alert('dd and jqd ready');
+		if (isMobile.any()) {
+			dao.initialize(function() {
+				// alert('database initialized');
+			});
 		}
-		
-		// var isTouch = !!('ontouchstart' in window);
+		var isTouch = !!('ontouchstart' in window);
+		document.getElementById('body').setAttribute('class', isTouch ? 'touch' : 'desktop');    
+		$('.scrollable').pullToRefresh({
+			callback: function() {
+				var def = $.Deferred();
+				setTimeout(function() {
+					def.resolve();
+				}, 3000);
+				return def.promise();
+			}
+		});
 		// populateDeviceInfoTimer();
 		// Returns the MobileRouter class
-	
-	// Instantiates a new Mobile Router instance
-
 	});
 	
+	// Instantiates a new Mobile Router instance
     new MobileRouter();
+
   }
 
 );

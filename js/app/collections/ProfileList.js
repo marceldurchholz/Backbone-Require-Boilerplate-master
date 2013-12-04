@@ -9,125 +9,24 @@ define(["jquery", "backbone", "models/Profile"],
 		model: Profile,
 		// url: 'profiles.jsonx'
 		// url: 'http://mobile002.appinaut.de/api/employees/index.php', 
-		// url: 'http://coenraets.org/offline-sync/api/employees?modifiedSince=2012-03-01%2010:20:56',
 		url: 'http://dominik-lohmann.de:5000/users/',
 		
 		initialize: function() {
 			console.log('collection initializing');
-			var self = this;
-			this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
-			this.db.transaction(
-				function(tx) {
-					tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='profiles'", this.txErrorHandler,
-						function(tx, results) {
-							if (results.rows.length == 1) {
-								alert('Using existing profiles table in local SQLite database');
-								// self.sync();
-							}
-							else
-							{
-								alert('profiles table does not exist in local SQLite database');
-								self.createTable();
-							}
-					});
-					// self.sync(renderList);
-				}
-			)
-		},
-		createTable: function() {
-			alert('createTable profiles');
-			var self = this;
-			this.db.transaction(
-				function(tx) {
-					var sql =
-						"CREATE TABLE IF NOT EXISTS profiles ( " +
-						"id VARCHAR(100) PRIMARY KEY, " +
-						"username VARCHAR(100), " +
-						"password VARCHAR(100), " +
-						"fullname VARCHAR(100), " +
-						"slogan VARCHAR(500), " +
-						"perstext VARCHAR(500), " +
-						"lastModified VARCHAR(500), " +
-						"device VARCHAR(100))";
-					tx.executeSql(sql);
-				},
-				this.txErrorHandler,
-				function() {
-					alert('Table profiles successfully CREATED in local SQLite database');
-					// callback();
-					// self.request();
-				}
-			);
-		},
-		txErrorHandler: function(tx) {
-			alert('ERROR txErrorHandler');
-			// alert(tx.message);
-			// console.log(tx.message);
-		},
-		sync: function() {
-			alert('sync profiles');
-			// var self = this;
-			// self.request();
-		}
-		/*
-		request: function() {		
-			alert('request profiles');
-			var self = this;
-			alert('Starting synchronization...');
 			/*
-			self.getLastSync(function(lastSync){
-				// alert('getting profiles beginning from ' + lastSync);
-				// alert('self.url: ' + self.url);
-				self.getChanges(self.url, lastSync,
-					function (changes) {
-						alert('now doing soimething with these changes');
-						if (changes.length > 0) {
-							alert('applyChanges(changes, renderlist)');
-							self.applyChanges(changes, renderlist);
-						} else {
-							alert('Nothing to synchronize');
-							console.log('Nothing to synchronize');
-							renderList();
-						}
-					}
-				);
-			});
+			var myCollection = new ProfileList([
+				new Profile({ name: 'hans', id: 200}),
+				new Profile({ title: 'peter', id: 250}),
+				new Profile({ title: 'werner', id: 100}),
+				new Profile({ title: 'connie', id: 10})
+				// Add more here
+			]);
 			*/
-		// },
-		/*,
-		getLastSync: function(callback) {
-			alert('getLastSync');
-			this.db.transaction(
-				function(tx) {
-					alert('doing MAX sql request');
-					var sql = "SELECT MAX(lastModified) as lastSync FROM profiles";
-					this.txErrorHandler('testalert');
-					tx.executeSql(sql, this.txErrorHandler,
-						function(tx, results) {
-							var lastSync = results.rows.item(0).lastSync;
-							alert('Last local timestamp is ' + lastSync);
-							callback(lastSync);
-						}
-					);
-				}
-			);
+			// console.log(this);
+			// this.add({ name: 'fred', id: 20 });
+			// console.log(this);
+			// this.ProfileList = myCollection;
 		},
-		getChanges: function(syncURL, modifiedSince, callback) {
-			alert('getChanges');
-			$.ajax({
-				url: syncURL,
-				data: {modifiedSince: modifiedSince},
-				dataType:"json",
-				success:function (data) {
-					alert("The server returned " + data.length + " changes that occurred after " + modifiedSince);
-					callback(data);
-				},
-				error: function(model, response) {
-					alert(response.responseText);
-				}
-			});
-		}
-		*/
 		/*
 		parse: function(response, xhr) {
 			return response[0];

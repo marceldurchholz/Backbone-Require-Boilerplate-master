@@ -12,13 +12,13 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 					var myCollection = new ProfileList();
 					this.myCollection = myCollection;
 					this.myCollection.bind('sync',this.myCollectionLoaded, this);
-					// this.myCollection.fetch();
+					this.myCollection.fetch();
 					if(!isMobile.any()) this.myCollectionLoaded();
 					// this.myCollection.fetch();
 					// this.render();
 				},
 				myCollectionLoaded: function(e){
-					// console.log('***** myCollectionLoaded called: ' + JSON.stringify(e));
+					console.log('***** myCollectionLoaded called: ' + JSON.stringify(e));
 					// console.log(e);
 					/*
 					if (isMobile.any()) {
