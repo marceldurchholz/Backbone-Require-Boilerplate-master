@@ -185,6 +185,8 @@ window.dao = {
 		var self = this;
 		alert('Starting synchronization...');
 		this.getLastSync(function(lastSync){
+			alert('lastSync' + lastSync);
+			alert('this.getLastSync(function(lastSync)');
 			self.getChanges(self.syncURL, lastSync,
 				function (changes) {
 					if (changes.length > 0) {
@@ -295,17 +297,18 @@ window.dao = {
 		alert('findAll');
 		this.db.transaction(
 			function(tx) {
-				var sql = "SELECT * FROM EMPLOYEE";
-				console.log('Local SQLite database: "SELECT * FROM EMPLOYEE"');
+				var sql = "SELECT * FROM employee";
+				alert('Local SQLite database: "SELECT * FROM employee"');
 				tx.executeSql(sql, this.txErrorHandler,
 					function(tx, results) {
+						alert('getting len');
 						var len = results.rows.length,
 							employees = [],
 							i = 0;
 						for (; i < len; i = i + 1) {
 							employees[i] = results.rows.item(i);
 						}
-						console.log(len + ' rows found');
+						alert(len + ' rows found');
 						// alert(employees);
 						// alert(employees.toJSON);
 						
