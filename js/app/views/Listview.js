@@ -9,13 +9,6 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 				el: "#page-content",
 				attributes: {"data-role": 'content'},
 				initialize: function() {
-					if (isMobile.any()) {
-						dao.initialize(function() {
-							alert('inner dao.initialize');
-							renderList();
-						});
-					}
-					alert('outer dao.initialize');
 					var myCollection = new ProfileList();
 					this.myCollection = myCollection;
 					this.myCollection.bind('sync',this.myCollectionLoaded, this);

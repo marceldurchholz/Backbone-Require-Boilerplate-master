@@ -10,7 +10,13 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 			attributes: {"data-role": 'content'},
 
             initialize: function() {
-			
+				if (isMobile.any()) {
+					dao.initialize(function() {
+						alert('inner dao.initialize');
+						renderList();
+					});
+				}
+				alert('outer dao.initialize');
 				/*
 				dao.findAll(doAlert);
 				function doAlert() {

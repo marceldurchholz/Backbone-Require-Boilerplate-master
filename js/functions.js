@@ -132,6 +132,9 @@ window.dao = {
 	syncURL: "http://coenraets.org/offline-sync/api/employees?modifiedSince=2010-03-01%2010:20:56",
 	// syncURL: "http://mobile002.appinaut.de/api/employees/",
 
+	test: function(bla) {
+		alert(bla);
+	},
 	initialize: function(callback) {
 		var self = this;
 		// renderList();
