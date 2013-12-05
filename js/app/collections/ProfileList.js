@@ -17,6 +17,9 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 			console.log('***** initialize');
 			this.bind("error", this.errorHandler);			
 			_thisCollection = this;
+			var online = 0;
+			// var onlinestatus = $('onlinestatus').val();
+			// alert(onlinestatus);
 			_thisCollection.online = online;
 			if (_thisCollection.online==1) {
 				console.log('##### ProfileList.initialize (with URL request)');
