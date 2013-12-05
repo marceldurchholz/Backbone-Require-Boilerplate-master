@@ -126,6 +126,64 @@ function renderList(employees) {
 	});
 }
 
+window.LocalStorageAdapter = {
+
+	testOutput: function() {
+		return('testoutputtext');
+	},
+    initialize: function() {
+		console.log('now inner window.LocalStorageAdapter: initialize');
+        var deferred = $.Deferred();
+        // Store sample data in Local Storage
+        window.localStorage.setItem("employees", JSON.stringify(
+            [
+                {"id": 1, "fullname": "James King", "device": 0, "credits": "100", "pictureurl": ""},
+                {"id": 2, "fullname": "Julie Taylor", "device": 1, "credits": "355", "pictureurl": ""},
+                {"id": 3, "fullname": "Eugene Lee", "device": 1, "credits": "0", "pictureurl": ""},
+            ]
+        ));
+        deferred.resolve();
+        return deferred.promise();
+    },
+
+    findAll: function () {
+        var employees = JSON.parse(window.localStorage.getItem("employees"));
+		// var employees = window.localStorage.getItem("employees");
+		// console.log(employees);
+		return employees;
+    },
+
+    findById: function (id) {
+		alert(id);
+        var deferred = $.Deferred(),
+            employees = JSON.parse(window.localStorage.getItem("employees")),
+            employee = null;
+            l = employees.length;
+
+        for (var i = 0; i < l; i++) {
+            if (employees[i].id === id) {
+                employee = employees[i];
+                break;
+            }
+        }
+		console.log(employee);
+        deferred.resolve(employee);
+        return deferred.promise();
+	},
+
+    findByName: function (searchKey) {
+        var deferred = $.Deferred(),
+            employees = JSON.parse(window.localStorage.getItem("employees")),
+            results = employees.filter(function (element) {
+                var fullName = element.firstName + " " + element.lastName;
+                return fullName.toLowerCase().indexOf(searchKey.toLowerCase()) > -1;
+            });
+        deferred.resolve(results);
+        return deferred.promise();
+    }
+
+}
+
 window.dao = {
 
 	// syncURL: "../api/employees",
@@ -334,7 +392,7 @@ window.dao = {
 	
 var app = {
 	initialize: function() {
-		report('MobileInit.js','var app:initialize');
+		// report('MobileInit.js','var app:initialize');
 		this.bindEvents();
 	},
 	bindEvents: function() {
@@ -349,7 +407,7 @@ var app = {
 		}
 	},
 	onDeviceReady: function() {
-		report('MobileInit.js','onDeviceReady');
+		// report('MobileInit.js','onDeviceReady');
 		/*
 		deviceReady = true;
 		cordovaIsLoaded = true;
@@ -358,7 +416,7 @@ var app = {
 		app.receivedEvent();
    },
 	receivedEvent: function(event) {
-		report("MobileInit.js"," var app:receivedEvent");
+		// report("MobileInit.js"," var app:receivedEvent");
 		deviceReady = true;
 		cordovaIsLoaded = true;
 		modifyiOS7StatusBar();

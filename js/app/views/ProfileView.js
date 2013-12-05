@@ -10,7 +10,8 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				console.log('initializing ProfileView.js');
 			},
 			insertProfiles: function(profile) {
-				  console.log(profile);
+				  // console.log('profile');
+				  // console.log(profile);
 				  htmlContent = _.template(profileView, {
 					id: profile.get('id'), 
 					fullname: profile.get('fullname'),
@@ -21,9 +22,14 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				$(this.el).append(htmlContent);
 				},
 			render: function() {
-				console.log('rendering in ProfileView.js');
+				var _thisView = this;
+				// console.log('rendering in ProfileView.js');
 				var htmlContent = '';
-				this.collection.each(this.insertProfiles, this);
+				// this.collection.each(this.insertProfiles, this);
+				_.each(this.collection, function(model) {
+					console.log(model);
+					_thisView.insertProfiles(model);
+				});
 				return this;
 				
 			}

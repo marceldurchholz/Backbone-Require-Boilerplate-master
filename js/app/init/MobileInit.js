@@ -129,8 +129,28 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
 	// Initialize the app
 	app.initialize();
+	// myLocalStorage.initialize();
 
 	$.when(dd, jqd).done(function doInit() {
+		
+		// var bla = myLocalStorage.findById(2);
+		// var myLocalStorage = new LocalStorageAdapter;
+		console.log('########### BEFORE: LocalStorageAdapter.initialize().done(function ()');
+		LocalStorageAdapter.initialize().done(function () {
+			console.log('########### WHEN INITIALIZED: LocalStorageAdapter.initialize().done(function ()');
+			console.log('LocalStorageAdapter initialized in MobileInit.js');
+			/*
+			LocalStorageAdapter.findById(2).done(function (response) {
+				console.log(response);
+			});
+			*/
+		});
+		// console.log(entryTwo);
+		console.log('########### AFTER: LocalStorageAdapter.initialize().done(function ()');
+		// console.log(bla);
+		// console.log(LocalStorageAdapter);
+		// alert(LocalStorageAdapter);
+		
 		// alert('dd and jqd ready');
 		/*
 		if (isMobile.any()) {

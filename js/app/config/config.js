@@ -19,6 +19,10 @@ require.config({
 	  
       "jquerypulltorefresh": "../libs/jquery.plugin.pullToRefresh",
 
+      // "backbone.LocalStorage": "../libs/backbone.localStorage",
+
+      "backbone.LocalStorage": "../libs/backbone.localStorage",
+	  
       "underscore": "../libs/lodash",
 
       "functions": "../functions",
@@ -66,6 +70,12 @@ require.config({
       // Backbone.validateAll plugin that depends on Backbone
       "backbone.validateAll": ["backbone"],
 
+      // local storage
+	  // "backbone.LocalStorage": ["backbone"],
+	  
+      // local storage
+	  "backbone.LocalStorage": ["backbone"],
+	  
       // Jasmine-jQuery plugin
       "jasminejquery": ["jquery"]
 

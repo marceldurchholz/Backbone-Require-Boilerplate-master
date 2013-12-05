@@ -10,6 +10,11 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 			attributes: {"data-role": 'content'},
 
             initialize: function() {
+			
+				LocalStorageAdapter.findById(2).done(function (response) {
+					console.log(response);
+				});
+				
 				/*
 				dao.findAll(doAlert);
 				function doAlert() {
