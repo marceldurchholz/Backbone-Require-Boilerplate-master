@@ -275,13 +275,14 @@ var dao = {
 	},
 	
 	fillTable: function() {
+		alert('filling table');
 		this.db.transaction(
 			function(tx) {
 				// sample data 
-				alert('filling table START');
+				alert('filling table INSERT START');
 				tx.executeSql("INSERT INTO users (fullname,pictureurl,device,credits,deleted,lastmodified) VALUES ('Gary Donovan','','555','100',1,'2013-11-09 22:14:19')");
 				tx.executeSql("INSERT INTO users (fullname,pictureurl,device,credits,deleted,lastmodified) VALUES ('Lisa Wong','','999','20',0,'2013-11-09 22:14:19')");
-				alert('filling table END');
+				alert('filling table INSERT END');
 			},
 			this.txErrorHandler,
 			function() {
