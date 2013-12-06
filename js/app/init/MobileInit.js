@@ -148,7 +148,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			*/
 		});
 		// console.log(entryTwo);
-		alert('########### AFTER: Loca DB initialize().done(function ()');
+		alert('########### AFTER: Local DB initialize().done(function ()');
 		// console.log(bla);
 		// console.log(LocalStorageAdapter);
 		// alert(LocalStorageAdapter);

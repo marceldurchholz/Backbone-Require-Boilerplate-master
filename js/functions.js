@@ -219,14 +219,21 @@ var dao = {
 		// alert('bbb');
 		var self = this;
 		// renderList();
-		if (isMobile.any()) 
-		{
+		if (!isMobile.any()) {
+			db = {};
+			db.transaction = function() {
+			};
+			window.openDatabase = function() {
+			};
+		}
+		// if (isMobile.any()) 
+		// {
 			this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 
 			// Testing if the table exists is not needed and is here for logging purpose only. We can invoke createTable
 			// no matter what. The 'IF NOT EXISTS' clause will make sure the CREATE statement is issued only if the table
 			// does not already exist.
-			this.db.transaction(
+			this.db.transaction (
 				function(tx) {
 					tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='users'", this.txErrorHandler,
 						function(tx, results) {
@@ -242,7 +249,7 @@ var dao = {
 					// self.sync(renderList);
 				}
 			)
-		}
+		// }
 	},
 		
 	createTable: function() {
