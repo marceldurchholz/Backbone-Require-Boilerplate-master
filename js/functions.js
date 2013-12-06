@@ -271,8 +271,8 @@ var dao = {
 		this.db.transaction(
 			function(tx) {
 				// sample data 
-				tx.executeSql("INSERT INTO users (id,fullname,pictureurl,device,credits,deleted,lastmodified) VALUES (1,'Gary','Donovan','Marketing','617-000-0009','1','2013-11-09 22:14:19')");
-				tx.executeSql("INSERT INTO users (id,fullname,pictureurl,device,credits,deleted,lastmodified) VALUES (2,'Lisa','Wong','Marketing Manager','617-000-0008','0','2013-11-09 22:14:19')");
+				tx.executeSql("INSERT INTO users (id,fullname,pictureurl,device,credits,deleted,lastmodified) VALUES (1,'Gary Donovan','','555','100','1','2013-11-09 22:14:19')");
+				tx.executeSql("INSERT INTO users (id,fullname,pictureurl,device,credits,deleted,lastmodified) VALUES (2,'Lisa Wong','','999','20','0','2013-11-09 22:14:19')");
 			},
 			this.txErrorHandler,
 			function() {
