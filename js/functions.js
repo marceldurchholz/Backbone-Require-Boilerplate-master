@@ -126,7 +126,7 @@ function renderList(employees) {
 	});
 }
 
-window.LocalStorageAdapter = {
+var save1_LocalStorageAdapter = {
 
 	testOutput: function() {
 		return('testoutputtext');
@@ -137,15 +137,34 @@ window.LocalStorageAdapter = {
         // Store sample data in Local Storage
         window.localStorage.setItem("employees", JSON.stringify(
             [
-                {"id": 1, "fullname": "James King", "device": 0, "credits": "100", "pictureurl": ""},
-                {"id": 2, "fullname": "Julie Taylor", "device": 1, "credits": "355", "pictureurl": ""},
-                {"id": 3, "fullname": "Eugene Lee", "device": 1, "credits": "0", "pictureurl": ""},
+                {"id": 1, "fullname": "offline James King", "device": 0, "credits": "100", "pictureurl": ""},
+                {"id": 2, "fullname": "offline Julie Taylor", "device": 1, "credits": "355", "pictureurl": ""}
             ]
         ));
         deferred.resolve();
         return deferred.promise();
     },
-
+	
+	// Save the current state of the **Store** to *localStorage*.
+	save: function() {
+		window.localStorage.setItem("employees", this.records.join(","));
+	},
+	create: function(model) {
+		console.log('create: function(model) {');
+		if (!model.id) {
+		  model.id = guid();
+		  model.set(model.idAttribute, model.id);
+		  alert('model.id inserted');
+		}
+		// return(model);
+		console.log("employees"+"-"+model.id);
+		window.localStorage.setItem("employees"+"-"+model.id, JSON.stringify(model));
+		// console.log(window.localStorage.getItem("employees"+"-"+model.id, JSON.stringify(model));
+		this.push(model.id.toString());
+		this.save;
+		return this.findById(model.id);
+	},
+	
     findAll: function () {
         var employees = JSON.parse(window.localStorage.getItem("employees"));
 		// var employees = window.localStorage.getItem("employees");
@@ -154,7 +173,8 @@ window.LocalStorageAdapter = {
     },
 
     findById: function (id) {
-		alert(id);
+		console.log('findById: function (id) {');
+		console.log(id);
         var deferred = $.Deferred(),
             employees = JSON.parse(window.localStorage.getItem("employees")),
             employee = null;
@@ -166,7 +186,8 @@ window.LocalStorageAdapter = {
                 break;
             }
         }
-		console.log(employee);
+		console.log('employee');
+        console.log(employee);
         deferred.resolve(employee);
         return deferred.promise();
 	},
@@ -184,7 +205,7 @@ window.LocalStorageAdapter = {
 
 }
 
-window.dao = {
+var dao = {
 
 	// syncURL: "../api/employees",
 	syncURL: "http://coenraets.org/offline-sync/api/employees?modifiedSince=2010-03-01%2010:20:56",
@@ -193,57 +214,99 @@ window.dao = {
 	test: function(bla) {
 		alert(bla);
 	},
-	initialize: function(callback) {
-		alert('bbb');
+	initialize: function() {
+		// alert('window.dao initialize');
+		// alert('bbb');
 		var self = this;
 		// renderList();
-		this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
+		// if (isMobile.any()) 
+		// {
+			this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 
-		// Testing if the table exists is not needed and is here for logging purpose only. We can invoke createTable
-		// no matter what. The 'IF NOT EXISTS' clause will make sure the CREATE statement is issued only if the table
-		// does not already exist.
-		this.db.transaction(
-			function(tx) {
-				tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='employee'", this.txErrorHandler,
-					function(tx, results) {
-						if (results.rows.length == 1) {
-							console.log('Using existing Employee table in local SQLite database');
-						}
-						else
-						{
-							console.log('Employee table does not exist in local SQLite database');
-							self.createTable(callback);
-						}
-				});
-				self.sync(renderList);
-			}
-		)
-
+			// Testing if the table exists is not needed and is here for logging purpose only. We can invoke createTable
+			// no matter what. The 'IF NOT EXISTS' clause will make sure the CREATE statement is issued only if the table
+			// does not already exist.
+			this.db.transaction(
+				function(tx) {
+					tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='users'", this.txErrorHandler,
+						function(tx, results) {
+							if (results.rows.length == 1) {
+								alert('Using existing users table in local SQLite database');
+							}
+							else
+							{
+								alert('users table does not exist in local SQLite database');
+								self.createTable();
+							}
+					});
+					// self.sync(renderList);
+				}
+			)
+		// }
 	},
 		
-	createTable: function(callback) {
+	createTable: function() {
 		this.db.transaction(
 			function(tx) {
 				var sql =
-					"CREATE TABLE IF NOT EXISTS employee ( " +
+					"CREATE TABLE IF NOT EXISTS users ( " +
 					"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-					"firstName VARCHAR(50), " +
-					"lastName VARCHAR(50), " +
-					"title VARCHAR(50), " +
-					"officePhone VARCHAR(50), " +
+					"fullname VARCHAR(50), " +
+					"pictureurl VARCHAR(50), " +
+					"device VARCHAR(50), " +
+					"credits VARCHAR(50), " +
 					"deleted INTEGER, " +
 					"lastModified VARCHAR(50))";
 				tx.executeSql(sql);
 			},
 			this.txErrorHandler,
 			function() {
-				console.log('Table employee successfully CREATED in local SQLite database');
-				callback();
+				alert('Table users successfully CREATED in local SQLite database');
+				this.fillTable();
 			}
 		);
 	},
 	
-	sync: function(callback) {
+	fillTable: function() {
+		this.db.transaction(
+			function(tx) {
+				// sample data 
+				tx.executeSql("INSERT INTO users (id,fullname,pictureurl,device,credits,deleted,lastmodified) VALUES (1,'Gary','Donovan','Marketing','617-000-0009','1','2013-11-09 22:14:19')");
+				tx.executeSql("INSERT INTO users (id,fullname,pictureurl,device,credits,deleted,lastmodified) VALUES (2,'Lisa','Wong','Marketing Manager','617-000-0008','0','2013-11-09 22:14:19')");
+			},
+			this.txErrorHandler,
+			function() {
+				alert('Table users successfully FILLED WITH SAMPLES in local SQLite database');
+				// callback();
+			}
+		);
+	},
+	
+	xxxy_sync: function() {
+		var self = this;
+		alert('Starting synchronization...');
+		
+	},
+	
+	aaa_getChanges: function(syncURL, modifiedSince, callback) {
+		alert('getChanges');
+		$.ajax({
+			url: syncURL,
+			data: {modifiedSince: modifiedSince},
+			dataType:"json",
+			success:function (data) {
+				console.log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
+				callback(data);
+			},
+			error: function(model, response) {
+				console.log(response.responseText);
+			}
+		});
+
+	},
+
+	
+	bbb_sync: function(callback) {
 		var self = this;
 		alert('Starting synchronization...');
 		this.getLastSync(function(lastSync){
@@ -260,6 +323,22 @@ window.dao = {
 					}
 				}
 			);
+		});
+
+	},
+	bbb_getChanges: function(syncURL, modifiedSince, callback) {
+		alert('getChanges');
+		$.ajax({
+			url: syncURL,
+			data: {modifiedSince: modifiedSince},
+			dataType:"json",
+			success:function (data) {
+				console.log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
+				callback(data);
+			},
+			error: function(model, response) {
+				console.log(response.responseText);
+			}
 		});
 
 	},
@@ -297,7 +376,7 @@ window.dao = {
 	},
 	*/
 
-	getLastSync: function(callback) {
+	bbb_getLastSync: function(callback) {
 		alert('getLastSync');
 		this.db.transaction(
 			function(tx) {
@@ -313,24 +392,7 @@ window.dao = {
 		);
 	},
 
-	getChanges: function(syncURL, modifiedSince, callback) {
-		alert('getChanges');
-		$.ajax({
-			url: syncURL,
-			data: {modifiedSince: modifiedSince},
-			dataType:"json",
-			success:function (data) {
-				console.log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
-				callback(data);
-			},
-			error: function(model, response) {
-				console.log(response.responseText);
-			}
-		});
-
-	},
-
-	applyChanges: function(employees, callback) {
+	bbb_applyChanges: function(employees, callback) {
 		alert('applyChanges');
 		this.db.transaction(
 			function(tx) {
@@ -355,7 +417,7 @@ window.dao = {
 		);
 	},
 	
-	findAll: function(callback) {
+	bbb_findAll: function(callback) {
 		alert('findAll');
 		this.db.transaction(
 			function(tx) {

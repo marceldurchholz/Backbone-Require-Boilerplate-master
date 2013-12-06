@@ -2,9 +2,9 @@
 // -------------
 
 // Include Mobile Specific JavaScript files here (or inside of your Mobile router)
-require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone.validateAll"],
+require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone.validateAll", "backbone.LocalStorage"],
 
-  function($, Backbone, MobileRouter) {
+  function($, Backbone, MobileRouter, LocalStorageAdapter) {
 
 	$.support.cors = true;
 	$.mobile.allowCrossDomainPages = true;
@@ -129,14 +129,17 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
 	// Initialize the app
 	app.initialize();
+	// dao.initialize();
+	// LocalStorageAdapter = new LocalStorageAdapter();
 	// myLocalStorage.initialize();
 
 	$.when(dd, jqd).done(function doInit() {
 		
 		// var bla = myLocalStorage.findById(2);
 		// var myLocalStorage = new LocalStorageAdapter;
-		console.log('########### BEFORE: LocalStorageAdapter.initialize().done(function ()');
-		LocalStorageAdapter.initialize().done(function () {
+		console.log('########### BEFORE: LocalStorageAdapter.initialize().done(function () {');
+		$.when(dao.initialize()).done(function () {
+
 			console.log('########### WHEN INITIALIZED: LocalStorageAdapter.initialize().done(function ()');
 			console.log('LocalStorageAdapter initialized in MobileInit.js');
 			/*

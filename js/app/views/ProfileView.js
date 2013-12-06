@@ -5,7 +5,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
     function($, Backbone, Profile, System, template, sidebar, ProfileList, profileView){
 		
 		var ProfileView = Backbone.View.extend({
-			el: "#profiles",
+			el: "#profileList",
 			initialize: function() {
 				console.log('initializing ProfileView.js');
 			},
@@ -17,7 +17,8 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 					fullname: profile.get('fullname'),
 					device: profile.get('device'),
 					credits: profile.get('credits'),
-					pictureurl: profile.get('pictureurl')
+					pictureurl: profile.get('pictureurl'),
+					lastModified: profile.get('lastModified')
 				},{variable: 'profile'});
 				$(this.el).append(htmlContent);
 				},

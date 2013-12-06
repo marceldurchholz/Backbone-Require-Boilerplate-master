@@ -1,0 +1,71 @@
+
+/*!
+* APPinaut CSS 0.1
+* http://appinaut.com
+*
+* Copyright 2013 DigitalVerve - Digital Solutions
+* http://digitalverve.de
+*
+*/
+
+
+/* MAIN */
+/*-----------------------------------------------------------------------------------------------------------*/
+.profileList {
+	b/order: 1px solid #333333 !important;
+	p/adding:10px 10px;
+	p/adding-right:600px;
+	width:100% !important;
+	height:auto !important;
+	display:inline-block;
+	overflow:hidden !important;
+}
+
+.profileListRow:hover {
+	background-color:#DDDDDD !important;
+}
+.profileListRow {
+	background-color:#EEEEEE !important;
+	b/order: 1px solid #333333 !important;
+	width:100% !important;
+	height:auto;
+	padding:10px 0px 10px 0px;
+	p&adding-right:50px !important;
+	m/argin-right:50px !important;
+	display:inline-block;
+	float:left;
+	clear:both;
+	overflow:hidden !important;
+}
+
+.legend {
+	width:100% !important;
+	height:auto;
+	background-color:#CCCCCC;
+	display:inline-block;
+	float:left;
+	clear:both;
+	padding:5px 10px;
+	margin:0px 0px 10px 0px;
+	overflow:hidden !important;
+}
+
+.pictureurl {
+	width:80px;
+	height:80px;
+	b/ackground-color:#CCCCCC;
+	display:inline-block;
+	float:left;
+	clear:left;
+	padding:0px 10px;
+	overflow:hidden !important;
+}
+.pictureimg {
+	width:80px;
+	height:80px;
+	display:inline-block;
+	float:left;
+	clear:none;
+	padding:0px;
+	overflow:hidden !important;
+}

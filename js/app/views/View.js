@@ -11,9 +11,11 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 
             initialize: function() {
 			
+				/*
 				LocalStorageAdapter.findById(2).done(function (response) {
 					console.log(response);
 				});
+				*/
 				
 				/*
 				dao.findAll(doAlert);
@@ -64,7 +66,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				return false;
 			},
             render: function() {
-				alert('rendering view.js');
+				// alert('rendering view.js');
 				this.sidebar = _.template(sidebar, {});
 				$('#sidebar').html(sidebar);
 				

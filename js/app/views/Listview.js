@@ -80,10 +80,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 					$('#sidebar').html(sidebar);
 					
 					this._template = _.template(listview, {});
-					// $('#profiles').html('bla');
 					this.$el.html(this._template);
-					// alert('this.profileCollection.length: ' + this.profileCollection.length);
-					// console.log(this.profileCollection.models);
 					this.nestedView = new ProfileView({collection: this.profileCollection.models}).render();
 
 					this.$el.trigger('create');

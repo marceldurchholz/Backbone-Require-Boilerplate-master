@@ -2,7 +2,7 @@
 // -------------
 define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 
-  function($, Backbone, Profile) {
+  function($, Backbone, Profile, LocalStorageAdapter) {
 
     // Creates a new Backbone Collection class object
 	var ProfileList = Backbone.Collection.extend({
@@ -17,18 +17,29 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 			console.log('***** initialize');
 			this.bind("error", this.errorHandler);			
 			_thisCollection = this;
-			var online = 0;
+			var online = 1;
 			// var onlinestatus = $('onlinestatus').val();
 			// alert(onlinestatus);
+			this._localStorage = new LocalStorageAdapter(); // LocalStorageAdapter;
 			_thisCollection.online = online;
 			if (_thisCollection.online==1) {
 				console.log('##### ProfileList.initialize (with URL request)');
+				
+				// var myModel = JSON.parse('{"id": 1, "fullname": "James King", "device": 0, "credits": "100", "pictureurl": ""}');
+				var myModel = new Profile({"id": 1, "fullname": "James King", "device": 0, "credits": "100", "pictureurl": ""});
+				// console.log(myModel);
+				var offlineData = this._localStorage.findAll();
+				this._offlineData = offlineData;
+				// console.log('offlineData');
+				// console.log(this._offlineData);
+				
 				this.url = 'http://dominik-lohmann.de:5000/users/';
+				
 				// this.url = 'http://coenraets.org/offline-sync/api/employees?modifiedSince=2010-03-01%2010:20:56';
 			}
 			else {
 				console.log('##### ProfileList.initialize (with LocalStorageAdapter)');
-				this.localStorage = LocalStorageAdapter;
+				this.localStorage = this._localStorage;
 			}
 		},
 		fetch: function(options) {
@@ -42,13 +53,41 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 		},
 		sync: function(method, model, options) {
 			console.log('***** sync: ' + method);
-			Backbone.sync.call(model, method, model, options);
+			var bla = Backbone.sync.call(model, method, model, options);
 		},
 		parse: function(response) {
 			console.log('***** parse');
+			console.log('this._offlineData');
+			console.log(this._offlineData);
+			// console.log('response');
+			// console.log(response);			
+
+			/*
+			for (n = 0; n < this._offlineData.length; ++n) {
+				arg = this._offlineData[n];
+				console.log("typeof this._offlineData[" + n + "] = " + typeof arg);
+				for (name in arg) {
+					console.log("this._offlineData[" + n + "][" + name + "]=" + arg[name]);
+				}
+			}
+			*/
+
+			for (n = 0; n < response.length; ++n) {
+				model = response[n];
+				_thisCollection.add(model);
+				/*
+				console.log("typeof response[" + n + "] = " + typeof model);
+				for (name in model) {
+					console.log("response[" + n + "][" + name + "]=" + model[name]);
+				}
+				*/
+			}
+			/*
 			_.each(response, function(model) {
 				_thisCollection.add(model);
 			});
+			*/
+			
 			return(_thisCollection.models);
 		},
 		errorHandler: function(response, xhr) {
