@@ -219,8 +219,8 @@ var dao = {
 		// alert('bbb');
 		var self = this;
 		// renderList();
-		// if (isMobile.any()) 
-		// {
+		if (isMobile.any()) 
+		{
 			this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 
 			// Testing if the table exists is not needed and is here for logging purpose only. We can invoke createTable
@@ -242,7 +242,7 @@ var dao = {
 					// self.sync(renderList);
 				}
 			)
-		// }
+		}
 	},
 		
 	createTable: function() {
@@ -251,12 +251,12 @@ var dao = {
 				var sql =
 					"CREATE TABLE IF NOT EXISTS users ( " +
 					"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-					"fullname VARCHAR(50), " +
-					"pictureurl VARCHAR(50), " +
-					"device VARCHAR(50), " +
-					"credits VARCHAR(50), " +
+					"fullname VARCHAR(100), " +
+					"pictureurl VARCHAR(100), " +
+					"device VARCHAR(100), " +
+					"credits VARCHAR(100), " +
 					"deleted INTEGER, " +
-					"lastModified VARCHAR(50))";
+					"lastModified VARCHAR(100))";
 				tx.executeSql(sql);
 			},
 			this.txErrorHandler,
@@ -271,8 +271,10 @@ var dao = {
 		this.db.transaction(
 			function(tx) {
 				// sample data 
-				tx.executeSql("INSERT INTO users (id,fullname,pictureurl,device,credits,deleted,lastmodified) VALUES (1,'Gary Donovan','','555','100','1','2013-11-09 22:14:19')");
-				tx.executeSql("INSERT INTO users (id,fullname,pictureurl,device,credits,deleted,lastmodified) VALUES (2,'Lisa Wong','','999','20','0','2013-11-09 22:14:19')");
+				alert('filling table START');
+				tx.executeSql("INSERT INTO users (fullname,pictureurl,device,credits,deleted,lastmodified) VALUES ('Gary Donovan','','555','100',1,'2013-11-09 22:14:19')");
+				tx.executeSql("INSERT INTO users (fullname,pictureurl,device,credits,deleted,lastmodified) VALUES ('Lisa Wong','','999','20',0,'2013-11-09 22:14:19')");
+				alert('filling table END');
 			},
 			this.txErrorHandler,
 			function() {
@@ -288,7 +290,7 @@ var dao = {
 		
 	},
 	
-	aaa_getChanges: function(syncURL, modifiedSince, callback) {
+	xyz_getChanges: function(syncURL, modifiedSince, callback) {
 		alert('getChanges');
 		$.ajax({
 			url: syncURL,

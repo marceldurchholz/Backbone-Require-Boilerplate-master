@@ -25,21 +25,57 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 			if (_thisCollection.online==1) {
 				console.log('##### ProfileList.initialize (with URL request)');
 				
+				
+				var offlineData = this.findAll_offline();
+				console.log('offlineData');
+				console.log(offlineData);
+				
 				// var myModel = JSON.parse('{"id": 1, "fullname": "James King", "device": 0, "credits": "100", "pictureurl": ""}');
-				var myModel = new Profile({"id": 1, "fullname": "James King", "device": 0, "credits": "100", "pictureurl": ""});
+				// var myModel = new Profile({"id": 1, "fullname": "James King", "device": 0, "credits": "100", "pictureurl": ""});
 				// console.log(myModel);
-				var offlineData = this._localStorage.findAll();
-				this._offlineData = offlineData;
+				// var offlineData = this._localStorage.findAll();
+				// this._offlineData = offlineData;
 				// console.log('offlineData');
 				// console.log(this._offlineData);
-				
-				this.url = 'http://dominik-lohmann.de:5000/users/';
-				
 				// this.url = 'http://coenraets.org/offline-sync/api/employees?modifiedSince=2010-03-01%2010:20:56';
+				this.url = 'http://dominik-lohmann.de:5000/users/';
 			}
 			else {
 				console.log('##### ProfileList.initialize (with LocalStorageAdapter)');
 				this.localStorage = this._localStorage;
+			}
+		},
+		findAll_offline: function() {
+			alert('findAll');
+			if (isMobile.any()) {
+				this.db.transaction(
+					function(tx) {
+						var sql = "SELECT * FROM users";
+						alert('Local SQLite database: "SELECT * FROM users"');
+						tx.executeSql(sql, this.txErrorHandler,
+							function(tx, results) {
+								alert('getting len');
+								var len = results.rows.length,
+									users = [],
+									i = 0;
+								for (; i < len; i = i + 1) {
+									users[i] = results.rows.item(i);
+								}
+								alert(len + ' rows found');
+								alert(users);
+								alert(users.toJSON);
+								// for (var i = 0; i < l; i++) {
+								// e = users[i];
+								// callback(users);
+								return(users);
+							}
+						);
+					}
+				);
+			}
+			else {
+				users = [];
+				return(users);
 			}
 		},
 		fetch: function(options) {
@@ -90,7 +126,7 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 			
 			return(_thisCollection.models);
 		},
-		errorHandler: function(response, xhr) {
+		errorHandler: function(xhr) {
 			console.log(xhr);
 			if (xhr.status=='404') {
 				if (xhr.responseJSON==undefined) {

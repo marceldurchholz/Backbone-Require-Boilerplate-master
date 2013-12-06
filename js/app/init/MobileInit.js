@@ -137,11 +137,10 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		
 		// var bla = myLocalStorage.findById(2);
 		// var myLocalStorage = new LocalStorageAdapter;
-		console.log('########### BEFORE: LocalStorageAdapter.initialize().done(function () {');
+		alert('########### BEFORE: Local DB initialize().done(function () {');
 		$.when(dao.initialize()).done(function () {
-
-			console.log('########### WHEN INITIALIZED: LocalStorageAdapter.initialize().done(function ()');
-			console.log('LocalStorageAdapter initialized in MobileInit.js');
+			alert('########### WHEN INITIALIZED: LocalStorageAdapter.initialize().done(function ()');
+			alert('Local DB initialized in MobileInit.js');
 			/*
 			LocalStorageAdapter.findById(2).done(function (response) {
 				console.log(response);
@@ -149,7 +148,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			*/
 		});
 		// console.log(entryTwo);
-		console.log('########### AFTER: LocalStorageAdapter.initialize().done(function ()');
+		alert('########### AFTER: Loca DB initialize().done(function ()');
 		// console.log(bla);
 		// console.log(LocalStorageAdapter);
 		// alert(LocalStorageAdapter);
