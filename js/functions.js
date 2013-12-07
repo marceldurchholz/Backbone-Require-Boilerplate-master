@@ -205,6 +205,9 @@ var save1_LocalStorageAdapter = {
 
 }
 
+var websqlReady = $.Deferred();
+var sampleDataReady = $.Deferred();
+
 var dao = {
 
 	// syncURL: "../api/employees",
@@ -226,8 +229,7 @@ var dao = {
 			window.openDatabase = function() {
 			};
 		}
-		// if (isMobile.any()) 
-		// {
+		if (isMobile.any()) {
 			this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 
 			// Testing if the table exists is not needed and is here for logging purpose only. We can invoke createTable
@@ -249,7 +251,8 @@ var dao = {
 					// self.sync(renderList);
 				}
 			)
-		// }
+		}
+		if (!isMobile.any()) websqlReady.resolve("initialize done");
 	},
 		
 	createTable: function() {
@@ -271,6 +274,7 @@ var dao = {
 			this.txErrorHandler,
 			function() {
 				alert('Table users successfully CREATED in local SQLite database');
+				websqlReady.resolve("initialize done");
 				// this.fillTable();
 			}
 		);
@@ -278,22 +282,23 @@ var dao = {
 	
 	fillTable: function() {
 		alert('filling table');
-		/*
-		this.db.transaction(
-			function(tx) {
-				// sample data 
-				alert('filling table INSERT START');
-				tx.executeSql("INSERT INTO users (fullname,pictureurl,device,credits,deleted,lastModified) VALUES ('Gary Donovan','','555','100',1,'2013-11-09 22:14:19')");
-				tx.executeSql("INSERT INTO users (fullname,pictureurl,device,credits,deleted,lastModified) VALUES ('Lisa Wong','','999','20',0,'2013-11-09 22:14:19')");
-				alert('filling table INSERT END');
-			},
-			this.txErrorHandler,
-			function() {
-				alert('Table users successfully FILLED WITH SAMPLES in local SQLite database');
-				// callback();
-			}
-		);
-		*/
+		if (isMobile.any()) {
+			this.db.transaction(
+				function(tx) {
+					// sample data 
+					alert('filling table INSERT START');
+					tx.executeSql("INSERT INTO users (id, fullname,pictureurl,device,credits,deleted,lastModified) VALUES (2, 'Gary Donovan','','555','100',1,'2013-11-09 22:14:19')");
+					tx.executeSql("INSERT INTO users (id, fullname,pictureurl,device,credits,deleted,lastModified) VALUES (1, 'Lisa Wong','','999','20',0,'2013-11-09 22:14:19')");
+					alert('filling table INSERT END');
+				},
+				this.txErrorHandler,
+				function() {
+					alert('Table users successfully FILLED WITH SAMPLES in local SQLite database');
+					// callback();
+				}
+			);
+		}
+		if (!isMobile.any()) websqlReady.resolve("initialize done");
 	},
 	
 	xxxy_sync: function() {

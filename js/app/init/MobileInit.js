@@ -129,18 +129,30 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
 	// Initialize the app
 	app.initialize();
-	// dao.initialize();
 	// LocalStorageAdapter = new LocalStorageAdapter();
 	// myLocalStorage.initialize();
 
 	$.when(dd, jqd).done(function doInit() {
 		
+		var isTouch = !!('ontouchstart' in window);
+		document.getElementById('body').setAttribute('class', isTouch ? 'touch' : 'desktop');    
+		$('.scrollable').pullToRefresh({
+			callback: function() {
+				var def = $.Deferred();
+				setTimeout(function() {
+					def.resolve();
+				}, 3000);
+				return def.promise();
+			}
+		});
+		
 		// var bla = myLocalStorage.findById(2);
 		// var myLocalStorage = new LocalStorageAdapter;
 		alert('########### BEFORE: Local DB initialize().done(function () {');
-		$.when(dao.initialize()).done(function () {
-			alert('########### WHEN INITIALIZED: LocalStorageAdapter.initialize().done(function ()');
-			alert('Local DB initialized in MobileInit.js');
+		dao.initialize();
+		$.when(websqlReady).done(function (callbackCreateTable) {
+			alert(callbackCreateTable);
+			dao.fillTable();
 			/*
 			LocalStorageAdapter.findById(2).done(function (response) {
 				console.log(response);
@@ -164,24 +176,12 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		}
 		alert('outer dao.initialize');
 		*/
-		var isTouch = !!('ontouchstart' in window);
-		document.getElementById('body').setAttribute('class', isTouch ? 'touch' : 'desktop');    
-		$('.scrollable').pullToRefresh({
-			callback: function() {
-				var def = $.Deferred();
-				setTimeout(function() {
-					def.resolve();
-				}, 3000);
-				return def.promise();
-			}
-		});
 		// populateDeviceInfoTimer();
 		// Returns the MobileRouter class
 	});
 	
 	// Instantiates a new Mobile Router instance
-    new MobileRouter();
-
+	new MobileRouter();
   }
 
 );
