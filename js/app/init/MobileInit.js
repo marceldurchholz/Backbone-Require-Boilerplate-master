@@ -148,19 +148,16 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		
 		// var bla = myLocalStorage.findById(2);
 		// var myLocalStorage = new LocalStorageAdapter;
+		/*
 		alert('########### BEFORE: Local DB initialize().done(function () {');
 		dao.initialize();
 		$.when(websqlReady).done(function (callbackCreateTable) {
 			alert(callbackCreateTable);
 			dao.fillTable();
-			/*
-			LocalStorageAdapter.findById(2).done(function (response) {
-				console.log(response);
-			});
-			*/
 		});
 		// console.log(entryTwo);
 		alert('########### AFTER: Local DB initialize().done(function ()');
+		*/
 		// console.log(bla);
 		// console.log(LocalStorageAdapter);
 		// alert(LocalStorageAdapter);

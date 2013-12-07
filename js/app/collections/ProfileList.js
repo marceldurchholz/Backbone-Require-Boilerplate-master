@@ -26,9 +26,9 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 				console.log('##### ProfileList.initialize (with URL request)');
 				
 				
-				var offlineData = this.findAll_offline();
-				console.log('offlineData');
-				console.log(offlineData);
+				// var offlineData = this.findAll_offline();
+				// console.log('offlineData');
+				// console.log(offlineData);
 				
 				// var myModel = JSON.parse('{"id": 1, "fullname": "James King", "device": 0, "credits": "100", "pictureurl": ""}');
 				// var myModel = new Profile({"id": 1, "fullname": "James King", "device": 0, "credits": "100", "pictureurl": ""});
