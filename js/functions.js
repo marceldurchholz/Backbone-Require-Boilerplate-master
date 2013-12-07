@@ -265,13 +265,13 @@ var dao = {
 					"deleted INTEGER, " +
 					"lastModified VARCHAR(100))";
 				tx.executeSql(sql);
-				tx.executeSql("INSERT INTO users (fullname,pictureurl,device,credits,deleted,lastModified) VALUES ('Gary Donovan','','555','100',1,'2013-11-09 22:14:19')");
-				tx.executeSql("INSERT INTO users (fullname,pictureurl,device,credits,deleted,lastModified) VALUES ('Lisa Wong','','999','20',0,'2013-11-09 22:14:19')");
+				// tx.executeSql("INSERT INTO users (fullname,pictureurl,device,credits,deleted,lastModified) VALUES ('Gary Donovan','','555','100',1,'2013-11-09 22:14:19')");
+				// tx.executeSql("INSERT INTO users (fullname,pictureurl,device,credits,deleted,lastModified) VALUES ('Lisa Wong','','999','20',0,'2013-11-09 22:14:19')");
 			},
 			this.txErrorHandler,
 			function() {
 				alert('Table users successfully CREATED in local SQLite database');
-				this.fillTable();
+				// this.fillTable();
 			}
 		);
 	},
