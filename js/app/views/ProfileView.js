@@ -1,8 +1,8 @@
 // ProfileView.js
 // -------
-define(["jquery", "backbone", "models/Profile", "models/System", "text!templates/view.html", "text!templates/sidebar.html", "collections/ProfileList", "text!templates/profileView.html"],
+define(["jquery", "backbone", "text!templates/profileView.html"],
 
-    function($, Backbone, Profile, System, template, sidebar, ProfileList, profileView){
+    function($, Backbone, profileView){
 		
 		var ProfileView = Backbone.View.extend({
 			el: "#profileList",

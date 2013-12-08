@@ -18,60 +18,18 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 			//// console.log('***** initialize');
 			this.bind("error", this.errorHandler);			
 			_thisCollection = this;
-			var online = 0;
-			// var onlinestatus = $('onlinestatus').val();
-			// alert(onlinestatus);
-			this._localStorage = new Backbone.LocalStorage('myLS'); // LocalStorageAdapter;
-			_thisCollection.online = online;
-			this.localStorage = this._localStorage;
-			var offlineData = this._localStorage.findAll();
-			this.offlineData = offlineData;
-			//// console.log('this.offlineData');
-			//// console.log(this.offlineData);
+			var online = _thisCollection.online = 1;
+			this._localStorage_users = new Store('users');
+			var offlineData = this.offlineData = this._localStorage_users.findAll();
+			// this._localStorage_videos = new Store('videos');
+			this.localStorage = this._localStorage_users;
 			if (_thisCollection.online==1) {
-				//// console.log('##### ProfileList.initialize (with URL request)');
-				// this.url = 'http://coenraets.org/offline-sync/api/employees?modifiedSince=2010-03-01%2010:20:56';
 				this.url = 'http://dominik-lohmann.de:5000/users/';
 				this.localStorage = null;
 			}
 		},
-		findAll: function() {
-		},
-		findAll_offline: function() {
-			alert('findAll');
-			if (isMobile.any()) {
-				this.db.transaction(
-					function(tx) {
-						var sql = "SELECT * FROM users";
-						alert('Local SQLite database: "SELECT * FROM users"');
-						tx.executeSql(sql, this.txErrorHandler,
-							function(tx, results) {
-								alert('getting len');
-								var len = results.rows.length,
-									users = [],
-									i = 0;
-								for (; i < len; i = i + 1) {
-									users[i] = results.rows.item(i);
-								}
-								alert(len + ' rows found');
-								alert(users);
-								alert(users.toJSON);
-								// for (var i = 0; i < l; i++) {
-								// e = users[i];
-								// callback(users);
-								return(users);
-							}
-						);
-					}
-				);
-			}
-			else {
-				users = [];
-				return(users);
-			}
-		},
 		fetch: function(options) {
-			//// console.log('***** fetch');
+			console.log('***** fetch');
             options || (options = {});
             var data = (options.data || {});
             options.data = {date: this.date};
@@ -80,12 +38,13 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 			return responseObject;
 		},
 		sync: function(method, model, options) {
-			//// console.log('***** sync: ' + method);
-			var bla = Backbone.sync.call(model, method, model, options);
+			// var bla = Backbone.sync.call(model, method, model, options);
+			console.log('***** sync');
+			Backbone.sync.call(model, method, model, options);
 		},
 		parse: function(response) {
 			//// console.log('***** parse');
-			// var offlineData = this._localStorage.findAll();
+			// var offlineData = this._localStorage_users.findAll();
 			//// console.log('this.offlineData');
 			//// console.log(this.offlineData);
 			// console.log(response);			
@@ -103,7 +62,7 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 			// console.log(response);
 
 			// console.log('schleife');
-			// this._localStorage.
+			// this._localStorage_users.
 			
 			var myColl = new Array();
 			for (n = 0; n < response.length; ++n) {
@@ -112,8 +71,8 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 				// console.log('testoutput');
 				//// console.log('--- model');
 				//// console.log(model);
-				// this._localStorage.create(new Profile({"fullname": "offline James King", "device": "5645-6543-5415-5233", "credits": "120", "pictureurl": "http://www.redner24.de/typo3temp/GB/Durchholz_Marcel_4c_1090c3626b_Durc_a4ff6064ff.jpg"}));
-				if (this.online==1) this._localStorage.create(new Profile(model));
+				// this._localStorage_users.create(new Profile({"fullname": "offline James King", "device": "5645-6543-5415-5233", "credits": "120", "pictureurl": "http://www.redner24.de/typo3temp/GB/Durchholz_Marcel_4c_1090c3626b_Durc_a4ff6064ff.jpg"}));
+				if (this.online==1) this._localStorage_users.create(new Profile(model));
 				// myColl[n] = model;
 				// var myModel = model;
 				// myColl.push(myModel);
@@ -127,7 +86,7 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 			// console.log(myColl);
 			
 			// _thisCollection.models = myColl;
-			// this._localStorage = myColl;
+			// this._localStorage_users = myColl;
 			
 			// console.log(_thisCollection.models);
 			

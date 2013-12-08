@@ -53,12 +53,14 @@ _.extend(Backbone.LocalStorage.prototype, {
 		console.log('now inner window.LocalStorageAdapter: initialize');
         var deferred = $.Deferred();
         // Store sample data in Local Storage
-        window.localStorage.setItem("employees", JSON.stringify(
+        /*
+		window.localStorage.setItem("employees", JSON.stringify(
             [
                 {"id": 1, "fullname": "offline James King", "device": 0, "credits": "100", "pictureurl": ""},
                 {"id": 2, "fullname": "offline Julie Taylor", "device": 1, "credits": "355", "pictureurl": ""}
             ]
         ));
+		*/
         deferred.resolve();
         return deferred.promise();
     },

@@ -1,8 +1,8 @@
 // Listview.js
 // -------
-define(["jquery", "backbone", "models/Profile", "models/System", "collections/ProfileList", "views/ProfileView", "text!templates/view.html", "text!templates/listview.html", "text!templates/sidebar.html"],
+define(["jquery", "backbone", "models/Profile", "collections/ProfileList", "views/ProfileView", "text!templates/listview.html", "text!templates/sidebar.html"],
 
-    function($, Backbone, Profile, System, ProfileList, ProfileView, template, listview, sidebar){
+    function($, Backbone, Profile, ProfileList, ProfileView, listview, sidebar){
 		
 			var Listview = Backbone.View.extend({
 
@@ -16,17 +16,41 @@ define(["jquery", "backbone", "models/Profile", "models/System", "collections/Pr
 				},
 				createEntry: function () {
 					// this.modelData.get('profileData').set( {id: ''} );
-					// this.profileCollection._localStorage.create(new Profile({"id": "1", "fullname": "offline James King", "device": 0, "credits": "100", "pictureurl": ""}));
+					// this.profileCollection._localStorage_users.create(new Profile({"id": "1", "fullname": "offline James King", "device": 0, "credits": "100", "pictureurl": ""}));
 					if (this.profileCollection.online==0) {
-						this.profileCollection._localStorage.create(new Profile({"fullname": "offline James King", "device": "5645-6543-5415-5233", "credits": "120", "pictureurl": "http://www.redner24.de/typo3temp/GB/Durchholz_Marcel_4c_1090c3626b_Durc_a4ff6064ff.jpg"}));
+						// this.profileCollection._localStorage_users.create(new Profile({"fullname": "offline James King", "device": "5645-6543-5415-5233", "credits": "120", "pictureurl": "http://www.redner24.de/typo3temp/GB/Durchholz_Marcel_4c_1090c3626b_Durc_a4ff6064ff.jpg"}));
+						alert('in offline mode you can not add data');
+						return(false);
 					}
 					else {
-					
+						var username = ''+Math.floor((Math.random()*10000)+1);
+						var password = ''+Math.floor((Math.random()*10000)+1);
+						// this.profileCollection._localStorage_users.create(new Profile({"fullname": "offline James King", "device": "5645-6543-5415-5233", "credits": "120", "pictureurl": "http://www.redner24.de/typo3temp/GB/Durchholz_Marcel_4c_1090c3626b_Durc_a4ff6064ff.jpg"}));
+						this.create(new Profile({"username": username, "password": password, "fullname": "offline James King", "device": "5645-6543-5415-5233", "credits": "120", "pictureurl": "http://www.redner24.de/typo3temp/GB/Durchholz_Marcel_4c_1090c3626b_Durc_a4ff6064ff.jpg"}));
 					}
 					// alert('jupp');
-					this.fetch();
 					// this.render();
 					// return false;
+				},
+				create: function(model) {
+					_thisView = this;
+					console.log(' ############# model');
+					console.log(model.attributes);
+					console.log(JSON.stringify(model.attributes));
+					$.ajax('http://dominik-lohmann.de:5000/users', {
+					  type: "POST",
+					  contentType: "application/json",
+					  data: JSON.stringify(model.attributes),
+					  success: function(todo) {
+						// Do something
+						console.log('ajax insert successfull');
+						_thisView.fetch();
+					  }, 
+					  error: function(xhr) {
+						console.log(xhr);
+						alert(xhr);
+					  }
+					});
 				},
 				bindAll: function(obj,coll,b) {
 					var _thisView = this;
