@@ -7,7 +7,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 		var ProfileView = Backbone.View.extend({
 			el: "#profileList",
 			initialize: function() {
-				console.log('initializing ProfileView.js');
+				//// console.log('initializing ProfileView.js');
 			},
 			insertProfiles: function(profile) {
 				  // console.log('profile');
@@ -28,7 +28,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				var htmlContent = '';
 				// this.collection.each(this.insertProfiles, this);
 				_.each(this.collection, function(model) {
-					console.log(model);
+					//// console.log(model);
 					_thisView.insertProfiles(model);
 				});
 				return this;

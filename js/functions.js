@@ -125,9 +125,7 @@ function renderList(employees) {
 		}
 	});
 }
-
-var save1_LocalStorageAdapter = {
-
+var myLocalStorageAdapter = {
 	testOutput: function() {
 		return('testoutputtext');
 	},
@@ -135,13 +133,15 @@ var save1_LocalStorageAdapter = {
 		console.log('now inner window.LocalStorageAdapter: initialize');
         var deferred = $.Deferred();
         // Store sample data in Local Storage
-        window.localStorage.setItem("employees", JSON.stringify(
+        /*
+		window.localStorage.setItem("employees", JSON.stringify(
             [
                 {"id": 1, "fullname": "offline James King", "device": 0, "credits": "100", "pictureurl": ""},
                 {"id": 2, "fullname": "offline Julie Taylor", "device": 1, "credits": "355", "pictureurl": ""}
             ]
         ));
-        deferred.resolve();
+        */
+		deferred.resolve();
         return deferred.promise();
     },
 	
@@ -222,13 +222,6 @@ var dao = {
 		// alert('bbb');
 		var self = this;
 		// renderList();
-		if (!isMobile.any()) {
-			db = {};
-			db.transaction = function() {
-			};
-			window.openDatabase = function() {
-			};
-		}
 		if (isMobile.any()) {
 			this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 
@@ -281,7 +274,7 @@ var dao = {
 	},
 	
 	fillTable: function() {
-		alert('filling table');
+		// alert('filling table');
 		if (isMobile.any()) {
 			this.db.transaction(
 				function(tx) {

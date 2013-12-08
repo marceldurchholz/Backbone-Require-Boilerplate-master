@@ -71,6 +71,8 @@ _.extend(Backbone.LocalStorage.prototype, {
   // have an id of it's own.
   create: function(model) {
     if (!model.id) {
+	  // var aguid = guid();
+	  // alert(aguid);
       model.id = guid();
       model.set(model.idAttribute, model.id);
     }

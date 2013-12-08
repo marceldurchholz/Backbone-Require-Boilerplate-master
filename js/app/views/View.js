@@ -85,7 +85,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				);
 				this.$el.html(this._template);
 				
-				$('#body').trigger('create');
+				this.$el.trigger('create');
                 return this;
             }
 

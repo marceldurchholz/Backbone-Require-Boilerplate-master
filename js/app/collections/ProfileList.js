@@ -4,6 +4,7 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 
   function($, Backbone, Profile, LocalStorageAdapter) {
 
+  
     // Creates a new Backbone Collection class object
 	var ProfileList = Backbone.Collection.extend({
 		// remote: true, // never cached, dualStorage is bypassed entirely
@@ -14,36 +15,27 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 		// url: 'http://mobile002.appinaut.de/api/employees/index.php', 
 		// url: 'http://dominik-lohmann.de:5000/users/?{%22zip%22:%20%2222415%22}',
 		initialize: function() {
-			console.log('***** initialize');
+			//// console.log('***** initialize');
 			this.bind("error", this.errorHandler);			
 			_thisCollection = this;
-			var online = 1;
+			var online = 0;
 			// var onlinestatus = $('onlinestatus').val();
 			// alert(onlinestatus);
-			this._localStorage = new LocalStorageAdapter(); // LocalStorageAdapter;
+			this._localStorage = new Backbone.LocalStorage('myLS'); // LocalStorageAdapter;
 			_thisCollection.online = online;
+			this.localStorage = this._localStorage;
+			var offlineData = this._localStorage.findAll();
+			this.offlineData = offlineData;
+			//// console.log('this.offlineData');
+			//// console.log(this.offlineData);
 			if (_thisCollection.online==1) {
-				console.log('##### ProfileList.initialize (with URL request)');
-				
-				
-				// var offlineData = this.findAll_offline();
-				// console.log('offlineData');
-				// console.log(offlineData);
-				
-				// var myModel = JSON.parse('{"id": 1, "fullname": "James King", "device": 0, "credits": "100", "pictureurl": ""}');
-				// var myModel = new Profile({"id": 1, "fullname": "James King", "device": 0, "credits": "100", "pictureurl": ""});
-				// console.log(myModel);
-				// var offlineData = this._localStorage.findAll();
-				// this._offlineData = offlineData;
-				// console.log('offlineData');
-				// console.log(this._offlineData);
+				//// console.log('##### ProfileList.initialize (with URL request)');
 				// this.url = 'http://coenraets.org/offline-sync/api/employees?modifiedSince=2010-03-01%2010:20:56';
 				this.url = 'http://dominik-lohmann.de:5000/users/';
+				this.localStorage = null;
 			}
-			else {
-				console.log('##### ProfileList.initialize (with LocalStorageAdapter)');
-				this.localStorage = this._localStorage;
-			}
+		},
+		findAll: function() {
 		},
 		findAll_offline: function() {
 			alert('findAll');
@@ -79,7 +71,7 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 			}
 		},
 		fetch: function(options) {
-			console.log('***** fetch');
+			//// console.log('***** fetch');
             options || (options = {});
             var data = (options.data || {});
             options.data = {date: this.date};
@@ -88,14 +80,14 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 			return responseObject;
 		},
 		sync: function(method, model, options) {
-			console.log('***** sync: ' + method);
+			//// console.log('***** sync: ' + method);
 			var bla = Backbone.sync.call(model, method, model, options);
 		},
 		parse: function(response) {
-			console.log('***** parse');
-			console.log('this._offlineData');
-			console.log(this._offlineData);
-			// console.log('response');
+			//// console.log('***** parse');
+			// var offlineData = this._localStorage.findAll();
+			//// console.log('this.offlineData');
+			//// console.log(this.offlineData);
 			// console.log(response);			
 
 			/*
@@ -107,17 +99,38 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 				}
 			}
 			*/
+			// console.log('response');
+			// console.log(response);
 
+			// console.log('schleife');
+			// this._localStorage.
+			
+			var myColl = new Array();
 			for (n = 0; n < response.length; ++n) {
 				model = response[n];
 				_thisCollection.add(model);
-				/*
-				console.log("typeof response[" + n + "] = " + typeof model);
-				for (name in model) {
-					console.log("response[" + n + "][" + name + "]=" + model[name]);
-				}
-				*/
+				// console.log('testoutput');
+				//// console.log('--- model');
+				//// console.log(model);
+				// this._localStorage.create(new Profile({"fullname": "offline James King", "device": "5645-6543-5415-5233", "credits": "120", "pictureurl": "http://www.redner24.de/typo3temp/GB/Durchholz_Marcel_4c_1090c3626b_Durc_a4ff6064ff.jpg"}));
+				if (this.online==1) this._localStorage.create(new Profile(model));
+				// myColl[n] = model;
+				// var myModel = model;
+				// myColl.push(myModel);
+				
+				// console.log("typeof response[" + n + "] = " + typeof model);
+				// for (name in model) {
+					// console.log("response[" + n + "][" + name + "]=" + model[name]);
+				// }
+
 			}
+			// console.log(myColl);
+			
+			// _thisCollection.models = myColl;
+			// this._localStorage = myColl;
+			
+			// console.log(_thisCollection.models);
+			
 			/*
 			_.each(response, function(model) {
 				_thisCollection.add(model);

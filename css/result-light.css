@@ -1,6 +1,8 @@
 @charset "utf-8";
 /* CSS Document */
+/* 
 @import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700);
+*/
 
 html {
 	font-size:12px;
@@ -114,7 +116,8 @@ a:active {
 	line-height:18px;
 }
 h1,h2,h3,h4,h5,h6 {
-	font-family:'Yanone Kaffeesatz',Tahoma,Geneva,sans-serif;
+	/* font-family:'Yanone Kaffeesatz',Tahoma,Geneva,sans-serif; */
+	font-family: Helvetica, Arial, sans-serif;
 	color:#2551a6;
 	font-weight:normal;	
 	/* line-height:26px; */
