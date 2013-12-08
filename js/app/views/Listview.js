@@ -5,14 +5,9 @@ define(["jquery", "backbone", "models/Profile", "collections/ProfileList", "view
     function($, Backbone, Profile, ProfileList, ProfileView, listview, sidebar){
 		
 			var Listview = Backbone.View.extend({
-
 				el: "#page-content",
 				attributes: {"data-role": 'content'},
-				alertoutput: function() {
-					alert('testalert');
-				},
 				events: {
-					'click .createEntry': 'createEntry'
 				},
 				createEntry: function () {
 					// this.modelData.get('profileData').set( {id: ''} );
@@ -20,7 +15,6 @@ define(["jquery", "backbone", "models/Profile", "collections/ProfileList", "view
 					if (this.profileCollection.online==0) {
 						// this.profileCollection._localStorage_users.create(new Profile({"fullname": "offline James King", "device": "5645-6543-5415-5233", "credits": "120", "pictureurl": "http://www.redner24.de/typo3temp/GB/Durchholz_Marcel_4c_1090c3626b_Durc_a4ff6064ff.jpg"}));
 						alert('in offline mode you can not add data');
-						return(false);
 					}
 					else {
 						var username = ''+Math.floor((Math.random()*10000)+1);
@@ -31,10 +25,11 @@ define(["jquery", "backbone", "models/Profile", "collections/ProfileList", "view
 					// alert('jupp');
 					// this.render();
 					// return false;
+					return(false);
 				},
 				create: function(model) {
 					_thisView = this;
-					console.log(' ############# model');
+					console.log(' ############# create');
 					console.log(model.attributes);
 					console.log(JSON.stringify(model.attributes));
 					$.ajax('http://dominik-lohmann.de:5000/users', {
@@ -51,6 +46,12 @@ define(["jquery", "backbone", "models/Profile", "collections/ProfileList", "view
 						alert(xhr);
 					  }
 					});
+					return(false);
+				},
+				bindEvents: function() {
+					var _thisView = this;
+					this.$el.unbind( ".createEntry click");
+					this.$el.bind( ".createEntry click", function() {_thisView.createEntry();});
 				},
 				bindAll: function(obj,coll,b) {
 					var _thisView = this;
@@ -91,9 +92,13 @@ define(["jquery", "backbone", "models/Profile", "collections/ProfileList", "view
 					});
 				},
 				initialize: function() {
+					// _.bindAll(this,"bindEvents");
+					// $('.createEntry').on('click', this.createEntry);
 					//// console.log('initializing Listview.js');
 					this.profileCollection = new ProfileList();
 					// _.bindAll(this, "bindAll");
+					
+					// this.profileCollection.unbind('sync', this.bindAll, this);
 					this.profileCollection.bind('sync', this.bindAll, this);
 					// console.log(this.profileCollection);
 					
@@ -131,6 +136,7 @@ define(["jquery", "backbone", "models/Profile", "collections/ProfileList", "view
 					// this.render();
 				},
 				render: function() {
+					this.bindEvents();
 					// alert('render');
 					console.log('DOING render Listview.js called');
 					// alert('rendering Listview.js');
