@@ -5,6 +5,7 @@ define(["jquery", "backbone", "models/Profile", "collections/ProfileList", "view
     function($, Backbone, Profile, ProfileList, ProfileView, listview, sidebar){
 		
 			var Listview = Backbone.View.extend({
+			
 				el: "#page-content",
 				attributes: {"data-role": 'content'},
 				events: {
@@ -29,16 +30,16 @@ define(["jquery", "backbone", "models/Profile", "collections/ProfileList", "view
 				},
 				create: function(model) {
 					_thisView = this;
-					console.log(' ############# create');
-					console.log(model.attributes);
-					console.log(JSON.stringify(model.attributes));
+					// console.log(' ############# create');
+					// console.log(model.attributes);
+					// console.log(JSON.stringify(model.attributes));
 					$.ajax('http://dominik-lohmann.de:5000/users', {
 					  type: "POST",
 					  contentType: "application/json",
 					  data: JSON.stringify(model.attributes),
 					  success: function(todo) {
 						// Do something
-						console.log('ajax insert successfull');
+						// console.log('ajax insert successfull');
 						_thisView.fetch();
 					  }, 
 					  error: function(xhr) {
@@ -50,22 +51,34 @@ define(["jquery", "backbone", "models/Profile", "collections/ProfileList", "view
 				},
 				bindEvents: function() {
 					var _thisView = this;
-					this.$el.unbind( ".createEntry click");
-					this.$el.bind( ".createEntry click", function() {_thisView.createEntry();});
+					/*
+					$('input#createEntry.createEntry').unbind( "click");
+					var ele = $('input#createEntry.createEntry').val;
+					alert(ele);
+					console.log(ele);
+					alert(this.$el.bind);
+					$('input').bind( "click", function(e) {
+						console.log(e);
+						console.log('.createEntry clicked');
+						// _thisView.createEntry();
+					});
+					*/
+					this.$el.off('click','.createEntry').on('click','.createEntry',function(){_thisView.createEntry();});
 				},
 				bindAll: function(obj,coll,b) {
 					var _thisView = this;
 					// alert('bindAll');
-					console.log(b.add);
-					console.log(obj);
-					console.log(coll);
-					if (obj=='sync') {
+					// console.log(b);
+					// console.log(obj);
+					// console.log(coll);
+					// if (obj=='sync') {
 						console.log('rendering new !!!');
-						_thisView.render();
-					}
-					// this.render();
+						// _thisView.render();
+					// }
+					this.render();
 				},
 				fetch: function() {
+					this.profileCollection = new ProfileList();
 					// this.initialize();
 					var _thisView = this;
 					this.profileCollection.fetch({ // call fetch() with the following options
@@ -81,6 +94,7 @@ define(["jquery", "backbone", "models/Profile", "collections/ProfileList", "view
 							console.log(jsoncoll);
 							*/
 							// _thisView.profileCollection.localStorage = jsoncoll;
+							
 							_thisView.render();
 							// console.log(b);
 							// console.log('------------>> this is _thisCollection._localStorage.users');
@@ -95,11 +109,14 @@ define(["jquery", "backbone", "models/Profile", "collections/ProfileList", "view
 					// _.bindAll(this,"bindEvents");
 					// $('.createEntry').on('click', this.createEntry);
 					//// console.log('initializing Listview.js');
-					this.profileCollection = new ProfileList();
+					// this.profileCollection = new ProfileList();
 					// _.bindAll(this, "bindAll");
 					
 					// this.profileCollection.unbind('sync', this.bindAll, this);
-					this.profileCollection.bind('sync', this.bindAll, this);
+					this.profileCollection = new ProfileList();
+					// this.profileCollection.bind('sync', this.bindAll, this);
+					this.fetch();
+					// this.render();
 					// console.log(this.profileCollection);
 					
 					/*
@@ -108,8 +125,6 @@ define(["jquery", "backbone", "models/Profile", "collections/ProfileList", "view
 						console.log(xs);
 					});
 					*/
-
-					this.fetch();
 					// this.render();
 					
 					// console.log('after this.profileCollection.fetch');

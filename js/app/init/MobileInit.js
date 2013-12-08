@@ -149,11 +149,13 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// var myLocalStorage = new LocalStorageAdapter;
 
 		// alert('########### BEFORE: Local DB initialize().done(function () {');
+		/*
 		dao.initialize();
 		$.when(websqlReady).done(function (callbackCreateTable) {
 			// alert(callbackCreateTable);
 			dao.fillTable();
 		});
+		*/
 		// console.log(entryTwo);
 		// alert('########### AFTER: Local DB initialize().done(function ()');
 

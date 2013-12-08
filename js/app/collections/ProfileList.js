@@ -29,7 +29,7 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 			}
 		},
 		fetch: function(options) {
-			console.log('***** fetch');
+			// console.log('***** fetch');
             options || (options = {});
             var data = (options.data || {});
             options.data = {date: this.date};
@@ -39,7 +39,7 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 		},
 		sync: function(method, model, options) {
 			// var bla = Backbone.sync.call(model, method, model, options);
-			console.log('***** sync');
+			// console.log('***** sync');
 			Backbone.sync.call(model, method, model, options);
 		},
 		parse: function(response) {
@@ -64,7 +64,10 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 			// console.log('schleife');
 			// this._localStorage_users.
 			
-			var myColl = new Array();
+			// var myColl = new Array();
+			_thisCollection.models = [];
+			this._localStorage_users.models = [];
+			
 			for (n = 0; n < response.length; ++n) {
 				model = response[n];
 				_thisCollection.add(model);
