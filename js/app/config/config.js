@@ -18,8 +18,6 @@ require.config({
       "jquerymobile": "../libs/jquery.mobile",
 	  
       "jquerypulltorefresh": "../libs/jquery.plugin.pullToRefresh",
-	  
-	  "videojs": "../video-js/video",
 
       // "backbone.LocalStorage": "../libs/backbone.localStorage",
 
@@ -49,9 +47,7 @@ require.config({
       // jQuery Mobile
       "jquerypulltorefresh": ["jquery"],
 
-      "videojs": ["jquery"],
-	  
-	  // jQuery pull to refresh
+      // jQuery pull to refresh
       "jquerymobile": ["jquery"],
 	  
       // Twitter Bootstrap jQuery plugins
@@ -64,7 +60,7 @@ require.config({
       "backbone": {
 
         // Depends on underscore/lodash and jQuery
-        "deps": ["functions", "underscore", "jquery", "jquerypulltorefresh", "videojs", "jquerymobile"],
+        "deps": ["functions", "underscore", "jquery", "jquerypulltorefresh", "jquerymobile"],
 
         // Exports the global window.Backbone object
         "exports": "Backbone"
