@@ -86,41 +86,6 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					this.nestedView = new videoDetailsView({collection: this._videosCollection.models}).render();
 
 
-					videojs("video_player_1", { "controls": true, "autoplay": false, "preload": "off" }, function(){});
-					var aspectRatio = 9/16; // Make up an aspect ratio
-					var width = $(window).width();
-					var myPlayer = _V_("video_player_1");
-					// $(document).ready(function() {
-					_V_("video_player_1").ready(function(){
-						myPlayer.src([
-							{ type: "video/mp4", src: "http://video-js.zencoder.com/oceans-clip.mp4" },
-							{ type: "video/webm", src: "http://video-js.zencoder.com/oceans-clip.webm" },
-							{ type: "video/ogg", src: "http://video-js.zencoder.com/oceans-clip.ogv" }
-						]);
-						// alert('bla');
-						// myPlayer.currentTime(0);  
-						myPlayer.posterImage.show();  
-						myPlayer.controlBar.show();  
-						myPlayer.bigPlayButton.hide();  
-						myPlayer.pause();
-						myPlayer.on('timeupdate', function() {
-							if (myPlayer.currentTime() > 2) {
-								// $(".video-js")[0].player.pause();
-								// Paypal-Buy-Now-button.png
-								// $("#video_player_1 .vjs-poster").css('background-image', 'url(/Paypal-Buy-Now-button.png)').show();
-								myPlayer.currentTime(0);  
-								myPlayer.posterImage.show();  
-								// myPlayer.controlBar.hide();  
-								myPlayer.bigPlayButton.hide();  
-								myPlayer.cancelFullScreen();  
-								myPlayer.pause();
-								// $("#videocontainerlink").attr("href", "/blafoopeng/")
-								// myPlayer.currentTime(0);
-								// myPlayer.src({ type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" });
-								// $("#video_player_1.vjs-poster").css('background-image', 'url(http://video-js.zencoder.com/oceans-clip.jpg)').show();
-							}
-						});
-					});
 
 					
 					
