@@ -11,7 +11,7 @@
 
 /* MAIN */
 /*-----------------------------------------------------------------------------------------------------------*/
-.profileList {
+.profileList, .videosList {
 	b/order: 1px solid #333333 !important;
 	p/adding:10px 10px;
 	p/adding-right:600px;
@@ -21,10 +21,10 @@
 	overflow:hidden !important;
 }
 
-.profileListRow:hover {
+.profileListRow:hover, .listRow:hover {
 	background-color:#DDDDDD !important;
 }
-.profileListRow {
+.profileListRow, .listRow {
 	background-color:#EEEEEE !important;
 	b/order: 1px solid #333333 !important;
 	width:100% !important;

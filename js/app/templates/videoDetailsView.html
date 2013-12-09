@@ -1,0 +1,27 @@
+		<div id="videocontainer" style="b/order:10px solid red;b/ackground-color:#000000;">
+			<a id="videocontainerlink" style="width:100%;height:100%;">
+				<video id="video_player_1" class="video-js vjs-default-skin" poster="http://video-js.zencoder.com/oceans-clip.png" data-setup="{}"></video>
+			</a>
+			<img src="http://www.webagate.com/demos/mobile-website/Business-1/images/shadow.png" style="width:100%;">
+		</div>
+
+<div id="listRow" class="listRow">
+	<div class="legend">
+		Detail View
+	</div>
+	<div class="pictureurl">
+		<img class="pictureimg" src="<%= video.thumbnailurl %>">
+	</div>
+	<div class="id">
+		id: <%= video.id %>
+	</div>
+	<div class="uploader">
+		uploader: <%= video.uploader %>
+	</div>
+	<div class="price">
+		price: <%= video.price %>
+	</div>
+	<div class="description">
+		description: <%= video.description %>
+	</div>
+</div>

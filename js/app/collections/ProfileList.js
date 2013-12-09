@@ -75,7 +75,8 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 				//// console.log('--- model');
 				//// console.log(model);
 				// this._localStorage_users.create(new Profile({"fullname": "offline James King", "device": "5645-6543-5415-5233", "credits": "120", "pictureurl": "http://www.redner24.de/typo3temp/GB/Durchholz_Marcel_4c_1090c3626b_Durc_a4ff6064ff.jpg"}));
-				if (this.online==1) this._localStorage_users.create(new Profile(model));
+				// alert(_thisCollection.online);
+				if (_thisCollection.online==1) this._localStorage_users.update(new Profile(model));
 				// myColl[n] = model;
 				// var myModel = model;
 				// myColl.push(myModel);
@@ -98,7 +99,11 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 				_thisCollection.add(model);
 			});
 			*/
-			
+			// console.log(this._localStorage_users.findAll());
+			// return(this._localStorage_users.localStorage());
+			console.log(_thisCollection.models);
+			console.log(this._localStorage_users);
+			// return(this._localStorage_users.findAll());
 			return(_thisCollection.models);
 		},
 		errorHandler: function(xhr) {
