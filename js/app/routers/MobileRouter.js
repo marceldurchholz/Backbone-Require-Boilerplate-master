@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Videodetails", "views/EmployeeListItemView", "views/Testarea", "collections/Collection"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/EmployeeListItemView", "views/Testarea", "collections/Collection"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videodetails, EmployeeListItemView, Testarea, Collection) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, EmployeeListItemView, Testarea, Collection) {
 
 		$.support.cors = true;
 		$.mobile.allowCrossDomainPages = true;
@@ -33,7 +33,6 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"aboutus" : "aboutus",
 				"listview" : "listview",
 				"videos" : "videos",
-				"videos/details/:id" : "videodetails",
 				"employeeListItemView" : "employeeListItemView",
 				"testarea" : "testarea"
             },
@@ -49,11 +48,6 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             },
             videos: function() {
                 new Videos();
-            },
-            videodetails: function(id) {
-                console.log(id);
-				new Videodetails([], {id:id});
-				// alert(id);
             },
             employeeListItemView: function() {
                 new EmployeeListItemView();
