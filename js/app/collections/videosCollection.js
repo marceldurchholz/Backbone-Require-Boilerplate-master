@@ -28,11 +28,13 @@ define(["jquery", "backbone", "models/VideoModel"],
 		},
 		model: VideoModel,
 		fetch: function(options) {
-            options || (options = {});
+            /*
+			options || (options = {});
             var data = (options.data || {});
             options.data = {date: this.date};
 			var responseObject = Backbone.Collection.prototype.fetch.call(this, options);
 			return responseObject;
+			*/
 		},
 		sync: function(method, model, options) {
 			Backbone.sync.call(model, method, model, options);
