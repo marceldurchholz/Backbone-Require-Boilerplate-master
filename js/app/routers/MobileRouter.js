@@ -1,6 +1,6 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Videodetails", "views/EmployeeListItemView", "views/Testarea", "collections/Collection"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Aboutus", "views/EmployeeListItemView", "views/Testarea", "collections/Collection"],
         
     function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videodetails, EmployeeListItemView, Testarea, Collection) {
 
@@ -50,8 +50,8 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             videos: function() {
                 new Videos();
             },
-            videodetails: function(id) {
-                console.log(id);
+            videodetails: function() {
+                // console.log(id);
 				// new Videodetails([], {id:id});
 				// alert(id);
             },
