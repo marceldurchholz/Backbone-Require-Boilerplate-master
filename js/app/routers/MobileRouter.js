@@ -33,7 +33,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"aboutus" : "aboutus",
 				"listview" : "listview",
 				"videos" : "videos",
-				"videos/details/:id" : "videodetails",
+				"videosdetails" : "videodetails",
 				"employeeListItemView" : "employeeListItemView",
 				"testarea" : "testarea"
             },
