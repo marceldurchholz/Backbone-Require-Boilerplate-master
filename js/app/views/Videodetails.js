@@ -39,7 +39,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					// console.log(options);
 					this.initializeCollection(models,options);
 					this._videosCollection = new videosCollection();
-					this.fetch(models,options);
+					// this.fetch(models,options);
 				},
 				render: function() {
 					this.bindEvents();
