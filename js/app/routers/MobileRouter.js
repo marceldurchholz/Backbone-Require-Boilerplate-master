@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Videodetails", "views/EmployeeListItemView", "views/Testarea", "collections/Collection"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/EmployeeListItemView", "views/Testarea", "collections/Collection"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videodetails, EmployeeListItemView, Testarea, Collection) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, EmployeeListItemView, Testarea, Collection) {
 
 		$.support.cors = true;
 		$.mobile.allowCrossDomainPages = true;
@@ -51,7 +51,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
                 new Videos();
             },
             videodetails: function(id) {
-                new Videodetails();
+                new Videos();
 				// alert(id);
             },
             employeeListItemView: function() {
