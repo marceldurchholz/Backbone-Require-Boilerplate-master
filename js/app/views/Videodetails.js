@@ -16,7 +16,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					// this._videosCollection = new videosCollection([], options);
 					// this._videosCollection = new videosCollection();
 				},
-				fetch: function(models,options) {
+				afetch: function(models,options) {
 					this.initializeCollection(models,options);
 					// this._videosCollection = new videosCollection();
 					var _thisView = this;
@@ -37,7 +37,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					// console.log(options);
 					this.initializeCollection(models,options);
 					// this._videosCollection = new videosCollection();
-					this.fetch(models,options);
+					// this.fetch(models,options);
 				},
 				render: function() {
 					this.bindEvents();
@@ -46,8 +46,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					this.sidebar = _.template(sidebar, {});
 					$('#sidebar').html(sidebar);
 					
-					// this._template = _.template(videos, {});
-					// this.$el.html(this._template);
+					this._template = _.template(videos, {});
+					this.$el.html(this._template);
 					// console.log('this._videosCollection.models');
 					// console.log(this._videosCollection.models);
 					// this.nestedView = new videoDetailsView({collection: this._videosCollection.models}).render();

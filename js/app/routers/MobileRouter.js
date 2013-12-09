@@ -33,7 +33,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"aboutus" : "aboutus",
 				"listview" : "listview",
 				"videos" : "videos",
-				"videosdetails" : "aboutus",
+				"videos/details/:id" : "videodetails",
 				"employeeListItemView" : "employeeListItemView",
 				"testarea" : "testarea"
             },
@@ -50,9 +50,9 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             videos: function() {
                 new Videos();
             },
-            videodetails: function() {
-                // console.log(id);
-				// new Videodetails([], {id:id});
+            videodetails: function(id) {
+                console.log(id);
+				new Videodetails([], {id:id});
 				// alert(id);
             },
             employeeListItemView: function() {
