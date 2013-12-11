@@ -161,8 +161,6 @@ define(["jquery", "backbone", "models/Profile", "collections/ProfileList", "view
 					
 					this._template = _.template(listview, {});
 					this.$el.html(this._template);
-					console.log('this.profileCollection.models');
-					console.log(this.profileCollection.models);
 					this.nestedView = new ProfileView({collection: this.profileCollection.models}).render();
 
 					this.$el.trigger('create');

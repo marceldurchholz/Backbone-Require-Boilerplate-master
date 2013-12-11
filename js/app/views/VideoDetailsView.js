@@ -1,43 +1,42 @@
-// VideoDetailsView.js
+// ProfileView.js
 // -------
-define(["jquery", "backbone", "text!templates/videoDetailsView.html"],
+define(["jquery", "backbone", "text!templates/profileView.html"],
 
-    function($, Backbone, videoDetailsViewTemplate){
+    function($, Backbone, profileView){
 		
-		var VideoDetailsView = Backbone.View.extend({
-			el: "#videosList",
+		var ProfileView = Backbone.View.extend({
+			el: "#profileList",
 			initialize: function() {
-				//// console.log('initializing VideoDetailsView.js');
+				//// console.log('initializing ProfileView.js');
 			},
-			/*
-			insertProfiles: function(model) {
-				  htmlContent = _.template(videoDetailsViewTemplate, {
-					id: model.get('id'),
-					uploader: model.get('uploader'),
-					videourl: model.get('videourl'),
-					title: model.get('title'),
-					description: model.get('description'),
-					price: model.get('price'),
-					thumbnailurl: model.get('thumbnailurl')
-				},{variable: 'video'});
+			insertProfiles: function(profile) {
+				  // console.log('profile');
+				  // console.log(profile);
+				  htmlContent = _.template(profileView, {
+					id: profile.get('id'), 
+					fullname: profile.get('fullname'),
+					device: profile.get('device'),
+					credits: profile.get('credits'),
+					pictureurl: profile.get('pictureurl'),
+					lastModified: profile.get('lastModified')
+				},{variable: 'profile'});
 				$(this.el).append(htmlContent);
 				},
-			*/
 			render: function() {
 				var _thisView = this;
-				alert('rendering in VideoDetailsView.js');
+				// console.log('rendering in ProfileView.js');
 				var htmlContent = '';
-				/*
+				// this.collection.each(this.insertProfiles, this);
 				_.each(this.collection, function(model) {
+					//// console.log(model);
 					_thisView.insertProfiles(model);
 				});
-				*/
-				$(this.el).append('blafoopeng');
 				return this;
+				
 			}
 		});
 
-        return VideoDetailsView;
+        return ProfileView;
 
     }
 
