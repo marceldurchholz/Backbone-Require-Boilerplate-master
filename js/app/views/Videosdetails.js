@@ -82,7 +82,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					// console.log('this._videosCollection.models');
 					// console.log(this._videosCollection.models);
 					// this.nestedView = new videoDetailsViewJS().render();
-					this.nestedView = new videoDetailsViewJS({collection: this._videosCollection.models}).render();
+					this.nestedView = new videoDetailsViewJS().render();
 
 
 
