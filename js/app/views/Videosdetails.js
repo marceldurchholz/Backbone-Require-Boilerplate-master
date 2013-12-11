@@ -8,34 +8,15 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			
 				el: "#page-content",
 				attributes: {"data-role": 'content'},
-				initializeCollection:function(options) {
-					// alert(this.id);
-					// var myCollection = new Collection([ new Model({id: 'smith'}) ]);
-					this._videosCollection = new videosCollection([], options);
-					// this._videosCollection = new videosCollection();
-				},
-				fetch: function(options) {
-					this.initializeCollection(options);
-					// this._videosCollection = new videosCollection();
-					var _thisView = this;
-					this._videosCollection.fetch({
-						error: function(action, coll) {
-							console.log(action);
-							console.log(coll);
-						},
-						success: function(coll, jsoncoll) {
-							_thisView.render();
-						}
-					});
-				},
 				initialize: function(options) {
 					// console.log('models');
 					// console.log(models);
 					// console.log('options');
 					// console.log(options);
-					this.initializeCollection(options);
+					// this.initializeCollection(options);
 					// this._videosCollection = new videosCollection();
-					this.fetch(options);
+					// this.fetch(options);
+					this.render();
 				},
 				render: function() {
 					// this.bindEvents();
