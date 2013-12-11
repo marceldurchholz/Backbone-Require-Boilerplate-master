@@ -16,9 +16,9 @@ define(["jquery", "backbone", "text!templates/videoView.html"],
 				// var item = this.collection;
 				// console.log(item);
 				console.log('showDetails: '+id);
-				window.location.hash = '#videos/details/'+id;
+				// window.location.hash = '#videos/details/'+id;
 				// Router.navigate( $(this).attr('href') );
-				// $.mobile.changePage('#abc');
+				window.location.hash = '#videos/details/'+id;
 				// alert('bla');
 			},
 			bindEvents: function() {

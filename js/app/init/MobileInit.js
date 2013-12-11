@@ -6,16 +6,20 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
   function($, Backbone, MobileRouter, LocalStorageAdapter) {
 
-	$.support.cors = true;
-	$.mobile.allowCrossDomainPages = true;
-    $.mobile.linkBindingEnabled = false;
-    $.mobile.hashListeningEnabled = false;	
-	$.mobile.buttonMarkup.hoverDelay = 0;
-	$.mobile.defaultPageTransition = 'none'; 
-	$.mobile.defaultDialogTransition = "none";
-	$.mobile.page.prototype.options.degradeInputs.date = true;
+	// $.support.cors = true;
+	$(function() {
+		// $.mobile.allowCrossDomainPages = true;
+		// $.mobile.ajaxEnabled = false;
+		$.mobile.hashListeningEnabled = false;	
+		$.mobile.linkBindingEnabled = false;
+		// $.mobile.pushStateEnabled = false;
+	});
+	// $.mobile.buttonMarkup.hoverDelay = 0;
+	// $.mobile.defaultPageTransition = 'none'; 
+	// $.mobile.defaultDialogTransition = "none";
+	// $.mobile.page.prototype.options.degradeInputs.date = true;
 	$.mobile.page.prototype.options.domCache = false;
-	$.mobile.ignoreContentEnabled=true;
+	// $.mobile.ignoreContentEnabled=true;
 
 	window.addEventListener('load', function () {
 		new FastClick(document.body);

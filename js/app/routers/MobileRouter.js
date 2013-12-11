@@ -51,8 +51,9 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
                 new Videos();
             },
             videodetails: function(id) {
-				console.log(id);
-                new Videosdetails({id:id});
+				// console.log(id);
+                // new Videosdetails({id:id});
+				new Videos();
             },
             employeeListItemView: function() {
                 new EmployeeListItemView();
