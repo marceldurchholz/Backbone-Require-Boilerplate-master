@@ -8,8 +8,6 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			
 				el: "#page-content",
 				attributes: {"data-role": 'content'},
-				events: {
-				},
 				createVideo: function () {
 					if (this._videosCollection.online==0) {
 						// this._videosCollection._localStorage_users.create(new Video({"fullname": "offline James King", "device": "5645-6543-5415-5233", "credits": "120", "pictureurl": "http://www.redner24.de/typo3temp/GB/Durchholz_Marcel_4c_1090c3626b_Durc_a4ff6064ff.jpg"}));
@@ -68,9 +66,9 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					// console.log(models);
 					// console.log('options');
 					// console.log(options);
-					this.initializeCollection(options);
+					//// this.initializeCollection(options);
 					// this._videosCollection = new videosCollection();
-					this.fetch(options);
+					//// this.fetch(options);
 				},
 				render: function() {
 					// this.bindEvents();
