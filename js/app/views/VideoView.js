@@ -7,7 +7,7 @@ define(["jquery", "backbone", "text!templates/videoView.html"],
 		var VideoView = Backbone.View.extend({
 			el: "#videosList",
 			initialize: function() {
-				//// console.log('initializing VideoView.js');
+				console.log('initializing VideoView.js');
 			},
 			showDetails: function() {
 				alert('showDetails: '+videoView.id);

@@ -73,7 +73,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					this.fetch(models,options);
 				},
 				render: function() {
-					this.bindEvents();
+					// this.bindEvents();
 					console.log('DOING render Videos.js called');
 					
 					this.sidebar = _.template(sidebar, {});
@@ -83,7 +83,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					this.$el.html(this._template);
 					// console.log('this._videosCollection.models');
 					// console.log(this._videosCollection.models);
-					this.nestedView = new videoDetailsView({collection: this._videosCollection.models}).render();
+					// this.nestedView = new videoDetailsView({collection: this._videosCollection.models}).render();
 
 
 
