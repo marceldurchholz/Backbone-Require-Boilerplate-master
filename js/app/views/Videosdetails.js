@@ -1,8 +1,8 @@
 // Videos.js
 // -------
-define(["jquery", "backbone", "models/VideoModel", "text!templates/videosDetails.html", "views/videoDetailsView", "text!templates/sidebar.html"],
+define(["jquery", "backbone", "models/VideoModel", "text!templates/videosDetails.html", "text!templates/sidebar.html"],
 
-    function($, Backbone, VideoModel, videosDetail, videoDetailsView, sidebar){
+    function($, Backbone, VideoModel, videosDetail, sidebar){
 		
 			var Videos = Backbone.View.extend({
 			
