@@ -43,14 +43,14 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					var _thisView = this;
 					this.$el.off('click','.createVideo').on('click','.createVideo',function(){_thisView.createVideo();});
 				},
-				initializeCollection:function(models,options) {
+				initializeCollection:function(options) {
 					// alert(this.id);
 					// var myCollection = new Collection([ new Model({id: 'smith'}) ]);
 					this._videosCollection = new videosCollection([], options);
 					// this._videosCollection = new videosCollection();
 				},
-				fetch: function(models,options) {
-					this.initializeCollection(models,options);
+				fetch: function(options) {
+					this.initializeCollection(options);
 					// this._videosCollection = new videosCollection();
 					var _thisView = this;
 					this._videosCollection.fetch({
@@ -63,14 +63,14 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						}
 					});
 				},
-				initialize: function(models, options) {
+				initialize: function(options) {
 					// console.log('models');
 					// console.log(models);
 					// console.log('options');
 					// console.log(options);
-					this.initializeCollection(models,options);
+					this.initializeCollection(options);
 					// this._videosCollection = new videosCollection();
-					this.fetch(models,options);
+					this.fetch(options);
 				},
 				render: function() {
 					// this.bindEvents();

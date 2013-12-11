@@ -1,20 +1,20 @@
-<div id="listRow" class="listRow">
-	<div class="legend">
-		<%= video.title %>
+	<div id="listRow" class="listRow" data-id="<%= video.id %>">
+		<div class="legend">
+			<%= video.title %>
+		</div>
+		<div class="pictureurl">
+			<img class="pictureimg" src="<%= video.thumbnailurl %>">
+		</div>
+		<div class="id">
+			id: <%= video.id %>
+		</div>
+		<div class="uploader">
+			uploader: <%= video.uploader %>
+		</div>
+		<div class="price">
+			price: <%= video.price %>
+		</div>
+		<div class="description">
+			description: <%= video.description %>
+		</div>
 	</div>
-	<div class="pictureurl">
-		<img class="pictureimg" src="<%= video.thumbnailurl %>">
-	</div>
-	<div class="id">
-		id: <%= video.id %>
-	</div>
-	<div class="uploader">
-		uploader: <%= video.uploader %>
-	</div>
-	<div class="price">
-		price: <%= video.price %>
-	</div>
-	<div class="description">
-		description: <%= video.description %>
-	</div>
-</div>
