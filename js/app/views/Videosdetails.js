@@ -2,7 +2,7 @@
 // -------
 define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "views/VideoView", "text!templates/videosDetails.html", "views/videoDetailsView", "text!templates/sidebar.html"],
 
-    function($, Backbone, VideoModel, videosCollection, Video, videosDetailsViewHTML, videoDetailsViewJS, sidebar){
+    function($, Backbone, VideoModel, videosCollection, Video, videosListViewHTML, videoDetailsViewJS, sidebar){
 		
 			var Videos = Backbone.View.extend({
 			
@@ -77,7 +77,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					this.sidebar = _.template(sidebar, {});
 					$('#sidebar').html(sidebar);
 					
-					this._template = _.template(videosDetailsViewHTML, {});
+					this._template = _.template(videosListViewHTML, {});
 					this.$el.html(this._template);
 					// console.log('this._videosCollection.models');
 					// console.log(this._videosCollection.models);

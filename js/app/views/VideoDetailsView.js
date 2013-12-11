@@ -2,15 +2,16 @@
 // -------
 define(["jquery", "backbone", "text!templates/videoDetailsView.html"],
 
-    function($, Backbone, videoDetailsView){
+    function($, Backbone, videoDetailsViewTemplate){
 		
 		var VideoDetailsView = Backbone.View.extend({
 			el: "#videosList",
 			initialize: function() {
 				//// console.log('initializing VideoDetailsView.js');
 			},
+			/*
 			insertProfiles: function(model) {
-				  htmlContent = _.template(videoDetailsView, {
+				  htmlContent = _.template(videoDetailsViewTemplate, {
 					id: model.get('id'),
 					uploader: model.get('uploader'),
 					videourl: model.get('videourl'),
@@ -21,15 +22,18 @@ define(["jquery", "backbone", "text!templates/videoDetailsView.html"],
 				},{variable: 'video'});
 				$(this.el).append(htmlContent);
 				},
+			*/
 			render: function() {
 				var _thisView = this;
-				console.log('rendering in VideoDetailsView.js');
+				alert('rendering in VideoDetailsView.js');
 				var htmlContent = '';
+				/*
 				_.each(this.collection, function(model) {
 					_thisView.insertProfiles(model);
 				});
+				*/
+				$(this.el).append('blafoopeng');
 				return this;
-				
 			}
 		});
 
