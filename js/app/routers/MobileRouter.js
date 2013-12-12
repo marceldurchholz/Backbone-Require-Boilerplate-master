@@ -30,10 +30,12 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             },
 			
             home: function() {
-				new View();
+				// new View();
+				this.changePage(View, {});
             },
             aboutus: function() {
                 new Aboutus();
+				this.changePage(Aboutus, {});
             },
             listview: function() {
 				// $('#page-content').html('aaa');
@@ -47,17 +49,16 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// var changePage = this.changePage(Listview, {});
 				// $('#page-content').setElement( Listview() );
 				// this.changePage();
-				new Listview();
+				this.changePage(Listview, {});
+				// var bla = new Listview();
             },
-			viewFactory: function(view, viewOptions) {
-			  //perform your boilerplate code
-			  // this.myView = new view(viewOptions);
-			},
             videos: function() {
-                new Videos();
+                // new Videos();
+				this.changePage(Videos, {});
             },
             videodetailsview: function(id) {
-				new Videosdetailsview({id:id});
+				// new Videosdetailsview({id:id});
+				this.changePage(Videosdetailsview, {id:id});
             },
             loginViewJS: function() {
                 new LoginViewJS();
@@ -65,8 +66,17 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             testarea: function() {
                 new Testarea();
             },
+			viewFadeIn: function() {
+					$("#page-content").fadeIn( 500, function() {
+						// $( "#page-content" ).html('bla');
+						// Animation complete
+					});
+			},
 			changePage: function(view, viewOptions) {
+				$("#page-content").hide();
 				this.myView = new view(viewOptions);
+				// this.myView.pastInitialize();
+				// console.log(this.myView);
 				// $('#page-content').remove();
 				// $('div[data-role="page"]').on('pagehide', function (event, ui) { 
 				// });
@@ -76,7 +86,10 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// var view = new Listview();
 				// view.$el.attr('data-role', 'content');   
 				//append to dom 
-				console.log(view.$el);
+				// console.log(this.myView.$el.selector);
+				// console.log(this.myView.$el);
+				// var _thisView = this;
+				this.myView.$el.on('create', this.viewFadeIn, this.$el);
 				// $('#mainpagediv').append(view.$el);
 				
 			}
