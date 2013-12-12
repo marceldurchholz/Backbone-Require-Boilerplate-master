@@ -25,8 +25,6 @@ if(isMobile.any()){
     console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
 }
 
-var videono = 0;
-
 var currentHash = window.location.hash;
 
 var imagePath = '';
@@ -1918,14 +1916,22 @@ function createVideoPreview(videoObj) {
 		// myPlayer.destroy();
 	}
 	*/
-	window.videono = window.videono+1;
-	alert(window.videono);
+	// window.videono = window.videono+1;
+	// alert(window.videono);
+	
+	for( vid in _V_.players ){ 
+		console.log('>>> '+vid.toString()); 
+		if(vid.toString() == "video_player_1"){ 
+		   delete _V_.players[vid] 
+		   console.log('deteleted');
+		} 
+	}
 
 	// $(document).ready(function(){
-		var myvideoJS = videojs("video_player_"+window.videono, { "controls": true, "autoplay": false, "preload": "off" }, function(){});
-		var myPlayer = _V_("video_player_"+window.videono);
-		_V_("video_player_"+window.videono).ready(function(){
-			alert('jupp');
+		var myvideoJS = videojs("video_player_1", { "controls": true, "autoplay": false, "preload": "off" }, function(){});
+		var myPlayer = _V_("video_player_1");
+		_V_("video_player_1").ready(function(){
+			// alert('jupp');
 			myPlayer.src([
 				{ type: "video/mp4", src: "http://video-js.zencoder.com/oceans-clip.mp4" },
 				{ type: "video/webm", src: "http://video-js.zencoder.com/oceans-clip.webm" },
@@ -1953,7 +1959,7 @@ function createVideoPreview(videoObj) {
 					// $("#video_player_1.vjs-poster").css('background-image', 'url(http://video-js.zencoder.com/oceans-clip.jpg)').show();
 				}
 			});
-		resizeElement('#video_player_'+window.videono);
+		resizeElement('#video_player_1');
 		});	
 		// alert('("video_player_1").ready(function(){');
 
