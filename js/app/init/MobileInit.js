@@ -6,28 +6,26 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
   function($, Backbone, MobileRouter, LocalStorageAdapter) {
 
-	// $.support.cors = true;
 	/*
-	$(function() {
-		// $.mobile.allowCrossDomainPages = true;
-		// $.mobile.ajaxEnabled = false;
-		$.mobile.hashListeningEnabled = false;	
-		$.mobile.linkBindingEnabled = false;
-		// $.mobile.pushStateEnabled = false;
-	});
-	*/
-	// $.mobile.buttonMarkup.hoverDelay = 0;
-	// $.mobile.defaultPageTransition = 'none'; 
-	// $.mobile.defaultDialogTransition = "none";
-	// $.mobile.page.prototype.options.degradeInputs.date = true;
-	// $.mobile.page.prototype.options.domCache = false;
-	// $.mobile.ignoreContentEnabled=true;
+	$.support.cors = true;
+	$.mobile.allowCrossDomainPages = true;
+	$.mobile.ajaxEnabled = false;
+	$.mobile.hashListeningEnabled = false;	
+	$.mobile.linkBindingEnabled = false;
+	$.mobile.pushStateEnabled = false;
+	$.mobile.buttonMarkup.hoverDelay = 0;
+	$.mobile.defaultPageTransition = 'none'; 
+	$.mobile.defaultDialogTransition = "none";
+	$.mobile.page.prototype.options.degradeInputs.date = true;
+	$.mobile.page.prototype.options.domCache = false;
+	$.mobile.ignoreContentEnabled=true;
 	$.mobile.document.unbind("pageshow");
 	$.mobile.document.bind("pageshow", $.mobile.ajaxwhenpageshowed );
 	$.mobile.ajaxwhenpageshowed = function ajaxwhenpageshowed() {
 		// alert('b');
 	};
-
+	*/
+	
 	window.addEventListener('load', function () {
 		new FastClick(document.body);
 	}, false);

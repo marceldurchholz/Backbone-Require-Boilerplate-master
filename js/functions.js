@@ -1943,7 +1943,7 @@ function createVideoPreview(videoObj) {
 			myPlayer.bigPlayButton.hide();  
 			myPlayer.pause();
 			myPlayer.on('timeupdate', function() {
-				if (myPlayer.currentTime() > 10) {
+				if (myPlayer.currentTime() > 30) {
 					// $(".video-js")[0].player.pause();
 					// Paypal-Buy-Now-button.png
 					// $("#video_player_1 .vjs-poster").css('background-image', 'url(/Paypal-Buy-Now-button.png)').show();

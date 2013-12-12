@@ -1,21 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Videosdetails", "views/VideoDetailsView", "views/EmployeeListItemView", "views/Testarea", "collections/Collection"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/loginView", "views/Testarea", "collections/Collection"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetails, Videosdetailsview, EmployeeListItemView, Testarea, Collection) {
-
-		$.support.cors = true;
-		$.mobile.allowCrossDomainPages = true;
-		$.mobile.linkBindingEnabled = false;
-		$.mobile.hashListeningEnabled = false;	
-		/*
-		$.mobile.buttonMarkup.hoverDelay = 0;
-		$.mobile.defaultPageTransition = 'none'; 
-		$.mobile.defaultDialogTransition = "none";
-		$.mobile.page.prototype.options.degradeInputs.date = true;
-		$.mobile.page.prototype.options.domCache = false;
-		$.mobile.ignoreContentEnabled=true;
-		*/
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, LoginViewJS, Testarea, Collection) {
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -38,6 +25,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"videos/details/:id" : "videodetails",
 				"videos/details/view/:id" : "videodetailsview",
 				"employeeListItemView" : "employeeListItemView",
+				"login" : "loginViewJS",
 				"testarea" : "testarea"
             },
 			
@@ -48,24 +36,34 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
                 new Aboutus();
             },
             listview: function() {
-                new Listview();
+                var myListview = new Listview();
+				myListview.render(); 
+				this.changePage(myListview);
             },
             videos: function() {
                 new Videos();
             },
-            videodetails: function(id) {
-				new Videosdetails({id:id});
-            },
             videodetailsview: function(id) {
 				new Videosdetailsview({id:id});
             },
-            employeeListItemView: function() {
-                new EmployeeListItemView();
+            loginViewJS: function() {
+                new LoginViewJS();
             },
             testarea: function() {
                 new Testarea();
-            }
-    
+            },
+			changePage: function(view) {
+				// alert('change page');
+				//add the attribute ‘data-role=”page” ‘ for each view’s div 
+				view.$el.attr('data-role', 'page');   
+				//append to dom 
+				$('body').append(view.$el);
+				if(!this.init) {
+					$.mobile.changePage($(view.el), {changeHash:false}); 
+				} else {   
+					this.init = false; 
+				}
+			}
         });
 
 		// this.$el.trigger('create');

@@ -30,6 +30,8 @@ require.config({
       "videojs": "../video-js/video",
 
       "backbone": "../libs/backbone",
+	  
+	  "bindmobile": "../jqm-config",
 
       // Plugins
       // -------
@@ -50,7 +52,7 @@ require.config({
       "jquerypulltorefresh": ["jquery"],
 
       // jQuery pull to refresh
-      "jquerymobile": ["jquery"],
+      "jquerymobile": ["bindmobile", "jquery"],
 	  
       // Twitter Bootstrap jQuery plugins
       "bootstrap": ["jquery"],
@@ -58,7 +60,7 @@ require.config({
       // jQueryUI
       "jqueryui": ["jquery"],
 
-	  "functions": ["jquery", "jquerymobile", "underscore", "jqueryui", "videojs"],
+	  "functions": ["jquery", "videojs"],
 	  
       // jQueryUI
       "videojs": {
