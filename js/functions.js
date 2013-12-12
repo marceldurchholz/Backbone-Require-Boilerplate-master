@@ -25,6 +25,8 @@ if(isMobile.any()){
     console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
 }
 
+var videono = 0;
+
 var currentHash = window.location.hash;
 
 var imagePath = '';
@@ -1873,3 +1875,92 @@ function createOptionsEl(name, values, selectionDefault) {
 }
 
 //* DEBUG */ window.console.log('js/global.js loaded...');
+
+function resizeElement(elementid) {
+	console.log('resizeElement: '+elementid);
+	// var thumbnail_width = this.$el.outerWidth();
+	var elwidth = $(elementid).width();
+	console.log(elwidth);
+	var elheight = $(elementid).height();
+	var elfactor = (elheight/elwidth);
+	console.log(elfactor);
+	var window_width = $(window).width();
+	console.log(window_width);
+	// var remaining = window_width - Math.floor(window_width / 128)  * 128;
+	var newwidthwborder = window_width-40;
+	var newheightwfactor = (window_width-40)*elfactor;
+	console.log(elfactor);
+	// this.$el.css('right', remaining / 2);
+	console.log('newwidthwborder '+newwidthwborder);
+	$(elementid).css("width", newwidthwborder);
+	$(elementid).css("height", newheightwfactor);
+	// alert('jup');
+};
+
+function createVideoPreview(videoObj) {
+	// alert('bla');
+	// if( myPlayer ) {
+		// $('video_player_1').remove();
+	// }
+	/*
+	if (myPlayer) {
+		$.each(_V_.players, function (key, player) { 
+			alert('playerbla');
+			if (player.isReady) { 
+				player.destroy(); 
+			} 
+			else { 
+				delete _V_.players[player.id]; 
+			}
+			// VideoJS.players = {};
+		});
+		// myPlayer.removeTriggers();
+		// myPlayer.destroy();
+	}
+	*/
+	window.videono = window.videono+1;
+	alert(window.videono);
+
+	// $(document).ready(function(){
+		var myvideoJS = videojs("video_player_"+window.videono, { "controls": true, "autoplay": false, "preload": "off" }, function(){});
+		var myPlayer = _V_("video_player_"+window.videono);
+		_V_("video_player_"+window.videono).ready(function(){
+			alert('jupp');
+			myPlayer.src([
+				{ type: "video/mp4", src: "http://video-js.zencoder.com/oceans-clip.mp4" },
+				{ type: "video/webm", src: "http://video-js.zencoder.com/oceans-clip.webm" },
+				{ type: "video/ogg", src: "http://video-js.zencoder.com/oceans-clip.ogv" }
+			]);
+			// alert('bla');
+			myPlayer.posterImage.show();  
+			myPlayer.controlBar.show();  
+			myPlayer.bigPlayButton.hide();  
+			myPlayer.pause();
+			myPlayer.on('timeupdate', function() {
+				if (myPlayer.currentTime() > 10) {
+					// $(".video-js")[0].player.pause();
+					// Paypal-Buy-Now-button.png
+					// $("#video_player_1 .vjs-poster").css('background-image', 'url(/Paypal-Buy-Now-button.png)').show();
+					myPlayer.pause();
+					myPlayer.currentTime(0);  
+					myPlayer.posterImage.show();  
+					// myPlayer.controlBar.hide();  
+					myPlayer.bigPlayButton.hide();  
+					myPlayer.cancelFullScreen();  
+					// $("#videocontainerlink").attr("href", "/blafoopeng/")
+					// myPlayer.currentTime(0);
+					// myPlayer.src({ type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" });
+					// $("#video_player_1.vjs-poster").css('background-image', 'url(http://video-js.zencoder.com/oceans-clip.jpg)').show();
+				}
+			});
+		resizeElement('#video_player_'+window.videono);
+		});	
+		// alert('("video_player_1").ready(function(){');
+
+// $(document).ready(function() {
+// resizeVideoJS(); // Initialize the function
+// });
+// $(function(){
+	// resizeElement('#video_player_1');
+// });
+}

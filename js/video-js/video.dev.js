@@ -1,7 +1,7 @@
 /**
  * @fileoverview Main function src.
  */
-
+alert('vjs');
 // HTML5 Shiv. Must be in <head> to support older browsers.
 document.createElement('video');
 document.createElement('audio');

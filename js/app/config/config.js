@@ -27,6 +27,8 @@ require.config({
 
       "functions": "../functions",
 
+      "videojs": "../video-js/video",
+
       "backbone": "../libs/backbone",
 
       // Plugins
@@ -55,6 +57,14 @@ require.config({
 
       // jQueryUI
       "jqueryui": ["jquery"],
+
+	  "functions": ["jquery", "jquerymobile", "underscore", "jqueryui", "videojs"],
+	  
+      // jQueryUI
+      "videojs": {
+		"deps": ["jquery"],
+		"exports": "videojs"
+	  },
 
       // Backbone
       "backbone": {

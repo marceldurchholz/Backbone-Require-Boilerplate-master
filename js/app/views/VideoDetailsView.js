@@ -89,6 +89,11 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				},
 				render: function() {
 					var _thisView = this;
+					console.log('rendering');
+					$(window).resize(function() {
+						// alert('bla');
+						window.resizeElement('#video_player_1')
+					});
 					// this.bindEvents();
 					console.log('DOING render VideoDetailsView.js called');
 					
@@ -102,6 +107,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						this.id = model.get('id');
 						_thisView.insertVariables(model);
 					});
+						window.createVideoPreview(_thisView.$('#video_player_1'));
 					/*
 					this._template = _.template(videosDetailsViewHTML, {
 						id: this._videosCollection.get('id'),

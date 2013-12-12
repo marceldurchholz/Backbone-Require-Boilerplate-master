@@ -22,6 +22,11 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	// $.mobile.page.prototype.options.degradeInputs.date = true;
 	// $.mobile.page.prototype.options.domCache = false;
 	// $.mobile.ignoreContentEnabled=true;
+	$.mobile.document.unbind("pageshow");
+	$.mobile.document.bind("pageshow", $.mobile.ajaxwhenpageshowed );
+	$.mobile.ajaxwhenpageshowed = function ajaxwhenpageshowed() {
+		// alert('b');
+	};
 
 	window.addEventListener('load', function () {
 		new FastClick(document.body);

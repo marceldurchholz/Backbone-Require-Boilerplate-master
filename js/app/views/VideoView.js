@@ -26,7 +26,7 @@ define(["jquery", "backbone", "text!templates/videoView.html"],
 				// this.$el.off('click','.clickRow').on('click','.clickRow',function(){_thisView.clicked(e);});
 				this.$el.off('click','.listRow').on('click','.listRow',function(e){
 					// console.log(e);
-					alert('show detail');
+					// alert('show detail');
 					_thisView.showDetails(e);
 				});
 			},
