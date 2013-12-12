@@ -2,7 +2,7 @@
 // -------
 define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "views/VideoView", "text!templates/videosDetails.html", "text!templates/sidebar.html"],
 
-    function($, Backbone, VideoModel, videosCollection, Video, videosListViewHTML, sidebar){
+    function($, Backbone, VideoModel, videosCollection, VideoListViewItems, videosListViewHTML, sidebar){
 		
 			var Videos = Backbone.View.extend({
 			
@@ -82,7 +82,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					// console.log('this._videosCollection.models');
 					// console.log(this._videosCollection.models);
 					// this.nestedView = new videoDetailsViewJS().render();
-					this.nestedView = new Video({collection: this._videosCollection.models}).render();
+					this.nestedView = new VideoListViewItems({collection: this._videosCollection.models}).render();
 
 
 

@@ -7,6 +7,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
   function($, Backbone, MobileRouter, LocalStorageAdapter) {
 
 	// $.support.cors = true;
+	/*
 	$(function() {
 		// $.mobile.allowCrossDomainPages = true;
 		// $.mobile.ajaxEnabled = false;
@@ -14,11 +15,12 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		$.mobile.linkBindingEnabled = false;
 		// $.mobile.pushStateEnabled = false;
 	});
+	*/
 	// $.mobile.buttonMarkup.hoverDelay = 0;
 	// $.mobile.defaultPageTransition = 'none'; 
 	// $.mobile.defaultDialogTransition = "none";
 	// $.mobile.page.prototype.options.degradeInputs.date = true;
-	$.mobile.page.prototype.options.domCache = false;
+	// $.mobile.page.prototype.options.domCache = false;
 	// $.mobile.ignoreContentEnabled=true;
 
 	window.addEventListener('load', function () {

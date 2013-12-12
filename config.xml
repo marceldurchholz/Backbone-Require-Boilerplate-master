@@ -39,14 +39,10 @@
 	<feature name="http://api.phonegap.com/1.0/geolocation"/>
 	<feature name="http://api.phonegap.com/1.0/capture"/>
 	<feature name="http://api.phonegap.com/1.0/network"/>
-
-	<!--
-	DEACTIVATED FOR MORE SPEED IN ADOBE PHONEGAP BUILD
 	<feature name="http://api.phonegap.com/1.0/notification"/>
 	<feature name="http://api.phonegap.com/1.0/battery"/>
 	<feature name="http://api.phonegap.com/1.0/contacts"/>
 	<feature name="http://api.phonegap.com/1.0/media"/>
-	-->
 	
 	<!-- setup phonegap version -->
 	<!-- all: current version of PhoneGap -->
@@ -115,14 +111,10 @@
 	<!--
 	> all
 	-->
-
-	<!--
-	DEACTIVATED FOR MORE SPEED IN ADOBE PHONEGAP BUILD
 	<gap:plugin name="com.shazron.cordova.plugin.keychainutil" />
 	<gap:plugin name="com.alexvillaro.plugins.inapppurchase" />
 	<gap:plugin name="com.chariotsolutions.cordova.plugin.keyboard_toolbar_remover" />
 	<gap:plugin name="com.blueshirtdesign.cordova.plugin.pgexternalscreen" />
-	-->
 		
 	<!--
         If you do not want any permissions to be added to your app, add the

@@ -1,8 +1,8 @@
 // Videos.js
 // -------
-define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "views/VideoView", "text!templates/videos.html", "text!templates/sidebar.html"],
+define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "text!templates/videosList.html", "views/VideoView", "text!templates/sidebar.html"],
 
-    function($, Backbone, VideoModel, videosCollection, VideoView, videos, sidebar){
+    function($, Backbone, VideoModel, videosCollection, videosList, VideoView, sidebar){
 		
 			var Videos = Backbone.View.extend({
 			
@@ -67,7 +67,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					this.sidebar = _.template(sidebar, {});
 					$('#sidebar').html(sidebar);
 					
-					this._template = _.template(videos, {});
+					this._template = _.template(videosList, {});
 					this.$el.html(this._template);
 					console.log('this._videosCollection.models');
 					console.log(this._videosCollection.models);

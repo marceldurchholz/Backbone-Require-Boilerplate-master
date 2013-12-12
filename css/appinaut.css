@@ -29,7 +29,8 @@
 	b/order: 1px solid #333333 !important;
 	width:100% !important;
 	height:auto;
-	padding:10px 0px 10px 0px;
+	padding:10px 0px 10px 10px;
+	margin:0px -10px 0px -5px;
 	p&adding-right:50px !important;
 	m/argin-right:50px !important;
 	display:inline-block;

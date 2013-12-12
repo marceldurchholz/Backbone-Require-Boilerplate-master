@@ -1,19 +1,21 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Videosdetails", "views/EmployeeListItemView", "views/Testarea", "collections/Collection"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Videosdetails", "views/VideoDetailsView", "views/EmployeeListItemView", "views/Testarea", "collections/Collection"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetails, EmployeeListItemView, Testarea, Collection) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetails, Videosdetailsview, EmployeeListItemView, Testarea, Collection) {
 
 		$.support.cors = true;
 		$.mobile.allowCrossDomainPages = true;
 		$.mobile.linkBindingEnabled = false;
 		$.mobile.hashListeningEnabled = false;	
+		/*
 		$.mobile.buttonMarkup.hoverDelay = 0;
 		$.mobile.defaultPageTransition = 'none'; 
 		$.mobile.defaultDialogTransition = "none";
 		$.mobile.page.prototype.options.degradeInputs.date = true;
 		$.mobile.page.prototype.options.domCache = false;
 		$.mobile.ignoreContentEnabled=true;
+		*/
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -34,6 +36,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"listview" : "listview",
 				"videos" : "videos",
 				"videos/details/:id" : "videodetails",
+				"videos/details/view/:id" : "videodetailsview",
 				"employeeListItemView" : "employeeListItemView",
 				"testarea" : "testarea"
             },
@@ -51,8 +54,10 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
                 new Videos();
             },
             videodetails: function(id) {
-				console.log(id);
-                new Videosdetails({id:id});
+				new Videosdetails({id:id});
+            },
+            videodetailsview: function(id) {
+				new Videosdetailsview({id:id});
             },
             employeeListItemView: function() {
                 new EmployeeListItemView();

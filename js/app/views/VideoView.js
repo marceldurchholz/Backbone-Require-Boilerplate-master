@@ -18,7 +18,7 @@ define(["jquery", "backbone", "text!templates/videoView.html"],
 				console.log('showDetails: '+id);
 				// window.location.hash = '#videos/details/'+id;
 				// Router.navigate( $(this).attr('href') );
-				window.location.hash = '#videos/details/'+id;
+				window.location.hash = '#videos/details/view/'+id;
 				// alert('bla');
 			},
 			bindEvents: function() {
@@ -26,6 +26,7 @@ define(["jquery", "backbone", "text!templates/videoView.html"],
 				// this.$el.off('click','.clickRow').on('click','.clickRow',function(){_thisView.clicked(e);});
 				this.$el.off('click','.listRow').on('click','.listRow',function(e){
 					// console.log(e);
+					alert('show detail');
 					_thisView.showDetails(e);
 				});
 			},
@@ -38,7 +39,6 @@ define(["jquery", "backbone", "text!templates/videoView.html"],
 				alert(id);
 			},
 			insertProfiles: function(model) {
-				  // videoView.id = '123';
 				  htmlContent = _.template(videoView, {
 					id: model.get('id'),
 					uploader: model.get('uploader'),
@@ -48,10 +48,10 @@ define(["jquery", "backbone", "text!templates/videoView.html"],
 					price: model.get('price'),
 					thumbnailurl: model.get('thumbnailurl')
 				},{variable: 'video'});
-				$(this.el).append('<a class="detailById" href="#" data-id="'+model.get('id')+'">');
+				// $(this.el).append('<a class="detailById" href="#" data-id="'+model.get('id')+'">');
 				$(this.el).append(htmlContent);
 				// $('.special').attr('id', 'your-id-value');
-				$(this.el).append('</a>');
+				// $(this.el).append('</a>');
 				this.bindEvents();
 			},
 			render: function() {
