@@ -36,10 +36,23 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
                 new Aboutus();
             },
             listview: function() {
-                var myListview = new Listview();
-				myListview.render(); 
-				this.changePage(myListview);
+				// $('#page-content').html('aaa');
+				// var bla = $('#page-content').html();
+				// console.log($(body).html());
+				// console.log('bla');
+				// myListview.render(); 
+				// this.changePage(bla);
+				// $('#page-content').remove();
+				// var myListview = new Listview();
+				// var changePage = this.changePage(Listview, {});
+				// $('#page-content').setElement( Listview() );
+				// this.changePage();
+				new Listview();
             },
+			viewFactory: function(view, viewOptions) {
+			  //perform your boilerplate code
+			  // this.myView = new view(viewOptions);
+			},
             videos: function() {
                 new Videos();
             },
@@ -52,17 +65,20 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             testarea: function() {
                 new Testarea();
             },
-			changePage: function(view) {
+			changePage: function(view, viewOptions) {
+				this.myView = new view(viewOptions);
+				// $('#page-content').remove();
+				// $('div[data-role="page"]').on('pagehide', function (event, ui) { 
+				// });
 				// alert('change page');
 				//add the attribute ‘data-role=”page” ‘ for each view’s div 
-				view.$el.attr('data-role', 'page');   
+				// alert($(view.el));
+				// var view = new Listview();
+				// view.$el.attr('data-role', 'content');   
 				//append to dom 
-				$('body').append(view.$el);
-				if(!this.init) {
-					$.mobile.changePage($(view.el), {changeHash:false}); 
-				} else {   
-					this.init = false; 
-				}
+				console.log(view.$el);
+				// $('#mainpagediv').append(view.$el);
+				
 			}
         });
 
