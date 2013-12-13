@@ -30,11 +30,11 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             },
 			
             home: function() {
-				// new View();
-				this.changePage(View, {});
+				new View();
+				// this.changePage(View, {});
             },
             aboutus: function() {
-                new Aboutus();
+                // new Aboutus();
 				this.changePage(Aboutus, {});
             },
             listview: function() {
@@ -67,12 +67,16 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
                 new Testarea();
             },
 			viewFadeIn: function() {
-					$("#page-content").fadeIn( 500, function() {
-						// $( "#page-content" ).html('bla');
-						// Animation complete
-					});
+				// alert('aaa');
+				$("#page-content").fadeIn( 500, function() {
+					// $( "#page-content" ).html('bla');
+					// Animation complete
+					$('.ui-content').scrollTop(0);
+					$.mobile.loading( 'hide' );
+				});
 			},
 			changePage: function(view, viewOptions) {
+				$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Loading the awesome...</div>' });
 				$("#page-content").hide();
 				this.myView = new view(viewOptions);
 				// this.myView.pastInitialize();
@@ -89,7 +93,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// console.log(this.myView.$el.selector);
 				// console.log(this.myView.$el);
 				// var _thisView = this;
-				this.myView.$el.on('create', this.viewFadeIn, this.$el);
+				this.myView.$el.off('create', this.viewFadeIn, this.$el).on('create', this.viewFadeIn, this.$el); // << hier noch ein .off hinzufügen, weil multiple ausführung!!! <<
 				// $('#mainpagediv').append(view.$el);
 				
 			}
@@ -97,7 +101,6 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 
 		// this.$el.trigger('create');
 		// $('#body').trigger('create');
-		$(window).scrollTop(0);
 		return MobileRouter;
 
     }

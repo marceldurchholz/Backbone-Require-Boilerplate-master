@@ -29,11 +29,11 @@ define(["jquery", "backbone", "text!templates/aboutus.html", "text!templates/sid
                 // Setting the view's template property using the Underscore template method
                 this.template = _.template(template, {});
                 // Dynamically updates the UI with the view's template
-                // this.$el.html(this.template);
-				$('#page-content').html(template);
+                this.$el.html(template);
+				// $('#page-content').html(template);
 
-				// this.$el.trigger('create');
-				$('#body').trigger('create');
+				this.$el.trigger('create');
+				// $('#body').trigger('create');
 
                 return this;
 

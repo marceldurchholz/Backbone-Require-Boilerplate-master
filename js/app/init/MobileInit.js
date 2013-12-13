@@ -30,14 +30,15 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		new FastClick(document.body);
 	}, false);
 
-	/*
 	$(window).bind('hashchange', function(){
 		// currentHash = window.location.hash;
 		// console.log(window.location.hash);
 		// alert('MobileInit.js '+window.location.hash);
-		populateDeviceInfoTimer();
+		// $('div[data-role="page"]')
+		// $('#scrollable').scrollTop(0);
+		// alert('a');
+		// populateDeviceInfoTimer();
 	});
-	*/
 
 	// $(document).on('login', function () {
 	/*
