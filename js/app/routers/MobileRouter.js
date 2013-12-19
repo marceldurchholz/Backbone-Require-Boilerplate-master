@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/loginView", "views/Testarea", "collections/Collection", "views/DashboardView", "views/NoAccess"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/loginView", "views/Testarea", "collections/Collection", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, LoginViewJS, Testarea, Collection, DashboardView, NoAccess) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, LoginViewJS, Testarea, Collection, DashboardView, NoAccess, Logout, MyProfile) {
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -24,10 +24,12 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"dashboard" : "dashboard",
 				"listview" : "listview",
 				"videos" : "videos",
+				"myprofile" : "myprofile",
 				"videos/details/:id" : "videodetails",
 				"videos/details/view/:id" : "videodetailsview",
 				"employeeListItemView" : "employeeListItemView",
 				"login" : "loginViewJS",
+				"logout" : "logout",
 				"testarea" : "testarea"
             },
 			
@@ -70,11 +72,19 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
                 new Testarea();
             },
             dashboard: function() {
-                new DashboardView();
-				// this.changePage(DashboardView, {});
+                // new DashboardView();
+				this.changePage(DashboardView, {});
+            },
+            myprofile: function() {
+                // new MyProfile();
+				this.changePage(MyProfile, {});
             },
             noaccess: function() {
                 new NoAccess();
+				// this.changePage(DashboardView, {});
+            },
+            logout: function() {
+                new Logout();
 				// this.changePage(DashboardView, {});
             },
 			viewFadeIn: function() {

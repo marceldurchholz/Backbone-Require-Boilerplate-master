@@ -8,7 +8,7 @@ define(["jquery", "backbone", "models/UserModel"],
 	var UsersCollection = Backbone.Collection.extend({
 		initialize: function(models, options) {
 			this.options = options || {};
-			console.log('aaa '+this.options.dbid);
+			// console.log('UsersCollection.js: '+this.options.dbid);
 			this.bind("error", this.errorHandler);			
 			_thisCollection = this;
 			var online = _thisCollection.online = 1;
@@ -17,11 +17,13 @@ define(["jquery", "backbone", "models/UserModel"],
 			this.localStorage = this._localStorage_users;
 			if (_thisCollection.online==1) {
 				this.url = 'http://dominik-lohmann.de:5000/users/?id='+this.options.dbid;
+				// console.log('UsersCollection.js: '+this.url);
 				this.localStorage = null;
 			}
 		},
 		model: UserModel,
 		fetch: function(options) {
+			// console.log('UsersCollection.js: options: '+options);
             options || (options = {});
             var data = (options.data || {});
             options.data = {date: this.date};
@@ -29,14 +31,21 @@ define(["jquery", "backbone", "models/UserModel"],
 			return responseObject;
 		},
 		sync: function(method, model, options) {
+			// console.log('UsersCollection.js: sync');
 			Backbone.sync.call(model, method, model, options);
 		},
 		parse: function(response) {
-			console.log(response);
+			if (!response.length) response = {"0":response};
+			// console.log('UsersCollection.js: '+response);
+			// console.log(response);
+			// console.log(_.size(response));
+			// console.log(response.id);
+			response.length = _.size(response);
 			_thisCollection.models = [];
 			this._localStorage_users.models = [];
 			for (n = 0; n < response.length; ++n) {
 				model = response[n];
+				// console.log('UsersCollection.js: '+model);
 				if (this.options.hasOwnProperty('id')) {
 					if (this.options.id == model.id) {
 						_thisCollection.add(model);

@@ -1,10 +1,10 @@
-// DashboardView.js
+// MyProfileView.js
 // -------
-define(["jquery", "backbone", "models/VideoModel", "text!templates/sidebar.html", "collections/usersCollection", "views/DashboardView", "text!templates/DashboardView.html", "views/DashboardNestedView"],
+define(["jquery", "backbone", "models/VideoModel", "text!templates/sidebar.html", "collections/usersCollection", "views/MyProfileView", "text!templates/MyProfileView.html", "views/MyProfileNestedView"],
 
-    function($, Backbone, VideoModel, sidebar, usersCollection, DashboardView, DashboardViewPage, DashboardNestedView){
+    function($, Backbone, VideoModel, sidebar, usersCollection, MyProfileView, DashboardViewPage, MyProfileNestedView){
 		
-			var DashboardView = Backbone.View.extend({
+			var MyProfileView = Backbone.View.extend({
 			
 				el: "#page-content",
 				attributes: {"data-role": 'content'},
@@ -107,7 +107,7 @@ define(["jquery", "backbone", "models/VideoModel", "text!templates/sidebar.html"
 					// console.log(this._usersCollection.models);
 					console.log('this._usersCollection.models');
 					console.log(this._usersCollection.models);
-					this.nestedView = new DashboardNestedView({collection: this._usersCollection.models}).render();
+					this.nestedView = new MyProfileNestedView({collection: this._usersCollection.models}).render();
 
 					this.$el.trigger('create');
 					return this;
@@ -115,7 +115,7 @@ define(["jquery", "backbone", "models/VideoModel", "text!templates/sidebar.html"
 
 			});
 
-        return DashboardView;
+        return MyProfileView;
 
     }
 

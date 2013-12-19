@@ -1,0 +1,21 @@
+<div class="clear"></div>
+<!-- <div id="listRow" class="listRow" data-id="<%= user.id %>"> -->
+<div data-id="<%= user.id %>">
+	<div style="float:left;border:1px solid #909090;width:20%;">
+		<img style="width:100%;" src="<%= user.pictureurl %>">
+	</div>
+	<div style="float:right;padding-left:5px;border:1px solid #909090;width:75%;">
+		<div style="float:left;clear:both;font-size:10px;width:100%;"><%= user.fullname %></div>
+		<div style="float:left;clear:both;font-size:10px;width:100%;"><%= user.slogan %></div>
+		<div style="float:left;clear:both;font-size:10px;width:100%;"><%= user.perstext %></div>
+	</div>
+</div>
+<!-- </div> -->
+
+<div class="clear"></div>
+<ul data-role="listview" data-inset="true" data-theme="d" data-dividertheme="d">
+	<li><a href="#connections"><img src="/images/icon-flat-connect.png" style="height:14px;" alt="Verbindungen" class="ui-li-icon">Verbindungen <!--<span class="ui-li-count">4</span>--></a></li>
+	<li><a href="#videos"><img src="/images/icon-multimedia-bw-16.png" style="height:14px;" alt="Mediathek" class="ui-li-icon">Videos <span class="ui-li-count">4</span></a></li>
+	<li><a href="#dates"><img src="/images/icon-calendar-bw-16.png" style="height:14px;" alt="Termine" class="ui-li-icon">Termine <span class="ui-li-count">12</span></a></li>
+</ul>
+<div class="clear"></div>
