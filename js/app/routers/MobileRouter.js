@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/loginView", "views/Testarea", "collections/Collection"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/loginView", "views/Testarea", "collections/Collection", "views/DashboardView", "views/NoAccess"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, LoginViewJS, Testarea, Collection) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, LoginViewJS, Testarea, Collection, DashboardView, NoAccess) {
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -20,6 +20,8 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
                 "": "home",
                 "home": "home",
 				"aboutus" : "aboutus",
+				"noaccess" : "noaccess",
+				"dashboard" : "dashboard",
 				"listview" : "listview",
 				"videos" : "videos",
 				"videos/details/:id" : "videodetails",
@@ -61,10 +63,19 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				this.changePage(Videosdetailsview, {id:id});
             },
             loginViewJS: function() {
-                new LoginViewJS();
+                // new LoginViewJS();
+				this.changePage(LoginViewJS, {});
             },
             testarea: function() {
                 new Testarea();
+            },
+            dashboard: function() {
+                new DashboardView();
+				// this.changePage(DashboardView, {});
+            },
+            noaccess: function() {
+                new NoAccess();
+				// this.changePage(DashboardView, {});
             },
 			viewFadeIn: function() {
 				// alert('aaa');
@@ -79,23 +90,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Loading the awesome...</div>' });
 				$("#page-content").hide();
 				this.myView = new view(viewOptions);
-				// this.myView.pastInitialize();
-				// console.log(this.myView);
-				// $('#page-content').remove();
-				// $('div[data-role="page"]').on('pagehide', function (event, ui) { 
-				// });
-				// alert('change page');
-				//add the attribute ‘data-role=”page” ‘ for each view’s div 
-				// alert($(view.el));
-				// var view = new Listview();
-				// view.$el.attr('data-role', 'content');   
-				//append to dom 
-				// console.log(this.myView.$el.selector);
-				// console.log(this.myView.$el);
-				// var _thisView = this;
 				this.myView.$el.off('create', this.viewFadeIn, this.$el).on('create', this.viewFadeIn, this.$el); // << hier noch ein .off hinzufügen, weil multiple ausführung!!! <<
-				// $('#mainpagediv').append(view.$el);
-				
 			}
         });
 

@@ -33,6 +33,8 @@ require.config({
 	  
 	  "bindmobile": "../jqm-config",
 
+	  "deployd": "../dpd",
+
       // Plugins
       // -------
       "backbone.validateAll": "../libs/plugins/Backbone.validateAll",
@@ -52,7 +54,7 @@ require.config({
       "jquerypulltorefresh": ["jquery"],
 
       // jQuery pull to refresh
-      "jquerymobile": ["bindmobile", "jquery"],
+      "jquerymobile": ["bindmobile", "jquery", "deployd"],
 	  
       // Twitter Bootstrap jQuery plugins
       "bootstrap": ["jquery"],

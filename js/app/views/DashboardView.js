@@ -1,10 +1,10 @@
-// Videos.js
+// DashboardView.js
 // -------
-define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "text!templates/loginPage.html", "views/VideoView", "text!templates/sidebar.html", "views/DashboardView"],
+define(["jquery", "backbone", "models/VideoModel", "collections/usersCollection", "text!templates/DashboardView.html", "views/VideoView", "text!templates/sidebar.html", "views/DashboardView"],
 
-    function($, Backbone, VideoModel, videosCollection, mainView, VideoView, sidebar, DashboardView){
+    function($, Backbone, VideoModel, usersCollection, mainView, VideoView, sidebar, DashboardView){
 		
-			var Videos = Backbone.View.extend({
+			var DashboardView = Backbone.View.extend({
 			
 				el: "#page-content",
 				attributes: {"data-role": 'content'},
@@ -23,21 +23,15 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					}
 					return(false);
 				},
-				sendLogin: function() {
+				sendLogout: function() {
 					_thisView = this;
-					var username = $('#username').val();
-					var password = $('#password').val();
-					dpd.users.login({username: username, password: password}, function(session, error) {
-						if (error) {
-							console.log(error.message);
-						} else {
-							// location.href = "/welcome.html";
-							// alert('login ok');
-							// _thisView.changePage(DashboardView);
-							document.location.hash = "dashboard";
+					dpd.users.logout(function(err) {
+						if (err) console.log(err);
+						else {
+							document.location.hash = "home";
 						}
 					});
-
+					return(false);
 					/*
 					dpd.users.login({"username": "blafoo@digitalverve.de", "password": "blafoo"}, function(user, err) {
 					  if(err) return console.log(err);
@@ -93,14 +87,13 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				},
 				bindEvents: function() {
 					var _thisView = this;
-					// this.$el.off('click','.createVideo').on('click','.createVideo',function(){_thisView.createVideo();});
-					this.$el.off('click','.sendLoginBtn').on('click','.sendLoginBtn',function(){_thisView.sendLogin();});
+					this.$el.off('click','.sendLogoutBtn').on('click','.sendLogoutBtn',function(){_thisView.sendLogout();});
 				},
-				/*
 				fetch: function() {
-					this._videosCollection = new videosCollection();
 					var _thisView = this;
-					this._videosCollection.fetch({
+					console.log('fetching user');
+					this._usersCollection = new usersCollection([], {dbid:_thisView.me.id});
+					this._usersCollection.fetch({
 						error: function(action, coll) {
 							console.log(action);
 							console.log(coll);
@@ -111,11 +104,20 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					});
 				},
 				initialize: function() {
-					this._videosCollection = new videosCollection();
-					this.fetch();
-				},
-				*/
-				initialize: function() {
+					_thisView = this;
+					var me = me || {};
+					// this.me = me;
+					dpd.users.me(function(user) {
+						if (user) {
+							_thisView.me = user;
+							// later in addition check roles
+							_thisView._usersCollection = new usersCollection([], {dbid:_thisView.me.id});
+							_thisView.fetch();
+						}
+						else {
+							location.href = "#noaccess";
+						}
+					});
 					this.render();
 				},
 				render: function() {
@@ -127,9 +129,17 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					
 					this._template = _.template(mainView, {});
 					this.$el.html(this._template);
-					// console.log('this._videosCollection.models');
-					// console.log(this._videosCollection.models);
-					// this.nestedView = new VideoView({collection: this._videosCollection.models}).render();
+					dpd.users.me(function(user) {
+						if (user) {
+							// console.log(user);
+							// alert(user.pictureurl);
+							$('#myImage').attr('src',user.pictureurl);
+							// location.href = "/welcome.html";
+						}
+					});
+					// console.log('this._usersCollection.models');
+					// console.log(this._usersCollection.models);
+					// this.nestedView = new VideoView({collection: this._usersCollection.models}).render();
 
 					this.$el.trigger('create');
 					return this;
@@ -137,7 +147,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 
 			});
 
-        return Videos;
+        return DashboardView;
 
     }
 
