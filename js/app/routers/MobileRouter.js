@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/loginView", "views/Testarea", "collections/Collection", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/loginView", "views/Testarea", "collections/Collection", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView", "views/SidebarListView"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, LoginViewJS, Testarea, Collection, DashboardView, NoAccess, Logout, MyProfile) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, LoginViewJS, Testarea, Collection, DashboardView, NoAccess, Logout, MyProfile, SidebarListView) {
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -25,6 +25,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"listview" : "listview",
 				"videos" : "videos",
 				"myprofile" : "myprofile",
+				"sidebarlist" : "sidebarlist",
 				"videos/details/:id" : "videodetails",
 				"videos/details/view/:id" : "videodetailsview",
 				"employeeListItemView" : "employeeListItemView",
@@ -55,6 +56,10 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// this.changePage();
 				this.changePage(Listview, {});
 				// var bla = new Listview();
+            },
+            sidebarlist: function() {
+                new SidebarListView();
+				// this.changePage(Videos, {});
             },
             videos: function() {
                 // new Videos();
