@@ -1,6 +1,6 @@
 var dd = $.Deferred();
 var jqd = $.Deferred();
-
+/*
 $(document).bind("mobileinit", function(){
 	$.support.cors = true;
 	$.mobile.allowCrossDomainPages = true;
@@ -14,6 +14,7 @@ $(document).bind("mobileinit", function(){
 	$.mobile.ignoreContentEnabled=true;
 	jqd.resolve();
 });
+*/
 
 /*!
 * jQuery Mobile 1.3.2

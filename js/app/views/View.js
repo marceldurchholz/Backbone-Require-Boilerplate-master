@@ -1,8 +1,8 @@
 // View.js
 // -------
-define(["jquery", "backbone", "models/Profile", "models/System", "text!templates/view.html", "text!templates/sidebar.html"],
+define(["jquery", "backbone", "collections/videosCollection", "models/Profile", "models/System", "text!templates/view.html", "text!templates/sidebar.html"],
 
-    function($, Backbone, Profile, System, template, sidebar){
+    function($, Backbone, videosCollection, Profile, System, template, sidebar){
 		
 		var View = Backbone.View.extend({
 
@@ -10,6 +10,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 			attributes: {"data-role": 'content'},
 
             initialize: function() {
+				this._videosCollection = new videosCollection();
 			
 				/*
 				LocalStorageAdapter.findById(2).done(function (response) {
@@ -46,13 +47,17 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 				*/
 				// _.bindAll(this, 'render');
 				// this.modelData.on('change',this.render, this);
+				this.fetch();
 				
-                this.render();
+                // this.render();
             },			
             events: {
 				'click .login': 'login',
 				'click .logout': 'logout'
             },
+			fetch: function() {
+				this._videosCollection = new videosCollection(); var _thisView = this; this._videosCollection.fetch({ error: function(action, coll) { console.log(action); console.log(coll); }, success: function(coll, jsoncoll) { _thisView.render(); } });
+			},
 			login: function () {
 				// $(document).trigger('login');
 				// return false;
@@ -84,8 +89,9 @@ define(["jquery", "backbone", "models/Profile", "models/System", "text!templates
 					}, {variable: 'modelData'}
 				);
 				this.$el.html(this._template);
-				
+				// alert('create');
 				this.$el.trigger('create');
+				// console.log(this);
                 return this;
             }
 

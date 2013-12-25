@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/loginView", "views/Testarea", "collections/Collection", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView", "views/SidebarListView"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/loginView", "collections/Collection", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView", "views/SidebarListView"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, LoginViewJS, Testarea, Collection, DashboardView, NoAccess, Logout, MyProfile, SidebarListView) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, LoginViewJS, Collection, DashboardView, NoAccess, Logout, MyProfile, SidebarListView) {
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -30,17 +30,19 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"videos/details/view/:id" : "videodetailsview",
 				"employeeListItemView" : "employeeListItemView",
 				"login" : "loginViewJS",
-				"logout" : "logout",
-				"testarea" : "testarea"
+				"logout" : "logout"
             },
 			
             home: function() {
-				new View();
-				// this.changePage(View, {});
+				// new View();
+				this.changePage(View, {});
             },
             aboutus: function() {
                 // new Aboutus();
 				this.changePage(Aboutus, {});
+                // this.myView = new Aboutus();
+				// $.mobile.changePage($(Aboutus.el), { changeHash: false, transition: 'slide' });
+				// return(false);
             },
             listview: function() {
 				// $('#page-content').html('aaa');
@@ -73,9 +75,6 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
                 // new LoginViewJS();
 				this.changePage(LoginViewJS, {});
             },
-            testarea: function() {
-                new Testarea();
-            },
             dashboard: function() {
                 // new DashboardView();
 				this.changePage(DashboardView, {});
@@ -93,19 +92,17 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// this.changePage(DashboardView, {});
             },
 			viewFadeIn: function() {
-				// alert('aaa');
-				$("#page-content").fadeIn( 500, function() {
-					// $( "#page-content" ).html('bla');
-					// Animation complete
-					$('.ui-content').scrollTop(0);
-					$.mobile.loading( 'hide' );
-				});
+				// alert('viewFadeIn');
 			},
 			changePage: function(view, viewOptions) {
-				$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Loading the awesome...</div>' });
-				$("#page-content").hide();
+				// $.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Loading the awesome...</div>' });
+				// $.mobile.loadingMessage = 'Loading...Please wait';
+				// $.mobile.showPageLoadingMsg();
+				// $("#page-content").hide();
 				this.myView = new view(viewOptions);
-				this.myView.$el.off('create', this.viewFadeIn, this.$el).on('create', this.viewFadeIn, this.$el); // << hier noch ein .off hinzufügen, weil multiple ausführung!!! <<
+				this.myView.$el.off('create', this.viewFadeIn, this.$el)
+				this.myView.$el.on('create', this.viewFadeIn, this.$el); // << hier noch ein .off hinzufügen, weil multiple ausführung!!! <<
+				// this.myView.$el.on('initialized', this.viewFadeIn, this.$el); // << hier noch ein .off hinzufügen, weil multiple ausführung!!! <<
 			}
         });
 

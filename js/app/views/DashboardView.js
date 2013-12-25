@@ -33,12 +33,11 @@ define(["jquery", "backbone", "collections/sidebarCollection", "text!templates/s
 					_thisView._sidebarCollection = new sidebarCollection([], {});
 					console.log('_thisView._sidebarCollection.models');
 					console.log(_thisView._sidebarCollection.models);
+					// var me = me || {}; dpd.users.me(function(user) { if (user) { _thisView.me = user; _thisView._usersCollection = new usersCollection([], {dbid:_thisView.me.id}); _thisView.fetch(); } else { location.href = "#noaccess"; } });
 					var me = me || {};
-					// this.me = me;
 					dpd.users.me(function(user) {
 						if (user) {
 							_thisView.me = user;
-							// later in addition check roles
 							_thisView._usersCollection = new usersCollection([], {dbid:_thisView.me.id});
 							_thisView.fetch();
 						}

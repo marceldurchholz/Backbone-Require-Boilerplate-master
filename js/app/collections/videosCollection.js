@@ -14,7 +14,8 @@ define(["jquery", "backbone", "models/VideoModel"],
 			
 			// console.log('this');
 			// console.log(this);
-			this.bind("error", this.errorHandler);			
+			this.bind("error", this.errorHandler);
+			this.bind("success", this.successHandler);
 			_thisCollection = this;
 			var online = _thisCollection.online = 1;
 			this._localStorage_videos = new Store('videos');
@@ -74,9 +75,15 @@ define(["jquery", "backbone", "models/VideoModel"],
 				}
 			}
 		},
+		successHandler: function(xhr) {
+			console.log(xhr);
+			alert('success');
+		},
+		/*
 		txErrorHandler: function(tx) {
 			alert('error tx.message');
 		}
+		*/
 	});
 
     // Returns the Model class
