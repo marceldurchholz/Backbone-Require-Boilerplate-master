@@ -56,7 +56,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				'click .logout': 'logout'
             },
 			fetch: function() {
-				this._videosCollection = new videosCollection(); var _thisView = this; this._videosCollection.fetch({ error: function(action, coll) { alert('ERROR: fetch _videosCollection'); console.log(action); console.log(coll); }, success: function(coll, jsoncoll) { _thisView.render(); } });
+				this._videosCollection = new videosCollection(); var _thisView = this; this._videosCollection.fetch({ error: function(action, coll) { alert('ERROR: fetch _videosCollection'); _thisView.render(); console.log(action); console.log(coll); }, success: function(coll, jsoncoll) { _thisView.render(); } });
 			},
 			login: function () {
 				// $(document).trigger('login');
