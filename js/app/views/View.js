@@ -1,9 +1,13 @@
 // View.js
 // -------
+define(["jquery", "backbone", "collections/videosCollection", "models/Profile", "models/System", "text!templates/view.html", "text!templates/sidebar.html"],
+
+    function($, Backbone, videosCollection, Profile, System, viewPage, sidebar){
+/*
 define(["jquery", "backbone", "collections/videosCollection", "text!templates/view.html", "text!templates/sidebar.html"],
 
     function($, Backbone, videosCollection, viewPage, sidebar){
-		
+*/		
 		var View = Backbone.View.extend({
 
             el: "#page-content",
@@ -25,7 +29,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				}
 				*/
 				
-				// this.modelData = new Backbone.Model({systemData: new System(), profileData: new Profile()});
+				this.modelData = new Backbone.Model({systemData: new System(), profileData: new Profile()});
 				// alert('initialize');
 				// this.modelData.set({systemData: new System(), profileData: new Profile()});
 				// alert(this.modelData);
@@ -75,10 +79,11 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				this.sidebar = _.template(sidebar, {});
 				$('#sidebar').html(sidebar);
 				
+				/*
 				this._viewPage = _.template(viewPage, {});
 				this.$el.html(this._viewPage);
+				*/
 				
-				/*
 				this._viewPage = _.template(viewPage, {
 					id: this.modelData.get('profileData').get('id'), 
 					src: this.modelData.get('profileData').get('src'), 
@@ -93,7 +98,6 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					}, {variable: 'modelData'}
 				);
 				this.$el.html(this._viewPage);
-				*/
 				// alert('create');
 				this.$el.trigger('create');
 				// console.log(this);

@@ -44,6 +44,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					this.$el.off('click','.createVideo').on('click','.createVideo',function(){_thisView.createVideo();});
 				},
 				fetch: function() {
+					this._videosCollection = new videosCollection(); var _thisView = this; this._videosCollection.fetch({ error: function(action, coll) { alert('ERROR: fetch _videosCollection'); _thisView.render(); console.log(action); console.log(coll); }, success: function(coll, jsoncoll) { _thisView.render(); } });
+					/*
 					this._videosCollection = new videosCollection();
 					var _thisView = this;
 					this._videosCollection.fetch({
@@ -55,6 +57,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 							_thisView.render();
 						}
 					});
+					*/
 				},
 				initialize: function() {
 					this._videosCollection = new videosCollection();
