@@ -93,14 +93,24 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             },
 			viewFadeIn: function() {
 				// alert('viewFadeIn');
+				$.mobile.loading( 'hide' );
+				$("#page-content").show();
+				$('.ui-content').scrollTop(0);
+				/*
+				$("#page-content").fadeIn( 1000, function() {
+					// $( "#page-content" ).html('bla');
+					// Animation complete
+					$('.ui-content').scrollTop(0);
+				});
+				*/
 			},
 			changePage: function(view, viewOptions) {
-				// $.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Loading the awesome...</div>' });
+				$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Loading the awesome...</div>' });
 				// $.mobile.loadingMessage = 'Loading...Please wait';
 				// $.mobile.showPageLoadingMsg();
 				// $("#page-content").hide();
 				this.myView = new view(viewOptions);
-				this.myView.$el.off('create', this.viewFadeIn, this.$el)
+				this.myView.$el.off('create', this.viewFadeIn, this.$el);
 				this.myView.$el.on('create', this.viewFadeIn, this.$el); // << hier noch ein .off hinzufügen, weil multiple ausführung!!! <<
 				// this.myView.$el.on('initialized', this.viewFadeIn, this.$el); // << hier noch ein .off hinzufügen, weil multiple ausführung!!! <<
 			}

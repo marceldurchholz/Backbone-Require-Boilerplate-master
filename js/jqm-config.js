@@ -18,21 +18,10 @@ define(['jquery'], function($){
 			// alert($('#page-content').html());
 			// console.log(event);
 			// $(event.target).html('');
-				$("#page-content").fadeIn( 500, function() {
-					// $( "#page-content" ).html('bla');
-					// Animation complete
-					$('.ui-content').scrollTop(0);
-					// $.mobile.loading( 'hide' );
-				});
-			$.mobile.loading( 'hide' );
-			// alert('pageshow');
+			// $.mobile.loading( 'hide' );
+			// alert('pagehide');
 			// $(ele).remove(); 
 			// $('#page-content').remove();
-		});
-		$('div[data-role="page"]').on('pagehide', function (event, ui) { 
-			$("#page-content").hide();
-			$.mobile.loading( 'show' );
-			// alert('pagehide');
 		});
 		jqd.resolve();
 	}); 

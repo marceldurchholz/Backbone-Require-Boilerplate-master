@@ -1,8 +1,8 @@
 // View.js
 // -------
-define(["jquery", "backbone", "collections/videosCollection", "models/Profile", "models/System", "text!templates/view.html", "text!templates/sidebar.html"],
+define(["jquery", "backbone", "collections/videosCollection", "text!templates/view.html", "text!templates/sidebar.html"],
 
-    function($, Backbone, videosCollection, Profile, System, template, sidebar){
+    function($, Backbone, videosCollection, viewPage, sidebar){
 		
 		var View = Backbone.View.extend({
 
@@ -10,7 +10,7 @@ define(["jquery", "backbone", "collections/videosCollection", "models/Profile", 
 			attributes: {"data-role": 'content'},
 
             initialize: function() {
-				this._videosCollection = new videosCollection();
+				// this._videosCollection = new videosCollection();
 			
 				/*
 				LocalStorageAdapter.findById(2).done(function (response) {
@@ -25,7 +25,7 @@ define(["jquery", "backbone", "collections/videosCollection", "models/Profile", 
 				}
 				*/
 				
-				this.modelData = new Backbone.Model({systemData: new System(), profileData: new Profile()});
+				// this.modelData = new Backbone.Model({systemData: new System(), profileData: new Profile()});
 				// alert('initialize');
 				// this.modelData.set({systemData: new System(), profileData: new Profile()});
 				// alert(this.modelData);
@@ -56,7 +56,7 @@ define(["jquery", "backbone", "collections/videosCollection", "models/Profile", 
 				'click .logout': 'logout'
             },
 			fetch: function() {
-				this._videosCollection = new videosCollection(); var _thisView = this; this._videosCollection.fetch({ error: function(action, coll) { console.log(action); console.log(coll); }, success: function(coll, jsoncoll) { _thisView.render(); } });
+				this._videosCollection = new videosCollection(); var _thisView = this; this._videosCollection.fetch({ error: function(action, coll) { alert('ERROR: fetch _videosCollection'); console.log(action); console.log(coll); }, success: function(coll, jsoncoll) { _thisView.render(); } });
 			},
 			login: function () {
 				// $(document).trigger('login');
@@ -75,7 +75,11 @@ define(["jquery", "backbone", "collections/videosCollection", "models/Profile", 
 				this.sidebar = _.template(sidebar, {});
 				$('#sidebar').html(sidebar);
 				
-				this._template = _.template(template, {
+				this._viewPage = _.template(viewPage, {});
+				this.$el.html(this._viewPage);
+				
+				/*
+				this._viewPage = _.template(viewPage, {
 					id: this.modelData.get('profileData').get('id'), 
 					src: this.modelData.get('profileData').get('src'), 
 					first_name: this.modelData.get('profileData').get('first_name'), 
@@ -88,7 +92,8 @@ define(["jquery", "backbone", "collections/videosCollection", "models/Profile", 
 					device_internet: this.modelData.get('systemData').get('device_internet')
 					}, {variable: 'modelData'}
 				);
-				this.$el.html(this._template);
+				this.$el.html(this._viewPage);
+				*/
 				// alert('create');
 				this.$el.trigger('create');
 				// console.log(this);
