@@ -32,7 +32,7 @@ define(["jquery", "backbone", "models/VideoModel"],
 					}
 					else {
 						// location.href = "#noaccess";
-						console.log('you are not logged in');
+						// console.log('you are not logged in');
 					}
 				});
 			}

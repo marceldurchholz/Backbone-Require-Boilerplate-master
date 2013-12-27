@@ -540,12 +540,14 @@ function printObject(o) {
 /* ----------------------------------------------------------- /
  populateDeviceInfo (incl. Timer)
 / ----------------------------------------------------------- */
+/*
 function populateDeviceInfoTimer() {
 	setTimeout(function() {
 		populateDeviceInfo();
 		// window.scrollTo(0, 1); 
-	},3000);
+	},5000);
 }
+*/
 
 function populateDeviceInfo(){
 	report('functions.js','populateDeviceInfo() START');
@@ -1990,15 +1992,15 @@ $('#footervideolink').on("vclick", function (e) {
 	// report('footer clicked');
 	if (footervideoStatus != true) {
 		$("#footer").animate({
-			height: "60%",
-		}, 300, function () {
+			height: "40%",
+		}, 500, function () {
 			footervideoStatus = true;
 		});
 	}
 	else {
 		$("#footer").animate({
 			height: "20px",
-		}, 300, function () {
+		}, 500, function () {
 			footervideoStatus = false;
 		});
 	}
@@ -2009,14 +2011,16 @@ $('#showMenu').on("vclick", function (e) {
 	if (menuStatus != true) {
 		$("#flexiblecontent").animate({
 			marginLeft: "190px",
-		}, 300, function () {
+		}, 500, function () {
 			menuStatus = true;
+			menuSwitched(true);
 		});
 	} else {
 		$("#flexiblecontent").animate({
 			marginLeft: "0px",
-		}, 300, function () {
+		}, 500, function () {
 			menuStatus = false;
+			menuSwitched(false);
 		});
 	}
 	return false;
@@ -2024,14 +2028,37 @@ $('#showMenu').on("vclick", function (e) {
 $('#sidebar').on("vclick", "#menuelement a.contentLink", function (e) {
 	$("#flexiblecontent").animate({
 		marginLeft: "0px",
-	}, 300, function () {
+	}, 500, function () {
 		menuStatus = false;
+		menuSwitched(false);
 		// alert('getURLParameter(window.location.href): ' + getURLParameter(window.location.href));
 		// $.mobile.changePage( "#aboutus", { transition: "slideup", changeHash: true });
 		// $.mobile.changePage( "#aboutus" , { reverse: false, changeHash: false } );
 	});
-	// return false;
 });
+
+var system = {
+	// this.routerSwitched(false);
+	toggleLoading: function(status) {
+		console.log(status);
+		if (status==true) $.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Loading the awesome...</div>' });
+		else {
+			$.mobile.loading( 'hide' );
+		}
+	}
+}
+
+var menuSwitched = function(status) {
+	var menuSwitchedDeferred = $.Deferred();
+	var menuSwitchedDeferredWatcher = menuSwitchedDeferred.then(function( value ) {
+		return status;
+	});
+	menuSwitchedDeferred.resolve();
+	menuSwitchedDeferredWatcher.done(function( value ) {
+		// alert(value);
+		console.log(value);
+	});
+};
 
 function redirectToHome() {
 	var url = "#home";

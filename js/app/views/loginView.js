@@ -1,8 +1,8 @@
 // loginView.js
 // -------
-define(["jquery", "backbone", "collections/videosCollection", "text!templates/loginPage.html", "text!templates/sidebar.html"],
+define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/SidemenuView","text!templates/videosList.html", "views/VideoView","text!templates/loginPage.html"],
 
-    function($, Backbone, videosCollection, loginPage, sidebar){
+    function($, Backbone, sidemenusList, SidemenuView, videosList, VideoView, loginPage){
 		
 			var loginView = Backbone.View.extend({
 			
@@ -29,11 +29,13 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/lo
 						}
 					});
 				},
+				sync: function() {
+				},
 				fetch: function() {
-					this._videosCollection = new videosCollection(); var _thisView = this; this._videosCollection.fetch({ error: function(action, coll) { console.log(action); console.log(coll); }, success: function(coll, jsoncoll) { _thisView.render(); } });
+					this.render();
 				},
 				initialize: function() {
-					this._videosCollection = new videosCollection();
+					// this._videosCollection = new videosCollection();
 					// var me = me || {}; dpd.users.me(function(user) { if (user) { _thisView.me = user; _thisView._usersCollection = new usersCollection([], {dbid:_thisView.me.id}); _thisView.fetch(); } else { location.href = "#noaccess"; } });
 					this.fetch();
 				},
@@ -41,16 +43,26 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/lo
 					this.bindEvents();
 					console.log('DOING render Videos.js called');
 					
-					this.sidebar = _.template(sidebar, {});
-					$('#sidebar').html(sidebar);
+					_thisViewLogin = this;
+					var ani = setTimeout ( function() {
+						$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
+						_thisViewLogin.nestedView = new SidemenuView().fetch();
+						
+						// _thisViewLogin._template = _.template(loginPage, {});
+						// _thisViewLogin.$el.html(this._template).fetch();
+						_thisViewLogin.$el.html(_.template(loginPage, {}));
+						// _thisViewLogin.nestedView = new loginNestedView().fetch();
+						
+						_thisViewLogin.$el.trigger('create');
+					}, 500 );
+					// this.sidebar = _.template(sidebar, {});
+					// $('#sidebar').html(sidebar);
 					
-					this._template = _.template(loginPage, {});
-					this.$el.html(this._template);
 					// console.log('this._videosCollection.models');
 					// console.log(this._videosCollection.models);
 					// this.nestedView = new VideoView({collection: this._videosCollection.models}).render();
 
-					this.$el.trigger('create');
+					// this.$el.trigger('create');
 					return this;
 				}
 

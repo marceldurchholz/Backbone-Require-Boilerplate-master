@@ -1,8 +1,8 @@
 // View.js
 // -------
-define(["jquery", "backbone", "collections/videosCollection", "models/Profile", "models/System", "text!templates/view.html", "text!templates/sidebar.html"],
+define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/SidemenuView", "collections/videosCollection", "models/Profile", "models/System", "text!templates/view.html", "text!templates/sidebar.html"],
 
-    function($, Backbone, videosCollection, Profile, System, viewPage, sidebar){
+    function($, Backbone, sidemenusList, SidemenuView, videosCollection, Profile, System, viewPage, sidebar){
 /*
 define(["jquery", "backbone", "collections/videosCollection", "text!templates/view.html", "text!templates/sidebar.html"],
 
@@ -76,8 +76,16 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 			},
             render: function() {
 				// alert('rendering view.js');
-				this.sidebar = _.template(sidebar, {});
-				$('#sidebar').html(sidebar);
+				
+				_thisViewHome = this;
+				var ani = setTimeout ( function() {
+					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
+					_thisViewHome.nestedView = new SidemenuView().fetch();					
+				}, 500 );
+
+					
+				// this.sidebar = _.template(sidebar, {});
+				// $('#sidebar').html(sidebar);
 				
 				/*
 				this._viewPage = _.template(viewPage, {});

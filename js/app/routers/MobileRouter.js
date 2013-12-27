@@ -6,12 +6,23 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 
 		var MobileRouter = Backbone.Router.extend({
 
+			routerSwitched: function(status) {
+				var routerSwitchedDeferred = $.Deferred();
+				var routerSwitchedDeferredWatcher = routerSwitchedDeferred.then(function( value ) {
+					return status;
+				});
+				routerSwitchedDeferred.resolve();
+				routerSwitchedDeferredWatcher.done(function( value ) {
+					alert(value);
+					// console.log(value);
+				});
+			},
             initialize: function() {
-
+                Backbone.history.start();
                 // Tells Backbone to start watching for hashchange events
 				// report('MobileRouter.js','initialize:');
-                Backbone.history.start();
 				// alert('aaa');
+				// this.routerSwitched(false);
             },
 
             // All of your Backbone Routes (add more)
@@ -67,8 +78,8 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// this.changePage(Videos, {});
             },
             videos: function() {
-                new Videos();
-				// this.changePage(Videos, {});
+                // new Videos();
+				this.changePage(Videos, {});
             },
             sidemenus: function() {
 				this.changePage(Sidemenus, {});
@@ -82,42 +93,53 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				this.changePage(LoginViewJS, {});
             },
             dashboard: function() {
-                new DashboardView();
-				// this.changePage(DashboardView, {});
+                // new DashboardView();
+				this.changePage(DashboardView, {});
             },
             myprofile: function() {
                 // new MyProfile();
 				this.changePage(MyProfile, {});
             },
             noaccess: function() {
-                new NoAccess();
-				// this.changePage(DashboardView, {});
+                // new NoAccess();
+				this.changePage(DashboardView, {});
             },
             logout: function() {
-                new Logout();
-				// this.changePage(DashboardView, {});
+                // new Logout();
+				this.changePage(Logout, {});
             },
 			viewFadeIn: function() {
 				// alert('viewFadeIn');
-				$.mobile.loading( 'hide' );
-				$("#page-content").show();
-				$('.ui-content').scrollTop(0);
-				/*
+				// $.mobile.loading( 'hide' );
+				// $("#page-content").show();
+				// $('.ui-content').scrollTop(0);
 				$("#page-content").fadeIn( 1000, function() {
 					// $( "#page-content" ).html('bla');
 					// Animation complete
 					$('.ui-content').scrollTop(0);
+					console.log("$.mobile.loading( 'hide' )");
+					// $.mobile.loading( 'hide' );
+					system.toggleLoading(false);
 				});
-				*/
+			},
+			testFunction: function() {
+				// alert('test');
+				// $("#page-content").show();
+				$("#page-content").fadeIn( 3000, function() {
+					$('.ui-content').scrollTop(0);
+				});
 			},
 			changePage: function(view, viewOptions) {
-				$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Loading the awesome...</div>' });
+				// system.toggleLoading(true);
 				// $.mobile.loadingMessage = 'Loading...Please wait';
 				// $.mobile.showPageLoadingMsg();
-				// $("#page-content").hide();
+				$("#page-content").hide();
+				
 				this.myView = new view(viewOptions);
-				this.myView.$el.off('create', this.viewFadeIn, this.$el);
-				this.myView.$el.on('create', this.viewFadeIn, this.$el); // << hier noch ein .off hinzufügen, weil multiple ausführung!!! <<
+				this.myView.$el.on('create', this.testFunction);
+				// this.myView.$el.off('create', this.viewFadeIn, this.$el);
+				// this.myView.$el.on('create', this.viewFadeIn, this.$el); // << hier noch ein .off hinzufügen, weil multiple ausführung!!! <<
+				
 				// this.myView.$el.on('initialized', this.viewFadeIn, this.$el); // << hier noch ein .off hinzufügen, weil multiple ausführung!!! <<
 			}
         });

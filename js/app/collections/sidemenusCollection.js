@@ -25,7 +25,7 @@ define(["jquery", "backbone", "models/SidemenuModel"],
 				// this.localStorage = null;
 			}
 			*/
-			this.url = 'http://dominik-lohmann.de:5000/sidemenu/?{"nav":"true","$sort":"seq"}';
+			this.url = 'http://dominik-lohmann.de:5000/sidemenu/?{"navoffline":"true","$sort":"seq"}';
 		},
 		model: SidemenuModel,
 		fetch: function(options) {
@@ -38,7 +38,7 @@ define(["jquery", "backbone", "models/SidemenuModel"],
 					}
 					else {
 						// location.href = "#noaccess";
-						console.log('you are not logged in');
+						// console.log('you are not logged in');
 					}
 				});
 			}
@@ -65,6 +65,7 @@ define(["jquery", "backbone", "models/SidemenuModel"],
 						if (access<=0) {
 						}
 						if (access>0) {
+							console.log(model.userfriendly + ' is a internal page');
 							return false;
 						}
 					}
