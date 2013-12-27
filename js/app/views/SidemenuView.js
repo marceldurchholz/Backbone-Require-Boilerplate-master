@@ -1,13 +1,13 @@
-// VideoView.js
+// SidemenuView.js
 // -------
-define(["jquery", "backbone", "text!templates/videoView.html"],
+define(["jquery", "backbone", "text!templates/sidemenuView.html"],
 
-    function($, Backbone, videoView){
+    function($, Backbone, sidemenuView){
 		
-		var VideoView = Backbone.View.extend({
-			el: "#videosList",
+		var SidemenuView = Backbone.View.extend({
+			el: "#menuelement",
 			initialize: function() {
-				console.log('initializing VideoView.js');
+				// console.log('initializing SidemenuView.js');
 				// location.href( '#blafoopeng' );
 			},
 			showDetails: function(e) {
@@ -16,9 +16,7 @@ define(["jquery", "backbone", "text!templates/videoView.html"],
 				// var item = this.collection;
 				// console.log(item);
 				console.log('showDetails: '+id);
-				// window.location.hash = '#videos/details/'+id;
-				// Router.navigate( $(this).attr('href') );
-				window.location.hash = '#videos/details/view/'+id;
+				window.location.hash = '#sidemenus/details/view/'+id;
 				// alert('bla');
 			},
 			bindEvents: function() {
@@ -39,15 +37,11 @@ define(["jquery", "backbone", "text!templates/videoView.html"],
 				alert(id);
 			},
 			insertData: function(model) {
-				htmlContent = _.template(videoView, {
+				htmlContent = _.template(sidemenuView, {
 					id: model.get('id'),
-					uploader: model.get('uploader'),
-					videourl: model.get('videourl'),
-					title: model.get('title'),
-					description: model.get('description'),
-					price: model.get('price'),
-					thumbnailurl: model.get('thumbnailurl')
-				},{variable: 'video'});
+					urloffline: model.get('urloffline'),
+					userfriendly: model.get('userfriendly')
+				},{variable: 'sidemenu'});
 				// $(this.el).append('<a class="detailById" href="#" data-id="'+model.get('id')+'">');
 				$(this.el).append(htmlContent);
 				// $('.special').attr('id', 'your-id-value');
@@ -56,7 +50,7 @@ define(["jquery", "backbone", "text!templates/videoView.html"],
 			},
 			render: function() {
 				var _thisView = this;
-				console.log('rendering in VideoView.js');
+				// console.log('rendering in SidemenuView.js');
 				var htmlContent = '';
 				_.each(this.collection, function(model) {
 					this.id = model.get('id');
@@ -67,7 +61,7 @@ define(["jquery", "backbone", "text!templates/videoView.html"],
 			}
 		});
 
-        return VideoView;
+        return SidemenuView;
 
     }
 

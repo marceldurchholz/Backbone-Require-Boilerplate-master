@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/loginView", "collections/Collection", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView", "views/SidebarListView"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/loginView", "collections/Collection", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView", "views/SidebarListView", "views/Sidemenus"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, LoginViewJS, Collection, DashboardView, NoAccess, Logout, MyProfile, SidebarListView) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, LoginViewJS, Collection, DashboardView, NoAccess, Logout, MyProfile, SidebarListView, Sidemenus) {
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -17,13 +17,14 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             // All of your Backbone Routes (add more)
             routes: {
                 // When there is no hash bang on the url, the home method is called
-                "": "home",
-                "home": "home",
+                "": "startpage",
+				"home": "home",
 				"aboutus" : "aboutus",
 				"noaccess" : "noaccess",
 				"dashboard" : "dashboard",
 				"listview" : "listview",
 				"videos" : "videos",
+				"sidemenus" : "sidemenus",
 				"myprofile" : "myprofile",
 				"sidebarlist" : "sidebarlist",
 				"videos/details/:id" : "videodetails",
@@ -32,8 +33,10 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"login" : "loginViewJS",
 				"logout" : "logout"
             },
-			
-            home: function() {
+			startpage: function() {
+				redirectToHome();
+			},
+			home: function() {
 				// new View();
 				this.changePage(View, {});
             },
@@ -66,6 +69,9 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             videos: function() {
                 // new Videos();
 				this.changePage(Videos, {});
+            },
+            sidemenus: function() {
+				this.changePage(Sidemenus, {});
             },
             videodetailsview: function(id) {
 				// new Videosdetailsview({id:id});

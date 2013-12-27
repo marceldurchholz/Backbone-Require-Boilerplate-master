@@ -1,8 +1,8 @@
 // SidebarListView.js
 // -------
-define(["jquery", "backbone", "models/SidebarModel", "text!templates/sidebar.html", "collections/sidebarCollection", "views/SidebarListView", "text!templates/SidebarListViewPage.html", "views/SidebarView"],
+define(["jquery", "backbone", "models/SidebarModel", "text!templates/sidebar.html", "collections/sidebarCollection", "text!templates/SidebarListViewPage.html", "views/SidebarView"],
 
-    function($, Backbone, SidebarModel, sidebar, sidebarCollection, SidebarListView, SidebarListViewPage, SidebarView){
+    function($, Backbone, SidebarModel, sidebarPage, sidebarCollection, SidebarListViewPage, SidebarView){
 		
 			var SidebarListView = Backbone.View.extend({
 			
@@ -16,7 +16,7 @@ define(["jquery", "backbone", "models/SidebarModel", "text!templates/sidebar.htm
 				},
 				fetch: function() {
 					var _thisView = this;
-					console.log('fetching user');
+					// console.log('fetching user');
 					this._sidebarCollection = new sidebarCollection([], {dbid:_thisView.me.id});
 					this._sidebarCollection.fetch({
 						error: function(action, coll) {
@@ -39,11 +39,13 @@ define(["jquery", "backbone", "models/SidebarModel", "text!templates/sidebar.htm
 							console.log(_thisView.me);
 							// later in addition check roles
 							_thisView._sidebarCollection = new sidebarCollection([], {dbid:_thisView.me.id});
-							_thisView.fetch();
 							console.log('_thisView._sidebarCollection.models');
 							console.log(_thisView._sidebarCollection.models);
 							// _thisView.nestedView = new SidebarView({collection: _thisView._sidebarCollection.models}).render();
-							_thisView.sidebar = new SidebarView({collection: _thisView._sidebarCollection.models}).render();
+							// _thisView.sidebar = new SidebarView({collection: _thisView._sidebarCollection.models}).render();
+							_thisView.nestedView = new SidebarView({collection: _thisView._sidebarCollection.models}).render();
+
+							_thisView.fetch();
 						}
 						else {
 							// location.href = "#noaccess";
