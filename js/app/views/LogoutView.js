@@ -1,8 +1,8 @@
 // NoAccess.js
 // -------
-define(["jquery", "backbone", "text!templates/LogoutView.html", "text!templates/sidebar.html"],
+define(["jquery", "backbone", "text!templates/LogoutView.html"],
 
-    function($, Backbone, template, sidebar){
+    function($, Backbone, template){
 
         var NoAccess = Backbone.View.extend({
 
@@ -27,20 +27,21 @@ define(["jquery", "backbone", "text!templates/LogoutView.html", "text!templates/
             },
 
             render: function() {
+				_thisViewLogout = this;
 
 				// sidebar
-				this.sidebar = _.template(sidebar, {});
+				// this.sidebar = _.template(sidebar, {});
 				// Append the result to the view's element.
-				$('#sidebar').html(sidebar);
+				// $('#sidebar').html(sidebar);
 				// Maintains chainability
 				
                 // Setting the view's template property using the Underscore template method
-                this.template = _.template(template, {});
+                // this.template = _.template(template, {});
                 // Dynamically updates the UI with the view's template
-                this.$el.html(template);
+                _thisViewLogout.$el.html(_.template(template, {}));
 				// $('#page-content').html(template);
 
-				this.$el.trigger('create');
+				_thisViewLogout.$el.trigger('create');
 				// $('#body').trigger('create');
 
                 return this;

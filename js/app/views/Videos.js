@@ -14,6 +14,11 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					var _thisView = this;
 					// this.$el.off('click','.createVideo').on('click','.createVideo',function(){_thisView.createVideo();});
 				},
+				sync: function() {
+				},
+				fetch: function() {
+					this.render();
+				},
 				initialize: function() {
 					// this._videosCollection = new videosCollection();
 					this.fetch();
@@ -50,11 +55,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					});
 					return(false);
 					*/
-				},
-				sync: function() {
-				},
-				fetch: function() {
-					this.render();
 				},
 				render: function() {
 					this.bindEvents();
