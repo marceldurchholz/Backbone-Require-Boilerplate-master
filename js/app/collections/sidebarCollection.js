@@ -16,12 +16,12 @@ define(["jquery", "backbone", "models/SidebarModel"],
 			// console.log(this);
 			this.bind("error", this.errorHandler);
 			this.bind("success", this.successHandler);
-			_thisCollection = this;
-			var online = _thisCollection.online = 1;
+			_thisCollectionSidebar = this;
+			var online = _thisCollectionSidebar.online = 1;
 			this._localStorage_sidebar = new Store('videos');
 			var offlineData = this.offlineData = this._localStorage_sidebar.findAll();
 			this.localStorage = this._localStorage_sidebar;
-			if (_thisCollection.online==1) {
+			if (_thisCollectionSidebar.online==1) {
 				this.url = 'http://dominik-lohmann.de:5000/sidemenu/';
 				// this.url = 'http://dominik-lohmann.de:5000/videos/d6c9268c49a139bf';
 				this.localStorage = null;
@@ -33,43 +33,31 @@ define(["jquery", "backbone", "models/SidebarModel"],
             var data = (options.data || {});
             options.data = {date: this.date};
 			var responseObject = Backbone.Collection.prototype.fetch.call(this, options);
-			// console.log('responseObject');
-			// console.log(responseObject);
 			return responseObject;
 		},
 		sync: function(method, model, options) {
 			Backbone.sync.call(model, method, model, options);
 		},
 		parse: function(response) {
-			// alert('bla');
-			// console.log(response);
-			// console.log('parse');
-			// console.log(this.options);
-			_thisCollection.models = [];
+			_thisCollectionSidebar.models = [];
 			this._localStorage_sidebar.models = [];
 			for (n = 0; n < response.length; ++n) {
 				model = response[n];
 				if (this.options.hasOwnProperty('id')) {
 					if (this.options.id == model.id) {
 						// alert('id setted');
-						_thisCollection.add(model);
-						if (_thisCollection.online==1) this._localStorage_sidebar.update(new SidebarModel(model));
+						_thisCollectionSidebar.add(model);
+						if (_thisCollectionSidebar.online==1) this._localStorage_sidebar.update(new SidebarModel(model));
 					}
 				}
 				else {
-					_thisCollection.add(model);
-					if (_thisCollection.online==1) this._localStorage_sidebar.update(new SidebarModel(model));
+					_thisCollectionSidebar.add(model);
+					if (_thisCollectionSidebar.online==1) this._localStorage_sidebar.update(new SidebarModel(model));
 				}
-				// console.log('DEBUG');
-				// console.log(this.options.id);
-				// console.log(model.id);
 			}
-			console.log(_thisCollection.models);
-			// console.log(this._localStorage_sidebar);
-			return(_thisCollection.models);
+			return(_thisCollectionSidebar.models);
 		},
 		errorHandler: function(xhr) {
-			alert('errorHandler');
 			console.log(xhr);
 			if (xhr.status=='404') {
 				if (xhr.responseJSON==undefined) {

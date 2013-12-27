@@ -16,7 +16,8 @@ define(["jquery", "backbone", "models/UserModel"],
 			var offlineData = this.offlineData = this._localStorage_users.findAll();
 			this.localStorage = this._localStorage_users;
 			if (_thisCollection.online==1) {
-				this.url = 'http://dominik-lohmann.de:5000/users/?id='+this.options.dbid;
+				if (this.options.dbid) this.url = 'http://dominik-lohmann.de:5000/users/?id='+this.options.dbid;
+				// else this.url = 'http://dominik-lohmann.de:5000/users/';
 				// console.log('UsersCollection.js: '+this.url);
 				this.localStorage = null;
 			}

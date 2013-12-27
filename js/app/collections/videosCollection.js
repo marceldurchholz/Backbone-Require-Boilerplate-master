@@ -7,21 +7,15 @@ define(["jquery", "backbone", "models/VideoModel"],
     // Creates a new Backbone Collection class object
 	var VideosCollection = Backbone.Collection.extend({
 		initialize: function(models, options) {
-			// console.log('options');
-			// console.log(options);
 			this.options = options || {};
-			// this.options.id = this.options.id || 0;
-			
-			// console.log('this');
-			// console.log(this);
 			this.bind("error", this.errorHandler);
 			this.bind("success", this.successHandler);
-			_thisCollection = this;
-			var online = _thisCollection.online = 1;
+			_thisCollectionVideos = this;
+			var online = _thisCollectionVideos.online = 1;
 			this._localStorage_videos = new Store('videos');
 			var offlineData = this.offlineData = this._localStorage_videos.findAll();
 			this.localStorage = this._localStorage_videos;
-			if (_thisCollection.online==1) {
+			if (_thisCollectionVideos.online==1) {
 				this.url = 'http://dominik-lohmann.de:5000/videos/';
 				// this.url = 'http://dominik-lohmann.de:5000/videos/d6c9268c49a139bf';
 				this.localStorage = null;
@@ -29,6 +23,19 @@ define(["jquery", "backbone", "models/VideoModel"],
 		},
 		model: VideoModel,
 		fetch: function(options) {
+			if (_thisCollectionVideos.online==1) {
+				dpd.users.me(function(user) {
+					if (user) {
+						// alert(user.roles);
+						_thisCollectionVideos.user = user;
+						// console.log(user.roles);
+					}
+					else {
+						// location.href = "#noaccess";
+						console.log('you are not logged in');
+					}
+				});
+			}
             options || (options = {});
             var data = (options.data || {});
             options.data = {date: this.date};
@@ -38,31 +45,26 @@ define(["jquery", "backbone", "models/VideoModel"],
 		sync: function(method, model, options) {
 			Backbone.sync.call(model, method, model, options);
 		},
-		parse: function(response) {
-			// console.log('parse');
-			// console.log(this.options);
-			_thisCollection.models = [];
+		parse: function(responseVideos) {
+			console.log('parse responseVideos');
+			// console.log(_thisCollectionSidemenu.user);
+			_thisCollectionVideos.models = [];
 			this._localStorage_videos.models = [];
-			for (n = 0; n < response.length; ++n) {
-				model = response[n];
+			for (n = 0; n < responseVideos.length; ++n) {
+				model = responseVideos[n];
 				if (this.options.hasOwnProperty('id')) {
 					if (this.options.id == model.id) {
 						// alert('id setted');
-						_thisCollection.add(model);
-						if (_thisCollection.online==1) this._localStorage_videos.update(new VideoModel(model));
+						_thisCollectionVideos.add(model);
+						if (_thisCollectionVideos.online==1) this._localStorage_videos.update(new VideoModel(model));
 					}
 				}
 				else {
-					_thisCollection.add(model);
-					if (_thisCollection.online==1) this._localStorage_videos.update(new VideoModel(model));
+					_thisCollectionVideos.add(model);
+					if (_thisCollectionVideos.online==1) this._localStorage_videos.update(new VideoModel(model));
 				}
-				// console.log('DEBUG');
-				// console.log(this.options.id);
-				// console.log(model.id);
 			}
-			// console.log(_thisCollection.models);
-			// console.log(this._localStorage_videos);
-			return(_thisCollection.models);
+			return(_thisCollectionVideos.models);
 		},
 		errorHandler: function(xhr) {
 			console.log(xhr);
@@ -76,14 +78,9 @@ define(["jquery", "backbone", "models/VideoModel"],
 			}
 		},
 		successHandler: function(xhr) {
+			alert('successHandler');
 			console.log(xhr);
-			alert('success');
-		},
-		/*
-		txErrorHandler: function(tx) {
-			alert('error tx.message');
 		}
-		*/
 	});
 
     // Returns the Model class

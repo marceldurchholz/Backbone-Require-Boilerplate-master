@@ -1,16 +1,45 @@
-// DashboardNestedView.js
+// VideoView.js
 // -------
-define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
+define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "collections/usersCollection", "text!templates/videosList.html", "views/VideoView", "text!templates/videoView.html", "text!templates/DashboardNestedViewPage.html"],
 
-    function($, Backbone, DashboardNestedViewPage){
+    function($, Backbone, VideoModel, videosCollection, usersCollection, videosList, VideoView, videoViewPage, DashboardNestedViewPage){
 		
-		var DashboardNestedView = Backbone.View.extend({
+		var VideoViewVar = Backbone.View.extend({
 			el: "#DashboardNestedViewDiv",
 			initialize: function() {
 				console.log('initializing DashboardNestedView.js');
-				// location.href( '#blafoopeng' );
+				// console.log(this.options.user);
+				// var user = this.user = this.options.user;
 			},
-			/*
+			fetch: function() {	
+				_thisViewDashboardNested = this;
+				console.log('fetching DashboardNestedView.js');
+				this._videosCollection = new videosCollection();
+				this._videosCollection.fetch({
+					success: function(coll, jsoncoll) {
+						// console.log(_thisViewDashboardNested);
+						_thisViewDashboardNested.render();
+					},
+					error: function(action, coll) {
+						console.log(action);
+						console.log(coll);
+						// _thisViewDashboardNested.render();
+					}
+				});
+				// console.log(_thisViewDashboardNested.user.id);
+				this._usersCollection = new usersCollection([],{dbid:_thisViewDashboardNested.options.user.id});
+				this._usersCollection.fetch({
+					success: function(coll, jsoncoll) {
+						// console.log(_thisViewDashboardNested);
+						_thisViewDashboardNested.render();
+					},
+					error: function(action, coll) {
+						console.log(action);
+						console.log(coll);
+						// _thisViewDashboardNested.render();
+					}
+				});
+			},
 			showDetails: function(e) {
 				// e.preventDefault();
 				var id = $(e.currentTarget).data("id");
@@ -23,13 +52,15 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 				// alert('bla');
 			},
 			bindEvents: function() {
-				var _thisView = this;
-				// this.$el.off('click','.clickRow').on('click','.clickRow',function(){_thisView.clicked(e);});
+				var _thisViewDashboardNested = this;
+				// this.$el.off('click','.clickRow').on('click','.clickRow',function(){_thisViewDashboardNested.clicked(e);});
+				/*
 				this.$el.off('click','.listRow').on('click','.listRow',function(e){
 					// console.log(e);
 					// alert('show detail');
-					_thisView.showDetails(e);
+					_thisViewDashboardNested.showDetails(e);
 				});
+				*/
 			},
 			clicked: function(e){
 				e.preventDefault();
@@ -39,9 +70,7 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 				// alert(name);
 				alert(id);
 			},
-			*/
-			insertUserData: function(model) {
-				htmlContent = '';
+			insertData: function(model) {
 				htmlContent = _.template(DashboardNestedViewPage, {
 					id: model.get('id')
 					, pictureurl: model.get('pictureurl')
@@ -73,25 +102,25 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 					, youtube: model.get('youtube')
 					, zip: model.get('zip')
 				},{variable: 'user'});
-				// $(this.el).append('<a class="detailById" href="#" data-id="'+model.get('id')+'">');
 				$(this.el).append(htmlContent);
-				// $('.special').attr('id', 'your-id-value');
-				// $(this.el).append('</a>');
-				// this.bindEvents();
+				this.bindEvents();
 			},
 			render: function() {
-				var _thisView = this;
-				console.log('rendering in DashboardNestedView.js');
+				var _thisViewDashboardNested = this;
+				// console.log(this._videosCollection.models);
+				console.log(this._usersCollection.models);
 				var htmlContent = '';
-				_.each(this.collection, function(model) {
+				$(this.el).html('');
+				_.each(this._usersCollection.models, function(model) {
 					this.id = model.get('id');
-					_thisView.insertUserData(model);
+					_thisViewDashboardNested.insertData(model);
 				});
 				return this;
+				
 			}
 		});
 
-        return DashboardNestedView;
+        return VideoViewVar;
 
     }
 

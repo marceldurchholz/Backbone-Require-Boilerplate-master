@@ -1,14 +1,33 @@
 // SidemenuView.js
 // -------
-define(["jquery", "backbone", "text!templates/sidemenuView.html"],
+define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates/sidemenuView.html"],
 
-    function($, Backbone, sidemenuView){
+    function($, Backbone, sidemenusCollection, sidemenuPage){
 		
 		var SidemenuView = Backbone.View.extend({
 			el: "#menuelement",
 			initialize: function() {
-				// console.log('initializing SidemenuView.js');
-				// location.href( '#blafoopeng' );
+				console.log('initializing SidemenuView.js');
+				_thisViewSidemenu = this;
+				this._sidemenusCollection = new sidemenusCollection();
+			},
+			fetch: function() {	
+				console.log('fetching SidemenuView.js');
+				this._sidemenusCollection.fetch({
+					success: function(coll, jsoncoll) {
+						// console.log('jsoncoll');
+						_thisViewSidemenu.collection = new sidemenusCollection(jsoncoll,{});
+						// console.log(_thisViewSidemenu._sidemenusCollection.models);
+						_thisViewSidemenu.render();
+					},
+					error: function(action, coll) {
+						console.log(action);
+						console.log(coll);
+						alert('ERROR !!!');
+						// _thisViewSidemenu.render();
+					}
+				});
+				// alert('bla');
 			},
 			showDetails: function(e) {
 				// e.preventDefault();
@@ -20,12 +39,12 @@ define(["jquery", "backbone", "text!templates/sidemenuView.html"],
 				// alert('bla');
 			},
 			bindEvents: function() {
-				var _thisView = this;
-				// this.$el.off('click','.clickRow').on('click','.clickRow',function(){_thisView.clicked(e);});
+				var _thisViewSidemenu = this;
+				// this.$el.off('click','.clickRow').on('click','.clickRow',function(){_thisViewSidemenu.clicked(e);});
 				this.$el.off('click','.listRow').on('click','.listRow',function(e){
 					// console.log(e);
 					// alert('show detail');
-					_thisView.showDetails(e);
+					_thisViewSidemenu.showDetails(e);
 				});
 			},
 			clicked: function(e){
@@ -37,24 +56,23 @@ define(["jquery", "backbone", "text!templates/sidemenuView.html"],
 				alert(id);
 			},
 			insertData: function(model) {
-				htmlContent = _.template(sidemenuView, {
+				_thisViewSidemenu = this;
+				htmlContent = _.template(sidemenuPage, {
 					id: model.get('id'),
 					urloffline: model.get('urloffline'),
 					userfriendly: model.get('userfriendly')
 				},{variable: 'sidemenu'});
-				// $(this.el).append('<a class="detailById" href="#" data-id="'+model.get('id')+'">');
-				$(this.el).append(htmlContent);
-				// $('.special').attr('id', 'your-id-value');
-				// $(this.el).append('</a>');
+				$(_thisViewSidemenu.$el.selector).append(htmlContent);
 				this.bindEvents();
 			},
 			render: function() {
-				var _thisView = this;
-				// console.log('rendering in SidemenuView.js');
+				console.log('redering SidemenuView.js');
+				var _thisViewSidemenu = this;
 				var htmlContent = '';
-				_.each(this.collection, function(model) {
+				$(this.el).html(htmlContent);
+				_.each(this._sidemenusCollection.models, function(model) {
 					this.id = model.get('id');
-					_thisView.insertData(model);
+					_thisViewSidemenu.insertData(model);
 				});
 				return this;
 				

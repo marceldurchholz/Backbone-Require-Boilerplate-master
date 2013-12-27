@@ -77,7 +77,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	*/
 
 	// Initialize the app
-	// app.initialize();
+	app.initialize();
 	
 	// LocalStorageAdapter = new LocalStorageAdapter();
 	// myLocalStorage.initialize();

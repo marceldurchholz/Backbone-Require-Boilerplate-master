@@ -1,14 +1,22 @@
 // Videos.js
 // -------
-define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "text!templates/videosList.html", "views/VideoView", "text!templates/sidebar.html"],
+define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates/sidemenusList.html", "views/SidemenuView", "models/VideoModel", "collections/videosCollection", "text!templates/videosList.html", "views/VideoView"],
 
-    function($, Backbone, VideoModel, videosCollection, videosList, VideoView, sidebar){
+    function($, Backbone, sidemenusCollection, sidemenusList, SidemenuView, VideoModel, videosCollection, videosList, VideoView){
 		
 			var Videos = Backbone.View.extend({
 			
 				el: "#page-content",
 				attributes: {"data-role": 'content'},
 				events: {
+				},
+				bindEvents: function() {
+					var _thisView = this;
+					this.$el.off('click','.createVideo').on('click','.createVideo',function(){_thisView.createVideo();});
+				},
+				initialize: function() {
+					this._videosCollection = new videosCollection();
+					this.fetch();
 				},
 				createVideo: function () {
 					if (this._videosCollection.online==0) {
@@ -39,42 +47,20 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					});
 					return(false);
 				},
-				bindEvents: function() {
-					var _thisView = this;
-					this.$el.off('click','.createVideo').on('click','.createVideo',function(){_thisView.createVideo();});
-				},
 				fetch: function() {
-					this._videosCollection = new videosCollection(); var _thisView = this; this._videosCollection.fetch({ error: function(action, coll) { alert('ERROR: fetch _videosCollection'); _thisView.render(); console.log(action); console.log(coll); }, success: function(coll, jsoncoll) { _thisView.render(); } });
-					/*
-					this._videosCollection = new videosCollection();
+					// this._videosCollection = new videosCollection(); var _thisView = this; this._videosCollection.fetch({ error: function(action, coll) { alert('ERROR: fetch _videosCollection'); _thisView.render(); console.log(action); console.log(coll); }, success: function(coll, jsoncoll) { _thisView.render(); } });
 					var _thisView = this;
-					this._videosCollection.fetch({
-						error: function(action, coll) {
-							console.log(action);
-							console.log(coll);
-						},
-						success: function(coll, jsoncoll) {
-							_thisView.render();
-						}
-					});
-					*/
-				},
-				initialize: function() {
-					this._videosCollection = new videosCollection();
-					this.fetch();
+					_thisView.render();
 				},
 				render: function() {
 					this.bindEvents();
 					console.log('DOING render Videos.js called');
 					
-					this.sidebar = _.template(sidebar, {});
-					$('#sidebar').html(sidebar);
+					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
+					this.nestedView = new SidemenuView().fetch();
 					
-					this._template = _.template(videosList, {});
-					this.$el.html(this._template);
-					console.log('this._videosCollection.models');
-					console.log(this._videosCollection.models);
-					this.nestedView = new VideoView({collection: this._videosCollection.models}).render();
+					this.$el.html(_.template(videosList, {}));
+					this.nestedView = new VideoView().fetch();
 
 					this.$el.trigger('create');
 					return this;

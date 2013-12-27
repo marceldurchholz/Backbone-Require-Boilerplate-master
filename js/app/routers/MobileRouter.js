@@ -67,8 +67,8 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// this.changePage(Videos, {});
             },
             videos: function() {
-                // new Videos();
-				this.changePage(Videos, {});
+                new Videos();
+				// this.changePage(Videos, {});
             },
             sidemenus: function() {
 				this.changePage(Sidemenus, {});
@@ -82,8 +82,8 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				this.changePage(LoginViewJS, {});
             },
             dashboard: function() {
-                // new DashboardView();
-				this.changePage(DashboardView, {});
+                new DashboardView();
+				// this.changePage(DashboardView, {});
             },
             myprofile: function() {
                 // new MyProfile();

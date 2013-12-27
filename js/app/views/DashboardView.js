@@ -1,8 +1,8 @@
 // DashboardView.js
 // -------
-define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates/sidemenusList.html", "views/SidemenuView", "collections/sidebarCollection", "views/SidebarListView", "collections/usersCollection", "views/DashboardView", "text!templates/DashboardView.html", "views/DashboardNestedView"],
+define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates/sidemenusList.html", "views/SidemenuView", "collections/usersCollection", "views/DashboardView", "text!templates/DashboardView.html", "views/DashboardNestedView", "models/VideoModel", "collections/videosCollection", "text!templates/videosList.html"],
 
-    function($, Backbone, sidemenusCollection, sidemenusList, SidemenuView, sidebarCollection, SidebarListView, usersCollection, DashboardView, DashboardViewPage, DashboardNestedView){
+    function($, Backbone, sidemenusCollection, sidemenusList, SidemenuView, usersCollection, DashboardView, DashboardViewPage, DashboardNestedView, VideoModel, videosCollection, videosList){
 		
 			var DashboardView = Backbone.View.extend({
 			
@@ -10,84 +10,96 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 				attributes: {"data-role": 'content'},
 				events: {
 				},
+				bindEvents: function() {
+					// _thisViewDashboard = this;
+					// this.$el.off('click','.createVideo').on('click','.createVideo',function(){_thisViewDashboard.createVideo();});
+				},
 				initialize: function() {
-					var _thisView = this;
-					this._sidemenusCollection = new sidemenusCollection();
+					_thisViewDashboard = this;
+					dpd.users.me(function(user) {
+						if (user) {
+							// alert(user.roles);
+							// console.log(user);
+							_thisViewDashboard.user = user;
+							_thisViewDashboard.fetch();
+							// _thisCollectionVideos.user = user;
+							// console.log(user.roles);
+						}
+						else {
+							// location.href = "#noaccess";
+							// console.log('you are not logged in');
+						}
+					});
+
+					/*
+					var _thisViewDashboard = this;
+					// this._sidemenusCollection = new sidemenusCollection();
 					// var me = me || {};
 					// this.me = me;
 					dpd.users.me(function(user) {
 						if (user) {
-							_thisView.me = user;
+							_thisViewDashboard.me = user;
 							// later in addition check roles
-							_thisView._usersCollection = new usersCollection([], {dbid:_thisView.me.id});
-							_thisView._sidemenusCollection = new sidemenusCollection();
-							_thisView.fetch();
+							_thisViewDashboard._usersCollection = new usersCollection([], {dbid:_thisViewDashboard.me.id});
+							_thisViewDashboard._sidemenusCollection = new sidemenusCollection();
+							_thisViewDashboard.fetch();
 						}
 						else {
 							location.href = "#noaccess";
 						}
 					});
 					// this.fetch();
+					*/
+					// this._videosCollection = new videosCollection();
+					// this.fetch();
 				},
 				fetch: function() {
-					var _thisView = this;
-					this._sidemenusCollection = new sidemenusCollection();
+					var _thisViewDashboard = this;
+					_thisViewDashboard.render();
+					/*
+					var _thisViewDashboard = this;
+					this._sidemenusCollection = new sidemenusCollection([],{parentView:_thisViewDashboard});
 					this._sidemenusCollection.fetch({
 						success: function(coll, jsoncoll) {
-							_thisView.render();
+							_thisViewDashboard.render();
 						},
 						error: function(action, coll) {
 							console.log(action);
 							console.log(coll);
-							// _thisView.render();
+							// _thisViewDashboard.render();
 						}
 					});
-					this._usersCollection = new usersCollection([], {dbid:_thisView.me.id});
+					this._usersCollection = new usersCollection([], {dbid:_thisViewDashboard.me.id});
 					this._usersCollection.fetch({
 						success: function(coll, jsoncoll) {
-							_thisView.render();
+							// _thisViewDashboard.render();
 						},
 						error: function(action, coll) {
 							console.log(action);
 							console.log(coll);
-							// _thisView.render();
+							// _thisViewDashboard.render();
 						}
-					});					
+					});	
+					*/					
 				},
 				render: function() {
 					// this.bindEvents();
-					console.log('DOING render Videos.js called');
+					_thisViewDashboard = this;
+					console.log('DOING render DashboardView.js called');
+					// console.log(_thisViewDashboard.user);
 					
-					// , "views/SidebarListView"
-					// this.sidebar = _.template(sidebar, {});
-					// $('#sidebar').html(sidebar);
-					// console.log('this._sidebarCollection.models');
-					// console.log(this._sidebarCollection.models);
-					// this.nestedViewSidebar = new SidebarListView({collection: this._sidebarCollection.models}).render();
-					// $('#sidebar').html = new SidebarListView({collection: this._sidebarCollection.models}).render();
-					// this.nestedViewSidebar = new SidebarListView({collection: this._sidebarCollection.models}).render();
+					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
+					this.nestedView = new SidemenuView().fetch();
 					
-					this._template = _.template(sidemenusList, {});
-					$('#sidebarListViewDiv').html(this._template);
-					this.nestedView = new SidemenuView({collection: this._sidemenusCollection.models}).render();
+					this.$el.html(_.template(DashboardViewPage, {}));
+					this.nestedView = new DashboardNestedView({user:_thisViewDashboard.user}).fetch();
 					
+					/*
 					this._template = _.template(DashboardViewPage, {});
 					this.$el.html(this._template);
-					/*
-					dpd.users.me(function(user) {
-						if (user) {
-							// console.log(user);
-							// alert(user.pictureurl);
-							// $('#myImage').attr('src',user.pictureurl);
-							// location.href = "/welcome.html";
-						}
-					});
+					console.log(this._usersCollection);
+					this.nestedViewB = new DashboardNestedView({collection: this._usersCollection.models}).render();
 					*/
-					// console.log('this._usersCollection.models');
-					// console.log(this._usersCollection.models);
-					// console.log('this._usersCollection.models');
-					// console.log(this._usersCollection.models);
-					this.nestedView = new DashboardNestedView({collection: this._usersCollection.models}).render();
 
 					this.$el.trigger('create');
 					return this;
