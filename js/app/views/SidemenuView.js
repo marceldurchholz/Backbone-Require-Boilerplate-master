@@ -60,7 +60,8 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 				htmlContent = _.template(sidemenuPage, {
 					id: model.get('id'),
 					urloffline: model.get('urloffline'),
-					userfriendly: model.get('userfriendly')
+					userfriendly: model.get('userfriendly'),
+					icon: model.get('icon').substring(1)
 				},{variable: 'sidemenu'});
 				$(_thisViewSidemenu.$el.selector).append(htmlContent);
 				this.bindEvents();

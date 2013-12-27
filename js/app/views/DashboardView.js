@@ -88,12 +88,13 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 					console.log('DOING render DashboardView.js called');
 					// console.log(_thisViewDashboard.user);
 					
-					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
-					this.nestedView = new SidemenuView().fetch();
-					
-					this.$el.html(_.template(DashboardViewPage, {}));
-					this.nestedView = new DashboardNestedView({user:_thisViewDashboard.user}).fetch();
-					
+					var ani = setTimeout ( function() {
+						$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
+						_thisViewDashboard.nestedView = new SidemenuView().fetch();
+						_thisViewDashboard.$el.html(_.template(DashboardViewPage, {}));
+						_thisViewDashboard.nestedView = new DashboardNestedView({user:_thisViewDashboard.user}).fetch();
+						_thisViewDashboard.$el.trigger('create');
+					}, 500 );
 					/*
 					this._template = _.template(DashboardViewPage, {});
 					this.$el.html(this._template);
@@ -101,7 +102,6 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 					this.nestedViewB = new DashboardNestedView({collection: this._usersCollection.models}).render();
 					*/
 
-					this.$el.trigger('create');
 					return this;
 				}
 

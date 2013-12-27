@@ -1,10 +1,10 @@
-// VideoView.js
+// DashboardNestedView.js
 // -------
-define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "collections/usersCollection", "text!templates/videosList.html", "views/VideoView", "text!templates/videoView.html", "text!templates/DashboardNestedViewPage.html"],
+define(["jquery", "backbone", "collections/usersCollection", "text!templates/DashboardNestedViewPage.html"],
 
-    function($, Backbone, VideoModel, videosCollection, usersCollection, videosList, VideoView, videoViewPage, DashboardNestedViewPage){
+    function($, Backbone, usersCollection, DashboardNestedViewPage){
 		
-		var VideoViewVar = Backbone.View.extend({
+		var DashboardNestedViewVar = Backbone.View.extend({
 			el: "#DashboardNestedViewDiv",
 			initialize: function() {
 				console.log('initializing DashboardNestedView.js');
@@ -14,6 +14,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			fetch: function() {	
 				_thisViewDashboardNested = this;
 				console.log('fetching DashboardNestedView.js');
+				/*
 				this._videosCollection = new videosCollection();
 				this._videosCollection.fetch({
 					success: function(coll, jsoncoll) {
@@ -26,6 +27,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						// _thisViewDashboardNested.render();
 					}
 				});
+				*/
 				// console.log(_thisViewDashboardNested.user.id);
 				this._usersCollection = new usersCollection([],{dbid:_thisViewDashboardNested.options.user.id});
 				this._usersCollection.fetch({
@@ -115,12 +117,13 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					this.id = model.get('id');
 					_thisViewDashboardNested.insertData(model);
 				});
+				_thisViewDashboardNested.$el.trigger('create');
 				return this;
 				
 			}
 		});
 
-        return VideoViewVar;
+        return DashboardNestedViewVar;
 
     }
 
