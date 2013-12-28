@@ -2037,17 +2037,6 @@ $('#sidebar').on("vclick", "#menuelement a.contentLink", function (e) {
 	});
 });
 
-var system = {
-	// this.routerSwitched(false);
-	toggleLoading: function(status) {
-		console.log(status);
-		if (status==true) $.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Loading the awesome...</div>' });
-		else {
-			$.mobile.loading( 'hide' );
-		}
-	}
-}
-
 var menuSwitched = function(status) {
 	var menuSwitchedDeferred = $.Deferred();
 	var menuSwitchedDeferredWatcher = menuSwitchedDeferred.then(function( value ) {
@@ -2060,18 +2049,27 @@ var menuSwitched = function(status) {
 	});
 };
 
-function redirectToHome() {
-	var url = "#home";
-	
-	// IE8 and lower fix
-	if (navigator.userAgent.match(/MSIE\s(?!9.0)/))
-	{
-		var referLink = document.createElement("a");
-		referLink.href = url;
-		document.body.appendChild(referLink);
-		referLink.click();
+var system = {
+	// this.routerSwitched(false);
+	toggleLoading: function(status) {
+		console.log(status);
+		if (status==true) $.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Loading the awesome...</div>' });
+		else {
+			$.mobile.loading( 'hide' );
+		}
+	},
+	redirectToHome: function(targetUrl) {
+		var url = targetUrl;
+		// IE8 and lower fix
+		if (navigator.userAgent.match(/MSIE\s(?!9.0)/)) {
+			var referLink = document.createElement("a");
+			referLink.href = url;
+			document.body.appendChild(referLink);
+			referLink.click();
+		}
+		// All other browsers
+		else { 
+			window.location.replace(url); 
+		}
 	}
-	
-	// All other browsers
-	else { window.location.replace(url); }
 }

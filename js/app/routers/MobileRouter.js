@@ -45,9 +45,12 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"logout" : "logout"
             },
 			startpage: function() {
-				redirectToHome();
+				// redirectToHome();
+				alert('routing to redirectToHome');
+				system.redirectToHome('#home');
 			},
 			home: function() {
+				alert('routing to home');
 				// new View();
 				this.changePage(View, {});
             },
@@ -119,21 +122,23 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 					$('.ui-content').scrollTop(0);
 					// console.log("$.mobile.loading( 'hide' )");
 					// $.mobile.loading( 'hide' );
-					system.toggleLoading(false);
+					// system.toggleLoading(false);
 				});
 			},
 			testFunction: function() {
 				// alert('test');
 				// $("#page-content").show();
+				/*
 				$("#page-content").fadeIn( 1000, function() {
 					$('.ui-content').scrollTop(0);
 				});
+				*/
 			},
 			changePage: function(view, viewOptions) {
 				// system.toggleLoading(true);
 				// $.mobile.loadingMessage = 'Loading...Please wait';
 				// $.mobile.showPageLoadingMsg();
-				$("#page-content").hide();
+				// $("#page-content").hide();
 				
 				this.myView = new view(viewOptions);
 				this.myView.$el.off('create', this.testFunction);
