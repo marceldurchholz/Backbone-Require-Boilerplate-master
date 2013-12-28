@@ -78,8 +78,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					this.id = model.get('id');
 					_thisViewVideo.insertData(model);
 				});
-				return this;
-				
+				_thisViewVideo.$el.trigger('create');
+				return this;				
 			}
 		});
 

@@ -1,3 +1,60 @@
+<!--
+		<ul data-role="listview" data-split-icon="star" data-theme="c" data-split-theme="c">
+			<li><a href="index.html">
+				<img src="<%= video.thumbnailurl %>" />
+				<h3>Broken Bells</h3>
+				<p>Broken Bells</p>
+			</a></li>
+		</ul>
+		
+
+		<br><br>
+		
+-->
+
+<ul data-role="listview" data-split-icon="star" data-theme="c" data-split-theme="c" style="height:80px;margin:0px;padding:0px;">
+	<li style="height:80px;margin:0px;padding:0px;">
+		<a href="#<%= video.id %>">
+		<img style="margin:0px;height:100px !important;max-height:100px !important;max-width:auto;width:100%;" src="<%= video.thumbnailurl %>" />
+		<h5 style="margin:0px;padding:0px;padding-bottom:15px;"><%= video.title %></h5>
+		<p><%= video.description %></p>
+		</a>
+		<a style="margin:0px;padding:px;border-top:0px;b/order-bottom:0px;height:69px;" href="#purchase">Zur Mediathek hinzufügen...</a>
+	</li>
+</ul>
+<ul data-role="listview" data-split-icon="star" data-theme="c" data-split-theme="c" style="height:80px;margin:0px;padding:0px;">
+	<li style="height:80px;margin:0px;padding:0px;">
+		<a href="#<%= video.id %>">
+		<img style="margin:0px;height:100px !important;max-height:100px !important;max-width:auto;width:100%;" src="<%= video.thumbnailurl %>" />
+		<h5 style="margin:0px;padding:0px;padding-bottom:15px;"><%= video.title %></h5>
+		<p><%= video.description %></p>
+		</a>
+		<a style="margin:0px;padding:px;border-top:0px;b/order-bottom:0px;height:69px;" href="#purchase">Zur Mediathek hinzufügen...</a>
+	</li>
+</ul>
+<ul data-role="listview" data-split-icon="star" data-theme="c" data-split-theme="c" style="height:80px;margin:0px;padding:0px;">
+	<li style="height:80px;margin:0px;padding:0px;">
+		<a href="#<%= video.id %>">
+		<img style="margin:0px;height:100px !important;max-height:100px !important;max-width:auto;width:100%;" src="<%= video.thumbnailurl %>" />
+		<h5 style="margin:0px;padding:0px;padding-bottom:15px;"><%= video.title %></h5>
+		<p><%= video.description %></p>
+		</a>
+		<a style="margin:0px;padding:px;border-top:0px;b/order-bottom:0px;height:69px;" href="#purchase">Zur Mediathek hinzufügen...</a>
+	</li>
+</ul>
+
+<!--
+<ul data-role="listview">
+	<li style="padding-bottom:30px;">
+		<a href="#preferences" style="padding-top:0px;padding-bottom:0px;">
+			<h5 style="padding-top:2px;padding-bottom:4px;margin-left:80px;">Einstellungen</h5>
+			<p style="margin-left:80px;">Benutzer-, Sicherheits- und Datenschutzeinstellungen</p>
+			<p class="ui-li-icon"><img style="margin:7px;b/order:1px solid #fff;" src="images/icon-preferences-60.png" /></p>
+		</a>
+	</li>
+</ul>
+-->
+<!--
 	<div id="listRow" class="listRow" data-id="<%= video.id %>">
 		<div class="legend">
 			<%= video.title %>
@@ -18,3 +75,4 @@
 			description: <%= video.description %>
 		</div>
 	</div>
+-->

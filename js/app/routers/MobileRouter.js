@@ -113,11 +113,11 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// $.mobile.loading( 'hide' );
 				// $("#page-content").show();
 				// $('.ui-content').scrollTop(0);
-				$("#page-content").fadeIn( 1000, function() {
+				$("#page-content").fadeIn( 100, function() {
 					// $( "#page-content" ).html('bla');
 					// Animation complete
 					$('.ui-content').scrollTop(0);
-					console.log("$.mobile.loading( 'hide' )");
+					// console.log("$.mobile.loading( 'hide' )");
 					// $.mobile.loading( 'hide' );
 					system.toggleLoading(false);
 				});
@@ -125,7 +125,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 			testFunction: function() {
 				// alert('test');
 				// $("#page-content").show();
-				$("#page-content").fadeIn( 3000, function() {
+				$("#page-content").fadeIn( 1000, function() {
 					$('.ui-content').scrollTop(0);
 				});
 			},
@@ -136,6 +136,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				$("#page-content").hide();
 				
 				this.myView = new view(viewOptions);
+				this.myView.$el.off('create', this.testFunction);
 				this.myView.$el.on('create', this.testFunction);
 				// this.myView.$el.off('create', this.viewFadeIn, this.$el);
 				// this.myView.$el.on('create', this.viewFadeIn, this.$el); // << hier noch ein .off hinzufügen, weil multiple ausführung!!! <<
@@ -143,7 +144,12 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// this.myView.$el.on('initialized', this.viewFadeIn, this.$el); // << hier noch ein .off hinzufügen, weil multiple ausführung!!! <<
 			}
         });
-
+		
+		// eventuell nützlich
+		// http://stackoverflow.com/questions/11787384/backbone-js-and-jquery-mobile-accessing-router-function-from-view
+		// und
+		// http://stackoverflow.com/questions/11533247/uncaught-typeerror-when-trying-to-call-loading-with-jquery-mobile
+		
 		// this.$el.trigger('create');
 		// $('#body').trigger('create');
 		return MobileRouter;
