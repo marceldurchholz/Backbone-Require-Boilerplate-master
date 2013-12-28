@@ -1,5 +1,4 @@
-var dd = $.Deferred();
-var jqd = $.Deferred();
+alert('jquery.mobile.js');
 /*
 $(document).bind("mobileinit", function(){
 	$.support.cors = true;

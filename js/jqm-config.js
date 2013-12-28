@@ -1,5 +1,6 @@
 define(['jquery'], function($){ 
   // 'use strict'; 
+	alert('jqm-config.js');
   	$(document).bind("mobileinit", function () { 
 		// alert('mobileinit');
 		$.support.cors = true;

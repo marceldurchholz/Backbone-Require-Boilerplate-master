@@ -1,3 +1,5 @@
+alert('functions.js');
+
 var isMobile = {};
 isMobile = {
     Android: function() {
@@ -35,7 +37,7 @@ var footervideoStatus = false;
 var rootURL = "";
 var root = this; // used by pdfbrowser and childbrowser
 var deviceSDID;
-var cordovaIsLoaded = false;
+// var cordovaIsLoaded = false;
 var deviceSDID = "???";
 var SDID_DOMAIN = 'phonegap.appinaut.de';  
 var SDID_KEY = '633241';
@@ -62,12 +64,14 @@ var badgeToggledOn = false;
 var autoLockIsDisabled = false;
 var cdvBadge = null;
 
-var deviceReady = false;
+// var deviceReady = false;
 
-var jqueryready = false;
-var jqueryReady = false;
+// var jqueryready = false;
+// var jqueryReady = false;
 
 // var pgReady = $.Deferred();
+
+// var jqd = $.Deferred();
 
 /*
 function populateData(){
@@ -463,50 +467,79 @@ var dao = {
 	}
 };
 
-	
 var app = {
 	initialize: function() {
 		// report('MobileInit.js','var app:initialize');
-		this.bindEvents();
+		// this.bindEvents();
+		_thisApp = this;
+		$.when( _thisApp.fetchMe() ).then(
+			  function( deviceisready ) {
+				// console.log(status);
+				// _thisViewDashboardNested.me = status;
+				// _thisViewDashboardNested.render();
+				// cordovaIsLoaded = true;
+				// new MobileRouter();
+				modifyiOS7StatusBar();
+				// populateHomepageData();
+				// status = deviceisready
+				// alert(deviceisready);
+				new window.mobilerouter();
+				// return this.dfd.promise();
+				// return('deviceisready');
+			  },
+			  function( status ) {
+				// console.log( status + ", you fail this time" );
+				alert( "you fail this time" );
+			  },
+			  function( status ) {
+				console.log('still fetchWorking');
+			  }
+		);
 	},
-	bindEvents: function() {
+	fetchWorking: function() {
+		var setTimeoutWatcher = setTimeout(function foo() {
+			if ( _thisApp.dfd.state() === "pending" ) {
+				_thisApp.dfd.notify( "working... " );
+				setTimeout( _thisApp.fetchWorking, 100 );
+			}
+		}, 1 );
+	},
+	fetchMe: function() {
+		_thisApp = this;
+		console.log('fetchMe DashboardNestedView.js');
+		_thisApp.dfd = new jQuery.Deferred();
+		_thisApp.fetchWorking();
 		if(!isMobile.any()) {
-			this.onDeviceReady();
+			var foox = window.setTimeout(function blax() {
+				_thisApp.dfd.resolve(true);
+			}, 3000);
 		}
 		else {
 			// document.addEventListener('load', this.onDeviceReady, false);
 			// document.addEventListener('offline', this.onDeviceReady, false);
 			// document.addEventListener('online', this.onDeviceReady, false);
-			document.addEventListener('deviceready', this.onDeviceReady, false);
+			document.addEventListener('deviceready', this.receivedEvent, false);
 		}
+		return this.dfd.promise();
 	},
-	onDeviceReady: function() {
-		// report('MobileInit.js','onDeviceReady');
-		/*
-		deviceReady = true;
-		cordovaIsLoaded = true;
-		app.receivedEvent('deviceready');
-		*/
-		app.receivedEvent();
-   },
+	fetch: function() {	
+		_thisApp = this;
+		console.log('fetching _thisApp.js');
+	},
 	receivedEvent: function(event) {
-		// report("MobileInit.js"," var app:receivedEvent");
-		deviceReady = true;
-		cordovaIsLoaded = true;
-		modifyiOS7StatusBar();
-		dd.resolve();
-		// populateDeviceInfo();
-		/*
-		setTimeout(function() {
-			report('MobileInit.js','app.receivedEvent w timeout 0');
-			$( document ).ready(function() {
-				report('MobileInit.js','app.receivedEvent AND document.ready in w timeout 0');
-			});
-		},0);
-		*/
+		_thisApp.dfd.resolve(true);
 	}
 };
-		
+	
+function populateHomepageData() {
+	var id = 'devicereadydiv';
+	var parentElement = document.getElementById(id);
+	var listeningElement = parentElement.querySelector('.listening');
+	listeningElement.setAttribute('style', 'display:none;');
+	var receivedElement = parentElement.querySelector('.received');
+	receivedElement.setAttribute('style', 'display:block;');
+}
+
 /* ----------------------------------------------------------- /
     initApp
 / ----------------------------------------------------------- */
@@ -572,12 +605,6 @@ function populateDeviceInfo(){
 					});
 				}
 
-				var id = 'devicereadydiv';
-				var parentElement = document.getElementById(id);
-				var listeningElement = parentElement.querySelector('.listening');
-				listeningElement.setAttribute('style', 'display:none;');
-				var receivedElement = parentElement.querySelector('.received');
-				receivedElement.setAttribute('style', 'display:block;');
 /*
 				if(!isMobile.any()) {
 					report('populateDeviceInfo()','isMobile.any NOT true');
@@ -590,6 +617,7 @@ function populateDeviceInfo(){
 					// alert('populateDeviceInfo');
 					// document.getElementById("device_internet").innerHTML = 'IS MOBILE';
 
+					/*
 					var id = 'devicereadydiv';
 					var parentElement = document.getElementById(id);
 					var listeningElement = parentElement.querySelector('.listening');
@@ -602,6 +630,7 @@ function populateDeviceInfo(){
 					document.getElementById("width").innerHTML = screen.width;
 					document.getElementById("height").innerHTML = screen.height;
 					document.getElementById("colorDepth").innerHTML = screen.colorDepth;
+					*/
 					// if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MOBILE';
 					// document.getElementById("platform").innerHTML = device.platform;
 					// document.getElementById("version").innerHTML = device.version;

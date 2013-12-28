@@ -22,7 +22,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	$.mobile.document.unbind("pageshow");
 	$.mobile.document.bind("pageshow", $.mobile.ajaxwhenpageshowed );
 	$.mobile.ajaxwhenpageshowed = function ajaxwhenpageshowed() {
-		// alert('b');
+		alert('b');
 	};
 	*/
 	
@@ -77,14 +77,28 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	*/
 
 	// Initialize the app
-	app.initialize();
+	// alert('app.initialize()');
+	// app.initialize();
 	
+	// var deviceReadyDeferred = new jQuery.Deferred();
+	
+	window.mobilerouter = MobileRouter;
+
+	app.initialize();
+	// alert(blay);
+
 	// LocalStorageAdapter = new LocalStorageAdapter();
 	// myLocalStorage.initialize();
 
 	
 	// Instantiates a new Mobile Router instance
-	new MobileRouter();
+	/*
+	var CreateMobileRouter = function() {
+		new MobileRouter();
+	}
+	*/
+	// window.appRouter = new MobileRouter();
+	// CreateMobileRouter();
   }
 
 );

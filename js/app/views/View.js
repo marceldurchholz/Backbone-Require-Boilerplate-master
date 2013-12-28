@@ -32,7 +32,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					_thisViewHome.$el.html(_.template(HomeNestedPage, {}));
 					// _thisViewHome.nestedView = new HomeNestedView().fetch();
 					_thisViewHome.$el.trigger('create');
-				}, 500 );
+				}, 1000 );
 
 				return this;
 				
