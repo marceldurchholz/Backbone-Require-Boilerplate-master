@@ -45,9 +45,9 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"logout" : "logout"
             },
 			startpage: function() {
-				// redirectToHome();
-				alert('routing to redirectToHome');
-				system.redirectToHome('#home');
+				// redirectToUrl();
+				alert('routing to redirectToUrl');
+				system.redirectToUrl('#login');
 			},
 			home: function() {
 				alert('routing to home');
@@ -92,6 +92,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				this.changePage(Videosdetailsview, {id:id});
             },
             loginViewJS: function() {
+				alert('routing to login');
                 // new LoginViewJS();
 				this.changePage(LoginViewJS, {});
             },

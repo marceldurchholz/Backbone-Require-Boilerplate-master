@@ -2025,12 +2025,15 @@ $('#showMenu').on("vclick", function (e) {
 	}
 	return false;
 });
-$('#sidebar').on("vclick", "#menuelement a.contentLink", function (e) {
+$('#sidebar').on("vclick", "#menuelement a.contentLink", function (event) {
+	event.preventDefault();
 	$("#flexiblecontent").animate({
 		marginLeft: "0px",
-	}, 500, function () {
+	}, 1000, function () {
 		menuStatus = false;
 		menuSwitched(false);
+		// console.log(event.target.hash);
+		system.redirectToUrl(event.target.hash);
 		// alert('getURLParameter(window.location.href): ' + getURLParameter(window.location.href));
 		// $.mobile.changePage( "#aboutus", { transition: "slideup", changeHash: true });
 		// $.mobile.changePage( "#aboutus" , { reverse: false, changeHash: false } );
@@ -2058,7 +2061,7 @@ var system = {
 			$.mobile.loading( 'hide' );
 		}
 	},
-	redirectToHome: function(targetUrl) {
+	redirectToUrl: function(targetUrl) {
 		var url = targetUrl;
 		// IE8 and lower fix
 		if (navigator.userAgent.match(/MSIE\s(?!9.0)/)) {
