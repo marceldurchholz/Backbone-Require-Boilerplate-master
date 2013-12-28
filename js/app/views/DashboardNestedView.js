@@ -8,6 +8,7 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 			el: "#DashboardNestedViewDiv",
 			initialize: function() {
 				console.log('initializing DashboardNestedView.js');
+				$(this.el).html('loading...');
 				$.when( this.fetchMe() ).then(
 				  function( status ) {
 					console.log(status);
