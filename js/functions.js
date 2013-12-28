@@ -2029,7 +2029,7 @@ $('#sidebar').on("vclick", "#menuelement a.contentLink", function (event) {
 	event.preventDefault();
 	$("#flexiblecontent").animate({
 		marginLeft: "0px",
-	}, 1000, function () {
+	}, 2000, function () {
 		menuStatus = false;
 		menuSwitched(false);
 		// console.log(event.target.hash);

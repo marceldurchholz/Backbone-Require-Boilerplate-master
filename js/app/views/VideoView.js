@@ -1,10 +1,10 @@
 // VideoView.js
 // -------
-define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "text!templates/videosList.html", "views/VideoView", "text!templates/videoView.html"],
+define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "text!templates/videoView.html"],
 
-    function($, Backbone, VideoModel, videosCollection, videosList, VideoView, videoView){
+    function($, Backbone, VideoModel, videosCollection, videoPage){
 		
-		var VideoView = Backbone.View.extend({
+		var VideoViewVar = Backbone.View.extend({
 			el: "#videosList",
 			initialize: function() {
 				console.log('initializing VideoView.js');
@@ -49,6 +49,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					_thisViewVideo.showDetails(e);
 				});
 			},
+			/*
 			clicked: function(e){
 				e.preventDefault();
 				var id = $(e.currentTarget).data("id");
@@ -57,8 +58,9 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				// alert(name);
 				alert(id);
 			},
+			*/
 			insertData: function(model) {
-				htmlContent = _.template(videoView, {
+				htmlContent = _.template(videoPage, {
 					id: model.get('id'),
 					uploader: model.get('uploader'),
 					videourl: model.get('videourl'),
@@ -83,7 +85,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			}
 		});
 
-        return VideoView;
+        return VideoViewVar;
 
     }
 

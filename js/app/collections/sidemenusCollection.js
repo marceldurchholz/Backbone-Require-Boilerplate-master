@@ -25,7 +25,8 @@ define(["jquery", "backbone", "models/SidemenuModel"],
 				// this.localStorage = null;
 			}
 			*/
-			this.url = 'http://dominik-lohmann.de:5000/sidemenu/?{"navoffline":"true","$sort":"seq"}';
+			// this.url = 'http://dominik-lohmann.de:5000/sidemenu/?{"navoffline":"true","$sort":"seq"}';
+			this.url = 'http://dominik-lohmann.de:5000/sidemenu/?navoffline=true';
 		},
 		model: SidemenuModel,
 		fetch: function(options) {

@@ -46,13 +46,13 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             },
 			startpage: function() {
 				// redirectToUrl();
-				alert('routing to redirectToUrl');
+				// alert('routing to redirectToUrl');
 				system.redirectToUrl('#login');
 			},
 			home: function() {
-				alert('routing to home');
-				// new View();
-				this.changePage(View, {});
+				// alert('routing to home');
+				new View();
+				// this.changePage(View, {});
             },
             aboutus: function() {
                 // new Aboutus();
@@ -92,7 +92,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				this.changePage(Videosdetailsview, {id:id});
             },
             loginViewJS: function() {
-				alert('routing to login');
+				// alert('routing to login');
                 // new LoginViewJS();
 				this.changePage(LoginViewJS, {});
             },

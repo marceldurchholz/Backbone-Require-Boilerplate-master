@@ -1,46 +1,57 @@
 // DashboardNestedView.js
 // -------
-define(["jquery", "backbone", "collections/usersCollection", "text!templates/DashboardNestedViewPage.html"],
+define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 
-    function($, Backbone, usersCollection, DashboardNestedViewPage){
+    function($, Backbone, DashboardNestedViewPage){
 		
 		var DashboardNestedViewVar = Backbone.View.extend({
 			el: "#DashboardNestedViewDiv",
 			initialize: function() {
 				console.log('initializing DashboardNestedView.js');
-				// console.log(this.options.user);
-				// var user = this.user = this.options.user;
+				$.when( this.fetchMe() ).then(
+				  function( status ) {
+					console.log(status);
+					_thisViewDashboardNested.me = status;
+					_thisViewDashboardNested.render();
+				  },
+				  function( status ) {
+					// console.log( status + ", you fail this time" );
+					alert( "you fail this time" );
+				  },
+				  function( status ) {
+					console.log('still fetchWorking');
+				  }
+				);
+			},
+			fetchWorking: function() {
+				var setTimeoutWatcher = setTimeout(function foo() {
+					if ( _thisViewDashboardNested.dfd.state() === "pending" ) {
+						_thisViewDashboardNested.dfd.notify( "working... " );
+						setTimeout( _thisViewDashboardNested.fetchWorking, 100 );
+					}
+				}, 1 );
+			},
+			fetchMe: function() {
+				_thisViewDashboardNested = this;
+				console.log('fetchMe DashboardNestedView.js');
+				_thisViewDashboardNested.dfd = new jQuery.Deferred();
+				_thisViewDashboardNested.fetchWorking();
+				dpd.users.me(function(user) {
+					if (user) {
+						var fetchMe = setTimeout ( function() {
+							_thisViewDashboardNested.dfd.resolve(user);
+						}, 2000 );
+					}
+					else {
+						// location.href = "#noaccess";
+						// console.log('you are not logged in');
+					}
+				});
+				return this.dfd.promise();
 			},
 			fetch: function() {	
 				_thisViewDashboardNested = this;
 				console.log('fetching DashboardNestedView.js');
-				/*
-				this._videosCollection = new videosCollection();
-				this._videosCollection.fetch({
-					success: function(coll, jsoncoll) {
-						// console.log(_thisViewDashboardNested);
-						_thisViewDashboardNested.render();
-					},
-					error: function(action, coll) {
-						console.log(action);
-						console.log(coll);
-						// _thisViewDashboardNested.render();
-					}
-				});
-				*/
-				// console.log(_thisViewDashboardNested.user.id);
-				this._usersCollection = new usersCollection([],{dbid:_thisViewDashboardNested.options.user.id});
-				this._usersCollection.fetch({
-					success: function(coll, jsoncoll) {
-						// console.log(_thisViewDashboardNested);
-						_thisViewDashboardNested.render();
-					},
-					error: function(action, coll) {
-						console.log(action);
-						console.log(coll);
-						// _thisViewDashboardNested.render();
-					}
-				});
 			},
 			showDetails: function(e) {
 				// e.preventDefault();
@@ -64,6 +75,24 @@ define(["jquery", "backbone", "collections/usersCollection", "text!templates/Das
 				});
 				*/
 			},
+			render: function() {
+				var _thisViewDashboardNested = this;
+				// alert('rendering DashboardNestedView.js');
+				console.log('rendering DashboardNestedView.js');
+				// $(this.el).html('bla text');
+				var htmlContent = '';
+				$(this.el).html(htmlContent);
+				htmlContent = _.template(DashboardNestedViewPage, {
+					id: _thisViewDashboardNested.me.id
+					, pictureurl: _thisViewDashboardNested.me.pictureurl
+				},{variable: 'user'});
+				$(this.el).html(htmlContent);
+				
+				_thisViewDashboardNested.$el.trigger('create');
+				return(this);
+			}
+			/*
+			,
 			clicked: function(e){
 				e.preventDefault();
 				var id = $(e.currentTarget).data("id");
@@ -121,6 +150,7 @@ define(["jquery", "backbone", "collections/usersCollection", "text!templates/Das
 				return this;
 				
 			}
+			*/
 		});
 
         return DashboardNestedViewVar;

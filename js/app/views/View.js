@@ -1,79 +1,43 @@
 // View.js
 // -------
-define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/SidemenuView", "collections/videosCollection", "models/Profile", "models/System", "text!templates/view.html", "text!templates/sidebar.html"],
+define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/SidemenuView", "text!templates/HomeNestedPage.html"],
 
-    function($, Backbone, sidemenusList, SidemenuView, videosCollection, Profile, System, viewPage, sidebar){
-/*
-define(["jquery", "backbone", "collections/videosCollection", "text!templates/view.html", "text!templates/sidebar.html"],
+    function($, Backbone, sidemenusList, SidemenuView, HomeNestedPage){
 
-    function($, Backbone, videosCollection, viewPage, sidebar){
-*/		
-		var View = Backbone.View.extend({
+		var ViewVar = Backbone.View.extend({
 
             el: "#page-content",
 			attributes: {"data-role": 'content'},
-
-            initialize: function() {
-				// this._videosCollection = new videosCollection();
-			
-				/*
-				LocalStorageAdapter.findById(2).done(function (response) {
-					console.log(response);
-				});
-				*/
-				
-				/*
-				dao.findAll(doAlert);
-				function doAlert() {
-					alert('bla');
-				}
-				*/
-				
-				this.modelData = new Backbone.Model({systemData: new System(), profileData: new Profile()});
-				// alert('initialize');
-				// this.modelData.set({systemData: new System(), profileData: new Profile()});
-				// alert(this.modelData);
-				// this.model = model;
-				// var obj = this.modelData;
-				// alert(this.modelData.get('systemData').get('version'));
-				// alert(JSON.stringify(obj, null, 4));
-				// var view = new GridView({model: model});
-				// this.modelData.bind("change", this.render);
-				// this.modelData.bind('change', this.update);
-				// this.listenTo( this.modelData, 'change', this.render );
-				// this.modelData.bind('reset', this.render, this);
-				// this.modelData.on("change", this.render, this);
-				/*
-				this.systemData = new System();
-				this.profileData = new Profile();
-				this.profileData.bind("change", this.changeHandler);
-				this.systemData.bind("change", this.changeHandler);
-				*/
-				// _.bindAll(this, 'render');
-				// this.modelData.on('change',this.render, this);
+			events: {
+			},
+			bindEvents: function() {
+				var _thisViewHome = this;
+				// this.$el.off('click','.createVideo').on('click','.createVideo',function(){_thisViewHome.createVideo();});
+			},
+			sync: function() {
+			},
+			initialize: function() {
 				this.fetch();
-				
-                // this.render();
-            },			
-            events: {
-				'click .login': 'login',
-				'click .logout': 'logout'
-            },
+			},
 			fetch: function() {
-				this._videosCollection = new videosCollection(); var _thisView = this; this._videosCollection.fetch({ error: function(action, coll) { alert('ERROR: fetch _videosCollection'); _thisView.render(); console.log(action); console.log(coll); }, success: function(coll, jsoncoll) { _thisView.render(); } });
-			},
-			login: function () {
-				// $(document).trigger('login');
-				// return false;
-				this.modelData.get('profileData').set( {id: '100000853413637'} );
 				this.render();
-				return false;
 			},
-			logout: function () {
-				this.modelData.get('profileData').set( {id: ''} );
-				this.render();
-				return false;
-			},
+			render: function() {
+				this.bindEvents();
+				console.log('DOING render Videos.js called');
+				_thisViewHome = this;
+				var ani = setTimeout ( function() {
+					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
+					_thisViewHome.nestedView = new SidemenuView().fetch();
+					_thisViewHome.$el.html(_.template(HomeNestedPage, {}));
+					// _thisViewHome.nestedView = new HomeNestedView().fetch();
+					_thisViewHome.$el.trigger('create');
+				}, 500 );
+
+				return this;
+				
+			}
+			/*
             render: function() {
 				// alert('rendering view.js');
 				
@@ -87,10 +51,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				// this.sidebar = _.template(sidebar, {});
 				// $('#sidebar').html(sidebar);
 				
-				/*
-				this._viewPage = _.template(viewPage, {});
-				this.$el.html(this._viewPage);
-				*/
+				// this._viewPage = _.template(viewPage, {});
+				// this.$el.html(this._viewPage);
 				
 				this._viewPage = _.template(viewPage, {
 					id: this.modelData.get('profileData').get('id'), 
@@ -111,10 +73,11 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				// console.log(this);
                 return this;
             }
+			*/
 
         });
 
-        return View;
+        return ViewVar;
 
     }
 
