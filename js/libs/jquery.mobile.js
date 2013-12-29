@@ -1,4 +1,4 @@
-alert('jquery.mobile.js');
+// alert('jquery.mobile.js');
 /*
 $(document).bind("mobileinit", function(){
 	$.support.cors = true;

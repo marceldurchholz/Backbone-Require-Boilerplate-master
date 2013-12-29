@@ -1,4 +1,4 @@
-alert('functions.js');
+// alert('functions.js');
 
 var isMobile = {};
 isMobile = {
@@ -37,7 +37,7 @@ var footervideoStatus = false;
 var rootURL = "";
 var root = this; // used by pdfbrowser and childbrowser
 var deviceSDID;
-// var cordovaIsLoaded = false;
+var cordovaIsLoaded = false;
 var deviceSDID = "???";
 var SDID_DOMAIN = 'phonegap.appinaut.de';  
 var SDID_KEY = '633241';
@@ -477,13 +477,13 @@ var app = {
 				// console.log(status);
 				// _thisViewDashboardNested.me = status;
 				// _thisViewDashboardNested.render();
-				// cordovaIsLoaded = true;
+				cordovaIsLoaded = true;
 				// new MobileRouter();
 				modifyiOS7StatusBar();
 				// populateHomepageData();
 				// status = deviceisready
 				// alert(deviceisready);
-				new window.mobilerouter();
+				new window.MobileRouter();
 				// return this.dfd.promise();
 				// return('deviceisready');
 			  },
@@ -492,7 +492,7 @@ var app = {
 				alert( "you fail this time" );
 			  },
 			  function( status ) {
-				console.log('still fetchWorking');
+				console.log('still fetchWorking app');
 			  }
 		);
 	},
@@ -506,7 +506,7 @@ var app = {
 	},
 	fetchMe: function() {
 		_thisApp = this;
-		console.log('fetchMe DashboardNestedView.js');
+		console.log('fetchMe app');
 		_thisApp.dfd = new jQuery.Deferred();
 		_thisApp.fetchWorking();
 		if(!isMobile.any()) {
