@@ -40,6 +40,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"sidebarlist" : "sidebarlist",
 				"videos/details/:id" : "videodetails",
 				"videos/details/view/:id" : "videodetailsview",
+				"videos/favourites/add/:id" : "videodetailsview",
 				"employeeListItemView" : "employeeListItemView",
 				"login" : "loginViewJS",
 				"logout" : "logout"

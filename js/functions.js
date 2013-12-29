@@ -512,7 +512,7 @@ var app = {
 		if(!isMobile.any()) {
 			var foox = window.setTimeout(function blax() {
 				_thisApp.dfd.resolve(true);
-			}, 3000);
+			}, 1000);
 		}
 		else {
 			// document.addEventListener('load', this.onDeviceReady, false);

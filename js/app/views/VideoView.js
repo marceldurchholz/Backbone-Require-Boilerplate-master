@@ -5,7 +5,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
     function($, Backbone, VideoModel, videosCollection, videoPage){
 		
 		var VideoViewVar = Backbone.View.extend({
-			el: "#videosList",
+			el: "#VideosNestedViewDiv",
 			initialize: function() {
 				console.log('initializing VideoView.js');
 				// location.href( '#blafoopeng' );
@@ -23,30 +23,23 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						_thisViewVideo.render();
 					},
 					error: function(action, coll) {
+						console.log('ERROR fetching _videosCollection');
 						console.log(action);
 						console.log(coll);
 						// _thisViewVideo.render();
 					}
 				});
 			},
-			showDetails: function(e) {
-				e.preventDefault();
-				var id = $(e.currentTarget).data("id");
-				// var item = this.collection;
-				// console.log(item);
-				console.log('showDetails: '+id);
-				// window.location.hash = '#videos/details/'+id;
-				// Router.navigate( $(this).attr('href') );
-				window.location.hash = '#videos/details/view/'+id;
-				// alert('bla');
-			},
 			bindEvents: function() {
 				var _thisViewVideo = this;
 				// this.$el.off('click','.clickRow').on('click','.clickRow',function(){_thisViewVideo.clicked(e);});
-				this.$el.off('click','.listRow').on('click','.listRow',function(e){
-					// console.log(e);
-					// alert('show detail');
-					_thisViewVideo.showDetails(e);
+				this.$el.off('click','.showVideoDetailsLink').on('click','.showVideoDetailsLink',function(event){
+					event.preventDefault();
+					system.redirectToUrl(event.currentTarget.hash);
+				});
+				this.$el.off('click','.addVideoToFavourites').on('click','.addVideoToFavourites',function(event){
+					event.preventDefault();
+					system.redirectToUrl(event.currentTarget.hash);
 				});
 			},
 			/*
