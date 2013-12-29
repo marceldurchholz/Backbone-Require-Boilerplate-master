@@ -30,7 +30,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				});
 			},
 			showDetails: function(e) {
-				// e.preventDefault();
+				e.preventDefault();
 				var id = $(e.currentTarget).data("id");
 				// var item = this.collection;
 				// console.log(item);
