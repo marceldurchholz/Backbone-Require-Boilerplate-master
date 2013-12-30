@@ -32,9 +32,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					_thisViewVideos.nestedView = new VideoView().fetch();
 					_thisViewVideos.$el.trigger('create');
 				}, 0 );
-
-				return this;
-				
+				return this;				
 			}
 		});
 

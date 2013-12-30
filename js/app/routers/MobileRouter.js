@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/loginView", "collections/Collection", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView", "views/SidebarListView", "views/Sidemenus"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/VideoAddToFavourites", "views/loginView", "collections/Collection", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView", "views/SidebarListView", "views/Sidemenus"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, LoginViewJS, Collection, DashboardView, NoAccess, Logout, MyProfile, SidebarListView, Sidemenus) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, Videoaddtofavourites, LoginViewJS, Collection, DashboardView, NoAccess, Logout, MyProfile, SidebarListView, Sidemenus) {
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -40,7 +40,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"sidebarlist" : "sidebarlist",
 				"videos/details/:id" : "videodetails",
 				"videos/details/view/:id" : "videodetailsview",
-				"videos/favourites/add/:id" : "videodetailsview",
+				"videos/favourites/add/:id" : "videoaddtofavourites",
 				"employeeListItemView" : "employeeListItemView",
 				"login" : "loginViewJS",
 				"logout" : "logout"
@@ -92,6 +92,9 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// new Videosdetailsview({id:id});
 				this.changePage(Videosdetailsview, {id:id});
             },
+			videoaddtofavourites: function(id) {
+				new Videoaddtofavourites({id:id});
+			},
             loginViewJS: function() {
 				// alert('routing to login');
                 // new LoginViewJS();

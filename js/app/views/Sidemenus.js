@@ -23,7 +23,7 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 						error: function(action, coll) {
 							console.log(action);
 							console.log(coll);
-							_thisView.render();
+							// _thisView.render();
 						}
 					});
 				},

@@ -1,10 +1,13 @@
 <ul data-role="listview" data-split-icon="star" data-inset="false" data-theme="c" data-split-theme="c" style="height:96px;padding:0px;">
 	<li style="height:80px;margin:0px;padding:0px;">
 		<a class="showVideoDetailsLink" href="#videos/details/view/<%= video.id %>">
+		<!--
 		<img style="margin:0px;height:80px !important;max-height:100px !important;max-width:auto;width:100%;" src="<%= video.thumbnailurl %>" />
-		<h5 style="margin:0px;padding:0px;padding-bottom:15px;"><%= video.title %></h5>
-		<p><%= video.description %></p>
+		-->
+		<h5 style="padding-top:2px;padding-bottom:4px;margin-left:80px;"><%= video.title %></h5>
+		<p style="margin-left:80px;"><%= video.description %> | <%= video.favclass %></p>
+		<p class="ui-li-icon"><img style="margin:7px;height:60px;" src="<%= video.thumbnailurl %>" /></p>
 		</a>
-		<a class="addVideoToFavourites" style="margin:0px;padding:px;border-top:0px;b/order-bottom:0px;height:79px;" href="#videos/favourites/add/<%= video.id %>">Zur Mediathek hinzufügen...</a>
+		<a id="<%= video.id %>" class="<%= video.favclass %>" style="background-color:red;margin:0px;padding:px;border-top:0px;b/order-bottom:0px;height:79px;" data-link="<%= video.id %>" href="#">Zur Mediathek hinzufügen...</a>
 	</li>
 </ul>
