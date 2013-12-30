@@ -133,17 +133,18 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 			testFunction: function() {
 				// alert('test');
 				// $("#page-content").show();
-				/*
 				$("#page-content").fadeIn( 1000, function() {
 					$('.ui-content').scrollTop(0);
+					$.mobile.hidePageLoadingMsg();
+					new FastClick(document.body);
 				});
-				*/
+				new FastClick(document.body);
 			},
 			changePage: function(view, viewOptions) {
 				// system.toggleLoading(true);
 				// $.mobile.loadingMessage = 'Loading...Please wait';
-				// $.mobile.showPageLoadingMsg();
-				// $("#page-content").hide();
+				$.mobile.showPageLoadingMsg();
+				$("#page-content").hide();
 				
 				this.myView = new view(viewOptions);
 				this.myView.$el.off('create', this.testFunction);
