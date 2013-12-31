@@ -1633,8 +1633,8 @@ function uploadFile(mediaFile) {
 		options.fileKey = "file";
 		log(options.fileKey);
 		// var suffix = getExtension(path);
-		options.fileName = path.substr(path.lastIndexOf('/') + 1);
-		// options.fileName = new Date().getTime();
+		// options.fileName = path.substr(path.lastIndexOf('/') + 1);
+		options.fileName = new Date().getTime();
 		log(options.fileName);
 		options.mimeType = "video/mp4";
 		log(options.mimeType);
