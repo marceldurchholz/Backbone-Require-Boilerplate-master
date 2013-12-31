@@ -1624,20 +1624,29 @@ function uploadFile(mediaFile) {
 	try {
 		log('uploading '+mediaFile.fullPath);
 		log('uploading '+mediaFile.name);
-		// var ft = new FileTransfer(),
-		// path = mediaFile.fullPath,
-		// name = mediaFile.name;
-		// ft.upload(path,
-			// "http://mobile001.appinaut.de/upload.php",
-			// function(result) {
-				// console.log('Upload success: ' + result.responseCode);
-				// console.log(result.bytesSent + ' bytes sent');
-			// },
-			// function(error) {
-				// console.log('Error uploading file ' + path + ': ' + error.code);
-			// },
-			// { fileName: name }
-		// );
+		var ft = new FileTransfer();
+		var path = mediaFile.fullPath;
+		var name = mediaFile.name;
+		
+		var options = new FileUploadOptions();
+		options.fileKey = "file";
+		log(options.fileKey);
+		options.fileName = path.substr(path.lastIndexOf('/') + 1);
+		log(options.fileName);
+		options.mimeType = "video/mp4";
+		log(options.mimeType);
+
+		ft.upload(path,
+			"http://mobile002.appinaut.de/secure/data/media/video/upload.php",
+			function(result) {
+				log('Upload success: ' + result.responseCode);
+				log(result.bytesSent + ' bytes sent');
+			},
+			function(error) {
+				log('Error uploading file ' + path + ': ' + error.code);
+			},
+			{ fileName: name }
+		);
 	} catch (e) {
 		// not DATA_URL
 		log('class new FileTransfer not possible');
@@ -1927,7 +1936,7 @@ function resizeElement(elementid) {
 	// alert('jup');
 };
 
-function createVideoPreview(videoObj) {
+function createVideoPreview(videoObj,videoId,videoUrl) {
 	// alert('bla');
 	// if( myPlayer ) {
 		// $('video_player_1').remove();
@@ -1951,6 +1960,10 @@ function createVideoPreview(videoObj) {
 	// window.videono = window.videono+1;
 	// alert(window.videono);
 	
+	_thisVideoId = videoId;
+	console.log(videoId);
+	_thisVideoUrl = videoUrl;
+	console.log(videoUrl);
 	for( vid in _V_.players ){ 
 		console.log('>>> '+vid.toString()); 
 		if(vid.toString() == "video_player_1"){ 
@@ -1964,10 +1977,13 @@ function createVideoPreview(videoObj) {
 		var myPlayer = _V_("video_player_1");
 		_V_("video_player_1").ready(function(){
 			// alert('jupp');
+			// { type: "video/mp4", src: "http://mobile002.appinaut.de/secure/data/media/video/Bird_Titmouse.mp4" }
+			console.log(_thisVideoUrl);
+			console.log("http://mobile002.appinaut.de/secure/data/media/video/index.php?showvideo="+_thisVideoUrl+".mp4");
 			myPlayer.src([
-				{ type: "video/mp4", src: "http://video-js.zencoder.com/oceans-clip.mp4" },
-				{ type: "video/webm", src: "http://video-js.zencoder.com/oceans-clip.webm" },
-				{ type: "video/ogg", src: "http://video-js.zencoder.com/oceans-clip.ogv" }
+				{ type: "video/mp4", src: "http://mobile002.appinaut.de/secure/data/media/video/index.php?showvideo="+_thisVideoUrl+".mp4" },
+				{ type: "video/webm", src: "http://mobile002.appinaut.de/secure/data/media/video/index.php?showvideo="+_thisVideoUrl+".webm" },
+				{ type: "video/ogg", src: "http://mobile002.appinaut.de/secure/data/media/video/index.php?showvideo="+_thisVideoUrl+".ogv" }
 			]);
 			// alert('bla');
 			myPlayer.posterImage.show();  

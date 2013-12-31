@@ -58,6 +58,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 							console.log(coll);
 						},
 						success: function(coll, jsoncoll) {
+							console.log(coll);
+							console.log(jsoncoll);
 							_thisViewVideoDetails.render();
 						}
 					});
@@ -67,6 +69,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					this.fetch(options);
 				},
 				insertVariables: function(model) {
+					console.log(model.get('videourl'));
 					_template = _.template(videosDetailsViewHTML, {
 						id: model.get('id'),
 						uploader: model.get('uploader'),
@@ -91,11 +94,16 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					_thisViewVideoDetails.nestedView = new SidemenuView().fetch();
 					var htmlContent = '';
 					$(this.el).html(htmlContent);
+					// console.log('this._videosCollection.models');
+					// console.log(this._videosCollection.models[0].attributes.videourl);
 					_.each(this._videosCollection.models, function(model) {
 						this.id = model.get('id');
+						this.videourl = model.get('id');
 						_thisViewVideoDetails.insertVariables(model);
 					});
-					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'));
+					console.log('this._videosCollection.models[0].attributes.videourl');
+					console.log(this._videosCollection.models[0].attributes.videourl);
+					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',this._videosCollection.models[0].attributes.videourl);
 					this.$el.trigger('create');
 					new FastClick(document.body);
 					this.$el.fadeIn( 500, function() {
