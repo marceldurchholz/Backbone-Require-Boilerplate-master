@@ -1633,7 +1633,7 @@ function uploadFile(mediaFile) {
 		log(options.fileKey);
 		options.fileName = path.substr(path.lastIndexOf('/') + 1);
 		log(options.fileName);
-		options.mimeType = "video/mp4";
+		options.mimeType = "video/quicktime";
 		log(options.mimeType);
 
 		ft.upload(path,
