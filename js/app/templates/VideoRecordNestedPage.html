@@ -8,17 +8,27 @@
 	<p><b>Los geht's!</b></p>
 	<p>Über diese Funktion des APPinaut können Sie ein neues Video aufnehmen, in die Mobile Learning Community des APPinaut hochladen und über Ihren personalisierten APPinaut anbieten.</p>
 
-	<div id="uploadstatusbar" style="font-size:18px;"></div>
-
-	<div id="videobox">
-		<video id='video_player' controls style='width:100%; height:15em;'></video>
-	</div>
+	<form id="submitform" action="#videos/record" method="post">
 	
-	<fieldset class="ui-grid-a">
-		<div class="ui-block-a"><button onclick="captureVideoRecord();" type="submit" data-theme="c">aufnehmen</button></div>
-		<div class="ui-block-b"><button onclick="captureVideoUpload();" type="submit" data-theme="c">hochladen</button></div>	   
-	</fieldset>
+		<input type="text" name="title" id="title" placeholder="Videotitel"value="" />
+		<input type="text" name="subtitle" id="subtitle" placeholder="Videountertitel"value="" />
 
-	<span id="camera_status"></span>
-	<span id="camera_file"></span>
+		<div id="uploadstatusbar" style="font-size:18px;"></div>
+
+		<div id="videobox">
+			<video id='video_player' controls style='width:100%; height:15em;'></video>
+		</div>
+		
+		<fieldset class="ui-grid-a">
+			<div class="ui-block-a"><button onclick="captureVideoRecord();" type="submit" data-theme="c">aufnehmen</button></div>
+			<div class="ui-block-b"><button onclick="captureVideoUpload();" type="submit" data-theme="c">hochladen</button></div>	   
+		</fieldset>
+
+		<span id="camera_status"></span>
+		<span id="camera_file"></span>
+
+		<button id="submitbutton" type="button" name="button" value="button" data-theme="c">Submit</button>
+		
+	</form>
+	
 </div>

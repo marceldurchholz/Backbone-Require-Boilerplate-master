@@ -1650,16 +1650,16 @@ function captureVideoUpload(mediaFile) {
 		var name = mediaFile.name;
 		
 		var options = new FileUploadOptions();
-		options.fileKey = "file";
-		log(options.fileKey);
+		// options.fileKey = "file";
+		// log(options.fileKey);
 		// var suffix = getExtension(path);
 		// options.fileName = path.substr(path.lastIndexOf('/') + 1);
 		options.fileName = new Date().getTime();
-		log(options.fileName);
+		// log(options.fileName);
 		options.mimeType = "video/mp4";
-		log(options.mimeType);
+		// log(options.mimeType);
 		options.chunkedMode = false;
-		log(options.chunkedMode);
+		// log(options.chunkedMode);
 		alert(""+options.fileName);
 		ft.upload(path,
 			"http://management-consulting.marcel-durchholz.de/secure/upload.php",
