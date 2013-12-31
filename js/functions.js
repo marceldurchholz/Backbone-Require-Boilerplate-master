@@ -1624,7 +1624,7 @@ function captureVideoUpload() {
 		log('uploading '+mediaFile.name);
 		var ft = new FileTransfer();
 		
-		fileTransfer.onprogress = function(progressEvent) {
+		ft.onprogress = function(progressEvent) {
 			/*
 			if (progressEvent.lengthComputable) {
 			  // loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
