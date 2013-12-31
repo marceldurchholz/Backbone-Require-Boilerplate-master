@@ -1740,19 +1740,12 @@ function captureVideoRecord() {
 	}
 	// alert('bla4');
 }
-function getVideoWin(data) {
-	// alert('bla2');
-	log(data);
-	setVideo(data);
-	// console.log('CALLBACK!');
-	// console.log(JSON.stringify(data));
-}
 function onGetVideoError(e) {
 	// log('Error getting picture: ' + e.code);
 	// alert('bla3');
 	console.log('Video capture failed');
 }
-function setVideo(mediaFiles) {
+function getVideoWin(mediaFiles) {
 	// , callback
 	try {
 		var i, path, len;
@@ -1777,16 +1770,16 @@ function setVideo(mediaFiles) {
 			// uploadFile(mediaFiles[i]);
 			var video_player = document.getElementById('video_player');
 			var startTime = new Date();
-			// alert(mediaFiles.fullPath);			
-			video_player.src = mediaFiles.fullPath;
+			alert(path);			
+			video_player.src = path;
 			video_player.onloadend = function() {
 				log('Video load time: ' + (new Date() - startTime));
 			};
 			log('video will now be played');
-			my_media = new Media(mediaFiles.fullPath, mediaOnSuccess, mediaOnError);
+			my_media = new Media(path, mediaOnSuccess, mediaOnError);
 			my_media.play();
-			var blax = JSON.stringify(mediaFiles);
-			$('#camera_file').html(blax);
+			// var blax = JSON.stringify(mediaFiles);
+			$('#camera_file').html(path);
 			alert('Bitte klicken Sie auf hochladen.');
 		}
 		// console.log('stringifiedjsondata: '+JSON.stringify(mediaFiles));
