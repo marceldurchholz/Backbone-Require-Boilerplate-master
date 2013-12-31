@@ -1619,6 +1619,7 @@ function getExtension(filename) {
 // http://www.raymondcamden.com/index.cfm/2013/5/1/Using-the-Progress-event-in-PhoneGap-file-transfers
 
 function captureVideoUpload() {
+	var mediaFile = $('#camera_file').html();
 	uploadFile(mediaFile);
 };
 
@@ -1704,18 +1705,8 @@ function uploadFile(mediaFile) {
 		log('video cannot be played');
 	}
 	
-	log('video will now be logged');
+	// log('video will now be logged');
 	// console.log("<video id='video_player' controls src='#' style='position: absolute; width: 320px; height: 200px;'></video>");
-	var video_player = document.getElementById('video_player');
-	var startTime = new Date();
-	// alert(mediaFile.fullPath);			
-	video_player.src = mediaFile.fullPath;
-	video_player.onloadend = function() {
-		log('Video load time: ' + (new Date() - startTime));
-	};
-	log('video will now be played');
-	my_media = new Media(mediaFile.fullPath, mediaOnSuccess, mediaOnError);
-	my_media.play()
 	
 	log('class uploadFile ended');
 }
@@ -1784,8 +1775,18 @@ function setVideo(mediaFiles) {
 			log('name ['+i+']:'+name);
 			// do something interesting with the file
 			// uploadFile(mediaFiles[i]);
+			var video_player = document.getElementById('video_player');
+			var startTime = new Date();
+			// alert(mediaFiles.fullPath);			
+			video_player.src = mediaFiles.fullPath;
+			video_player.onloadend = function() {
+				log('Video load time: ' + (new Date() - startTime));
+			};
+			log('video will now be played');
+			my_media = new Media(mediaFiles.fullPath, mediaOnSuccess, mediaOnError);
+			my_media.play();
 			var blax = JSON.stringify(mediaFiles);
-			$('camera_file').html('blax');
+			$('#camera_file').html(blax);
 			alert('Bitte klicken Sie auf hochladen.');
 		}
 		// console.log('stringifiedjsondata: '+JSON.stringify(mediaFiles));
