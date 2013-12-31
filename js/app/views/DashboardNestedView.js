@@ -89,6 +89,7 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 				htmlContent = _.template(DashboardNestedViewPage, {
 					id: _thisViewDashboardNested.me.id
 					, pictureurl: _thisViewDashboardNested.me.pictureurl
+					, fullname: _thisViewDashboardNested.me.fullname
 				},{variable: 'user'});
 				$(this.el).html(htmlContent);
 				this.$el.trigger('create');
