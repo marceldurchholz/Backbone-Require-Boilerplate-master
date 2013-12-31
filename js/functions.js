@@ -1620,12 +1620,11 @@ function captureVideoUpload() {
 	log('class captureVideoUpload started');
 	try {
 		$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
-		log('uploading '+mediaFile.fullPath);
-		log('uploading '+mediaFile.name);
+		log('uploading '+mediaFile);
+		// log('uploading '+mediaFile.name);
 		var ft = new FileTransfer();
 		
 		ft.onprogress = function(progressEvent) {
-			/*
 			if (progressEvent.lengthComputable) {
 			  // loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
 				// log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
@@ -1634,8 +1633,7 @@ function captureVideoUpload() {
 			} else {
 				// loadingStatus.increment();
 			}
-			*/
-			$('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
+			// $('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
 		};
 		/*
 		ft.onprogress = function(progressEvent) {
@@ -1643,7 +1641,8 @@ function captureVideoUpload() {
 			$('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
 		};
 		*/
-		var path = mediaFile.fullPath;
+		var path = mediaFile;
+		alert('path: '+path);
 		// var name = mediaFile.name;
 		
 		var options = new FileUploadOptions();
