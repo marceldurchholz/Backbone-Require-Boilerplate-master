@@ -1637,7 +1637,7 @@ function uploadFile(mediaFile) {
 		log(options.mimeType);
 
 		ft.upload(path,
-			"http://mobile002.appinaut.de/secure/data/media/video/upload.php",
+			"http://management-consulting.marcel-durchholz.de/secure/upload.php",
 			function(result) {
 				log('Upload success: ' + result.responseCode);
 				log(result.bytesSent + ' bytes sent');
