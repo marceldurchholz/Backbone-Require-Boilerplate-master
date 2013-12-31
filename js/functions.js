@@ -1635,6 +1635,8 @@ function uploadFile(mediaFile) {
 		log(options.fileName);
 		options.mimeType = "video/quicktime";
 		log(options.mimeType);
+		options.chunkedMode = false;
+		log(options.chunkedMode);
 
 		ft.upload(path,
 			"http://management-consulting.marcel-durchholz.de/secure/upload.php",
