@@ -1744,7 +1744,8 @@ function onGetVideoError(e) {
 	console.log('Video capture failed');
 }
 function getVideoWin(mediaFiles) {
-	// , callback
+	log('captureVideoRecord');
+	log(mediaFiles);
 	try {
 		var i, path, len;
 		for (i = 0, len = mediaFiles.length; i < len; i += 1) {
