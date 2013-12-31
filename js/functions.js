@@ -1611,12 +1611,12 @@ function getPictureWin(data) {
 	}
 }
 
-// TODO: File Transfer onProgress Download
+function getExtension(filename) {
+    return filename.split('.').pop();
+}
+
+// TODO: File Transfer onProgress DOWNload
 // http://www.raymondcamden.com/index.cfm/2013/5/1/Using-the-Progress-event-in-PhoneGap-file-transfers
-
-/*
-
-*/
 
 // Upload files to server
 function uploadFile(mediaFile) {
@@ -1632,6 +1632,7 @@ function uploadFile(mediaFile) {
 		var options = new FileUploadOptions();
 		options.fileKey = "file";
 		log(options.fileKey);
+		var suffix = getExtension(path);
 		// options.fileName = path.substr(path.lastIndexOf('/') + 1);
 		options.fileName = new Date().getTime();
 		log(options.fileName);
@@ -1647,9 +1648,8 @@ function uploadFile(mediaFile) {
 				log("Response = " + r.response);
 				log("Sent = " + r.bytesSent);
 				// alert(r.response);
-				dpd.videos.post({"uploader":"042cb1572ffbea5d","videourl":options.fileName,"title":"foobar","description":"foobar","price":123,"thumbnailurl":"foobar"}, function(result, err) {
+				dpd.videos.post({"uploader":"foobar","videourl":"bla","title":"foobar","description":"foobar","price":123,"thumbnailurl":"foobar"}, function(result, err) {
 					if(err) {
-						$.mobile.loading( 'hide' );
 						// return console.log(err);
 						return console.log(err);
 					}
