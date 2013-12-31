@@ -1646,14 +1646,14 @@ function uploadFile(mediaFile) {
 				log("Response = " + r.response);
 				log("Sent = " + r.bytesSent);
 				// alert(r.response);
-				dpd.videos.post({"uploader":"foobar","videourl":options.fileName.".MOV","title":"foobar","description":"foobar","price":123,"thumbnailurl":"foobar"}, function(result, err) {
+				dpd.videos.post({"uploader":"foobar","videourl":options.fileName+".MOV","title":"foobar","description":"foobar","price":123,"thumbnailurl":"foobar"}, function(result, err) {
 					if(err) {
 						// return console.log(err);
 						return console.log(err);
 					}
 					console.log(result, result.id);
 				});
-				}
+			},
 			function(error) {
 				// alert("An error has occurred: Code = " = error.code);
 				log('Error uploading file ' + path + ': ' + error.code);
@@ -2008,10 +2008,10 @@ function createVideoPreview(videoObj,videoId,videoUrl) {
 					// $(".video-js")[0].player.pause();
 					// Paypal-Buy-Now-button.png
 					// $("#video_player_1 .vjs-poster").css('background-image', 'url(/Paypal-Buy-Now-button.png)').show();
-					myPlayer.cancelFullScreen();  
-					myPlayer.pause();
-					myPlayer.currentTime(0);  
 					myPlayer.posterImage.show();  
+					myPlayer.currentTime(0);  
+					myPlayer.pause();
+					// myPlayer.cancelFullScreen();  
 					// myPlayer.controlBar.hide();  
 					// myPlayer.bigPlayButton.hide();  
 					// $("#videocontainerlink").attr("href", "/blafoopeng/")
