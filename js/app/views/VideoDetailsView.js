@@ -1,8 +1,8 @@
 // VideoDetailsView.js
 // -------
-define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "views/VideoView", "text!templates/videoDetailsView.html", "text!templates/sidebar.html"],
+define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "views/VideoView", "text!templates/videoDetailsView.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
 
-    function($, Backbone, VideoModel, videosCollection, VideoListViewItems, videosDetailsViewHTML, sidebar){
+    function($, Backbone, VideoModel, videosCollection, VideoListViewItems, videosDetailsViewHTML, sidemenusList, SidemenuView){
 		
 			var VideoDetailsViewVar = Backbone.View.extend({
 			
@@ -48,6 +48,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					// this._videosCollection = new videosCollection();
 				},
 				fetch: function(options) {
+					this.$el.hide();
 					this.initializeCollection(options);
 					// this._videosCollection = new videosCollection();
 					var _thisViewVideoDetails = this;
@@ -78,26 +79,29 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					$(this.el).html(_template);
 				},
 				render: function() {
-					var _thisViewVideoDetails = this;
+					_thisViewVideoDetails = this;
 					console.log('rendering');
 					$(window).resize(function() {
 						window.resizeElement('#video_player_1')
 					});
 					console.log('DOING render VideoDetailsView.js called');
-					
-					this.sidebar = _.template(sidebar, {});
-					$('#sidebar').html(sidebar);
-					
-				var htmlContent = '';
-				$(this.el).html(htmlContent);
-				
+					// this.sidebar = _.template(sidebar, {});
+					// $('#sidebar').html(sidebar);
+					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
+					_thisViewVideoDetails.nestedView = new SidemenuView().fetch();
+					var htmlContent = '';
+					$(this.el).html(htmlContent);
 					_.each(this._videosCollection.models, function(model) {
-						// console.log(model);
 						this.id = model.get('id');
 						_thisViewVideoDetails.insertVariables(model);
 					});
-						window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'));
+					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'));
 					this.$el.trigger('create');
+					new FastClick(document.body);
+					this.$el.fadeIn( 500, function() {
+						$('.ui-content').scrollTop(0);
+						new FastClick(document.body);
+					});
 					return this;
 				}
 

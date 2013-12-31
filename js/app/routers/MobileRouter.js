@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/VideoAddToFavourites", "views/loginView", "collections/Collection", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView", "views/SidebarListView", "views/Sidemenus"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, Videoaddtofavourites, LoginViewJS, Collection, DashboardView, NoAccess, Logout, MyProfile, SidebarListView, Sidemenus) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, LoginViewJS,  DashboardView, NoAccess, Logout, MyProfile) {
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -35,12 +35,9 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"dashboard" : "dashboard",
 				"listview" : "listview",
 				"videos" : "videos",
-				"sidemenus" : "sidemenus",
 				"myprofile" : "myprofile",
-				"sidebarlist" : "sidebarlist",
 				"videos/details/:id" : "videodetails",
 				"videos/details/view/:id" : "videodetailsview",
-				"videos/favourites/add/:id" : "videoaddtofavourites",
 				"employeeListItemView" : "employeeListItemView",
 				"login" : "loginViewJS",
 				"logout" : "logout"
@@ -77,24 +74,14 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				this.changePage(Listview, {});
 				// var bla = new Listview();
             },
-            sidebarlist: function() {
-                new SidebarListView();
-				// this.changePage(Videos, {});
-            },
             videos: function() {
                 // new Videos();
 				this.changePage(Videos, {});
-            },
-            sidemenus: function() {
-				this.changePage(Sidemenus, {});
             },
             videodetailsview: function(id) {
 				// new Videosdetailsview({id:id});
 				this.changePage(Videosdetailsview, {id:id});
             },
-			videoaddtofavourites: function(id) {
-				new Videoaddtofavourites({id:id});
-			},
             loginViewJS: function() {
 				// alert('routing to login');
                 // new LoginViewJS();
@@ -110,7 +97,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             },
             noaccess: function() {
                 // new NoAccess();
-				this.changePage(DashboardView, {});
+				this.changePage(NoAccess, {});
             },
             logout: function() {
                 // new Logout();
@@ -131,24 +118,25 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				});
 			},
 			testFunction: function() {
-				// alert('test');
+				// console.log('create triggered');
 				// $("#page-content").show();
+				new FastClick(document.body);
 				$("#page-content").fadeIn( 1000, function() {
 					$('.ui-content').scrollTop(0);
 					$.mobile.hidePageLoadingMsg();
 					new FastClick(document.body);
 				});
-				new FastClick(document.body);
 			},
 			changePage: function(view, viewOptions) {
 				// system.toggleLoading(true);
 				// $.mobile.loadingMessage = 'Loading...Please wait';
-				$.mobile.showPageLoadingMsg();
-				$("#page-content").hide();
+				// $.mobile.showPageLoadingMsg();
+				// $("#page-content").hide();
 				
 				this.myView = new view(viewOptions);
-				this.myView.$el.off('create', this.testFunction);
-				this.myView.$el.on('create', this.testFunction);
+				new FastClick(document.body);
+				// this.myView.$el.off('create', this.testFunction);
+				// this.myView.$el.on('create', this.testFunction);
 				// this.myView.$el.off('create', this.viewFadeIn, this.$el);
 				// this.myView.$el.on('create', this.viewFadeIn, this.$el); // << hier noch ein .off hinzufügen, weil multiple ausführung!!! <<
 				

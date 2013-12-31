@@ -25,13 +25,13 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				this.bindEvents();
 				_thisViewDashboard = this;
 				console.log('DOING render DashboardView.js called');
-				var ani = setTimeout ( function() {
+				// var ani = setTimeout ( function() {
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewDashboard.nestedView = new SidemenuView().fetch();
 					_thisViewDashboard.$el.html(_.template(DashboardViewPage, {}));
 					_thisViewDashboard.nestedView = new DashboardNestedView().fetch();
-					_thisViewDashboard.$el.trigger('create');
-				}, 0 );
+					// _thisViewDashboard.$el.trigger('create');
+				// }, 0 );
 				/*
 				this._template = _.template(DashboardViewPage, {});
 				this.$el.html(this._template);

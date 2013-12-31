@@ -1,8 +1,8 @@
 // VideoView.js
 // -------
-define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "text!templates/videoView.html", "text!templates/sidemenusList.html", "views/SidemenuView", "text!templates/DashboardView.html", ],
+define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "text!templates/videoView.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
 
-    function($, Backbone, VideoModel, videosCollection, videoPage, sidemenusList, SidemenuView, DashboardViewPage){
+    function($, Backbone, VideoModel, videosCollection, videoPage, sidemenusList, SidemenuView){
 		
 		var VideoViewVar = Backbone.View.extend({
 			
@@ -56,6 +56,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				// alert('bla');
 				_thisViewVideo = this;
 				console.log('fetching VideoView.js');
+				this.$el.hide();
 				this._videosCollection = new videosCollection();
 				this._videosCollection.fetch({
 					success: function(coll, jsoncoll) {
@@ -133,21 +134,19 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			render: function() {
 				this.bindEvents();
 				var _thisViewVideo = this;
-				console.log('DOING render DashboardView.js called');
-				var ani = setTimeout ( function() {
-					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
-					_thisViewDashboard.nestedView = new SidemenuView().fetch();
-					// _thisViewDashboard.$el.html(_.template(DashboardViewPage, {}));
-					// _thisViewDashboard.nestedView = new DashboardNestedView().fetch();
-					_thisViewDashboard.$el.trigger('create');
-				}, 0 );
+				console.log('DOING render VideoView.js called');
 				var htmlContent = '';
 				$(this.el).html(htmlContent);
 				_.each(this._videosCollection.models, function(model) {
 					this.id = model.get('id');
 					_thisViewVideo.insertData(model);
 				});
-				_thisViewVideo.$el.trigger('create');
+				this.$el.trigger('create');
+				new FastClick(document.body);
+				this.$el.fadeIn( 500, function() {
+					$('.ui-content').scrollTop(0);
+					new FastClick(document.body);
+				});
 				return this;				
 			}
 		});

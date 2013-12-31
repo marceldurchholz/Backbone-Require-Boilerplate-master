@@ -13,6 +13,7 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 			},
 			fetch: function() {	
 				console.log('fetching SidemenuView.js');
+				this.$el.hide();
 				this._sidemenusCollection.fetch({
 					success: function(coll, jsoncoll) {
 						// console.log('jsoncoll');
@@ -30,7 +31,7 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 				// alert('bla');
 			},
 			showDetails: function(e) {
-				// e.preventDefault();
+				e.preventDefault();
 				var id = $(e.currentTarget).data("id");
 				// var item = this.collection;
 				// console.log(item);
@@ -40,31 +41,10 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 			},
 			bindEvents: function() {
 				var _thisViewSidemenu = this;
-				// this.$el.off('click','.clickRow').on('click','.clickRow',function(){_thisViewSidemenu.clicked(e);});
 				this.$el.off('click','.listRow').on('click','.listRow',function(e){
-					// console.log(e);
-					// alert('show detail');
+					e.preventDefault();
 					_thisViewSidemenu.showDetails(e);
 				});
-			},
-			clicked: function(e){
-				e.preventDefault();
-				var id = $(e.currentTarget).data("id");
-				// var item = this.collection.get(id);
-				// var name = item.get("name");
-				// alert(name);
-				alert(id);
-			},
-			insertData: function(model) {
-				_thisViewSidemenu = this;
-				htmlContent = _.template(sidemenuPage, {
-					id: model.get('id'),
-					urloffline: model.get('urloffline'),
-					userfriendly: model.get('userfriendly'),
-					icon: model.get('icon').substring(1)
-				},{variable: 'sidemenu'});
-				$(_thisViewSidemenu.$el.selector).append(htmlContent);
-				this.bindEvents();
 			},
 			render: function() {
 				console.log('redering SidemenuView.js');
@@ -73,10 +53,24 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 				$(this.el).html(htmlContent);
 				_.each(this._sidemenusCollection.models, function(model) {
 					this.id = model.get('id');
-					_thisViewSidemenu.insertData(model);
+					// _thisViewSidemenu.insertData(model);
+					htmlContent = _.template(sidemenuPage, {
+						id: model.get('id'),
+						urloffline: model.get('urloffline'),
+						userfriendly: model.get('userfriendly'),
+						icon: model.get('icon').substring(1)
+					},{variable: 'sidemenu'});
+					_thisViewSidemenu.$el.append(htmlContent);
 				});
+				// console.log($('#sidebar'));
+				// $("#sidebar").hide();
+				this.$el.fadeIn( 500, function() {
+					// alert('3000 secs');
+				});
+				// new FastClick(document.body);
+				// this.$el.trigger('create');
+				// $('#page-content').trigger('create');
 				return this;
-				
 			}
 		});
 

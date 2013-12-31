@@ -39,7 +39,7 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 					// console.log(this._sidemenusCollection.models);
 					this.nestedView = new SidemenuView({collection: this._sidemenusCollection.models}).render();
 
-					this.$el.trigger('create');
+					// this.$el.trigger('create');
 					return this;
 				}
 

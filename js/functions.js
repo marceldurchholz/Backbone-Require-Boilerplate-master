@@ -1970,20 +1970,20 @@ function createVideoPreview(videoObj) {
 			]);
 			// alert('bla');
 			myPlayer.posterImage.show();  
-			myPlayer.controlBar.show();  
+			myPlayer.controlBar.hide();  
 			myPlayer.bigPlayButton.hide();  
-			myPlayer.pause();
+			// myPlayer.pause();
 			myPlayer.on('timeupdate', function() {
-				if (myPlayer.currentTime() > 30) {
+				if (myPlayer.currentTime() > 10) {
 					// $(".video-js")[0].player.pause();
 					// Paypal-Buy-Now-button.png
 					// $("#video_player_1 .vjs-poster").css('background-image', 'url(/Paypal-Buy-Now-button.png)').show();
+					myPlayer.cancelFullScreen();  
 					myPlayer.pause();
 					myPlayer.currentTime(0);  
 					myPlayer.posterImage.show();  
 					// myPlayer.controlBar.hide();  
-					myPlayer.bigPlayButton.hide();  
-					myPlayer.cancelFullScreen();  
+					// myPlayer.bigPlayButton.hide();  
 					// $("#videocontainerlink").attr("href", "/blafoopeng/")
 					// myPlayer.currentTime(0);
 					// myPlayer.src({ type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" });
@@ -2058,11 +2058,12 @@ $('#sidebar').on("vclick", "#menuelement a.contentLink", function (event) {
 	event.preventDefault();
 	$("#flexiblecontent").animate({
 		marginLeft: "0px",
-	}, 2000, function () {
+	}, 500, function () {
 		menuStatus = false;
 		menuSwitched(false);
 		// console.log(event.target.hash);
-		system.redirectToUrl(event.target.hash);
+		// system.redirectToUrl(event.target.hash);
+		window.location.href = event.target.hash;
 		// alert('getURLParameter(window.location.href): ' + getURLParameter(window.location.href));
 		// $.mobile.changePage( "#aboutus", { transition: "slideup", changeHash: true });
 		// $.mobile.changePage( "#aboutus" , { reverse: false, changeHash: false } );

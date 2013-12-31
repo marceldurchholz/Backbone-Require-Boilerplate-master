@@ -25,13 +25,10 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				this.bindEvents();
 				_thisViewVideos = this;
 				console.log('DOING render Videos.js called');
-				var ani = setTimeout ( function() {
-					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
-					_thisViewVideos.nestedView = new SidemenuView().fetch();
-					_thisViewVideos.$el.html(_.template(videosList, {}));
-					_thisViewVideos.nestedView = new VideoView().fetch();
-					_thisViewVideos.$el.trigger('create');
-				}, 0 );
+				$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
+				_thisViewVideos.nestedView = new SidemenuView().fetch();
+				_thisViewVideos.$el.html(_.template(videosList, {}));
+				_thisViewVideos.nestedView = new VideoView().fetch();
 				return this;				
 			}
 		});

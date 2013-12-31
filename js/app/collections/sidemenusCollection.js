@@ -30,24 +30,30 @@ define(["jquery", "backbone", "models/SidemenuModel"],
 		},
 		model: SidemenuModel,
 		fetch: function(options) {
+			_thisCollectionSidemenu = this;
 			if (_thisCollectionSidemenu.online==1) {
 				dpd.users.me(function(user) {
 					if (user) {
 						// alert(user.roles);
 						_thisCollectionSidemenu.user = user;
 						// console.log(user.roles);
+						options || (options = {});
+						var data = (options.data || {});
+						options.data = {date: _thisCollectionSidemenu.date};
+						var responseObjectSidemenu = Backbone.Collection.prototype.fetch.call(_thisCollectionSidemenu, options);
+						return responseObjectSidemenu;
 					}
 					else {
+						options || (options = {});
+						var data = (options.data || {});
+						options.data = {date: _thisCollectionSidemenu.date};
+						var responseObjectSidemenu = Backbone.Collection.prototype.fetch.call(_thisCollectionSidemenu, options);
+						return responseObjectSidemenu;
 						// location.href = "#noaccess";
 						// console.log('you are not logged in');
 					}
 				});
 			}
-            options || (options = {});
-            var data = (options.data || {});
-            options.data = {date: this.date};
-			var responseObjectSidemenu = Backbone.Collection.prototype.fetch.call(this, options);
-			return responseObjectSidemenu;
 		},
 		sync: function(method, model, options) {
 			Backbone.sync.call(model, method, model, options);

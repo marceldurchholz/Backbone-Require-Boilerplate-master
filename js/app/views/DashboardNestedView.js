@@ -7,11 +7,11 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 		var DashboardNestedViewVar = Backbone.View.extend({
 			el: "#DashboardNestedViewDiv",
 			initialize: function() {
-				console.log('initializing DashboardNestedView.js');
+				console.log('initialize DashboardNestedView.js');
 				this.initializeme();
 			},
 			initializeme: function() {
-				console.log('initializing DashboardNestedView.js');
+				console.log('initializeme DashboardNestedView.js');
 				$(this.el).html('loading...');
 				$.when( this.fetchMe() ).then(
 				  function( status ) {
@@ -57,6 +57,7 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 			fetch: function() {	
 				_thisViewDashboardNested = this;
 				console.log('fetching DashboardNestedView.js');
+				this.$el.hide();
 			},
 			showDetails: function(e) {
 				// e.preventDefault();
@@ -82,9 +83,7 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 			},
 			render: function() {
 				var _thisViewDashboardNested = this;
-				// alert('rendering DashboardNestedView.js');
 				console.log('rendering DashboardNestedView.js');
-				// $(this.el).html('bla text');
 				var htmlContent = '';
 				$(this.el).html(htmlContent);
 				htmlContent = _.template(DashboardNestedViewPage, {
@@ -92,8 +91,12 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 					, pictureurl: _thisViewDashboardNested.me.pictureurl
 				},{variable: 'user'});
 				$(this.el).html(htmlContent);
-				
-				_thisViewDashboardNested.$el.trigger('create');
+				this.$el.trigger('create');
+				new FastClick(document.body);
+				this.$el.fadeIn( 500, function() {
+					$('.ui-content').scrollTop(0);
+					new FastClick(document.body);
+				});
 				return(this);
 			}
 			/*
