@@ -1647,7 +1647,7 @@ function uploadFile(mediaFile) {
 			function(error) {
 				log('Error uploading file ' + path + ': ' + error.code);
 			},
-			{ fileName: name }
+			options
 		);
 	} catch (e) {
 		// not DATA_URL
