@@ -10,10 +10,12 @@
 
 	<form id="submitform" action="#videos/record" method="post">
 	
+		<!--
 		<input type="text" name="title" id="title" placeholder="Videotitel"value="" />
 		<input type="text" name="subtitle" id="subtitle" placeholder="Videountertitel"value="" />
-
-		<div id="uploadstatusbar" style="font-size:18px;"></div>
+		-->
+		
+		<div id="uploadstatusbar" style="font-size:18px;">0 %</div>
 
 		<div id="videobox">
 			<video id='video_player' controls style='width:100%; height:15em;'></video>
@@ -24,11 +26,11 @@
 			<div class="ui-block-b"><button onclick="captureVideoUpload();" type="submit" data-theme="c">hochladen</button></div>	   
 		</fieldset>
 
+		<button id="submitbutton" type="button" name="button" data-theme="c">Weiter</button>
+		
 		<span id="camera_status"></span>
 		<span id="camera_file"></span>
 
-		<button id="submitbutton" type="button" name="button" value="button" data-theme="c">Submit</button>
-		
 	</form>
 	
 </div>
