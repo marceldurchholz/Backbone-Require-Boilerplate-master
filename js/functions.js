@@ -1723,7 +1723,7 @@ function captureVideoUpload() {
 				// log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
 				// $('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
 				// $('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total + '('+progressEvent.loaded / progressEvent.total+' %)');
-				$('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)/100+' %');
+				$('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' %');
 			} else {
 				// loadingStatus.increment();
 			}
