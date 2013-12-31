@@ -1622,6 +1622,7 @@ function getPictureWin(data) {
 function uploadFile(mediaFile) {
 	log('class uploadFile started');
 	try {
+		$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Loading the awesome...</div>' });
 		log('uploading '+mediaFile.fullPath);
 		log('uploading '+mediaFile.name);
 		var ft = new FileTransfer();
@@ -1646,11 +1647,13 @@ function uploadFile(mediaFile) {
 				log("Response = " + r.response);
 				log("Sent = " + r.bytesSent);
 				// alert(r.response);
-				dpd.videos.post({"uploader":"foobar","videourl":options.fileName+".MOV","title":"foobar","description":"foobar","price":123,"thumbnailurl":"foobar"}, function(result, err) {
+				dpd.videos.post({"uploader":"042cb1572ffbea5d","videourl":options.fileName,"title":"foobar","description":"foobar","price":123,"thumbnailurl":"foobar"}, function(result, err) {
 					if(err) {
+						$.mobile.loading( 'hide' );
 						// return console.log(err);
 						return console.log(err);
 					}
+					$.mobile.loading( 'hide' );
 					console.log(result, result.id);
 				});
 			},
@@ -2008,7 +2011,7 @@ function createVideoPreview(videoObj,videoId,videoUrl) {
 					// $(".video-js")[0].player.pause();
 					// Paypal-Buy-Now-button.png
 					// $("#video_player_1 .vjs-poster").css('background-image', 'url(/Paypal-Buy-Now-button.png)').show();
-					myPlayer.posterImage.show();  
+					myPlayer.posterImage.hide();  
 					myPlayer.currentTime(0);  
 					myPlayer.pause();
 					// myPlayer.cancelFullScreen();  
