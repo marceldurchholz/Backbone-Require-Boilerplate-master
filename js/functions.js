@@ -1618,14 +1618,9 @@ function getExtension(filename) {
 // TODO: File Transfer onProgress DOWNload
 // http://www.raymondcamden.com/index.cfm/2013/5/1/Using-the-Progress-event-in-PhoneGap-file-transfers
 
-function captureVideoUpload() {
-	var mediaFile = $('#camera_file').html();
-	uploadFile(mediaFile);
-};
-
 // Upload files to server
-function uploadFile(mediaFile) {
-	log('class uploadFile started');
+function captureVideoUpload(mediaFile) {
+	log('class captureVideoUpload started');
 	try {
 		$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
 		log('uploading '+mediaFile.fullPath);
@@ -1633,6 +1628,7 @@ function uploadFile(mediaFile) {
 		var ft = new FileTransfer();
 		
 		fileTransfer.onprogress = function(progressEvent) {
+			/*
 			if (progressEvent.lengthComputable) {
 			  // loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
 				// log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
@@ -1641,6 +1637,8 @@ function uploadFile(mediaFile) {
 			} else {
 				// loadingStatus.increment();
 			}
+			*/
+			$('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
 		};
 		/*
 		ft.onprogress = function(progressEvent) {
@@ -1708,7 +1706,7 @@ function uploadFile(mediaFile) {
 	// log('video will now be logged');
 	// console.log("<video id='video_player' controls src='#' style='position: absolute; width: 320px; height: 200px;'></video>");
 	
-	log('class uploadFile ended');
+	log('class captureVideoUpload ended');
 }
 
 function mediaOnSuccess(data) {
@@ -1767,7 +1765,7 @@ function getVideoWin(mediaFiles) {
 			var name = mediaFiles[i].name;
 			log('name ['+i+']:'+name);
 			// do something interesting with the file
-			// uploadFile(mediaFiles[i]);
+			// captureVideoUpload(mediaFiles[i]);
 			var video_player = document.getElementById('video_player');
 			var startTime = new Date();
 			alert(path);			
