@@ -1611,99 +1611,6 @@ function getPictureWin(data) {
 	}
 }
 
-// TODO: File Transfer onProgress DOWNload
-// http://www.raymondcamden.com/index.cfm/2013/5/1/Using-the-Progress-event-in-PhoneGap-file-transfers
-
-// Upload files to server
-function captureVideoUpload() {
-	var mediaFile = $('#camera_file').html();
-	log('class captureVideoUpload started');
-	try {
-		$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
-		log('uploading '+mediaFile);
-		// log('uploading '+mediaFile.name);
-		var ft = new FileTransfer();
-		
-		ft.onprogress = function(progressEvent) {
-			if (progressEvent.lengthComputable) {
-			  // loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
-				// log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
-				// $('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
-				$('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total + '('+progressEvent.loaded / progressEvent.total+' %)');
-			} else {
-				// loadingStatus.increment();
-			}
-			// $('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
-		};
-		/*
-		ft.onprogress = function(progressEvent) {
-			log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
-			$('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
-		};
-		*/
-		var path = mediaFile;
-		alert('path: '+path);
-		// var name = mediaFile.name;
-		
-		var options = new FileUploadOptions();
-		// options.fileKey = "file";
-		// log(options.fileKey);
-		// options.fileName = path.substr(path.lastIndexOf('/') + 1);
-		options.fileName = new Date().getTime();
-		// log(options.fileName);
-		options.mimeType = "video/mp4";
-		// log(options.mimeType);
-		options.chunkedMode = false;
-		// log(options.chunkedMode);
-		alert(""+options.fileName);
-		ft.upload(path,
-			"http://management-consulting.marcel-durchholz.de/secure/upload.php",
-			function(r) {
-				log("Code = " + r.responseCode);
-				log("Response = " + r.response);
-				log("Sent = " + r.bytesSent);
-				// alert(r.response);
-				dpd.videos.post({"uploader":"foobar","videourl":""+options.fileName,"title":""+options.fileName,"description":""+options.fileName,"price":123,"thumbnailurl":"foobar"}, function(result, err) {
-					if(err) {
-						// return console.log(err);
-						return console.log(err);
-					}
-					$.mobile.loading( 'hide' );
-					console.log(result, result.id);
-				});
-			},
-			function(error) {
-				// alert("An error has occurred: Code = " = error.code);
-				log('Error uploading file ' + path + ': ' + error.code);
-			},
-			options
-		);
-	} catch (e) {
-		// not DATA_URL
-		log('class new FileTransfer not possible');
-	}
-	try {
-		// do
-		// console.log('video will now be played');
-		// window.plugins.videoPlayer.play('file://'+path);
-		// window.plugins.videoPlayer.play(path);
-		// navigator.videoPlayer.play(path);
-		// //  console.log("<video controls='controls'><source src='3.mp4' type='video/mp4' /></video>");
-		// if (! mediaFile) {
-			// mediaFile = new Media(mediaFile, null, mediaOnError);
-		// }
-		// my_media.play();
-	} catch (E) {
-		// else
-		log('video cannot be played');
-	}
-	
-	// log('video will now be logged');
-	// console.log("<video id='video_player' controls src='#' style='position: absolute; width: 320px; height: 200px;'></video>");
-	
-	log('class captureVideoUpload ended');
-}
-
 function mediaOnSuccess(data) {
 	// nothing yet
 }
@@ -1764,7 +1671,7 @@ function getVideoWin(mediaFiles) {
 			// captureVideoUpload(mediaFiles[i]);
 			var video_player = document.getElementById('video_player');
 			var startTime = new Date();
-			alert(path);			
+			// alert(path);			
 			video_player.src = path;
 			video_player.onloadend = function() {
 				log('Video load time: ' + (new Date() - startTime));
@@ -1773,7 +1680,7 @@ function getVideoWin(mediaFiles) {
 			my_media = new Media(path, mediaOnSuccess, mediaOnError);
 			my_media.play();
 			// var blax = JSON.stringify(mediaFiles);
-			alert(path);
+			// alert(path);
 			$('#camera_file').html(path);
 			alert('Bitte klicken Sie auf hochladen.');
 		}
@@ -1796,6 +1703,104 @@ function getVideoWin(mediaFiles) {
 		// callback && callback();
 	// };
 }
+
+// TODO: File Transfer onProgress DOWNload
+// http://www.raymondcamden.com/index.cfm/2013/5/1/Using-the-Progress-event-in-PhoneGap-file-transfers
+
+// Upload files to server
+function captureVideoUpload() {
+	var mediaFile = $('#camera_file').html();
+	log('class captureVideoUpload started');
+	try {
+		$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
+		log('uploading '+mediaFile);
+		// log('uploading '+mediaFile.name);
+		var ft = new FileTransfer();
+		
+		ft.onprogress = function(progressEvent) {
+			if (progressEvent.lengthComputable) {
+			  // loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
+				// log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
+				// $('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
+				// $('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total + '('+progressEvent.loaded / progressEvent.total+' %)');
+				$('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)/100+' %');
+			} else {
+				// loadingStatus.increment();
+			}
+			// $('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
+		};
+		/*
+		ft.onprogress = function(progressEvent) {
+			log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
+			$('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
+		};
+		*/
+		var path = mediaFile;
+		// alert('path: '+path);
+		// var name = mediaFile.name;
+		
+		var options = new FileUploadOptions();
+		// options.fileKey = "file";
+		// log(options.fileKey);
+		// options.fileName = path.substr(path.lastIndexOf('/') + 1);
+		options.fileName = new Date().getTime();
+		// log(options.fileName);
+		options.mimeType = "video/mp4";
+		// log(options.mimeType);
+		options.chunkedMode = false;
+		// log(options.chunkedMode);
+		// alert(""+options.fileName);
+		ft.upload(path,
+			"http://management-consulting.marcel-durchholz.de/secure/upload.php",
+			function(r) {
+				log("Code = " + r.responseCode);
+				log("Response = " + r.response);
+				log("Sent = " + r.bytesSent);
+				// alert(r.response);
+				dpd.videos.post({"uploader":"foobar","videourl":""+options.fileName,"title":""+options.fileName,"description":""+options.fileName,"price":123,"thumbnailurl":"foobar"}, function(result, err) {
+					if(err) {
+						// return console.log(err);
+						return console.log(err);
+					}
+					$.mobile.loading( 'hide' );
+					console.log(result, result.id);
+				});
+			},
+			function(error) {
+				$.mobile.loading( 'hide' );
+				// alert("An error has occurred: Code = " = error.code);
+				log('Error uploading file ' + path + ': ' + error.code);
+			},
+			options
+		);
+	} catch (e) {
+		// not DATA_URL
+		log('class new FileTransfer not possible');
+	}
+	try {
+		// do
+		// console.log('video will now be played');
+		// window.plugins.videoPlayer.play('file://'+path);
+		// window.plugins.videoPlayer.play(path);
+		// navigator.videoPlayer.play(path);
+		// //  console.log("<video controls='controls'><source src='3.mp4' type='video/mp4' /></video>");
+		// if (! mediaFile) {
+			// mediaFile = new Media(mediaFile, null, mediaOnError);
+		// }
+		// my_media.play();
+	} catch (E) {
+		// else
+		log('video cannot be played');
+	}
+	
+	// log('video will now be logged');
+	// console.log("<video id='video_player' controls src='#' style='position: absolute; width: 320px; height: 200px;'></video>");
+	
+	log('class captureVideoUpload ended');
+}
+
+
+
 
 function uploadImage() {
 	var ft = new FileTransfer(),
