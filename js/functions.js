@@ -1622,7 +1622,7 @@ function getExtension(filename) {
 function uploadFile(mediaFile) {
 	log('class uploadFile started');
 	try {
-		$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Loading the awesome...</div>' });
+		$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
 		log('uploading '+mediaFile.fullPath);
 		log('uploading '+mediaFile.name);
 		var ft = new FileTransfer();
@@ -1632,15 +1632,15 @@ function uploadFile(mediaFile) {
 		var options = new FileUploadOptions();
 		options.fileKey = "file";
 		log(options.fileKey);
-		var suffix = getExtension(path);
-		// options.fileName = path.substr(path.lastIndexOf('/') + 1);
-		options.fileName = new Date().getTime();
+		// var suffix = getExtension(path);
+		options.fileName = path.substr(path.lastIndexOf('/') + 1);
+		// options.fileName = new Date().getTime();
 		log(options.fileName);
 		options.mimeType = "video/mp4";
 		log(options.mimeType);
 		options.chunkedMode = false;
 		log(options.chunkedMode);
-
+		alert(""+options.fileName);
 		ft.upload(path,
 			"http://management-consulting.marcel-durchholz.de/secure/upload.php",
 			function(r) {
@@ -1648,7 +1648,7 @@ function uploadFile(mediaFile) {
 				log("Response = " + r.response);
 				log("Sent = " + r.bytesSent);
 				// alert(r.response);
-				dpd.videos.post({"uploader":"foobar","videourl":options.fileName,"title":"foobar","description":"foobar","price":123,"thumbnailurl":"foobar"}, function(result, err) {
+				dpd.videos.post({"uploader":"foobar","videourl":""+options.fileName,"title":""+options.fileName,"description":""+options.fileName,"price":123,"thumbnailurl":"foobar"}, function(result, err) {
 					if(err) {
 						// return console.log(err);
 						return console.log(err);
