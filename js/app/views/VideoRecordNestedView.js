@@ -1,22 +1,22 @@
-// VideoView.js
+// VideoRecordNestedView.js
 // -------
-define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "text!templates/videoView.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
+define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "text!templates/VideoRecordNestedPage.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
 
-    function($, Backbone, VideoModel, videosCollection, videoPage, sidemenusList, SidemenuView){
+    function($, Backbone, VideoModel, videosCollection, VideoRecordNestedPage, sidemenusList, SidemenuView){
 		
-		var VideoViewVar = Backbone.View.extend({
+		var VideoRecordNestedViewVar = Backbone.View.extend({
 			
-			el: "#VideosNestedViewDiv",
+			el: "#VideoRecordNestedViewDiv",
 			initialize: function() {
-				console.log('initializing VideoView.js');
+				console.log('initializing VideoRecordNestedView.js');
 			},
 			initializeme: function() {
-				console.log('initializing ME in VideoView.js');
+				console.log('initializing ME in VideoRecordNestedView.js');
 				$(this.el).html('loading...');
 				$.when( this.fetchMe() ).then(
 				  function( status ) {
-					_thisViewVideo.me = status;
-					_thisViewVideo.render();
+					_thisViewRecordVideoNested.me = status;
+					_thisViewRecordVideoNested.render();
 				  },
 				  function( status ) {
 					alert( "you fail this time" );
@@ -28,21 +28,21 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			},
 			fetchWorking: function() {
 				var setTimeoutWatcher = setTimeout(function foo() {
-					if ( _thisViewVideo.dfd.state() === "pending" ) {
-						_thisViewVideo.dfd.notify( "working... " );
-						setTimeout( _thisViewVideo.fetchWorking, 100 );
+					if ( _thisViewRecordVideoNested.dfd.state() === "pending" ) {
+						_thisViewRecordVideoNested.dfd.notify( "working... " );
+						setTimeout( _thisViewRecordVideoNested.fetchWorking, 100 );
 					}
 				}, 1 );
 			},
 			fetchMe: function() {
-				_thisViewVideo = this;
-				console.log('fetchMe VideoView.js');
-				_thisViewVideo.dfd = new jQuery.Deferred();
-				_thisViewVideo.fetchWorking();
+				_thisViewRecordVideoNested = this;
+				console.log('fetchMe VideoRecordNestedView.js');
+				_thisViewRecordVideoNested.dfd = new jQuery.Deferred();
+				_thisViewRecordVideoNested.fetchWorking();
 				dpd.users.me(function(user) {
 					if (user) {
 						var fetchMe = setTimeout ( function() {
-							_thisViewVideo.dfd.resolve(user);
+							_thisViewRecordVideoNested.dfd.resolve(user);
 						}, 0 );
 					}
 					else {
@@ -54,27 +54,27 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			},
 			fetch: function() {	
 				// alert('bla');
-				_thisViewVideo = this;
-				console.log('fetching VideoView.js');
+				_thisViewRecordVideoNested = this;
+				console.log('fetching VideoRecordNestedView.js');
 				this.$el.hide();
 				this._videosCollection = new videosCollection();
 				this._videosCollection.fetch({
 					success: function(coll, jsoncoll) {
-						console.log(_thisViewVideo);
-						// _thisViewVideo.render();
-						_thisViewVideo.initializeme();
+						console.log(_thisViewRecordVideoNested);
+						// _thisViewRecordVideoNested.render();
+						_thisViewRecordVideoNested.initializeme();
 					},
 					error: function(action, coll) {
 						console.log('ERROR fetching _videosCollection');
 						console.log(action);
 						console.log(coll);
-						// _thisViewVideo.render();
+						// _thisViewRecordVideoNested.render();
 					}
 				});
 			},
 			bindEvents: function() {
-				var _thisViewVideo = this;
-				// this.$el.off('click','.clickRow').on('click','.clickRow',function(){_thisViewVideo.clicked(e);});
+				var _thisViewRecordVideoNested = this;
+				// this.$el.off('click','.clickRow').on('click','.clickRow',function(){_thisViewRecordVideoNested.clicked(e);});
 				this.$el.off('click','.showVideoDetailsLink').on('click','.showVideoDetailsLink',function(event){
 					event.preventDefault();
 					window.location.href = event.currentTarget.hash;
@@ -91,13 +91,13 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					var videoid = $(event.currentTarget).attr('data-link');
 					var _videoid = videoid;
 					console.log(_videoid);
-					dpd.users.get({id:_thisViewVideo.me.id,following:_videoid}, function(result, error) {
+					dpd.users.get({id:_thisViewRecordVideoNested.me.id,following:_videoid}, function(result, error) {
 						if (result) {
 							console.log(result);
 							}
 						else {
 							// console.log(error);
-							dpd.users.put(_thisViewVideo.me.id, {following:{$push:_videoid}}, function(result, error) {
+							dpd.users.put(_thisViewRecordVideoNested.me.id, {following:{$push:_videoid}}, function(result, error) {
 								if (result) {
 									console.log(result);
 									}
@@ -110,16 +110,16 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				});
 			},
 			insertData: function(model) {
-				_thisViewVideo = this;
-				console.log(jQuery.inArray(model.id, _thisViewVideo.me.following));
-				if (jQuery.inArray(model.id, _thisViewVideo.me.following)==-1) {
+				_thisViewRecordVideoNested = this;
+				console.log(jQuery.inArray(model.id, _thisViewRecordVideoNested.me.following));
+				if (jQuery.inArray(model.id, _thisViewRecordVideoNested.me.following)==-1) {
 					model.set("favclass","addVideoToFavourites");
 				}
 				else {
 					model.set("favclass","isVideoToFavourites");
 				}
 				console.log(model);
-				htmlContent = _.template(videoPage, {
+				htmlContent = _.template(VideoRecordNestedPage, {
 					id: model.get('id'),
 					uploader: model.get('uploader'),
 					videourl: model.get('videourl'),
@@ -133,14 +133,20 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			},
 			render: function() {
 				this.bindEvents();
-				var _thisViewVideo = this;
-				console.log('DOING render VideoView.js called');
+				var _thisViewRecordVideoNested = this;
+				console.log('DOING render VideoRecordNestedView.js called');
+				
+				// var htmlContent = 'STATIC TEST CONTENT';
+				// $(this.el).html(htmlContent);
+				/*
 				var htmlContent = '';
 				$(this.el).html(htmlContent);
 				_.each(this._videosCollection.models, function(model) {
 					this.id = model.get('id');
-					_thisViewVideo.insertData(model);
+					_thisViewRecordVideoNested.insertData(model);
 				});
+				*/
+				_thisViewRecordVideoNested.$el.html(_.template(VideoRecordNestedPage, {}));
 				this.$el.trigger('create');
 				new FastClick(document.body);
 				this.$el.fadeIn( 500, function() {
@@ -151,7 +157,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			}
 		});
 
-        return VideoViewVar;
+        return VideoRecordNestedViewVar;
 
     }
 

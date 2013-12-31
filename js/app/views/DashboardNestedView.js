@@ -45,7 +45,7 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 					if (user) {
 						var fetchMe = setTimeout ( function() {
 							_thisViewDashboardNested.dfd.resolve(user);
-						}, 2000 );
+						}, 0 );
 					}
 					else {
 						// location.href = "#noaccess";

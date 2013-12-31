@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/VideoRecordView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, LoginViewJS,  DashboardView, NoAccess, Logout, MyProfile) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, Videorecordview, LoginViewJS,  DashboardView, NoAccess, Logout, MyProfile) {
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -38,6 +38,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"myprofile" : "myprofile",
 				"videos/details/:id" : "videodetails",
 				"videos/details/view/:id" : "videodetailsview",
+				"videos/record" : "videorecordview",
 				"employeeListItemView" : "employeeListItemView",
 				"login" : "loginViewJS",
 				"logout" : "logout"
@@ -82,6 +83,10 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// new Videosdetailsview({id:id});
 				this.changePage(Videosdetailsview, {id:id});
             },
+			videorecordview: function() {
+				// alert('bla');
+				this.changePage(Videorecordview, {});
+			},
             loginViewJS: function() {
 				// alert('routing to login');
                 // new LoginViewJS();
@@ -103,6 +108,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
                 // new Logout();
 				this.changePage(Logout, {});
             },
+			/*
 			viewFadeIn: function() {
 				// alert('viewFadeIn');
 				// $.mobile.loading( 'hide' );
@@ -127,6 +133,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 					new FastClick(document.body);
 				});
 			},
+			*/
 			changePage: function(view, viewOptions) {
 				// system.toggleLoading(true);
 				// $.mobile.loadingMessage = 'Loading...Please wait';
