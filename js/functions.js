@@ -1648,7 +1648,7 @@ function uploadFile(mediaFile) {
 				log("Response = " + r.response);
 				log("Sent = " + r.bytesSent);
 				// alert(r.response);
-				dpd.videos.post({"uploader":"foobar","videourl":"bla","title":"foobar","description":"foobar","price":123,"thumbnailurl":"foobar"}, function(result, err) {
+				dpd.videos.post({"uploader":"foobar","videourl":options.fileName,"title":"foobar","description":"foobar","price":123,"thumbnailurl":"foobar"}, function(result, err) {
 					if(err) {
 						// return console.log(err);
 						return console.log(err);
@@ -1717,7 +1717,7 @@ function captureVideoAction() {
 	// alert('bla1');
 	// clearStatus();
 	// var options = extractOptions();
-	var options = { limit: 1, duration: 12 };
+	var options = { limit: 1, duration: 60 };
 	// log('Getting video without photo options: ' + JSON.stringify(options));
 	// nur audio aufnehmen: navigator.device.capture.captureAudio
 	var popoverHandle = navigator.device.capture.captureVideo(getVideoWin, onGetVideoError, options);
