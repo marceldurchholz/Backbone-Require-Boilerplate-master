@@ -1959,8 +1959,8 @@ function resizeElement(elementid) {
 	var window_width = $(window).width();
 	console.log(window_width);
 	// var remaining = window_width - Math.floor(window_width / 128)  * 128;
-	var newwidthwborder = window_width-40;
-	var newheightwfactor = (window_width-40)*elfactor;
+	var newwidthwborder = window_width;
+	var newheightwfactor = (window_width)*elfactor;
 	console.log(elfactor);
 	// this.$el.css('right', remaining / 2);
 	console.log('newwidthwborder '+newwidthwborder);
