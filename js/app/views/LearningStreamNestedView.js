@@ -26,11 +26,6 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				  }
 				);
 			},
-			fetchUpdate: function() {
-				// var updateContent = "bla foo peng <br>";
-				$(this.el).append('bla');
-				this.render();
-			},
 			fetchWorking: function() {
 				var setTimeoutWatcher = setTimeout(function foo() {
 					if ( _thisViewLearningStreamNested.dfd.state() === "pending" ) {
@@ -136,6 +131,13 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				},{variable: 'video'});
 				$(this.el).append(htmlContent);
 			},
+			fetchUpdate: function() {
+				// var updateContent = "bla foo peng <br>";
+				// $(this.el).append('bla');
+				// alert('bla');
+				this.$el.hide();
+				this.render();
+			},
 			render: function() {
 				this.bindEvents();
 				var _thisViewLearningStreamNested = this;
@@ -157,10 +159,16 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				this.$el.fadeIn( 2000, function() {
 					$('.ui-content').scrollTop(0);
 					new FastClick(document.body);
-					setInterval(function(){
-						alert("Hello");
-						_thisViewLearningStreamNested.fetch();
-					},10000);
+					setTimeout(function() {
+						_thisViewLearningStreamNested.fetchUpdate();
+						// alert('bla');
+					},2000)
+					/*
+					var LearningStreamUpdateInterval = setInterval(function(){
+						// alert("Hello");
+						// _thisViewLearningStreamNested.fetch();
+					},2000);
+					*/
 				});
 				return this;				
 			}

@@ -1626,6 +1626,12 @@ function uploadFile(mediaFile) {
 		log('uploading '+mediaFile.fullPath);
 		log('uploading '+mediaFile.name);
 		var ft = new FileTransfer();
+		
+		ft.onprogress = function(progressEvent) {
+			log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
+			$('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
+		};
+
 		var path = mediaFile.fullPath;
 		var name = mediaFile.name;
 		
@@ -1795,7 +1801,7 @@ function uploadImage() {
 	ft.onprogress = function(progressEvent) {
 		log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
 	};
-	var server = "http://cordova-filetransfer.jitsu.com";
+	var server = "aaaaaaaaaaaahttp://cordova-filetransfer.jitsu.com";
 
 	ft.upload(pictureUrl, server + '/upload', win, fail, options);
 	function win(information_back){

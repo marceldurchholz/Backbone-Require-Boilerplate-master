@@ -152,6 +152,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				this.$el.fadeIn( 500, function() {
 					$('.ui-content').scrollTop(0);
 					new FastClick(document.body);
+					$('#uploadstatusbar').html('bla');
 				});
 				return this;				
 			}
