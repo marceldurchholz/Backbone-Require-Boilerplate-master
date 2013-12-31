@@ -1519,7 +1519,7 @@ function clearStatus() {
 }
 
 function log(value) {
-	console.log(value);
+	console.log(value + '\n');
 	document.getElementById('camera_status').textContent += (new Date() - pageStartTime) / 1000 + ': ' + value + '\n';
 }
 
@@ -1655,24 +1655,24 @@ function uploadFile(mediaFile) {
 		// my_media.play();
 	} catch (E) {
 		// else
-		console.log('video cannot be played');
+		log('video cannot be played');
 	}
 	
-	console.log('video will now be logged');
+	log('video will now be logged');
 	// console.log("<video id='video_player' controls src='#' style='position: absolute; width: 320px; height: 200px;'></video>");
 	var video_player = document.getElementById('video_player');
 	var startTime = new Date();
 	// alert(mediaFile.fullPath);			
 	video_player.src = mediaFile.fullPath;
 	video_player.onloadend = function() {
-		consol.log('Video load time: ' + (new Date() - startTime));
+		log('Video load time: ' + (new Date() - startTime));
 	};
-	console.log('video will now be played');
+	log('video will now be played');
 	my_media = new Media(mediaFile.fullPath, mediaOnSuccess, mediaOnError);
 	my_media.play()
 	
 	log('class uploadFile ended');
-}	
+}
 
 function mediaOnSuccess(data) {
 	// nothing yet
@@ -1690,7 +1690,7 @@ function mediaOnError(error) {
 
 function captureVideoAction() {
 	// alert('bla1');
-	clearStatus();
+	// clearStatus();
 	// var options = extractOptions();
 	var options = { limit: 1, duration: 12 };
 	// log('Getting video without photo options: ' + JSON.stringify(options));
@@ -1705,6 +1705,7 @@ function captureVideoAction() {
 }
 function getVideoWin(data) {
 	// alert('bla2');
+	log(data);
 	setVideo(data);
 	// console.log('CALLBACK!');
 	// console.log(JSON.stringify(data));

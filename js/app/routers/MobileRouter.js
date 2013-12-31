@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/VideoRecordView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, Videorecordview, LoginViewJS,  DashboardView, NoAccess, Logout, MyProfile) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, Videorecordview, Learningstreamview, LoginViewJS,  DashboardView, NoAccess, Logout, MyProfile) {
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -39,6 +39,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"videos/details/:id" : "videodetails",
 				"videos/details/view/:id" : "videodetailsview",
 				"videos/record" : "videorecordview",
+				"learningstreamview" : "learningstreamview",
 				"employeeListItemView" : "employeeListItemView",
 				"login" : "loginViewJS",
 				"logout" : "logout"
@@ -51,6 +52,11 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 			home: function() {
 				// alert('routing to home');
 				new View();
+				// this.changePage(View, {});
+            },
+			learningstreamview: function() {
+				// alert('routing to home');
+				new Learningstreamview();
 				// this.changePage(View, {});
             },
             aboutus: function() {
