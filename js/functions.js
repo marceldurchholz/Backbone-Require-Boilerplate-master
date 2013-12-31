@@ -1635,7 +1635,7 @@ function uploadFile(mediaFile) {
 		// options.fileName = path.substr(path.lastIndexOf('/') + 1);
 		options.fileName = new Date().getTime();
 		log(options.fileName);
-		options.mimeType = "video/quicktime";
+		options.mimeType = "video/mp4";
 		log(options.mimeType);
 		options.chunkedMode = false;
 		log(options.chunkedMode);
@@ -1997,9 +1997,9 @@ function createVideoPreview(videoObj,videoId,videoUrl) {
 			console.log(_thisVideoUrl);
 			console.log("http://mobile002.appinaut.de/secure/data/media/video/index.php?showvideo="+_thisVideoUrl+".mp4");
 			myPlayer.src([
-				{ type: "video/mp4", src: "http://mobile002.appinaut.de/secure/data/media/video/index.php?showvideo="+_thisVideoUrl+".mp4" },
-				{ type: "video/webm", src: "http://mobile002.appinaut.de/secure/data/media/video/index.php?showvideo="+_thisVideoUrl+".webm" },
-				{ type: "video/ogg", src: "http://mobile002.appinaut.de/secure/data/media/video/index.php?showvideo="+_thisVideoUrl+".ogv" }
+				{ type: "video/mp4", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".mp4" },
+				{ type: "video/webm", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".webm" },
+				{ type: "video/ogg", src: "management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".ogv" }
 			]);
 			// alert('bla');
 			myPlayer.posterImage.show();  
