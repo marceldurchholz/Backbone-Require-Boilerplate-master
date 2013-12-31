@@ -1,13 +1,24 @@
+<!--
 <h4>Splash Screen</h4>
 <input type='button' onclick="test_SplashScreen()" value='SplashScreen'/>
+-->
 
-<div id="uploadstatusbar"style="font-size:18px;">no content</div>
+<h3 class="ui-bar ui-bar-c" style="border-top-width: 0px;">Video aufnehmen</h3>
+<div class="ui-body">
+	<p><b>Los geht's!</b></p>
+	<p>Über diese Funktion des APPinaut können Sie ein neues Video aufnehmen, in die Mobile Learning Community des APPinaut hochladen und über Ihren personalisierten APPinaut anbieten.</p>
 
-<h4>VIDEO</h4>
-<input type='button' onclick="captureVideoAction();" value='captureVideoAction()'/>
+	<div id="uploadstatusbar" style="font-size:18px;"></div>
 
-<div id="videobox">
-	<video id='video_player' controls style='width:100%; height:15em;'></video>
+	<div id="videobox">
+		<video id='video_player' controls style='width:100%; height:15em;'></video>
+	</div>
+	
+	<fieldset class="ui-grid-a">
+		<div class="ui-block-a"><button onclick="captureVideoRecord();" type="submit" data-theme="c">aufnehmen</button></div>
+		<div class="ui-block-b"><button onclick="captureVideoUpload();" type="submit" data-theme="c">hochladen</button></div>	   
+	</fieldset>
+
+	<span id="camera_status"></span>
+	<span id="camera_file"></span>
 </div>
-
-<h4>camera_status: <span id="camera_status"></span></h4>

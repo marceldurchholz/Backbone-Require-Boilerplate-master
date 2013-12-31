@@ -1618,6 +1618,10 @@ function getExtension(filename) {
 // TODO: File Transfer onProgress DOWNload
 // http://www.raymondcamden.com/index.cfm/2013/5/1/Using-the-Progress-event-in-PhoneGap-file-transfers
 
+function captureVideoUpload() {
+	uploadFile(mediaFile);
+};
+
 // Upload files to server
 function uploadFile(mediaFile) {
 	log('class uploadFile started');
@@ -1627,11 +1631,22 @@ function uploadFile(mediaFile) {
 		log('uploading '+mediaFile.name);
 		var ft = new FileTransfer();
 		
+		fileTransfer.onprogress = function(progressEvent) {
+			if (progressEvent.lengthComputable) {
+			  // loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
+				// log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
+				// $('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
+				$('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total + '('+progressEvent.loaded / progressEvent.total+' %)');
+			} else {
+				// loadingStatus.increment();
+			}
+		};
+		/*
 		ft.onprogress = function(progressEvent) {
 			log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
 			$('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
 		};
-
+		*/
 		var path = mediaFile.fullPath;
 		var name = mediaFile.name;
 		
@@ -1719,7 +1734,7 @@ function mediaOnError(error) {
 	console.log("Error playbacking media");
 }	
 
-function captureVideoAction() {
+function captureVideoRecord() {
 	// alert('bla1');
 	// clearStatus();
 	// var options = extractOptions();
@@ -1768,7 +1783,10 @@ function setVideo(mediaFiles) {
 			var name = mediaFiles[i].name;
 			log('name ['+i+']:'+name);
 			// do something interesting with the file
-			uploadFile(mediaFiles[i]);
+			// uploadFile(mediaFiles[i]);
+			var blax = JSON.stringify(mediaFiles);
+			$('camera_file').html('blax');
+			alert('Bitte klicken Sie auf hochladen.');
 		}
 		// console.log('stringifiedjsondata: '+JSON.stringify(mediaFiles));
 		// window.atob(url);
