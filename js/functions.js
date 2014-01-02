@@ -708,7 +708,7 @@ function modifyiOS7StatusBar(){
 			// StatusBar.overlaysWebView(false);
 			// StatusBar.styleLightContent();
 			// StatusBar.backgroundColorByName("black");
-			StatusBar.show();
+			StatusBar.hide();
 			// if (parseFloat(window.device.version) === 7.0) {
 				// document.body.style.marginTop = "20px";
 			// }
