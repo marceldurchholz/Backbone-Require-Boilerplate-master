@@ -122,8 +122,9 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					captureVideoUpload();
 				});
 				$('#captureVideoUploadButton').button('disable');
-				if (isMobile.any()) {
-					$('#submitbutton').button('disable');
+				$('#submitbutton').button('disable');
+				if (!isMobile.any()) {
+					$('#submitbutton').button('enable');
 				}
 			},
 			render: function() {

@@ -1682,7 +1682,7 @@ function getVideoWin(mediaFiles) {
 			// var blax = JSON.stringify(mediaFiles);
 			// alert(path);
 			$('#captureVideoUploadButton').button('enable');
-			$('#captureVideoUploadButton').button('submitbutton');
+			$('#submitbutton').button('enable');
 			alert('Bitte klicken Sie auf hochladen.');
 		}
 	} catch (e) {
@@ -1722,8 +1722,8 @@ function sendLocalStorageToElements(videoRecordLocalStorage) {
 function recordVideoUpload(videoRecordLocalStorage) {
 	
 	console.log(videoRecordLocalStorage);
-	alert('bla');
-	return(false);
+	// alert('bla');
+	// return(false);
 	
 	var mediaFile = $('#camera_file').val();
 	log('class captureVideoUpload started');
