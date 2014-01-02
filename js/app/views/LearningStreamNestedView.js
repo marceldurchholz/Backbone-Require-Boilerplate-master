@@ -157,13 +157,13 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				this.$el.trigger('create');
 				// _thisViewLearningStream.$el.trigger('create');
 				new FastClick(document.body);
-				this.$el.fadeIn( 5000, function() {
-					$('.ui-content').scrollTop(0);
+				this.$el.fadeIn( 500, function() {
+					// $('.ui-content').scrollTop(0);
 					new FastClick(document.body);
 					setTimeout(function() {
 						_thisViewLearningStreamNested.fetchUpdate();
 						// alert('bla');
-					},2000)
+					},10000)
 					/*
 					var LearningStreamUpdateInterval = setInterval(function(){
 						// alert("Hello");
