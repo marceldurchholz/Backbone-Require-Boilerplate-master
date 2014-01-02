@@ -1767,7 +1767,11 @@ function recordVideoUpload(videoRecordLocalStorage) {
 }
 
 // Upload files to server
-function captureVideoUpload() {
+function captureVideoUpload(recordVideoLocalStorage) {
+	
+	console.log(recordVideoLocalStorage);
+	return(false);
+	
 	var mediaFile = $('#camera_file').val();
 	log('class captureVideoUpload started');
 	try {

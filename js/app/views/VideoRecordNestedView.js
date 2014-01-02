@@ -93,19 +93,19 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 			},
 			bindEvents: function() {
 				var _thisViewRecordVideoNested = this;
-				
+				/*
 				this.$el.off('click','#checkLocalTitleButton').on('click','#checkLocalTitleButton',function(event){
 					event.preventDefault();
 					recordVideoUpload(_thisViewRecordVideoNested.localStorageSubmitform);
 				});
-				
+				*/
 				this.$el.off('click','#submitbutton').on('click','#submitbutton',function(event){
 					event.preventDefault();
 					_thisViewRecordVideoNested.savePageOne(event);
 				});
 				this.$el.off('click','#uploadbutton').on('click','#uploadbutton',function(event){
 					event.preventDefault();
-					_thisViewRecordVideoNested.captureVideoUpload(event);
+					captureVideoUpload(_thisViewRecordVideoNested.localStorageSubmitform);
 				});
 				this.$el.off('click','#formbackbutton').on('click','#formbackbutton',function(event){
 					event.preventDefault();
@@ -117,21 +117,22 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					log(recordVideoTempFilePath);
 					alert(recordVideoTempFilePath);
 				});
+				/*
 				this.$el.off('click','#captureVideoUploadButton').on('click','#captureVideoUploadButton',function(event){
 					event.preventDefault();
 					captureVideoUpload();
 				});
+				*/
 				// $('#captureVideoUploadButton').button('disable');
 				// $('#submitbutton').button('disable');
-				if (!isMobile.any()) {
-					// $('#submitbutton').button('enable');
-				}
 			},
 			render: function() {
 				var _thisViewRecordVideoNested = this;
 				console.log('DOING render VideoRecordNestedView.js called');
 				_thisViewRecordVideoNested.$el.html(_.template(_thisViewRecordVideoNested.activePage, {}));
-				$('#camera_file').val('aaa');
+				if (!isMobile.any()) {
+					$('#camera_file').val('bbbbbb');
+				}
 				this.$el.trigger('create');
 				sendLocalStorageToElements(_thisViewRecordVideoNested.localStorageSubmitform.models);
 				var mediaFilePath = $('#camera_file').val();
