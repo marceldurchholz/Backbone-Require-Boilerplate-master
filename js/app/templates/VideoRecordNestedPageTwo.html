@@ -1,20 +1,15 @@
-<!--
-<h4>Splash Screen</h4>
-<input type='button' onclick="test_SplashScreen()" value='SplashScreen'/>
--->
+<h3 class="ui-bar ui-bar-a" style="border-top-width:0px;text-align:center;">Video Informationen</h3>
+<div style="padding:15px;overflow:visible;z-index:999;text-align:center;">
 
-<h3 class="ui-bar ui-bar-c" style="border-top-width: 0px;">Video Informationen</h3>
-<div class="ui-body">
 	<p><b>Weiter geht's!</b></p>
 	<p>Bitte geben Sie die erforderlichen Informationen zu Ihrem Video ein. Bedenken Sie hierbei, dass dies sehr entscheidende Überzeugungskriterien für die Käufer Ihres Videos sind.
 
 	<form id="submitform" action="#videos/record" method="post">
-	
 		<button id="formbackbutton" type="button" name="button" data-theme="c">Zurück</button>
 		<input type="text" name="title" id="title" placeholder="Titel"/>
 		<input type="text" name="subtitle" id="subtitle" placeholder="Videountertitel"/>
 		<textarea style="height:25%;" name="description" id="description" placeholder="Fügen Sie hier eine Beschreibung Ihres Videos mit maximal 500 Zeichen ein."></textarea>
-		<input type="text" id="camera_file" name="camera_file"></span>
+		<input type="hidden" id="camera_file" name="camera_file"></span>
 		<button id="uploadbutton" type="button" name="uploadbutton" data-theme="b">Video hochladen</button>
 	</form>
 
