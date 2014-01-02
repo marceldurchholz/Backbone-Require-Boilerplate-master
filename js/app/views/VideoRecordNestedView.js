@@ -121,18 +121,22 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					event.preventDefault();
 					captureVideoUpload();
 				});
-				$('#captureVideoUploadButton').button('disable');
-				$('#submitbutton').button('disable');
+				// $('#captureVideoUploadButton').button('disable');
+				// $('#submitbutton').button('disable');
 				if (!isMobile.any()) {
-					$('#submitbutton').button('enable');
+					// $('#submitbutton').button('enable');
 				}
 			},
 			render: function() {
 				var _thisViewRecordVideoNested = this;
 				console.log('DOING render VideoRecordNestedView.js called');
 				_thisViewRecordVideoNested.$el.html(_.template(_thisViewRecordVideoNested.activePage, {}));
-				sendLocalStorageToElements(_thisViewRecordVideoNested.localStorageSubmitform.models);
+				$('#camera_file').val('aaa');
 				this.$el.trigger('create');
+				sendLocalStorageToElements(_thisViewRecordVideoNested.localStorageSubmitform.models);
+				var mediaFilePath = $('#camera_file').val();
+				console.log(mediaFilePath);
+				attachVideoToPlayer(mediaFilePath);
 				this.bindEvents();
 				this.$el.fadeIn( 500, function() {
 					$('.ui-content').scrollTop(0);

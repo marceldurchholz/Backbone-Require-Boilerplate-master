@@ -1641,19 +1641,6 @@ function onGetVideoError(e) {
 	// alert('bla3');
 	console.log('Video capture failed');
 }
-function attachVideoToPlayer(mediaFilePath) {
-	// var path = mediaFile.fullPath;
-	// var path = mediaFilePath;
-	var video_player = document.getElementById('video_player');
-	if (video_player && mediaFilePath!='') {
-		$('#camera_file').val(mediaFilePath);
-		var startTime = new Date();
-		video_player.src = mediaFilePath;
-		video_player.onloadend = function() {
-			log('Video load time: ' + (new Date() - startTime));
-		};
-	}
-}
 
 function getVideoWin(mediaFiles) {
 	log('captureVideoRecord');
@@ -1681,8 +1668,6 @@ function getVideoWin(mediaFiles) {
 			// my_media.play();
 			// var blax = JSON.stringify(mediaFiles);
 			// alert(path);
-			$('#captureVideoUploadButton').button('enable');
-			$('#submitbutton').button('enable');
 			alert('Bitte klicken Sie auf hochladen.');
 		}
 	} catch (e) {
@@ -1713,18 +1698,32 @@ function sendLocalStorageToElements(videoRecordLocalStorage) {
 			}
 		}
 	}
-	var mediaFilePath = $('#camera_file').val();
-	console.log(mediaFilePath);
-	attachVideoToPlayer(mediaFilePath);
 	console.log('************');
 }
 
-function recordVideoUpload(videoRecordLocalStorage) {
-	
+function attachVideoToPlayer(mediaFilePath) {
+	// var path = mediaFile.fullPath;
+	// var path = mediaFilePath;
+	$('#camera_file').val(mediaFilePath);
+	var video_player = document.getElementById('video_player');
+	if (video_player && mediaFilePath!='') {
+		var startTime = new Date();
+		video_player.src = mediaFilePath;
+		video_player.onloadend = function() {
+			log('Video load time: ' + (new Date() - startTime));
+		};
+	}
+	if (mediaFilePath=='') {
+		console.log('mediaFilePath empty');
+		$('#captureVideoUploadButton').button('disable');
+		$('#submitbutton').button('disable');
+	}
+}
+
+function recordVideoUpload(videoRecordLocalStorage) {	
 	console.log(videoRecordLocalStorage);
 	// alert('bla');
 	// return(false);
-	
 	var mediaFile = $('#camera_file').val();
 	log('class captureVideoUpload started');
 	try {
