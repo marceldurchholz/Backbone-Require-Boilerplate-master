@@ -705,12 +705,13 @@ function postDeviceReadyActions(){
 function modifyiOS7StatusBar(){
     if (isMobile.any()) {
 		try{
-			StatusBar.overlaysWebView(true);
-			StatusBar.styleLightContent();
-			StatusBar.backgroundColorByName("black");
-			if (parseFloat(window.device.version) === 7.0) {
+			StatusBar.overlaysWebView(false);
+			// StatusBar.styleLightContent();
+			// StatusBar.backgroundColorByName("black");
+			StatusBar.show();
+			// if (parseFloat(window.device.version) === 7.0) {
 				document.body.style.marginTop = "20px";
-			}
+			// }
 			// StatusBar.backgroundColorByHexString("#3e8fd9");
 		} catch(e){ catchError('modifyiOS7StatusBar()',e); }
 	}
