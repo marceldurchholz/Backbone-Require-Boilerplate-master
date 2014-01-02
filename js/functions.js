@@ -2120,7 +2120,7 @@ $('#footervideolink').on("vclick", function (e) {
 $('#showMenu').on("vclick", function (e) {
 	if (menuStatus != true) {
 		$("#flexiblecontent").animate({
-			marginLeft: "190px",
+			marginLeft: "220px",
 		}, 500, function () {
 			menuStatus = true;
 			menuSwitched(true);
