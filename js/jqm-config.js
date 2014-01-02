@@ -9,13 +9,13 @@ define(['jquery'], function($){
 		$.mobile.hashListeningEnabled = false; 
 		$.mobile.pushStateEnabled = false; 
 		$.mobile.buttonMarkup.hoverDelay = 0;
-		$.mobile.defaultPageTransition = 'none'; 
+		$.mobile.pageContainer = $('#container');
+		$.mobile.defaultPageTransition = 'slide';
 		$.mobile.defaultDialogTransition = "none";
 		$.mobile.page.prototype.options.degradeInputs.date = true;
 		$.mobile.page.prototype.options.domCache = false;
 		$.mobile.ignoreContentEnabled=true;
-		/*
-		*/
+		
 		// Remove page from DOM when it's being replaced 
 		$('div[data-role="page"]').on('pagehide', function (event, ui) { 
 			alert('on page hide');

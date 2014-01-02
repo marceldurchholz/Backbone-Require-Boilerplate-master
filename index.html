@@ -37,20 +37,6 @@
 	}
 	*/
 
-	.scrollable {
-		overflow-y: auto;
-		height: 100%;
-		-webkit-overflow-scrolling: touch;
-		position: relative;
-	}
-
-	.scrollable .wrap {
-		min-height: 100%;
-		padding-bottom: 1px;
-		background: #000 !important;
-		-webkit-transform: translateZ(0);
-	}
-
 	.pull-to-refresh {
 		line-height: 40px;
 		height: 40px;
@@ -182,54 +168,78 @@
 	-->
 	<!-- <link rel="stylesheet" type="text/css" href="css/appinaut.css" /> -->
 	
+    <!-- Fix for scrolling on iOS prior to iOS 6 -->
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+ 
+        div#container {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+        }
+ 
+        div[data-role="header"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+ 
+        div[data-role="content"] {
+            position: absolute;
+            top: 0px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin-top: 46px;
+			m/argin-bottom: 46px;
+			p/adding-bottom: 46px;
+        }
+ 
+        .scrollable {
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+        }
+ 
+            /* iOS specific fix, don't use it on Android devices */
+        .scrollable > * {
+            -webkit-transform: translateZ(0px);
+        }
+    </style>
+	
 </head>
 <body id="body" style="background-color:#000 !important;overflow:hidden !important;">
-	<div id="fb-root"></div>
+	<!-- <div id="fb-root"></div> -->
 		
+	<div id="container">
+	 
+	<div id="sidebarListViewDiv" class="sidebarListViewDiv" style="position:fixed;top:0px;text-align:left;height:100%;b/order:1px solid #000;z-index:1;"></div>
 		
-		<div id="sidebarListViewDiv" class="sidebarListViewDiv" style="position:fixed;top:0px;text-align:left;height:100%;b/order:1px solid #000;z-index:1;"></div>
-		<div data-role="page" style="width:100%;min-height:auto !important;overflow:hidden !important;">
-			<div id="flexiblecontent" style="z-index:200;position:absolute;top:0px;margin:0px;padding:0px;width:100%;height:100%;b/order:10px solid #000;">
-				<div data-role="header" style="b/order:1px solid #000;position:fixed;top:0px;width:100%;h/eight:50px;z-index:999;" id="social-icons" >
-							<div id="showMenu" class="showMenu" style="display:inline-block;border:0px;padding:0px;margin:0px;">
-								<img border="0" alt="Menu" src="images/icon-menu.png">
-							</div>
+		<div data-role="page" id="flexiblecontent" >
+			<div data-role="header" data-position="fixed" style="background-color: #21469E;background-image: linear-gradient(#3E90D9, #21469E);">
+				<div style="text-align:center;">
+					<img style="max-height:46px;max-width:100%;" alt="APPinaut" src="images/logo.png">
 				</div>
-				<!--  id="header" style="position:fixed;width:100%;top:0px;left:0px;background-color:#222 !important;height:100%;width:190px;z-index:1;" -->
-
-				<!--
-				<div class="strip" id="social-icons" style="position:fixed;top:0px;width:100%;height:40px;b/order:10px solid #000;z-index:999;border-bottom:1px solid #000;">
-					<div style="position:relative;top:0px;">
-						<div class="icons f_left" style="float:left;clear:none;width:10%;">
-							<a id="showMenu" class="showMenu">
-								<img border="0" alt="Menu" src="images/icon-menu.png">
-							</a>
-						</div>
-						<div class="f_right" style="float:right;clear:none;width:10%;b/order:1px solid #000;">
-							<div class="icons f_right" style="padding-right:15px;">
-								<a href="javascript:history.back();">
-									<img border="0" alt="back" src="images/icon-back.png">
-								</a>
-							</div>
-						</div>
-						<div style="width:90%;b/order:1px solid #000;float:center;text-align:center;">
-								<img style="max-height:34px;max-width:100%;" alt="APPinaut" src="images/logo.png">
-						</div>
+				<div id="showMenu" class="showMenu" style="float:left;clear:none;display:inline-block;position:absolute;top:0px;left:0px;border:0px;padding:0px;margin:0px;">
+					<img border="0" alt="Menu" src="images/icon-menu.png">
+				</div>
+				<div style="float:right;clear:none;display:inline-block;position:absolute;top:0px;right:0px;border:0px;padding:0px;margin:0px;">
+					<div onclick="javascript:history.back();">
+						<img border="0" alt="back" src="images/icon-back.png">
 					</div>
 				</div>
-				-->
+			</div>
+	 
+			<div data-role="content" id="page-content" class="scrollable" style="z-index:30;background-color:#fff;margin-left:0px;margin-right:0px;padding-left:0px;padding-right:0px;padding-top:0px;">
 			
-				<div id="page-content" data-role="content" id="content" style="z-index:30;b/order:5px solid red;height:100%;background-color:lightblue;display:inline-block;width:100%;padding:0px;margin-top:50px;">
-				</div>
-
-				<!--
-				<div data-role="footer" id="footer" style="z-index:999;">
-					aaa
-				</div>
-				-->
 			</div>
 		</div>
+
 	</div>
+ 
 	
 	<!--
 	<div class="scrollable">
