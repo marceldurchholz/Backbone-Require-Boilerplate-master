@@ -1662,13 +1662,13 @@ function getVideoWin(mediaFiles) {
 			// });
 			// do something interesting with the file
 			// captureVideoUpload(mediaFiles[i]);
-			attachVideoToPlayer(mediaFiles[i].fullPath);
 			// log('video will now be played');
 			// my_media = new Media(path, mediaOnSuccess, mediaOnError);
 			// my_media.play();
 			// var blax = JSON.stringify(mediaFiles);
 			// alert(path);
-			doAlert('Bitte klicken Sie zum forfahren auf weiter.','Aufnahme erfolgreich')
+			doAlert('Bitte klicken Sie zum forfahren auf weiter.','Aufnahme erfolgreich');
+			attachVideoToPlayer(mediaFiles[i].fullPath);
 			// alert('Bitte klicken Sie auf hochladen.');
 		}
 	} catch (e) {
@@ -1705,7 +1705,7 @@ function sendLocalStorageToElements(videoRecordLocalStorage) {
 function attachVideoToPlayer(mediaFilePath) {
 	// var path = mediaFile.fullPath;
 	// var path = mediaFilePath;
-	// $('#camera_file').val(mediaFilePath);
+	if (mediaFilePath!='') $('#camera_file').val(mediaFilePath);
 	var video_player = document.getElementById('video_player');
 	if (video_player && mediaFilePath!='') {
 		var startTime = new Date();
