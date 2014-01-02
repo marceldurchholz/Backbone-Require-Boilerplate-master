@@ -155,8 +155,9 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				*/
 				_thisViewLearningStreamNested.$el.html(_.template(LearningStreamNestedPage, {}));
 				this.$el.trigger('create');
+				// _thisViewLearningStream.$el.trigger('create');
 				new FastClick(document.body);
-				this.$el.fadeIn( 2000, function() {
+				this.$el.fadeIn( 5000, function() {
 					$('.ui-content').scrollTop(0);
 					new FastClick(document.body);
 					setTimeout(function() {
