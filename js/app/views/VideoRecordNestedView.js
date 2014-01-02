@@ -113,9 +113,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				});
 				this.$el.off('click','#captureVideoRecordButton').on('click','#captureVideoRecordButton',function(event){
 					event.preventDefault();
-					var recordVideoTempFilePath = captureVideoRecord();
-					log(recordVideoTempFilePath);
-					alert(recordVideoTempFilePath);
+					captureVideoRecord();
 				});
 				/*
 				this.$el.off('click','#captureVideoUploadButton').on('click','#captureVideoUploadButton',function(event){

@@ -1668,7 +1668,8 @@ function getVideoWin(mediaFiles) {
 			// my_media.play();
 			// var blax = JSON.stringify(mediaFiles);
 			// alert(path);
-			alert('Bitte klicken Sie auf hochladen.');
+			doAlert('Bitte klicken Sie zum forfahren auf weiter.','Aufnahme erfolgreich')
+			// alert('Bitte klicken Sie auf hochladen.');
 		}
 	} catch (e) {
 		// not DATA_URL
@@ -1704,7 +1705,7 @@ function sendLocalStorageToElements(videoRecordLocalStorage) {
 function attachVideoToPlayer(mediaFilePath) {
 	// var path = mediaFile.fullPath;
 	// var path = mediaFilePath;
-	$('#camera_file').val(mediaFilePath);
+	// $('#camera_file').val(mediaFilePath);
 	var video_player = document.getElementById('video_player');
 	if (video_player && mediaFilePath!='') {
 		var startTime = new Date();
@@ -1714,7 +1715,7 @@ function attachVideoToPlayer(mediaFilePath) {
 		};
 	}
 	if (mediaFilePath=='') {
-		console.log('mediaFilePath empty');
+		doAlert('mediaFilePath empty','DEBUG');
 		$('#captureVideoUploadButton').button('disable');
 		$('#submitbutton').button('disable');
 	}
