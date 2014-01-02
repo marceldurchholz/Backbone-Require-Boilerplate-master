@@ -1716,8 +1716,8 @@ function attachVideoToPlayer(mediaFilePath) {
 	}
 	if (mediaFilePath=='') {
 		doAlert('mediaFilePath empty','DEBUG');
-		$('#captureVideoUploadButton').button('disable');
-		$('#submitbutton').button('disable');
+		// $('#captureVideoUploadButton').button('disable');
+		// $('#submitbutton').button('disable');
 	}
 }
 
