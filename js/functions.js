@@ -2135,7 +2135,7 @@ $('#showMenu').on("vclick", function (e) {
 	}
 	return false;
 });
-$('#sidebar').on("vclick", "#menuelement a.contentLink", function (event) {
+$('#sidebarListViewDiv').on("vclick", "#menuelement a.contentLink", function (event) {
 	event.preventDefault();
 	$("#flexiblecontent").animate({
 		marginLeft: "0px",
