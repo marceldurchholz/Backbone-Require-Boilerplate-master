@@ -93,18 +93,17 @@
 	<!-- <link rel="stylesheet" type="text/css" href="css/appinaut.css" /> -->
 	
     <!-- Fix for scrolling on iOS prior to iOS 6 -->
-    <style type="text/css">
+    <!--
+	<style type="text/css">
         body {
             margin: 0;
         }
- 
         div#container {
             position: absolute;
             width: 100%;
             top: 0;
             bottom: 0;
         }
- 
         div[data-role="header"] {
             position: absolute;
             top: 0;
@@ -118,7 +117,7 @@
 			user-select: none;
         }
  
-        div[data-role="content"] {
+        div[data-role="contenta"] {
             position: absolute;
             top: 0px;
             bottom: 0;
@@ -141,16 +140,15 @@
             -webkit-transform: translateZ(0px);
         }
     </style>
+	-->
 	
 </head>
 <body id="body">
 	<!-- <div id="fb-root"></div> -->
 		
-	<div id="container">
-	 
 	<div id="sidebarListViewDiv" class="sidebarListViewDiv" style="position:fixed;top:0px;text-align:left;height:100%;b/order:1px solid #000;z-index:0;width:220px;"></div>
 		
-		<div data-role="page" id="flexiblecontent">
+		<div data-role="page" id="flexiblecontent" style="position:fixed;top:0;left:0;min-height:200px;">
 			<div style="position:absolute;top:46px;left:-10px;height:100%;width:10px;background-image: url(./images/sidebarfadingborder.png);"></div>
 			<div data-role="header" data-position="fixed" style="background-color: #21469E !important;background-image: linear-gradient(#3E90D9, #21469E) !important;">
 				<div style="text-align:center;">
@@ -166,10 +164,8 @@
 				</div>
 			</div>
 	 
-			<div data-role="content" data-position="fixed" id="page-content" class="scrollable" style="background-color:#ccc;margin-left:0px;margin-right:0px;padding-left:0px;padding-right:0px;padding-top:0px;height:100%;"></div>
+			<div data-role="content" id="page-content" style="position:fixed;left:0px;background-color:#ccc;margin:0px;padding:0;height:100% !important; width:100% !important;bottom:0px;"></div>
 		</div>
-
-	</div>
 	
 </body>
 </html>

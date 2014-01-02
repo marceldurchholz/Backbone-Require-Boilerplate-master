@@ -1706,8 +1706,16 @@ function sendLocalStorageToElements(videoRecordLocalStorage) {
 function attachVideoToPlayer(mediaFilePath) {
 	// var path = mediaFile.fullPath;
 	// var path = mediaFilePath;
-	if (mediaFilePath!='') $('#camera_file').val(mediaFilePath);
-	var video_player = document.getElementById('video_player');
+	console.log('attachVideoToPlayer: '+mediaFilePath);
+	var video_player = $('#video_player');
+	if (mediaFilePath==undefined) {
+		// console.log('hide');
+		$('#videobox').hide();
+		return(false);
+	}
+	else {
+		$('#camera_file').val(mediaFilePath);
+	}
 	if (video_player && mediaFilePath!='') {
 		var startTime = new Date();
 		video_player.src = mediaFilePath;
@@ -1769,12 +1777,32 @@ function recordVideoUpload(videoRecordLocalStorage) {
 }
 
 // Upload files to server
-function captureVideoUpload(recordVideoLocalStorage) {
+function captureVideoUpload(videoRecordLocalStorage) {
+
+	console.log('^^');
+	console.log(videoRecordLocalStorage);
+	console.log('^^');
 	
-	console.log(recordVideoLocalStorage);
-	return(false);
+	console.log('^^^^^^^^^^^^');
+	var models = videoRecordLocalStorage.models;
+	var formValues = new Array();
+	for(var key in models) {
+	   // formValues[formValues.length] = key;
+	   var modelsattribute = models[key].attributes;
+	   console.log(modelsattribute);
+		for(var modelkey in modelsattribute) {
+			console.log(modelkey+' >> '+modelsattribute[modelkey]);
+			formValues[modelkey] = modelsattribute[modelkey];
+		}
+	}
+	console.log('^^^^^^^^^^^^');
 	
-	var mediaFile = $('#camera_file').val();
+	console.log(formValues);
+	
+	// return(false);
+
+	// var mediaFile = $('#camera_file').val();
+	var mediaFile = formValues.camera_file;
 	log('class captureVideoUpload started');
 	try {
 		$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
@@ -1782,6 +1810,7 @@ function captureVideoUpload(recordVideoLocalStorage) {
 		// log('uploading '+mediaFile.name);
 		var ft = new FileTransfer();
 		
+		$('#uploadstatusbar').show();
 		ft.onprogress = function(progressEvent) {
 			/*
 			if (progressEvent.lengthComputable) {
@@ -1796,8 +1825,9 @@ function captureVideoUpload(recordVideoLocalStorage) {
 			}
 			// $('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
 			*/
-			$('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
+			$('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' %');
 		};
+		$('#uploadstatusbar').hide();
 		var options = new FileUploadOptions();
 		options.fileName = new Date().getTime();
 		options.mimeType = "video/mp4";
@@ -1808,12 +1838,17 @@ function captureVideoUpload(recordVideoLocalStorage) {
 				log("Code = " + r.responseCode);
 				log("Response = " + r.response);
 				log("Sent = " + r.bytesSent);
-				dpd.videos.post({"uploader":"foobar","videourl":""+options.fileName,"title":""+options.fileName,"description":""+options.fileName,"price":123,"thumbnailurl":"foobar"}, function(result, err) {
+				dpd.videos.post({"uploader":"foobar","videourl":""+options.fileName,"title":""+formValues.title,"subtitle":""+formValues.subtitle,"description":""+formValues.description,"price":123,"thumbnailurl":"foobar"}, function(result, err) {
 					if(err) {
+						$.mobile.loading( 'hide' );
+						doAlert('Es ist ein Fehler passiert, der nicht passieren sollte. Bitte versuchen Sie Ihre Aktion erneut oder wenden Sie sich direkt an das APPinaut Support Team.','Ups! Fehler beim Upload!');
 						return console.log(err);
 					}
-					$.mobile.loading( 'hide' );
-					console.log(result, result.id);
+					if (result) {
+						$.mobile.loading( 'hide' );
+						doAlert('Nach Prüfung und Freigabe Ihres Videos erhalten Sie eine Information.','Upload erfolgreich durchgeführt!');
+						console.log(result, result.id);
+					}
 				});
 			},
 			function(error) {

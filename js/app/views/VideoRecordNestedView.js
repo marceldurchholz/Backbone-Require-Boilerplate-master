@@ -91,6 +91,21 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				this.activePage = VideoRecordNestedPage;
 				this.render();
 			},
+			savePageTwo: function(event) {
+				event.preventDefault();
+				var _thisViewRecordVideoNested = this;
+				_thisViewRecordVideoNested.formValues = new Object;
+				_.each(this.$('#submitform').serializeArray(), function(input){
+					// console.log('getting: '+input.name+' >> '+input.value);
+					_thisViewRecordVideoNested.localStorageSubmitformModel.set(input.name,input.value);
+				});
+				_thisViewRecordVideoNested.localStorageSubmitform.set(_thisViewRecordVideoNested.localStorageSubmitformModel);
+				// this.activePage = VideoRecordNestedPageTwo;
+				// this.render();
+				console.log(_thisViewRecordVideoNested.localStorageSubmitform);
+				// return(false);
+				captureVideoUpload(_thisViewRecordVideoNested.localStorageSubmitform);
+			},
 			bindEvents: function() {
 				var _thisViewRecordVideoNested = this;
 				/*
@@ -105,7 +120,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				});
 				this.$el.off('click','#uploadbutton').on('click','#uploadbutton',function(event){
 					event.preventDefault();
-					captureVideoUpload(_thisViewRecordVideoNested.localStorageSubmitform);
+					_thisViewRecordVideoNested.savePageTwo(event);
+					// captureVideoUpload(_thisViewRecordVideoNested.localStorageSubmitform);
 				});
 				this.$el.off('click','#formbackbutton').on('click','#formbackbutton',function(event){
 					event.preventDefault();
@@ -115,6 +131,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					event.preventDefault();
 					captureVideoRecord();
 				});
+				$('#uploadstatusbar').hide();
 				/*
 				this.$el.off('click','#captureVideoUploadButton').on('click','#captureVideoUploadButton',function(event){
 					event.preventDefault();
@@ -129,7 +146,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				console.log('DOING render VideoRecordNestedView.js called');
 				_thisViewRecordVideoNested.$el.html(_.template(_thisViewRecordVideoNested.activePage, {}));
 				if (!isMobile.any()) {
-					$('#camera_file').val('bbbbbb');
+					$('#camera_file').val('nureindesktoptestpfad');
 				}
 				this.$el.trigger('create');
 				sendLocalStorageToElements(_thisViewRecordVideoNested.localStorageSubmitform.models);
