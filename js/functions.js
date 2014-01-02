@@ -1633,6 +1633,7 @@ function captureVideoRecord() {
 		var newPopoverOptions = new CameraPopoverOptions(0, 0, 100, 100, 0);
 		popoverHandle.setPosition(newPopoverOptions);
 	}
+	log(popoverHandle);
 }
 
 function onGetVideoError(e) {
@@ -1645,6 +1646,7 @@ function attachVideoToPlayer(mediaFilePath) {
 	// var path = mediaFilePath;
 	var video_player = document.getElementById('video_player');
 	if (video_player && mediaFilePath!='') {
+		$('#camera_file').val(mediaFilePath);
 		var startTime = new Date();
 		video_player.src = mediaFilePath;
 		video_player.onloadend = function() {
@@ -1679,7 +1681,6 @@ function getVideoWin(mediaFiles) {
 			// my_media.play();
 			// var blax = JSON.stringify(mediaFiles);
 			// alert(path);
-			$('#camera_file').val(path);
 			$('#captureVideoUploadButton').button('enable');
 			$('#captureVideoUploadButton').button('submitbutton');
 			alert('Bitte klicken Sie auf hochladen.');
