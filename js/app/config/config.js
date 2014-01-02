@@ -88,7 +88,11 @@ require.config({
 	  // "backbone.LocalStorage": ["backbone"],
 	  
       // local storage
-	  "backbone.LocalStorage": ["backbone"],
+	  // "backbone.LocalStorage": ["backbone"],
+	  "backbone.LocalStorage": {
+		"deps": ["backbone"],
+		"exports": "backbone.LocalStorage"
+	  },
 	  
       // Jasmine-jQuery plugin
       "jasminejquery": ["jquery"]

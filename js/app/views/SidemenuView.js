@@ -47,7 +47,7 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 				});
 			},
 			render: function() {
-				console.log('redering SidemenuView.js');
+				// console.log('redering SidemenuView.js');
 				var _thisViewSidemenu = this;
 				var htmlContent = '';
 				$(this.el).html(htmlContent);

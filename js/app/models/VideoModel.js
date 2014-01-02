@@ -1,6 +1,6 @@
 // VideoModel.js
 // --------
-define(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone.validateAll"],
+define(["jquery", "backbone", "routers/MobileRouter"],
 
 function($, Backbone, MobileRouter) {
 

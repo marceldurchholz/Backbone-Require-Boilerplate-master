@@ -1626,25 +1626,33 @@ function mediaOnError(error) {
 }	
 
 function captureVideoRecord() {
-	// alert('bla1');
-	// clearStatus();
-	// var options = extractOptions();
 	var options = { limit: 1, duration: 60 };
-	// log('Getting video without photo options: ' + JSON.stringify(options));
 	// nur audio aufnehmen: navigator.device.capture.captureAudio
 	var popoverHandle = navigator.device.capture.captureVideo(getVideoWin, onGetVideoError, options);
-	// Reposition the popover if the orientation changes.
 	window.onorientationchange = function() {
 		var newPopoverOptions = new CameraPopoverOptions(0, 0, 100, 100, 0);
 		popoverHandle.setPosition(newPopoverOptions);
 	}
-	// alert('bla4');
 }
+
 function onGetVideoError(e) {
 	// log('Error getting picture: ' + e.code);
 	// alert('bla3');
 	console.log('Video capture failed');
 }
+function attachVideoToPlayer(mediaFilePath) {
+	// var path = mediaFile.fullPath;
+	// var path = mediaFilePath;
+	var video_player = document.getElementById('video_player');
+	if (video_player && mediaFilePath!='') {
+		var startTime = new Date();
+		video_player.src = mediaFilePath;
+		video_player.onloadend = function() {
+			log('Video load time: ' + (new Date() - startTime));
+		};
+	}
+}
+
 function getVideoWin(mediaFiles) {
 	log('captureVideoRecord');
 	log(mediaFiles);
@@ -1663,53 +1671,104 @@ function getVideoWin(mediaFiles) {
 					// Video is less than the max duration...all good
 				// }
 			// });
-			var path = mediaFiles[i].fullPath;
-			log('path ['+i+']:'+path);
-			var name = mediaFiles[i].name;
-			log('name ['+i+']:'+name);
 			// do something interesting with the file
 			// captureVideoUpload(mediaFiles[i]);
-			var video_player = document.getElementById('video_player');
-			var startTime = new Date();
-			// alert(path);			
-			video_player.src = path;
-			video_player.onloadend = function() {
-				log('Video load time: ' + (new Date() - startTime));
-			};
-			log('video will now be played');
-			my_media = new Media(path, mediaOnSuccess, mediaOnError);
-			my_media.play();
+			attachVideoToPlayer(mediaFiles[i].fullPath);
+			// log('video will now be played');
+			// my_media = new Media(path, mediaOnSuccess, mediaOnError);
+			// my_media.play();
 			// var blax = JSON.stringify(mediaFiles);
 			// alert(path);
-			$('#camera_file').html(path);
+			$('#camera_file').val(path);
+			$('#captureVideoUploadButton').button('enable');
+			$('#captureVideoUploadButton').button('submitbutton');
 			alert('Bitte klicken Sie auf hochladen.');
 		}
-		// console.log('stringifiedjsondata: '+JSON.stringify(mediaFiles));
-		// window.atob(url);
-		// if we got here it is a base64 string (DATA_URL)
-		// url = "data:image/jpeg;base64," + url;
 	} catch (e) {
 		// not DATA_URL
 		// log('mediaFiles: ' + mediaFiles.slice(0, 100));
 	}    
 	log('set video function end');
-
-	// pictureUrl = path;
-	// var vid = document.getElementById('camera_video');
-	// var startTime = new Date();
-	// vid.src = url;
-	// vid.onloadend = function() {
-		// log('Image tag load time: ' + (new Date() - startTime));
-		// callback && callback();
-	// };
 }
 
 // TODO: File Transfer onProgress DOWNload
 // http://www.raymondcamden.com/index.cfm/2013/5/1/Using-the-Progress-event-in-PhoneGap-file-transfers
 
+function sendLocalStorageToElements(videoRecordLocalStorage) {
+	console.log('************');
+	var models = videoRecordLocalStorage;
+	var keys = new Array();
+	for(var key in models) {
+	   keys[keys.length] = key;
+	   var modelsattribute = models[key].attributes;
+		for(var modelkey in modelsattribute) {
+			if($('#'+modelkey).is("textarea")) {
+				$('#'+modelkey).html(modelsattribute[modelkey]);
+				console.log(modelkey+' >> '+modelsattribute[modelkey]);
+			}
+			else {
+				$('#'+modelkey).val(modelsattribute[modelkey]);
+				console.log(modelkey+' >> '+modelsattribute[modelkey]);
+			}
+		}
+	}
+	var mediaFilePath = $('#camera_file').val();
+	console.log(mediaFilePath);
+	attachVideoToPlayer(mediaFilePath);
+	console.log('************');
+}
+
+function recordVideoUpload(videoRecordLocalStorage) {
+	
+	console.log(videoRecordLocalStorage);
+	alert('bla');
+	return(false);
+	
+	var mediaFile = $('#camera_file').val();
+	log('class captureVideoUpload started');
+	try {
+		$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
+		log('uploading '+mediaFile);
+		// log('uploading '+mediaFile.name);
+		var ft = new FileTransfer();
+		ft.onprogress = function(progressEvent) {
+			$('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
+		};
+		var options = new FileUploadOptions();
+		options.fileName = new Date().getTime();
+		options.mimeType = "video/mp4";
+		options.chunkedMode = false;
+		ft.upload(mediaFile,
+			"http://management-consulting.marcel-durchholz.de/secure/upload.php",
+			function(r) {
+				log("Code = " + r.responseCode);
+				log("Response = " + r.response);
+				log("Sent = " + r.bytesSent);
+				dpd.videos.post({"uploader":"foobar","videourl":""+options.fileName,"title":""+options.fileName,"description":""+options.fileName,"price":123,"thumbnailurl":"foobar"}, function(result, err) {
+					if(err) {
+						return console.log(err);
+					}
+					$.mobile.loading( 'hide' );
+					console.log(result, result.id);
+				});
+			},
+			function(error) {
+				$.mobile.loading('hide');
+				// alert("An error has occurred: Code = " = error.code);
+				log('Error uploading file ' + mediaFile + ': ' + error.code);
+			},
+			options
+		);
+	} catch (e) {
+		// not DATA_URL
+		log('class new FileTransfer not possible');
+	}
+	log('class captureVideoUpload ended');
+}
+
 // Upload files to server
 function captureVideoUpload() {
-	var mediaFile = $('#camera_file').html();
+	var mediaFile = $('#camera_file').val();
 	log('class captureVideoUpload started');
 	try {
 		$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
@@ -1718,48 +1777,33 @@ function captureVideoUpload() {
 		var ft = new FileTransfer();
 		
 		ft.onprogress = function(progressEvent) {
+			/*
 			if (progressEvent.lengthComputable) {
 			  // loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
 				// log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
 				// $('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
 				// $('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total + '('+progressEvent.loaded / progressEvent.total+' %)');
-				$('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' %');
+				$('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
 			} else {
+				$('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
 				// loadingStatus.increment();
 			}
 			// $('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
+			*/
+			$('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
 		};
-		/*
-		ft.onprogress = function(progressEvent) {
-			log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
-			$('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
-		};
-		*/
-		var path = mediaFile;
-		// alert('path: '+path);
-		// var name = mediaFile.name;
-		
 		var options = new FileUploadOptions();
-		// options.fileKey = "file";
-		// log(options.fileKey);
-		// options.fileName = path.substr(path.lastIndexOf('/') + 1);
 		options.fileName = new Date().getTime();
-		// log(options.fileName);
 		options.mimeType = "video/mp4";
-		// log(options.mimeType);
 		options.chunkedMode = false;
-		// log(options.chunkedMode);
-		// alert(""+options.fileName);
-		ft.upload(path,
+		ft.upload(mediaFile,
 			"http://management-consulting.marcel-durchholz.de/secure/upload.php",
 			function(r) {
 				log("Code = " + r.responseCode);
 				log("Response = " + r.response);
 				log("Sent = " + r.bytesSent);
-				// alert(r.response);
 				dpd.videos.post({"uploader":"foobar","videourl":""+options.fileName,"title":""+options.fileName,"description":""+options.fileName,"price":123,"thumbnailurl":"foobar"}, function(result, err) {
 					if(err) {
-						// return console.log(err);
 						return console.log(err);
 					}
 					$.mobile.loading( 'hide' );
@@ -1767,9 +1811,9 @@ function captureVideoUpload() {
 				});
 			},
 			function(error) {
-				$.mobile.loading( 'hide' );
+				$.mobile.loading('hide');
 				// alert("An error has occurred: Code = " = error.code);
-				log('Error uploading file ' + path + ': ' + error.code);
+				log('Error uploading file ' + mediaFile + ': ' + error.code);
 			},
 			options
 		);
@@ -1777,25 +1821,6 @@ function captureVideoUpload() {
 		// not DATA_URL
 		log('class new FileTransfer not possible');
 	}
-	try {
-		// do
-		// console.log('video will now be played');
-		// window.plugins.videoPlayer.play('file://'+path);
-		// window.plugins.videoPlayer.play(path);
-		// navigator.videoPlayer.play(path);
-		// //  console.log("<video controls='controls'><source src='3.mp4' type='video/mp4' /></video>");
-		// if (! mediaFile) {
-			// mediaFile = new Media(mediaFile, null, mediaOnError);
-		// }
-		// my_media.play();
-	} catch (E) {
-		// else
-		log('video cannot be played');
-	}
-	
-	// log('video will now be logged');
-	// console.log("<video id='video_player' controls src='#' style='position: absolute; width: 320px; height: 200px;'></video>");
-	
 	log('class captureVideoUpload ended');
 }
 

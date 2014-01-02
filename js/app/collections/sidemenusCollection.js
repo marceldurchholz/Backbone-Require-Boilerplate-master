@@ -59,7 +59,7 @@ define(["jquery", "backbone", "models/SidemenuModel"],
 			Backbone.sync.call(model, method, model, options);
 		},
 		parse: function(responseSidemenu) {
-			console.log('parse responseSidemenu');
+			// console.log('parse responseSidemenu');
 			// console.log(_thisCollectionSidemenu.user);			
 			_thisCollectionSidemenu.models = [];
 			this._localStorage_sidemenus.models = [];
@@ -72,18 +72,18 @@ define(["jquery", "backbone", "models/SidemenuModel"],
 						if (access<=0) {
 						}
 						if (access>0) {
-							console.log(model.userfriendly + ' is a internal page');
+							// console.log(model.userfriendly + ' is a internal page');
 							return false;
 						}
 					}
 					else if (model.roles=="public") {
-						console.log(model.userfriendly + ' is a public page');
+						// console.log(model.userfriendly + ' is a public page');
 						access = 1;
 					}
 				});
 				
 				if (access>0) {
-					console.log('ADDING PAGE ' + model.userfriendly);
+					// console.log('ADDING PAGE ' + model.userfriendly);
 					_thisCollectionSidemenu.add(model);
 					/*
 					if (_thisCollectionSidemenu.online==1) {
