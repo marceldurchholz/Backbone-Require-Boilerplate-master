@@ -18,6 +18,7 @@ define(['jquery'], function($){
 		*/
 		// Remove page from DOM when it's being replaced 
 		$('div[data-role="page"]').on('pagehide', function (event, ui) { 
+			alert('on page hide');
 			$(event.currentTarget).remove();
 			// alert($('#page-content').html());
 			// console.log(event);
