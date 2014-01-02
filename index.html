@@ -186,6 +186,12 @@
             top: 0;
             left: 0;
             right: 0;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
         }
  
         div[data-role="content"] {
@@ -219,7 +225,7 @@
 	<div id="sidebarListViewDiv" class="sidebarListViewDiv" style="position:fixed;top:0px;text-align:left;height:100%;b/order:1px solid #000;z-index:1;"></div>
 		
 		<div data-role="page" id="flexiblecontent" >
-			<div data-role="header" data-position="fixed" style="background-color: #21469E;background-image: linear-gradient(#3E90D9, #21469E);">
+			<div data-role="header" data-position="fixed" style="background-color: #21469E !important;background-image: linear-gradient(#3E90D9, #21469E) !important;">
 				<div style="text-align:center;">
 					<img style="max-height:46px;max-width:100%;" alt="APPinaut" src="images/logo.png">
 				</div>
@@ -233,7 +239,7 @@
 				</div>
 			</div>
 	 
-			<div data-role="content" id="page-content" class="scrollable" style="z-index:30;background-color:#fff;margin-left:0px;margin-right:0px;padding-left:0px;padding-right:0px;padding-top:0px;">
+			<div data-role="content" id="page-content" class="scrollable" style="z-index:9999;background-color:#ccc;margin-left:0px;margin-right:0px;padding-left:0px;padding-right:0px;padding-top:0px;">
 			
 			</div>
 		</div>
