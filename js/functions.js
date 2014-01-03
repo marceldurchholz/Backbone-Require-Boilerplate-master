@@ -712,7 +712,7 @@ function modifyiOS7StatusBar(){
 			if (parseFloat(window.device.version) === 7.0) {
 				document.body.style.marginTop = "20px";
 			}
-			if (round(parseFloat(window.device.version)) > 7) {
+			if (window.device.version && parseFloat(window.device.version) > 7) {
 				document.body.style.marginTop = "20px";
 			}
 			// StatusBar.backgroundColorByHexString("#3e8fd9");
