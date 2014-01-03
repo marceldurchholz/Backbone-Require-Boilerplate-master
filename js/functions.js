@@ -1777,12 +1777,14 @@ function recordVideoUpload(videoRecordLocalStorage) {
 		// not DATA_URL
 		log('class new FileTransfer not possible');
 	}
-	log('class captureVideoUpload ended');
+	log('class recordVideoUpload ended');
 }
 
 // Upload files to server
 function captureVideoUpload(videoRecordLocalStorage) {
 
+	alert('captureVideoUpload');
+	
 	console.log('^^');
 	console.log(videoRecordLocalStorage);
 	console.log('^^');
@@ -1807,7 +1809,7 @@ function captureVideoUpload(videoRecordLocalStorage) {
 
 	// var mediaFile = $('#camera_file').val();
 	var mediaFile = formValues.camera_file;
-	log('class captureVideoUpload started');
+	alert('class captureVideoUpload started');
 	try {
 		$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
 		log('uploading '+mediaFile);
