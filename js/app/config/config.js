@@ -17,7 +17,7 @@ require.config({
 
       "jquerymobile": "../libs/jquery.mobile",
 	  
-      "jquerypulltorefresh": "../libs/jquery.plugin.pullToRefresh",
+      // "jquerypulltorefresh": "../libs/jquery.plugin.pullToRefresh",
 
       // "backbone.LocalStorage": "../libs/backbone.localStorage",
 
@@ -50,10 +50,10 @@ require.config({
   // Sets the configuration for your third party scripts that are not AMD compatible
   shim: {
 
-      // jQuery Mobile
-      "jquerypulltorefresh": ["jquery"],
-
       // jQuery pull to refresh
+      // "jquerypulltorefresh": ["jquery"],
+
+      // jQuery Mobile
       "jquerymobile": ["bindmobile", "jquery", "deployd"],
 	  
       // Twitter Bootstrap jQuery plugins
@@ -73,8 +73,8 @@ require.config({
       // Backbone
       "backbone": {
 
-        // Depends on underscore/lodash and jQuery
-        "deps": ["functions", "underscore", "jquery", "jquerypulltorefresh", "jquerymobile"],
+        // Depends on underscore/lodash and jQuery // "jquerypulltorefresh", 
+        "deps": ["functions", "underscore", "jquery", "jquerymobile"],
 
         // Exports the global window.Backbone object
         "exports": "Backbone"
