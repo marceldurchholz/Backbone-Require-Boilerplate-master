@@ -709,9 +709,12 @@ function modifyiOS7StatusBar(){
 			// StatusBar.styleLightContent();
 			// StatusBar.backgroundColorByName("black");
 			StatusBar.hide();
-			// if (parseFloat(window.device.version) === 7.0) {
-				// document.body.style.marginTop = "20px";
-			// }
+			if (parseFloat(window.device.version) === 7.0) {
+				document.body.style.marginTop = "20px";
+			}
+			if (round(parseFloat(window.device.version)) > 7) {
+				document.body.style.marginTop = "20px";
+			}
 			// StatusBar.backgroundColorByHexString("#3e8fd9");
 		} catch(e){ catchError('modifyiOS7StatusBar()',e); }
 	}
