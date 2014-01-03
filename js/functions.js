@@ -703,12 +703,13 @@ function postDeviceReadyActions(){
     modifyiOS7StatusBar
 / ----------------------------------------------------------- */
 function modifyiOS7StatusBar(){
+	if (window.device.version) alert('>> '+window.device.version);
     if (isMobile.any()) {
 		try{
 			// StatusBar.overlaysWebView(false);
 			// StatusBar.styleLightContent();
 			// StatusBar.backgroundColorByName("black");
-			StatusBar.hide();
+			StatusBar.show();
 			if (parseFloat(window.device.version) === 7.0) {
 				document.body.style.marginTop = "20px";
 			}
