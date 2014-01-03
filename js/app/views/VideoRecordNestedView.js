@@ -115,6 +115,14 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					recordVideoUpload(_thisViewRecordVideoNested.localStorageSubmitform);
 				});
 				*/
+				this.$el.off('click','#dialogbutton').on('click','#dialogbutton',function(event){
+					event.preventDefault();
+					// _thisViewRecordVideoNested.savePageOne(event);
+					console.log($.mobile.pageContainer);
+					console.log($.mobile.changePage);
+					$.mobile.changePage( "#home", { role: "dialog", showLoadMsg: false, fromHashChange: true, changeHash: true, allowSamePageTransition: true } );
+				});
+				
 				this.$el.off('click','#submitbutton').on('click','#submitbutton',function(event){
 					event.preventDefault();
 					_thisViewRecordVideoNested.savePageOne(event);

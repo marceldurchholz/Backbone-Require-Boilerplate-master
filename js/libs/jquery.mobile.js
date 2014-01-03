@@ -4473,7 +4473,7 @@ $.mobile.getMaxScrollForTransition = $.mobile.getMaxScrollForTransition || defau
 			pageTransitionQueue.unshift( arguments );
 			return;
 		}
-
+		
 		var settings = $.extend( {}, $.mobile.changePage.defaults, options ), isToPageString;
 
 		// Make sure we have a pageContainer to work with.
@@ -4516,6 +4516,7 @@ $.mobile.getMaxScrollForTransition = $.mobile.getMaxScrollForTransition || defau
 		// also be replaced by a string
 
 		toPage = triggerData.toPage;
+		
 		isToPageString = (typeof toPage === "string");
 
 		// Set the isPageTransitioning flag to prevent any requests from
@@ -4533,9 +4534,12 @@ $.mobile.getMaxScrollForTransition = $.mobile.getMaxScrollForTransition || defau
 			// this is so that users who want to use query params have access to them
 			// in the event bindings for the page life cycle See issue #5085
 			settings.target = toPage;
-
+			
 			$.mobile.loadPage( toPage, settings )
 				.done(function( url, options, newPage, dupCachedPage ) {
+					
+					alert('done');
+					
 					isPageTransitioning = false;
 					options.duplicateCachedPage = dupCachedPage;
 
@@ -4545,7 +4549,9 @@ $.mobile.getMaxScrollForTransition = $.mobile.getMaxScrollForTransition || defau
 					$.mobile.changePage( newPage, options );
 				})
 				.fail(function( url, options ) {
-
+					
+					alert('fail');
+					
 					//clear out the active button state
 					removeActiveLinkClass( true );
 

@@ -1741,7 +1741,7 @@ function recordVideoUpload(videoRecordLocalStorage) {
 	var mediaFile = $('#camera_file').val();
 	log('class captureVideoUpload started');
 	try {
-		$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
+		$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
 		log('uploading '+mediaFile);
 		// log('uploading '+mediaFile.name);
 		var ft = new FileTransfer();
@@ -1811,7 +1811,7 @@ function captureVideoUpload(videoRecordLocalStorage) {
 	var mediaFile = formValues.camera_file;
 	alert('class captureVideoUpload started');
 	try {
-		$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
+		$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
 		log('uploading '+mediaFile);
 		// log('uploading '+mediaFile.name);
 		var ft = new FileTransfer();
@@ -2209,7 +2209,7 @@ var system = {
 	// this.routerSwitched(false);
 	toggleLoading: function(status) {
 		console.log(status);
-		if (status==true) $.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Loading the awesome...</div>' });
+		if (status==true) $.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;">Loading the awesome...</div>' });
 		else {
 			$.mobile.loading( 'hide' );
 		}
