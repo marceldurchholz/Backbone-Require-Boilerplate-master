@@ -144,15 +144,13 @@
 	
 	<style type="text/css">
         .scrollable {
-            overflow-y: scroll;
-            -webkit-overflow-scrolling: touch;
-			h/ eight:100%;
-			p/ osition:relative;
+            overflow-y: scroll !important;
+            -webkit-overflow-scrolling: touch !important;
         }
  
-            /* iOS specific fix, don't use it on Android devices */
+		/* iOS specific fix, don't use it on Android devices */
         .scrollable > * {
-            -webkit-transform: translateZ(0px);
+            -webkit-transform: translateZ(0px) !important;
         }
     </style>
 
@@ -179,7 +177,7 @@
 				</div>
 			</div>
 	 
-			<div data-role="content" id="page-content" style="position:absolute;left:0px;b/ackground-color:#ccc;margin:0px;padding:0;height:100% !important; width:100% !important;bottom:0px;"></div>
+			<div data-role="content" id="page-content" style="position:absolute;left:0px;b/ackground-color:#ccc;margin:0px;padding:0;height:100% !important; width:100% !important;bottom:0px;" class="scrollable"></div>
 		</div>
 	
 </body>
