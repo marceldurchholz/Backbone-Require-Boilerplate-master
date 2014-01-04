@@ -119,8 +119,12 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					event.preventDefault();
 					// _thisViewRecordVideoNested.savePageOne(event);
 					console.log($.mobile.pageContainer);
-					console.log($.mobile.changePage);
-					$.mobile.changePage( "#home", { role: "dialog", showLoadMsg: false, fromHashChange: true, changeHash: true, allowSamePageTransition: true } );
+					// console.log($.mobile.changePage);
+					// $.mobile.changePage("#home", "pop", false, true);
+					// $.mobile.navigate( "#videos", { info: "info about the #foo hash" });
+					// $.mobile.changePage( "#home", { role: "dialog", showLoadMsg: false, fromHashChange: true, changeHash: true, allowSamePageTransition: true } );
+					// $.mobile.changePage( "#videos", { role: "dialog", pageContainer: "page-content", fromPage: "#home", showLoadMsg: false, fromHashChange: true, changeHash: true, allowSamePageTransition: true } );
+					// $.mobile.changePage( "#videos" );
 				});
 				
 				this.$el.off('click','#submitbutton').on('click','#submitbutton',function(event){

@@ -11,11 +11,11 @@ require.config({
 
       // Core Libraries
       // --------------
-      "jquery": "../libs/jquery",
+      "jquery": "../libs/jquery-1.9.1",
 
-      "jqueryui": "../libs/jqueryui",
+      // "jqueryui": "../libs/jqueryui",
 
-      "jquerymobile": "../libs/jquery.mobile",
+      "jquerymobile": "../libs/jquery.mobile-1.3.2",
 	  
       // "jquerypulltorefresh": "../libs/jquery.plugin.pullToRefresh",
 
@@ -31,7 +31,7 @@ require.config({
 
       "backbone": "../libs/backbone",
 	  
-	  "bindmobile": "../jqm-config",
+	  "jqmconfig": "../jqm-config",
 
 	  "deployd": "../dpd",
 
@@ -53,18 +53,20 @@ require.config({
       // jQuery pull to refresh
       // "jquerypulltorefresh": ["jquery"],
 
+	  "jqmconfig": ["jquery","underscore","backbone"],
+	  
       // jQuery Mobile
-      "jquerymobile": ["bindmobile", "jquery", "deployd"],
+      "jquerymobile": ["jqmconfig", "deployd"],
 	  
       // Twitter Bootstrap jQuery plugins
       "bootstrap": ["jquery"],
 
       // jQueryUI
-      "jqueryui": ["jquery"],
+      // "jqueryui": ["jquery"],
 
 	  "functions": ["jquery", "videojs"],
 	  
-      // jQueryUI
+	  // VideoJS
       "videojs": {
 		"deps": ["jquery"],
 		"exports": "videojs"
@@ -74,7 +76,7 @@ require.config({
       "backbone": {
 
         // Depends on underscore/lodash and jQuery // "jquerypulltorefresh", 
-        "deps": ["functions", "underscore", "jquery", "jquerymobile"],
+        "deps": ["underscore", "jquery", "functions"],
 
         // Exports the global window.Backbone object
         "exports": "Backbone"

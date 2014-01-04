@@ -4,10 +4,10 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 
     function($, Backbone, sidemenusList, SidemenuView, loginPage){
 		
+			"use strict";
+		
 			var loginView = Backbone.View.extend({
 			
-				el: "#page-content",
-				attributes: {"data-role": 'content'},
 				events: {
 				},
 				bindEvents: function() {
@@ -32,7 +32,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				sync: function() {
 				},
 				fetch: function() {
-					this.$el.hide();
 					this.render();
 				},
 				initialize: function() {
@@ -45,7 +44,12 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				render: function() {
 					// this.bindEvents();
 					console.log('DOING render Videos.js called');
-					_thisViewLogin = this;
+					$(this.el).html(_.template(loginPage, {}));
+					var _thisViewLogin = this;
+					this.$el.trigger('create');
+					return this;
+					/*
+					var _thisViewLogin = this;
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewLogin.nestedView = new SidemenuView().fetch();
 					_thisViewLogin.$el.html(_.template(loginPage, {}));
@@ -56,6 +60,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						new FastClick(document.body);
 					});
 					return this;
+					*/
 				}
 
 			});

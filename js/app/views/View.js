@@ -1,13 +1,13 @@
 // View.js
 // -------
-define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/SidemenuView", "text!templates/HomeNestedPage.html"],
+define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/SidemenuView", "text!templates/HomeNestedPage.html", "views/loginView"],
 
-    function($, Backbone, sidemenusList, SidemenuView, HomeNestedPage){
+    function($, Backbone, sidemenusList, SidemenuView, HomeNestedPage, LoginViewJS) {
 
+		"use strict";
+	
 		var ViewVar = Backbone.View.extend({
 
-            el: "#page-content",
-			attributes: {"data-role": 'content'},
 			events: {
 			},
 			bindEvents: function() {
@@ -17,22 +17,40 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 			sync: function() {
 			},
 			initialize: function() {
+				var _thisViewHome = this;
+				this.$el.off('click','#gotologin').on('click','#gotologin',function(event){
+					event.preventDefault();
+					// _thisViewRecordVideoNested.savePageOne(event);
+					// window.location.href = "#login";
+					_thisViewHome.changePageTransition(new LoginViewJS);
+				});
 				this.fetch();
+			},
+			changePageTransition: function (page) {
+				$(page.el).attr('data-role', 'page');
+				page.render();
+				$('#page').append($(page.el));
+				var transition = page.transition ? page.transition : $.mobile.defaultPageTransition;
+				// We don't want to slide the first page
+				if (this.firstPage) {
+					transition = 'none';
+					this.firstPage = false;
+				}
+				$.mobile.changePage($(page.el), {changeHash:true, transition: 'slideup'});
+				// return(false);
 			},
 			fetch: function() {
 				this.render();
 			},
 			render: function() {
 				this.bindEvents();
+				var _thisViewHome = this;
 				console.log('DOING render Videos.js called');
-				_thisViewHome = this;
-				var ani = setTimeout ( function() {
-					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
-					_thisViewHome.nestedView = new SidemenuView().fetch();
-					_thisViewHome.$el.html(_.template(HomeNestedPage, {}));
-					// _thisViewHome.nestedView = new HomeNestedView().fetch();
-					_thisViewHome.$el.trigger('create');
-				}, 1000 );
+				// $('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
+				// _thisViewHome.nestedView = new SidemenuView().fetch();
+				_thisViewHome.$el.html(_.template(HomeNestedPage, {}));
+				// _thisViewHome.nestedView = new HomeNestedView().fetch();
+				_thisViewHome.$el.trigger('create');
 
 				return this;
 				

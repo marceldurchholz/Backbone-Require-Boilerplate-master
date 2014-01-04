@@ -83,6 +83,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	// var deviceReadyDeferred = new jQuery.Deferred();
 	
 	window.MobileRouter = MobileRouter;
+	// new MobileRouter();
 
 	app.initialize();
 	// alert(blay);
