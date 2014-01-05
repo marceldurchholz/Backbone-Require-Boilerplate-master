@@ -1,8 +1,8 @@
 // SidemenuView.js
 // -------
-define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates/sidemenuView.html"],
+define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates/sidemenusList.html", "text!templates/sidemenuView.html"],
 
-    function($, Backbone, sidemenusCollection, sidemenuPage){
+    function($, Backbone, sidemenusCollection, sidemenusList, sidemenuPage){
 		
 		var SidemenuView = Backbone.View.extend({
 			el: "#menuelement",
@@ -13,7 +13,7 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 			},
 			fetch: function() {	
 				console.log('fetching SidemenuView.js');
-				this.$el.hide();
+				// this.$el.hide();
 				this._sidemenusCollection.fetch({
 					success: function(coll, jsoncoll) {
 						// console.log('jsoncoll');
@@ -50,7 +50,11 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 				// console.log('redering SidemenuView.js');
 				var _thisViewSidemenu = this;
 				var htmlContent = '';
-				$(this.el).html(htmlContent);
+				// $(this.el).append('aaajshdkj sjdfj sldjflsj dljsl djfklsjd jsklk');
+				console.log(this._sidemenusCollection);
+				
+				htmlContent = _.template(sidemenusList, {});
+				$('#sidebarListViewDiv').html(htmlContent);
 				_.each(this._sidemenusCollection.models, function(model) {
 					this.id = model.get('id');
 					// _thisViewSidemenu.insertData(model);
@@ -60,13 +64,18 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 						userfriendly: model.get('userfriendly'),
 						icon: model.get('icon').substring(1)
 					},{variable: 'sidemenu'});
-					_thisViewSidemenu.$el.append(htmlContent);
+					$('#menuelement').append(htmlContent);
 				});
+				// console.log(mycontent);
+				// var bla = _.template(sidemenuPage, {});
+				// console.log(this.nestedView);
+				// $('.ui-page-active').append('<div id="sidebarListViewDiv" class="sidebarListViewDiv" style="position:fixed;top:0;left:0;text-align:left;height:100%;z-index:0;width:220px;background-color:#222;">testdiv'+bla+'</div>');
+
 				// console.log($('#sidebar'));
 				// $("#sidebar").hide();
-				this.$el.fadeIn( 500, function() {
+				// this.$el.fadeIn( 500, function() {
 					// alert('3000 secs');
-				});
+				// });
 				// new FastClick(document.body);
 				// this.$el.trigger('create');
 				// $('#page-content').trigger('create');

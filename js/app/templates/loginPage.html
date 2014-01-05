@@ -1,19 +1,36 @@
-<div data-role="header">
-    <a href="#" data-icon="back" class="back ui-btn-left">Back</a>
-    <h1>Page 1</h1>
-</div>
+	<div data-role="header" style="position:absolute;top:0;width:100%;b/ackground-color: #21469E !important;background-image: linear-gradient(#3E90D9, #21469E) !important;">
+		<div style="text-align:center;">
+			<img style="max-height:46px;max-width:100%;" alt="APPinaut" src="images/logo.png">
+		</div>
+		<div id="showMenu" style="float:left;clear:none;display:inline-block;position:absolute;top:0px;left:0px;border:0px;padding:4px;margin:0px;">
+			<img border="0" alt="Menu" src="images/icon-menu.png">
+		</div>
+		<div style="float:right;clear:none;display:inline-block;position:absolute;top:0px;right:0px;border:0px;padding:4px;margin:0px;">
+			<div onclick="javascript:history.back();">
+				<img border="0" alt="back" src="images/icon-back.png">
+			</div>
+		</div>
+	</div>
 
-<div data-role="content">
+	<div data-role="content">
 
-	<h1>Login</h1>
+		<a id="blaclick">aaa</a>
 
-	<form>
-		<label for="username">Username:</label>
-		<input type="text" value="blafoo@digitalverve.de" id="username" />
-		<label for="password">Password:</label>
-		<input type="password" value="blafoo" id="password" /><br />
-		<input id="sendLoginBtn" class="sendLoginBtn btn btn-primary" value="sendLoginBtn" type="button">
-		<!-- <a href="/register.html" class="btn btn-link">sign up</a> -->
-	</form>
+		<ul data-role="listview" data-inset="true">
+			<li><a href="#home">Home</a></li>
+			<li><a href="#login">Login</a></li>
+		</ul>
+		
+		<h1>Login</h1>
+
+		<form>
+			<label for="username">Username:</label>
+			<input type="text" value="blafoo@digitalverve.de" id="username" />
+			<label for="password">Password:</label>
+			<input type="password" value="blafoo" id="password" /><br />
+			<input id="sendLoginBtn" class="sendLoginBtn btn btn-primary" value="sendLoginBtn" type="button">
+			<!-- <a href="/register.html" class="btn btn-link">sign up</a> -->
+		</form>
+		
+	</div>
 	
-</div>

@@ -2140,59 +2140,6 @@ $(window).bind('hashchange', function(){
 	// populateDeviceInfoTimer();
 });
 
-$('#footervideolink').on("vclick", function (e) {
-	// report('footer clicked');
-	if (footervideoStatus != true) {
-		$("#footer").animate({
-			height: "40%",
-		}, 500, function () {
-			footervideoStatus = true;
-		});
-	}
-	else {
-		$("#footer").animate({
-			height: "20px",
-		}, 500, function () {
-			footervideoStatus = false;
-		});
-	}
-	return false;
-});
-
-$('#showMenu').on("vclick", function (e) {
-	if (menuStatus != true) {
-		$("#flexiblecontent").animate({
-			marginLeft: "220px",
-		}, 500, function () {
-			menuStatus = true;
-			menuSwitched(true);
-		});
-	} else {
-		$("#flexiblecontent").animate({
-			marginLeft: "0px",
-		}, 500, function () {
-			menuStatus = false;
-			menuSwitched(false);
-		});
-	}
-	return false;
-});
-$('#sidebarListViewDiv').on("vclick", "#menuelement a.contentLink", function (event) {
-	event.preventDefault();
-	$("#flexiblecontent").animate({
-		marginLeft: "0px",
-	}, 500, function () {
-		menuStatus = false;
-		menuSwitched(false);
-		// console.log(event.target.hash);
-		// system.redirectToUrl(event.target.hash);
-		window.location.href = event.target.hash;
-		// alert('getURLParameter(window.location.href): ' + getURLParameter(window.location.href));
-		// $.mobile.changePage( "#aboutus", { transition: "slideup", changeHash: true });
-		// $.mobile.changePage( "#aboutus" , { reverse: false, changeHash: false } );
-	});
-});
-
 var menuSwitched = function(status) {
 	var menuSwitchedDeferred = $.Deferred();
 	var menuSwitchedDeferredWatcher = menuSwitchedDeferred.then(function( value ) {

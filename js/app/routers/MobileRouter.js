@@ -53,20 +53,8 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// redirectToUrl();
 				// alert('routing to redirectToUrl');
 				// system.redirectToUrl('#home');
-				this.changePageTransition(new View);
+				// this.changePageTransition(new View);
 			},
-			home: function() {
-				// alert('routing to home');
-				// new View();
-				this.changePageTransition(new View);
-				// this.changePage(View, {});
-            },
-            loginViewJS: function() {
-				// alert('routing to login');
-                // new LoginViewJS();
-				// this.changePage(LoginViewJS, {});
-				this.changePageTransition(new LoginViewJS);
-            },
 			learningstreamview: function() {
 				// alert('routing to home');
 				new Learningstreamview();
@@ -150,9 +138,20 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				});
 			},
 			*/
+			home: function() {
+				// alert('routing to home');
+				// new View();
+				this.changePageTransition(new View);
+				// this.changePage(View, {});
+            },
+            loginViewJS: function() {
+				// alert('routing to login');
+                // new LoginViewJS();
+				// this.changePage(LoginViewJS, {});
+				this.changePageTransition(new LoginViewJS);
+            },
 			changePageTransition:function (page) {
 				$(page.el).attr('data-role', 'page');
-				page.render();
 				$('body').append($(page.el));
 				var transition = page.transition ? page.transition : $.mobile.defaultPageTransition;
 				// We don't want to slide the first page
@@ -160,7 +159,10 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 					transition = 'none';
 					this.firstPage = false;
 				}
-				$.mobile.changePage($(page.el), {changeHash:true, transition: 'flip'});
+				$.mobile.changePage($(page.el), {changeHash:true, transition: 'slide'});
+				console.log(page);
+				// $('.ui-page-active').append('<div id="sidebarListViewDiv" class="sidebarListViewDiv" style="position:fixed;top:0;left:0;text-align:left;height:100%;z-index:0;width:220px;ba/ckground-color:#222;"></div>');
+				page.render();
 			},
 			changePage: function(view, viewOptions) {
 				// system.toggleLoading(true);
