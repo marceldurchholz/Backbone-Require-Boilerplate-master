@@ -57,16 +57,16 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 						icon: model.get('icon').substring(1)
 					},{variable: 'sidemenu'});
 				});
-				alert(rowContent);
+				// alert(rowContent);
 				var htmlContent = '';
 				htmlContent = _.template(sidemenusList, {rowContent:rowContent});
-				alert(htmlContent);
-				alert('SidemenuViewA.js');
-				alert($('#body').html());
-				alert($('.ui-page-active').html());
+				// alert(htmlContent);
+				// alert('SidemenuViewA.js');
+				// alert($('#body').html());
+				// alert($('.ui-page-active').html());
 				$('#body').append(htmlContent);
 				$('#body #menu').page().listview();
-				alert('SidemenuViewB.js');
+				// alert('SidemenuViewB.js');
 				return this;
 			}
 		});

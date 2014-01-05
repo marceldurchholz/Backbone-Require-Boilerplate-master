@@ -45,7 +45,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				this.bindEvents();
 				console.log('DOING render loginView.js called');
 				this.$el.html(_.template(loginPage, {}));
-				alert('loginView.js');
+				// alert('loginView.js');
 				this.nestedView = new SidemenuView().fetch();
 				this.$el.trigger('create');				
 				return this;
