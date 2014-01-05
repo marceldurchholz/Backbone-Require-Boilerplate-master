@@ -42,34 +42,12 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				// this.fetch();
 			},
 			render: function() {
-				// this.bindEvents();
+				this.bindEvents();
 				console.log('DOING render loginView.js called');
-				
 				this.$el.html(_.template(loginPage, {}));
-
 				this.nestedView = new SidemenuView().fetch();
-				// console.log('this.nestedView');
-				this.$el.trigger('create');
-				
-				// $('#sidebarListViewDiv').append(_.template(sidemenusList, {}));
-				// this.nestedView = new SidemenuView().fetch();
-
-				this.$el.trigger('create');
-
+				this.$el.trigger('create');				
 				return this;
-				/*
-				var _thisViewLogin = this;
-				$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
-				_thisViewLogin.nestedView = new SidemenuView().fetch();
-				_thisViewLogin.$el.html(_.template(loginPage, {}));
-				this.$el.trigger('create');
-				new FastClick(document.body);
-				this.$el.fadeIn( 500, function() {
-					$('.ui-content').scrollTop(0);
-					new FastClick(document.body);
-				});
-				return this;
-				*/
 			}
 
 		});

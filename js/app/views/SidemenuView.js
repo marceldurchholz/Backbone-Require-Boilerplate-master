@@ -30,14 +30,12 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 				});
 				// alert('bla');
 			},
+			/*
 			showDetails: function(e) {
 				e.preventDefault();
 				var id = $(e.currentTarget).data("id");
-				// var item = this.collection;
-				// console.log(item);
 				console.log('showDetails: '+id);
 				window.location.hash = '#sidemenus/details/view/'+id;
-				// alert('bla');
 			},
 			bindEvents: function() {
 				var _thisViewSidemenu = this;
@@ -46,11 +44,9 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 					_thisViewSidemenu.showDetails(e);
 				});
 			},
+			*/
 			render: function() {
-				// console.log('redering SidemenuView.js');
 				var _thisViewSidemenu = this;
-				var htmlContent = '';
-				// console.log(this._sidemenusCollection);
 				var rowContent = '';
 				_.each(this._sidemenusCollection.models, function(model) {
 					this.id = model.get('id');
@@ -61,14 +57,10 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 						icon: model.get('icon').substring(1)
 					},{variable: 'sidemenu'});
 				});
-				// console.log(rowContent);
+				var htmlContent = '';
 				htmlContent = _.template(sidemenusList, {rowContent:rowContent});
-				// console.log(htmlContent);
 				$('.ui-page-active').append(htmlContent);
-				// $( 'div.ui-page-active #menu' ).html('blablabla');				
-				$( 'div.ui-page-active #menu' )
-                     .page()
-                     .listview();				
+				$('div.ui-page-active #menu').page().listview();
 				return this;
 			}
 		});
