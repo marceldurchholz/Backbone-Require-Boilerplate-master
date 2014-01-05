@@ -59,8 +59,10 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 				});
 				var htmlContent = '';
 				htmlContent = _.template(sidemenusList, {rowContent:rowContent});
+				alert('SidemenuViewA.js');
 				$('.ui-page-active').append(htmlContent);
-				// $('div.ui-page-active #menu').page().listview();
+				$('div.ui-page-active #menu').page().listview();
+				alert('SidemenuViewB.js');
 				return this;
 			}
 		});
