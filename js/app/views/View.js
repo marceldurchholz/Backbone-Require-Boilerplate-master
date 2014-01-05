@@ -30,8 +30,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				this.$el.html(_.template(HomeNestedPage, {}));
 
 				this.nestedView = new SidemenuView().fetch();
-				console.log('this.nestedView');
+				// console.log('this.nestedView');
 				this.$el.trigger('create');
+				
 
 				return this;
 				

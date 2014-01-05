@@ -159,10 +159,9 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 					transition = 'none';
 					this.firstPage = false;
 				}
-				$.mobile.changePage($(page.el), {changeHash:true, transition: 'slide'});
-				console.log(page);
-				// $('.ui-page-active').append('<div id="sidebarListViewDiv" class="sidebarListViewDiv" style="position:fixed;top:0;left:0;text-align:left;height:100%;z-index:0;width:220px;ba/ckground-color:#222;"></div>');
+				$.mobile.changePage($(page.el), {changeHash:true, transition: 'flip'});
 				page.render();
+				$(page.el).trigger('create');
 			},
 			changePage: function(view, viewOptions) {
 				// system.toggleLoading(true);

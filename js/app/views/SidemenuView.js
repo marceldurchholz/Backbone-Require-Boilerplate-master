@@ -5,7 +5,7 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
     function($, Backbone, sidemenusCollection, sidemenusList, sidemenuPage){
 		
 		var SidemenuView = Backbone.View.extend({
-			el: "#menuelement",
+			
 			initialize: function() {
 				console.log('initializing SidemenuView.js');
 				_thisViewSidemenu = this;
@@ -50,35 +50,25 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 				// console.log('redering SidemenuView.js');
 				var _thisViewSidemenu = this;
 				var htmlContent = '';
-				// $(this.el).append('aaajshdkj sjdfj sldjflsj dljsl djfklsjd jsklk');
-				console.log(this._sidemenusCollection);
-				
-				htmlContent = _.template(sidemenusList, {});
-				$('#sidebarListViewDiv').html(htmlContent);
+				// console.log(this._sidemenusCollection);
+				var rowContent = '';
 				_.each(this._sidemenusCollection.models, function(model) {
 					this.id = model.get('id');
-					// _thisViewSidemenu.insertData(model);
-					htmlContent = _.template(sidemenuPage, {
+					rowContent += _.template(sidemenuPage, {
 						id: model.get('id'),
 						urloffline: model.get('urloffline'),
 						userfriendly: model.get('userfriendly'),
 						icon: model.get('icon').substring(1)
 					},{variable: 'sidemenu'});
-					$('#menuelement').append(htmlContent);
 				});
-				// console.log(mycontent);
-				// var bla = _.template(sidemenuPage, {});
-				// console.log(this.nestedView);
-				// $('.ui-page-active').append('<div id="sidebarListViewDiv" class="sidebarListViewDiv" style="position:fixed;top:0;left:0;text-align:left;height:100%;z-index:0;width:220px;background-color:#222;">testdiv'+bla+'</div>');
-
-				// console.log($('#sidebar'));
-				// $("#sidebar").hide();
-				// this.$el.fadeIn( 500, function() {
-					// alert('3000 secs');
-				// });
-				// new FastClick(document.body);
-				// this.$el.trigger('create');
-				// $('#page-content').trigger('create');
+				// console.log(rowContent);
+				htmlContent = _.template(sidemenusList, {rowContent:rowContent});
+				// console.log(htmlContent);
+				$('.ui-page-active').append(htmlContent);
+				// $( 'div.ui-page-active #menu' ).html('blablabla');				
+				$( 'div.ui-page-active #menu' )
+                     .page()
+                     .listview();				
 				return this;
 			}
 		});

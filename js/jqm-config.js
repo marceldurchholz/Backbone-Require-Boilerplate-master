@@ -30,7 +30,7 @@
 			// alert('clicked');
 			if (menuStatus != true) {
 				$("div.ui-page-active").animate({
-					left: "220px",
+					left: "235px",
 				}, 500, function () {
 					menuStatus = true;
 					menuSwitched(true);
