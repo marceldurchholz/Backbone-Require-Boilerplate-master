@@ -64,8 +64,8 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 				alert('SidemenuViewA.js');
 				alert($('#body').html());
 				alert($('.ui-page-active').html());
-				$('.ui-page-active').append(htmlContent);
-				$('div.ui-page-active #menu').page().listview();
+				$('#body').append(htmlContent);
+				$('#body #menu').page().listview();
 				alert('SidemenuViewB.js');
 				return this;
 			}
