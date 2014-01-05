@@ -37,7 +37,7 @@
 				});
 			} else {
 				$("div.ui-page-active").animate({
-					left: "0px",
+					left: "100px",
 				}, 500, function () {
 					menuStatus = false;
 					menuSwitched(false);
