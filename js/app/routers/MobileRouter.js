@@ -52,7 +52,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 			startpage: function() {
 				// redirectToUrl();
 				// alert('routing to redirectToUrl');
-				// system.redirectToUrl('#home');
+				system.redirectToUrl('#home');
 				// this.changePageTransition(new View);
 			},
 			learningstreamview: function() {
