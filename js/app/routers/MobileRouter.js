@@ -159,7 +159,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 					transition = 'none';
 					this.firstPage = false;
 				}
-				$.mobile.changePage($(page.el), {changeHash:true, transition: 'flip'});
+				$.mobile.changePage($(page.el), {changeHash:true, transition: 'slide'});
 				page.render();
 				$(page.el).trigger('create');
 			},

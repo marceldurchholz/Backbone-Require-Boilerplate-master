@@ -37,7 +37,7 @@
 				});
 			} else {
 				$("div.ui-page-active").animate({
-					left: "50px",
+					left: "0px",
 				}, 500, function () {
 					menuStatus = false;
 					menuSwitched(false);
@@ -45,7 +45,8 @@
 			}
 			return false;
 		});
-		$(document).off('click','#sidebarListViewDiv').on('click','#sidebarListViewDiv',function(event){
+		$(document).off('click','.stopclass').on('click','.stopclass',function(event){
+			alert('bla');
 			event.preventDefault();
 			$("div.ui-page-active").animate({
 				left: "0px",

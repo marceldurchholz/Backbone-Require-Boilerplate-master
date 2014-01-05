@@ -64,8 +64,11 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 				// alert('SidemenuViewA.js');
 				// alert($('#body').html());
 				// alert($('.ui-page-active').html());
-				$('#body').append(htmlContent);
-				$('#body #menu').page().listview();
+				
+				var hellokong = setTimeout (function() {
+					$('#sidemenuDiv').html(htmlContent);
+					$('#sidemenuDiv #menu').page().listview();
+				}, 500);
 				// alert('SidemenuViewB.js');
 				return this;
 			}
