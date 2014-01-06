@@ -26,6 +26,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							// alert('login ok');
 							// _thisView.changePage(DashboardView);
 							document.location.hash = "dashboard";
+							$('.ui-header').show();
 						}
 					});
 				},
@@ -46,6 +47,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					// this.bindEvents();
 					console.log('DOING render Videos.js called');
 					_thisViewLogin = this;
+					
+					$('.ui-header').hide();
+					
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewLogin.nestedView = new SidemenuView().fetch();
 					_thisViewLogin.$el.html(_.template(loginPage, {}));
