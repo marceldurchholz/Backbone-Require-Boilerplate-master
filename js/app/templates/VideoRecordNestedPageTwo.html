@@ -6,9 +6,15 @@
 
 	<form id="submitform" action="#videos/record" method="post">
 		<button id="formbackbutton" type="button" name="button" data-theme="c">Zurück</button>
-		<input type="text" name="title" id="title" placeholder="Titel"/>
-		<input type="text" name="subtitle" id="subtitle" placeholder="Videountertitel"/>
-		<textarea style="height:25%;" name="description" id="description" placeholder="Fügen Sie hier eine Beschreibung Ihres Videos mit maximal 500 Zeichen ein."></textarea>
+		<input type="text" name="title" id="title" value="Titel des Videos" placeholder="Titel"/>
+		<input type="text" name="subtitle" id="subtitle" value="Untertitel des Videos" placeholder="Videountertitel"/>
+		<textarea style="height:25%;" name="description" id="description" placeholder="Fügen Sie hier eine Beschreibung Ihres Videos mit maximal 500 Zeichen ein.">Hier steht eine Beschreibung des Videos.</textarea>
+		
+		<div data-role="fieldcontain">
+		   <label for="slider-2">Preis (in Coins)</label>
+		   <input type="range" name="slider-step" id="slider-step" value="60" min="0" max="500" step="50" data-mini="true"/>
+		</div>
+
 		<input type="hidden" id="camera_file" name="camera_file"></span>
 		<button id="uploadbutton" type="button" name="uploadbutton" data-theme="b">Video hochladen</button>
 	</form>
