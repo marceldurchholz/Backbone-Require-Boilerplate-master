@@ -3,10 +3,7 @@
 	
   	$(document).off("pageshow").on("pageshow", function () { 
 		// alert('func');
-		$(document).off('click','#blaclick').on('click','#blaclick',function(event){
-			event.preventDefault();
-			alert('clicked');
-		});
+
 		$(document).off('click','#footervideolink').on('click','#footervideolink',function(event){
 			// report('footer clicked');
 			if (footervideoStatus != true) {
@@ -46,7 +43,7 @@
 			return false;
 		});
 		$(document).off('click','.stopclass').on('click','.stopclass',function(event){
-			alert('bla');
+			// alert('bla');
 			event.preventDefault();
 			$("div.ui-page-active").animate({
 				left: "0px",

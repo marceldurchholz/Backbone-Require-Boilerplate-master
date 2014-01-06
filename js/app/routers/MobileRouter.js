@@ -159,9 +159,9 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 					transition = 'none';
 					this.firstPage = false;
 				}
-				$.mobile.changePage($(page.el), {changeHash:true, transition: 'slide'});
+				$.mobile.changePage($(page.el), {changeHash:true, transition: 'flip'});
 				page.render();
-				$(page.el).trigger('create');
+				// $(page.el).trigger('create');
 			},
 			changePage: function(view, viewOptions) {
 				// system.toggleLoading(true);

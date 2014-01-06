@@ -14,6 +14,7 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 			fetch: function() {	
 				console.log('fetching SidemenuView.js');
 				// this.$el.hide();
+				$('#sidemenuDiv').hide();
 				this._sidemenusCollection.fetch({
 					success: function(coll, jsoncoll) {
 						// console.log('jsoncoll');
@@ -68,8 +69,14 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 				var hellokong = setTimeout (function() {
 					$('#sidemenuDiv').html(htmlContent);
 					$('#sidemenuDiv #menu').page().listview();
-				}, 500);
+					// _thisViewSidemenu.$el.trigger('create');
+				}, 0);
 				// alert('SidemenuViewB.js');
+				// console.log('this.nestedView');
+				var hellokongb = setTimeout (function() {
+					$('#sidemenuDiv').show();
+				}, 500);				
+
 				return this;
 			}
 		});
