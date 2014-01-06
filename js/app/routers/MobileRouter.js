@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Planer", "views/VideoDetailsView", "views/PlanDetailsView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, Videorecordview, Learningstreamview, LoginViewJS,  DashboardView, NoAccess, Logout, MyProfile) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Planer, Videosdetailsview, Planerdetailsview, Videorecordview, Learningstreamview, LoginViewJS,  DashboardView, NoAccess, Logout, MyProfile) {
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -35,10 +35,14 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"dashboard" : "dashboard",
 				"listview" : "listview",
 				"videos" : "videos",
-				"myprofile" : "myprofile",
 				"videos/details/:id" : "videodetails",
 				"videos/details/view/:id" : "videodetailsview",
 				"videos/record" : "videorecordview",
+				"planer" : "planer",
+				"planer/details/:id" : "plandetails",
+				"planer/details/view/:id" : "plandetailsview",
+				"planer/entry" : "planentryview",
+				"myprofile" : "myprofile",
 				"learningstreamview" : "learningstreamview",
 				"employeeListItemView" : "employeeListItemView",
 				"login" : "loginViewJS",
@@ -86,13 +90,26 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
                 // new Videos();
 				this.changePage(Videos, {});
             },
+            planer: function() {
+                new Planer();
+				// alert('bla');
+				// this.changePage(Planer, {});
+            },
             videodetailsview: function(id) {
 				// new Videosdetailsview({id:id});
 				this.changePage(Videosdetailsview, {id:id});
             },
+            plandetailsview: function(id) {
+				// new Videosdetailsview({id:id});
+				this.changePage(Planerdetailsview, {id:id});
+            },
 			videorecordview: function() {
 				// alert('bla');
 				this.changePage(Videorecordview, {});
+			},
+			planentryview: function() {
+				// alert('bla');
+				this.changePage(Planentryview, {});
 			},
             loginViewJS: function() {
 				// alert('routing to login');

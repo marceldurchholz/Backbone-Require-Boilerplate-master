@@ -1,0 +1,11 @@
+<ul data-role="listview" data-theme="a" data-divider-theme="a">
+	<!-- <li data-role="list-divider"><%= plan.start %><span class="ui-li-count">2</span></li> -->
+	<li>
+		<a href="#planer/details/view/<%= plan.id %>">
+			<h3><%= plan.title %> (<%= plan.uploader %>)</h3>
+			<p><strong><%= plan.start %> - <%= plan.end %></strong></p>
+			<p><%= plan.subtitle %>: <%= plan.description %></p>
+			<p class="ui-li-aside"><strong>NEU </strong> <%= plan.price %> €</p>
+		</a>
+	</li>
+</ul>
