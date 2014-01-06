@@ -33,7 +33,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             // All of your Backbone Routes (add more)
             routes: {
                 // When there is no hash bang on the url, the home method is called
-                "": "loginViewJS",
+                "": "startpage",
 				"home": "home",
 				"aboutus" : "aboutus",
 				"noaccess" : "noaccess",
