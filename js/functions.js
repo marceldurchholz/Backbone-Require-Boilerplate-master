@@ -1741,7 +1741,8 @@ function recordVideoUpload(videoRecordLocalStorage) {
 	var mediaFile = $('#camera_file').val();
 	log('class captureVideoUpload started');
 	try {
-		$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
+		// $.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
+		showModal();
 		log('uploading '+mediaFile);
 		// log('uploading '+mediaFile.name);
 		var ft = new FileTransfer();
@@ -1762,12 +1763,14 @@ function recordVideoUpload(videoRecordLocalStorage) {
 					if(err) {
 						return console.log(err);
 					}
-					$.mobile.loading( 'hide' );
+					// $.mobile.loading( 'hide' );
+					hideModal();
 					console.log(result, result.id);
 				});
 			},
 			function(error) {
-				$.mobile.loading('hide');
+				// $.mobile.loading('hide');
+				hideModal();
 				// alert("An error has occurred: Code = " = error.code);
 				log('Error uploading file ' + mediaFile + ': ' + error.code);
 			},
@@ -1783,7 +1786,7 @@ function recordVideoUpload(videoRecordLocalStorage) {
 // Upload files to server
 function captureVideoUpload(videoRecordLocalStorage) {
 
-	alert('captureVideoUpload');
+	// alert('captureVideoUpload');
 	
 	console.log('^^');
 	console.log(videoRecordLocalStorage);
@@ -1809,9 +1812,10 @@ function captureVideoUpload(videoRecordLocalStorage) {
 
 	// var mediaFile = $('#camera_file').val();
 	var mediaFile = formValues.camera_file;
-	alert('class captureVideoUpload started');
+	// alert('class captureVideoUpload started');
 	try {
-		$.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
+		// $.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
+		showModal();
 		log('uploading '+mediaFile);
 		// log('uploading '+mediaFile.name);
 		var ft = new FileTransfer();
@@ -1846,19 +1850,23 @@ function captureVideoUpload(videoRecordLocalStorage) {
 				log("Sent = " + r.bytesSent);
 				dpd.videos.post({"uploader":"foobar","videourl":""+options.fileName,"title":""+formValues.title,"subtitle":""+formValues.subtitle,"description":""+formValues.description,"price":123,"thumbnailurl":"foobar"}, function(result, err) {
 					if(err) {
-						$.mobile.loading( 'hide' );
+						// $.mobile.loading( 'hide' );
+						hideModal();
 						doAlert('Es ist ein Fehler passiert, der nicht passieren sollte. Bitte versuchen Sie Ihre Aktion erneut oder wenden Sie sich direkt an das APPinaut Support Team.','Ups! Fehler beim Upload!');
 						return console.log(err);
 					}
 					if (result) {
-						$.mobile.loading( 'hide' );
+						// $.mobile.loading( 'hide' );
+						hideModal();
 						doAlert('Nach Prüfung und Freigabe Ihres Videos erhalten Sie eine Information.','Upload erfolgreich durchgeführt!');
+						system.redirectToUrl('#videos');
 						console.log(result, result.id);
 					}
 				});
 			},
 			function(error) {
-				$.mobile.loading('hide');
+				// $.mobile.loading('hide');
+				hideModal();
 				// alert("An error has occurred: Code = " = error.code);
 				log('Error uploading file ' + mediaFile + ': ' + error.code);
 			},
@@ -2205,13 +2213,24 @@ var menuSwitched = function(status) {
 	});
 };
 
+function showModal(){
+	$("#body").append('<div class="modalWindow"/>');
+	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;">Loading the awesome...</div>' });
+	setTimeout('hideModal()', 2000);
+}
+
+function hideModal(){
+	$(".modalWindow").remove();
+	$.mobile.loading( 'hide' );
+}
+
 var system = {
 	// this.routerSwitched(false);
 	toggleLoading: function(status) {
 		console.log(status);
-		if (status==true) $.mobile.loading( 'show', { theme: 'e', textVisible: true, textonly: true, html: '<div style="text-align:center;">Loading the awesome...</div>' });
+		if (status==true) showModal();
 		else {
-			$.mobile.loading( 'hide' );
+			hideModal();
 		}
 	},
 	redirectToUrl: function(targetUrl) {

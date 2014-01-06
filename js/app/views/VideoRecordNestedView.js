@@ -93,7 +93,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 			},
 			savePageTwo: function(event) {
 				event.preventDefault();
-				alert('savePageTwo');
+				// alert('savePageTwo');
 				var _thisViewRecordVideoNested = this;
 				_thisViewRecordVideoNested.formValues = new Object;
 				_.each(this.$('#submitform').serializeArray(), function(input){
