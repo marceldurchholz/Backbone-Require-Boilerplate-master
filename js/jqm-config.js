@@ -27,14 +27,14 @@
 			// alert('clicked');
 			if (menuStatus != true) {
 				$("div.ui-page-active").animate({
-					marginLeft: "235px",
+					left: "235px",
 				}, 500, function () {
 					menuStatus = true;
 					menuSwitched(true);
 				});
 			} else {
 				$("div.ui-page-active").animate({
-					marginLeft: "0px",
+					left: "0px",
 				}, 500, function () {
 					menuStatus = false;
 					menuSwitched(false);
@@ -46,7 +46,7 @@
 			// alert('bla');
 			event.preventDefault();
 			$("div.ui-page-active").animate({
-				marginLeft: "0px",
+				left: "0px",
 			}, 500, function () {
 				menuStatus = false;
 				menuSwitched(false);
