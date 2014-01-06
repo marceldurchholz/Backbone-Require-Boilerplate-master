@@ -1,64 +1,33 @@
-<div data-role="header" style="position:fixed;top:0px;width:100%;background-color: #21469E !important;background-image: linear-gradient(#3E90D9, #21469E) !important;z-index:999;">
-	<div style="text-align:center;">
-		<img style="max-height:46px;max-width:100%;" alt="APPinaut" src="images/logo.png">
-	</div>
-	<div id="showMenu" style="float:left;clear:none;display:inline-block;position:absolute;top:0px;left:0px;border:0px;padding:4px;margin:0px;">
-		<img border="0" alt="Menu" src="images/icon-menu.png">
-	</div>
-	<div style="float:right;clear:none;display:inline-block;position:absolute;top:0px;right:0px;border:0px;padding:4px;margin:0px;">
-		<div onclick="javascript:history.back();">
-			<img border="0" alt="back" src="images/icon-back.png">
-		</div>
+<!-- HTML Template -->
+<div class="app">
+	<h1>Homepage</h1>
+	<div id="devicereadydiv" class="blink">
+		<p class="event listening">Connecting to Device</p>
+		<p class="event received">Device is Ready</p>
 	</div>
 </div>
 
-<div data-role="content" class="ui-body-c scrollable" style="position:absolute;top:0px;width:100%;z-index:888;border-bottom:144px solid red;min-height:100px;height:100%;padding-top:0px;overflow:hidden;">
+<div id='tests'>
 
-	<div style="position:absolute;top:44px;p/adding-top:44px;width:100%;display:inline-block;overflow:hidden;">
+	<input type='button' onclick="test_SplashScreen()" value='SplashScreen'/>
+	<input type='button' class="fblogin" value='fblogin()'/>
 	
-		<ul data-role="listview" data-inset="true">
-			<li><a href="#home">Home</a></li>
-			<li><a href="#login">Login</a></li>
-		</ul>
-
-		<div class="app">
-			<h1>Homepage</h1>
-			<div id="devicereadydiv" class="blink">
-				<p class="event listening">Connecting to Device</p>
-				<p class="event received">Device is Ready</p>
-			</div>
-		</div>
-
-		<p>
-		<a id="gotologin" href="#login">gotologin</a>
-		</p>
-
-		<div id='tests'>
-
-			<input type='button' onclick="test_SplashScreen()" value='SplashScreen'/>
-			<input type='button' class="fblogin" value='fblogin()'/>
-			
-			<h4>CAMERA</h4>
-			<input type='button' onclick="getPicture();" value='camera.getPicture()'/>
-			<div style='width:100%; height:100px;'>
-				<img width="100" id="camera_image">
-				<img width="100" id="camera_image_b">
-			</div>
-			<h4>VIDEO</h4>
-			<input type='button' onclick="captureVideoAction();" value='captureVideoAction()'/>
-			<div id="videobox">
-				<video id='video_player' controls style='width:100%; height:100px;'></video>
-			</div>
-			<h4>Width: <span id="width"></span>, Height: <span id="height"></span>, Color Depth: <span id="colorDepth"></span></h4>
-			<h4>User-Agent: <span id="user_agent"></span></h4>
-			<h4>canvas: <canvas id="canvas" width="1" height="1"></canvas></h4>
-			<h4>camera_status: <span id="camera_status"></span></h4>
-			<h4>imgage-options:</h4>
-			<div id="image-options"></div>	
-			<input type='button' onclick="test_SplashScreen()" value='SplashScreen'/>
-		</div>
-
-		
+	<h4>CAMERA</h4>
+	<input type='button' onclick="getPicture();" value='camera.getPicture()'/>
+	<div style='width:100%; height:100px;'>
+		<img width="100" id="camera_image">
+		<img width="100" id="camera_image_b">
 	</div>
-
+	<h4>VIDEO</h4>
+	<input type='button' onclick="captureVideoAction();" value='captureVideoAction()'/>
+	<div id="videobox">
+		<video id='video_player' controls style='width:100%; height:100px;'></video>
+	</div>
+	<h4>Width: <span id="width"></span>, Height: <span id="height"></span>, Color Depth: <span id="colorDepth"></span></h4>
+	<h4>User-Agent: <span id="user_agent"></span></h4>
+	<h4>canvas: <canvas id="canvas" width="1" height="1"></canvas></h4>
+	<h4>camera_status: <span id="camera_status"></span></h4>
+	<h4>imgage-options:</h4>
+	<div id="image-options"></div>	
+	<input type='button' onclick="test_SplashScreen()" value='SplashScreen'/>
 </div>

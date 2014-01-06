@@ -1,11 +1,11 @@
 // SidemenuView.js
 // -------
-define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates/sidemenusList.html", "text!templates/sidemenuView.html"],
+define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates/sidemenuView.html"],
 
-    function($, Backbone, sidemenusCollection, sidemenusList, sidemenuPage){
+    function($, Backbone, sidemenusCollection, sidemenuPage){
 		
 		var SidemenuView = Backbone.View.extend({
-			
+			el: "#menuelement",
 			initialize: function() {
 				console.log('initializing SidemenuView.js');
 				_thisViewSidemenu = this;
@@ -13,8 +13,7 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 			},
 			fetch: function() {	
 				console.log('fetching SidemenuView.js');
-				// this.$el.hide();
-				$('#sidemenuDiv').hide();
+				this.$el.hide();
 				this._sidemenusCollection.fetch({
 					success: function(coll, jsoncoll) {
 						// console.log('jsoncoll');
@@ -31,12 +30,14 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 				});
 				// alert('bla');
 			},
-			/*
 			showDetails: function(e) {
 				e.preventDefault();
 				var id = $(e.currentTarget).data("id");
+				// var item = this.collection;
+				// console.log(item);
 				console.log('showDetails: '+id);
 				window.location.hash = '#sidemenus/details/view/'+id;
+				// alert('bla');
 			},
 			bindEvents: function() {
 				var _thisViewSidemenu = this;
@@ -45,38 +46,30 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 					_thisViewSidemenu.showDetails(e);
 				});
 			},
-			*/
 			render: function() {
+				// console.log('redering SidemenuView.js');
 				var _thisViewSidemenu = this;
-				var rowContent = '';
+				var htmlContent = '';
+				$(this.el).html(htmlContent);
 				_.each(this._sidemenusCollection.models, function(model) {
 					this.id = model.get('id');
-					rowContent += _.template(sidemenuPage, {
+					// _thisViewSidemenu.insertData(model);
+					htmlContent = _.template(sidemenuPage, {
 						id: model.get('id'),
 						urloffline: model.get('urloffline'),
 						userfriendly: model.get('userfriendly'),
 						icon: model.get('icon').substring(1)
 					},{variable: 'sidemenu'});
+					_thisViewSidemenu.$el.append(htmlContent);
 				});
-				// alert(rowContent);
-				var htmlContent = '';
-				htmlContent = _.template(sidemenusList, {rowContent:rowContent});
-				// alert(htmlContent);
-				// alert('SidemenuViewA.js');
-				// alert($('#body').html());
-				// alert($('.ui-page-active').html());
-				
-				var hellokong = setTimeout (function() {
-					$('#sidemenuDiv').html(htmlContent);
-					$('#sidemenuDiv #menu').page().listview();
-					// _thisViewSidemenu.$el.trigger('create');
-				}, 0);
-				// alert('SidemenuViewB.js');
-				// console.log('this.nestedView');
-				var hellokongb = setTimeout (function() {
-					$('#sidemenuDiv').show();
-				}, 500);				
-
+				// console.log($('#sidebar'));
+				// $("#sidebar").hide();
+				this.$el.fadeIn( 500, function() {
+					// alert('3000 secs');
+				});
+				// new FastClick(document.body);
+				// this.$el.trigger('create');
+				// $('#page-content').trigger('create');
 				return this;
 			}
 		});

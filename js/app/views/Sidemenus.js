@@ -32,8 +32,8 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 					console.log('DOING render Sidemenus.js called');
 					
 					this._template = _.template(sidemenusList, {});
-					// $('#sidebarListViewDiv').html(this._template);
-					this.$el.html(this._template);
+					$('#sidebarListViewDiv').html(this._template);
+					// this.$el.html(this._template);
 					
 					// console.log('this._sidemenusCollection.models');
 					// console.log(this._sidemenusCollection.models);

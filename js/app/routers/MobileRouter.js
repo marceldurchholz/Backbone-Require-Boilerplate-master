@@ -3,7 +3,7 @@
 define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/VideoDetailsView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView"],
         
     function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Videosdetailsview, Videorecordview, Learningstreamview, LoginViewJS,  DashboardView, NoAccess, Logout, MyProfile) {
-		"use strict";
+
 		var MobileRouter = Backbone.Router.extend({
 
 			routerSwitched: function(status) {
@@ -18,12 +18,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				});
 			},
             initialize: function() {
-
-				$(function () {
-					// window.MobileRouter = MobileRouter;
-					Backbone.history.start({ pushState : false });
-				});
-
+                Backbone.history.start();
                 // Tells Backbone to start watching for hashchange events
 				// report('MobileRouter.js','initialize:');
 				// alert('aaa');
@@ -33,7 +28,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             // All of your Backbone Routes (add more)
             routes: {
                 // When there is no hash bang on the url, the home method is called
-                "": "loginViewJS",
+                "": "startpage",
 				"home": "home",
 				"aboutus" : "aboutus",
 				"noaccess" : "noaccess",
@@ -52,9 +47,13 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 			startpage: function() {
 				// redirectToUrl();
 				// alert('routing to redirectToUrl');
-				system.redirectToUrl('#home');
-				// this.changePageTransition(new View);
+				system.redirectToUrl('#login');
 			},
+			home: function() {
+				// alert('routing to home');
+				new View();
+				// this.changePage(View, {});
+            },
 			learningstreamview: function() {
 				// alert('routing to home');
 				new Learningstreamview();
@@ -84,8 +83,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             },
             videos: function() {
                 // new Videos();
-				// this.changePage(Videos, {});
-				this.changePageTransition(new Videos);
+				this.changePage(Videos, {});
             },
             videodetailsview: function(id) {
 				// new Videosdetailsview({id:id});
@@ -95,10 +93,14 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// alert('bla');
 				this.changePage(Videorecordview, {});
 			},
+            loginViewJS: function() {
+				// alert('routing to login');
+                // new LoginViewJS();
+				this.changePage(LoginViewJS, {});
+            },
             dashboard: function() {
                 // new DashboardView();
-				// this.changePage(DashboardView, {});
-				this.changePageTransition(new DashboardView);
+				this.changePage(DashboardView, {});
             },
             myprofile: function() {
                 // new MyProfile();
@@ -138,31 +140,6 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				});
 			},
 			*/
-			home: function() {
-				// alert('routing to home');
-				// new View();
-				this.changePageTransition(new View);
-				// this.changePage(View, {});
-            },
-            loginViewJS: function() {
-				// alert('routing to login');
-                // new LoginViewJS();
-				// this.changePage(LoginViewJS, {});
-				this.changePageTransition(new LoginViewJS);
-            },
-			changePageTransition:function (page) {
-				$(page.el).attr('data-role', 'page');
-				$('body').append($(page.el));
-				var transition = page.transition ? page.transition : $.mobile.defaultPageTransition;
-				// We don't want to slide the first page
-				if (this.firstPage) {
-					transition = 'none';
-					this.firstPage = false;
-				}
-				$.mobile.changePage($(page.el), {changeHash:true, transition: 'flip'});
-				page.render();
-				// $(page.el).trigger('create');
-			},
 			changePage: function(view, viewOptions) {
 				// system.toggleLoading(true);
 				// $.mobile.loadingMessage = 'Loading...Please wait';
