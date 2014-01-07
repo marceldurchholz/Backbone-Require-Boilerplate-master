@@ -69,11 +69,21 @@ define(["jquery", "backbone", "models/PlanModel", "collections/planerCollection"
 					this.fetch(options);
 				},
 				insertVariables: function(model) {
-					console.log(model.get('planurl'));
+					_thisViewPlanDetails = this;
+					var uploader = model.get('uploader');
+					console.log(this.id);
+					$.ajax({
+						url: "http://dominik-lohmann.de:5000/users/?id="+uploader,
+						async: false
+					}).done(function(uploaderdata) {
+						// $( this ).addClass( "done" );
+						console.log(uploaderdata);
+						_thisViewPlanDetails.uploaderdata = uploaderdata;
+					});
 
 					_template = _.template(planerDetailsViewHTML, {
 						id: model.get('id'),
-						uploader: model.get('uploader'),
+						uploader: _thisViewPlanDetails.uploaderdata.fullname,
 						topic: model.get('topic'),
 						planurl: model.get('planurl'),
 						title: model.get('title'),
@@ -103,19 +113,21 @@ define(["jquery", "backbone", "models/PlanModel", "collections/planerCollection"
 					// console.log(this._planerCollection.models[0].attributes.planurl);
 					_.each(this._planerCollection.models, function(model) {
 						this.id = model.get('id');
-						this.planurl = model.get('id');
 						_thisViewPlanDetails.insertVariables(model);
 					});
+					
 					console.log('this._planerCollection.models[0].attributes.planurl');
 					console.log(this._planerCollection.models[0].attributes.planurl);
 					// window.createPlanPreview(_thisViewPlanDetails.$('#plan_player_1'),'plan_player_1',this._planerCollection.models[0].attributes.planurl);
-					this.$el.trigger('create');
+					
+					_thisViewPlanDetails.$el.trigger('create');
 					new FastClick(document.body);
-					this.$el.fadeIn( 500, function() {
+					_thisViewPlanDetails.$el.fadeIn( 500, function() {
 						$('.ui-content').scrollTop(0);
 						new FastClick(document.body);
 					});
-					return this;
+					return _thisViewPlanDetails;
+					// return(data);
 				}
 
 			});

@@ -111,6 +111,16 @@ define(["jquery", "backbone", "models/PlanModel", "collections/planerCollection"
 			},
 			insertData: function(model) {
 				_thisViewPlan = this;
+				var uploader = model.get('uploader');
+				console.log(this.id);
+				$.ajax({
+					url: "http://dominik-lohmann.de:5000/users/?id="+uploader,
+					async: false
+				}).done(function(uploaderdata) {
+					// $( this ).addClass( "done" );
+					console.log(uploaderdata);
+					_thisViewPlan.uploaderdata = uploaderdata;
+				});
 				console.log(jQuery.inArray(model.id, _thisViewPlan.me.following));
 				if (jQuery.inArray(model.id, _thisViewPlan.me.following)==-1) {
 					model.set("favclass","addPlanToFavourites");
@@ -121,7 +131,7 @@ define(["jquery", "backbone", "models/PlanModel", "collections/planerCollection"
 				console.log(model);
 				var rowContent = _.template(planPage, {
 					id: model.get('id'),
-					uploader: model.get('uploader'),
+					uploader: _thisViewPlan.uploaderdata.fullname,
 					planurl: model.get('planurl'),
 					title: model.get('title'),
 					subtitle: model.get('subtitle'),
