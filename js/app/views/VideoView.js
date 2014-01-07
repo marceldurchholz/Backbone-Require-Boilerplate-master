@@ -121,7 +121,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					model.set("favclass","isVideoToFavourites");
 				}
 				console.log(model);
-				htmlContent = _.template(videoPage, {
+				rowContent = _.template(videoPage, {
 					id: model.get('id'),
 					uploader: model.get('uploader'),
 					videourl: model.get('videourl'),
@@ -131,18 +131,29 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					thumbnailurl: model.get('thumbnailurl'),
 					favclass: model.get('favclass')
 				},{variable: 'video'});
-				$(this.el).append(htmlContent);
+				return(rowContent);
 			},
 			render: function() {
 				this.bindEvents();
 				var _thisViewVideo = this;
 				console.log('DOING render VideoView.js called');
-				var htmlContent = '';
-				$(this.el).html(htmlContent);
+				_thisViewVideo.htmlContent = '';
+				_thisViewVideo.rowContent = '';
 				_.each(this._videosCollection.models, function(model) {
 					this.id = model.get('id');
-					_thisViewVideo.insertData(model);
+					_thisViewVideo.rowContent = _thisViewVideo.rowContent + _thisViewVideo.insertData(model);
 				});
+				_thisViewVideo.htmlContent = '<ul id="videosListView" data-split-icon="star" data-filter="true" data-filter-placeholder="Suchfilter..." data-role="listview" data-theme="a" data-divider-theme="b" data-autodividers="true">'+_thisViewVideo.rowContent+'</ul>';
+				$(this.el).html(_thisViewVideo.htmlContent);
+				$("#videosListView").listview({
+				  autodividers: true,
+				  autodividersSelector: function ( li ) {
+					console.log(li);
+					var rowTopic = li.data( "topic" );
+					var out = rowTopic;
+					return out;
+				  }
+				});				
 				this.$el.trigger('create');
 				new FastClick(document.body);
 				this.$el.fadeIn( 500, function() {

@@ -131,37 +131,27 @@ define(["jquery", "backbone", "models/PlanModel", "collections/planerCollection"
 					topic: model.get('topic'),
 					end: model.get('end')
 				},{variable: 'plan'});
-				// $(this.el).append(rowContent);
-				// _thisViewPlan.htmlContent += rowContent;
 				return(rowContent);
 			},
 			render: function() {
 				this.bindEvents();
 				var _thisViewPlan = this;
 				console.log('DOING render PlanView.js called');
-				
 				_thisViewPlan.htmlContent = '';
 				_thisViewPlan.rowContent = '';
 				$(this.el).html(_thisViewPlan.htmlContent);
-				// $(this.el).append('<ul data-role="listview" data-theme="a" data-divider-theme="a" data-autodividers="true">');
 				_.each(this._planerCollection.models, function(model) {
 					this.id = model.get('id');
 					_thisViewPlan.rowContent = _thisViewPlan.rowContent + _thisViewPlan.insertData(model);
 				});
-				console.log(_thisViewPlan.htmlContent);
-				_thisViewPlan.htmlContent = '<ul id="planerListView" data-filter="true" data-filter-placeholder="Suchfilter..." data-role="listview" data-theme="a" data-divider-theme="b" data-autodividers="true">'+_thisViewPlan.rowContent+'</ul>';
-				// $(this.el).append('</ul>');
+				_thisViewPlan.htmlContent = '<ul data-filter="true" data-filter-placeholder="Suchfilter..." data-role="listview" data-theme="a" data-divider-theme="b" data-autodividers="true" id="planerListView">'+_thisViewPlan.rowContent+'</ul>';
 				$(this.el).html(_thisViewPlan.htmlContent);
 				$("#planerListView").listview({
 				  autodividers: true,
-				  // the selector function is passed a <li> element from the listview;
-				  // it should return the appropriate divider text for that <li>
-				  // element as a string
 				  autodividersSelector: function ( li ) {
 					console.log(li);
-					// alert(li.data( "topic" ));
 					var rowTopic = li.data( "topic" );
-					var out = rowTopic; /* generate a string based on the content of li */
+					var out = rowTopic;
 					return out;
 				  }
 				});				
