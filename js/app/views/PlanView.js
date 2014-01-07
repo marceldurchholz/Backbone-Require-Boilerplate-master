@@ -119,7 +119,7 @@ define(["jquery", "backbone", "models/PlanModel", "collections/planerCollection"
 					model.set("favclass","isPlanToFavourites");
 				}
 				console.log(model);
-				htmlContent = _.template(planPage, {
+				var rowContent = _.template(planPage, {
 					id: model.get('id'),
 					uploader: model.get('uploader'),
 					planurl: model.get('planurl'),
@@ -128,20 +128,43 @@ define(["jquery", "backbone", "models/PlanModel", "collections/planerCollection"
 					description: model.get('description'),
 					price: model.get('price'),
 					start: model.get('start'),
+					topic: model.get('topic'),
 					end: model.get('end')
 				},{variable: 'plan'});
-				$(this.el).append(htmlContent);
+				// $(this.el).append(rowContent);
+				// _thisViewPlan.htmlContent += rowContent;
+				return(rowContent);
 			},
 			render: function() {
 				this.bindEvents();
 				var _thisViewPlan = this;
 				console.log('DOING render PlanView.js called');
-				var htmlContent = '';
-				$(this.el).html(htmlContent);
+				
+				_thisViewPlan.htmlContent = '';
+				_thisViewPlan.rowContent = '';
+				$(this.el).html(_thisViewPlan.htmlContent);
+				// $(this.el).append('<ul data-role="listview" data-theme="a" data-divider-theme="a" data-autodividers="true">');
 				_.each(this._planerCollection.models, function(model) {
 					this.id = model.get('id');
-					_thisViewPlan.insertData(model);
+					_thisViewPlan.rowContent = _thisViewPlan.rowContent + _thisViewPlan.insertData(model);
 				});
+				console.log(_thisViewPlan.htmlContent);
+				_thisViewPlan.htmlContent = '<ul id="planerListView" data-filter="true" data-filter-placeholder="Suchfilter..." data-role="listview" data-theme="a" data-divider-theme="b" data-autodividers="true">'+_thisViewPlan.rowContent+'</ul>';
+				// $(this.el).append('</ul>');
+				$(this.el).html(_thisViewPlan.htmlContent);
+				$("#planerListView").listview({
+				  autodividers: true,
+				  // the selector function is passed a <li> element from the listview;
+				  // it should return the appropriate divider text for that <li>
+				  // element as a string
+				  autodividersSelector: function ( li ) {
+					console.log(li);
+					// alert(li.data( "topic" ));
+					var rowTopic = li.data( "topic" );
+					var out = rowTopic; /* generate a string based on the content of li */
+					return out;
+				  }
+				});				
 				this.$el.trigger('create');
 				new FastClick(document.body);
 				this.$el.fadeIn( 500, function() {

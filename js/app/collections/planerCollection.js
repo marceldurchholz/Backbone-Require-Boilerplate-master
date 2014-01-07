@@ -6,6 +6,9 @@ define(["jquery", "backbone", "models/PlanModel"],
 
     // Creates a new Backbone Collection class object
 	var PlanerCollectionVar = Backbone.Collection.extend({
+		comparator: function( collection ){
+			return( collection.get( 'topic' ) );
+		},
 		initialize: function(models, options) {
 			this.options = options || {};
 			this.bind("error", this.errorHandler);
