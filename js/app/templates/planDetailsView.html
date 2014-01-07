@@ -2,17 +2,21 @@
 
 <div style="margin-bottom:50px;padding:15px;">
 
-<h5><%= plan.title %></h5>
-<%= plan.price %> €<br>
+<h1><%= plan.topic %></h1>
 
 <p>
 <strong><%= plan.uploader %></strong>
 <br>
-<%= plan.start %> - <%= plan.end %>
+Beginn: <%= plan.start %> <br>
+Ende: <%= plan.end %>
 </p>
+
+<h5><%= plan.title %></h5>
+<%= plan.price %> €<br>
 
 <p><strong><%= plan.subtitle %></strong>
 <br>
 <%= plan.description %></p>
 
 <p><a id="submitbutton" name="submitbutton" data-theme="b" data-role="button" rel="external" target="_blank" href="<%= plan.planurl %>">Informationen und Anmeldung</a></p>
+</div>

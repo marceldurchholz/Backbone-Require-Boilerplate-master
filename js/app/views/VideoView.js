@@ -81,7 +81,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				});
 				this.$el.off('click','.isVideoToFavourites').on('click','.isVideoToFavourites',function(event){
 					event.preventDefault();
-					alert('isVideoToFavourites');
+					// alert('isVideoToFavourites');
+					doAlert('Das Medienobjekt befindet sich bereits in Ihren Favoriten.','Information');
 				});
 				this.$el.off('click','.addVideoToFavourites').on('click','.addVideoToFavourites',function(event){
 					event.preventDefault();
@@ -100,6 +101,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 							dpd.users.put(_thisViewVideo.me.id, {following:{$push:_videoid}}, function(result, error) {
 								if (result) {
 									console.log(result);
+									doAlert('Das Medienobjekt befindet sich nun in Ihren Favoriten.','Favortit gespeichert!');
 									}
 								else {
 									// console.log(error);

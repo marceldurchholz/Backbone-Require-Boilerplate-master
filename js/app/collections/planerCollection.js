@@ -5,7 +5,7 @@ define(["jquery", "backbone", "models/PlanModel"],
   function($, Backbone, PlanModel) {
 
     // Creates a new Backbone Collection class object
-	var PlanerCollection = Backbone.Collection.extend({
+	var PlanerCollectionVar = Backbone.Collection.extend({
 		initialize: function(models, options) {
 			this.options = options || {};
 			this.bind("error", this.errorHandler);
@@ -43,7 +43,19 @@ define(["jquery", "backbone", "models/PlanModel"],
 			return responseObject;
 		},
 		sync: function(method, model, options) {
-			Backbone.sync.call(model, method, model, options);
+			// options.parse = false;
+			var bla = Backbone.sync.call(model, method, model, options);
+			// console.log(bla);
+			console.log(options);
+			console.log(method);
+			console.log(model);
+			/*
+			$.get( 'http://dominik-lohmann.de:5000/planer/', function( data ) {
+			  alert( "Data Loaded: " + data );
+			  console.log(data);
+			  return(data);
+			});
+			*/
 		},
 		parse: function(responsePlaner) {
 			console.log('parse responsePlaner');
@@ -60,10 +72,31 @@ define(["jquery", "backbone", "models/PlanModel"],
 					}
 				}
 				else {
+					// console.log(model);
 					_thisCollectionPlaner.add(model);
-					if (_thisCollectionPlaner.online==1) this._localStorage_planer.update(new PlanModel(model));
+					if (_thisCollectionPlaner.online==1) _thisCollectionPlaner._localStorage_planer.update(new PlanModel(model));
+					var userid = model.uploader;
+					/*
+					$.get( 'http://dominik-lohmann.de:5000/users/?id='+userid, function( data ) {
+						// alert( "Data Loaded: " + data.fullname );
+						console.log("Data Loaded: " + data.fullname);
+						model.fullname = data.fullname;
+						console.log(model);
+						// return(data);
+						_thisCollectionPlaner.add(model);
+						if (_thisCollectionPlaner.online==1) _thisCollectionPlaner._localStorage_planer.update(new PlanModel(model));
+					});
+					*/
 				}
 			}
+			/*
+			window.setTimeout(function bla() {
+				console.log(_thisCollectionPlaner.models);
+				return(_thisCollectionPlaner.models);
+				alert('huhuuu');
+			}, 2000);
+			*/
+			console.log(_thisCollectionPlaner.models);
 			return(_thisCollectionPlaner.models);
 		},
 		errorHandler: function(xhr) {
@@ -84,7 +117,7 @@ define(["jquery", "backbone", "models/PlanModel"],
 	});
 
     // Returns the Model class
-    return PlanerCollection;
+    return PlanerCollectionVar;
 
   }
 

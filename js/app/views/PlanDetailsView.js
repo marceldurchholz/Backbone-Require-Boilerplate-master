@@ -70,9 +70,11 @@ define(["jquery", "backbone", "models/PlanModel", "collections/planerCollection"
 				},
 				insertVariables: function(model) {
 					console.log(model.get('planurl'));
+
 					_template = _.template(planerDetailsViewHTML, {
 						id: model.get('id'),
 						uploader: model.get('uploader'),
+						topic: model.get('topic'),
 						planurl: model.get('planurl'),
 						title: model.get('title'),
 						subtitle: model.get('subtitle'),
@@ -84,8 +86,9 @@ define(["jquery", "backbone", "models/PlanModel", "collections/planerCollection"
 					$(this.el).html(_template);
 				},
 				render: function() {
+					// alert('bla');
 					_thisViewPlanDetails = this;
-					console.log('rendering');
+					console.log('rendering PlanDetailsView.js');
 					$(window).resize(function() {
 						window.resizeElement('#plan_player_1')
 					});
