@@ -2,26 +2,27 @@
 // -------
 define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/SidemenuView", "models/VideoModel", "text!templates/sidebar.html", "collections/usersCollection", "views/MyProfileView", "text!templates/MyProfileView.html", "views/MyProfileNestedView", "models/VideoModel", "text!templates/videosList.html", "views/VideoView"],
 
-    function($, Backbone, sidemenusList, SidemenuView, VideoModel, sidebar, usersCollection, MyProfileView, DashboardViewPage, MyProfileNestedView, VideoModel, videosList, VideoView){
+    function($, Backbone, sidemenusList, SidemenuView, VideoModel, sidebar, usersCollection, MyProfileView, MyProfilePage, MyProfileNestedView, VideoModel, videosList, VideoView){
 		
-			var MyProfileView = Backbone.View.extend({
+			var MyProfileViewVar = Backbone.View.extend({
 			
 				el: "#page-content",
 				attributes: {"data-role": 'content'},
 				events: {
 				},
 				bindEvents: function() {
-					var _thisView = this;
+					var _thisViewProfile = this;
 					// this.$el.off('click','.sendLogoutBtn').on('click','.sendLogoutBtn',function(){_thisView.sendLogout();});
 				},
 				sync: function() {
 				},
 				fetch: function() {
+					// this.$el.hide();
 					this.render();
 				},
 				initialize: function() {
 					/*
-					_thisView = this;
+					_thisViewProfile = this;
 					var me = me || {};
 					// this.me = me;
 					dpd.users.me(function(user) {
@@ -37,11 +38,14 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					});
 					// this.render();
 					*/
+					var _thisViewProfile = this;
+					// this.$el.off('click','.sendLoginBtn').on('click','.sendLoginBtn',function(){_thisView.sendLogin();});
+					// this.$el.off('click','.sendRegisterBtn').on('click','.sendRegisterBtn',function(){_thisView.sendRegister();});
 					this.fetch();
 				},
 				/*
 				fetch: function() {
-					var _thisView = this;
+					var _thisViewProfile = this;
 					console.log('fetching user');
 					this._usersCollection = new usersCollection([], {dbid:_thisView.me.id});
 					this._usersCollection.fetch({
@@ -60,15 +64,13 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					console.log('DOING render Videos.js called');
 					
 					_thisViewProfile = this;
-					var ani = setTimeout ( function() {
-						$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
-						_thisViewProfile.nestedView = new SidemenuView().fetch();
-						
-						_thisViewProfile.$el.html(_.template(videosList, {}));
-						_thisViewProfile.nestedView = new VideoView().fetch();
+					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
+					_thisViewProfile.nestedView = new SidemenuView().fetch();
+					
+					_thisViewProfile.$el.html(_.template(MyProfilePage, {}));
+					_thisViewProfile.nestedView = new MyProfileNestedView().fetch();
 
-						_thisViewProfile.$el.trigger('create');
-					}, 500 );
+					_thisViewProfile.$el.trigger('create');
 					
 					/*
 					this.sidebar = _.template(sidebar, {});
@@ -98,7 +100,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 
 			});
 
-        return MyProfileView;
+        return MyProfileViewVar;
 
     }
 

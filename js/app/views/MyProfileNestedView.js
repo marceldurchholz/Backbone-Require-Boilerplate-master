@@ -8,86 +8,83 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 			el: "#MyProfileNestedViewDiv",
 			initialize: function() {
 				console.log('initializing MyProfileNestedView.js');
-				// location.href( '#blafoopeng' );
+				this.initializeme();
 			},
-			/*
-			showDetails: function(e) {
-				// e.preventDefault();
-				var id = $(e.currentTarget).data("id");
-				// var item = this.collection;
-				// console.log(item);
-				console.log('showDetails: '+id);
-				// window.location.hash = '#videos/details/'+id;
-				// Router.navigate( $(this).attr('href') );
-				window.location.hash = '#videos/details/view/'+id;
-				// alert('bla');
+			initializeme: function() {
+				console.log('initializeme MyProfileNestedView.js');
+				var _thisViewMyProfileNested = this;
+				$(this.el).html('loading...');
+				$.when( this.fetchMe() ).then(
+				  function( status ) {
+					console.log(status);
+					_thisViewMyProfileNested.me = status;
+					_thisViewMyProfileNested.render();
+				  },
+				  function( status ) {
+					// console.log( status + ", you fail this time" );
+					alert( "you fail this time" );
+				  },
+				  function( status ) {
+					console.log('still fetchWorking');
+				  }
+				);
+			},
+			fetchWorking: function() {
+				var setTimeoutWatcher = setTimeout(function foo() {
+					if ( _thisViewMyProfileNested.dfd.state() === "pending" ) {
+						_thisViewMyProfileNested.dfd.notify( "working... " );
+						setTimeout( _thisViewMyProfileNested.fetchWorking, 100 );
+					}
+				}, 1 );
+			},
+			fetchMe: function() {
+				_thisViewMyProfileNested = this;
+				console.log('fetchMe MyProfileNestedView.js');
+				_thisViewMyProfileNested.dfd = new jQuery.Deferred();
+				_thisViewMyProfileNested.fetchWorking();
+				dpd.users.me(function(user) {
+					if (user) {
+						var fetchMe = setTimeout ( function() {
+							_thisViewMyProfileNested.dfd.resolve(user);
+						}, 0 );
+					}
+					else {
+						// location.href = "#noaccess";
+						// console.log('you are not logged in');
+					}
+				});
+				return this.dfd.promise();
+			},
+			fetch: function() {	
+				_thisViewMyProfileNested = this;
+				console.log('fetching MyProfileNestedView.js');
+				this.$el.hide();
 			},
 			bindEvents: function() {
-				var _thisView = this;
-				// this.$el.off('click','.clickRow').on('click','.clickRow',function(){_thisView.clicked(e);});
-				this.$el.off('click','.listRow').on('click','.listRow',function(e){
-					// console.log(e);
-					// alert('show detail');
-					_thisView.showDetails(e);
-				});
-			},
-			clicked: function(e){
-				e.preventDefault();
-				var id = $(e.currentTarget).data("id");
-				// var item = this.collection.get(id);
-				// var name = item.get("name");
-				// alert(name);
-				alert(id);
-			},
-			*/
-			insertUserData: function(model) {
-				htmlContent = '';
-				htmlContent = _.template(MyProfileNestedViewPage, {
-					id: model.get('id')
-					, pictureurl: model.get('pictureurl')
-					, cellphone: model.get('cellphone')
-					, city: model.get('city')
-					, companyname: model.get('companyname')
-					, credits: model.get('credits')
-					, device: model.get('device')
-					, facebook: model.get('facebook')
-					, followers: model.get('followers')
-					, following: model.get('following')
-					, fullname: model.get('fullname')
-					, googleplus: model.get('googleplus')
-					, homepage: model.get('homepage')
-					, lastModified: model.get('lastModified')
-					, linkedin: model.get('linkedin')
-					, perstext: model.get('perstext')
-					, phone: model.get('phone')
-					, public: model.get('public')
-					, purchases: model.get('purchases')
-					, roles: model.get('roles')
-					, show: model.get('show')
-					, slogan: model.get('slogan')
-					, street: model.get('street')
-					, twitter: model.get('twitter')
-					, username: model.get('username')
-					, vimeo: model.get('vimeo')
-					, xing: model.get('xing')
-					, youtube: model.get('youtube')
-					, zip: model.get('zip')
-				},{variable: 'user'});
-				// $(this.el).append('<a class="detailById" href="#" data-id="'+model.get('id')+'">');
-				$(this.el).append(htmlContent);
-				// $('.special').attr('id', 'your-id-value');
-				// $(this.el).append('</a>');
-				// this.bindEvents();
+				var _thisViewMyProfileNested = this;
 			},
 			render: function() {
-				var _thisView = this;
-				console.log('rendering in MyProfileNestedView.js');
+				var _thisViewMyProfileNested = this;
+				console.log('rendering MyProfileNestedView.js');
 				var htmlContent = '';
-				_.each(this.collection, function(model) {
-					this.id = model.get('id');
-					_thisView.insertUserData(model);
+				$(this.el).html(htmlContent);
+				console.log(_thisViewMyProfileNested.me);
+				htmlContent = _.template(MyProfileNestedViewPage, {
+					id: _thisViewMyProfileNested.me.id
+					, pictureurl: _thisViewMyProfileNested.me.pictureurl
+					, fullname: _thisViewMyProfileNested.me.fullname
+					, slogan: _thisViewMyProfileNested.me.slogan
+					, perstext: _thisViewMyProfileNested.me.perstext
+				},{variable: 'user'});
+				// alert(htmlContent);
+				$(this.el).html(htmlContent);
+				this.$el.trigger('create');
+				new FastClick(document.body);
+				this.$el.fadeIn( 500, function() {
+					$('.ui-content').scrollTop(0);
+					new FastClick(document.body);
 				});
-				return this;
+				return(this);
 			}
 		});
 
