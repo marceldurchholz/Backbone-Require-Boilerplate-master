@@ -45,7 +45,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"cards" : "cards",
 				"cards/details/:id" : "carddetails",
 				"cards/details/view/:id" : "carddetailsview",
-				"cards/start/view/:id" : "cardstartview",
+				"cards/start/view/:id/:page" : "cardstartview",
 				"cards/entry" : "cardentryview",
 				"myprofile" : "myprofile",
 				"learningstreamview" : "learningstreamview",
@@ -109,9 +109,9 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// new Videosdetailsview({id:id});
 				this.changePage(Cardsdetailsview, {id:id});
             },
-            cardstartview: function(id) {
+            cardstartview: function(cardid,page) {
 				// new Videosdetailsview({id:id});
-				this.changePage(Cardstartview, {id:id});
+				this.changePage(Cardstartview, {cardid:cardid,page:page});
             },
             videodetailsview: function(id) {
 				// new Videosdetailsview({id:id});

@@ -64,15 +64,32 @@ define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection",
 				},
 				insertVariables: function(model) {
 					_thisViewCardStart = this;
-					var uploader = model.get('uploader');
-					console.log(this.id);
-					$.ajax({
-						url: "http://dominik-lohmann.de:5000/users/?id="+uploader,
-						async: false
-					}).done(function(uploaderdata) {
-						console.log(uploaderdata);
-						_thisViewCardStart.uploaderdata = uploaderdata;
-					});
+					// console.log(this.id);
+					// console.log('model');
+					// console.log(model.collection.options.cardid);
+					// console.log(model.collection.options.page);
+					if ( typeof( _thisViewCardStart.uploaderdata ) == "undefined") {
+						var uploader = model.get('uploader');
+						$.ajax({
+							url: "http://dominik-lohmann.de:5000/users/?id="+uploader,
+							async: false
+						}).done(function(uploaderdata) {
+							// console.log(uploaderdata);
+							_thisViewCardStart.uploaderdata = uploaderdata;
+						});
+					}
+					if ( typeof( _thisViewCardStart.carddata ) == "undefined") {
+						$.ajax({
+							url: "http://dominik-lohmann.de:5000/cardpages/?cardid="+model.collection.options.cardid+"&page="+model.collection.options.page+"&uploader?"+model.get('uploader'),
+							async: false
+						}).done(function(carddata) {
+							// console.log(carddata);
+							_thisViewCardStart.carddata = carddata[0];
+						});
+					}
+					
+					console.log('_thisViewCardStart.carddata');
+					console.log(_thisViewCardStart.carddata);
 					
 					var pricetext = '';
 					if (model.get('price')==0) pricetext = 'kostenlos';
@@ -80,6 +97,13 @@ define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection",
 					_template = _.template(cardsStartViewHTML, {
 						id: model.get('id'),
 						uploader: _thisViewCardStart.uploaderdata.fullname,
+						cardid: _thisViewCardStart.carddata.cardid,
+						answers: _thisViewCardStart.carddata.answers,
+						question: _thisViewCardStart.carddata.question,
+						page_id: _thisViewCardStart.carddata.id,
+						page: _thisViewCardStart.carddata.page,
+						lastpage: (parseInt(_thisViewCardStart.carddata.page)-1),
+						nextpage: (parseInt(_thisViewCardStart.carddata.page)+1),
 						topic: model.get('topic'),
 						cardurl: model.get('cardurl'),
 						title: model.get('title'),
@@ -103,6 +127,8 @@ define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection",
 					_thisViewCardStart.nestedView = new SidemenuView().fetch();
 					var htmlContent = '';
 					$(this.el).html(htmlContent);
+					// _thisViewCardStart.uploaderdata.id = '';
+					// _thisViewCardStart.carddata = '';
 					_.each(this._cardsCollection.models, function(model) {
 						this.id = model.get('id');
 						_thisViewCardStart.insertVariables(model);

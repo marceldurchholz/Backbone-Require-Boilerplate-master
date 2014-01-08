@@ -3,6 +3,8 @@
 <div style="margin-bottom:50px;padding:15px;width;100%;">
 
 <h3><%= card.title %></h3>
+<p><strong><%= card.subtitle %></strong></p>
+
 
 <div class="ui-grid-b" style="width:100%;">
 	<div class="ui-block-a" style="width:50%;">Wissensanbieter</div>
@@ -19,8 +21,41 @@
 </div>
 -->
 
+<!--
+<p>>> <%= card.page_id %></p>
+<p>>> <%= card.id %></p>
+<p>>> <%= card.page %></p>
+<p>>> <%= card.question %></p>
+-->
+<br>
+<p>
+<fieldset data-role="controlgroup">
+	<legend><%= card.question %></legend>
+</fieldset>
+<div data-role="fieldcontain">
+	<% _.each(card.answers, function(answersx) { %>
+		<fieldset data-role="controlgroup" style="padding-bottom:5px;">
+			<!-- <legend><%= card.question %></legend> -->
+			<input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom"/>
+			<label for="checkbox-1"><%= answersx %></label>
+		</fieldset>
+	<% }); %>
+</div>
+</p>
+
+<!--
+<% _.each(card.answers, function(answersx) { %>
+	<p><%= answersx %></p>
+<% }); %>
+-->
+
+<!--
+<p>>> <%= card.nextpage %></p>
 <p><strong><%= card.subtitle %></strong></p>
 <p><%= card.description %></p>
-
-<p><a data-cardid="<%= card.id %>" id="submitbutton" name="submitbutton" data-theme="b" data-role="button" href="#cards/start/view/<%= card.id %>">Dieses Lernset <%= card.pricetext %> laden</a></p>
+-->
+<fieldset class="ui-grid-a">
+	<div class="ui-block-a"><a data-cardid="<%= card.id %>" id="submitbutton" name="submitbutton" data-theme="c" data-role="button" href="#cards/start/view/<%= card.cardid %>/<%= card.lastpage %>">Zurück</a></p></div>
+	<div class="ui-block-b"><a data-cardid="<%= card.id %>" id="submitbutton" name="submitbutton" data-theme="b" data-role="button" href="#cards/start/view/<%= card.cardid %>/<%= card.nextpage %>">Weiter</a></p></div>	   
+</fieldset>
 </div>
