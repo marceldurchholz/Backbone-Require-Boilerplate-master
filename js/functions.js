@@ -709,9 +709,9 @@ function modifyiOS7StatusBar(){
 			// StatusBar.overlaysWebView(false);
 			// StatusBar.styleLightContent();
 			// StatusBar.backgroundColorByName("black");
-			StatusBar.hide();
+			StatusBar.show();
 			if (parseFloat(window.device.version) === 7.0) {
-				document.body.style.marginTop = "20px";
+				// document.body.style.marginTop = "20px";
 			}
 			if (window.device.version && parseFloat(window.device.version) > 7) {
 				// document.body.style.marginTop = "20px";
@@ -2253,3 +2253,14 @@ function checkEmail(email){
   var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
   return regex.test(email);
 }
+
+/*
+$("#body > *").off('click').on('click',function(event){
+	// event.preventDefault();
+	// window.location.href = event.currentTarget.hash;
+	console.log(event);
+	console.log(event.currentTarget.attributes);
+	alert(event.currentTarget.id);
+	alert(event.currentTarget);
+});
+*/
