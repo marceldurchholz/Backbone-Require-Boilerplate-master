@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Planer", "views/Cards", "views/VideoDetailsView", "views/PlanDetailsView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Planer", "views/Cards", "views/VideoDetailsView", "views/PlanDetailsView", "views/CardDetailsView", "views/CardStartView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Planer, Cards, Videosdetailsview, Planerdetailsview, Videorecordview, Learningstreamview, LoginViewJS,  DashboardView, NoAccess, Logout, MyProfile) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Planer, Cards, Videosdetailsview, Planerdetailsview, Cardsdetailsview, Cardstartview, Videorecordview, Learningstreamview, LoginViewJS,  DashboardView, NoAccess, Logout, MyProfile) {
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -45,6 +45,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"cards" : "cards",
 				"cards/details/:id" : "carddetails",
 				"cards/details/view/:id" : "carddetailsview",
+				"cards/start/view/:id" : "cardstartview",
 				"cards/entry" : "cardentryview",
 				"myprofile" : "myprofile",
 				"learningstreamview" : "learningstreamview",
@@ -103,6 +104,14 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
                 // new Cards();
 				// alert('bla');
 				this.changePage(Cards, {});
+            },
+            carddetailsview: function(id) {
+				// new Videosdetailsview({id:id});
+				this.changePage(Cardsdetailsview, {id:id});
+            },
+            cardstartview: function(id) {
+				// new Videosdetailsview({id:id});
+				this.changePage(Cardstartview, {id:id});
             },
             videodetailsview: function(id) {
 				// new Videosdetailsview({id:id});
