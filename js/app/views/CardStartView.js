@@ -1,14 +1,15 @@
 // CardStartView.js
 // -------
-define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection", "views/CardView", "text!templates/cardStartView.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
+define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection", "collections/answersCollection", "views/CardView", "text!templates/cardStartView.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
 
-    function($, Backbone, CardModel, cardsCollection, CardListViewItems, cardsStartViewHTML, sidemenusList, SidemenuView){
+    function($, Backbone, CardModel, cardsCollection, answersCollection, CardListViewItems, cardsStartViewHTML, sidemenusList, SidemenuView){
 		
 			var CardStartViewVar = Backbone.View.extend({
 			
 				el: "#page-content",
 				attributes: {"data-role": 'content'},
-				createCard: function () {
+				createCard: function (event) {
+					event.preventDefault();
 					if (this._cardsCollection.online==0) {
 						alert('in offline mode you can not add data');
 					}
@@ -35,17 +36,32 @@ define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection",
 					});
 					return(false);
 				},
+				submitanswers: function (event) {
+					event.preventDefault();
+					if (this._answersCollection.online==0) {
+						alert('in offline mode you can not add data');
+					}
+					else {
+						alert('you are online');
+						// this.create(new CardModel({"uploader": "042cb1572ffbea5d", "cardurl": "http://xyz.de.com.uk", "title": "This is a card title", "description": "This is a description", "price": "35", "thumbnailurl": "http://www.cbr250r.com.au/images/card-thumbnail.jpg"}));
+					}
+					return(false);
+				},
 				bindEvents: function() {
 					var _thisViewCardStart = this;
 					this.$el.off('click','.createCard').on('click','.createCard',function(){_thisViewCardStart.createCard();});
+					this.$el.off('click','#submitanswers').on('click','#submitanswers',function(){_thisViewCardStart.submitAnswers();});
 				},
 				initializeCollection:function(options) {
 					this._cardsCollection = new cardsCollection([], options);
+					this._answersCollection = new answersCollection;
+					console.log('this._answersCollection._localStorage_answers.findAll()');
+					console.log(this._answersCollection._localStorage_answers.findAll());
 				},
 				fetch: function(options) {
+					var _thisViewCardStart = this;
 					this.$el.hide();
 					this.initializeCollection(options);
-					var _thisViewCardStart = this;
 					this._cardsCollection.fetch({
 						error: function(action, coll) {
 							console.log(action);
@@ -54,12 +70,25 @@ define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection",
 						success: function(coll, jsoncoll) {
 							console.log(coll);
 							console.log(jsoncoll);
-							_thisViewCardStart.render();
+							// _thisViewCardStart.render();
+							_thisViewCardStart._answersCollection.fetch({
+								error: function(action, coll) {
+									console.log(action);
+									console.log(coll);
+								},
+								success: function(coll, jsoncoll) {
+									console.log(coll);
+									console.log(jsoncoll);
+									_thisViewCardStart.render();
+								}
+							});
 						}
 					});
 				},
 				initialize: function(options) {
-					this.initializeCollection(options);
+					// console.log('search post data');
+					// console.log(this);
+					// this.initializeCollection(options);
 					this.fetch(options);
 				},
 				insertVariables: function(model) {
