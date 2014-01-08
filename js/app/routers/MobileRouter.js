@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Planer", "views/VideoDetailsView", "views/PlanDetailsView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Planer", "views/Cards", "views/VideoDetailsView", "views/PlanDetailsView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Planer, Videosdetailsview, Planerdetailsview, Videorecordview, Learningstreamview, LoginViewJS,  DashboardView, NoAccess, Logout, MyProfile) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Planer, Cards, Videosdetailsview, Planerdetailsview, Videorecordview, Learningstreamview, LoginViewJS,  DashboardView, NoAccess, Logout, MyProfile) {
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -42,6 +42,10 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"planer/details/:id" : "plandetails",
 				"planer/details/view/:id" : "plandetailsview",
 				"planer/entry" : "planentryview",
+				"cards" : "cards",
+				"cards/details/:id" : "carddetails",
+				"cards/details/view/:id" : "carddetailsview",
+				"cards/entry" : "cardentryview",
 				"myprofile" : "myprofile",
 				"learningstreamview" : "learningstreamview",
 				"employeeListItemView" : "employeeListItemView",
@@ -91,9 +95,14 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				this.changePage(Videos, {});
             },
             planer: function() {
-                new Planer();
+                // new Planer();
 				// alert('bla');
-				// this.changePage(Planer, {});
+				this.changePage(Planer, {});
+            },
+            cards: function() {
+                // new Cards();
+				// alert('bla');
+				this.changePage(Cards, {});
             },
             videodetailsview: function(id) {
 				// new Videosdetailsview({id:id});
