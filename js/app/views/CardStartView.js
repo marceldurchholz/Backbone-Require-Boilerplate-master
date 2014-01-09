@@ -1,8 +1,8 @@
 // CardStartView.js
 // -------
-define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection", "collections/answersCollection", "views/CardView", "text!templates/cardStartView.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
+define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection", "collections/answersCollection", "models/AnswerModel", "views/CardView", "text!templates/cardStartView.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
 
-    function($, Backbone, CardModel, cardsCollection, answersCollection, CardListViewItems, cardsStartViewHTML, sidemenusList, SidemenuView){
+    function($, Backbone, CardModel, cardsCollection, answersCollection, AnswerModel, CardListViewItems, cardsStartViewHTML, sidemenusList, SidemenuView){
 		
 			var CardStartViewVar = Backbone.View.extend({
 			
@@ -36,31 +36,76 @@ define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection",
 					});
 					return(false);
 				},
-				submitanswers: function (event) {
+				submitAnswer: function (event) {
 					event.preventDefault();
+					console.log(this._answersCollection);
+					_thisViewCardStart = this;
 					if (this._answersCollection.online==0) {
 						alert('in offline mode you can not add data');
 					}
 					else {
-						alert('you are online');
+						var $this = $(this);
+						console.log($('#submitform').serializeArray());
+						var submitFormData = $('#submitform').serializeArray();
+						// alert('you are online SUBMIT');
+						// console.log(submitFormData.id);
+						// var obj = jQuery.parseJSON( submitFormData );
+						
+						_.each(submitFormData, function(obj) {
+							// this.id = model.get('id');
+							// _thisViewCardStart.insertVariables(model);
+							var n = obj.name;
+							var v = obj.value;
+							_thisViewCardStart._AnswerModel.set({n:v});
+							_thisViewCardStart._answersCollection.set(this._AnswerModel);
+							_thisViewCardStart._answersCollection.localStorage.save();
+						});
+						
+						// console.log(submitFormData);
+						// this._AnswerModel.set({'question': 'bla','answers' : 'foo'});
+						// this._answersCollection.set(this._AnswerModel);
+						// this._answersCollection.localStorage.save();
+						console.log(this._answersCollection);
 						// this.create(new CardModel({"uploader": "042cb1572ffbea5d", "cardurl": "http://xyz.de.com.uk", "title": "This is a card title", "description": "This is a description", "price": "35", "thumbnailurl": "http://www.cbr250r.com.au/images/card-thumbnail.jpg"}));
 					}
 					return(false);
 				},
-				bindEvents: function() {
+				submitForm: function (event) {
+					var $this = $(this);
+					event.preventDefault();
+					console.log($this);
+					console.log(event);
+					console.log($this.serialize());
+					/*
+					$.post($this.attr('action'), $this.serialize(), function (responseData) {
+						//in here you can analyze the output from your server-side script (responseData) and validate the user's login without leaving the page
+					});
+					*/
+					return(false);
+					if (this._answersCollection.online==0) {
+						alert('in offline mode you can not add data');
+					}
+					else {
+						alert('you are online FORM');
+						// this.create(new CardModel({"uploader": "042cb1572ffbea5d", "cardurl": "http://xyz.de.com.uk", "title": "This is a card title", "description": "This is a description", "price": "35", "thumbnailurl": "http://www.cbr250r.com.au/images/card-thumbnail.jpg"}));
+					}
+					return(false);
+				},
+				bindEvents: function(event) {
 					var _thisViewCardStart = this;
 					this.$el.off('click','.createCard').on('click','.createCard',function(){_thisViewCardStart.createCard();});
-					this.$el.off('click','#submitanswers').on('click','#submitanswers',function(){_thisViewCardStart.submitAnswers();});
+					this.$el.off('submit','#submitform').on('submit','#submitform',function(event){_thisViewCardStart.submitForm(event);});
+					this.$el.off('click','#submitanswer').on('click','#submitanswer',function(event){_thisViewCardStart.submitAnswer(event);});
 				},
 				initializeCollection:function(options) {
 					this._cardsCollection = new cardsCollection([], options);
-					this._answersCollection = new answersCollection;
-					console.log('this._answersCollection._localStorage_answers.findAll()');
-					console.log(this._answersCollection._localStorage_answers.findAll());
+					this._answersCollection = new answersCollection();
+					this._AnswerModel = new AnswerModel();					
 				},
 				fetch: function(options) {
 					var _thisViewCardStart = this;
 					this.$el.hide();
+					console.log(options);
 					this.initializeCollection(options);
 					this._cardsCollection.fetch({
 						error: function(action, coll) {
@@ -117,8 +162,8 @@ define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection",
 						});
 					}
 					
-					console.log('_thisViewCardStart.carddata');
-					console.log(_thisViewCardStart.carddata);
+					// console.log('_thisViewCardStart.carddata');
+					// console.log(_thisViewCardStart.carddata);
 					
 					var pricetext = '';
 					if (model.get('price')==0) pricetext = 'kostenlos';
@@ -163,8 +208,9 @@ define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection",
 						_thisViewCardStart.insertVariables(model);
 					});
 					
-					console.log('this._cardsCollection.models[0].attributes.cardurl');
-					console.log(this._cardsCollection.models[0].attributes.cardurl);
+					console.log('this._cardsCollection.models.attributes.cardurl');
+					console.log(this._cardsCollection);
+					// console.log(this._cardsCollection.models.attributes.cardurl);
 					
 					_thisViewCardStart.$el.trigger('create');
 					new FastClick(document.body);
@@ -172,6 +218,7 @@ define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection",
 						$('.ui-content').scrollTop(0);
 						new FastClick(document.body);
 					});
+					this.bindEvents();
 					return _thisViewCardStart;
 				}
 

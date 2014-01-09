@@ -24,25 +24,30 @@
 	
 	<br>
 	
-	<form action="#cards/start/view/<%= card.cardid %>/<%= card.nextpage %>" method="post" class="ui-body ui-body-a ui-corner-all" style="b/order:0;">
+	<form id="submitform" action="#cards/start/view/<%= card.cardid %>/<%= card.nextpage %>" method="post" class="ui-body ui-body-a ui-corner-all" style="b/order:0;">
+		<input type="hidden" id="id" name="id" value="<%= card.id %>">
+		<input type="hidden" id="page" name="page" value="<%= card.page %>">
 		<p>
-		<fieldset data-role="controlgroup">
-			<legend><%= card.question %></legend>
-		</fieldset>
-		<div data-role="fieldcontain" style="border:0;">
-			<% _.each(card.answers, function(answersx) { %>
-				<fieldset data-role="controlgroup" style="padding-bottom:5px;">
-					<input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom"/>
-					<label for="checkbox-1"><%= answersx %></label>
-				</fieldset>
+		<!--
+		<div data-role="fieldcontain">
+			<label for="name">Textfeld:</label>
+			<input type="text" name="textfeld" id="textfeld" value=""/>
+		</div>
+		-->
+		<div data-role="controlgroup" style="border:0;">
+			<legend style="font-weight:bold;"><%= card.question %></legend>
+			<% console.log(card.answers) %>
+			<% _.each(card.answers, function(answers) { %>
+				<input type="checkbox" name="answer-<%= card.id %>-<%= card.page %>-<%= answers.id %>" id="answer-<%= card.id %>-<%= card.page %>-<%= answers.id %>">
+				<label for="answer-<%= card.id %>-<%= card.page %>-<%= answers.id %>" style="font-weight:normal;"><%= answers.text %></label>
 			<% }); %>
 		</div>
 		</p>
 		<fieldset class="ui-grid-a">
-			<button type="submit" data-theme="b" name="submit" value="submit-value">Absenden</button>
 			<div class="ui-block-a"><a data-cardid="<%= card.id %>" id="backbutton" name="backbutton" data-theme="c" data-role="button" href="#cards/start/view/<%= card.cardid %>/<%= card.lastpage %>">Zurück</a></p></div>
-			<div class="ui-block-b"><a data-cardid="<%= card.id %>" id="submitanswers" name="submitanswers" data-theme="b" data-role="button" href="#cards/start/view/<%= card.cardid %>/<%= card.nextpage %>">Weiter</a></p></div>	   
+			<div class="ui-block-b"><a data-cardid="<%= card.id %>" id="submitanswer" name="submitanswer" data-theme="b" data-role="button">Weiter</a></p></div>	   
 		</fieldset>
+		<!-- <button type="submit" data-theme="b" name="submit" value="submit-value">Absenden</button> -->
 	</form>
 	
 </div>

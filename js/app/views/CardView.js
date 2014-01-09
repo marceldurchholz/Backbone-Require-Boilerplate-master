@@ -113,14 +113,16 @@ define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection",
 				_thisViewCard = this;
 				var uploader = model.get('uploader');
 				console.log(this.id);
-				$.ajax({
-					url: "http://dominik-lohmann.de:5000/users/?id="+uploader,
-					async: false
-				}).done(function(uploaderdata) {
-					// $( this ).addClass( "done" );
-					console.log(uploaderdata);
-					_thisViewCard.uploaderdata = uploaderdata;
-				});
+				if ( typeof( _thisViewCard.uploaderdata ) == "undefined") {
+					$.ajax({
+						url: "http://dominik-lohmann.de:5000/users/?id="+uploader,
+						async: false
+					}).done(function(uploaderdata) {
+						// $( this ).addClass( "done" );
+						console.log(uploaderdata);
+						_thisViewCard.uploaderdata = uploaderdata;
+					});
+				}
 				console.log(jQuery.inArray(model.id, _thisViewCard.me.following));
 				if (jQuery.inArray(model.id, _thisViewCard.me.following)==-1) {
 					model.set("favclass","addCardToFavourites");
