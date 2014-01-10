@@ -11,6 +11,19 @@
 </div>
 
 <div style="padding:0px 20px">
+	<a data-cardid="<%= video.id %>" id="submitbutton" name="submitbutton" data-theme="b" data-role="button" href="#cards/start/view/<%= video.id %>/1">Video <%= video.pricetext %> laden</a>
+</div>
+
+<div style="padding:0px 20px">
+
+	<div class="ui-grid-a">
+		<div class="ui-block-a">Wissensanbieter (ID)</div>
+		<div class="ui-block-b">Preis</div>
+	</div>
+	<div class="ui-grid-b">
+		<div class="ui-block-a"><%= video.uploader %></div>
+		<div class="ui-block-b"><%= video.price %> Coins</div>
+	</div>
 
 	<div id="listRow" class="listRow">
 		<div class="uploader" style="float:left;width:50%;">
@@ -21,9 +34,11 @@
 			<b>Preis</b> <br>
 			<%= video.price %> Coins
 		</div>
+		<!--
 		<div class="price" style="float:right;width:15%;text-align:right;padding-right:20px;">
 			<a href="#" data-role="button" data-inline="true" data-theme="b" data-mini="true">Kaufen</a><br>
 		</div>
+		-->
 	</div>
 
 	<div id="listRow" class="listRow" style="padding-top:50px;">
