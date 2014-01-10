@@ -156,7 +156,7 @@ define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection",
 					this.id = model.get('id');
 					_thisViewCard.rowContent = _thisViewCard.rowContent + _thisViewCard.insertData(model);
 				});
-				_thisViewCard.htmlContent = '<ul data-filter="true" data-filter-placeholder="Suchfilter..." data-role="listview" data-theme="a" data-divider-theme="b" data-autodividers="true" id="cardsListView">'+_thisViewCard.rowContent+'</ul>';
+				_thisViewCard.htmlContent = '<ul data-filter="true" data-filter-placeholder="Suchfilter..." data-role="listview" data-theme="a" data-divider-theme="f" data-filter-theme="a" data-autodividers="true" id="cardsListView">'+_thisViewCard.rowContent+'</ul>';
 				$(this.el).html(_thisViewCard.htmlContent);
 				$("#cardsListView").listview({
 				  autodividers: true,

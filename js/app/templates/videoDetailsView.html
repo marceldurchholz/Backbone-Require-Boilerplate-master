@@ -2,7 +2,7 @@
 <!--
 <h1><%= video.title %></h1>
 -->
-<h3 class="ui-bar ui-bar-c" style="border-top-width:0px;text-align:center;">Videotraining</h3>
+<h3 class="ui-bar ui-bar-b" style="border-top-width:0px;text-align:center;">Videotraining</h3>
 <div id="videocontainer" style="b/order:10px solid red;b/ackground-color:#000000;">
 	<a id="videocontainerlink" style="width:100%;height:100%;">
 		<video id="video_player_1" class="video-js vjs-default-skin" poster="<%= video.thumbnailurl %>" data-setup="{}"></video>
@@ -12,38 +12,38 @@
 
 <div style="padding:0px 20px">
 
-<div id="listRow" class="listRow">
-	<div class="uploader" style="float:left;width:50%;">
-		<b>Wissensanbieter (ID)</b> <br>
-		<%= video.uploader %>
+	<div id="listRow" class="listRow">
+		<div class="uploader" style="float:left;width:50%;">
+			<b>Wissensanbieter (ID)</b> <br>
+			<%= video.uploader %>
+		</div>
+		<div class="price" style="float:left;width:25%;">
+			<b>Preis</b> <br>
+			<%= video.price %> Coins
+		</div>
+		<div class="price" style="float:right;width:15%;text-align:right;padding-right:20px;">
+			<a href="#" data-role="button" data-inline="true" data-theme="b" data-mini="true">Kaufen</a><br>
+		</div>
 	</div>
-	<div class="price" style="float:left;width:25%;">
-		<b>Preis</b> <br>
-		<%= video.price %> Coins
-	</div>
-	<div class="price" style="float:right;width:15%;text-align:right;padding-right:10px;">
-		<a href="#" data-role="button" data-inline="true" data-theme="c" data-mini="true">Kaufen</a><br>
-	</div>
-</div>
 
-<div id="listRow" class="listRow" style="padding-top:50px;">
-	<!--<div class="legend">
-		<%= video.title %>
+	<div id="listRow" class="listRow" style="padding-top:50px;">
+		<!--<div class="legend">
+			<%= video.title %>
+		</div>
+		<div class="pictureurl">
+			<img class="pictureimg" src="<%= video.thumbnailurl %>">
+		</div>
+		-->
+		<p>
+		<div class="id">
+			<strong><%= video.title %></strong>
+		</div>
+		</p>
+		<p>
+		<div class="description">
+			<%= video.description %>
+		</div>
+		</p>
 	</div>
-	<div class="pictureurl">
-		<img class="pictureimg" src="<%= video.thumbnailurl %>">
-	</div>
-	-->
-	<p>
-	<div class="id">
-		<strong><%= video.title %></strong>
-	</div>
-	</p>
-	<p>
-	<div class="description">
-		<%= video.description %>
-	</div>
-	</p>
-</div>
 
 </div>

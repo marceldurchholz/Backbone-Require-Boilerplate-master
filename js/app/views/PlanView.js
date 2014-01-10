@@ -154,7 +154,7 @@ define(["jquery", "backbone", "models/PlanModel", "collections/planerCollection"
 					this.id = model.get('id');
 					_thisViewPlan.rowContent = _thisViewPlan.rowContent + _thisViewPlan.insertData(model);
 				});
-				_thisViewPlan.htmlContent = '<ul data-filter="true" data-filter-placeholder="Suchfilter..." data-role="listview" data-theme="a" data-divider-theme="b" data-autodividers="true" id="planerListView">'+_thisViewPlan.rowContent+'</ul>';
+				_thisViewPlan.htmlContent = '<ul data-filter="true" data-filter-placeholder="Suchfilter..." data-role="listview" data-theme="a" data-divider-theme="c" data-filter-theme="a" data-autodividers="true" id="planerListView">'+_thisViewPlan.rowContent+'</ul>';
 				$(this.el).html(_thisViewPlan.htmlContent);
 				$("#planerListView").listview({
 				  autodividers: true,

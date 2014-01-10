@@ -9,9 +9,9 @@
 </ul>
 <br><br>
 -->
-<h3 class="ui-bar ui-bar-c" style="border-top-width:0px;text-align:center;">Willkommen, <%= user.fullname %></h3>
+<h3 class="ui-bar ui-bar-a" style="border-top-width:0px;text-align:center;">Willkommen, <%= user.fullname %></h3>
 <div style="padding:15px;overflow:hidden;z-index:700;height:100%;">
-	<ul data-role="listview">
+	<ul data-role="listview" data-theme="a">
 		<li>
 			<a href="#myprofile" style="padding-top:0px;padding-bottom:0px;">
 				<div style="float:left;position:relative;top:0px;left:0px;"><img style="margin:7px;height:60px;" src="<%= user.pictureurl %>" /></div>
@@ -22,7 +22,7 @@
 		</li>
 		<li>
 			<a href="#learningstreamview" style="padding-top:0px;padding-bottom:0px;">
-				<div style="float:left;position:relative;top:0px;left:0px;"><img style="margin:7px;height:60px;" src="images/icon-learningstream-60.png" /></div>
+				<div style="float:left;position:relative;top:0px;left:0px;"><img style="margin:7px;height:60px;" src="" /></div>
 				<h5 style="padding-top:2px;padding-bottom:4px;margin-left:80px;">Mein Learning Stream</h5>
 				<p style="margin-left:80px;">Chronologische Auflistung aller Lernelemente</p>
 				<!-- <p class="ui-li-aside"><strong>6:24</strong>PM</p> -->
@@ -38,6 +38,14 @@
 		</li>
 		<li>
 			<a href="#planer" style="padding-top:0px;padding-bottom:0px;">
+				<div style="float:left;position:relative;top:0px;left:0px;"><img style="margin:7px;height:60px;" src="images/icon-learningstream-60.png" /></div>
+				<h5 style="padding-top:2px;padding-bottom:4px;margin-left:80px;">Meine Lernsets</h5>
+				<p style="margin-left:80px;">Lernsets und Lernkarten zum interaktiven Lernen</p>
+				<!-- <p class="ui-li-aside"><strong>6:24</strong>PM</p> -->
+			</a>
+		</li>
+		<li>
+			<a href="#planer" style="padding-top:0px;padding-bottom:0px;">
 				<div style="float:left;position:relative;top:0px;left:0px;"><img style="margin:7px;height:60px;" src="images/icon-calendar-002-resized-60.png" /></div>
 				<h5 style="padding-top:2px;padding-bottom:4px;margin-left:80px;">Meine Termine</h5>
 				<p style="margin-left:80px;">Veranstaltungstermine, -orte und -zeiten</p>
@@ -47,7 +55,7 @@
 		<li>
 			<a href="#preferences" style="padding-top:0px;padding-bottom:0px;">
 				<div style="float:left;position:relative;top:0px;left:0px;"><img style="margin:7px;height:60px;" src="images/icon-preferences-60.png" /></div>
-				<h5 style="padding-top:2px;padding-bottom:4px;margin-left:80px;">Persönliche Einstellungen</h5>
+				<h5 style="padding-top:2px;padding-bottom:4px;margin-left:80px;">Einstellungen</h5>
 				<p style="margin-left:80px;">Benutzer-, Sicherheits- und Datenschutzeinstellungen</p>
 				<!-- <p class="ui-li-aside"><strong>6:24</strong>PM</p> -->
 			</a>
