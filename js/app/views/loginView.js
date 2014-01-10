@@ -89,6 +89,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					console.log('DOING render Videos.js called');
 					_thisViewLogin = this;
 					
+					// $("#flexiblecontent").css('top', 0);
 					$('.ui-header').hide();
 					
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
@@ -99,6 +100,10 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					this.$el.fadeIn( 500, function() {
 						$('.ui-content').scrollTop(0);
 						new FastClick(document.body);
+					});
+					$( "#username" ).focus(function() {
+						this.select();
+						console.log( "Handler for .focus() called." );
 					});
 					return this;
 				}
