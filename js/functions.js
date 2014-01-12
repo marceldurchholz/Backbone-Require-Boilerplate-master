@@ -706,12 +706,13 @@ function modifyiOS7StatusBar(){
 	// if (window.device.version) alert('>> '+window.device.version);
     if (isMobile.any()) {
 		try{
-			StatusBar.overlaysWebView(false);
-			StatusBar.styleLightContent();
-			StatusBar.backgroundColorByName("black");
 			if (parseFloat(window.device.version) === 7.0) {
-				StatusBar.show();
-				// document.body.style.marginTop = "20px";
+				// StatusBar.overlaysWebView(false);
+				// StatusBar.styleLightContent();
+				// StatusBar.backgroundColorByName("black");
+				StatusBar.hide();
+				document.body.style.marginTop = "0px";
+				$("#body").css('top', "0px");
 			}
 			if (window.device.version && parseFloat(window.device.version) > 7) {
 				// document.body.style.marginTop = "20px";

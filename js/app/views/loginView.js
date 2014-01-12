@@ -39,7 +39,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 								// document.location.hash = "dashboard";
 								system.redirectToUrl(targetUrl);
 								// $('.ui-header').show();
-								$('#flexiblecontent').hide();
+								// $('#flexiblecontent').hide();
 								// document.getElementById('body').style.visibility="hidden";
 							}
 						}

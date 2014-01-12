@@ -182,8 +182,8 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// $.mobile.showPageLoadingMsg();
 				// $("#page-content").hide();
 				// $("#body").hide();
-				$("#page-content").css({"position":"fixed", "top":"100px"});
-				$("#ui-page-active").css({"position":"fixed", "top":"200px"});
+				// $("#page-content").css({"position":"fixed", "top":"100px"});
+				// $("#ui-page-active").css({"position":"fixed", "top":"200px"});
 				this.myView = new view(viewOptions);
 				new FastClick(document.body);
 				// this.myView.$el.off('create', this.testFunction);
