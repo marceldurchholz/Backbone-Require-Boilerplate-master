@@ -2110,7 +2110,7 @@ function createVideoPreview(videoObj,videoId,videoUrl) {
 			myPlayer.bigPlayButton.hide();  
 			// myPlayer.pause();
 			myPlayer.on('timeupdate', function() {
-				if (myPlayer.currentTime() > 10) {
+				if (myPlayer.currentTime() > 60) {
 					// $(".video-js")[0].player.pause();
 					// Paypal-Buy-Now-button.png
 					// $("#video_player_1 .vjs-poster").css('background-image', 'url(/Paypal-Buy-Now-button.png)').show();
@@ -2151,6 +2151,7 @@ $(window).bind('hashchange', function(){
 	// $('#scrollable').scrollTop(0);
 	// alert('a');
 	// populateDeviceInfoTimer();
+	modifyiOS7StatusBar();
 });
 
 $('#footervideolink').on("vclick", function (e) {
