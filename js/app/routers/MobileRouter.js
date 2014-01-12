@@ -181,7 +181,8 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// $.mobile.loadingMessage = 'Loading...Please wait';
 				// $.mobile.showPageLoadingMsg();
 				// $("#page-content").hide();
-				
+				// $("#body").hide();
+				$("#page-content").css({"position":"fixed", "top":"100px"});
 				this.myView = new view(viewOptions);
 				new FastClick(document.body);
 				// this.myView.$el.off('create', this.testFunction);

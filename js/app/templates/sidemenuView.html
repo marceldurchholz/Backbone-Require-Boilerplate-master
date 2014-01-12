@@ -1,21 +1,11 @@
-<!--
-<li style="height:40px;"><a href="#<%= sidemenu.urloffline %>" data-id="<%= sidemenu.id %>" class="contentLink" rel="external"><span><img src="<%= sidemenu.icon %>" alt="" border="0"/></span><%= sidemenu.userfriendly %></a></li>
--->
-
 <li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-first-child ui-btn-up-e" data-id="<%= sidemenu.id %>" data-theme="e" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">
 	<div class="ui-btn-inner ui-li">
 		<div class="ui-btn-text">
-			<a class="ui-link-inherit contentLink" style="font-size:0.8em;font-weight:normal;">
-				<img class="ui-li-icon ui-li-thumb" alt="<%= sidemenu.userfriendly %>" title="<%= sidemenu.userfriendly %>" style="h/eight:14px;" src="<%= sidemenu.icon %>">
-				<%= sidemenu.userfriendly %><!-- <span class="ui-li-count ui-btn-up-c ui-btn-corner-all"> 4 </span>-->
+			<a data-href="#<%= sidemenu.urloffline %>" class="ui-link-inherit contentLink" style="font-size:0.8em;font-weight:normal;">
+				<img class="ui-li-icon ui-li-thumb" alt="<%= sidemenu.userfriendly %>" title="<%= sidemenu.userfriendly %>" src="<%= sidemenu.icon %>">
+				<%= sidemenu.userfriendly %>
 			</a>
 		</div>
 		<span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
 	</div>
-</li>		
-
-<!--
-<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-first-child ui-btn-up-b" data-theme="b" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a class="ui-link-inherit" href="#videos">Mediathek <span class="ui-li-count ui-btn-up-c ui-btn-corner-all">4</span></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>		
-<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-btn-up-b" data-theme="b" data-iconpos="left" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a class="ui-link-inherit" href="#videos"><img src="images/icon-calendar-bw-16.png" style="height:14px;" alt="Lernsets" class="ui-li-icon ui-li-thumb">Lernsets <span class="ui-li-count ui-btn-up-c ui-btn-corner-all">18</span></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
-<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-last-child ui-btn-up-b" data-theme="b" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a class="ui-link-inherit" href="#planer"><img src="images/icon-calendar-bw-16.png" style="height:14px;" alt="Termine" class="ui-li-icon ui-li-thumb">Termine <span class="ui-li-count ui-btn-up-c ui-btn-corner-all">8</span></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
--->
+</li>

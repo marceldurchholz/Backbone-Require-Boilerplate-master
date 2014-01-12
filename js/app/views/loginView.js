@@ -38,7 +38,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 								// _thisView.changePage(DashboardView);
 								// document.location.hash = "dashboard";
 								system.redirectToUrl(targetUrl);
-								$('.ui-header').show();
+								// $('.ui-header').show();
+								$('#flexiblecontent').hide();
+								// document.getElementById('body').style.visibility="hidden";
 							}
 						}
 					});
@@ -89,7 +91,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					console.log('DOING render Videos.js called');
 					_thisViewLogin = this;
 					
-					$("#flexiblecontent").css('top', 20);
+					// $("#flexiblecontent").css('top', 20);
 					// $('.ui-header').hide();
 					
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));

@@ -2194,7 +2194,13 @@ $('#sidebarListViewDiv').on("vclick", "#menuelement a.contentLink", function (ev
 		menuSwitched(false);
 		// console.log(event.target.hash);
 		// system.redirectToUrl(event.target.hash);
-		window.location.href = event.target.hash;
+		console.log(event);
+		console.log(event.attributes);
+		alert(event.target.hash);
+		var fruitCount = event.currenTarget//;
+		console.log(fruitCount);
+		// .getAttribute('data-fruit');
+		// window.location.href = event.target.hash;
 		// alert('getURLParameter(window.location.href): ' + getURLParameter(window.location.href));
 		// $.mobile.changePage( "#aboutus", { transition: "slideup", changeHash: true });
 		// $.mobile.changePage( "#aboutus" , { reverse: false, changeHash: false } );

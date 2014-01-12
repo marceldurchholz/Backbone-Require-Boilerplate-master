@@ -25,6 +25,7 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 						console.log(action);
 						console.log(coll);
 						alert('ERROR !!!');
+						$(this.el).html('Fehler beim Laden des Sidebar.');
 						// _thisViewSidemenu.render();
 					}
 				});
