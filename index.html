@@ -167,16 +167,31 @@
 		.ui-loader{
 			z-index: 1501;
 		}
+		.body {
+			background-color:#333 !important;
+			position:fixed !important;
+			top:0px !important;
+			height:100% !important;
+			min-height:100% !important;
+			padding:50px  !important;
+		}
+		#flexiblecontent {
+			background-color:#333 !important;
+		}
+		.ui-page-active {
+			position:fixed !important;
+			top:20px !important;
+		}
     </style>
 
 	
 </head>
-<body id="body" style="background-color:#000;">
+<body id="body" style="background-color:red;position:fixed !important;top:20px !important;margin-top: !important;">
 	<!-- <div id="fb-root"></div> -->
 		
-	<div id="sidebarListViewDiv" class="sidebarListViewDiv" style="position:fixed;top:20px;text-align:left;height:100%;b/order:1px solid #000;z-index:0;width:220px;"></div>
+	<div id="sidebarListViewDiv" class="sidebarListViewDiv" style="position:fixed;top:20px;text-align:left;min-height:1200px !important; height:100% !important;b/order:1px solid #000;z-index:0;width:220px;"></div>
 		
-		<div data-role="page" data-theme="a" id="flexiblecontent" style="position:fixed;top:0px;left:0;min-height:200px !important;height:100% !important;">
+		<div data-role="page" data-theme="a" id="flexiblecontent" style="position:fixed;top:0px;left:0;min-height:800px !important;height:100% !important;">
 			<!-- <div style="position:absolute;top:46px;left:-10px;height:100%;width:10px;b/ackground-image: url(./images/sidebarfadingborder.png);"></div> -->
 			<div data-role="header" data-theme="b" style="position:fixed;top:20px;width:100%;border-top:0px;height:46px;">
 				<div style="text-align:center;">
