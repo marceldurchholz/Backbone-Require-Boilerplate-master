@@ -61,8 +61,8 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 			home: function() {
 				// alert('routing to home');
 				// new View();
-				// system.redirectToUrl('#login');
-				this.changePage(View, {});
+				system.redirectToUrl('#login');
+				// this.changePage(View, {});
             },
 			learningstreamview: function() {
 				// alert('routing to home');
