@@ -56,13 +56,13 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 			startpage: function() {
 				// redirectToUrl();
 				// alert('routing to redirectToUrl');
-				system.redirectToUrl('#login');
+				system.redirectToUrl('#home');
 			},
 			home: function() {
 				// alert('routing to home');
 				// new View();
-				system.redirectToUrl('#login');
-				// this.changePage(View, {});
+				// system.redirectToUrl('#login');
+				this.changePage(View, {});
             },
 			learningstreamview: function() {
 				// alert('routing to home');
@@ -183,6 +183,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// $("#page-content").hide();
 				// $("#body").hide();
 				$("#page-content").css({"position":"fixed", "top":"100px"});
+				$("#ui-page-active").css({"position":"fixed", "top":"200px"});
 				this.myView = new view(viewOptions);
 				new FastClick(document.body);
 				// this.myView.$el.off('create', this.testFunction);

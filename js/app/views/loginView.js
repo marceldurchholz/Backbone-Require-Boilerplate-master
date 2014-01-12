@@ -103,10 +103,12 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						$('.ui-content').scrollTop(0);
 						new FastClick(document.body);
 					});
+					/*
 					$( "#username" ).focus(function() {
 						this.select();
 						console.log( "Handler for .focus() called." );
 					});
+					*/
 					return this;
 				}
 
