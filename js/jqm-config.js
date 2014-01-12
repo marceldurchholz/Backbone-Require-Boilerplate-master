@@ -9,7 +9,7 @@ define(['jquery'], function($){
 		$.mobile.hashListeningEnabled = false; 
 		$.mobile.pushStateEnabled = false; 
 		$.mobile.buttonMarkup.hoverDelay = 0;
-		$.mobile.pageContainer = $('#container');
+		// $.mobile.pageContainer = $('#container');
 		$.mobile.defaultPageTransition = 'slide';
 		$.mobile.defaultDialogTransition = "none";
 		$.mobile.page.prototype.options.degradeInputs.date = true;
