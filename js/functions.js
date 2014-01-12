@@ -714,6 +714,10 @@ function modifyiOS7StatusBar(){
 				document.body.style.marginTop = "0px";
 				$("#body").css('top', "0px");
 			}
+			else {
+				document.body.style.marginTop = "20px";
+				$("#body").css('top', "20px");
+			}
 			if (window.device.version && parseFloat(window.device.version) > 7) {
 				// document.body.style.marginTop = "20px";
 			}
@@ -2198,7 +2202,7 @@ $('#sidebarListViewDiv').on("vclick", "#menuelement a.contentLink", function (ev
 		// console.log(event);
 		// console.log(event.target.getAttribute('data-href'));
 		var tgt = event.target.getAttribute('data-href');
-		alert(tgt);
+		// alert(tgt);
 		console.log(tgt);
 		// .getAttribute('data-fruit');
 		// window.location.href = event.target.hash;
