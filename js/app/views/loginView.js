@@ -89,8 +89,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					console.log('DOING render Videos.js called');
 					_thisViewLogin = this;
 					
-					// $("#flexiblecontent").css('top', 0);
-					$('.ui-header').hide();
+					$("#flexiblecontent").css('top', 20);
+					// $('.ui-header').hide();
 					
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewLogin.nestedView = new SidemenuView().fetch();
