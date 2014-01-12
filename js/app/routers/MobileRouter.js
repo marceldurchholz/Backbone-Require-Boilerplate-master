@@ -2,7 +2,7 @@
 // ---------------
 define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Planer", "views/Cards", "views/VideoDetailsView", "views/PlanDetailsView", "views/CardDetailsView", "views/CardStartView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Planer, Cards, Videosdetailsview, Planerdetailsview, Cardsdetailsview, Cardstartview, Videorecordview, Learningstreamview, LoginViewJS,  DashboardView, NoAccess, Logout, MyProfile) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Planer, Cards, Videosdetailsview, Planerdetailsview, Cardsdetailsview, Cardstartview, Videorecordview, Learningstreamview, login,  DashboardView, NoAccess, Logout, MyProfile) {
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -50,13 +50,13 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"myprofile" : "myprofile",
 				"learningstreamview" : "learningstreamview",
 				"employeeListItemView" : "employeeListItemView",
-				"login" : "loginViewJS",
+				"login" : "login",
 				"logout" : "logout"
             },
 			startpage: function() {
 				// redirectToUrl();
 				// alert('routing to redirectToUrl');
-				system.redirectToUrl('#home');
+				system.redirectToUrl('#login');
 			},
 			home: function() {
 				// alert('routing to home');
@@ -129,10 +129,10 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// alert('bla');
 				this.changePage(Planentryview, {});
 			},
-            loginViewJS: function() {
+            login: function() {
 				// alert('routing to login');
-                // new LoginViewJS();
-				this.changePage(LoginViewJS, {});
+                // new login();
+				this.changePage(login, {});
             },
             dashboard: function() {
                 // new DashboardView();

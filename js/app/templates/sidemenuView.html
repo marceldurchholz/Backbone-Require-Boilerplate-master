@@ -1,4 +1,4 @@
-<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-first-child ui-btn-up-e" data-id="<%= sidemenu.id %>" data-theme="e" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">
+<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-first-child ui-btn-up-<% if (sidemenu.userfriendly=='Abmelden') { %>d<% } else {  %>e<% } %>" data-id="<%= sidemenu.id %>" data-theme="e" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">
 	<div class="ui-btn-inner ui-li">
 		<div class="ui-btn-text">
 			<a data-href="#<%= sidemenu.urloffline %>" class="ui-link-inherit contentLink" style="font-size:0.8em;font-weight:normal;">
