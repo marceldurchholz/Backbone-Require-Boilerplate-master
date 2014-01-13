@@ -216,12 +216,17 @@
 					<img border="0" alt="Menu" src="images/icon-menu.png">
 				</div>
 				<div style="float:right;clear:none;display:inline-block;position:absolute;top:0px;right:0px;border:0px;padding:4px;margin:0px;">
+					<!--
 					<div onclick="javascript:history.back();">
 						<img border="0" alt="back" src="images/icon-back.png">
 					</div>
+					-->
+					<div onclick="showPageOptions();">
+						<img border="0" alt="back" src="images/icon-down.png">
+					</div>
 				</div>
 			</div>
-	 
+			<div id="pageOptions" class="pageOptions" style="width:100%;height:auto;background-color:#333;"></div>
 			<div data-role="content" id="page-content" data-theme="a" class="scrollable"></div>
 		</div>
 	

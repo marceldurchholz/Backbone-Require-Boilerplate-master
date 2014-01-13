@@ -193,6 +193,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// $("#page-content").css({"position":"fixed", "top":"100px"});
 				// $("#ui-page-active").css({"position":"fixed", "top":"200px"});
 				modifyiOS7StatusBar();
+				$( "#pageOptions" ).hide();
 				this.myView = new view(viewOptions);
 				new FastClick(document.body);
 				// this.myView.$el.off('create', this.testFunction);

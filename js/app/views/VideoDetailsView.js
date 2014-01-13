@@ -125,10 +125,10 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					// console.log(this._videosCollection.models[0].attributes.videourl);
 					var showVideoLength = 0;
 					if( _.indexOf(this._videosCollection.models[0].attributes.purchases, this._videosCollection.models[0].attributes.id)==-1 ) { } else {
-						alert('not buyed');
+						// alert('not buyed');
 						showVideoLength = 60;
 					}
-					alert(showVideoLength);
+					// alert(showVideoLength);
 					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',this._videosCollection.models[0].attributes.videourl,showVideoLength);
 					this.$el.trigger('create');
 					new FastClick(document.body);

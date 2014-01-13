@@ -2328,6 +2328,39 @@ function checkEmail(email){
   return regex.test(email);
 }
 
+function showPageOptions() {
+	// alert('blafoopeng');
+	$( "#pageOptions" ).toggle( 0, function() {
+		// Animation complete.
+		var htmlContent = '';
+		htmlContent = '<ul id="pageOptionsDiv" class="ui-listview ui-listview-inset ui-shadow pageOptionsDiv" data-role="listview" data-inset="false" data-theme="a" data-dividertheme="a">';
+			htmlContent += '<li class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-first-child ui-btn-hover-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
+			htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
+			htmlContent += '<a onClick="javascript:history.back();return(false);" data-href="#%= sidemenu.urloffline %" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
+			htmlContent += 'Zurück</a></div>';
+			htmlContent += '<span class="ui-icon ui-icon-arrow-l ui-icon-shadow">&nbsp;</span></div>';
+			htmlContent += '</li>';
+			htmlContent += '<li class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-last-child ui-btn-hover-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
+			htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
+			htmlContent += '<a href="#videos/record" data-href="#videos/record" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
+			htmlContent += 'Mediendatei hinzufügen</a></div>';
+			htmlContent += '<span class="ui-icon ui-icon-plus ui-icon-shadow">&nbsp;</span></div>';
+			htmlContent += '</li>';
+		htmlContent += '</ul>';
+		$(this).html(htmlContent);
+		// alert('done!');
+	});
+	/*
+	1000,function() {
+		$(this).css("border", "2px red inset")
+		.filter(".middle")
+		.css("background", "yellow")
+		.focus();
+		$("div").css("visibility", "hidden");
+	});
+	*/
+}
+
 /*
 $("#body > *").off('click').on('click',function(event){
 	// event.preventDefault();
