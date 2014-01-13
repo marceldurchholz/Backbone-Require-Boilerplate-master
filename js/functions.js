@@ -1036,7 +1036,7 @@ function alertDismissed(e){
 // NOTE: callback button index must be 1 (the first one)
 function doConfirm(confirmText, confirmTitle, confirmCallback, confirmButtonLabels){
 	try{
-		if(typeof(confirmButtonLabels) == 'undefined') confirmButtonLabels = ('Yes,No').split(",");
+		if(typeof(confirmButtonLabels) == 'undefined') confirmButtonLabels = ('Ja,Nein').split(",");
 		report('doConfirm() [confirmText:' + confirmText + ', confirmCallback:' + confirmCallback + ']');
 		if(usingMobileDevice() && isNativeAppMode()){
 		  //fadePageContentOutBeforePopup();
@@ -1644,6 +1644,90 @@ function captureVideoRecord() {
 		popoverHandle.setPosition(newPopoverOptions);
 	}
 	log(popoverHandle);
+}
+
+function purchaseVideoConfirm(me,videoData) {
+	this._me = me;
+	this._videoData = videoData;
+	// doAlert('Möchten Sie Video uying video ' + videoData.id);
+	var creditsAfterPurchase = parseFloat(me.credits) - parseFloat(videoData.price);
+	this._creditsAfterPurchase = creditsAfterPurchase;
+	console.log(creditsAfterPurchase,'creditsAfterPurchase');
+	doConfirm('Möchten Sie dieses Video für ' + this._videoData.price + ' Coins kaufen?', 'Video kaufen', function (event) { 
+		// console.log(event);
+		console.log(this._me);
+		purchaseVideoConfirmCallback(event,this._me,this._videoData,this._creditsAfterPurchase); 
+	}, undefined);
+}
+
+function purchaseVideoConfirmCallback(event,me,videoData,creditsAfterPurchase) {
+	// console.log(this.event);
+	// if (event=="1") doAlert('event=1 (OK)');
+	// if (event=="2") doAlert('event=2 (ABBRECHEN)');
+	if (event=="1") {
+		// console.log(event);
+		purchaseVideoStart(me,videoData,creditsAfterPurchase);
+	}
+	// alert('You clicked confirm...');
+}
+
+function purchaseVideoStart(me,videoData,creditsAfterPurchase) {
+	// alert('Video ' + videoData.id + ' wird über User ID ' + me.id + 'gekauft. Sie haben nun '+creditsAfterPurchase+' Credits.');
+	var data = new Object();
+	data.credits = ''+creditsAfterPurchase;
+	data.purchases = me.purchases;
+	this._newData = data;
+	console.log(_newData.purchases);
+	
+	this._me = me;
+	$.ajax('http://dominik-lohmann.de:5000/users/?id='+me.id,{
+		type:"GET",
+		async: false,
+	}).done(function(me) {
+		// doAlert( "DONE!" );
+		_me = me;
+		console.log('_me.purchases actual');
+		console.log(_me.purchases);
+	}).fail(function() {
+		doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
+	})
+	.always(function() {
+		// alert( "finished - nw redirecting" );
+	});
+	if ($.inArray(videoData.id, _me.purchases) >= 0) {
+		// Do your stuff.
+		doAlert('Sie haben dieses Video bereits gekauft.','Information');
+	}
+	else {
+		console.log(me.purchases);
+		// me.push( videoData.id );
+		// var el = new Object();
+		// el.value = videoData.id;
+		me.purchases.push(videoData.id);
+		// console.log(me.purchases);
+		// return(false);
+		$.ajax('http://dominik-lohmann.de:5000/users/?id='+me.id,{
+			type:"POST",
+			contentType: "application/json",
+			async: false,
+			data: JSON.stringify({
+				purchases: _newData.purchases,
+				credits: creditsAfterPurchase
+			}),
+		}).done(function(uploaderdata) {
+			// doAlert( "Das Video wurde gekauft." );
+			doAlert('Das Video wurde gekauft. Sie haben nun '+creditsAfterPurchase+' Credits.','Aktion Erfolgreich');
+			window.location.reload();
+		}).fail(function() {
+			doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
+		})
+		.always(function() {
+			// alert( "finished - nw redirecting" );
+			window.location.href = '#videos/details/view/'+videoData.id;
+			// window.location.reload();
+			// console.log(this);
+		});
+	}
 }
 
 function onGetVideoError(e) {

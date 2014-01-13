@@ -80,7 +80,6 @@ define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection",
 						console.log(uploaderdata);
 						_thisViewCardDetails.uploaderdata = uploaderdata;
 					});
-					
 					var pricetext = '';
 					if (model.get('price')==0) pricetext = 'kostenlos';
 					else pricetext = 'für '+model.get('price')+' Coins';

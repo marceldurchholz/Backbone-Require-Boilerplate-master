@@ -38,7 +38,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					return(false);
 				},
 				bindEvents: function() {
-					var _thisViewVideoDetails = this;
+					_thisViewVideoDetails = this;
 					this.$el.off('click','.createVideo').on('click','.createVideo',function(){_thisViewVideoDetails.createVideo();});
 				},
 				initializeCollection:function(options) {
@@ -64,19 +64,81 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						}
 					});
 				},
+				buyVideo: function(successUrl) {
+					_thisViewVideoDetails = this;
+					// alert('buying video '+this._videosCollection.models[0].attributes.id);
+					// console.log(this._videosCollection.models[0].attributes.price);
+					// alert(this._videosCollection.user.credits);
+					var CreditsAfterPurchase = parseFloat(this._videosCollection.user.credits) - parseFloat(this._videosCollection.models[0].attributes.price);
+					// alert(CreditsAfterPurchase);
+					if (CreditsAfterPurchase<0) {
+						doAlert('Sie haben nicht genügend Credits.','Schade...');
+						return(false);
+					}
+					else {
+						purchaseVideoConfirm(this._videosCollection.user,this._videosCollection.models[0].attributes);
+					}
+					/*
+					dpd.users.login({username: username, password: password}, function(user, error) {
+						if (error) {
+							// doAlert('not logging in');
+							// return(false);
+							console.log(error.message);
+						} else {
+							// doAlert('logging in');
+							console.log(user);
+							if (user==null) { 
+								doAlert('Bitte versuchen Sie es erneut.','Fehler bei der Anmeldung!');
+								return(false);
+								// alert('user =  null');
+							}
+							else {
+								system.redirectToUrl(targetUrl);
+							}
+						}
+					});
+					*/
+				},
 				initialize: function(options) {
 					this.initializeCollection(options);
+					this.$el.off('click','#loadvideobutton').on('click','#loadvideobutton',function() { _thisViewVideoDetails.buyVideo('#videos/details/view/d6c9268c49a139bf'); } );
 					this.fetch(options);
 				},
 				insertVariables: function(model) {
+					_thisViewVideoDetails = this;
+					var uploader = model.get('uploader');
+					console.log(this.id);
+					$.ajax({
+						url: "http://dominik-lohmann.de:5000/users/?id="+uploader,
+						async: false
+					}).done(function(uploaderdata) {
+						// $( this ).addClass( "done" );
+						console.log(uploaderdata);
+						_thisViewVideoDetails.uploaderdata = uploaderdata;
+					});					
+					// console.log('this._videosCollection.user.credits');
+					// console.log(this._videosCollection.user.credits);
+					// #cards/start/view/<%= video.id %>/1
+					var loadlink = '#cards/start/view/'+model.get('id')+'/1';
+					// if (model.get('price')==0) pricetext = 'Video kostenlos laden';
+					// else pricetext = 'Video für '+model.get('price')+' Coins kaufen';
+					
+					_thisViewVideoDetails.me = new Object();
+					var pricetext = '';
+					if (model.get('price')==0) pricetext = 'Video kostenlos laden';
+					else pricetext = 'Video für '+model.get('price')+' Coins kaufen';
 					console.log(model.get('videourl'));
 					_template = _.template(videosDetailsViewHTML, {
 						id: model.get('id'),
-						uploader: model.get('uploader'),
+						uploader: _thisViewVideoDetails.uploaderdata.fullname,
+						// me_credits: _thisViewVideoDetails.me.credits,
+						me_credits: this._videosCollection.user.credits,
 						videourl: model.get('videourl'),
 						title: model.get('title'),
 						description: model.get('description'),
+						loadlink: loadlink,
 						price: model.get('price'),
+						pricetext: pricetext,
 						thumbnailurl: model.get('thumbnailurl')
 					},{variable: 'video'});
 					$(this.el).html(_template);
