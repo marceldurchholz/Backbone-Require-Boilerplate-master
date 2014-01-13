@@ -2332,6 +2332,10 @@ function showPageOptions() {
 	// alert('blafoopeng');
 	$( "#pageOptions" ).toggle( 0, function() {
 		// Animation complete.
+		/*****
+		// WEITERE ICONS FÜR DAS PAGE OPTIONS MENU:
+		// http://api.jquerymobile.com/classes/
+		*****/
 		var htmlContent = '';
 		htmlContent = '<ul id="pageOptionsDiv" class="ui-listview ui-listview-inset ui-shadow pageOptionsDiv" data-role="listview" data-inset="false" data-theme="a" data-dividertheme="a">';
 			htmlContent += '<li class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-first-child ui-btn-hover-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
