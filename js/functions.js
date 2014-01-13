@@ -2318,9 +2318,14 @@ function checkEmail(email){
   return regex.test(email);
 }
 
+var showPageOptionsIconDeg = 0;
 function showPageOptions() {
 	// alert('blafoopeng');
 	$( "#pageOptions" ).toggle( 0, function() {
+		$( "#page-content" ).toggle();
+		window.showPageOptionsIconDeg += 180;
+		$("#showPageOptionsIcon").css({'transform': 'rotate('+window.showPageOptionsIconDeg+'deg)'});
+		// $( "#showPageOptionsIcon" ).rotate({animateTo:360});
 		// Animation complete.
 		/*****
 		// WEITERE ICONS FÜR DAS PAGE OPTIONS MENU:
@@ -2346,7 +2351,7 @@ function showPageOptions() {
 			htmlContent += 'Veranstaltung/Termin hinzufügen</a></div>';
 			htmlContent += '<span class="ui-icon ui-icon-plus ui-icon-shadow">&nbsp;</span></div>';
 			htmlContent += '</li>';
-			htmlContent += '<li class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-first-child ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
+			htmlContent += '<li class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-last-child ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
 			htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
 			htmlContent += '<a href="#cards/edit/" data-href="#cards/edit/" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
 			htmlContent += 'Lernset/Lernkarte hinzufügen</a></div>';
