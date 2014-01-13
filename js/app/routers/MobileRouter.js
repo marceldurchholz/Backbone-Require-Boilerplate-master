@@ -46,7 +46,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"cards/details/:id" : "carddetails",
 				"cards/details/view/:id" : "carddetailsview",
 				"cards/start/view/:id/:page" : "cardstartview",
-				"cards/entry" : "cardentryview",
+				"cards/edit/:id" : "cardeditview",
 				"myprofile" : "myprofile",
 				"learningstreamview" : "learningstreamview",
 				"employeeListItemView" : "employeeListItemView",

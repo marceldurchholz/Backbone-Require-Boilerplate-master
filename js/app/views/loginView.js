@@ -31,6 +31,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 								// alert('user =  null');
 							}
 							else {
+								$('#showMenu').show();
+								$('#showPageOptions').show();
 								system.redirectToUrl(targetUrl);
 							}
 						}
@@ -82,6 +84,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					_thisViewLogin.nestedView = new SidemenuView().fetch();
 					_thisViewLogin.$el.html(_.template(loginPage, {}));
 					this.$el.trigger('create');
+					$('#showMenu').hide();
+					$('#showPageOptions').hide();
 					new FastClick(document.body);
 					this.$el.fadeIn( 500, function() {
 						$('.ui-content').scrollTop(0);
