@@ -1,23 +1,34 @@
-<h3 class="ui-bar ui-bar-b" style="border-top-width:0px;text-align:center;">Video Informationen</h3>
+<h3 class="ui-bar ui-bar-b" style="border-top-width:0px;text-align:center;">Media hinzufügen (Schritt 2 von 2)</h3>
 <div style="padding:15px;overflow:visible;z-index:999;text-align:center;">
 
 	<p><b>Weiter geht's!</b></p>
-	<p>Bitte geben Sie die erforderlichen Informationen zu Ihrem Video ein. Bedenken Sie hierbei, dass dies sehr entscheidende Überzeugungskriterien für die Käufer Ihres Videos sind.
+	<p>Bitte geben Sie die erforderlichen Informationen zu Ihrer Multimediadatei ein. Bedenken Sie hierbei, dass dies sehr entscheidende Überzeugungskriterien für Ihre Käufer sind.
 
+	<div id="uploadstatusbar" style="font-size:18px;">0 %</div>
+		
 	<form id="submitform" action="#videos/record" method="post">
 		<button id="formbackbutton" type="button" name="button" data-theme="a">Zurück</button>
-		<input type="text" name="title" id="title" value="Titel des Videos" placeholder="Titel"/>
-		<input type="text" name="subtitle" id="subtitle" value="Untertitel des Videos" placeholder="Videountertitel"/>
-		<textarea style="height:35%;" name="description" id="description" placeholder="Fügen Sie hier eine Beschreibung Ihres Videos mit maximal 500 Zeichen ein.">Hier steht eine Beschreibung des Videos.</textarea>
 		
-		<div data-role="fieldcontain">
-		   <label for="slider-2">Preis (in Coins)</label>
-		   <input type="range" name="slider-step" id="slider-step" value="150" min="0" max="500" step="50" data-mini="true"/>
-		</div>
+		
+			<label for="slider-price">Preis (in Coins)</label>
+			<input type="range" name="slider-price" id="slider-price" value="<%= video.slider_price %>" min="0" max="500" step="10" data-theme="a" data-track-theme="a"/>
 
+			<input type="text" name="title" id="title" value="Titel der Multimediadatei" placeholder="Titel"/>
+			<input type="text" name="subtitle" id="subtitle" value="Untertitel der Multimediadatei" placeholder="Videountertitel"/>
+			<textarea style="height:35%;" name="description" id="description" placeholder="Fügen Sie hier eine Beschreibung Ihrer Multimediadatei ein.">Hier steht eine Beschreibung der Multimediadatei.</textarea>
+			
+			<div class="containing-element">
+				<select name="flip-activate" id="flip-activate" data-role="slider">
+					<option value="off">Mediendatei noch nicht aktivieren</option>
+					<option value="on">Mediendatei direkt bereitstellen</option>
+				</select>
+			</div>
+
+		
 		<input type="hidden" id="camera_file" name="camera_file"></span>
-		<button id="uploadbutton" type="button" name="uploadbutton" data-theme="b">Video hochladen</button>
 	</form>
+	
+	<button type="button" id="recordMediaUploadButton" name="recordMediaUploadButton" data-theme="b">Video hochladen</button>
 
 	<span id="camera_status" style="width:0px;height:0px;"></span>
 	<div id="debugdiv" style="width:0px;height:0px;overflow:hidden;"></div>

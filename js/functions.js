@@ -1875,6 +1875,7 @@ function recordVideoUpload(videoRecordLocalStorage) {
 // Upload files to server
 function captureVideoUpload(videoRecordLocalStorage) {
 
+	var _this = this;
 	// alert('captureVideoUpload');
 	
 	console.log('^^');
@@ -1897,6 +1898,8 @@ function captureVideoUpload(videoRecordLocalStorage) {
 	
 	console.log(formValues);
 	
+	console.log(_this._thisViewRecordVideoNested.me.id);
+	
 	// return(false);
 
 	// var mediaFile = $('#camera_file').val();
@@ -1911,22 +1914,9 @@ function captureVideoUpload(videoRecordLocalStorage) {
 		
 		$('#uploadstatusbar').show();
 		ft.onprogress = function(progressEvent) {
-			/*
-			if (progressEvent.lengthComputable) {
-			  // loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
-				// log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
-				// $('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
-				// $('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total + '('+progressEvent.loaded / progressEvent.total+' %)');
-				$('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
-			} else {
-				$('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
-				// loadingStatus.increment();
-			}
-			// $('#uploadstatusbar').html('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
-			*/
-			$('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' %');
+			$('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
 		};
-		$('#uploadstatusbar').hide();
+		// $('#uploadstatusbar').hide();
 		var options = new FileUploadOptions();
 		options.fileName = new Date().getTime();
 		options.mimeType = "video/mp4";
@@ -1937,7 +1927,7 @@ function captureVideoUpload(videoRecordLocalStorage) {
 				log("Code = " + r.responseCode);
 				log("Response = " + r.response);
 				log("Sent = " + r.bytesSent);
-				dpd.videos.post({"uploader":"foobar","videourl":""+options.fileName,"title":""+formValues.title,"subtitle":""+formValues.subtitle,"description":""+formValues.description,"price":123,"thumbnailurl":"foobar"}, function(result, err) {
+				dpd.videos.post({"uploader":""+_this._thisViewRecordVideoNested.me.id,"videourl":""+options.fileName,"title":""+formValues.title,"subtitle":""+formValues.subtitle,"description":""+formValues.description,"price":123,"thumbnailurl":"foobar"}, function(result, err) {
 					if(err) {
 						// $.mobile.loading( 'hide' );
 						hideModal();

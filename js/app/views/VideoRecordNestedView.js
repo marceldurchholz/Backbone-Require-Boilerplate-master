@@ -119,7 +119,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					event.preventDefault();
 					_thisViewRecordVideoNested.savePageOne(event);
 				});
-				this.$el.off('click','#uploadbutton').on('click','#uploadbutton',function(event){
+				this.$el.off('click','#recordMediaUploadButton').on('click','#recordMediaUploadButton',function(event){
 					event.preventDefault();
 					_thisViewRecordVideoNested.savePageTwo(event);
 					// captureVideoUpload(_thisViewRecordVideoNested.localStorageSubmitform);
@@ -144,8 +144,14 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 			},
 			render: function() {
 				var _thisViewRecordVideoNested = this;
-				console.log('DOING render VideoRecordNestedView.js called');
-				_thisViewRecordVideoNested.$el.html(_.template(_thisViewRecordVideoNested.activePage, {}));
+				console.log('DOING render VideoRecordNestedView.js called');				
+				_thisVideoRecordAttributes = _thisViewRecordVideoNested.localStorageSubmitform.models[0].attributes;
+				if (_thisVideoRecordAttributes['slider-price']==undefined) _thisVideoRecordAttributes['slider-price'] = "200";
+				// console.log(_thisVideoRecordAttributes['slider-price']);
+				_thisViewRecordVideoNested.$el.html(_.template(_thisViewRecordVideoNested.activePage, {
+					slider_price:_thisVideoRecordAttributes['slider-price']
+				},{variable: 'video'}));
+				
 				if (!isMobile.any()) {
 					$('#camera_file').val('nureindesktoptestpfad');
 				}
