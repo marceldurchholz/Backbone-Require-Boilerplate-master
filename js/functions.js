@@ -2139,30 +2139,7 @@ function resizeElement(elementid) {
 	// alert('jup');
 };
 
-function createVideoPreview(videoObj,videoId,videoUrl) {
-	// alert('bla');
-	// if( myPlayer ) {
-		// $('video_player_1').remove();
-	// }
-	/*
-	if (myPlayer) {
-		$.each(_V_.players, function (key, player) { 
-			alert('playerbla');
-			if (player.isReady) { 
-				player.destroy(); 
-			} 
-			else { 
-				delete _V_.players[player.id]; 
-			}
-			// VideoJS.players = {};
-		});
-		// myPlayer.removeTriggers();
-		// myPlayer.destroy();
-	}
-	*/
-	// window.videono = window.videono+1;
-	// alert(window.videono);
-	
+function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 	_thisVideoId = videoId;
 	console.log(videoId);
 	_thisVideoUrl = videoUrl;
@@ -2174,45 +2151,45 @@ function createVideoPreview(videoObj,videoId,videoUrl) {
 		   console.log('deteleted');
 		} 
 	}
-
-	// $(document).ready(function(){
-		var myvideoJS = videojs("video_player_1", { "controls": true, "autoplay": false, "preload": "off" }, function(){});
-		var myPlayer = _V_("video_player_1");
-		_V_("video_player_1").ready(function(){
-			// alert('jupp');
-			// { type: "video/mp4", src: "http://mobile002.appinaut.de/secure/data/media/video/Bird_Titmouse.mp4" }
-			console.log(_thisVideoUrl);
-			console.log("http://mobile002.appinaut.de/secure/data/media/video/index.php?showvideo="+_thisVideoUrl+".mp4");
-			myPlayer.src([
-				{ type: "video/mp4", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".mp4" },
-				{ type: "video/webm", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".webm" },
-				{ type: "video/ogg", src: "management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".ogv" }
-			]);
-			// alert('bla');
-			myPlayer.posterImage.show();  
-			myPlayer.controlBar.hide();  
-			myPlayer.bigPlayButton.hide();  
-			// myPlayer.pause();
-			myPlayer.on('timeupdate', function() {
-				if (myPlayer.currentTime() > 60) {
-					// $(".video-js")[0].player.pause();
-					// Paypal-Buy-Now-button.png
-					// $("#video_player_1 .vjs-poster").css('background-image', 'url(/Paypal-Buy-Now-button.png)').show();
+	var myvideoJS = videojs("video_player_1", { "controls": true, "autoplay": false, "preload": "off" }, function(){});
+	var myPlayer = _V_("video_player_1");
+	_V_("video_player_1").ready(function(){
+		// alert('jupp');
+		// { type: "video/mp4", src: "http://mobile002.appinaut.de/secure/data/media/video/Bird_Titmouse.mp4" }
+		console.log(_thisVideoUrl);
+		console.log("http://mobile002.appinaut.de/secure/data/media/video/index.php?showvideo="+_thisVideoUrl+".mp4");
+		myPlayer.src([
+			{ type: "video/mp4", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".mp4" },
+			{ type: "video/webm", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".webm" },
+			{ type: "video/ogg", src: "management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".ogv" }
+		]);
+		// alert('bla');
+		// myPlayer.posterImage.show();  
+		myPlayer.controlBar.hide();  
+		myPlayer.bigPlayButton.hide();  
+		// myPlayer.pause();
+		myPlayer.on('timeupdate', function() {
+			if (myPlayer.currentTime() > showVideoLength) {
+				// $(".video-js")[0].player.pause();
+				// Paypal-Buy-Now-button.png
+				// $("#video_player_1 .vjs-poster").css('background-image', 'url(/Paypal-Buy-Now-button.png)').show();
+				if (showVideoLength!=0) {
 					myPlayer.posterImage.hide();  
 					myPlayer.currentTime(0);  
 					myPlayer.pause();
-					// myPlayer.cancelFullScreen();  
-					// myPlayer.controlBar.hide();  
-					// myPlayer.bigPlayButton.hide();  
-					// $("#videocontainerlink").attr("href", "/blafoopeng/")
-					// myPlayer.currentTime(0);
-					// myPlayer.src({ type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" });
-					// $("#video_player_1.vjs-poster").css('background-image', 'url(http://video-js.zencoder.com/oceans-clip.jpg)').show();
 				}
-			});
-		resizeElement('#video_player_1');
-		});	
-		// alert('("video_player_1").ready(function(){');
+				// myPlayer.cancelFullScreen();  
+				// myPlayer.controlBar.hide();  
+				// myPlayer.bigPlayButton.hide();  
+				// $("#videocontainerlink").attr("href", "/blafoopeng/")
+				// myPlayer.currentTime(0);
+				// myPlayer.src({ type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" });
+				// $("#video_player_1.vjs-poster").css('background-image', 'url(http://video-js.zencoder.com/oceans-clip.jpg)').show();
+			}
+		});
+	resizeElement('#video_player_1');
+	});	
+	// alert('("video_player_1").ready(function(){');
 
 // $(document).ready(function() {
 // resizeVideoJS(); // Initialize the function

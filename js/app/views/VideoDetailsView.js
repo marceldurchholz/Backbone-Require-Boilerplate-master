@@ -14,8 +14,6 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						alert('in offline mode you can not add data');
 					}
 					else {
-						var username = ''+Math.floor((Math.random()*10000)+1);
-						var password = ''+Math.floor((Math.random()*10000)+1);
 						// this._videosCollection._localStorage_users.create(new VideoModel({"fullname": "offline James King", "device": "5645-6543-5415-5233", "credits": "120", "pictureurl": "http://www.redner24.de/typo3temp/GB/Durchholz_Marcel_4c_1090c3626b_Durc_a4ff6064ff.jpg"}));
 						this.create(new VideoModel({"uploader": "042cb1572ffbea5d", "videourl": "http://xyz.de.com.uk", "title": "This is a video title", "description": "This is a description", "price": "35", "thumbnailurl": "http://www.cbr250r.com.au/images/video-thumbnail.jpg"}));
 					}
@@ -42,15 +40,11 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					this.$el.off('click','.createVideo').on('click','.createVideo',function(){_thisViewVideoDetails.createVideo();});
 				},
 				initializeCollection:function(options) {
-					// alert(this.id);
-					// var myCollection = new Collection([ new Model({id: 'smith'}) ]);
 					this._videosCollection = new videosCollection([], options);
-					// this._videosCollection = new videosCollection();
 				},
 				fetch: function(options) {
 					this.$el.hide();
 					this.initializeCollection(options);
-					// this._videosCollection = new videosCollection();
 					var _thisViewVideoDetails = this;
 					this._videosCollection.fetch({
 						error: function(action, coll) {
@@ -66,11 +60,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				},
 				buyVideo: function(successUrl) {
 					_thisViewVideoDetails = this;
-					// alert('buying video '+this._videosCollection.models[0].attributes.id);
-					// console.log(this._videosCollection.models[0].attributes.price);
-					// alert(this._videosCollection.user.credits);
 					var CreditsAfterPurchase = parseFloat(this._videosCollection.user.credits) - parseFloat(this._videosCollection.models[0].attributes.price);
-					// alert(CreditsAfterPurchase);
 					if (CreditsAfterPurchase<0) {
 						doAlert('Sie haben nicht genügend Credits.','Schade...');
 						return(false);
@@ -78,26 +68,6 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					else {
 						purchaseVideoConfirm(this._videosCollection.user,this._videosCollection.models[0].attributes);
 					}
-					/*
-					dpd.users.login({username: username, password: password}, function(user, error) {
-						if (error) {
-							// doAlert('not logging in');
-							// return(false);
-							console.log(error.message);
-						} else {
-							// doAlert('logging in');
-							console.log(user);
-							if (user==null) { 
-								doAlert('Bitte versuchen Sie es erneut.','Fehler bei der Anmeldung!');
-								return(false);
-								// alert('user =  null');
-							}
-							else {
-								system.redirectToUrl(targetUrl);
-							}
-						}
-					});
-					*/
 				},
 				initialize: function(options) {
 					this.initializeCollection(options);
@@ -112,32 +82,24 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						url: "http://dominik-lohmann.de:5000/users/?id="+uploader,
 						async: false
 					}).done(function(uploaderdata) {
-						// $( this ).addClass( "done" );
 						console.log(uploaderdata);
 						_thisViewVideoDetails.uploaderdata = uploaderdata;
 					});					
-					// console.log('this._videosCollection.user.credits');
-					// console.log(this._videosCollection.user.credits);
-					// #cards/start/view/<%= video.id %>/1
-					var loadlink = '#cards/start/view/'+model.get('id')+'/1';
-					// if (model.get('price')==0) pricetext = 'Video kostenlos laden';
-					// else pricetext = 'Video für '+model.get('price')+' Coins kaufen';
 					
-					_thisViewVideoDetails.me = new Object();
 					var pricetext = '';
 					if (model.get('price')==0) pricetext = 'Video kostenlos laden';
 					else pricetext = 'Video für '+model.get('price')+' Coins kaufen';
-					console.log(model.get('videourl'));
+					// console.log('purchases');
+					// console.log(model.get('purchases'));
 					_template = _.template(videosDetailsViewHTML, {
 						id: model.get('id'),
 						uploader: _thisViewVideoDetails.uploaderdata.fullname,
-						// me_credits: _thisViewVideoDetails.me.credits,
 						me_credits: this._videosCollection.user.credits,
 						videourl: model.get('videourl'),
 						title: model.get('title'),
 						description: model.get('description'),
-						loadlink: loadlink,
 						price: model.get('price'),
+						purchases: this._videosCollection.user.purchases,
 						pricetext: pricetext,
 						thumbnailurl: model.get('thumbnailurl')
 					},{variable: 'video'});
@@ -150,22 +112,24 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						window.resizeElement('#video_player_1')
 					});
 					console.log('DOING render VideoDetailsView.js called');
-					// this.sidebar = _.template(sidebar, {});
-					// $('#sidebar').html(sidebar);
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewVideoDetails.nestedView = new SidemenuView().fetch();
 					var htmlContent = '';
 					$(this.el).html(htmlContent);
-					// console.log('this._videosCollection.models');
-					// console.log(this._videosCollection.models[0].attributes.videourl);
 					_.each(this._videosCollection.models, function(model) {
 						this.id = model.get('id');
 						this.videourl = model.get('id');
 						_thisViewVideoDetails.insertVariables(model);
 					});
-					console.log('this._videosCollection.models[0].attributes.videourl');
-					console.log(this._videosCollection.models[0].attributes.videourl);
-					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',this._videosCollection.models[0].attributes.videourl);
+					// console.log('this._videosCollection.models[0].attributes.videourl');
+					// console.log(this._videosCollection.models[0].attributes.videourl);
+					var showVideoLength = 0;
+					if( _.indexOf(this._videosCollection.models[0].attributes.purchases, this._videosCollection.models[0].attributes.id)==-1 ) { } else {
+						alert('not buyed');
+						showVideoLength = 60;
+					}
+					alert(showVideoLength);
+					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',this._videosCollection.models[0].attributes.videourl,showVideoLength);
 					this.$el.trigger('create');
 					new FastClick(document.body);
 					this.$el.fadeIn( 500, function() {
