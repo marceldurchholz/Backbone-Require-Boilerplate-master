@@ -10,59 +10,24 @@ define(["jquery", "backbone", "models/AdminUserModel", "collections/AdminUserCol
 			initialize: function() {
 				console.log('initializing AdminUserListItemView.js');
 			},
-			initializeme: function() {
-				console.log('initializing ME in AdminUserListItemView.js');
-				$(this.el).html('loading...');
-				$.when( this.fetchMe() ).then(
-				  function( status ) {
-					_thisViewAdminUser.me = status;
-					_thisViewAdminUser.render();
-				  },
-				  function( status ) {
-					alert( "you fail this time" );
-				  },
-				  function( status ) {
-					console.log('still fetchWorking');
-				  }
-				);
-			},
-			fetchWorking: function() {
-				var setTimeoutWatcher = setTimeout(function foo() {
-					if ( _thisViewAdminUser.dfd.state() === "pending" ) {
-						_thisViewAdminUser.dfd.notify( "working... " );
-						setTimeout( _thisViewAdminUser.fetchWorking, 100 );
-					}
-				}, 1 );
-			},
-			fetchMe: function() {
-				_thisViewAdminUser = this;
-				console.log('fetchMe AdminUserListItemView.js');
-				_thisViewAdminUser.dfd = new jQuery.Deferred();
-				_thisViewAdminUser.fetchWorking();
-				dpd.users.me(function(user) {
-					if (user) {
-						var fetchMe = setTimeout ( function() {
-							_thisViewAdminUser.dfd.resolve(user);
-						}, 0 );
-					}
-					else {
-						console.log('You are not logged in!');
-						window.location.href = "#noaccess";
-					}
-				});
-				return this.dfd.promise();
-			},
 			fetch: function() {	
 				// alert('bla');
 				_thisViewAdminUser = this;
 				console.log('fetching AdminUserListItemView.js');
 				this.$el.hide();
-				this._AdminUserCollection = new AdminUserCollection();
+								
+				this._AdminUserCollection = new AdminUserCollection([],{sponsor:window.me.id});
 				this._AdminUserCollection.fetch({
 					success: function(coll, jsoncoll) {
 						console.log(_thisViewAdminUser);
 						// _thisViewAdminUser.render();
-						_thisViewAdminUser.initializeme();
+						if (window.me) {
+							_thisViewAdminUser.render();
+						}
+						else {
+							console.log('You are not logged in!');
+							window.location.href = "#noaccess";
+						}
 					},
 					error: function(action, coll) {
 						console.log('ERROR fetching _AdminUserCollection');
@@ -83,6 +48,7 @@ define(["jquery", "backbone", "models/AdminUserModel", "collections/AdminUserCol
 			insertData: function(model) {
 				_thisViewAdminUser = this;
 				var sponsor = model.get('sponsor');
+				/*
 				console.log(this.id);
 				if ( typeof( _thisViewAdminUser.sponsordata ) == "undefined") {
 					$.ajax({
@@ -94,12 +60,14 @@ define(["jquery", "backbone", "models/AdminUserModel", "collections/AdminUserCol
 						_thisViewAdminUser.sponsordata = sponsordata;
 					});
 				}
-				console.log(jQuery.inArray(model.id, _thisViewAdminUser.me.following));
+				console.log(jQuery.inArray(model.id, window.me.following));
+				*/
 				console.log(model);
 				var rowContent = _.template(AdminUserListItemPage, {
 					id: model.get('id'),
 					// sponsor: _thisViewAdminUser.sponsordata.fullname,
 					username: model.get('username'),
+					fullname: model.get('fullname'),
 					slogan: model.get('slogan'),
 					perstext: model.get('perstext'),
 					pictureurl: model.get('pictureurl'),
@@ -115,6 +83,10 @@ define(["jquery", "backbone", "models/AdminUserModel", "collections/AdminUserCol
 				this.bindEvents();
 				var _thisViewAdminUser = this;
 				console.log('DOING render AdminUserListItemView.js called');
+				
+				console.log(window.me);
+				// return(false);
+				
 				_thisViewAdminUser.htmlContent = '';
 				_thisViewAdminUser.rowContent = '';
 				$(this.el).html(_thisViewAdminUser.htmlContent);
@@ -122,13 +94,13 @@ define(["jquery", "backbone", "models/AdminUserModel", "collections/AdminUserCol
 					this.id = model.get('id');
 					_thisViewAdminUser.rowContent = _thisViewAdminUser.rowContent + _thisViewAdminUser.insertData(model);
 				});
-				_thisViewAdminUser.htmlContent = '<ul data-filter="true" data-filter-placeholder="Suchfilter..." data-role="listview" data-theme="a" data-divider-theme="f" data-filter-theme="a" data-autodividers="true" id="AdminUserListView">'+_thisViewAdminUser.rowContent+'</ul>';
+				_thisViewAdminUser.htmlContent = '<ul data-filter="true" data-filter-placeholder="Suchfilter..." data-role="listview" data-theme="a" data-divider-theme="a" data-filter-theme="a" data-autodividers="true" id="AdminUserListView">'+_thisViewAdminUser.rowContent+'</ul>';
 				$(this.el).html(_thisViewAdminUser.htmlContent);
 				$("#AdminUserListView").listview({
 				  autodividers: true,
 				  autodividersSelector: function ( li ) {
 					console.log(li);
-					var rowTopic = li.data( "topic" );
+					var rowTopic = li.data( "topic" ).charAt(0).toUpperCase();
 					var out = rowTopic;
 					return out;
 				  }

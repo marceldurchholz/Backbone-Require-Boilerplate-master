@@ -199,8 +199,15 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// $("#ui-page-active").css({"position":"fixed", "top":"200px"});
 				modifyiOS7StatusBar();
 				$( "#pageOptions" ).hide();
-				this.myView = new view(viewOptions);
-				new FastClick(document.body);
+				var _this = this;
+				dpd.users.me(function(me) {
+					console.log('me');
+					console.log(me);
+					window.me = me;
+					_this.myView = new view(viewOptions);
+					new FastClick(document.body);
+				});
+				
 				// this.myView.$el.off('create', this.testFunction);
 				// this.myView.$el.on('create', this.testFunction);
 				// this.myView.$el.off('create', this.viewFadeIn, this.$el);

@@ -19,13 +19,14 @@ define(["jquery", "backbone", "models/AdminUserModel"],
 			var offlineData = this.offlineData = this._localStorage_AdminUser.findAll();
 			this.localStorage = this._localStorage_AdminUser;
 			if (_thisCollectionAdminUser.online==1) {
+				// http://dominik-lohmann.de:5000/users/?id=f0cebeb4f451982b&sponsor=df8a74e899bba811
 				this.url = 'http://dominik-lohmann.de:5000/users/';
-				if (this.options.userid!=undefined) {
-					this.url = this.url+this.options.userid;
-					alert(this.url);
+				if (this.options.sponsor!=undefined) {
+					this.url = this.url+"?sponsor="+this.options.sponsor;
+					// alert(this.url);
 				}
 				else {
-					alert('this.options.userid NOT setted');
+					// alert('this.options.sponsor NOT setted');
 				}
 				this.localStorage = null;
 			}
@@ -70,7 +71,7 @@ define(["jquery", "backbone", "models/AdminUserModel"],
 				else {
 					_thisCollectionAdminUser.add(model);
 					if (_thisCollectionAdminUser.online==1) _thisCollectionAdminUser._localStorage_AdminUser.update(new AdminUserModel(model));
-					var userid = model.sponsor;
+					var sponsot = model.sponsor;
 				}
 			}
 			console.log('blafoopeng');

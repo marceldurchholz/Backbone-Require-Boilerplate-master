@@ -1836,7 +1836,8 @@ function recordVideoUpload(videoRecordLocalStorage) {
 		// log('uploading '+mediaFile.name);
 		var ft = new FileTransfer();
 		ft.onprogress = function(progressEvent) {
-			$('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
+			// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
+			$('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
 		};
 		var options = new FileUploadOptions();
 		options.fileName = new Date().getTime();
@@ -1848,7 +1849,7 @@ function recordVideoUpload(videoRecordLocalStorage) {
 				log("Code = " + r.responseCode);
 				log("Response = " + r.response);
 				log("Sent = " + r.bytesSent);
-				dpd.videos.post({"uploader":"foobar","videourl":""+options.fileName,"title":""+options.fileName,"description":""+options.fileName,"price":123,"thumbnailurl":"foobar"}, function(result, err) {
+				dpd.videos.post({"uploader":""+window.me,"videourl":""+options.fileName,"title":""+options.fileName,"description":""+options.fileName,"price":123,"thumbnailurl":"foobar"}, function(result, err) {
 					if(err) {
 						return console.log(err);
 					}
@@ -2319,13 +2320,16 @@ function checkEmail(email){
 }
 
 var showPageOptionsIconDeg = 0;
+function rotatePageOptionsIcon() {
+	// window.showPageOptionsIconDeg += 180;
+	// $("#showPageOptionsIcon").css({'transform': 'rotate('+window.showPageOptionsIconDeg+'deg)'});
+}
 function showPageOptions() {
 	// alert('blafoopeng');
 	$( "#pageOptions" ).toggle( "slow", function() {
 		// $( "#page-content" ).toggle();
-		window.showPageOptionsIconDeg += 180;
-		$("#showPageOptionsIcon").css({'transform': 'rotate('+window.showPageOptionsIconDeg+'deg)'});
 		// $( "#showPageOptionsIcon" ).rotate({animateTo:360});
+		rotatePageOptionsIcon();
 		// Animation complete.
 		/*****
 		// WEITERE ICONS FÜR DAS PAGE OPTIONS MENU:
@@ -2335,31 +2339,31 @@ function showPageOptions() {
 		htmlContent = '<ul id="pageOptionsDiv" class="ui-listview ui-listview-inset ui-shadow pageOptionsDiv" data-role="listview" data-inset="false" data-theme="a" data-dividertheme="a">';
 			htmlContent += '<li class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-first-child ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
 			htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
-			htmlContent += '<a onClick="javascript:history.back();return(false);" data-href="#%= sidemenu.urloffline %" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
+			htmlContent += '<a onClick="javascript:rotatePageOptionsIcon();history.back();return(false);" data-href="#%= sidemenu.urloffline %" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
 			htmlContent += 'Zurück</a></div>';
 			htmlContent += '<span class="ui-icon ui-icon-arrow-l ui-icon-shadow">&nbsp;</span></div>';
 			htmlContent += '</li>';
 			htmlContent += '<li class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
 			htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
-			htmlContent += '<a href="#videos/record" data-href="#videos/record" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
+			htmlContent += '<a onClick="javascript:rotatePageOptionsIcon();" href="#videos/record" data-href="#videos/record" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
 			htmlContent += 'Multimediadatei hinzufügen</a></div>';
 			htmlContent += '<span class="ui-icon ui-icon-plus ui-icon-shadow">&nbsp;</span></div>';
 			htmlContent += '</li>';
 			htmlContent += '<li class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
 			htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
-			htmlContent += '<a href="#planer/edit/" data-href="#planer/edit/" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
+			htmlContent += '<a onClick="javascript:rotatePageOptionsIcon();" href="#planer/edit/" data-href="#planer/edit/" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
 			htmlContent += 'Veranstaltung/Termin hinzufügen</a></div>';
 			htmlContent += '<span class="ui-icon ui-icon-plus ui-icon-shadow">&nbsp;</span></div>';
 			htmlContent += '</li>';
 			htmlContent += '<li class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
 			htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
-			htmlContent += '<a href="#cards/edit/" data-href="#cards/edit/" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
+			htmlContent += '<a onClick="javascript:rotatePageOptionsIcon();" href="#cards/edit/" data-href="#cards/edit/" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
 			htmlContent += 'Lernset/Lernkarte hinzufügen</a></div>';
 			htmlContent += '<span class="ui-icon ui-icon-plus ui-icon-shadow">&nbsp;</span></div>';
 			htmlContent += '</li>';
 			htmlContent += '<li class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-last-child ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
 			htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
-			htmlContent += '<a href="#admin/users" data-href="#admin/users" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
+			htmlContent += '<a onClick="javascript:rotatePageOptionsIcon();" href="#admin/users" data-href="#admin/users" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
 			htmlContent += 'Benutzerverwaltung</a></div>';
 			htmlContent += '<span class="ui-icon ui-icon-bars ui-icon-shadow">&nbsp;</span></div>';
 			htmlContent += '</li>';
