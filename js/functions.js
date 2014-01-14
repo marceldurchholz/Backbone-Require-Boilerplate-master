@@ -215,7 +215,7 @@ var sampleDataReady = $.Deferred();
 var dao = {
 
 	// syncURL: "../api/employees",
-	syncURL: "http://coenraets.org/offline-sync/api/employees?modifiedSince=2010-03-01%2010:20:56",
+	// syncURL: "http://coenraets.org/offline-sync/api/employees?modifiedSince=2010-03-01%2010:20:56",
 	// syncURL: "http://mobile002.appinaut.de/api/employees/",
 
 	test: function(bla) {
@@ -2321,8 +2321,8 @@ function checkEmail(email){
 var showPageOptionsIconDeg = 0;
 function showPageOptions() {
 	// alert('blafoopeng');
-	$( "#pageOptions" ).toggle( 0, function() {
-		$( "#page-content" ).toggle();
+	$( "#pageOptions" ).toggle( "slow", function() {
+		// $( "#page-content" ).toggle();
 		window.showPageOptionsIconDeg += 180;
 		$("#showPageOptionsIcon").css({'transform': 'rotate('+window.showPageOptionsIconDeg+'deg)'});
 		// $( "#showPageOptionsIcon" ).rotate({animateTo:360});
@@ -2339,23 +2339,29 @@ function showPageOptions() {
 			htmlContent += 'Zurück</a></div>';
 			htmlContent += '<span class="ui-icon ui-icon-arrow-l ui-icon-shadow">&nbsp;</span></div>';
 			htmlContent += '</li>';
-			htmlContent += '<li class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-first-child ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
+			htmlContent += '<li class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
 			htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
 			htmlContent += '<a href="#videos/record" data-href="#videos/record" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
 			htmlContent += 'Multimediadatei hinzufügen</a></div>';
 			htmlContent += '<span class="ui-icon ui-icon-plus ui-icon-shadow">&nbsp;</span></div>';
 			htmlContent += '</li>';
-			htmlContent += '<li class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-first-child ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
+			htmlContent += '<li class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
 			htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
 			htmlContent += '<a href="#planer/edit/" data-href="#planer/edit/" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
 			htmlContent += 'Veranstaltung/Termin hinzufügen</a></div>';
 			htmlContent += '<span class="ui-icon ui-icon-plus ui-icon-shadow">&nbsp;</span></div>';
 			htmlContent += '</li>';
-			htmlContent += '<li class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-last-child ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
+			htmlContent += '<li class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
 			htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
 			htmlContent += '<a href="#cards/edit/" data-href="#cards/edit/" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
 			htmlContent += 'Lernset/Lernkarte hinzufügen</a></div>';
 			htmlContent += '<span class="ui-icon ui-icon-plus ui-icon-shadow">&nbsp;</span></div>';
+			htmlContent += '</li>';
+			htmlContent += '<li class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-last-child ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
+			htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
+			htmlContent += '<a href="#admin/users" data-href="#admin/users" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
+			htmlContent += 'Benutzerverwaltung</a></div>';
+			htmlContent += '<span class="ui-icon ui-icon-bars ui-icon-shadow">&nbsp;</span></div>';
 			htmlContent += '</li>';
 		htmlContent += '</ul>';
 		$(this).html(htmlContent);

@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Planer", "views/Cards", "views/VideoDetailsView", "views/PlanDetailsView", "views/CardDetailsView", "views/CardStartView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView", "views/supportView", "views/helpView"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Planer", "views/Cards", "views/AdminUserListView", "views/VideoDetailsView", "views/PlanDetailsView", "views/CardDetailsView", "views/CardStartView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView", "views/supportView", "views/helpView"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Planer, Cards, Videosdetailsview, Planerdetailsview, Cardsdetailsview, Cardstartview, Videorecordview, Learningstreamview, login, DashboardView, NoAccess, Logout, MyProfile, supportView, helpView) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Planer, Cards, AdminUserListView, Videosdetailsview, Planerdetailsview, Cardsdetailsview, Cardstartview, Videorecordview, Learningstreamview, login, DashboardView, NoAccess, Logout, MyProfile, supportView, helpView) {
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -48,6 +48,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"cards/start/view/:id/:page" : "cardstartview",
 				"cards/edit/:id" : "cardeditview",
 				"myprofile" : "myprofile",
+				"admin/users" : "adminuserlist",
 				"learningstreamview" : "learningstreamview",
 				"employeeListItemView" : "employeeListItemView",
 				"support" : "support",
@@ -60,6 +61,9 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// alert('routing to redirectToUrl');
 				system.redirectToUrl('#login');
 			},
+			adminuserlist: function() {
+				this.changePage(AdminUserListView, {});
+            },
 			home: function() {
 				// alert('routing to home');
 				// new View();
@@ -68,7 +72,8 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             },
 			learningstreamview: function() {
 				// alert('routing to home');
-				new Learningstreamview();
+				// new Learningstreamview();
+				this.changePage(Learningstreamview, {});
 				// this.changePage(View, {});
             },
             aboutus: function() {
