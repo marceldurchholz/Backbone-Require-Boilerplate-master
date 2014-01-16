@@ -129,6 +129,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					description: model.get('description'),
 					price: model.get('price'),
 					thumbnailurl: model.get('thumbnailurl'),
+					topic: model.get('topic'),
 					favclass: model.get('favclass')
 				},{variable: 'video'});
 				return(rowContent);
@@ -143,7 +144,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					this.id = model.get('id');
 					_thisViewVideo.rowContent = _thisViewVideo.rowContent + _thisViewVideo.insertData(model);
 				});
-				_thisViewVideo.htmlContent = '<ul id="videosListView" data-split-icon="star" data-filter="true" data-filter-placeholder="Suchfilter..." data-filter-theme="a" data-role="listview" data-theme="a" data-divider-theme="b" data-autodividers="true">'+_thisViewVideo.rowContent+'</ul>';
+				_thisViewVideo.htmlContent = '<ul id="videosListView" adata-split-icon="star" data-filter="true" data-filter-placeholder="Suchfilter..." data-filter-theme="a" data-role="listview" data-theme="a" data-divider-theme="b" data-autodividers="true">'+_thisViewVideo.rowContent+'</ul>';
 				$(this.el).html(_thisViewVideo.htmlContent);
 				$("#videosListView").listview({
 				  autodividers: true,
