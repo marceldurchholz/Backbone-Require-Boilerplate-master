@@ -2,7 +2,7 @@
 <div style="padding:15px;overflow:visible;z-index:999;text-align:center;">
 
 	<p><b>Weiter geht's!</b></p>
-	<p>Bitte geben Sie die erforderlichen Informationen zu Ihrer Multimediadatei ein. Bedenken Sie hierbei, dass dies sehr entscheidende Überzeugungskriterien für Ihre Käufer sind.
+	<p>Bitte geben Sie die Informationen zu Ihrer Multimediadatei ein. Beachten Sie, dass dies sehr entscheidende Kriterien für einen Kauf sind.
 
 	<div id="uploadstatusbar" style="font-size:18px;">0 %</div>
 		
@@ -11,7 +11,7 @@
 		
 		
 			<label for="slider-price">Preis (in Coins)</label>
-			<input type="range" name="slider-price" id="slider-price" value="<%= video.slider_price %>" min="0" max="500" step="10" data-theme="a" data-track-theme="a"/>
+			<input type="range" name="slider-price" id="slider-price" value="<%= video.slider_price %>" min="0" max="500" step="10" data-mini="true" data-theme="a" data-track-theme="a"/>
 
 			<input type="text" name="title" id="title" value="Titel der Multimediadatei" placeholder="Titel"/>
 			<input type="text" name="subtitle" id="subtitle" value="Untertitel der Multimediadatei" placeholder="Videountertitel"/>
@@ -19,8 +19,8 @@
 			
 			<div class="containing-element">
 				<select name="flip-activate" id="flip-activate" data-role="slider">
-					<option value="off">Mediendatei noch nicht aktivieren</option>
-					<option value="on">Mediendatei direkt bereitstellen</option>
+					<option value="off">Media noch nicht aktivieren</option>
+					<option value="on">Media direkt bereitstellen</option>
 				</select>
 			</div>
 
