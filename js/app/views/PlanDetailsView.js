@@ -81,15 +81,20 @@ define(["jquery", "backbone", "models/PlanModel", "collections/planerCollection"
 						_thisViewPlanDetails.uploaderdata = uploaderdata;
 					});
 
+					var pricetext = '';
+					if (model.get('price')==0) pricetext = 'kostenlos';
+					else pricetext = ''+model.get('price')+' Euro';
 					_template = _.template(planerDetailsViewHTML, {
 						id: model.get('id'),
 						uploader: _thisViewPlanDetails.uploaderdata.fullname,
 						topic: model.get('topic'),
+						thumbnailurl: model.get('thumbnailurl'),
 						planurl: model.get('planurl'),
 						title: model.get('title'),
 						subtitle: model.get('subtitle'),
 						description: model.get('description'),
 						price: model.get('price'),
+						pricetext: pricetext,
 						start: model.get('start'),
 						end: model.get('end')
 					},{variable: 'plan'});

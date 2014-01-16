@@ -22,11 +22,14 @@
 </div>
 <div class="ui-grid-b" style="width:100%;">
 	<div class="ui-block-a" style="width:50%;">Kosten/Teilnahmegebühr</div>
-	<div class="ui-block-b" style="width:50%;"><%= plan.price %></div>
+	<div class="ui-block-b" style="width:50%;"><%= plan.pricetext %></div>
 </div>
 
 <p><strong><%= plan.subtitle %></strong></p>
+
+<p><img src="<%= plan.thumbnailurl %>" style="width:100%;"></p>
+
 <p><%= plan.description %></p>
 
-<p><a id="submitbutton" name="submitbutton" data-theme="b" data-role="button" rel="external" target="_blank" href="<%= plan.planurl %>">Informationen und Anmeldung</a></p>
+<p><a id="submitbutton" name="submitbutton" data-theme="c" data-role="button" rel="external" target="_blank" href="<%= plan.planurl %>">Informationen und Anmeldung</a></p>
 </div>
