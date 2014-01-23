@@ -69,12 +69,14 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				var htmlContent = '';
 				$(this.el).html(htmlContent);
 				console.log(_thisViewMyProfileNested.me);
+				if (!_thisViewMyProfileNested.me.coins) _thisViewMyProfileNested.me.coins = "0";
 				htmlContent = _.template(MyProfileNestedViewPage, {
 					id: _thisViewMyProfileNested.me.id
 					, pictureurl: _thisViewMyProfileNested.me.pictureurl
 					, fullname: _thisViewMyProfileNested.me.fullname
 					, slogan: _thisViewMyProfileNested.me.slogan
 					, perstext: _thisViewMyProfileNested.me.perstext
+					, coins: _thisViewMyProfileNested.me.coins
 				},{variable: 'user'});
 				// alert(htmlContent);
 				$(this.el).html(htmlContent);

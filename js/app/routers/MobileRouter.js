@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Planer", "views/Cards", "views/AdminUserListView", "views/VideoDetailsView", "views/PlanDetailsView", "views/CardDetailsView", "views/CardStartView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView", "views/supportView", "views/helpView"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Planer", "views/Cards", "views/AdminUserListView", "views/AdminUserDetailsView", "views/VideoDetailsView", "views/PlanDetailsView", "views/CardDetailsView", "views/CardStartView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView", "views/supportView", "views/helpView"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Planer, Cards, AdminUserListView, Videosdetailsview, Planerdetailsview, Cardsdetailsview, Cardstartview, Videorecordview, Learningstreamview, login, DashboardView, NoAccess, Logout, MyProfile, supportView, helpView) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Planer, Cards, AdminUserListView, AdminUserDetailsView, Videosdetailsview, Planerdetailsview, Cardsdetailsview, Cardstartview, Videorecordview, Learningstreamview, login, DashboardView, NoAccess, Logout, MyProfile, supportView, helpView) {
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -49,6 +49,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"cards/edit/:id" : "cardeditview",
 				"myprofile" : "myprofile",
 				"admin/users" : "adminuserlist",
+				"admin/users/details/:id" : "adminuserdetails",
 				"learningstreamview" : "learningstreamview",
 				"employeeListItemView" : "employeeListItemView",
 				"support" : "support",
@@ -63,6 +64,10 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 			},
 			adminuserlist: function() {
 				this.changePage(AdminUserListView, {});
+            },
+            adminuserdetails: function(id) {
+				// new Videosdetailsview({id:id});
+				this.changePage(AdminUserDetailsView, {id:id});
             },
 			home: function() {
 				// alert('routing to home');

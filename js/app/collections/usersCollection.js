@@ -16,7 +16,10 @@ define(["jquery", "backbone", "models/UserModel"],
 			var offlineData = this.offlineData = this._localStorage_users.findAll();
 			this.localStorage = this._localStorage_users;
 			if (_thisCollection.online==1) {
+				// http://dominik-lohmann.de:5000/users/?id=042cb1572ffbea5d
+				if (this.options.id && !this.options.dbid) this.options.dbid = this.options.id;
 				if (this.options.dbid) this.url = 'http://dominik-lohmann.de:5000/users/?id='+this.options.dbid;
+				if (this.options.sponsor) this.url = this.url+'&sponsor='+this.options.sponsor;
 				// else this.url = 'http://dominik-lohmann.de:5000/users/';
 				// console.log('UsersCollection.js: '+this.url);
 				this.localStorage = null;
