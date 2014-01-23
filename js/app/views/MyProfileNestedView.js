@@ -76,6 +76,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 					, fullname: _thisViewMyProfileNested.me.fullname
 					, slogan: _thisViewMyProfileNested.me.slogan
 					, perstext: _thisViewMyProfileNested.me.perstext
+					, username: _thisViewMyProfileNested.me.username
 					, coins: _thisViewMyProfileNested.me.coins
 				},{variable: 'user'});
 				// alert(htmlContent);
