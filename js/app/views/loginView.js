@@ -93,10 +93,19 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 										type: "POST",
 										url: url,
 										data: obj,
-										cache: false
+										cache: false,
 										success: function(response) { 
 											// alert(response);
 											doAlert('Deine Registrierung war erfolgreich. Bitte bestätige die Benachrichtigung im Postfach Deiner angegeben E-Mail-Adresse.','Herzlich Willkommen!');
+											dpd.users.post({username: username, password: password, roles: roles, registered: registered}, function(user, error) {
+												if (error) {
+													console.log(error.message);
+													doAlert('Bitte versuchen Sie es erneut.','Fehler bei der Registrierung!');
+												} else {
+													// var regData = {username: username, password: password, roles: roles, registered: registered};
+													// _thisViewLogin.sendAuthMail();
+												}
+											});
 										},
 										error: function(response) {
 											console.log(response.status + " " + response.statusText);
@@ -112,6 +121,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							  // doAlert( "Request failed: " + textStatus );
 							});
 							
+							/*
 							dpd.users.post({username: username, password: password, roles: roles, registered: registered}, function(user, error) {
 								if (error) {
 									console.log(error.message);
