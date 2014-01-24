@@ -87,7 +87,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							});							 
 							request.done(function( msg ) {
 							  // $( "#log" ).html( msg );
-							  alert(msg):
+							  alert(msg);
 							});
 							request.fail(function( jqXHR, textStatus ) {
 							  alert( "Request failed: " + textStatus );
