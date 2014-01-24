@@ -86,27 +86,32 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							  data: { data : 'mydata' }
 							});							 
 							request.done(function( msg ) {
-							  // $( "#log" ).html( msg );
-							  alert(msg);
+								// $( "#log" ).html( msg );
+								// alert(msg);
+								if (msg=="1") {							  
+									$.ajax({
+										type: "POST",
+										url: url,
+										data: obj,
+										cache: false
+										success: function(response) { 
+											// alert(response);
+											doAlert('Deine Registrierung war erfolgreich. Bitte bestätige die Benachrichtigung im Postfach Deiner angegeben E-Mail-Adresse.','Herzlich Willkommen!');
+										},
+										error: function(response) {
+											console.log(response.status + " " + response.statusText);
+											doAlert('Die Registrierungsbenachrichtigung konnte nicht versendet werden.','Ups! Entschuldigung.');
+										},
+									});
+								} else {
+									doAlert('Die Übermittlung der Registrierung war leider nicht erfolgreich.','Ups! Entschuldung.');
+								}
 							});
 							request.fail(function( jqXHR, textStatus ) {
-							  alert( "Request failed: " + textStatus );
+							  doAlert( "Das hätte nicht passieren sollen. Es ist ein unbekannter Fehler aufgetreten. Probiere es später bitte erneut.", "Ups! Entschuldigung." );
+							  // doAlert( "Request failed: " + textStatus );
 							});
 							
-							/*
-							$.ajax({
-								type: "POST",
-								url: url,
-								data: { name: "John", location: "Boston" },
-								cache: false
-							success: function(response) { 
-								alert(response);
-							},
-							error: function(response) {
-								console.log(response.status + " " + response.statusText);
-							},
-							});
-							/*
 							dpd.users.post({username: username, password: password, roles: roles, registered: registered}, function(user, error) {
 								if (error) {
 									console.log(error.message);
