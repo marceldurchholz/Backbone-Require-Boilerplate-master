@@ -10,9 +10,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				attributes: {"data-role": 'content'},
 				events: {
 				},
-				bindEvents: function() {
-					var _thisViewLogin = this;
-				},
 				sendLogin: function(targetUrl) {
 					_thisViewLogin = this;
 					var username = $('#username').val();
@@ -38,6 +35,32 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						}
 					});
 				},
+				sendAuthMail: function() {
+					_thisViewLogin = this;
+					
+					/*
+					$.post( url, {
+						s: obj, 
+						async: false
+					}).done(function( data ) {
+						// var content = $( data ).find( "#content" );
+						// $( "#result" ).empty().append( content );
+						alert('post done');
+						_thisViewLogin.sendLogin('#myprofile');
+					});
+					/*
+					$.ajax({
+						url: "http://management-consulting.marcel-durchholz.de/secure/sendAuthMail.php",
+						async: false
+					}).done(function(responsedata) {
+						// $( this ).addClass( "done" );
+						console.log(responsedata);
+						// _thisViewCardDetails.uploaderdata = uploaderdata;
+						// alert();
+						_thisViewLogin.sendLogin('#myprofile');
+					});
+					*/
+				},
 				sendRegister: function() {
 					_thisViewLogin = this;
 					var username = $('#username').val();
@@ -46,17 +69,38 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						console.log(username);
 						console.log(checkEmail(username));
 						if (checkEmail(username)==true) {
-							var roles = ["provider","seeker"];
-							// var roles = ["user"];
+							// var roles = ["provider","seeker"];
+							var roles = ["user"];
 							var registered = new Date();
+							// active: false, 
+							
+							var obj = new Object();
+							obj.username = 'hmustermann';
+							obj.password = 'mypass';
+							var url = 'http://management-consulting.marcel-durchholz.de/secure/sendauthmail.php';
+							var term = 'hmustermann';
+							
+							$.ajax({
+							  url: url,
+							  cache: false
+							})
+							  .done(function( html ) {
+								// $( "#body" ).html( html );
+								// alert(html);
+								alert('done');
+							});
+							
+							/*
 							dpd.users.post({username: username, password: password, roles: roles, registered: registered}, function(user, error) {
 								if (error) {
 									console.log(error.message);
 									doAlert('Bitte versuchen Sie es erneut.','Fehler bei der Registrierung!');
 								} else {
-									_thisViewLogin.sendLogin('#myprofile');
+									// var regData = {username: username, password: password, roles: roles, registered: registered};
+									// _thisViewLogin.sendAuthMail();
 								}
 							});
+							*/
 						}
 						else {
 							doAlert('Bitte geben Sie als Benutzernamen Ihre gültige E-Mail-Adresse ein.','Fehlerhafter Benutzername!');
@@ -76,21 +120,24 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					this.$el.off('click','.sendRegisterBtn').on('click','.sendRegisterBtn',function(){_thisViewLogin.sendRegister();});
 					this.fetch();
 				},
+				bindEvents: function() {
+					var _thisViewLogin = this;
+					$('#showMenu').hide();
+					$('#showPageOptions').hide();
+				},
 				render: function() {
-					this.bindEvents();
 					console.log('DOING render Videos.js called');
 					_thisViewLogin = this;
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewLogin.nestedView = new SidemenuView().fetch();
 					_thisViewLogin.$el.html(_.template(loginPage, {}));
 					this.$el.trigger('create');
-					$('#showMenu').hide();
-					$('#showPageOptions').hide();
 					new FastClick(document.body);
 					this.$el.fadeIn( 500, function() {
 						$('.ui-content').scrollTop(0);
 						new FastClick(document.body);
 					});
+					this.bindEvents();
 					return this;
 				}
 

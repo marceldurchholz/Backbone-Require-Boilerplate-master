@@ -60,8 +60,38 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				console.log('fetching MyProfileNestedView.js');
 				this.$el.hide();
 			},
+			alertInputValue: function(e) {
+				/*
+				console.log(e);
+				console.log(e.currentTarget.id);
+				console.log(e.currentTarget.defaultValue);
+				console.log(e.currentTarget.value);
+				*/
+				var obj = e.currentTarget;
+				if (obj.defaultValue != obj.value && obj.value!='') {
+					console.log(_thisViewMyProfileNested.me.id);
+					console.log(obj.id);
+					if (obj.id=='username') {
+						console.log(checkEmail(obj.value));
+						if (checkEmail(obj.value)==true) { }
+						else return false;
+					}
+					// if (obj.id=='fullname') {
+						var o = new Object();
+						o.id = obj.id;
+						o.value = obj.value;
+						if (obj.id=='fullname') dpd.users.put(_thisViewMyProfileNested.me.id, {"fullname":obj.value}, function(result, err) { if(err) return console.log(err); console.log(result, result.id); });
+						if (obj.id=='username') dpd.users.put(_thisViewMyProfileNested.me.id, {"username":obj.value}, function(result, err) { if(err) return console.log(err); console.log(result, result.id); });
+					// }
+				}
+			},
 			bindEvents: function() {
 				var _thisViewMyProfileNested = this;
+				$('#showMenu').hide();
+				$('#showPageOptions').hide();
+				$("#fullname").blur(this.alertInputValue);
+				$("#username").blur(this.alertInputValue);
+				// $("#username").blur(this.alertInputValue);
 			},
 			render: function() {
 				var _thisViewMyProfileNested = this;
@@ -87,6 +117,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 					$('.ui-content').scrollTop(0);
 					new FastClick(document.body);
 				});
+				this.bindEvents();
 				return(this);
 			}
 		});
