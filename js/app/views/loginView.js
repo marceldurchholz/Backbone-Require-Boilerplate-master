@@ -80,16 +80,32 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							var url = 'http://management-consulting.marcel-durchholz.de/secure/sendauthmail.php';
 							var term = 'hmustermann';
 							
-							$.ajax({
+							var request = $.ajax({
 							  url: url,
-							  cache: false
-							})
-							  .done(function( html ) {
-								// $( "#body" ).html( html );
-								// alert(html);
-								alert('done');
+							  type: "POST",
+							  data: { data : 'mydata' }
+							});							 
+							request.done(function( msg ) {
+							  // $( "#log" ).html( msg );
+							  alert(msg):
+							});
+							request.fail(function( jqXHR, textStatus ) {
+							  alert( "Request failed: " + textStatus );
 							});
 							
+							/*
+							$.ajax({
+								type: "POST",
+								url: url,
+								data: { name: "John", location: "Boston" },
+								cache: false
+							success: function(response) { 
+								alert(response);
+							},
+							error: function(response) {
+								console.log(response.status + " " + response.statusText);
+							},
+							});
 							/*
 							dpd.users.post({username: username, password: password, roles: roles, registered: registered}, function(user, error) {
 								if (error) {
