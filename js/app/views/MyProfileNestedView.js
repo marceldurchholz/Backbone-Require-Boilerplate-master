@@ -169,6 +169,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				$(this.el).html(htmlContent);
 				console.log(_thisViewMyProfileNested.me);
 				if (!_thisViewMyProfileNested.me.coins) _thisViewMyProfileNested.me.coins = "0";
+
 				htmlContent = _.template(MyProfileNestedViewPage, {
 					id: _thisViewMyProfileNested.me.id
 					, pictureurl: _thisViewMyProfileNested.me.pictureurl
