@@ -72,6 +72,11 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 			},
 			bindEvents: function() {
 				var _thisViewDashboardNested = this;
+				if (_thisViewDashboardNested.me.active==false || _thisViewDashboardNested.me.fullname=='') {
+					$('#showMenu').hide();
+					$('#showPageOptions').hide();
+					system.redirectToUrl('#myprofile');
+				}
 			},
 			render: function() {
 				var _thisViewDashboardNested = this;
@@ -93,6 +98,7 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 					$('.ui-content').scrollTop(0);
 					new FastClick(document.body);
 				});
+				this.bindEvents();
 				return(this);
 			}
 		});
