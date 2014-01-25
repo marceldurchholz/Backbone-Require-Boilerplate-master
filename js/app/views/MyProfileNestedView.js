@@ -122,7 +122,8 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 					console.log(event.delegateTarget.checked);
 					var o = new Object();
 					o.id = event.delegateTarget.id;
-					o.status = event.delegateTarget.checked;
+					if (event.delegateTarget.checked==false) o.status = "";
+					else o.status = "checked";
 					o.label = $("label[for='"+ event.delegateTarget.id +"']").text();					
 					dpd.users.me(function(me) {
 						// console.log(me);
