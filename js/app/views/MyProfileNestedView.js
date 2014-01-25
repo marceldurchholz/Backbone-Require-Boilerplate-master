@@ -127,8 +127,8 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 						// console.log(me);
 						var exists = jQuery.inArray( $.trim(o.label), me.interests )
 						// console.log(exists);
-						if (exists>-1) dpd.users.put(_thisViewMyProfileNested.me.id, {"interests": {$pull:$.trim(o.label)}} );
-						else dpd.users.put(_thisViewMyProfileNested.me.id, {"interests": {$push:$.trim(o.label)}} );
+						if (event.delegateTarget.checked==false && exists>-1) dpd.users.put(_thisViewMyProfileNested.me.id, {"interests": {$pull:$.trim(o.label)}} );
+						else if (event.delegateTarget.checked==true && exists==-1) dpd.users.put(_thisViewMyProfileNested.me.id, {"interests": {$push:$.trim(o.label)}} );
 					});
 				});
 				this.$el.off('click','#deletemyaccountbtn').on('click','#deletemyaccountbtn',function(e){
