@@ -19,6 +19,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							// doAlert('not logging in');
 							// return(false);
 							console.log(error.message);
+							doAlert('Eine Anmeldung mit diesen Zugangsdaten konnte nicht durchgeführt werden.','Fehler bei der Anmeldung!');
 						} else {
 							// doAlert('logging in');
 							console.log(user);
