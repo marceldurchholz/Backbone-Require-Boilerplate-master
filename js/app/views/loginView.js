@@ -76,16 +76,16 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							// active: false, 
 							
 							var obj = new Object();
-							obj.username = 'hmustermann';
-							obj.password = 'mypass';
+							obj.username = username;
+							obj.password = password;
 							var url = 'http://management-consulting.marcel-durchholz.de/secure/sendauthmail.php';
-							var term = 'hmustermann';
+							var sponsor = 'df8a74e899bba811';
 							
 							var request = $.ajax({
 							  url: url,
 							  type: "POST",
 							  data: { data : 'mydata' }
-							});							 
+							});
 							request.done(function( msg ) {
 								// $( "#log" ).html( msg );
 								// alert(msg);
@@ -98,7 +98,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 										success: function(response) { 
 											// alert(response);
 											doAlert('Deine Registrierung war erfolgreich. Bitte bestätige die Benachrichtigung im Postfach Deiner angegeben E-Mail-Adresse.','Herzlich Willkommen!');
-											dpd.users.post({username: username, password: password, roles: roles, registered: registered}, function(user, error) {
+											dpd.users.post({username: username, password: password, sponsor: sponsor,roles: roles, registered: registered}, function(user, error) {
 												if (error) {
 													console.log(error.message);
 													doAlert('Bitte versuchen Sie es erneut.','Fehler bei der Registrierung!');
