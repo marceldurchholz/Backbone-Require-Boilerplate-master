@@ -71,10 +71,6 @@
 	<legend><h5>Interessen</h5></legend>
 	<% console.log(user.interests) %>
 	<% _.each(user.interests, function(interests) { %>
-		<!--
-		<input type="checkbox" name="answer-<%= user.id %>-<%= user.page %>-<%= interests.id %>" id="answer-<%= user.id %>-<%= user.page %>-<%= interests.id %>">
-		<label for="answer-<%= user.id %>-<%= user.page %>-<%= interests.id %>" style="font-weight:normal;"><%= interests.text %></label>
-		-->
 		<input <%= interests.status %> data-mini="true" type="checkbox" name="checkbox-v-<%= interests.id %>" id="checkbox-v-<%= interests.id %>"><label for="checkbox-v-<%= interests.id %>"><%= interests.name %></label>
 	<% }); %>
 

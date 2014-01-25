@@ -35,7 +35,44 @@ define(["jquery", "backbone", "models/UserModel", "collections/usersCollection",
 				},
 				bindEvents: function() {
 					var _thisViewUserDetails = this;
-					this.$el.off('click','.createUser').on('click','.createUser',function(){_thisViewUserDetails.createUser();});
+					// this.$el.off('click','.createUser').on('click','.createUser',function(){_thisViewUserDetails.createUser();});
+					// alert('b');
+					/*
+					this.$el.off('click','.activeslider').on('click','.activeslider',function(){
+						// _thisViewUserDetails.createUser();
+						alert('a');
+					});
+					*/
+					$('#activeslider').on('change', function() {
+						// alert($('#activeslider').val());
+						// console.log(_thisViewUserDetails.options);
+						var val = false;
+						if ( $('#activeslider').val()=='on' ) val = true;
+						dpd.users.put(_thisViewUserDetails.options.id, {"active": val} );
+					});					
+					/*
+					$("input[type='checkbox']").bind( "change", function(event, ui) {
+						event.preventDefault();
+						console.log(event);
+						console.log(event.delegateTarget);
+						console.log(event.delegateTarget.id);
+						console.log( $("label[for='"+ event.delegateTarget.id +"']").text() );
+						console.log(event.delegateTarget.checked);
+						var o = new Object();
+						o.id = event.delegateTarget.id;
+						if (event.delegateTarget.checked==false) o.status = "";
+						else o.status = "checked";
+						o.label = $("label[for='"+ event.delegateTarget.id +"']").text();					
+						dpd.users.me(function(me) {
+							// console.log(me);
+							var exists = jQuery.inArray( $.trim(o.label), me.interests )
+							// console.log(exists);
+							if (event.delegateTarget.checked==false && exists>-1) dpd.users.put(_thisViewMyProfileNested.me.id, {"interests": {$pull:$.trim(o.label)}} );
+							else if (event.delegateTarget.checked==true && exists==-1) dpd.users.put(_thisViewMyProfileNested.me.id, {"interests": {$push:$.trim(o.label)}} );
+						});
+					});
+					*/
+					
 				},
 				initializeCollection:function(options) {
 					this._usersCollection = new usersCollection([], options);
@@ -59,10 +96,17 @@ define(["jquery", "backbone", "models/UserModel", "collections/usersCollection",
 				},
 				initialize: function(options) {
 					// alert('bla');
+					_thisViewUserDetails = this;
 					options.sponsor = me.id;
 					console.log(options);
-					this.initializeCollection(options);
-					this.fetch(options);
+					$.ajax({
+						url: "http://dominik-lohmann.de:5000/interests",
+						async: false
+					}).done(function(responsedata) {
+						_thisViewUserDetails.interests = responsedata;
+						_thisViewUserDetails.initializeCollection(options);
+						_thisViewUserDetails.fetch(options);
+					});
 				},
 				insertVariables: function(model) {
 					_thisViewUserDetails = this;
@@ -86,6 +130,7 @@ define(["jquery", "backbone", "models/UserModel", "collections/usersCollection",
 						id: model.get('id'),
 						interests: model.get('interests'),
 						sponsor: _thisViewUserDetails.sponsordata.fullname,
+						interests: _thisViewUserDetails.interests, 
 						fullname: model.get('fullname'),
 						active: model.get('active'),
 						pictureurl: model.get('pictureurl'),
@@ -106,18 +151,20 @@ define(["jquery", "backbone", "models/UserModel", "collections/usersCollection",
 					// alert('bla');
 					_thisViewUserDetails = this;
 					console.log('rendering UserDetailsView.js');
+					/*
 					$(window).resize(function() {
 						window.resizeElement('#user_player_1')
 					});
+					*/
 					console.log('DOING render UserDetailsView.js called');
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewUserDetails.nestedView = new SidemenuView().fetch();
 					var htmlContent = '';
 					$(this.el).html(htmlContent);
-					console.log('USER DATA');
-					console.log(this._usersCollection.models);
-					console.log('this._usersCollection.models[0].attributes.fullname');
-					console.log(this._usersCollection.models[0].attributes.fullname);
+					// console.log('USER DATA');
+					// console.log(this._usersCollection.models);
+					// console.log('this._usersCollection.models[0].attributes.fullname');
+					// console.log(this._usersCollection.models[0].attributes.fullname);
 					_.each(this._usersCollection.models, function(model) {
 						this.id = model.get('id');
 						_thisViewUserDetails.insertVariables(model);
@@ -128,6 +175,7 @@ define(["jquery", "backbone", "models/UserModel", "collections/usersCollection",
 						$('.ui-content').scrollTop(0);
 						new FastClick(document.body);
 					});
+					_thisViewUserDetails.bindEvents();
 					return _thisViewUserDetails;
 				}
 
