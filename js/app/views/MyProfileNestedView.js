@@ -7,8 +7,15 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 		var MyProfileNestedView = Backbone.View.extend({
 			el: "#MyProfileNestedViewDiv",
 			initialize: function() {
+				var _thisViewMyProfileNested = this;
 				console.log('initializing MyProfileNestedView.js');
-				this.initializeme();
+				$.ajax({
+					url: "http://dominik-lohmann.de:5000/interests",
+					async: false
+				}).done(function(responsedata) {
+					_thisViewMyProfileNested.interests = responsedata;
+					_thisViewMyProfileNested.initializeme();
+				});
 			},
 			initializeme: function() {
 				console.log('initializeme MyProfileNestedView.js');
@@ -68,7 +75,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				console.log(e.currentTarget.value);
 				*/
 				var obj = e.currentTarget;
-				if (obj.defaultValue != obj.value && obj.value!='') {
+				if (obj.defaultValue != obj.value) {
 					console.log(_thisViewMyProfileNested.me.id);
 					console.log(obj.id);
 					if (obj.id=='username') {
@@ -76,27 +83,83 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 						if (checkEmail(obj.value)==true) { }
 						else return false;
 					}
-					// if (obj.id=='fullname') {
-						var o = new Object();
-						o.id = obj.id;
-						o.value = obj.value;
-						if (obj.id=='fullname') dpd.users.put(_thisViewMyProfileNested.me.id, {"fullname":obj.value}, function(result, err) { if(err) return console.log(err); console.log(result, result.id); });
-						if (obj.id=='username') dpd.users.put(_thisViewMyProfileNested.me.id, {"username":obj.value}, function(result, err) { if(err) return console.log(err); console.log(result, result.id); });
-					// }
+					var o = new Object();
+					o.id = obj.id;
+					o.value = obj.value;
+					var fullroles = ["provider","seeker"];
+					if (obj.id=='fullname') if (obj.value!='') dpd.users.put(_thisViewMyProfileNested.me.id, {"fullname":obj.value, roles: fullroles}, function(result, err) { 
+						if(err) return console.log(err); 
+						console.log(result, result.id); 
+						if (_thisViewMyProfileNested.me.active==true) {
+							$('#showMenu').show();
+							$('#showPageOptions').show();
+						}
+					});
+					if (obj.id=='slogan') dpd.users.put(_thisViewMyProfileNested.me.id, {"slogan":obj.value}, function(result, err) { if(err) return console.log(err); console.log(result, result.id); });
 				}
 			},
 			bindEvents: function() {
 				var _thisViewMyProfileNested = this;
+				
 				$('#showMenu').hide();
 				$('#showPageOptions').hide();
+				if (_thisViewMyProfileNested.me.active==true) {
+					if ($("#fullname").val()!='') {
+						$('#showMenu').show();
+						$('#showPageOptions').show();
+					}
+				}
+				
 				$("#fullname").blur(this.alertInputValue);
-				$("#username").blur(this.alertInputValue);
+				$("#slogan").blur(this.alertInputValue);
 				// $("#username").blur(this.alertInputValue);
+				$("input[type='checkbox']").bind( "change", function(event, ui) {
+					console.log(event);
+					console.log(event.delegateTarget);
+					console.log(event.delegateTarget.id);
+					console.log( $("label[for='"+ event.delegateTarget.id +"']").text() );
+					console.log(event.delegateTarget.checked);
+					var o = new Object();
+					o.id = event.delegateTarget.id;
+					o.status = event.delegateTarget.checked;
+					o.label = $("label[for='"+ event.delegateTarget.id +"']").text();					
+					dpd.users.me(function(me) {
+						// console.log(me);
+						var exists = jQuery.inArray( $.trim(o.label), me.interests )
+						// console.log(exists);
+						if (exists>-1) dpd.users.put(_thisViewMyProfileNested.me.id, {"interests": {$pull:$.trim(o.label)}} );
+						else dpd.users.put(_thisViewMyProfileNested.me.id, {"interests": {$push:$.trim(o.label)}} );
+					});
+				});
+				this.$el.off('click','#deletemyaccountbtn').on('click','#deletemyaccountbtn',function(e){
+					e.preventDefault();
+					// _thisViewLogin.sendLogin('#dashboard');
+					console.log('clicked');
+					console.log(e);
+					var confirmText = 'Wollen Sie Ihren Zugang wirklich unwiderruflich löschen?';
+					var confirmTitle = 'Sind Sie sicher?';
+					var confirmButtonLabels = 'Ja, löschen.,Abbrechen.';
+					doConfirm(confirmText, confirmTitle, _thisViewMyProfileNested.deleteMyAccount, confirmButtonLabels);
+				});
+			},
+			deleteMyAccount: function(response) {
+				console.log(response);
+				if (response==1) {
+					doAlert('Ihr Zugang wird nun gelöscht. Schauen Sie gerne wieder einmal vorbei!','Auf Wiedersehen :-(');
+					var deldate = new Date();
+					var deletetedusername = 'DELETETED_'+deldate+'_'+_thisViewMyProfileNested.me.username;
+					dpd.users.put(_thisViewMyProfileNested.me.id, {"username":deletetedusername,"deleted":true}, function(result, err) { 
+						if(err) return console.log(err); 
+						console.log(result, result.id); 
+						system.redirectToUrl('#logout');
+					});
+				}
 			},
 			render: function() {
 				var _thisViewMyProfileNested = this;
 				console.log('rendering MyProfileNestedView.js');
 				var htmlContent = '';
+				// console.log(_thisViewMyProfileNested.interests);
 				$(this.el).html(htmlContent);
 				console.log(_thisViewMyProfileNested.me);
 				if (!_thisViewMyProfileNested.me.coins) _thisViewMyProfileNested.me.coins = "0";
@@ -108,6 +171,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 					, perstext: _thisViewMyProfileNested.me.perstext
 					, username: _thisViewMyProfileNested.me.username
 					, coins: _thisViewMyProfileNested.me.coins
+					, interests: _thisViewMyProfileNested.interests
 				},{variable: 'user'});
 				// alert(htmlContent);
 				$(this.el).html(htmlContent);

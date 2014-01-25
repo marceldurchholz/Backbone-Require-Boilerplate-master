@@ -12,6 +12,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				},
 				bindEvents: function() {
 					var _thisViewSupport = this;
+					$('#showMenu').show();
+					$('#showPageOptions').show();
 				},
 				sendLogin: function(targetUrl) {
 					_thisViewSupport = this;
@@ -26,7 +28,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					this.fetch();
 				},
 				render: function() {
-					// this.bindEvents();
 					console.log('DOING render Videos.js called');
 					_thisViewSupport = this;
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
@@ -38,6 +39,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						$('.ui-content').scrollTop(0);
 						new FastClick(document.body);
 					});
+					this.bindEvents();
 					return this;
 				}
 

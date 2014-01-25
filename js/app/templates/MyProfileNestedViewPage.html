@@ -3,9 +3,10 @@
 		<img style="width:100%;max-height:100%;max-width:160px;" src="images/avatar.jpg">
 	</div>
 	<div style="width:50%;float:left;clear:none;display:inline-block;padding-right:2%;">
-		<input style="width:100%;" data-theme="a" no-data-role="none" data-mini="false" type="text" name="fullname" id="fullname" value="<%= user.fullname %>" placeholder="Ihr Vor- und Nachname"/>
+		<input style="width:100%;" data-theme="a" data-mini="true" type="text" name="fullname" id="fullname" value="<%= user.fullname %>" placeholder="Ihr Vor- und Nachname"/>
 		<div class="clear"></div>
-		<input style="width:100%;" data-theme="a" no-data-role="none" data-mini="true" type="text" name="username" id="username" value="<%= user.username %>" placeholder="Ihr Benutzername/E-Mail"/>
+		<!-- <input style="width:100%;" data-theme="a" no-data-role="none" data-mini="true" type="text" name="username" id="username" value="<%= user.username %>" placeholder="Ihr Benutzername/E-Mail"/> -->
+		<p><%= user.username %></p>
 		<div class="clear"></div>
 	</div>
 	<div style="width:9%;b/order:3px solid yellow;float:right;clear:none;display:inline-block;">
@@ -68,20 +69,31 @@
 
 <fieldset data-role="controlgroup">
 	<legend><h5>Interessen</h5></legend>
+	<% console.log(user.interests) %>
+	<% _.each(user.interests, function(interests) { %>
+		<!--
+		<input type="checkbox" name="answer-<%= user.id %>-<%= user.page %>-<%= interests.id %>" id="answer-<%= user.id %>-<%= user.page %>-<%= interests.id %>">
+		<label for="answer-<%= user.id %>-<%= user.page %>-<%= interests.id %>" style="font-weight:normal;"><%= interests.text %></label>
+		-->
+		<input data-mini="true" type="checkbox" name="checkbox-v-<%= interests.id %>" id="checkbox-v-<%= interests.id %>"><label for="checkbox-v-<%= interests.id %>"><%= interests.name %></label>
+	<% }); %>
+
+	<!--
 	<input data-mini="true" type="checkbox" name="checkbox-v-2h" id="checkbox-v-2h"><label for="checkbox-v-2h">Marketing</label>
-	<input checked data-mini="true" type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a"><label for="checkbox-v-2a">Motivation</label>
+	<input checked data-mini="true" type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a"><label for="checkbox-v-2a">Humor</label>
 	<input checked data-mini="true" type="checkbox" name="checkbox-v-2d" id="checkbox-v-2d"><label for="checkbox-v-2d">Persönlichkeitsentwicklung</label>
 	<input data-mini="true" type="checkbox" name="checkbox-v-2f" id="checkbox-v-2f"><label for="checkbox-v-2f">Rhetorik</label>
 	<input checked data-mini="true" type="checkbox" name="checkbox-v-2e" id="checkbox-v-2e"><label for="checkbox-v-2e">Selbstbewußtsein</label>
 	<input data-mini="true" type="checkbox" name="checkbox-v-2b" id="checkbox-v-2b"><label for="checkbox-v-2b">Stimme</label>
 	<input data-mini="true" type="checkbox" name="checkbox-v-2g" id="checkbox-v-2g"><label for="checkbox-v-2g">Suchmaschinenoptimierung</label>
 	<input checked data-mini="true" type="checkbox" name="checkbox-v-2c" id="checkbox-v-2c"><label for="checkbox-v-2c">Verkauf</label>
+	-->
 </fieldset>
 
 <div class="clear"></div>
 <hr>
 <div class="clear"></div>
 <ul data-role="listview" data-inset="true" data-theme="d" data-dividertheme="d">
-	<li><a href="#">Meine Daten löschen</a></li>
+	<li><a id="deletemyaccountbtn" href="#">Meine Daten löschen</a></li>
 </ul>
 <strong>Achtung! Hiernach werden diese Daten unwiderruflich gelöscht. Auch ein Zugang zum System ist nicht mehr möglich!</strong>
