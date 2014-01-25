@@ -138,7 +138,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 					console.log(e);
 					var confirmText = 'Wollen Sie Ihren Zugang wirklich unwiderruflich löschen?';
 					var confirmTitle = 'Sind Sie sicher?';
-					var confirmButtonLabels = 'Ja, löschen.,Abbrechen.';
+					var confirmButtonLabels = 'Bitte löschen,Vorgang abbrechen';
 					doConfirm(confirmText, confirmTitle, _thisViewMyProfileNested.deleteMyAccount, confirmButtonLabels);
 				});
 			},
