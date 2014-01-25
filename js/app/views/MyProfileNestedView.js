@@ -100,7 +100,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 			},
 			bindEvents: function() {
 				var _thisViewMyProfileNested = this;
-				
+				$('#delaccuntarea').hide();
 				$('#showMenu').hide();
 				$('#showPageOptions').hide();
 				if (_thisViewMyProfileNested.me.active==true) {
@@ -114,6 +114,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				$("#slogan").blur(this.alertInputValue);
 				// $("#username").blur(this.alertInputValue);
 				$("input[type='checkbox']").bind( "change", function(event, ui) {
+					event.preventDefault();
 					console.log(event);
 					console.log(event.delegateTarget);
 					console.log(event.delegateTarget.id);
@@ -130,6 +131,10 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 						if (event.delegateTarget.checked==false && exists>-1) dpd.users.put(_thisViewMyProfileNested.me.id, {"interests": {$pull:$.trim(o.label)}} );
 						else if (event.delegateTarget.checked==true && exists==-1) dpd.users.put(_thisViewMyProfileNested.me.id, {"interests": {$push:$.trim(o.label)}} );
 					});
+				});
+				this.$el.off('click','#showdeletearea').on('click','#showdeletearea',function(e){
+					e.preventDefault();
+					$('#delaccuntarea').show();
 				});
 				this.$el.off('click','#deletemyaccountbtn').on('click','#deletemyaccountbtn',function(e){
 					e.preventDefault();
