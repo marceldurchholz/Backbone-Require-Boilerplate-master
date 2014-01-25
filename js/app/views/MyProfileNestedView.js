@@ -145,7 +145,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 			deleteMyAccount: function(response) {
 				console.log(response);
 				if (response==1) {
-					doAlert('Ihr Zugang wird nun gelöscht. Schauen Sie gerne wieder einmal vorbei!','Auf Wiedersehen :-(');
+					doAlert('Das finden wir schade. Ihr Zugang wurde gelöscht. Schauen Sie gerne wieder einmal vorbei.','Auf Wiedersehen :-(');
 					var deldate = new Date();
 					var deletetedusername = 'DELETETED_'+deldate+'_'+_thisViewMyProfileNested.me.username;
 					dpd.users.put(_thisViewMyProfileNested.me.id, {"username":deletetedusername,"deleted":true}, function(result, err) { 
