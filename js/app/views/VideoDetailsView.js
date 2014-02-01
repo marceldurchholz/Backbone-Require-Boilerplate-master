@@ -78,7 +78,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					this.fetch(options);
 				},
 
-				collectRelatedData: function(topic='') {
+				collectRelatedData: function(topic) {
 					var _thisKnowledgeData = this;
 					var querystr = "";
 					if (topic!='') querystr += "&topic="+topic;

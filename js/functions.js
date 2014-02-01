@@ -2359,7 +2359,6 @@ $("#body > *").off('click').on('click',function(event){
 });
 */
 
-/*
 function checkRole(role) {
 	var show = false;
 	$.each( window.me.roles, function( key, value ) {
@@ -2374,7 +2373,8 @@ function checkRole(role) {
 	return(show);
 }
 
-function now(date=new Date()) {
+/*
+function dateYmdHis(date=new Date()) {
     var s = date.getSeconds();
     var i = date.getMinutes();
     var H = date.getHours();
