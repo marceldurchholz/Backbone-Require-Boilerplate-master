@@ -489,7 +489,7 @@ function initStore() {
 		},
 		ready: function () {
 			var productIds = [
-				"com.digitalverve.APPinaut.250APP359T9"
+				"250APP359T9"
 			];
 			window.storekit.load(productIds, function(validProducts, invalidProductIds) {
 				$.each(validProducts, function (i, val) {
