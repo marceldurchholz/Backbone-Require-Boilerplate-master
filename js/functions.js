@@ -2359,6 +2359,7 @@ $("#body > *").off('click').on('click',function(event){
 });
 */
 
+/*
 function checkRole(role) {
 	var show = false;
 	$.each( window.me.roles, function( key, value ) {
@@ -2382,5 +2383,6 @@ function now(date=new Date()) {
     var y = date.getFullYear();
     return '' + y + '' + (m<=9 ? '0' + m : m) + '' + (d <= 9 ? '0' + d : d) + '' + (H<=9 ? '0' + H : H)  + '' + (i<=9 ? '0' + i : i)  + '' + (s<=9 ? '0' + s : s)  ;
 }
+*/
 
 alert('6');

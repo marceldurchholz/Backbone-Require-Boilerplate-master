@@ -142,6 +142,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	
 	alert('3');
 	
+	/*
 	$( "#pageOptions" ).html(htmlContent);
 	$('body').on('vclick', '#showPageOptions', function() {
 		$( "#pageOptions li" ).each(function(index, value) {
@@ -159,6 +160,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		});
 		showPageOptions();
 	});
+	*/
 
 	alert('4');
 	
