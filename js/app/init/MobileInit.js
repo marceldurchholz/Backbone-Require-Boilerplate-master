@@ -82,13 +82,9 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	
 	// var deviceReadyDeferred = new jQuery.Deferred();
 	
-	alert('1');
-	
 	window.MobileRouter = MobileRouter;
 
 	app.initialize();
-	
-	alert('2');
 	
 	/*****
 	// WEITERE ICONS FÜR DAS PAGE OPTIONS MENU:
@@ -139,9 +135,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		htmlContent += '<li data-roles="admin" 		data-mini="true" data-iconpos="left" data-icon="bars"><a style="font-weight:normal;" href="#admin/users">Benutzerverwaltung</a></li>';
 		htmlContent += '<li data-roles="public" 	data-mini="true" data-iconpos="left" data-icon="grid"><a style="font-weight:normal;" href="#dashboard">Dashboard</a></li>';
 	htmlContent += '</ul>';
-	
-	alert('3');
-	
+	$( "#pageOptions" ).toggle();
 	$( "#pageOptions" ).html(htmlContent);
 	$('body').on('vclick', '#showPageOptions', function() {
 		$( "#pageOptions li" ).each(function(index, value) {
@@ -157,11 +151,10 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 				}
 			}
 		});
+		$( "#pageOptions" ).trigger('create');
 		showPageOptions();
 	});
 
-	alert('4');
-	
   }
 
 );

@@ -103,10 +103,12 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 													console.log(error.message);
 													doAlert('Bitte versuchen Sie es erneut.','Fehler bei der Registrierung!');
 												} 
-												_thisViewLogin.sendLogin('#myprofile');
-												// _thisViewLogin.sendLogin('#myprofile');
-												// var regData = {username: username, password: password, roles: roles, registered: registered};
-												// _thisViewLogin.sendAuthMail();
+												else {
+													_thisViewLogin.sendLogin('#myprofile');
+													// _thisViewLogin.sendLogin('#myprofile');
+													// var regData = {username: username, password: password, roles: roles, registered: registered};
+													// _thisViewLogin.sendAuthMail();
+												}
 											});
 										},
 										error: function(response) {

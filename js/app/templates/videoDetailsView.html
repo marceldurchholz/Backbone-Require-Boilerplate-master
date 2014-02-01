@@ -20,15 +20,23 @@
 	</div>
 	<p>
 	<div class="description">
-		<p><strong><%= video.uploader %></strong></p>
+		<p>
+			<a href="#anbieterlink">
+				<strong><%= video.uploader %></strong>
+			</a>
+		</p>
 		<%= video.description %>
 	</div>
 	</p>
 
 	<ul data-role="listview" data-inset="true">
-		<li data-theme="a" data-role="list-divider">Mehr zum Thema <%= video.topic %></li>
+		<li data-theme="a" data-role="list-divider">Das könnte für Dich interessant sein</li>
+		<li data-mini="true" data-iconpos="left" data-icon="plus"><a style="font-weight:normal;" href="#videos/record">APPinaut Wissensanbieter werden...</a></li>
+		
 		<% _.each(video.related, function(related) { %>
 			<% if( related.id != video.id ) { %>
+				<li data-roles="public" 	data-mini="true" data-iconpos="left" data-icon="arrow-r"><a style="font-weight:normal;" href="<%= related.href %>"><%= related.title %></a></li>
+				<!--
 				<li style="max-height:60px !important;">
 					<a class="showVideoDetailsLink" href="<%= related.href %>">
 					<img style="padding:8px 0px 8px 25px;height:40px !important;max-height:40px !important;max-width:40px !important;" src="<%= related.icon %>" />
@@ -36,8 +44,11 @@
 					<p><%= related.title %>: <%= related.description %></p>
 					</a>
 				</li>
+				-->
 			<% } %>
 		<% }); %>
+		
+		
 	</ul>
 
 </div>

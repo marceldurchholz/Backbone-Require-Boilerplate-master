@@ -12,8 +12,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				},
 				bindEvents: function() {
 					var _thisViewHelp = this;
-					$('#showMenu').show();
-					$('#showPageOptions').show();
+					// $('#showMenu').show();
+					// $('#showPageOptions').show();
 				},
 				sendLogin: function(targetUrl) {
 					_thisViewHelp = this;
