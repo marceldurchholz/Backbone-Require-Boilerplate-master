@@ -147,6 +147,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					// console.log(model.get('purchases'));
 					_template = _.template(videosDetailsViewHTML, {
 						id: model.get('id'),
+						uploaderdata: _thisViewVideoDetails.uploaderdata,
 						uploader: _thisViewVideoDetails.uploaderdata.fullname,
 						me_credits: this._videosCollection.user.credits,
 						videourl: model.get('videourl'),
