@@ -99,8 +99,9 @@
 	<gap:plugin name="org.apache.cordova.file" />
     <gap:plugin name="org.apache.cordova.file-transfer" />	
 	<gap:plugin name="org.apache.cordova.vibration" />
-	<!-- <gap:plugin name="cc.fovea.plugins.inapppurchase" /> -->
-	<gap:plugin name="com.alexvillaro.plugins.inapppurchase" />
+	<gap:plugin name="cc.fovea.plugins.inapppurchase" />
+	<!-- <gap:plugin name="com.alexvillaro.plugins.inapppurchase" /> -->
+	<!-- <gap:plugin name="com.retoglobal.plugins.inapppurchase" /> -->
 	
 	<!--
 	<gap:plugin name="org.apache.cordova.core.device-motion" />
