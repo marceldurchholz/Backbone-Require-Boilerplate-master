@@ -519,14 +519,14 @@ var app = {
 				// _thisViewDashboardNested.render();
 				cordovaIsLoaded = true;
 				// new MobileRouter();
-				modifyiOS7StatusBar();
 				// populateHomepageData();
 				// status = deviceisready
 				// alert(deviceisready);
 				
-				if(isMobile.any()) {
-					initStore();
-				}
+				// modifyiOS7StatusBar();
+				// if(isMobile.any()) {
+				// 	initStore();
+				// }
 				
 				new window.MobileRouter();
 				// return this.dfd.promise();
@@ -749,7 +749,7 @@ function postDeviceReadyActions(){
 / ----------------------------------------------------------- */
 function modifyiOS7StatusBar(){
 	// if (window.device.version) alert('>> '+window.device.version);
-    if (isMobile.any() && (StatusBar)) {
+    if (isMobile.any()) {
 		try{
 			if (parseFloat(window.device.version) === 7.0) {
 				// StatusBar.overlaysWebView(false);
