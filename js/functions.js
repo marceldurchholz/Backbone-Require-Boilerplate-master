@@ -749,7 +749,8 @@ function postDeviceReadyActions(){
 / ----------------------------------------------------------- */
 function modifyiOS7StatusBar(){
 	// if (window.device.version) alert('>> '+window.device.version);
-    if (isMobile.any()) {
+    var doit = false;
+	if (isMobile.any() && doit==true) {
 		try{
 			if (parseFloat(window.device.version) === 7.0) {
 				// StatusBar.overlaysWebView(false);
