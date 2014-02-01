@@ -521,8 +521,9 @@ var app = {
 				
 				// modifyiOS7StatusBar();
 				// if(isMobile.any()) {
-				// 	initStore();
 				// }
+				
+				initStore();
 				
 				new window.MobileRouter();
 				// return this.dfd.promise();
