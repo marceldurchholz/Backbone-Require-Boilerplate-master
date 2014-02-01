@@ -133,6 +133,12 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 						else if (event.delegateTarget.checked==true && exists==-1) dpd.users.put(_thisViewMyProfileNested.me.id, {"interests": {$push:$.trim(o.label)}} );
 					});
 				});
+				
+				this.$el.off('click','#purchase250').on('click','#purchase250',function(e){
+					e.preventDefault();
+					window.storekit.purchase("com.digitalverve.APPinaut.250APP359T9", 1);
+				});
+				
 				this.$el.off('click','#showdeletearea').on('click','#showdeletearea',function(e){
 					e.preventDefault();
 					$('#delaccuntarea').show();

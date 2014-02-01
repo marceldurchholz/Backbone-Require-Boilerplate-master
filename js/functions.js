@@ -467,6 +467,46 @@ var dao = {
 	}
 };
 
+function initStore() {
+	window.storekit.init({
+
+		debug: true, /* Because we like to see logs on the console */
+
+		purchase: function (transactionId, productId) {
+			console.log('purchased: ' + productId);
+		},
+		restore: function (transactionId, productId) {
+			console.log('restored: ' + productId);
+		},
+		restoreCompleted: function () {
+		   console.log('all restore complete');
+		},
+		restoreFailed: function (errCode) {
+			console.log('restore failed: ' + errCode);
+		},
+		error: function (errno, errtext) {
+			console.log('Failed: ' + errtext);
+		},
+		ready: function () {
+			var productIds = [
+				"com.digitalverve.APPinaut.250APP359T9", 
+				"com.digitalverve.APPinaut.750APP799T9", 
+				"com.digitalverve.APPinaut.2500APP2499T28", 
+				"com.digitalverve.APPinaut.6500APP4999T51", 
+				"com.digitalverve.APPinaut.25000APP17999T72"
+			];
+			window.storekit.load(productIds, function(validProducts, invalidProductIds) {
+				$.each(validProducts, function (i, val) {
+					console.log("id: " + val.id + " title: " + val.title + " val: " + val.description + " price: " + val.price);
+				});
+				if(invalidProductIds.length) {
+					console.log("Invalid Product IDs: " + JSON.stringify(invalidProductIds));
+				}
+			});
+		}
+	});
+}
+
 var app = {
 	initialize: function() {
 		// report('MobileInit.js','var app:initialize');
@@ -483,6 +523,11 @@ var app = {
 				// populateHomepageData();
 				// status = deviceisready
 				// alert(deviceisready);
+				
+				if(isMobile.any()) {
+					initStore();
+				}
+				
 				new window.MobileRouter();
 				// return this.dfd.promise();
 				// return('deviceisready');

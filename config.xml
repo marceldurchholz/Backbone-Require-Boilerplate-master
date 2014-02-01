@@ -3,17 +3,17 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "mobile002.appinaut.de"
-        version   = "0.9.6">
+        id        = "com.digitalverve.APPinaut"
+        version   = "0.9.8">
 
     <name>APPinaut</name>
 
     <description>
-        The APPinaut is a mobile learning platform.
+        Der APPinaut ist eine Mobile Learning App. Im Multimediaformat und über Lernsets/Lernkarten kann Wissen den wissensdurstigen Nutzern des APPinaut angeboten werden.
     </description>
 
     <author href="http://www.digitalverve.de" email="info@digitalverve.de">
-        DigitalVerve - Digital Solutions
+        DigitalVerve - Marcel Durchholz
     </author>
 
     <!--
@@ -59,9 +59,11 @@
 	-->	
 	
 	<!--- DOCS: https://github.com/EddyVerbruggen/LaunchMyApp-PhoneGap-Plugin#4-url-scheme-hints -->
+	<!--
 	<gap:plugin name="nl.x-services.plugins.launchmyapp">
 	  <param name="URL_SCHEME" value="appinaut" />
 	</gap:plugin>
+	-->
 	<!--
 	<gap:plugin name="com.phonegap.plugins.facebookconnect">
 		<param name="APP_ID" value="608776825852280" />
@@ -112,7 +114,8 @@
 	> all
 	-->
 	<gap:plugin name="com.shazron.cordova.plugin.keychainutil" />
-	<gap:plugin name="com.alexvillaro.plugins.inapppurchase" />
+	<!-- <gap:plugin name="com.alexvillaro.plugins.inapppurchase" /> -->
+	<gap:plugin name="cc.fovea.plugins.inapppurchase" />
 	<gap:plugin name="com.chariotsolutions.cordova.plugin.keyboard_toolbar_remover" />
 	<gap:plugin name="com.blueshirtdesign.cordova.plugin.pgexternalscreen" />
 		
