@@ -82,29 +82,86 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	
 	// var deviceReadyDeferred = new jQuery.Deferred();
 	
+	alert('1');
+	
 	window.MobileRouter = MobileRouter;
 
 	app.initialize();
 	
+	alert('2');
 	
-	function showPageOptions(roles) {
-		showPageOptionsFiletered(roles);
-	}
-
-	// alert(blay);
-
-	// LocalStorageAdapter = new LocalStorageAdapter();
-	// myLocalStorage.initialize();
-
-	
-	// Instantiates a new Mobile Router instance
+	/*****
+	// WEITERE ICONS FÜR DAS PAGE OPTIONS MENU:
+	// http://api.jquerymobile.com/classes/
+	*****/
 	/*
-	var CreateMobileRouter = function() {
-		new MobileRouter();
-	}
+	var htmlContent = '';
+	htmlContent = '<ul id="pageOptionsDiv" class="ui-listview ui-listview-inset ui-shadow pageOptionsDiv" data-role="listview" data-inset="false" data-theme="a" data-dividertheme="a">';
+		htmlContent += '<li  data-roles="seeker"  class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-first-child ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
+		htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
+		htmlContent += '<a onClick="javascript:rotatePageOptionsIcon();history.back();return(false);" data-href="#%= sidemenu.urloffline %" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
+		htmlContent += 'Zurück</a></div>';
+		htmlContent += '<span class="ui-icon ui-icon-arrow-l ui-icon-shadow">&nbsp;</span></div>';
+		htmlContent += '</li>';
+		htmlContent += '<li  data-roles="provider"  class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
+		htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
+		htmlContent += '<a onClick="javascript:rotatePageOptionsIcon();" href="#videos/record" data-href="#videos/record" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
+		htmlContent += 'Multimediadatei hinzufügen</a></div>';
+		htmlContent += '<span class="ui-icon ui-icon-plus ui-icon-shadow">&nbsp;</span></div>';
+		htmlContent += '</li>';
+		htmlContent += '<li  data-roles="provider"  class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
+		htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
+		htmlContent += '<a onClick="javascript:rotatePageOptionsIcon();" href="#cards/edit/" data-href="#cards/edit/" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
+		htmlContent += 'Lernset/Lernkarte hinzufügen</a></div>';
+		htmlContent += '<span class="ui-icon ui-icon-plus ui-icon-shadow">&nbsp;</span></div>';
+		htmlContent += '</li>';
+		htmlContent += '<li  data-roles="provider"  class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
+		htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
+		htmlContent += '<a onClick="javascript:rotatePageOptionsIcon();" href="#planer/edit/" data-href="#planer/edit/" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
+		htmlContent += 'Veranstaltung/Termin hinzufügen</a></div>';
+		htmlContent += '<span class="ui-icon ui-icon-plus ui-icon-shadow">&nbsp;</span></div>';
+		htmlContent += '</li>';
+		htmlContent += '<li  data-roles="provider"  class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-last-child ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
+		htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
+		htmlContent += '<a onClick="javascript:rotatePageOptionsIcon();" href="#admin/users" data-href="#admin/users" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
+		htmlContent += 'Benutzerverwaltung</a></div>';
+		htmlContent += '<span class="ui-icon ui-icon-bars ui-icon-shadow">&nbsp;</span></div>';
+		htmlContent += '</li>';
+	htmlContent += '</ul>';
 	*/
-	// window.appRouter = new MobileRouter();
-	// CreateMobileRouter();
+	
+	var htmlContent = '';
+	htmlContent = '<ul data-role="listview">';
+		htmlContent += '<li data-roles="public" 	data-mini="true" data-iconpos="left" data-icon="arrow-l"><a style="font-weight:normal;" onClick="javascript:rotatePageOptionsIcon();history.back();return(false);">Zurück</a></li>';
+		htmlContent += '<li data-roles="provider" 	data-mini="true" data-iconpos="left" data-icon="plus"><a style="font-weight:normal;" href="#videos/record">Multimediadatei hinzufügen</a></li>';
+		htmlContent += '<li data-roles="provider" 	data-mini="true" data-iconpos="left" data-icon="plus"><a style="font-weight:normal;" href="#cards/edit/">Lernset/Lernkarte hinzufügen</a></li>';
+		htmlContent += '<li data-roles="provider" 	data-mini="true" data-iconpos="left" data-icon="plus"><a style="font-weight:normal;" href="#planer/edit/">Veranstaltung/Termin hinzufügen</a></li>';
+		htmlContent += '<li data-roles="admin" 		data-mini="true" data-iconpos="left" data-icon="bars"><a style="font-weight:normal;" href="#admin/users">Benutzerverwaltung</a></li>';
+		htmlContent += '<li data-roles="public" 	data-mini="true" data-iconpos="left" data-icon="grid"><a style="font-weight:normal;" href="#dashboard">Dashboard</a></li>';
+	htmlContent += '</ul>';
+	
+	alert('3');
+	
+	$( "#pageOptions" ).html(htmlContent);
+	$('body').on('vclick', '#showPageOptions', function() {
+		$( "#pageOptions li" ).each(function(index, value) {
+			var lirole = $(this).attr('data-roles');
+			if (lirole == '' || lirole == 'public' || lirole == undefined) { 
+				$(this).css('visibility','visible');
+				$(this).css('display','block');
+			}
+			else {
+				if (checkRole(lirole)==false) {
+					$(this).css('visibility','hidden');
+					$(this).css('display','none');
+				}
+			}
+		});
+		showPageOptions();
+	});
+
+	alert('4');
+	
   }
 
 );

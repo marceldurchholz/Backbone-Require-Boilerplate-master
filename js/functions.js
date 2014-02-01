@@ -1,3 +1,5 @@
+alert('5');
+
 // alert('functions.js');
 
 var isMobile = {};
@@ -2365,20 +2367,10 @@ function checkRole(role) {
 			return(show);
 		}
 		else {
-			// show = false;
+			show = false;
 		}
 	});
-	// console.log( key + ": " + value + " >> " + show );
 	return(show);
-
-	/*
-	foreach(window.me.roles AS key => role) {
-		if (role == trim(role)) {
-			return(true);
-		}
-	}
-	return(false);
-	*/
 }
 
 function now(date=new Date()) {
@@ -2390,3 +2382,5 @@ function now(date=new Date()) {
     var y = date.getFullYear();
     return '' + y + '' + (m<=9 ? '0' + m : m) + '' + (d <= 9 ? '0' + d : d) + '' + (H<=9 ? '0' + H : H)  + '' + (i<=9 ? '0' + i : i)  + '' + (s<=9 ? '0' + s : s)  ;
 }
+
+alert('6');

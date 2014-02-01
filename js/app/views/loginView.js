@@ -14,7 +14,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					_thisViewLogin = this;
 					var username = $('#username').val();
 					var password = $('#password').val();
-					dpd.users.login({username: username, password: password }, function(user, error) {
+					dpd.users.login({username: username, password: password}, function(user, error) {
 						if (error) {
 							// doAlert('not logging in');
 							// return(false);
@@ -29,24 +29,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 								// alert('user =  null');
 							}
 							else {
-								dpd.users.put(user.id, { "logincount": 777  } , function(result, err) { 
-									// $inc: { logincount: 1 }
-									if(err) return console.log(err); 
-									console.log(result, result.id);
-								});
-								/*
-								var update = { $inc: { logincount: 1 }, "username":username, "password":password};
-								$.ajax({
-									url: "http://dominik-lohmann.de:5000/users",
-									 type: "POST",
-									 data: update
-								}).done(function(a,b,c) {
-									console.log(a);
-									console.log(b);
-									console.log(c);
-								});
-								*/
-
 								$('#showMenu').show();
 								$('#showPageOptions').show();
 								system.redirectToUrl(targetUrl);
