@@ -19,7 +19,7 @@ define(["jquery", "backbone", "models/PlanModel"],
 			var offlineData = this.offlineData = this._localStorage_planer.findAll();
 			this.localStorage = this._localStorage_planer;
 			if (_thisCollectionPlaner.online==1) {
-				this.url = 'http://dominik-lohmann.de:5000/planer/';
+				this.url = 'http://dominik-lohmann.de:5000/planer/?active=true&deleted=false';
 				// this.url = 'http://dominik-lohmann.de:5000/planer/d6c9268c49a139bf';
 				this.localStorage = null;
 			}

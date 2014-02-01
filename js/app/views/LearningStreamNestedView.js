@@ -9,71 +9,20 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			el: "#LearningStreamNestedViewDiv",
 			initialize: function() {
 				console.log('initializing LearningStreamNestedView.js');
-			},
-			initializeme: function() {
-				console.log('initializing ME in LearningStreamNestedView.js');
-				$(this.el).html('loading...');
-				$.when( this.fetchMe() ).then(
-				  function( status ) {
-					_thisViewLearningStreamNested.me = status;
-					_thisViewLearningStreamNested.render();
-				  },
-				  function( status ) {
-					alert( "you fail this time" );
-				  },
-				  function( status ) {
-					console.log('still fetchWorking');
-				  }
-				);
-			},
-			fetchWorking: function() {
-				var setTimeoutWatcher = setTimeout(function foo() {
-					if ( _thisViewLearningStreamNested.dfd.state() === "pending" ) {
-						_thisViewLearningStreamNested.dfd.notify( "working... " );
-						setTimeout( _thisViewLearningStreamNested.fetchWorking, 100 );
-					}
-				}, 1 );
-			},
-			fetchMe: function() {
-				_thisViewLearningStreamNested = this;
-				console.log('fetchMe LearningStreamNestedView.js');
-				_thisViewLearningStreamNested.dfd = new jQuery.Deferred();
-				_thisViewLearningStreamNested.fetchWorking();
-				dpd.users.me(function(user) {
-					if (user) {
-						var fetchMe = setTimeout ( function() {
-							_thisViewLearningStreamNested.dfd.resolve(user);
-						}, 0 );
-					}
-					else {
-						console.log('You are not logged in!');
-						window.location.href = "#noaccess";
-					}
-				});
-				return this.dfd.promise();
+				var _thisViewLearningStreamNested = this;
+				var streamData = new Array();
+				_thisViewLearningStreamNested.streamData = streamData;
 			},
 			fetch: function() {	
 				// alert('bla');
 				_thisViewLearningStreamNested = this;
 				console.log('fetching LearningStreamNestedView.js');
-				this.$el.hide();
-				this._videosCollection = new videosCollection();
-				this._videosCollection.fetch({
-					success: function(coll, jsoncoll) {
-						console.log(_thisViewLearningStreamNested);
-						// _thisViewLearningStreamNested.render();
-						_thisViewLearningStreamNested.initializeme();
-					},
-					error: function(action, coll) {
-						console.log('ERROR fetching _videosCollection');
-						console.log(action);
-						console.log(coll);
-						// _thisViewLearningStreamNested.render();
-					}
-				});
+				_thisViewLearningStreamNested.collectStreamData();
+				// this.$el.hide();
 			},
 			bindEvents: function() {
 				var _thisViewLearningStreamNested = this;
+				/*
 				// this.$el.off('click','.clickRow').on('click','.clickRow',function(){_thisViewLearningStreamNested.clicked(e);});
 				this.$el.off('click','.showVideoDetailsLink').on('click','.showVideoDetailsLink',function(event){
 					event.preventDefault();
@@ -108,62 +57,72 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						}
 					});
 				});
+				*/
 			},
-			insertData: function(model) {
-				_thisViewLearningStreamNested = this;
-				console.log(jQuery.inArray(model.id, _thisViewLearningStreamNested.me.following));
-				if (jQuery.inArray(model.id, _thisViewLearningStreamNested.me.following)==-1) {
-					model.set("favclass","addVideoToFavourites");
-				}
-				else {
-					model.set("favclass","isVideoToFavourites");
-				}
-				console.log(model);
-				htmlContent = _.template(LearningStreamNestedPage, {
-					id: model.get('id'),
-					uploader: model.get('uploader'),
-					videourl: model.get('videourl'),
-					title: model.get('title'),
-					description: model.get('description'),
-					price: model.get('price'),
-					thumbnailurl: model.get('thumbnailurl'),
-					favclass: model.get('favclass')
-				},{variable: 'video'});
-				$(this.el).append(htmlContent);
+			collectStreamData: function() {
+				var _thisViewLearningStreamNested = this;
+				$.ajax({
+					url: "http://dominik-lohmann.de:5000/videos?active=true&deleted=false",
+					async: false
+				}).done(function(videoData) {
+					_.each(videoData, function(value, index, list) {
+						value.ccat = 'video';
+						value.icon = 'images/icon-videos-60.png';
+						value.href = '#videos/details/view/'+value.id;
+						_thisViewLearningStreamNested.streamData.push(value);
+					});
+				});
+				$.ajax({
+					url: "http://dominik-lohmann.de:5000/cards?active=true&deleted=false",
+					async: false
+				}).done(function(cardData) {
+					_.each(cardData, function(value, index, list) {
+						value.ccat = 'card';
+						value.icon = 'images/icon-cards-60.png';
+						value.href = '#cards/details/view/'+value.id;
+						_thisViewLearningStreamNested.streamData.push(value);
+					});
+				});
+				$.ajax({
+					url: "http://dominik-lohmann.de:5000/planer?active=true&deleted=false",
+					async: false
+				}).done(function(planData) {
+					_.each(planData, function(value, index, list) {
+						value.ccat = 'plan';
+						value.icon = 'images/icon-planer-60.png';
+						value.href = '#planer/details/view/'+value.id;
+						_thisViewLearningStreamNested.streamData.push(value);
+					});
+				});
+				// Sort multidimensional arrays with oobjects by value 
+				// http://www.javascriptkit.com/javatutors/arraysort2.shtml
+				_thisViewLearningStreamNested.streamData.sort(function(a, b){
+					return b.cdate-a.cdate
+				});
+				_thisViewLearningStreamNested.render();
 			},
-			fetchUpdate: function() {
-				// var updateContent = "bla foo peng <br>";
-				// $(this.el).append('bla');
-				// alert('bla');
-				this.$el.hide();
-				this.render();
+			reload: function() {
+				setTimeout(function() {
+					_thisViewLearningStreamNested.collectStreamData();
+					// alert('bla');
+				},5000);
 			},
 			render: function() {
 				this.bindEvents();
 				var _thisViewLearningStreamNested = this;
+				console.log(_thisViewLearningStreamNested);
 				console.log('DOING render LearningStreamNestedView.js called');
-				
-				// var htmlContent = 'STATIC TEST CONTENT';
-				// $(this.el).html(htmlContent);
-				/*
-				var htmlContent = '';
-				$(this.el).html(htmlContent);
-				_.each(this._videosCollection.models, function(model) {
-					this.id = model.get('id');
-					_thisViewLearningStreamNested.insertData(model);
-				});
-				*/
-				_thisViewLearningStreamNested.$el.html(_.template(LearningStreamNestedPage, {}));
+								
+				// _thisViewLearningStreamNested.reload();
+				_thisViewLearningStreamNested.$el.html(_.template(LearningStreamNestedPage, {
+					data: _thisViewLearningStreamNested.streamData
+				},{variable: 'stream'}));
 				this.$el.trigger('create');
 				// _thisViewLearningStream.$el.trigger('create');
 				new FastClick(document.body);
 				this.$el.fadeIn( 500, function() {
 					// $('.ui-content').scrollTop(0);
 					new FastClick(document.body);
-					setTimeout(function() {
-						_thisViewLearningStreamNested.fetchUpdate();
-						// alert('bla');
-					},10000)
 					/*
 					var LearningStreamUpdateInterval = setInterval(function(){
 						// alert("Hello");

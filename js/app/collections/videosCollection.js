@@ -16,7 +16,7 @@ define(["jquery", "backbone", "models/VideoModel"],
 			var offlineData = this.offlineData = this._localStorage_videos.findAll();
 			this.localStorage = this._localStorage_videos;
 			if (_thisCollectionVideos.online==1) {
-				this.url = 'http://dominik-lohmann.de:5000/videos/';
+				this.url = 'http://dominik-lohmann.de:5000/videos/?active=true&deleted=false';
 				// this.url = 'http://dominik-lohmann.de:5000/videos/d6c9268c49a139bf';
 				this.localStorage = null;
 			}

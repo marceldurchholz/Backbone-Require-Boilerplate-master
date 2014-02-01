@@ -2325,50 +2325,14 @@ function rotatePageOptionsIcon() {
 	// $("#showPageOptionsIcon").css({'transform': 'rotate('+window.showPageOptionsIconDeg+'deg)'});
 }
 function showPageOptions() {
-	// alert('blafoopeng');
+	// alert('roles');
+	// alert(roles);
+	
 	$( "#pageOptions" ).toggle( "slow", function() {
 		// $( "#page-content" ).toggle();
 		// $( "#showPageOptionsIcon" ).rotate({animateTo:360});
 		rotatePageOptionsIcon();
 		// Animation complete.
-		/*****
-		// WEITERE ICONS FÜR DAS PAGE OPTIONS MENU:
-		// http://api.jquerymobile.com/classes/
-		*****/
-		var htmlContent = '';
-		htmlContent = '<ul id="pageOptionsDiv" class="ui-listview ui-listview-inset ui-shadow pageOptionsDiv" data-role="listview" data-inset="false" data-theme="a" data-dividertheme="a">';
-			htmlContent += '<li  data-roles="seeker"  class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-first-child ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
-			htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
-			htmlContent += '<a onClick="javascript:rotatePageOptionsIcon();history.back();return(false);" data-href="#%= sidemenu.urloffline %" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
-			htmlContent += 'Zurück</a></div>';
-			htmlContent += '<span class="ui-icon ui-icon-arrow-l ui-icon-shadow">&nbsp;</span></div>';
-			htmlContent += '</li>';
-			htmlContent += '<li  data-roles="provider"  class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
-			htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
-			htmlContent += '<a onClick="javascript:rotatePageOptionsIcon();" href="#videos/record" data-href="#videos/record" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
-			htmlContent += 'Multimediadatei hinzufügen</a></div>';
-			htmlContent += '<span class="ui-icon ui-icon-plus ui-icon-shadow">&nbsp;</span></div>';
-			htmlContent += '</li>';
-			htmlContent += '<li  data-roles="provider"  class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
-			htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
-			htmlContent += '<a onClick="javascript:rotatePageOptionsIcon();" href="#planer/edit/" data-href="#planer/edit/" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
-			htmlContent += 'Veranstaltung/Termin hinzufügen</a></div>';
-			htmlContent += '<span class="ui-icon ui-icon-plus ui-icon-shadow">&nbsp;</span></div>';
-			htmlContent += '</li>';
-			htmlContent += '<li  data-roles="provider"  class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
-			htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
-			htmlContent += '<a onClick="javascript:rotatePageOptionsIcon();" href="#cards/edit/" data-href="#cards/edit/" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
-			htmlContent += 'Lernset/Lernkarte hinzufügen</a></div>';
-			htmlContent += '<span class="ui-icon ui-icon-plus ui-icon-shadow">&nbsp;</span></div>';
-			htmlContent += '</li>';
-			htmlContent += '<li  data-roles="provider"  class="ui-btn ui-btn-icon-left ui-li-has-arrow ui-li ui-li-has-count ui-li-has-icon ui-last-child ui-btn-up-a" data-theme="a" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false">';
-			htmlContent += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
-			htmlContent += '<a onClick="javascript:rotatePageOptionsIcon();" href="#admin/users" data-href="#admin/users" class="ui-link-inherit contentLink pageOptionsSelectButton" style="font-size:0.8em;font-weight:normal;">';
-			htmlContent += 'Benutzerverwaltung</a></div>';
-			htmlContent += '<span class="ui-icon ui-icon-bars ui-icon-shadow">&nbsp;</span></div>';
-			htmlContent += '</li>';
-		htmlContent += '</ul>';
-		$(this).html(htmlContent);
 		// alert('done!');
 	});
 	/*
@@ -2392,3 +2356,37 @@ $("#body > *").off('click').on('click',function(event){
 	alert(event.currentTarget);
 });
 */
+
+function checkRole(role) {
+	var show = false;
+	$.each( window.me.roles, function( key, value ) {
+		if (role==value) {
+			show = true;
+			return(show);
+		}
+		else {
+			// show = false;
+		}
+	});
+	// console.log( key + ": " + value + " >> " + show );
+	return(show);
+
+	/*
+	foreach(window.me.roles AS key => role) {
+		if (role == trim(role)) {
+			return(true);
+		}
+	}
+	return(false);
+	*/
+}
+
+function now(date=new Date()) {
+    var s = date.getSeconds();
+    var i = date.getMinutes();
+    var H = date.getHours();
+    var d = date.getDate();
+    var m = date.getMonth() + 1;
+    var y = date.getFullYear();
+    return '' + y + '' + (m<=9 ? '0' + m : m) + '' + (d <= 9 ? '0' + d : d) + '' + (H<=9 ? '0' + H : H)  + '' + (i<=9 ? '0' + i : i)  + '' + (s<=9 ? '0' + s : s)  ;
+}

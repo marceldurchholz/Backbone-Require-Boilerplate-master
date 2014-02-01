@@ -15,17 +15,7 @@
 <% } %>
 
 <div style="padding:0px 20px 60px 20px;">
-
-		<!--
-	<div class="ui-grid-a">
-		<div class="ui-block-a"><strong>Wissensanbieter</strong></div>
-		<div class="ui-block-b"><%= video.uploader %></div>
-		<div class="ui-block-a"><strong>Preis</strong></div>
-		<div class="ui-block-b"><%= video.price %> Coins</div>
-	</div>
-		-->
-
-	<div class="id">
+	<div class="title">
 		<h5><%= video.title %></h5>
 	</div>
 	<p>
@@ -35,4 +25,21 @@
 	</div>
 	</p>
 
+	<ul data-role="listview" data-inset="true">
+		<li data-theme="a" data-role="list-divider">Mehr zum Thema <%= video.topic %></li>
+		<% _.each(video.related, function(related) { %>
+			<% if( related.id != video.id ) { %>
+				<li style="max-height:60px !important;">
+					<a class="showVideoDetailsLink" href="<%= related.href %>">
+					<img style="padding:8px 0px 8px 25px;height:40px !important;max-height:40px !important;max-width:40px !important;" src="<%= related.icon %>" />
+					<h6 style="passing:0;margin:0;"><%= related.topic %></h6>
+					<p><%= related.title %>: <%= related.description %></p>
+					</a>
+				</li>
+			<% } %>
+		<% }); %>
+	</ul>
+
 </div>
+
+<br><br><br>

@@ -24,8 +24,9 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 					error: function(action, coll) {
 						console.log(action);
 						console.log(coll);
-						alert('ERROR !!!');
-						$(this.el).html('Fehler beim Laden des Sidebar.');
+						// alert('ERROR !!!');
+						doAlert('Eine Offlinefunktion wurde noch nicht in diesen APPinaut integriert. Sollte die Internetfunktion Ihres Smartphones deaktiviert sein, aktivieren Sie diese bitte wieder über die Einstellungen.','Oh Oh. Keine Internetverbindung?');
+						$(this.el).html('Fehler beim Laden des Seitenmenüs.');
 						// _thisViewSidemenu.render();
 					}
 				});

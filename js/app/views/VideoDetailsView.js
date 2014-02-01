@@ -70,10 +70,64 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					}
 				},
 				initialize: function(options) {
+					_thisKnowledgeData = this;
+					var streamData = new Array();
+					_thisKnowledgeData.streamData = streamData;
 					this.initializeCollection(options);
 					this.$el.off('click','#loadvideobutton').on('click','#loadvideobutton',function() { _thisViewVideoDetails.buyVideo('#videos/details/view/d6c9268c49a139bf'); } );
 					this.fetch(options);
 				},
+
+				collectRelatedData: function(topic='') {
+					var _thisKnowledgeData = this;
+					var querystr = "";
+					if (topic!='') querystr += "&topic="+topic;
+					var url = "http://dominik-lohmann.de:5000/videos?active=true&deleted=false";
+					$.ajax({
+						url: url+querystr,
+						async: false
+					}).done(function(videoData) {
+						_.each(videoData, function(value, index, list) {
+							value.ccat = 'video';
+							value.icon = 'images/icon-videos-60.png';
+							value.href = '#videos/details/view/'+value.id;
+							_thisKnowledgeData.streamData.push(value);
+						});
+					});
+					var url = "http://dominik-lohmann.de:5000/cards?active=true&deleted=false";
+					$.ajax({
+						url: url+querystr,
+						async: false
+					}).done(function(cardData) {
+						_.each(cardData, function(value, index, list) {
+							value.ccat = 'card';
+							value.icon = 'images/icon-cards-60.png';
+							value.href = '#cards/details/view/'+value.id;
+							_thisKnowledgeData.streamData.push(value);
+						});
+					});
+					var url = "http://dominik-lohmann.de:5000/planer?active=true&deleted=false";
+					$.ajax({
+						url: url+querystr,
+						async: false
+					}).done(function(planData) {
+						_.each(planData, function(value, index, list) {
+							value.ccat = 'plan';
+							value.icon = 'images/icon-planer-60.png';
+							value.href = '#planer/details/view/'+value.id;
+							_thisKnowledgeData.streamData.push(value);
+						});
+					});
+					// Sort multidimensional arrays with oobjects by value 
+					// http://www.javascriptkit.com/javatutors/arraysort2.shtml
+					_thisKnowledgeData.streamData.sort(function(a, b){
+						return b.cdate-a.cdate
+					});
+					console.log(_thisKnowledgeData.streamData);
+					return(_thisKnowledgeData.streamData);
+					// _thisViewLearningStreamNested.render();
+				},
+				
 				insertVariables: function(model) {
 					_thisViewVideoDetails = this;
 					var uploader = model.get('uploader');
@@ -96,12 +150,14 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						uploader: _thisViewVideoDetails.uploaderdata.fullname,
 						me_credits: this._videosCollection.user.credits,
 						videourl: model.get('videourl'),
+						topic: model.get('topic'),
 						title: model.get('title'),
 						description: model.get('description'),
 						price: model.get('price'),
 						purchases: this._videosCollection.user.purchases,
 						pricetext: pricetext,
-						thumbnailurl: model.get('thumbnailurl')
+						thumbnailurl: model.get('thumbnailurl'),
+						related: _thisViewVideoDetails.collectRelatedData(model.get('topic'))
 					},{variable: 'video'});
 					$(this.el).html(_template);
 				},

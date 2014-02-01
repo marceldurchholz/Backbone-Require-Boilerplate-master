@@ -1,5 +1,17 @@
 <div id="CardsNestedViewDiv" class="CardsNestedViewDiv" style="margin-bottom:50px;padding:15px;">
 
+<ul data-filter="true" data-filter-placeholder="Suchfilter..." data-filter-theme="a" data-role="listview" data-theme="a" data-divider-theme="a" data-role="listview" style="max-height:80px !important;height:80px !important;">
+	<% _.each(stream.data, function(data) { %>
+		<li style="max-height:60px !important;">
+			<a class="showVideoDetailsLink" href="<%= data.href %>">
+			<img style="padding:8px 0px 8px 25px;height:40px !important;max-height:40px !important;max-width:40px !important;" src="<%= data.icon %>" />
+			<h6 style="passing:0;margin:0;"><%= data.topic %></h6>
+			<p><%= data.title %>: <%= data.description %></p>
+			</a>
+		</li>
+	<% }); %>
+</ul>
+
 <!--
 <ul data-filter="true" data-filter-placeholder="Suchfilter..." data-role="listview" data-split-icon="star" style="overflow:visible;z-index:999;">
 	<li>
@@ -13,7 +25,7 @@
 </ul>
 -->
 
-
+<!--
 <ul data-mini="true" data-role="listview" data-theme="a" data-divider-theme="a" data-filter="true" data-filter-placeholder="Suchfilter..." data-filter-theme="a" data-role="listview" style="max-height:80px !important;">
 	<li style="max-height:80px !important;">
 		<a class="showVideoDetailsLink" href="#videos/details/view/86160e567d5469f9">
@@ -63,6 +75,7 @@
 		</a>
 	</li>
 </ul>
+-->
 
 
 </div>
