@@ -83,7 +83,9 @@
 	<!--
 	> 3.x.x
 	-->
+	<!--
 	<gap:plugin name="com.phonegap.plugin.statusbar" />
+	-->
 	<!-- core plugins -->
 	<gap:plugin name="org.apache.cordova.core.device" />
 	<gap:plugin name="org.apache.cordova.core.device-orientation" />
@@ -97,7 +99,9 @@
 	<gap:plugin name="org.apache.cordova.file" />
     <gap:plugin name="org.apache.cordova.file-transfer" />	
 	<gap:plugin name="org.apache.cordova.vibration" />
-	<gap:plugin name="cc.fovea.plugins.inapppurchase" />
+	<!-- <gap:plugin name="cc.fovea.plugins.inapppurchase" /> -->
+	<gap:plugin name="com.alexvillaro.plugins.inapppurchase" />
+	
 	<!--
 	<gap:plugin name="org.apache.cordova.core.device-motion" />
 	<gap:plugin name="org.apache.cordova.core.contacts" /> 
