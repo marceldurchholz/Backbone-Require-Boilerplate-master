@@ -47,7 +47,7 @@
 	<!-- setup phonegap version -->
 	<!-- all: current version of PhoneGap -->
 	<!-- <preference name="phonegap-version"           value="2.9.0" /> -->
-    <preference name="phonegap-version"           value="3.1.0" />
+    <preference name="phonegap-version"           value="3.3.0" />
 	
 	<!-- Plugins can also be added here. -->
     <!--
@@ -87,23 +87,25 @@
 	<!-- core plugins -->
 	<gap:plugin name="org.apache.cordova.core.device" />
 	<gap:plugin name="org.apache.cordova.core.device-orientation" />
-	<gap:plugin name="org.apache.cordova.core.device-motion" />
-	<gap:plugin name="org.apache.cordova.core.contacts" /> 
 	<gap:plugin name="org.apache.cordova.core.camera" />
-	<gap:plugin name="org.apache.cordova.core.geolocation" />
 	<gap:plugin name="org.apache.cordova.core.dialogs" />
 	<gap:plugin name="org.apache.cordova.core.network-information" />
-	<gap:plugin name="org.apache.cordova.core.globalization" />
 	<gap:plugin name="org.apache.cordova.core.media" />
 	<gap:plugin name="org.apache.cordova.core.media-capture" />
 	<gap:plugin name="org.apache.cordova.core.console" />
 	<gap:plugin name="org.apache.cordova.core.splashscreen" />
-	<gap:plugin name="org.apache.cordova.core.inappbrowser" />
-	<gap:plugin name="org.apache.cordova.core.battery-status" />
-    <gap:plugin name="org.apache.cordova.file" />
+	<gap:plugin name="org.apache.cordova.file" />
     <gap:plugin name="org.apache.cordova.file-transfer" />	
 	<gap:plugin name="org.apache.cordova.vibration" />
-	<!-- 3rd party plugins -->	
+	<gap:plugin name="cc.fovea.plugins.inapppurchase" />
+	<!--
+	<gap:plugin name="org.apache.cordova.core.device-motion" />
+	<gap:plugin name="org.apache.cordova.core.contacts" /> 
+	<gap:plugin name="org.apache.cordova.core.geolocation" />
+	<gap:plugin name="org.apache.cordova.core.globalization" />
+	<gap:plugin name="org.apache.cordova.core.inappbrowser" />
+	<gap:plugin name="org.apache.cordova.core.battery-status" />
+    <!-- 3rd party plugins -->	
 	<!--
 	NOT SUPPORTED: <gap:plugin name="org.apache.cordova.core.capture" />
 	ERROR: <gap:plugin name="org.apache.cordova.audiohandler" />
@@ -113,11 +115,14 @@
 	<!--
 	> all
 	-->
+	<!--
 	<gap:plugin name="com.shazron.cordova.plugin.keychainutil" />
-	<!-- <gap:plugin name="com.alexvillaro.plugins.inapppurchase" /> -->
-	<gap:plugin name="cc.fovea.plugins.inapppurchase" />
+	<gap:plugin name="com.alexvillaro.plugins.inapppurchase" /> 
+	-->
+	<!--
 	<gap:plugin name="com.chariotsolutions.cordova.plugin.keyboard_toolbar_remover" />
 	<gap:plugin name="com.blueshirtdesign.cordova.plugin.pgexternalscreen" />
+	-->
 		
 	<!--
         If you do not want any permissions to be added to your app, add the
@@ -156,7 +161,7 @@
     <preference name="AllowInlineMediaPlayback" value="true" />
     <preference name="BackupWebStorage" value="cloud" />
     <preference name="FadeSplashScreen" value="true" />
-    <preference name="FadeSplashScreenDuration" value="3" />
+    <preference name="FadeSplashScreenDuration" value="1" />
 	<preference name="GapBetweenPages" value="0"/>
 	<preference name="PageLength" value="0"/>
 	<preference name="PaginationBreakingMode" value="page"/>
