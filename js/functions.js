@@ -512,6 +512,7 @@ function updateCoins(productId) {
 			console.log(result, result.id);
 			hideModal();
 			doAlert('Vielen Dank. Sie haben nun ' + newcredits + ' APPinaut Coins.','Kauf erfolgreich');
+			// window.location.reload();
 		});
 		_me = me;
 	}).fail(function() {
@@ -2470,14 +2471,14 @@ function checkRole(role) {
 	return(show);
 }
 
-/*
-function dateYmdHis(date=new Date()) {
+function dateYmdHis() {
+	var date = new Date();
     var s = date.getSeconds();
     var i = date.getMinutes();
     var H = date.getHours();
     var d = date.getDate();
     var m = date.getMonth() + 1;
     var y = date.getFullYear();
-    return '' + y + '' + (m<=9 ? '0' + m : m) + '' + (d <= 9 ? '0' + d : d) + '' + (H<=9 ? '0' + H : H)  + '' + (i<=9 ? '0' + i : i)  + '' + (s<=9 ? '0' + s : s)  ;
+	var val = '' + y + '' + (m<=9 ? '0' + m : m) + '' + (d <= 9 ? '0' + d : d) + '' + (H<=9 ? '0' + H : H)  + '' + (i<=9 ? '0' + i : i)  + '' + (s<=9 ? '0' + s : s);
+    return(val);
 }
-*/

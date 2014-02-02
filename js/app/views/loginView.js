@@ -63,33 +63,61 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					*/
 				},
 				sendRegister: function() {
+				
+				
+				
 					_thisViewLogin = this;
 					var username = $('#username').val();
 					var password = $('#password').val();
+					var giftcode = $('#giftcode').val();
 					if (username!='' && password!='') {
 						console.log(username);
 						console.log(checkEmail(username));
 						if (checkEmail(username)==true) {
 							// var roles = ["provider","seeker"];
 							var roles = ["user"];
-							var registered = new Date();
+							var registered = dateYmdHis();
 							// active: false, 
 							
 							var obj = new Object();
 							obj.username = username;
 							obj.password = password;
+							obj.giftcode = giftcode;
 							var url = 'http://management-consulting.marcel-durchholz.de/secure/sendauthmail.php';
-							var sponsor = 'df8a74e899bba811';
 							
-							var request = $.ajax({
-							  url: url,
-							  type: "POST",
-							  data: { data : 'mydata' }
+							/*
+							this._sponsorData = new Object();
+							$.ajax('http://dominik-lohmann.de:5000/users/?giftcode='+giftcode,{
+								type:"GET",
+								async: false,
+							}).done(function(sponsorData) {
+								// doAlert( "DONE!" );
+								_sponsorData = sponsorData;
+								// console.log('_me.purchases actual');
+								// console.log(_me.purchases);
+							}).fail(function() {
+								doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
+							})
+							.always(function() {
+								// alert( "finished - nw redirecting" );
 							});
-							request.done(function( msg ) {
-								// $( "#log" ).html( msg );
-								// alert(msg);
-								if (msg=="1") {							  
+							var sponsor = sponsorData.id; // 'df8a74e899bba811';
+							*/
+							
+							var sponsor = "";
+							if (giftcode!='') sponsor = giftcode;
+							
+							
+							dpd.users.post({username: username, password: password, sponsor: sponsor, roles: roles, registered: registered, credits: "0"}, function(user, error) {
+								if (error) {
+									console.log(error.message);
+									doAlert('Bitte versuchen Sie es erneut.','Fehler bei der Registrierung!');
+									return(false);
+								} 
+								else {
+								
+								
+
 									$.ajax({
 										type: "POST",
 										url: url,
@@ -97,53 +125,36 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 										cache: false,
 										success: function(response) { 
 											// alert(response);
-											dpd.users.post({username: username, password: password, sponsor: sponsor, roles: roles, registered: registered}, function(user, error) {
-												if (error) {
-													console.log(error.message);
-													doAlert('Bitte versuchen Sie es erneut.','Fehler bei der Registrierung!');
-													return(false);
-												} 
-												else {
-													doAlert('Deine Registrierung war erfolgreich. Bitte bestätige die Benachrichtigung im Postfach Deiner angegeben E-Mail-Adresse.','Herzlich Willkommen!');
-													_thisViewLogin.sendLogin('#myprofile');
-													// _thisViewLogin.sendLogin('#myprofile');
-													// var regData = {username: username, password: password, roles: roles, registered: registered};
-													// _thisViewLogin.sendAuthMail();
-												}
-											});
+											doAlert('Deine Registrierung war erfolgreich. Bitte bestätige die Benachrichtigung im Postfach Deiner angegeben E-Mail-Adresse.','Herzlich Willkommen!');
+											_thisViewLogin.sendLogin('#myprofile');
 										},
 										error: function(response) {
 											console.log(response.status + " " + response.statusText);
-											doAlert('Die Registrierungsbenachrichtigung konnte nicht versendet werden.','Ups! Entschuldigung.');
+											doAlert('Die Registrierung konnte leider nicht durchgeführt werden.','Ups! Entschuldigung.');
 										},
 									});
-								} else {
-									doAlert('Die Übermittlung der Registrierung war leider nicht erfolgreich.','Ups! Entschuldung.');
+								
+								
 								}
-							});
-							request.fail(function( jqXHR, textStatus ) {
-							  doAlert( "Das hätte nicht passieren sollen. Es ist ein unbekannter Fehler aufgetreten. Probiere es später bitte erneut.", "Ups! Entschuldigung." );
-							  // doAlert( "Request failed: " + textStatus );
 							});
 							
-							/*
-							dpd.users.post({username: username, password: password, roles: roles, registered: registered}, function(user, error) {
-								if (error) {
-									console.log(error.message);
-									doAlert('Bitte versuchen Sie es erneut.','Fehler bei der Registrierung!');
-								} else {
-									// var regData = {username: username, password: password, roles: roles, registered: registered};
-									// _thisViewLogin.sendAuthMail();
-								}
-							});
-							*/
+							
+							
+
+
+							
+
+							
 						}
 						else {
-							doAlert('Bitte geben Sie als Benutzernamen Ihre gültige E-Mail-Adresse ein.','Fehlerhafter Benutzername!');
+							doAlert('Bitte geben Sie Ihre gültige E-Mail-Adresse im Feld Benutzername ein.','Ungültiger Benutzername!');
 						}
 					} else {
-						doAlert('Bitte geben Sie für einen neuen APPinaut Zugang Ihre gültige E-Mail-Adresse und Ihr gewünschtes Passwort ein.','Registrierung unvollständig');
+						doAlert('Bitte geben Sie für einen neuen Zugang Ihre gültige E-Mail-Adresse und Ihr gewünschtes Passwort ein.','Registrierung unvollständig');
 					}
+					
+					
+					
 				},
 				sync: function() {
 				},
@@ -152,14 +163,20 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				},
 				initialize: function() {
 					var _thisViewLogin = this;
-					this.$el.off('click','.sendLoginBtn').on('click','.sendLoginBtn',function(){_thisViewLogin.sendLogin('#dashboard');});
-					this.$el.off('click','.sendRegisterBtn').on('click','.sendRegisterBtn',function(){_thisViewLogin.sendRegister();});
 					this.fetch();
+				},
+				toggleGiftcodeInput: function() {
+					$('#giftcodeInput').hide();
+					$("#giftcodeInput").fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300);
 				},
 				bindEvents: function() {
 					var _thisViewLogin = this;
 					$('#showMenu').hide();
 					$('#showPageOptions').hide();
+					$('#giftcodeInput').toggle();
+					this.$el.off('click','.sendLoginBtn').on('click','.sendLoginBtn',function(event){event.preventDefault();_thisViewLogin.sendLogin('#dashboard');});
+					this.$el.off('click','.sendRegisterBtn').on('click','.sendRegisterBtn',function(event){event.preventDefault();_thisViewLogin.sendRegister();});
+					this.$el.off('click','#giftcode').on('click','#giftcode',function(event){event.preventDefault();_thisViewLogin.toggleGiftcodeInput();});
 				},
 				render: function() {
 					console.log('DOING render Videos.js called');
