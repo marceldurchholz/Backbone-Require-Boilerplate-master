@@ -467,40 +467,69 @@ var dao = {
 	}
 };
 
+function updateCoins(productId,amount) {
+	// updateCoins(iapid,'555');
+	showModal();
+	// alert(productId);
+	// alert(amount);
+	$.ajax('http://dominik-lohmann.de:5000/users/?id='+window.me.id,{
+		type:"GET",
+		async: false,
+	}).done(function(me) {
+		var newcredits = "0";
+		var addcredits = "0";
+		switch (productId) {
+		  case "com.digitalverve.APPinaut.250APP359T4":
+			addcredits = "250";
+			// alert("Sie sind sehr bescheiden");
+			break;
+		  case "com.digitalverve.APPinaut.750APP799T9":
+			addcredits = "750";
+			// alert("Sie sind ein aufrichtiger Zweibeiner");
+			break;
+		  case "com.digitalverve.APPinaut.2500APP2499T28":
+			addcredits = "2500";
+			// alert("Sie haben ein Dreirad gewonnen");
+			break;
+		  case "com.digitalverve.APPinaut.6500APP4999T51":
+			addcredits = "6500";
+			// alert("Gehen Sie auf allen Vieren und werden Sie bescheidener");
+			break;
+		  case "com.digitalverve.APPinaut.25000APP17999T72":
+			addcredits = "25000";
+			// alert("Gehen Sie auf allen Vieren und werden Sie bescheidener");
+			break;
+		  default:
+			// doAlert("Der In-App Kauf konnte leiner nicht zugeordnet werden. Bitte wenden Sie sich an den Support.","Unbekannter Fehler");
+			break;
+		}
+		newcredits = parseInt(me.credits,0) + parseInt(addcredits,0);
+		// alert(addcredits);
+		// console.log(newcredits);
+		// alert(newcredits);
+		dpd.users.put(me.id, {"credits":""+newcredits}, function(result, err) {
+			if(err) {
+				return console.log(err);
+				hideModal();
+			}
+			console.log(result, result.id);
+		});
+		_me = me;
+	}).fail(function() {
+		doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
+	})
+	.always(function() {
+		hideModal();
+		// doAlert('You just purchased: ' + productId);
+	});
+}
+
 function initStore() {
 	window.storekit.init({
-
 		debug: true, /* Because we like to see logs on the console */
-
 		purchase: function (transactionId, productId) {
 			console.log('purchased: ' + productId);
-
-			switch(productId) {
-				case "com.digitalverve.APPinaut.2500APP2499T28":
-					showModal();
-					$.ajax('http://dominik-lohmann.de:5000/users/?id='+window.me.id,{
-						type:"GET",
-						async: false,
-					}).done(function(me) {
-						var newcredits = "9999";
-						// newcredits = me.credits + 2500;
-						dpd.videos.put(me.id, {"credits":""+newcredits}, function(result, err) {
-							if(err) {
-								return console.log(err);
-								hideModal();
-							}
-							console.log(result, result.id);
-						});
-						_me = me;
-					}).fail(function() {
-						doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
-					})
-					.always(function() {
-						hideModal();
-						doAlert('You just purchased: ' + productId);
-					});
-				break;
-			}
+			updateCoins(productId,'0');
 		},
 		restore: function (transactionId, productId) {
 			console.log('restored: ' + productId);

@@ -140,6 +140,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 					var iapid = $(this).attr('data-iapid');
 					console.log("purchasing "+iapid);
 					// window.storekit.purchase("com.digitalverve.APPinaut."+iapid,1);
+					// updateCoins(iapid,'555');
 					window.storekit.purchase(iapid,1);
 					// window.storekit.purchase("com.digitalverve.APPinaut.250APP359T9", 1);
 					// window.storekit.purchase("com.digitalverve.APPinaut.250APP359T9");
