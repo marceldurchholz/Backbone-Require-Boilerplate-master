@@ -467,11 +467,8 @@ var dao = {
 	}
 };
 
-function updateCoins(productId,amount) {
-	// updateCoins(iapid,'555');
+function updateCoins(productId) {
 	showModal();
-	// alert(productId);
-	// alert(amount);
 	$.ajax('http://dominik-lohmann.de:5000/users/?id='+window.me.id,{
 		type:"GET",
 		async: false,
@@ -513,13 +510,15 @@ function updateCoins(productId,amount) {
 				hideModal();
 			}
 			console.log(result, result.id);
+			hideModal();
+			doAlert('Vielen Dank. Sie haben nun ' + newcredits + ' APPinaut Coins.','Kauf erfolgreich');
 		});
 		_me = me;
 	}).fail(function() {
+		hideModal();
 		doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
 	})
 	.always(function() {
-		hideModal();
 		// doAlert('You just purchased: ' + productId);
 	});
 }
@@ -529,7 +528,7 @@ function initStore() {
 		debug: true, /* Because we like to see logs on the console */
 		purchase: function (transactionId, productId) {
 			console.log('purchased: ' + productId);
-			updateCoins(productId,'0');
+			updateCoins(productId);
 		},
 		restore: function (transactionId, productId) {
 			console.log('restored: ' + productId);
