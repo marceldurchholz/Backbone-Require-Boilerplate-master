@@ -1958,7 +1958,8 @@ function captureVideoUpload(videoRecordLocalStorage) {
 		ft.onprogress = function(progressEvent) {
 			// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
 			// $('#uploadstatusbar').html(progressEvent.loaded + " / " + progressEvent.total);
-			$('#modaltxt').html( (Math.round((progressEvent.loaded / progressEvent.total) * 100)) + " %" );
+			// $('#modaltxt').html( (Math.round((progressEvent.loaded / progressEvent.total) * 100)) + " %" );
+			$('#modaltxt').html( progressEvent.loaded + " / " + progressEvent.total );
 		};
 		// $('#uploadstatusbar').hide();
 		var options = new FileUploadOptions();
