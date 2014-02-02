@@ -1587,7 +1587,7 @@ function setPicture(url, callback) {
 		url = "data:image/jpeg;base64," + url;
 	} catch (e) {
 		// not DATA_URL
-		log('URL: ' + url.slice(0, 100));
+		console.log('URL: ' + url.slice(0, 100));
 	}    
 
 	pictureUrl = url;
@@ -1600,12 +1600,12 @@ function setPicture(url, callback) {
 	/*
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
 		alert("Root = " + fs.root.fullPath);
-		log("Root = " + fs.root.fullPath);
+		console.log("Root = " + fs.root.fullPath);
 		var directoryReader = fs.root.createReader();
 		directoryReader.readEntries(function(entries) {
 			var i;
 			for (i=0; i<entries.length; i++) {
-				log(entries[i].name);
+				console.log(entries[i].name);
 			}
 		}, function (error) {
 			alert(error.code);
@@ -1630,19 +1630,19 @@ function setPicture(url, callback) {
 	}
 
 	img.onloadend = function() {
-		log('Image tag load time: ' + (new Date() - startTime));
+		console.log('Image tag load time: ' + (new Date() - startTime));
 		callback && callback();
 	};
 }
 
 function onGetPictureError(e) {
-	log('Error getting picture: ' + e.code);
+	console.log('Error getting picture: ' + e.code);
 }
 
 function getPicture() {
 	// clearStatus();
 	var options = extractOptions();
-	log('Getting picture with options: ' + JSON.stringify(options));
+	console.log('Getting picture with options: ' + JSON.stringify(options));
 	var popoverHandle = navigator.camera.getPicture(getPictureWin, onGetPictureError, options);
 
 	// Reposition the popover if the orientation changes.
@@ -1690,7 +1690,7 @@ function captureVideoRecord() {
 		var newPopoverOptions = new CameraPopoverOptions(0, 0, 100, 100, 0);
 		popoverHandle.setPosition(newPopoverOptions);
 	}
-	log(popoverHandle);
+	console.log(popoverHandle);
 }
 
 function purchaseVideoConfirm(me,videoData) {
@@ -1784,8 +1784,8 @@ function onGetVideoError(e) {
 }
 
 function getVideoWin(mediaFiles) {
-	log('captureVideoRecord');
-	log(mediaFiles);
+	console.log('captureVideoRecord');
+	console.log(mediaFiles);
 	try {
 		var i, path, len;
 		for (i = 0, len = mediaFiles.length; i < len; i += 1) {
@@ -1809,14 +1809,14 @@ function getVideoWin(mediaFiles) {
 			// var blax = JSON.stringify(mediaFiles);
 			// alert(path);
 			doAlert('Bitte klicken Sie zum forfahren auf weiter.','Aufnahme erfolgreich');
-			attachVideoToPlayer(mediaFiles[i].fullPath);
+			// attachVideoToPlayer(mediaFiles[i].fullPath);
 			// alert('Bitte klicken Sie auf hochladen.');
 		}
 	} catch (e) {
 		// not DATA_URL
 		// log('mediaFiles: ' + mediaFiles.slice(0, 100));
 	}    
-	log('set video function end');
+	console.log('set video function end');
 }
 
 // TODO: File Transfer onProgress DOWNload
@@ -1875,18 +1875,18 @@ function recordVideoUpload(videoRecordLocalStorage) {
 	// alert('bla');
 	// return(false);
 	var mediaFile = $('#camera_file').val();
-	log('class captureVideoUpload started');
+	console.log('class captureVideoUpload started');
 	try {
 		// $.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
 		showModal();
-		log('uploading '+mediaFile);
+		console.log('uploading '+mediaFile);
 		// log('uploading '+mediaFile.name);
 		var ft = new FileTransfer();
 		ft.onprogress = function(progressEvent) {
 			// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
 			// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
 			console.log(progressEvent.loaded + " / " + progressEvent.total);
-			$('#modaltxt').html(progressEvent.loaded+"/"+progressEvent.total);
+			$('#modaltxt').html(progressEvent.loaded + " / " + progressEvent.total);
 		};
 		var options = new FileUploadOptions();
 		options.fileName = new Date().getTime();
@@ -1911,15 +1911,15 @@ function recordVideoUpload(videoRecordLocalStorage) {
 				// $.mobile.loading('hide');
 				hideModal();
 				// alert("An error has occurred: Code = " = error.code);
-				log('Error uploading file ' + mediaFile + ': ' + error.code);
+				console.log('Error uploading file ' + mediaFile + ': ' + error.code);
 			},
 			options
 		);
 	} catch (e) {
 		// not DATA_URL
-		log('class new FileTransfer not possible');
+		console.log('class new FileTransfer not possible');
 	}
-	log('class recordVideoUpload ended');
+	console.log('class recordVideoUpload ended');
 }
 
 // Upload files to server
@@ -2015,22 +2015,22 @@ function uploadImage() {
 	options.fileName='test.jpg';
 	options.mimeType="image/jpeg";
 	ft.onprogress = function(progressEvent) {
-		log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
+		console.log('progress: ' + progressEvent.loaded + ' of ' + progressEvent.total);
 	};
 	var server = "aaaaaaaaaaaahttp://cordova-filetransfer.jitsu.com";
 
 	ft.upload(pictureUrl, server + '/upload', win, fail, options);
 	function win(information_back){
-		log('upload complete');
+		console.log('upload complete');
 	}
 	function fail(message) {
-		log('upload failed: ' + JSON.stringify(message));
+		console.log('upload failed: ' + JSON.stringify(message));
 	}
 }
 
 function logCallback(apiName, success) {
 	return function() {
-		log('Call to ' + apiName + (success ? ' success: ' : ' failed: ') + JSON.stringify([].slice.call(arguments)));
+		console.log('Call to ' + apiName + (success ? ' success: ' : ' failed: ') + JSON.stringify([].slice.call(arguments)));
 	};
 }
 
@@ -2042,16 +2042,16 @@ function readFile() {
 		img.style.visibility = "visible";
 		img.style.display = "block";
 		img.src = evt.target.result;
-		log("FileReader.readAsDataURL success");
+		console.log("FileReader.readAsDataURL success");
 	};
 
 	function onFileReceived(file) {
-		log('Got file: ' + JSON.stringify(file));
+		console.log('Got file: ' + JSON.stringify(file));
 		fileObj = file;
 
 		var reader = new FileReader();
 		reader.onload = function() {
-			log('FileReader.readAsDataURL() - length = ' + reader.result.length);
+			console.log('FileReader.readAsDataURL() - length = ' + reader.result.length);
 		};
 		reader.onerror = logCallback('FileReader.readAsDataURL', false);
 		reader.readAsDataURL(file);
