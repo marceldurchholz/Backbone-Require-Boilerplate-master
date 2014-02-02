@@ -136,7 +136,8 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				
 				this.$el.off('click','#purchase250').on('click','#purchase250',function(e){
 					e.preventDefault();
-					window.storekit.purchase("com.digitalverve.APPinaut.250APP359T9", 1);
+					// window.storekit.purchase("com.digitalverve.APPinaut.250APP359T9", 1);
+					window.storekit.purchase("com.digitalverve.APPinaut.250APP359T9");
 				});
 				
 				this.$el.off('click','#showdeletearea').on('click','#showdeletearea',function(e){
