@@ -10,17 +10,19 @@
 		<button id="formbackbutton" type="button" name="button" data-theme="a">Zurück</button>
 		
 		
-			<label for="slider-price">Preis (in Coins)</label>
+			<label for="slider-price">Preis in Coins</label>
 			<input type="range" name="slider-price" id="slider-price" value="<%= video.slider_price %>" min="0" max="500" step="10" data-mini="true" data-theme="a" data-track-theme="a"/>
 
 			<input type="text" name="title" id="title" placeholder="Titel der Multimediadatei"/>
+			<!--
 			<input type="text" name="subtitle" id="subtitle" placeholder="Untertitel der Multimediadatei"/>
+			-->
 			<textarea style="height:35%;" name="description" id="description" placeholder="Fügen Sie hier eine Beschreibung Ihrer Multimediadatei ein."></textarea>
 			
 			<div class="containing-element">
 				<select name="flip-activate" id="flip-activate" data-role="slider">
-					<option value="off">Media noch nicht aktivieren</option>
-					<option value="on">Media direkt bereitstellen</option>
+					<option value="off">Mediadaten nicht aktivieren</option>
+					<option value="on">Mediadaten bereitstellen</option>
 				</select>
 			</div>
 
@@ -28,7 +30,7 @@
 		<input type="hidden" id="camera_file" name="camera_file"></span>
 	</form>
 	
-	<button type="button" id="recordMediaUploadButton" name="recordMediaUploadButton" data-theme="b">Video hochladen</button>
+	<button type="button" id="recordMediaUploadButton" name="recordMediaUploadButton" data-theme="b">Mediadaten hochladen</button>
 
 	<span id="camera_status" style="width:0px;height:0px;"></span>
 	<div id="debugdiv" style="width:0px;height:0px;overflow:hidden;"></div>

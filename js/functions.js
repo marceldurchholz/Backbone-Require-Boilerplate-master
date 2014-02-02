@@ -1884,7 +1884,8 @@ function recordVideoUpload(videoRecordLocalStorage) {
 		var ft = new FileTransfer();
 		ft.onprogress = function(progressEvent) {
 			// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
-			$('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
+			// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
+			$('#uploadstatusbar').html(progressEvent.loaded+"/"+progressEvent.total);
 		};
 		var options = new FileUploadOptions();
 		options.fileName = new Date().getTime();
@@ -2328,7 +2329,7 @@ var menuSwitched = function(status) {
 function showModal(){
 	$("#body").append('<div class="modalWindow"/>');
 	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;">Loading the awesome...</div>' });
-	setTimeout('hideModal()', 2000);
+	// setTimeout('hideModal()', 60000);
 }
 
 function hideModal(){
