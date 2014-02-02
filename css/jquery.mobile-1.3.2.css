@@ -3372,4 +3372,4 @@ div.ui-slider-switch.ui-mini {
 
 .ui-collapsible-heading > * { text-decoration:none !important; }
 .ui-btn-text > * { text-decoration:none !important; }
-h2 , a{ text-decoration:none !important; }
+h2, h2:hover , a, a:hover{ text-decoration:none !important; }
