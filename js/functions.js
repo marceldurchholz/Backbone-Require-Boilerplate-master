@@ -1885,7 +1885,8 @@ function recordVideoUpload(videoRecordLocalStorage) {
 		ft.onprogress = function(progressEvent) {
 			// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
 			// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
-			$('#uploadstatusbar').html(progressEvent.loaded+"/"+progressEvent.total);
+			console.log(progressEvent.loaded + " / " + progressEvent.total);
+			$('#modaltxt').html(progressEvent.loaded+"/"+progressEvent.total);
 		};
 		var options = new FileUploadOptions();
 		options.fileName = new Date().getTime();
@@ -1894,10 +1895,10 @@ function recordVideoUpload(videoRecordLocalStorage) {
 		ft.upload(mediaFile,
 			"http://management-consulting.marcel-durchholz.de/secure/upload.php",
 			function(r) {
-				log("Code = " + r.responseCode);
-				log("Response = " + r.response);
-				log("Sent = " + r.bytesSent);
-				dpd.videos.post({"uploader":""+window.me,"videourl":""+options.fileName,"title":""+options.fileName,"description":""+options.fileName,"price":123,"thumbnailurl":"foobar"}, function(result, err) {
+				console.log("Code = " + r.responseCode);
+				console.log("Response = " + r.response);
+				console.log("Sent = " + r.bytesSent);
+				dpd.videos.post({"uploader":""+window.me,"videourl":""+options.fileName,"title":""+options.fileName,"description":""+options.fileName,"price":123,"thumbnailurl":""}, function(result, err) {
 					if(err) {
 						return console.log(err);
 					}
@@ -1963,7 +1964,9 @@ function captureVideoUpload(videoRecordLocalStorage) {
 		
 		$('#uploadstatusbar').show();
 		ft.onprogress = function(progressEvent) {
-			$('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
+			// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
+			$('#uploadstatusbar').html(progressEvent.loaded + " / " + progressEvent.total);
+			$('#modaltxt').html(progressEvent.loaded + " / " + progressEvent.total);
 		};
 		// $('#uploadstatusbar').hide();
 		var options = new FileUploadOptions();
@@ -2328,7 +2331,7 @@ var menuSwitched = function(status) {
 
 function showModal(){
 	$("#body").append('<div class="modalWindow"/>');
-	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;">Loading the awesome...</div>' });
+	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;float:none;clear:both;">Loading the awesome...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;">Loading the awesome...</div>' });
 	// setTimeout('hideModal()', 60000);
 }
 
