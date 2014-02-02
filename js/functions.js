@@ -474,7 +474,7 @@ function initStore() {
 
 		purchase: function (transactionId, productId) {
 			console.log('purchased: ' + productId);
-
+			/*
 			switch(productId) {
 				case "2500APP2499T28":
 					showModal();
@@ -501,6 +501,7 @@ function initStore() {
 					});
 				break;
 			}
+			*/
 		},
 		restore: function (transactionId, productId) {
 			console.log('restored: ' + productId);
