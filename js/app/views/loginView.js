@@ -105,7 +105,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							*/
 							
 							var sponsor = "";
-							if (giftcode!='') sponsor = giftcode;
+							if (giftcode!='') sponsor = giftcode.replace('-','');;
 							
 							
 							dpd.users.post({username: username, password: password, sponsor: sponsor, roles: roles, registered: registered, credits: "0"}, function(user, error) {
