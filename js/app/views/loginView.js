@@ -142,7 +142,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							doAlert('Bitte geben Sie als Benutzernamen Ihre gültige E-Mail-Adresse ein.','Fehlerhafter Benutzername!');
 						}
 					} else {
-						doAlert('Bitte geben Sie einen Benutzernamen und ein Passwort für Ihren APPinaut Zugang ein.','Eingabe überprüfen!');
+						doAlert('Bitte geben Sie für einen neuen APPinaut Zugang Ihre gültige E-Mail-Adresse und Ihr gewünschtes Passwort ein.','Registrierung unvollständig');
 					}
 				},
 				sync: function() {
