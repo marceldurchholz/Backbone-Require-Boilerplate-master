@@ -474,6 +474,33 @@ function initStore() {
 
 		purchase: function (transactionId, productId) {
 			console.log('purchased: ' + productId);
+
+			switch(productId) {
+				case "2500APP2499T28":
+					showModal();
+					$.ajax('http://dominik-lohmann.de:5000/users/?id='+window.me.id,{
+						type:"GET",
+						async: false,
+					}).done(function(me) {
+						var newcredits = "9999";
+						// newcredits = me.credits + 2500;
+						dpd.videos.put(me.id, {"credits":""+newcredits}, function(result, err) {
+							if(err) {
+								return console.log(err);
+								hideModal();
+							}
+							console.log(result, result.id);
+						});
+						_me = me;
+					}).fail(function() {
+						doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
+					})
+					.always(function() {
+						hideModal();
+						doAlert('You just purchased: ' + productId);
+					});
+				break;
+			}
 		},
 		restore: function (transactionId, productId) {
 			console.log('restored: ' + productId);
@@ -489,7 +516,11 @@ function initStore() {
 		},
 		ready: function () {
 			var productIds = [
-				"com.digitalverve.APPinaut.2500APP2499T28"
+				"com.digitalverve.APPinaut.250APP359T4", 
+				"com.digitalverve.APPinaut.750APP799T9", 
+				"com.digitalverve.APPinaut.2500APP2499T28", 
+				"com.digitalverve.APPinaut.6500APP4999T51", 
+				"com.digitalverve.APPinaut.25000APP17999T72"
 			];
 			window.storekit.load(productIds, function(validProducts, invalidProductIds) {
 				$.each(validProducts, function (i, val) {
@@ -1894,7 +1925,7 @@ function recordVideoUpload(videoRecordLocalStorage) {
 				console.log("Code = " + r.responseCode);
 				console.log("Response = " + r.response);
 				console.log("Sent = " + r.bytesSent);
-				dpd.videos.post({"uploader":""+window.me,"videourl":""+options.fileName,"title":""+options.fileName,"description":""+options.fileName,"price":123,"thumbnailurl":""}, function(result, err) {
+				dpd.videos.post({"uploader":""+window.me.id,"videourl":""+options.fileName,"title":""+options.fileName,"description":""+options.fileName,"price":123,"thumbnailurl":""}, function(result, err) {
 					if(err) {
 						return console.log(err);
 					}
