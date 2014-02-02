@@ -527,7 +527,7 @@ var app = {
 				// if(isMobile.any()) {
 				// }
 				
-				initStore();
+				if(isMobile.any()) initStore();
 				
 				new window.MobileRouter();
 				// return this.dfd.promise();

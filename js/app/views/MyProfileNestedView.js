@@ -134,10 +134,14 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 					});
 				});
 				
-				this.$el.off('click','#purchase250').on('click','#purchase250',function(e){
+				this.$el.off('click','.purchasebtn').on('click','.purchasebtn',function(e){
 					e.preventDefault();
+					// console.log(e.delegateTarget);
+					var iapid = $(this).attr('data-iapid');
+					console.log("purchasing "+iapid);
+					window.storekit.purchase("com.digitalverve.APPinaut."+iapid);
 					// window.storekit.purchase("com.digitalverve.APPinaut.250APP359T9", 1);
-					window.storekit.purchase("com.digitalverve.APPinaut.250APP359T9");
+					// window.storekit.purchase("com.digitalverve.APPinaut.250APP359T9");
 				});
 				
 				this.$el.off('click','#showdeletearea').on('click','#showdeletearea',function(e){
