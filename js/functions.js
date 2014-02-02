@@ -1846,28 +1846,28 @@ function sendLocalStorageToElements(videoRecordLocalStorage) {
 function attachVideoToPlayer(mediaFilePath) {
 	// var path = mediaFile.fullPath;
 	// var path = mediaFilePath;
-	console.log('attachVideoToPlayer: '+mediaFilePath);
-	var video_player = $('#video_player');
-	if (mediaFilePath==undefined) {
+	// console.log('attachVideoToPlayer: '+mediaFilePath);
+	// var video_player = $('#video_player');
+	// if (mediaFilePath==undefined) {
 		// console.log('hide');
-		$('#videobox').hide();
-		return(false);
-	}
-	else {
-		$('#camera_file').val(mediaFilePath);
-	}
-	if (video_player && mediaFilePath!='') {
-		var startTime = new Date();
-		video_player.src = mediaFilePath;
-		video_player.onloadend = function() {
-			log('Video load time: ' + (new Date() - startTime));
-		};
-	}
-	if (mediaFilePath=='') {
-		console.log('mediaFilePath empty','DEBUG');
+		// $('#videobox').hide();
+		// return(false);
+	// }
+	// else {
+		// $('#camera_file').val(mediaFilePath);
+	// }
+	// if (video_player && mediaFilePath!='') {
+		// var startTime = new Date();
+		// video_player.src = mediaFilePath;
+		// video_player.onloadend = function() {
+			// console.log('Video load time: ' + (new Date() - startTime));
+		// };
+	// }
+	// if (mediaFilePath=='') {
+		// console.log('mediaFilePath empty','DEBUG');
 		// $('#captureVideoUploadButton').button('disable');
 		// $('#submitbutton').button('disable');
-	}
+	// }
 }
 
 function recordVideoUpload(videoRecordLocalStorage) {	
@@ -1924,15 +1924,12 @@ function recordVideoUpload(videoRecordLocalStorage) {
 
 // Upload files to server
 function captureVideoUpload(videoRecordLocalStorage) {
-
 	var _this = this;
 	// alert('captureVideoUpload');
-	
-	console.log('^^');
-	console.log(videoRecordLocalStorage);
-	console.log('^^');
-	
-	console.log('^^^^^^^^^^^^');
+	// console.log('^^');
+	// console.log(videoRecordLocalStorage);
+	// console.log('^^');
+	// console.log('^^^^^^^^^^^^');
 	var models = videoRecordLocalStorage.models;
 	var formValues = new Array();
 	for(var key in models) {
@@ -1944,29 +1941,24 @@ function captureVideoUpload(videoRecordLocalStorage) {
 			formValues[modelkey] = modelsattribute[modelkey];
 		}
 	}
-	console.log('^^^^^^^^^^^^');
-	
-	console.log(formValues);
-	
-	console.log(_this._thisViewRecordVideoNested.me.id);
-	
+	// console.log('^^^^^^^^^^^^');
+	// console.log(formValues);
+	// console.log(_this._thisViewRecordVideoNested.me.id);
 	// return(false);
-
 	// var mediaFile = $('#camera_file').val();
 	var mediaFile = formValues.camera_file;
 	// alert('class captureVideoUpload started');
 	try {
 		// $.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
 		showModal();
-		log('uploading '+mediaFile);
+		// log('uploading '+mediaFile);
 		// log('uploading '+mediaFile.name);
 		var ft = new FileTransfer();
-		
-		$('#uploadstatusbar').show();
+		// $('#uploadstatusbar').show();
 		ft.onprogress = function(progressEvent) {
 			// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
-			$('#uploadstatusbar').html(progressEvent.loaded + " / " + progressEvent.total);
-			$('#modaltxt').html(progressEvent.loaded + " / " + progressEvent.total);
+			// $('#uploadstatusbar').html(progressEvent.loaded + " / " + progressEvent.total);
+			$('#modaltxt').html( (Math.round((progressEvent.loaded / progressEvent.total) * 100)) + " %" );
 		};
 		// $('#uploadstatusbar').hide();
 		var options = new FileUploadOptions();
@@ -1976,9 +1968,9 @@ function captureVideoUpload(videoRecordLocalStorage) {
 		ft.upload(mediaFile,
 			"http://management-consulting.marcel-durchholz.de/secure/upload.php",
 			function(r) {
-				log("Code = " + r.responseCode);
-				log("Response = " + r.response);
-				log("Sent = " + r.bytesSent);
+				console.log("Code = " + r.responseCode);
+				console.log("Response = " + r.response);
+				console.log("Sent = " + r.bytesSent);
 				dpd.videos.post({"uploader":""+_this._thisViewRecordVideoNested.me.id,"videourl":""+options.fileName,"title":""+formValues.title,"subtitle":""+formValues.subtitle,"description":""+formValues.description,"price":123,"thumbnailurl":"foobar"}, function(result, err) {
 					if(err) {
 						// $.mobile.loading( 'hide' );
@@ -1999,15 +1991,15 @@ function captureVideoUpload(videoRecordLocalStorage) {
 				// $.mobile.loading('hide');
 				hideModal();
 				// alert("An error has occurred: Code = " = error.code);
-				log('Error uploading file ' + mediaFile + ': ' + error.code);
+				console.log('Error uploading file ' + mediaFile + ': ' + error.code);
 			},
 			options
 		);
 	} catch (e) {
 		// not DATA_URL
-		log('class new FileTransfer not possible');
+		console.log('class new FileTransfer not possible');
 	}
-	log('class captureVideoUpload ended');
+	console.log('class captureVideoUpload ended');
 }
 
 
