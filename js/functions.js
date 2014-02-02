@@ -476,7 +476,7 @@ function initStore() {
 			console.log('purchased: ' + productId);
 
 			switch(productId) {
-				case "2500APP2499T28":
+				case "com.digitalverve.APPinaut.2500APP2499T28":
 					showModal();
 					$.ajax('http://dominik-lohmann.de:5000/users/?id='+window.me.id,{
 						type:"GET",
