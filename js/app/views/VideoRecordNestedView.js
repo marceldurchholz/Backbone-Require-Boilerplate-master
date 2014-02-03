@@ -162,6 +162,9 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				// alert('video download start');
 				// var statusDom;
 				// statusDom = $('#status');
+				showModal();
+				// $("#body").append('<div class="modalWindow"/>');
+				// $.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;float:none;clear:both;">Loading the awesome...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div>' });
 				var fileSystem;
 				console.log('starting downloadVideo a');
 				var ft = new FileTransfer();
@@ -188,10 +191,9 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				};
 				*/
 				
-				// showModal();
-				$("#body").append('<div class="modalWindow"/>');
-				$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;float:none;clear:both;">Loading the awesome...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div>' });
 				
+				console.log(uri);
+				console.log(downloadPath);
 				ft.onprogress = function(progressEvent) {
 					// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
 					// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
@@ -200,22 +202,20 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				};
 				ft.download(uri, downloadPath, 
 				function(entry) {
+					console.log(entry);
 					// statusDom.innerHTML = "";
 					// var media = new Media(entry.fullPath, null, function(e) { alert(JSON.stringify(e));});
 					// media.play();
-					
-					// hideModal();
-					$(".modalWindow").remove();
-					$.mobile.loading( 'hide' );
-
+					hideModal();
+					// $(".modalWindow").remove();
+					// $.mobile.loading( 'hide' );
 				}, 
 				function(error) {
-					alert('Crap something went wrong...');	
-					
-					// hideModal();
-					$(".modalWindow").remove();
-					$.mobile.loading( 'hide' );
-					
+					console.log(error);
+					alert('Crap something went wrong...');						
+					hideModal();
+					// $(".modalWindow").remove();
+					// $.mobile.loading( 'hide' );
 				});
 			},
 			downloadVideoToggle: function() {
