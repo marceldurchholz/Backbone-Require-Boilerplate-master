@@ -81,23 +81,29 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 						console.log(result, result.id); 
 						_thisViewMyProfileNested.me = result;
 						if (_thisViewMyProfileNested.me.active==true) {
-							console.log('active is true !!!');
-							$('#showMenu').show();
-							$('#showPageOptions').show();
-							$('#restrictedArea').show();
-							window.location.reload();
+							_thisViewMyProfileNested.activationMessage();
 						}
 
 					});
 					if (obj.id=='slogan') dpd.users.put(_thisViewMyProfileNested.me.id, {"slogan":obj.value}, function(result, err) { if(err) return console.log(err); console.log(result, result.id); });
 				}
 			},
+			activationMessage: function() {
+				// $('#showMenu').show();
+				// $('#showPageOptions').show();
+				// $('#restrictedArea').show();
+				doAlert('Ihr Profil ist nun bereit zur Freischaltung. Diese Seite wird dazu einmal neu geladen,','Profil bereit!');
+				window.location.reload();
+			},
 			checkActiveStatus: function() {
 				var _thisViewMyProfileNested = this;
 				dpd.users.me(function(me) {
 					_thisViewMyProfileNested.me = me;
 				});
-				if (_thisViewMyProfileNested.me.active==false) {
+				if (_thisViewMyProfileNested.me.active==true && _thisViewMyProfileNested.me.fullname!='' && _thisViewMyProfileNested.me.fullname!=undefined) {
+					_thisViewMyProfileNested.activationMessage();
+				}
+				else {
 					// doAlert('Um alle Funktionen des APPinaut nutzen zu können, bestätigen Sie bitte Ihre E-Mail-Adresse über den Link in der Ihnen zugestellten E-Mail.','E-Mail-Bestätigung erforderlich');
 					console.log('active still false');
 					window.clearTimeout(doid);
@@ -108,12 +114,6 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 					var confirmButtonLabels = 'Abbrechen,Bestätigen';
 					doConfirm(confirmText, confirmTitle, _thisViewMyProfileNested.confirmMyEmail, confirmButtonLabels);
 					*/
-				}
-				else {
-					console.log('active is now TRUE !!!');
-					$('#showMenu').show();
-					$('#showPageOptions').show();
-					$('#restrictedArea').show();							
 				}
 			},
 			confirmMyEmail: function(response) {
