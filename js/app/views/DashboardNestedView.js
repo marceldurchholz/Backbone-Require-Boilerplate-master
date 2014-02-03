@@ -72,12 +72,21 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 			},
 			bindEvents: function() {
 				var _thisViewDashboardNested = this;
-				if (_thisViewDashboardNested.me.active==false || _thisViewDashboardNested.me.fullname=='') {
-					$('#showMenu').hide();
-					$('#showPageOptions').hide();
-					// system.redirectToUrl('#myprofile');
-					window.location.href('#myprofile');
-				}
+				dpd.users.me(function(user) {
+					if (user) {
+						// _thisViewDashboardNested.me = user;
+						if (_thisViewDashboardNested.me.active==false || user.fullname=='') {
+							$('#showMenu').hide();
+							$('#showPageOptions').hide();
+							// system.redirectToUrl('#myprofile');
+							window.location.href = '#myprofile';
+						}
+					}
+					else {
+						// location.href = "#noaccess";
+						// console.log('you are not logged in');
+					}
+				});
 			},
 			render: function() {
 				var _thisViewDashboardNested = this;

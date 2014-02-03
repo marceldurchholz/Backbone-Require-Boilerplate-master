@@ -26,6 +26,10 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 					console.log(status);
 					_thisViewMyProfileNested.me = status;
 					_thisViewMyProfileNested.render();
+					if (_thisViewMyProfileNested.me.active==false) {
+						doAlert('Um alle Funktionen des APPinaut nutzen zu können, bestätigen Sie bitte Ihre E-Mail-Adresse über den Link in der Ihnen zugestellten E-Mail.','E-Mail-Bestätigung erforderlich');
+					}
+					_thisViewMyProfileNested.checkActiveStatus();
 				  },
 				  function( status ) {
 					// console.log( status + ", you fail this time" );
@@ -90,20 +94,32 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 					if (obj.id=='fullname') if (obj.value!='') dpd.users.put(_thisViewMyProfileNested.me.id, {"fullname":obj.value, roles: fullroles}, function(result, err) { 
 						if(err) return console.log(err); 
 						console.log(result, result.id); 
-						if (_thisViewMyProfileNested.me.active==true) {
-							$('#showMenu').show();
-							$('#showPageOptions').show();
-						}
-						else {
-						
-						var confirmText = 'Möchten Sie diese jetzt bestätigen? Sie benötigen hierzu eine aktive Internetverbung.';
-						var confirmTitle = 'E-Mail-Adresse noch nicht bestätigt';
-						var confirmButtonLabels = 'Abbrechen,Bestätigen';
-						doConfirm(confirmText, confirmTitle, _thisViewMyProfileNested.confirmMyEmail, confirmButtonLabels);
-
-						}
+						_thisViewMyProfileNested.me = result;
 					});
 					if (obj.id=='slogan') dpd.users.put(_thisViewMyProfileNested.me.id, {"slogan":obj.value}, function(result, err) { if(err) return console.log(err); console.log(result, result.id); });
+				}
+			},
+			checkActiveStatus: function() {
+				dpd.users.me(function(me) {
+					_thisViewMyProfileNested.me = me;
+				});
+				if (_thisViewMyProfileNested.me.active==false) {
+					// doAlert('Um alle Funktionen des APPinaut nutzen zu können, bestätigen Sie bitte Ihre E-Mail-Adresse über den Link in der Ihnen zugestellten E-Mail.','E-Mail-Bestätigung erforderlich');
+					console.log('active still false');
+					window.clearTimeout(doid);
+					var doid = window.setTimeout("_thisViewMyProfileNested.checkActiveStatus()", 10000);
+					/*
+					var confirmText = 'Möchten Sie diese jetzt bestätigen? Sie benötigen hierzu eine aktive Internetverbung.';
+					var confirmTitle = 'E-Mail-Adresse noch nicht bestätigt';
+					var confirmButtonLabels = 'Abbrechen,Bestätigen';
+					doConfirm(confirmText, confirmTitle, _thisViewMyProfileNested.confirmMyEmail, confirmButtonLabels);
+					*/
+				}
+				else {
+					console.log('active is now TRUE !!!');
+					$('#showMenu').show();
+					$('#showPageOptions').show();
+					$('#restrictedArea').show();							
 				}
 			},
 			confirmMyEmail: function(response) {
@@ -118,6 +134,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 			bindEvents: function() {
 				var _thisViewMyProfileNested = this;
 				$('#delaccuntarea').hide();
+				$('#restrictedArea').hide();
 				$('#showMenu').hide();
 				$('#showPageOptions').hide();
 				if (_thisViewMyProfileNested.me.active==true) {
