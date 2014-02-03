@@ -75,7 +75,8 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 				if (_thisViewDashboardNested.me.active==false || _thisViewDashboardNested.me.fullname=='') {
 					$('#showMenu').hide();
 					$('#showPageOptions').hide();
-					system.redirectToUrl('#myprofile');
+					// system.redirectToUrl('#myprofile');
+					window.location.href('#myprofile');
 				}
 			},
 			render: function() {
