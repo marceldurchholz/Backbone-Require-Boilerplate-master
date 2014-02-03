@@ -59,11 +59,9 @@
 	-->	
 	
 	<!--- DOCS: https://github.com/EddyVerbruggen/LaunchMyApp-PhoneGap-Plugin#4-url-scheme-hints -->
-	<!--
 	<gap:plugin name="nl.x-services.plugins.launchmyapp">
 	  <param name="URL_SCHEME" value="appinaut" />
 	</gap:plugin>
-	-->
 	<!--
 	<gap:plugin name="com.phonegap.plugins.facebookconnect">
 		<param name="APP_ID" value="608776825852280" />

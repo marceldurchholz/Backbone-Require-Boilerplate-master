@@ -98,7 +98,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 						
 						var confirmText = 'Möchten Sie diese jetzt bestätigen? Sie benötigen hierzu eine aktive Internetverbung.';
 						var confirmTitle = 'E-Mail-Adresse noch nicht bestätigt';
-						var confirmButtonLabels = 'Bestätigen,Abbrechen';
+						var confirmButtonLabels = 'Abbrechen,Bestätigen';
 						doConfirm(confirmText, confirmTitle, _thisViewMyProfileNested.confirmMyEmail, confirmButtonLabels);
 
 						}
@@ -108,10 +108,10 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 			},
 			confirmMyEmail: function(response) {
 				console.log(response);
-				if (response==1) {
+				if (response==2) {
 					// system.redirectToUrl('#logout');
 					var vurl =  'http://prelaunch002.appinaut.de/secure/external/verify.php?v='+window.me.id;
-					doAlert('Sie werden nun zu folgender Internetdresse weitergeleitet: '+vurl,'Bestätigung/Weiterleitung');
+					// doAlert('Sie werden nun zu folgender Internetdresse weitergeleitet: '+vurl,'Bestätigung/Weiterleitung');
 					window.location.href = vurl;
 				}
 			},
