@@ -12,15 +12,13 @@
 		
 		<br>
 		<a id="captureVideoRecordButton" name="captureVideoRecordButton" data-theme="d" data-role="button">Media aufnehmen</a>
-
-		<br>
-		<a id="downloadVideoButton" name="downloadVideoButton" data-theme="a" data-role="button">Media verknüpfen</a>
-		
-		<br>
+		<!-- <br> -->
+		<a id="downloadVideoButton" name="downloadVideoButton" data-theme="a" data-role="button">Media verknüpfen</a>		
+		<!-- <br> -->
 		<a id="submitbutton" name="submitbutton" data-theme="b" data-role="button">Weiter</a>
 		
 		<form id="submitform" action="#videos/record" method="post">
-			<input type="hidden" id="camera_file" name="camera_file" value=""></span>
+			<input type="text" id="camera_file" name="camera_file" value="file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4"></span>
 		</form>
 		
 		<span id="camera_status" style="width:0px;height:0px;overflow:hidden;"></span>

@@ -1746,7 +1746,7 @@ function captureVideoRecord() {
 		var newPopoverOptions = new CameraPopoverOptions(0, 0, 100, 100, 0);
 		popoverHandle.setPosition(newPopoverOptions);
 	}
-	log(popoverHandle);
+	console.log(popoverHandle);
 }
 
 function purchaseVideoConfirm(me,videoData) {
@@ -1842,8 +1842,8 @@ function onGetVideoError(e) {
 }
 
 function getVideoWin(mediaFiles) {
-	log('captureVideoRecord');
-	log(mediaFiles);
+	console.log('captureVideoRecord');
+	console.log(mediaFiles);
 	try {
 		var i, path, len;
 		for (i = 0, len = mediaFiles.length; i < len; i += 1) {
@@ -1901,6 +1901,34 @@ function sendLocalStorageToElements(videoRecordLocalStorage) {
 	console.log('************');
 }
 
+
+function attachVideoToPlayer(mediaFilePath) {
+	// var path = mediaFile.fullPath;
+	// var path = mediaFilePath;
+	console.log('attachVideoToPlayer: '+mediaFilePath);
+	var video_player = $('#video_player');
+	if (mediaFilePath==undefined) {
+		// console.log('hide');
+		// $('#videobox').hide();
+		return(false);
+	}
+	else {
+		$('#camera_file').val(mediaFilePath);
+	}
+	if (video_player && mediaFilePath!='') {
+		var startTime = new Date();
+		video_player.src = mediaFilePath;
+		video_player.onloadend = function() {
+			log('Video load time: ' + (new Date() - startTime));
+		};
+	}
+	if (mediaFilePath=='') {
+		console.log('mediaFilePath empty','DEBUG');
+		// $('#captureVideoUploadButton').button('disable');
+		// $('#submitbutton').button('disable');
+	}
+}
+/*
 function attachVideoToPlayer(mediaFilePath) {
 	// var path = mediaFile.fullPath;
 	// var path = mediaFilePath;
@@ -1927,6 +1955,7 @@ function attachVideoToPlayer(mediaFilePath) {
 		// $('#submitbutton').button('disable');
 	// }
 }
+*/
 
 function recordVideoUpload(videoRecordLocalStorage) {	
 	console.log(videoRecordLocalStorage);
@@ -1984,9 +2013,9 @@ function recordVideoUpload(videoRecordLocalStorage) {
 function captureVideoUpload(videoRecordLocalStorage) {
 	var _this = this;
 	// alert('captureVideoUpload');
-	// console.log('^^');
-	// console.log(videoRecordLocalStorage);
-	// console.log('^^');
+	console.log('^^');
+	console.log(videoRecordLocalStorage);
+	console.log('^^');
 	// console.log('^^^^^^^^^^^^');
 	var models = videoRecordLocalStorage.models;
 	var formValues = new Array();

@@ -153,7 +153,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				},{variable: 'video'}));
 				
 				if (!isMobile.any()) {
-					$('#camera_file').val('nureindesktoptestpfad');
+					// $('#camera_file').val('file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4');
 				}
 				this.$el.trigger('create');
 				sendLocalStorageToElements(_thisViewRecordVideoNested.localStorageSubmitform.models);
