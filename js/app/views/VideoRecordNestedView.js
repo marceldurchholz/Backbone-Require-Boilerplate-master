@@ -170,11 +170,38 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				var ft = new FileTransfer();
 				console.log('starting downloadVideo b');
 				window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
-				console.log('starting downloadVideo c');
+					console.log('starting downloadVideo c');
 					var downloadPath = fs.root.fullPath + "/download.mp4";
 					console.log(downloadPath);
 					var uri = encodeURI("http://management-consulting.marcel-durchholz.de/secure/1391304708489.mp4");			 
 					console.log('starting downloadVideo d');
+					
+					console.log(uri);
+					console.log(downloadPath);
+					ft.onprogress = function(progressEvent) {
+						// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
+						// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
+						console.log(progressEvent.loaded + " / " + progressEvent.total);
+						$('#modaltxt').html(progressEvent.loaded+"/"+progressEvent.total);
+					};
+					ft.download(uri, downloadPath, 
+					function(entry) {
+						console.log(entry);
+						// statusDom.innerHTML = "";
+						// var media = new Media(entry.fullPath, null, function(e) { alert(JSON.stringify(e));});
+						// media.play();
+						hideModal();
+						// $(".modalWindow").remove();
+						// $.mobile.loading( 'hide' );
+					}, 
+					function(error) {
+						console.log(error);
+						alert('Crap something went wrong...');						
+						hideModal();
+						// $(".modalWindow").remove();
+						// $.mobile.loading( 'hide' );
+					});
+					
 				});
 				/*
 				ft.onprogress = function(progressEvent) {
@@ -190,33 +217,6 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					}
 				};
 				*/
-				
-				
-				console.log(uri);
-				console.log(downloadPath);
-				ft.onprogress = function(progressEvent) {
-					// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
-					// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
-					console.log(progressEvent.loaded + " / " + progressEvent.total);
-					$('#modaltxt').html(progressEvent.loaded+"/"+progressEvent.total);
-				};
-				ft.download(uri, downloadPath, 
-				function(entry) {
-					console.log(entry);
-					// statusDom.innerHTML = "";
-					// var media = new Media(entry.fullPath, null, function(e) { alert(JSON.stringify(e));});
-					// media.play();
-					hideModal();
-					// $(".modalWindow").remove();
-					// $.mobile.loading( 'hide' );
-				}, 
-				function(error) {
-					console.log(error);
-					alert('Crap something went wrong...');						
-					hideModal();
-					// $(".modalWindow").remove();
-					// $.mobile.loading( 'hide' );
-				});
 			},
 			downloadVideoToggle: function() {
 				$('#downloadVideoToggleButton').toggle();
