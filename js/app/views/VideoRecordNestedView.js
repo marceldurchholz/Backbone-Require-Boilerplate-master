@@ -167,10 +167,11 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				var ft = new FileTransfer();
 				console.log('starting downloadVideo b');
 				window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
-					var downloadPath = fileSystem.root.fullPath + "/download.mp4";
+				console.log('starting downloadVideo c');
+					var downloadPath = fs.root.fullPath + "/download.mp4";
 					console.log(downloadPath);
 					var uri = encodeURI("http://management-consulting.marcel-durchholz.de/secure/1391304708489.mp4");			 
-					console.log('starting downloadVideo c');
+					console.log('starting downloadVideo d');
 				});
 				/*
 				ft.onprogress = function(progressEvent) {
