@@ -2483,8 +2483,11 @@ function dateYmdHis() {
     return(val);
 }
 
+/*
 function handleOpenURL(url) {
   setTimeout(function() {
-    alert("received url: " + url);
+    // alert("received url: " + url);
+	alert("received url");
   }, 0);
 }
+*/
