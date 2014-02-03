@@ -67,6 +67,12 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				console.log('fetching VideoRecordNestedView.js');
 				this.$el.hide();
 				_thisViewRecordVideoNested.initializeme();
+				$.ajax({
+					url: "http://dominik-lohmann.de:5000/interests",
+					async: false
+				}).done(function(interests) {
+					_thisViewRecordVideoNested.interests = interests;
+				});
 			},
 			savePageOne: function(event) {
 				event.preventDefault();
@@ -149,11 +155,12 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				if (_thisVideoRecordAttributes['slider-price']==undefined) _thisVideoRecordAttributes['slider-price'] = "200";
 				// console.log(_thisVideoRecordAttributes['slider-price']);
 				_thisViewRecordVideoNested.$el.html(_.template(_thisViewRecordVideoNested.activePage, {
-					slider_price:_thisVideoRecordAttributes['slider-price']
+					slider_price:_thisVideoRecordAttributes['slider-price'],
+					interests:_thisViewRecordVideoNested.interests					
 				},{variable: 'video'}));
 				
 				if (!isMobile.any()) {
-					// $('#camera_file').val('file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4');
+					$('#camera_file').val('file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4');
 				}
 				this.$el.trigger('create');
 				sendLocalStorageToElements(_thisViewRecordVideoNested.localStorageSubmitform.models);

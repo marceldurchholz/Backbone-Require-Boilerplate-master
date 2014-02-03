@@ -75,13 +75,6 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			bindEvents: function() {
 				var _thisViewVideo = this;
 				// this.$el.off('click','.clickRow').on('click','.clickRow',function(){_thisViewVideo.clicked(e);});
-				
-				dpd.videos.on('create', function(videoData) {
-					// renderMessage(message);
-					doAlert('new video existing');
-					console.log(videoData);
-				});
-				
 				this.$el.off('click','.showVideoDetailsLink').on('click','.showVideoDetailsLink',function(event){
 					event.preventDefault();
 					window.location.href = event.currentTarget.hash;

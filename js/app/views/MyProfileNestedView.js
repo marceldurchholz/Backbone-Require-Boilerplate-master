@@ -17,15 +17,12 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				}).done(function(users) {
 					var logincounts = 0;
 					_.each(users, function(user) {
-						// var exists = jQuery.inArray( $.trim(interest.name), _thisViewMyProfileNested.me.interests );
-						// if (exists>-1) interest.checked = "checked";
 						if (user.logincount==undefined) user.logincount = 0;
 						logincounts += user.logincount;
 					});
 					_thisViewMyProfileNested.me.level = Math.round(3*(window.me.logincount/logincounts),0);
 					alert(_thisViewMyProfileNested.me.level);
 				});
-
 				
 				$.ajax({
 					url: "http://dominik-lohmann.de:5000/interests",

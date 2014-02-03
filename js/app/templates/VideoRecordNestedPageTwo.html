@@ -20,6 +20,21 @@
 			<textarea data-mini="true" style="height:35%;" name="description" id="description" placeholder="Fügen Sie hier eine Beschreibung Ihrer Multimediadatei ein."></textarea>
 			
 			<div class="containing-element">
+				<label for="interest" class="select">Kategorie/Wissensgebiet</label>
+				<select name="interest" id="interest">
+					<% _.each(video.interests, function(interest) { %>
+						<option <%= interest.checked %> value="<%= interest.name %>"><%= interest.name %></option>
+						<!--
+						<option value="standard">Standard: 7 day</option>
+						<option value="rush">Rush: 3 days</option>
+						<option value="express">Express: next day</option>
+						<option value="overnight">Overnight</option>
+						-->
+					<% }); %>
+				</select>
+			</div>
+
+			<div class="containing-element">
 				<select name="flip-activate" id="flip-activate" data-role="slider">
 					<option value="off">Mediadaten nicht aktivieren</option>
 					<option value="on">Mediadaten bereitstellen</option>

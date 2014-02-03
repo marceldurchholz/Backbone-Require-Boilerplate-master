@@ -1892,6 +1892,17 @@ function sendLocalStorageToElements(videoRecordLocalStorage) {
 				$('#'+modelkey).html(modelsattribute[modelkey]);
 				console.log(modelkey+' >> '+modelsattribute[modelkey]);
 			}
+			else if($('#'+modelkey).is("select")) {
+				alert(modelkey + ' is a select');
+				if (modelkey=='interest') {
+					// $('#'+modelkey).val(modelsattribute[modelkey]);
+					// console.log(modelkey+' >> '+modelsattribute[modelkey]);
+				}
+				else {
+					// $('#'+modelkey).val(modelsattribute[modelkey]);
+					// console.log(modelkey+' >> '+modelsattribute[modelkey]);
+				}
+			}
 			else {
 				$('#'+modelkey).val(modelsattribute[modelkey]);
 				console.log(modelkey+' >> '+modelsattribute[modelkey]);

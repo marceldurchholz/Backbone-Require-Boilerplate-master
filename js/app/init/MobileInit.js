@@ -126,6 +126,12 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	htmlContent += '</ul>';
 	*/
 	
+	dpd.videos.on('create', function(videoData) {
+		// renderMessage(message);
+		doAlert('new video existing');
+		console.log(videoData);
+	});	
+
 	var htmlContent = '';
 	htmlContent = '<ul data-role="listview">';
 		htmlContent += '<li data-roles="public" 	data-mini="true" data-iconpos="left" data-icon="arrow-l"><a style="font-weight:normal;" onClick="javascript:rotatePageOptionsIcon();history.back();return(false);">Zurück</a></li>';
