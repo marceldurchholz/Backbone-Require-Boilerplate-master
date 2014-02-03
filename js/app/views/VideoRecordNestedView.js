@@ -159,24 +159,19 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				// $('#submitbutton').button('disable');
 			},
 			downloadVideo: function() {
-				// alert('video download start');
-				// var statusDom;
-				// statusDom = $('#status');
+				var _thisViewRecordVideoNested = this;
 				showModal();
-				// $("#body").append('<div class="modalWindow"/>');
-				// $.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;float:none;clear:both;">Loading the awesome...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div>' });
 				var fileSystem;
-				console.log('starting downloadVideo a');
+				// console.log('starting downloadVideo a');
 				var ft = new FileTransfer();
-				console.log('starting downloadVideo b');
+				// console.log('starting downloadVideo b');
 				window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
-					console.log('starting downloadVideo c');
+					// console.log('starting downloadVideo c');
 					var downloadPath = fs.root.fullPath + "/download.mp4";
-					console.log(downloadPath);
-					var uri = encodeURI("http://management-consulting.marcel-durchholz.de/secure/1391304708489.mp4");			 
-					console.log('starting downloadVideo d');
-					
-					console.log(uri);
+					// console.log(downloadPath);
+					var uri = encodeURI("http://management-consulting.marcel-durchholz.de/secure/4444444444.mp4");			 
+					// console.log('starting downloadVideo d');
+					// console.log(uri);
 					console.log(downloadPath);
 					ft.onprogress = function(progressEvent) {
 						// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
@@ -187,19 +182,16 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					ft.download(uri, downloadPath, 
 					function(entry) {
 						console.log(entry);
-						// statusDom.innerHTML = "";
 						// var media = new Media(entry.fullPath, null, function(e) { alert(JSON.stringify(e));});
 						// media.play();
+						_thisViewRecordVideoNested.downloadVideoToggle();
+						$('#camera_file').val(downloadPath);
 						hideModal();
-						// $(".modalWindow").remove();
-						// $.mobile.loading( 'hide' );
 					}, 
 					function(error) {
 						console.log(error);
 						alert('Crap something went wrong...');						
 						hideModal();
-						// $(".modalWindow").remove();
-						// $.mobile.loading( 'hide' );
 					});
 					
 				});
@@ -219,10 +211,11 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				*/
 			},
 			downloadVideoToggle: function() {
+				var _thisViewRecordVideoNested = this;
 				$('#downloadVideoToggleButton').toggle();
 				$('#captureVideoRecordButton').toggle();
 				$('#downloadVideoInputDiv').toggle();
-				$('#downloadVideoUrl').val('http://management-consulting.marcel-durchholz.de/secure/1391304708489.mp4');
+				// $('#downloadVideoUrl').val('http://management-consulting.marcel-durchholz.de/secure/1391304708489.mp4');
 			},
 			render: function() {
 				var _thisViewRecordVideoNested = this;
