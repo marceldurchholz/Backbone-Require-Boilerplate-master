@@ -152,10 +152,10 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				var _thisViewRecordVideoNested = this;
 				console.log('DOING render VideoRecordNestedView.js called');				
 				_thisVideoRecordAttributes = _thisViewRecordVideoNested.localStorageSubmitform.models[0].attributes;
-				if (_thisVideoRecordAttributes['slider-price']==undefined) _thisVideoRecordAttributes['slider-price'] = "200";
-				// console.log(_thisVideoRecordAttributes['slider-price']);
+				if (_thisVideoRecordAttributes['sliderprice']==undefined) _thisVideoRecordAttributes['sliderprice'] = "200";
+				// console.log(_thisVideoRecordAttributes['sliderprice']);
 				_thisViewRecordVideoNested.$el.html(_.template(_thisViewRecordVideoNested.activePage, {
-					slider_price:_thisVideoRecordAttributes['slider-price'],
+					slider_price:_thisVideoRecordAttributes['sliderprice'],
 					interests:_thisViewRecordVideoNested.interests					
 				},{variable: 'video'}));
 				
