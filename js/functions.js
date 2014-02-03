@@ -2482,3 +2482,9 @@ function dateYmdHis() {
 	var val = '' + y + '' + (m<=9 ? '0' + m : m) + '' + (d <= 9 ? '0' + d : d) + '' + (H<=9 ? '0' + H : H)  + '' + (i<=9 ? '0' + i : i)  + '' + (s<=9 ? '0' + s : s);
     return(val);
 }
+
+function handleOpenURL(url) {
+  setTimeout(function() {
+    alert("received url: " + url);
+  }, 0);
+}
