@@ -138,6 +138,16 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					event.preventDefault();
 					captureVideoRecord();
 				});
+				$('#downloadVideoInputDiv').toggle();
+				this.$el.off('click','.downloadVideoToggleButton').on('click','.downloadVideoToggleButton',function(event){
+					event.preventDefault();
+					_thisViewRecordVideoNested.downloadVideoToggle();
+				});
+				this.$el.off('click','#downloadVideoButton').on('click','#downloadVideoButton',function(event){
+					event.preventDefault();
+					_thisViewRecordVideoNested.downloadVideo();
+				});
+				
 				$('#uploadstatusbar').hide();
 				/*
 				this.$el.off('click','#captureVideoUploadButton').on('click','#captureVideoUploadButton',function(event){
@@ -147,6 +157,41 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				*/
 				// $('#captureVideoUploadButton').button('disable');
 				// $('#submitbutton').button('disable');
+			},
+			downloadVideo: function() {
+				alert('video download start');
+				var statusDom;
+				statusDom = document.querySelector('#status');
+				var ft = new FileTransfer();
+				var uri = encodeURI("http://management-consulting.marcel-durchholz.de/secure/1391304708489.mp4");			 
+				var downloadPath = fileSystem.root.fullPath + "/download.mp4";
+				ft.onprogress = function(progressEvent) {
+					if (progressEvent.lengthComputable) {
+						var perc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
+						statusDom.innerHTML = perc + "% loaded...";
+					} else {
+						if(statusDom.innerHTML == "") {
+							statusDom.innerHTML = "Loading";
+						} else {
+							statusDom.innerHTML += ".";
+						}
+					}
+				};
+				ft.download(uri, downloadPath, 
+				function(entry) {
+					statusDom.innerHTML = "";
+					var media = new Media(entry.fullPath, null, function(e) { alert(JSON.stringify(e));});
+					media.play();
+				}, 
+				function(error) {
+					alert('Crap something went wrong...');	
+				});
+			},
+			downloadVideoToggle: function() {
+				$('#downloadVideoToggleButton').toggle();
+				$('#captureVideoRecordButton').toggle();
+				$('#downloadVideoInputDiv').toggle();
+				$('#downloadVideoUrl').val('http://management-consulting.marcel-durchholz.de/secure/1391304708489.mp4');
 			},
 			render: function() {
 				var _thisViewRecordVideoNested = this;

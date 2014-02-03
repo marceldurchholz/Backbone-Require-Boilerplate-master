@@ -28,7 +28,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					doAlert('new video existing');
 					// console.log(videoData);
 					console.log(videoData);
-					window.location.reload();
+					// window.location.reload();
+					_thisViewLearningStreamNested.fetch();
 				});
 
 				
