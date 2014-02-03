@@ -134,7 +134,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 										cache: false,
 										success: function(response) { 
 											// alert(response);
-											doAlert('Deine Registrierung war erfolgreich. Bitte bestätige die Benachrichtigung im Postfach Deiner angegeben E-Mail-Adresse.','Herzlich Willkommen!');
+											doAlert('Die Registrierung war erfolgreich. Bitte vervollständige Dein Profil und bestätige Deine E-Mail-Adresse.','Herzlich Willkommen!');
 											_thisViewLogin.sendLogin('#myprofile');
 										},
 										error: function(response) {

@@ -125,12 +125,6 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		htmlContent += '</li>';
 	htmlContent += '</ul>';
 	*/
-	
-	dpd.videos.on('create', function(videoData) {
-		// renderMessage(message);
-		doAlert('new video existing');
-		console.log(videoData);
-	});	
 
 	var htmlContent = '';
 	htmlContent = '<ul data-role="listview">';

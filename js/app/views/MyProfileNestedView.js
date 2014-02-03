@@ -8,9 +8,10 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 			el: "#MyProfileNestedViewDiv",
 			initialize: function() {
 				var _thisViewMyProfileNested = this;
+				// _thisViewMyProfileNested.me = new Object();
 				console.log('initializing MyProfileNestedView.js');
 				_thisViewMyProfileNested.me = window.me;
-				_thisViewMyProfileNested.initialized.me = window.me;
+				_thisViewMyProfileNested.initialized = _thisViewMyProfileNested.me;
 				
 				$.ajax({
 					url: "http://dominik-lohmann.de:5000/users",
@@ -63,6 +64,9 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				console.log(e.currentTarget.defaultValue);
 				console.log(e.currentTarget.value);
 				*/
+				dpd.users.me(function(me) {
+					_thisViewMyProfileNested.me = me;
+				});
 				var obj = e.currentTarget;
 				if (obj.defaultValue != obj.value) {
 					console.log(_thisViewMyProfileNested.me.id);
@@ -89,11 +93,15 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				}
 			},
 			activationMessage: function() {
+				var _thisViewMyProfileNested = this;
 				// $('#showMenu').show();
 				// $('#showPageOptions').show();
 				// $('#restrictedArea').show();
-				doAlert('Ihr Profil ist nun bereit zur Freischaltung. Diese Seite wird dazu einmal neu geladen,','Profil bereit!');
-				window.location.reload();
+				console.log(_thisViewMyProfileNested.initialized.active,_thisViewMyProfileNested.me.active);
+				if (_thisViewMyProfileNested.initialized.active != _thisViewMyProfileNested.me.active) {
+					doAlert('Ihr Profil ist nun bereit zur Freischaltung. Diese Seite wird dazu einmal neu geladen,','Profil bereit!');
+					window.location.reload();
+				}
 			},
 			checkActiveStatus: function() {
 				var _thisViewMyProfileNested = this;
@@ -127,6 +135,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 			},
 			bindEvents: function() {
 				var _thisViewMyProfileNested = this;
+				
 				$('#delaccuntarea').hide();
 				$('#restrictedArea').hide();
 				$('#showMenu').hide();
@@ -135,6 +144,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 					if ($("#fullname").val()!='') {
 						$('#showMenu').show();
 						$('#showPageOptions').show();
+						$('#restrictedArea').show();
 					}
 				}
 				

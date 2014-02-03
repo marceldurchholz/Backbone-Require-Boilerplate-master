@@ -22,6 +22,15 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			},
 			bindEvents: function() {
 				var _thisViewLearningStreamNested = this;
+				
+				dpd.videos.on('create', function(videoData) {
+					// renderMessage(message);
+					doAlert('new video existing');
+					// console.log(videoData);
+					window.location.reload();
+				});
+
+				
 				/*
 				// this.$el.off('click','.clickRow').on('click','.clickRow',function(){_thisViewLearningStreamNested.clicked(e);});
 				this.$el.off('click','.showVideoDetailsLink').on('click','.showVideoDetailsLink',function(event){
