@@ -162,10 +162,13 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				// alert('video download start');
 				// var statusDom;
 				// statusDom = $('#status');
+				console.log('starting downloadVideo a');
 				var ft = new FileTransfer();
-				var downloadPath = fileSystem.root + "download.mp4";
+				console.log('starting downloadVideo b');
+				var downloadPath = fileSystem.root.fullPath + "/download.mp4";
 				alert(downloadPath);
 				var uri = encodeURI("http://management-consulting.marcel-durchholz.de/secure/1391304708489.mp4");			 
+				console.log('starting downloadVideo c');
 				/*
 				ft.onprogress = function(progressEvent) {
 					if (progressEvent.lengthComputable) {
@@ -180,7 +183,11 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					}
 				};
 				*/
-				showModal();
+				
+				// showModal();
+				$("#body").append('<div class="modalWindow"/>');
+				$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;float:none;clear:both;">Loading the awesome...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div>' });
+				
 				ft.onprogress = function(progressEvent) {
 					// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
 					// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
@@ -192,11 +199,19 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					// statusDom.innerHTML = "";
 					// var media = new Media(entry.fullPath, null, function(e) { alert(JSON.stringify(e));});
 					// media.play();
-					hideModal();
+					
+					// hideModal();
+					$(".modalWindow").remove();
+					$.mobile.loading( 'hide' );
+
 				}, 
 				function(error) {
 					alert('Crap something went wrong...');	
-					hideModal();
+					
+					// hideModal();
+					$(".modalWindow").remove();
+					$.mobile.loading( 'hide' );
+					
 				});
 			},
 			downloadVideoToggle: function() {
