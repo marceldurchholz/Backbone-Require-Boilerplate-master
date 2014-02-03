@@ -26,8 +26,8 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 					console.log(status);
 					_thisViewMyProfileNested.me = status;
 					_thisViewMyProfileNested.render();
-					if (_thisViewMyProfileNested.me.active==false) {
-						doAlert('Um alle Funktionen des APPinaut nutzen zu können, bestätigen Sie bitte Ihre E-Mail-Adresse über den Link in der Ihnen zugestellten E-Mail.','E-Mail-Bestätigung erforderlich');
+					if (_thisViewMyProfileNested.me.active==false || $("#fullname").val()=='') {
+						doAlert('Um alle Funktionen des APPinaut nutzen zu können, vervollständigen Sie bitte Ihr Profil und bestätigen Sie dies über den Link der Ihnen zugesendeten E-Mail.','Bestätigung erforderlich');
 					}
 					_thisViewMyProfileNested.checkActiveStatus();
 				  },
@@ -95,6 +95,13 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 						if(err) return console.log(err); 
 						console.log(result, result.id); 
 						_thisViewMyProfileNested.me = result;
+						if (_thisViewMyProfileNested.me.active==true) {
+							console.log('active is true !!!');
+							$('#showMenu').show();
+							$('#showPageOptions').show();
+							$('#restrictedArea').show();							
+						}
+
 					});
 					if (obj.id=='slogan') dpd.users.put(_thisViewMyProfileNested.me.id, {"slogan":obj.value}, function(result, err) { if(err) return console.log(err); console.log(result, result.id); });
 				}
