@@ -69,7 +69,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					_thisViewLogin = this;
 					var username = $('#username').val();
 					var password = $('#password').val();
-					var giftcode = $('#giftcode').val();
+					var giftcode = $('#giftcodeInput').val();
+					// alert(giftcode);
+					var uid = '';
 					if (username!='' && password!='') {
 						console.log(username);
 						console.log(checkEmail(username));
@@ -78,37 +80,11 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							var roles = ["user"];
 							var registered = dateYmdHis();
 							// active: false, 
-							
-							var obj = new Object();
-							obj.username = username;
-							obj.password = password;
-							obj.giftcode = giftcode;
-							var url = 'http://management-consulting.marcel-durchholz.de/secure/sendauthmail.php';
-							
-							/*
-							this._sponsorData = new Object();
-							$.ajax('http://dominik-lohmann.de:5000/users/?giftcode='+giftcode,{
-								type:"GET",
-								async: false,
-							}).done(function(sponsorData) {
-								// doAlert( "DONE!" );
-								_sponsorData = sponsorData;
-								// console.log('_me.purchases actual');
-								// console.log(_me.purchases);
-							}).fail(function() {
-								doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
-							})
-							.always(function() {
-								// alert( "finished - nw redirecting" );
-							});
-							var sponsor = sponsorData.id; // 'df8a74e899bba811';
-							*/
-							
 							var sponsor = "";
-							if (giftcode!='') sponsor = giftcode.replace('-','');;
-							
-							
+							if (giftcode!='') sponsor = giftcode.replace('-','').toLowerCase();
 							dpd.users.post({username: username, password: password, sponsor: sponsor, roles: roles, registered: registered, credits: "0"}, function(user, error) {
+								console.log(user.id);
+								var uid = user.id;
 								if (error) {
 									console.log(error.message);
 									doAlert('Bitte versuchen Sie es erneut.','Fehler bei der Registrierung!');
@@ -116,7 +92,32 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 								} 
 								else {
 								
-								
+									var obj = new Object();
+									obj.username = user.username;
+									obj.password = user.password;
+									// alert(user.sponsor);
+									// alert(giftcode);
+									obj.giftcode = giftcode;
+									obj.uid = uid;
+									var url = 'http://prelaunch002.appinaut.de/secure/external/sendauthmail.php';							
+									/*
+									this._sponsorData = new Object();
+									$.ajax('http://dominik-lohmann.de:5000/users/?giftcode='+giftcode,{
+										type:"GET",
+										async: false,
+									}).done(function(sponsorData) {
+										// doAlert( "DONE!" );
+										_sponsorData = sponsorData;
+										// console.log('_me.purchases actual');
+										// console.log(_me.purchases);
+									}).fail(function() {
+										doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
+									})
+									.always(function() {
+										// alert( "finished - nw redirecting" );
+									});
+									var sponsor = sponsorData.id; // 'df8a74e899bba811';
+									*/
 
 									$.ajax({
 										type: "POST",
@@ -136,15 +137,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 								
 								
 								}
-							});
-							
-							
-							
-
-
-							
-
-							
+							});	
 						}
 						else {
 							doAlert('Bitte geben Sie Ihre gültige E-Mail-Adresse im Feld Benutzername ein.','Ungültiger Benutzername!');
@@ -152,9 +145,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					} else {
 						doAlert('Bitte geben Sie für einen neuen Zugang Ihre gültige E-Mail-Adresse und Ihr gewünschtes Passwort ein.','Registrierung unvollständig');
 					}
-					
-					
-					
 				},
 				sync: function() {
 				},

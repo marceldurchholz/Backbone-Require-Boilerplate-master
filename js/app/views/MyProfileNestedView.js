@@ -67,7 +67,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				console.log('fetching MyProfileNestedView.js');
 				this.$el.hide();
 			},
-			alertInputValue: function(e) {
+			changeInputValue: function(e) {
 				/*
 				console.log(e);
 				console.log(e.currentTarget.id);
@@ -94,8 +94,25 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 							$('#showMenu').show();
 							$('#showPageOptions').show();
 						}
+						else {
+						
+						var confirmText = 'Möchten Sie diese jetzt bestätigen? Sie benötigen hierzu eine aktive Internetverbung.';
+						var confirmTitle = 'E-Mail-Adresse noch nicht bestätigt';
+						var confirmButtonLabels = 'Bestätigen,Abbrechen';
+						doConfirm(confirmText, confirmTitle, _thisViewMyProfileNested.confirmMyEmail, confirmButtonLabels);
+
+						}
 					});
 					if (obj.id=='slogan') dpd.users.put(_thisViewMyProfileNested.me.id, {"slogan":obj.value}, function(result, err) { if(err) return console.log(err); console.log(result, result.id); });
+				}
+			},
+			confirmMyEmail: function(response) {
+				console.log(response);
+				if (response==1) {
+					// system.redirectToUrl('#logout');
+					var vurl =  'http://prelaunch002.appinaut.de/secure/external/verify.php?v='+window.me.id;
+					doAlert('Sie werden nun zu folgender Internetdresse weitergeleitet: '+vurl,'Bestätigung/Weiterleitung');
+					window.location.href = vurl;
 				}
 			},
 			bindEvents: function() {
@@ -110,9 +127,9 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 					}
 				}
 				
-				$("#fullname").blur(this.alertInputValue);
-				$("#slogan").blur(this.alertInputValue);
-				// $("#username").blur(this.alertInputValue);
+				$("#fullname").blur(this.changeInputValue);
+				$("#slogan").blur(this.changeInputValue);
+				// $("#username").blur(this.changeInputValue);
 				$("input[type='checkbox']").bind( "change", function(event, ui) {
 					event.preventDefault();
 					console.log(event);
