@@ -2070,7 +2070,7 @@ function captureVideoUpload(videoRecordLocalStorage) {
 				console.log("Code = " + r.responseCode);
 				console.log("Response = " + r.response);
 				console.log("Sent = " + r.bytesSent);
-				dpd.videos.post({"uploader":""+_this._thisViewRecordVideoNested.me.id,"videourl":""+options.fileName,"cdate":""+dateYmdHis(),"topic":""+formValues.interest,"title":""+formValues.title,"subtitle":""+formValues.subtitle,"description":""+formValues.description,"price":formValues.sliderprice}, function(result, err) {
+				dpd.videos.post({"uploader":""+_this._thisViewRecordVideoNested.me.id,"videourl":""+options.fileName,"active":"true","cdate":""+dateYmdHis(),"topic":""+formValues.interest,"title":""+formValues.title,"subtitle":""+formValues.subtitle,"description":""+formValues.description,"price":formValues.sliderprice}, function(result, err) {
 					if(err) {
 						// $.mobile.loading( 'hide' );
 						hideModal();
