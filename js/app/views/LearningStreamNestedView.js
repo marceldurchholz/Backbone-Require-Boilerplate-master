@@ -27,6 +27,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					// renderMessage(message);
 					doAlert('new video existing');
 					// console.log(videoData);
+					console.log(videoData);
 					window.location.reload();
 				});
 
@@ -127,7 +128,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				if (_thisViewLearningStreamNested.streamData.length==0) {
 					var value = new Object();
 					value.ccat = 'plan';
-					value.icon = 'images/icon-planer-60.png';
+					value.icon = 'images/avatar.jpg';
 					value.href = '#myprofile';
 					value.topic = 'Keine passenden Inhalte';
 					value.title = 'Bitte wählen Sie Ihre Interessen aus';

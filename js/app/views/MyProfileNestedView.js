@@ -99,7 +99,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				// $('#restrictedArea').show();
 				console.log(_thisViewMyProfileNested.initialized.active,_thisViewMyProfileNested.me.active);
 				if (_thisViewMyProfileNested.initialized.active != _thisViewMyProfileNested.me.active) {
-					doAlert('Ihr Profil ist nun bereit zur Freischaltung. Diese Seite wird dazu einmal neu geladen,','Profil bereit!');
+					// doAlert('Ihr Profil ist nun bereit zur Freischaltung. Diese Seite wird dazu einmal neu geladen,','Profil bereit!');
 					window.location.reload();
 				}
 			},
