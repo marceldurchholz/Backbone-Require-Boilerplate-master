@@ -1760,7 +1760,7 @@ function purchaseVideoConfirm(me,videoData) {
 		// console.log(event);
 		console.log(this._me);
 		purchaseVideoConfirmCallback(event,this._me,this._videoData,this._creditsAfterPurchase); 
-	}, 'Nein,Ja');
+	}, undefined);
 }
 
 function purchaseVideoConfirmCallback(event,me,videoData,creditsAfterPurchase) {
@@ -2382,7 +2382,7 @@ var menuSwitched = function(status) {
 
 function showModal(){
 	$("#body").append('<div class="modalWindow"/>');
-	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;float:none;clear:both;">Loading the awesome...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;">Loading the awesome...</div>' });
+	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;float:none;clear:both;">Loading the awesome...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div>' });
 	// setTimeout('hideModal()', 60000);
 }
 
