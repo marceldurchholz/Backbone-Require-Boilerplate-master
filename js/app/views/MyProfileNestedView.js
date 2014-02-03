@@ -10,6 +10,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				var _thisViewMyProfileNested = this;
 				console.log('initializing MyProfileNestedView.js');
 				_thisViewMyProfileNested.me = window.me;
+				_thisViewMyProfileNested.initialized.me = window.me;
 				
 				$.ajax({
 					url: "http://dominik-lohmann.de:5000/users",
@@ -21,7 +22,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 						logincounts += user.logincount;
 					});
 					_thisViewMyProfileNested.me.level = Math.round(3*(window.me.logincount/logincounts),0);
-					alert(_thisViewMyProfileNested.me.level);
+					// alert(_thisViewMyProfileNested.me.level);
 				});
 				
 				$.ajax({
@@ -74,7 +75,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 					var o = new Object();
 					o.id = obj.id;
 					o.value = obj.value;
-					var fullroles = ["provider","seeker"];
+					var fullroles = ["user","provider","seeker"];
 					if (obj.id=='fullname') if (obj.value!='') dpd.users.put(_thisViewMyProfileNested.me.id, {"fullname":obj.value, roles: fullroles}, function(result, err) { 
 						if(err) return console.log(err); 
 						console.log(result, result.id); 
@@ -83,7 +84,8 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 							console.log('active is true !!!');
 							$('#showMenu').show();
 							$('#showPageOptions').show();
-							$('#restrictedArea').show();							
+							$('#restrictedArea').show();
+							window.location.reload();
 						}
 
 					});
