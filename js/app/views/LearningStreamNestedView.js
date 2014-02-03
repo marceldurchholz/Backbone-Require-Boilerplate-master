@@ -70,15 +70,28 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			},
 			collectStreamData: function() {
 				var _thisViewLearningStreamNested = this;
+				
+				$.ajax({
+					url: "http://dominik-lohmann.de:5000/users/"+window.me.id,
+					async: false
+				}).done(function(me) {
+					// alert(me.id);
+					_thisViewLearningStreamNested.me = me;
+				});
+
+				
 				$.ajax({
 					url: "http://dominik-lohmann.de:5000/videos?active=true&deleted=false",
 					async: false
 				}).done(function(videoData) {
 					_.each(videoData, function(value, index, list) {
-						value.ccat = 'video';
-						value.icon = 'images/icon-videos-60.png';
-						value.href = '#videos/details/view/'+value.id;
-						_thisViewLearningStreamNested.streamData.push(value);
+						var exists = jQuery.inArray( value.topic, _thisViewLearningStreamNested.me.interests )
+						if (exists>-1) {
+							value.ccat = 'video';
+							value.icon = 'images/icon-videos-60.png';
+							value.href = '#videos/details/view/'+value.id;
+							_thisViewLearningStreamNested.streamData.push(value);
+						}
 					});
 				});
 				$.ajax({
@@ -86,10 +99,13 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					async: false
 				}).done(function(cardData) {
 					_.each(cardData, function(value, index, list) {
-						value.ccat = 'card';
-						value.icon = 'images/icon-cards-60.png';
-						value.href = '#cards/details/view/'+value.id;
-						_thisViewLearningStreamNested.streamData.push(value);
+						var exists = jQuery.inArray( value.topic, _thisViewLearningStreamNested.me.interests )
+						if (exists>-1) {
+							value.ccat = 'card';
+							value.icon = 'images/icon-cards-60.png';
+							value.href = '#cards/details/view/'+value.id;
+							_thisViewLearningStreamNested.streamData.push(value);
+						}
 					});
 				});
 				$.ajax({
@@ -97,12 +113,29 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					async: false
 				}).done(function(planData) {
 					_.each(planData, function(value, index, list) {
-						value.ccat = 'plan';
-						value.icon = 'images/icon-planer-60.png';
-						value.href = '#planer/details/view/'+value.id;
-						_thisViewLearningStreamNested.streamData.push(value);
+						var exists = jQuery.inArray( value.topic, _thisViewLearningStreamNested.me.interests )
+						if (exists>-1) {
+							value.ccat = 'plan';
+							value.icon = 'images/icon-planer-60.png';
+							value.href = '#planer/details/view/'+value.id;
+							_thisViewLearningStreamNested.streamData.push(value);
+						}
 					});
 				});
+				
+				
+				if (_thisViewLearningStreamNested.streamData.length==0) {
+					var value = new Object();
+					value.ccat = 'plan';
+					value.icon = 'images/icon-planer-60.png';
+					value.href = '#myprofile';
+					value.topic = 'Keine passenden Inhalte';
+					value.title = 'Bitte wählen Sie Ihre Interessen aus';
+					value.description = ' Klicken Sie hier um auf Ihre Profileinstellungen zu gelangen...';
+					_thisViewLearningStreamNested.streamData.push(value);
+				}
+				// alert(_thisViewLearningStreamNested.streamData.length);
+				
 				// Sort multidimensional arrays with oobjects by value 
 				// http://www.javascriptkit.com/javatutors/arraysort2.shtml
 				_thisViewLearningStreamNested.streamData.sort(function(a, b){
