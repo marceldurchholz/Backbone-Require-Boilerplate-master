@@ -29,9 +29,20 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 								// alert('user =  null');
 							}
 							else {
-								$('#showMenu').show();
-								$('#showPageOptions').show();
-								system.redirectToUrl(targetUrl);
+								dpd.users.me(function(me) {
+									_thisViewLogin.me = me;
+									$('#showMenu').show();
+									$('#showPageOptions').show();
+									var newlogincount = 0;
+									var logincount = _thisViewLogin.me.logincount;
+									if (logincount==undefined) logincount=0;
+									var newlogincount = logincount+1;
+									dpd.users.put(_thisViewLogin.me.id, {"logincount":newlogincount}, function(result, err) { 
+										if(err) return console.log(err);
+										console.log(result, result.id); 
+										system.redirectToUrl(targetUrl);
+									});
+								});
 							}
 						}
 					});
@@ -63,9 +74,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					*/
 				},
 				sendRegister: function() {
-				
-				
-				
 					_thisViewLogin = this;
 					var username = $('#username').val();
 					var password = $('#password').val();
@@ -80,9 +88,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							var roles = ["user"];
 							var registered = dateYmdHis();
 							// active: false, 
-							var sponsor = "";
+							var sponsor = "df8a74e899bba811";
 							if (giftcode!='') sponsor = giftcode.replace('-','').toLowerCase();
-							dpd.users.post({username: username, password: password, sponsor: sponsor, roles: roles, registered: registered, credits: "0"}, function(user, error) {
+							dpd.users.post({username: username, password: password, sponsor: sponsor, roles: roles, registered: registered, credits: "0", purchases:[], followers:[], following:[], logincount:"0"}, function(user, error) {
 								console.log(user.id);
 								var uid = user.id;
 								if (error) {

@@ -9,67 +9,54 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 			initialize: function() {
 				var _thisViewMyProfileNested = this;
 				console.log('initializing MyProfileNestedView.js');
+				_thisViewMyProfileNested.me = window.me;
+				
+				$.ajax({
+					url: "http://dominik-lohmann.de:5000/users",
+					async: false
+				}).done(function(users) {
+					var logincounts = 0;
+					_.each(users, function(user) {
+						// var exists = jQuery.inArray( $.trim(interest.name), _thisViewMyProfileNested.me.interests );
+						// if (exists>-1) interest.checked = "checked";
+						if (user.logincount==undefined) user.logincount = 0;
+						logincounts += user.logincount;
+					});
+					_thisViewMyProfileNested.me.level = Math.round(3*(window.me.logincount/logincounts),0);
+					alert(_thisViewMyProfileNested.me.level);
+				});
+
+				
 				$.ajax({
 					url: "http://dominik-lohmann.de:5000/interests",
 					async: false
-				}).done(function(responsedata) {
-					_thisViewMyProfileNested.interests = responsedata;
-					_thisViewMyProfileNested.initializeme();
-				});
-			},
-			initializeme: function() {
-				console.log('initializeme MyProfileNestedView.js');
-				var _thisViewMyProfileNested = this;
-				$(this.el).html('loading...');
-				$.when( this.fetchMe() ).then(
-				  function( status ) {
-					console.log(status);
-					_thisViewMyProfileNested.me = status;
+				}).done(function(interests) {
+					_.each(interests, function(interest) {
+						var exists = jQuery.inArray( $.trim(interest.name), _thisViewMyProfileNested.me.interests );
+						if (exists>-1) interest.checked = "checked";
+					});
+					
+					interests.sort(function(a, b){
+					 var nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase()
+					 if (nameA < nameB) //sort string ascending
+					  return -1 
+					 if (nameA > nameB)
+					  return 1
+					 return 0 //default return value (no sorting)
+					})
+					
+					_thisViewMyProfileNested.interests = interests;
 					_thisViewMyProfileNested.render();
-					if (_thisViewMyProfileNested.me.active==false || $("#fullname").val()=='') {
-						doAlert('Um alle Funktionen des APPinaut nutzen zu können, vervollständigen Sie bitte Ihr Profil und bestätigen Sie dies über den Link der Ihnen zugesendeten E-Mail.','Bestätigung erforderlich');
-					}
 					_thisViewMyProfileNested.checkActiveStatus();
-				  },
-				  function( status ) {
-					// console.log( status + ", you fail this time" );
-					alert( "you fail this time" );
-				  },
-				  function( status ) {
-					console.log('still fetchWorking');
-				  }
-				);
-			},
-			fetchWorking: function() {
-				var setTimeoutWatcher = setTimeout(function foo() {
-					if ( _thisViewMyProfileNested.dfd.state() === "pending" ) {
-						_thisViewMyProfileNested.dfd.notify( "working... " );
-						setTimeout( _thisViewMyProfileNested.fetchWorking, 100 );
-					}
-				}, 1 );
-			},
-			fetchMe: function() {
-				_thisViewMyProfileNested = this;
-				console.log('fetchMe MyProfileNestedView.js');
-				_thisViewMyProfileNested.dfd = new jQuery.Deferred();
-				_thisViewMyProfileNested.fetchWorking();
-				dpd.users.me(function(user) {
-					if (user) {
-						var fetchMe = setTimeout ( function() {
-							_thisViewMyProfileNested.dfd.resolve(user);
-						}, 0 );
-					}
-					else {
-						// location.href = "#noaccess";
-						// console.log('you are not logged in');
-					}
 				});
-				return this.dfd.promise();
+				if (_thisViewMyProfileNested.me.active==false || $("#fullname").val()=='') {
+					doAlert('Um alle Funktionen des APPinaut nutzen zu können, vervollständigen Sie bitte Ihr Profil und bestätigen Sie dies über den Link der Ihnen zugesendeten E-Mail.','Bestätigung erforderlich');
+				}
 			},
 			fetch: function() {	
 				_thisViewMyProfileNested = this;
 				console.log('fetching MyProfileNestedView.js');
-				this.$el.hide();
+				// this.$el.hide();
 			},
 			changeInputValue: function(e) {
 				/*
@@ -107,6 +94,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				}
 			},
 			checkActiveStatus: function() {
+				var _thisViewMyProfileNested = this;
 				dpd.users.me(function(me) {
 					_thisViewMyProfileNested.me = me;
 				});
@@ -230,6 +218,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 					, perstext: _thisViewMyProfileNested.me.perstext
 					, username: _thisViewMyProfileNested.me.username
 					, coins: _thisViewMyProfileNested.me.coins
+					, level: _thisViewMyProfileNested.me.level
 					, interests: _thisViewMyProfileNested.interests
 				},{variable: 'user'});
 				// alert(htmlContent);

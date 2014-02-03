@@ -1756,11 +1756,11 @@ function purchaseVideoConfirm(me,videoData) {
 	var creditsAfterPurchase = parseFloat(me.credits) - parseFloat(videoData.price);
 	this._creditsAfterPurchase = creditsAfterPurchase;
 	console.log(creditsAfterPurchase,'creditsAfterPurchase');
-	doConfirm('Möchten Sie dieses Video für ' + this._videoData.price + ' Coins kaufen?', 'Video kaufen', function (event) { 
+	doConfirm('Möchten Sie dieses Trainingsvideo für ' + this._videoData.price + ' APPinaut Coins ansehen?', 'Trainingsvideo ansehen', function (event) { 
 		// console.log(event);
 		console.log(this._me);
 		purchaseVideoConfirmCallback(event,this._me,this._videoData,this._creditsAfterPurchase); 
-	}, undefined);
+	}, 'Nein,Ja');
 }
 
 function purchaseVideoConfirmCallback(event,me,videoData,creditsAfterPurchase) {
@@ -1789,6 +1789,7 @@ function purchaseVideoStart(me,videoData,creditsAfterPurchase) {
 	}).done(function(me) {
 		// doAlert( "DONE!" );
 		_me = me;
+		if (_me.purchases==undefined) _me.purchases = new Array();
 		console.log('_me.purchases actual');
 		console.log(_me.purchases);
 	}).fail(function() {
@@ -1802,6 +1803,7 @@ function purchaseVideoStart(me,videoData,creditsAfterPurchase) {
 		doAlert('Sie haben dieses Video bereits gekauft.','Information');
 	}
 	else {
+		if (_me.purchases==undefined) _me.purchases = new Array();
 		console.log(me.purchases);
 		// me.push( videoData.id );
 		// var el = new Object();
