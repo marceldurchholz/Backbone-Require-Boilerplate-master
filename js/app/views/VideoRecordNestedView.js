@@ -159,12 +159,13 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				// $('#submitbutton').button('disable');
 			},
 			downloadVideo: function() {
-				alert('video download start');
+				// alert('video download start');
 				// var statusDom;
 				// statusDom = $('#status');
 				var ft = new FileTransfer();
+				var downloadPath = fileSystem.root + "download.mp4";
+				alert(downloadPath);
 				var uri = encodeURI("http://management-consulting.marcel-durchholz.de/secure/1391304708489.mp4");			 
-				var downloadPath = fileSystem.root.fullPath + "/download.mp4";
 				/*
 				ft.onprogress = function(progressEvent) {
 					if (progressEvent.lengthComputable) {

@@ -25,7 +25,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				
 				dpd.videos.on('create', function(videoData) {
 					// renderMessage(message);
-					doAlert('new video existing');
+					// doAlert('new video existing');
 					// console.log(videoData);
 					console.log(videoData);
 					// window.location.reload();
@@ -72,6 +72,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			},
 			collectStreamData: function() {
 				var _thisViewLearningStreamNested = this;
+				var streamData = new Array();
+				_thisViewLearningStreamNested.streamData = streamData;
 				
 				$.ajax({
 					url: "http://dominik-lohmann.de:5000/users/"+window.me.id,
