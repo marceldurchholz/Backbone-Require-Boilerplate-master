@@ -12,14 +12,14 @@ define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection",
 			},
 			initializeme: function() {
 				console.log('initializing ME in CardView.js');
-				$(this.el).html('loading...');
+				// $(this.el).html('loading...');
 				$.when( this.fetchMe() ).then(
 				  function( status ) {
 					_thisViewCard.me = status;
 					_thisViewCard.render();
 				  },
 				  function( status ) {
-					alert( "you fail this time" );
+					console.log( "you fail this time" );
 				  },
 				  function( status ) {
 					console.log('still fetchWorking');
@@ -112,7 +112,6 @@ define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection",
 			insertData: function(model) {
 				_thisViewCard = this;
 				var uploader = model.get('uploader');
-				console.log(this.id);
 				if ( typeof( _thisViewCard.uploaderdata ) == "undefined") {
 					$.ajax({
 						url: "http://dominik-lohmann.de:5000/users/?id="+uploader,

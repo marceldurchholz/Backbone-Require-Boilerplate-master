@@ -37,28 +37,36 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				},
 				bindEvents: function() {
 					_thisViewVideoDetails = this;
-					this.$el.off('click','.createVideo').on('click','.createVideo',function(){_thisViewVideoDetails.createVideo();});
+					// this.$el.off('click','.createVideo').on('click','.createVideo',function(){_thisViewVideoDetails.createVideo();});
+					this.$el.off('click','#loadvideobutton').on('click','#loadvideobutton',function(e) { 
+						e.preventDefault();
+						var videoid = $(this).attr('data-videoid');
+						_thisViewVideoDetails.buyVideo('#videos/details/view/'+videoid,videoid); 
+					});
 				},
 				initializeCollection:function(options) {
 					this._videosCollection = new videosCollection([], options);
 				},
 				fetch: function(options) {
-					this.$el.hide();
-					this.initializeCollection(options);
+					_thisKnowledgeData = this;
 					var _thisViewVideoDetails = this;
+					var streamData = new Array();
+					_thisKnowledgeData.streamData = streamData;
+					// this.$el.hide();
+					this.initializeCollection(options);
 					this._videosCollection.fetch({
 						error: function(action, coll) {
-							console.log(action);
-							console.log(coll);
+							// console.log(action);
+							// console.log(coll);
 						},
 						success: function(coll, jsoncoll) {
-							console.log(coll);
-							console.log(jsoncoll);
+							// console.log(coll);
+							// console.log(jsoncoll);
 							_thisViewVideoDetails.render();
 						}
 					});
 				},
-				buyVideo: function(successUrl) {
+				buyVideo: function(successUrl,videoid) {
 					_thisViewVideoDetails = this;
 					var CreditsAfterPurchase = parseFloat(this._videosCollection.user.credits) - parseFloat(this._videosCollection.models[0].attributes.price);
 					if (CreditsAfterPurchase<0) {
@@ -71,10 +79,6 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				},
 				initialize: function(options) {
 					_thisKnowledgeData = this;
-					var streamData = new Array();
-					_thisKnowledgeData.streamData = streamData;
-					this.initializeCollection(options);
-					this.$el.off('click','#loadvideobutton').on('click','#loadvideobutton',function() { _thisViewVideoDetails.buyVideo('#videos/details/view/d6c9268c49a139bf'); } );
 					this.fetch(options);
 				},
 
@@ -189,10 +193,11 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',this._videosCollection.models[0].attributes.videourl,showVideoLength);
 					this.$el.trigger('create');
 					new FastClick(document.body);
-					this.$el.fadeIn( 500, function() {
+					// this.$el.fadeIn( 500, function() {
 						$('.ui-content').scrollTop(0);
 						new FastClick(document.body);
-					});
+					// });
+					_thisViewVideoDetails.bindEvents();
 					return this;
 				}
 

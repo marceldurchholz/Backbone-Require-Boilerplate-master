@@ -518,11 +518,22 @@ function updateCoins(productId) {
 				hideModal();
 				doAlert('Vielen Dank. Sie haben nun ' + newcredits + ' APPinaut Coins.','Kauf erfolgreich');
 				// window.location.reload();
+				window._thisViewMyProfileNested.render();
 			});
 			_me = me;
 		}
 		else {
-			doAlert('Sie sind nun APPinaut Anbieter und können allen Wissensdurstigen Ihr Material zur Verfügung stellen. Viel Erfolg!','Upgrade erfolgreich');
+			dpd.users.put(me.id, {"credits":""+newcredits}, function(result, err) {
+				if(err) {
+					return console.log(err);
+					hideModal();
+				}
+				console.log(result, result.id);
+				hideModal();
+				doAlert('Sie sind nun APPinaut Anbieter und können allen Wissensdurstigen Ihr Material zur Verfügung stellen. Viel Erfolg!','Upgrade erfolgreich');
+				// window.location.reload();
+			});
+			_me = me;
 		}
 	}).fail(function() {
 		hideModal();
@@ -1766,7 +1777,7 @@ function purchaseVideoConfirm(me,videoData) {
 	var creditsAfterPurchase = parseFloat(me.credits) - parseFloat(videoData.price);
 	this._creditsAfterPurchase = creditsAfterPurchase;
 	console.log(creditsAfterPurchase,'creditsAfterPurchase');
-	doConfirm('Möchten Sie dieses Trainingsvideo für ' + this._videoData.price + ' APPinaut Coins ansehen?', 'Trainingsvideo ansehen', function (event) { 
+	doConfirm('Möchten Sie dieses Video für ' + this._videoData.price + ' APPinaut Coins ansehen?', 'Video ansehen', function (event) { 
 		// console.log(event);
 		console.log(this._me);
 		purchaseVideoConfirmCallback(event,this._me,this._videoData,this._creditsAfterPurchase); 
@@ -1831,8 +1842,11 @@ function purchaseVideoStart(me,videoData,creditsAfterPurchase) {
 			}),
 		}).done(function(uploaderdata) {
 			// doAlert( "Das Video wurde gekauft." );
-			doAlert('Das Video wurde gekauft. Sie haben nun '+creditsAfterPurchase+' Credits.','Aktion Erfolgreich');
-			window.location.reload();
+			doAlert('Sie können das Video nun ansehen. Für weitere Käufe sind noch '+creditsAfterPurchase+' Credits verfügbar.','Aktion Erfolgreich');
+			// $('#loadvideobutton').hide();
+			// console.log(window);
+			window._thisViewVideoDetails.render();
+			// window.location.reload();
 		}).fail(function() {
 			doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
 		})
@@ -2051,27 +2065,16 @@ function captureVideoUpload(videoRecordLocalStorage) {
 			formValues[modelkey] = modelsattribute[modelkey];
 		}
 	}
-	// console.log('^^^^^^^^^^^^');
-	// console.log(formValues);
-	// console.log(_this._thisViewRecordVideoNested.me.id);
-	// return(false);
-	// var mediaFile = $('#camera_file').val();
 	var mediaFile = formValues.camera_file;
-	// alert('class captureVideoUpload started');
 	try {
-		// $.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
 		showModal();
-		// log('uploading '+mediaFile);
-		// log('uploading '+mediaFile.name);
 		var ft = new FileTransfer();
-		// $('#uploadstatusbar').show();
 		ft.onprogress = function(progressEvent) {
 			// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
 			// $('#uploadstatusbar').html(progressEvent.loaded + " / " + progressEvent.total);
 			// $('#modaltxt').html( (Math.round((progressEvent.loaded / progressEvent.total) * 100)) + " %" );
 			$('#modaltxt').html( progressEvent.loaded + " / " + progressEvent.total );
 		};
-		// $('#uploadstatusbar').hide();
 		var options = new FileUploadOptions();
 		options.fileName = new Date().getTime();
 		options.mimeType = "video/mp4";
@@ -2079,22 +2082,21 @@ function captureVideoUpload(videoRecordLocalStorage) {
 		ft.upload(mediaFile,
 			"http://management-consulting.marcel-durchholz.de/secure/upload.php",
 			function(r) {
-				console.log("Code = " + r.responseCode);
-				console.log("Response = " + r.response);
-				console.log("Sent = " + r.bytesSent);
+				// console.log("Code = " + r.responseCode);
+				// console.log("Response = " + r.response);
+				// console.log("Sent = " + r.bytesSent);
 				dpd.videos.post({"uploader":""+_this._thisViewRecordVideoNested.me.id,"videourl":""+options.fileName,"active":true,"cdate":""+dateYmdHis(),"topic":""+formValues.interest,"title":""+formValues.title,"subtitle":""+formValues.subtitle,"description":""+formValues.description,"price":formValues.sliderprice}, function(result, err) {
 					if(err) {
-						// $.mobile.loading( 'hide' );
 						hideModal();
 						doAlert('Es ist ein Fehler passiert, der nicht passieren sollte. Bitte versuchen Sie Ihre Aktion erneut oder wenden Sie sich direkt an das APPinaut Support Team.','Ups! Fehler beim Upload!');
 						return console.log(err);
 					}
 					if (result) {
-						// $.mobile.loading( 'hide' );
 						hideModal();
-						doAlert('Nach Prüfung und Freigabe Ihres Videos erhalten Sie eine Information.','Upload erfolgreich durchgeführt!');
-						system.redirectToUrl('#videos');
-						console.log(result, result.id);
+						if (formValues.flipactivate==false) {
+							doAlert('Nach Freigabe wird Ihr Video allen Wissensdurstigen angezeigt.','Upload erfolgreich!');
+						}
+						system.redirectToUrl('#learningstreamview');
 					}
 				});
 			},
@@ -2102,15 +2104,15 @@ function captureVideoUpload(videoRecordLocalStorage) {
 				// $.mobile.loading('hide');
 				hideModal();
 				// alert("An error has occurred: Code = " = error.code);
-				console.log('Error uploading file ' + mediaFile + ': ' + error.code);
+				// console.log('Error uploading file ' + mediaFile + ': ' + error.code);
 			},
 			options
 		);
 	} catch (e) {
 		// not DATA_URL
-		console.log('class new FileTransfer not possible');
+		// console.log('class new FileTransfer not possible');
 	}
-	console.log('class captureVideoUpload ended');
+	// console.log('class captureVideoUpload ended');
 }
 
 

@@ -189,7 +189,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					// else uri =  $('#downloadVideoUrl').val();
 					// console.log('starting downloadVideo d');
 					// console.log(uri);
-					console.log(downloadPath);
+					// console.log(downloadPath);
 					ft.onprogress = function(progressEvent) {
 						// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
 						// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
@@ -207,7 +207,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					}, 
 					function(error) {
 						console.log(error);
-						alert('Crap something went wrong...');						
+						doAlert('Da ist etwas schiefgegangen. Die Datei konnte nicht vollständig heruntergeladen werden. Bitte probieren Sie es erneut oder wenden Sie sich an unseren Support. Vielen Dank.','Ups!');						
 						hideModal();
 					});
 					
@@ -236,9 +236,9 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 			},
 			render: function() {
 				var _thisViewRecordVideoNested = this;
-				console.log('DOING render VideoRecordNestedView.js called');				
+				console.log('DOING render VideoRecordNestedView.js called');
 				_thisVideoRecordAttributes = _thisViewRecordVideoNested.localStorageSubmitform.models[0].attributes;
-				if (_thisVideoRecordAttributes['sliderprice']==undefined) _thisVideoRecordAttributes['sliderprice'] = "200";
+				if (_thisVideoRecordAttributes['sliderprice']==undefined) _thisVideoRecordAttributes['sliderprice'] = "2200";
 				// console.log(_thisVideoRecordAttributes['sliderprice']);
 				_thisViewRecordVideoNested.$el.html(_.template(_thisViewRecordVideoNested.activePage, {
 					slider_price:_thisVideoRecordAttributes['sliderprice'],

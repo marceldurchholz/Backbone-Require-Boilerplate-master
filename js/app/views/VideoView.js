@@ -1,8 +1,8 @@
 // VideoView.js
 // -------
-define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "text!templates/videoView.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
+define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "text!templates/videoView.html"],
 
-    function($, Backbone, VideoModel, videosCollection, videoPage, sidemenusList, SidemenuView){
+    function($, Backbone, VideoModel, videosCollection, videoPage){
 		
 		var VideoViewVar = Backbone.View.extend({
 			
@@ -113,6 +113,17 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			},
 			insertData: function(model) {
 				_thisViewVideo = this;
+				var uploader = model.get('uploader');
+				if ( typeof( _thisViewVideo.uploaderdata ) == "undefined") {
+					$.ajax({
+						url: "http://dominik-lohmann.de:5000/users/?id="+uploader,
+						async: false
+					}).done(function(uploaderdata) {
+						// $( this ).addClass( "done" );
+						console.log(uploaderdata);
+						_thisViewVideo.uploaderdata = uploaderdata;
+					});
+				}
 				console.log(jQuery.inArray(model.id, _thisViewVideo.me.following));
 				if (jQuery.inArray(model.id, _thisViewVideo.me.following)==-1) {
 					model.set("favclass","addVideoToFavourites");
@@ -123,7 +134,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				console.log(model);
 				rowContent = _.template(videoPage, {
 					id: model.get('id'),
-					uploader: model.get('uploader'),
+					// uploader: model.get('uploader'),
+					uploader: _thisViewVideo.uploaderdata.fullname,
 					videourl: model.get('videourl'),
 					title: model.get('title'),
 					description: model.get('description'),
