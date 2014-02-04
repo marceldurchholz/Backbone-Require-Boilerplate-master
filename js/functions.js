@@ -496,25 +496,34 @@ function updateCoins(productId) {
 			addcredits = "25000";
 			// alert("Gehen Sie auf allen Vieren und werden Sie bescheidener");
 			break;
+		  case "com.digitalverve.APPinaut.UPGPROVAPP269T3":
+			addcredits = "0";
+			// alert("Gehen Sie auf allen Vieren und werden Sie bescheidener");
+			break;
 		  default:
 			// doAlert("Der In-App Kauf konnte leiner nicht zugeordnet werden. Bitte wenden Sie sich an den Support.","Unbekannter Fehler");
 			break;
 		}
-		newcredits = parseInt(me.credits,0) + parseInt(addcredits,0);
-		// alert(addcredits);
-		// console.log(newcredits);
-		// alert(newcredits);
-		dpd.users.put(me.id, {"credits":""+newcredits}, function(result, err) {
-			if(err) {
-				return console.log(err);
+		if (parseInt(newcredits,0)>0) {
+			newcredits = parseInt(me.credits,0) + parseInt(addcredits,0);
+			// alert(addcredits);
+			// console.log(newcredits);
+			// alert(newcredits);
+			dpd.users.put(me.id, {"credits":""+newcredits}, function(result, err) {
+				if(err) {
+					return console.log(err);
+					hideModal();
+				}
+				console.log(result, result.id);
 				hideModal();
-			}
-			console.log(result, result.id);
-			hideModal();
-			doAlert('Vielen Dank. Sie haben nun ' + newcredits + ' APPinaut Coins.','Kauf erfolgreich');
-			// window.location.reload();
-		});
-		_me = me;
+				doAlert('Vielen Dank. Sie haben nun ' + newcredits + ' APPinaut Coins.','Kauf erfolgreich');
+				// window.location.reload();
+			});
+			_me = me;
+		}
+		else {
+			doAlert('Sie sind nun APPinaut Anbieter und können allen Wissensdurstigen Ihr Material zur Verfügung stellen. Viel Erfolg!','Upgrade erfolgreich');
+		}
 	}).fail(function() {
 		hideModal();
 		doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
@@ -549,7 +558,8 @@ function initStore() {
 				"com.digitalverve.APPinaut.250APP359T4", 
 				"com.digitalverve.APPinaut.750APP799T9", 
 				"com.digitalverve.APPinaut.6500APP4999T51", 
-				"com.digitalverve.APPinaut.25000APP17999T72"
+				"com.digitalverve.APPinaut.25000APP17999T72",
+				"com.digitalverve.APPinaut.UPGPROVAPP269T3"
 			];
 			window.storekit.load(productIds, function(validProducts, invalidProductIds) {
 				$.each(validProducts, function (i, val) {
