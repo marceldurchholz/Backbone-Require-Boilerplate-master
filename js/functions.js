@@ -523,16 +523,17 @@ function updateCoins(productId) {
 			_me = me;
 		}
 		else {
-			dpd.users.put(me.id, {"credits":""+newcredits}, function(result, err) {
+			var newroles = ["user","provider","seeker"];
+			dpd.users.put(me.id, {roles: newroles}, function(result, err) { 
 				if(err) {
 					return console.log(err);
 					hideModal();
 				}
 				console.log(result, result.id);
+				window._thisViewMyProfileNested.render();
 				hideModal();
 				doAlert('Sie sind nun APPinaut Anbieter und können allen Wissensdurstigen Ihr Material zur Verfügung stellen. Viel Erfolg!','Upgrade erfolgreich');
 				// window.location.reload();
-				window._thisViewMyProfileNested.render();
 			});
 			_me = me;
 		}

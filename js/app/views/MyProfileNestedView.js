@@ -79,15 +79,14 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 					var o = new Object();
 					o.id = obj.id;
 					o.value = obj.value;
-					var fullroles = ["user","provider","seeker"];
-					if (obj.id=='fullname') if (obj.value!='') dpd.users.put(_thisViewMyProfileNested.me.id, {"fullname":obj.value, roles: fullroles}, function(result, err) { 
+					var newroles = ["user","seeker"];
+					if (obj.id=='fullname') if (obj.value!='') dpd.users.put(_thisViewMyProfileNested.me.id, {"fullname":obj.value, roles: newroles}, function(result, err) { 
 						if(err) return console.log(err); 
 						console.log(result, result.id); 
 						_thisViewMyProfileNested.me = result;
 						if (_thisViewMyProfileNested.me.active==true) {
 							_thisViewMyProfileNested.activationMessage();
 						}
-
 					});
 					if (obj.id=='slogan') dpd.users.put(_thisViewMyProfileNested.me.id, {"slogan":obj.value}, function(result, err) { if(err) return console.log(err); console.log(result, result.id); });
 				}
@@ -220,7 +219,10 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				$(this.el).html(htmlContent);
 				console.log(_thisViewMyProfileNested.me);
 				if (!_thisViewMyProfileNested.me.coins) _thisViewMyProfileNested.me.coins = "0";
-
+				var provider;
+				provider = jQuery.inArray( 'provider', _thisViewMyProfileNested.me.roles );
+				var seeker;
+				seeker = jQuery.inArray( 'seeker', _thisViewMyProfileNested.me.roles );				
 				htmlContent = _.template(MyProfileNestedViewPage, {
 					id: _thisViewMyProfileNested.me.id
 					, pictureurl: _thisViewMyProfileNested.me.pictureurl
@@ -231,6 +233,8 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 					, coins: _thisViewMyProfileNested.me.coins
 					, level: _thisViewMyProfileNested.me.level
 					, interests: _thisViewMyProfileNested.interests
+					, provider: provider
+					, seeker: seeker
 				},{variable: 'user'});
 				// alert(htmlContent);
 				$(this.el).html(htmlContent);

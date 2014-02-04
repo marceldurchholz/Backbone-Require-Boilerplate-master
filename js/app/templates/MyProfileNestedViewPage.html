@@ -63,9 +63,11 @@
 <div id="restrictedArea">
 
 	<div data-role="collapsible" data-theme="b" data-content-theme="b">
-		<h2>APPinaut® Upgrades<!--Upgrades und Personal APPinaut®--></h2>
+		<h2>APPinaut® Upgrades<!-- <%= user.provider %> - Upgrades und Personal APPinaut®--></h2>
 		<ul data-iconpos="left" data-icon="false" data-role="listview" data-filter="false">
-			<li data-iconpos="left" data-icon="arrow-r"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.UPGPROVAPP269T3" style="font-size:0.8em;font-weight:normal;">APPinaut® Anbieter werden (2,69 Euro mtl.)</a></li>
+			<% if( user.provider < 0 ) { %>
+				<li data-iconpos="left" data-icon="arrow-r"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.UPGPROVAPP269T3" style="font-size:0.8em;font-weight:normal;">APPinaut® Anbieter werden (2,69 Euro mtl.)</a></li>
+			<% } %>
 			<!--
 			<li data-iconpos="left" data-icon="arrow-r"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.UPGPERSAPP12999T66" style="font-size:0.8em;font-weight:normal;">Personal APPinaut® (129,99 Euro qrtl.)</a></li>
 			<li data-iconpos="left" data-icon="arrow-r"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.UPGPERSAPP39999T81" style="font-size:0.8em;font-weight:normal;">Personal APPinaut® (399,99 Euro jhrl.)</a></li>

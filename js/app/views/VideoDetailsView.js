@@ -147,6 +147,10 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					var pricetext = '';
 					if (model.get('price')==0) pricetext = 'Video kostenlos laden';
 					else pricetext = 'Video für '+model.get('price')+' Coins kaufen';
+					var provider = '';
+					provider = jQuery.inArray( 'provider', model.get('roles') );
+					var seeker = '';
+					seeker = jQuery.inArray( 'seeker', model.get('roles') );
 					// console.log('purchases');
 					// console.log(model.get('purchases'));
 					_template = _.template(videosDetailsViewHTML, {
@@ -159,6 +163,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						title: model.get('title'),
 						description: model.get('description'),
 						price: model.get('price'),
+						isprovider: model.get('provider'),
 						purchases: this._videosCollection.user.purchases,
 						pricetext: pricetext,
 						thumbnailurl: model.get('thumbnailurl'),
