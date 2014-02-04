@@ -101,11 +101,23 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				event.preventDefault();
 				// alert('savePageTwo');
 				var _thisViewRecordVideoNested = this;
+				/*
+				if ($('#blafoopeng').val()=='') {
+					doAlert('','');
+					return(false);
+				}
+				*/
 				_thisViewRecordVideoNested.formValues = new Object;
 				_.each(this.$('#submitform').serializeArray(), function(input){
+					if (input.value=='') {
+						doAlert('Es fehlen Angaben in mindestens einem Formularfeld.','Formular unvollständig!');
+						_thisViewRecordVideoNested.stop=true;
+						return(false);
+					}
 					// console.log('getting: '+input.name+' >> '+input.value);
 					_thisViewRecordVideoNested.localStorageSubmitformModel.set(input.name,input.value);
 				});
+				if(_thisViewRecordVideoNested.stop==true) return(false);
 				_thisViewRecordVideoNested.localStorageSubmitform.set(_thisViewRecordVideoNested.localStorageSubmitformModel);
 				// this.activePage = VideoRecordNestedPageTwo;
 				// this.render();
@@ -149,6 +161,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				});
 				
 				$('#uploadstatusbar').hide();
+				$('#videobox').hide();
+				
 				/*
 				this.$el.off('click','#captureVideoUploadButton').on('click','#captureVideoUploadButton',function(event){
 					event.preventDefault();

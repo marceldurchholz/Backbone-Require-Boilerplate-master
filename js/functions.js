@@ -1866,7 +1866,7 @@ function getVideoWin(mediaFiles) {
 			// my_media.play();
 			// var blax = JSON.stringify(mediaFiles);
 			// alert(path);
-			doAlert('Bitte klicken Sie zum Fortsetzen auf weiter.','Aufnahme erfolgreich');
+			doAlert('Klicken Sie zum Fortsetzen auf weiter.','Aufnahme erfolgreich');
 			attachVideoToPlayer(mediaFiles[i].fullPath);
 			// alert('Bitte klicken Sie auf hochladen.');
 		}
@@ -1893,7 +1893,7 @@ function sendLocalStorageToElements(videoRecordLocalStorage) {
 				console.log(modelkey+' >> '+modelsattribute[modelkey]);
 			}
 			else if($('#'+modelkey).is("select")) {
-				alert(modelkey + ' is a select');
+				// alert(modelkey + ' is a select');
 				if (modelkey=='interest') {
 					// $('#'+modelkey).val(modelsattribute[modelkey]);
 					// console.log(modelkey+' >> '+modelsattribute[modelkey]);
