@@ -223,7 +223,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				var htmlContent = '';
 				$(this.el).html(htmlContent);
 				console.log(_thisViewMyProfileNested.me);
-				if (!_thisViewMyProfileNested.me.coins) _thisViewMyProfileNested.me.coins = "0";
+				if (!_thisViewMyProfileNested.me.credits) _thisViewMyProfileNested.me.credits = "0";
 				var provider;
 				provider = jQuery.inArray( 'provider', _thisViewMyProfileNested.me.roles );
 				var seeker;
@@ -235,7 +235,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 					, slogan: _thisViewMyProfileNested.me.slogan
 					, perstext: _thisViewMyProfileNested.me.perstext
 					, username: _thisViewMyProfileNested.me.username
-					, coins: _thisViewMyProfileNested.me.coins
+					, credits: _thisViewMyProfileNested.me.credits
 					, level: _thisViewMyProfileNested.me.level
 					, interests: _thisViewMyProfileNested.interests
 					, provider: provider

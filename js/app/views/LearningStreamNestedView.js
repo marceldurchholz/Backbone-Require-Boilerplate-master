@@ -133,8 +133,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					value.ccat = 'plan';
 					value.icon = 'images/avatar.jpg';
 					value.href = '#myprofile';
-					value.topic = 'Keine passenden Inhalte';
-					value.title = 'Bitte wählen Sie Ihre Interessen aus';
+					value.title = 'Keine passenden Inhalte';
+					value.topic = 'Bitte wählen Sie (mehr) Interessen aus';
 					value.description = ' Klicken Sie hier um auf Ihre Profileinstellungen zu gelangen...';
 					_thisViewLearningStreamNested.streamData.push(value);
 				}
