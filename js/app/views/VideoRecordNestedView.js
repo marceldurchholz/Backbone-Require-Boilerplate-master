@@ -161,7 +161,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				});
 				
 				$('#uploadstatusbar').hide();
-				$('#videobox').hide();
+				// $('#videobox').hide();
 				
 				/*
 				this.$el.off('click','#captureVideoUploadButton').on('click','#captureVideoUploadButton',function(event){
