@@ -10,8 +10,12 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				var _thisViewMyProfileNested = this;
 				// _thisViewMyProfileNested.me = new Object();
 				console.log('initializing MyProfileNestedView.js');
-				_thisViewMyProfileNested.me = window.me;
-				_thisViewMyProfileNested.initialized = _thisViewMyProfileNested.me;
+				// _thisViewMyProfileNested.me = window.me;
+				dpd.users.me(function(me) {
+					_thisViewMyProfileNested.me = me;
+				});
+				// _thisViewMyProfileNested.initialized = _thisViewMyProfileNested.me;
+				_thisViewMyProfileNested.initialized = window.me;
 				
 				$.ajax({
 					url: "http://dominik-lohmann.de:5000/users",

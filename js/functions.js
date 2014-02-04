@@ -518,7 +518,7 @@ function updateCoins(productId) {
 				hideModal();
 				doAlert('Vielen Dank. Sie haben nun ' + newcredits + ' APPinaut Coins.','Kauf erfolgreich');
 				// window.location.reload();
-				window._thisViewMyProfileNested.render();
+				window._thisViewMyProfileNested.initialize();
 			});
 			_me = me;
 		}
@@ -530,7 +530,7 @@ function updateCoins(productId) {
 					hideModal();
 				}
 				console.log(result, result.id);
-				window._thisViewMyProfileNested.render();
+				window._thisViewMyProfileNested.initialize();
 				hideModal();
 				doAlert('Sie sind nun APPinaut Anbieter und können allen Wissensdurstigen Ihr Material zur Verfügung stellen. Viel Erfolg!','Upgrade erfolgreich');
 				// window.location.reload();
