@@ -169,7 +169,10 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					// console.log('starting downloadVideo c');
 					var downloadPath = fs.root.fullPath + "/download.mp4";
 					// console.log(downloadPath);
-					var uri = encodeURI("http://management-consulting.marcel-durchholz.de/secure/4444444444.mp4");			 
+					var uri = '';
+					uri =  $('#downloadVideoUrl').val();
+					// if (!isMobile.any()) uri = encodeURI("http://management-consulting.marcel-durchholz.de/secure/4444444444.mp4");
+					// else uri =  $('#downloadVideoUrl').val();
 					// console.log('starting downloadVideo d');
 					// console.log(uri);
 					console.log(downloadPath);
@@ -229,7 +232,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				},{variable: 'video'}));
 				
 				if (!isMobile.any()) {
-					$('#camera_file').val('file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4');
+					// $('#camera_file').val('file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4');
 				}
 				this.$el.trigger('create');
 				sendLocalStorageToElements(_thisViewRecordVideoNested.localStorageSubmitform.models);
