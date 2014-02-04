@@ -148,9 +148,9 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					if (model.get('price')==0) pricetext = 'Video kostenlos laden';
 					else pricetext = 'Video für '+model.get('price')+' Coins kaufen';
 					var provider = '';
-					provider = jQuery.inArray( 'provider', model.get('roles') );
+					provider = jQuery.inArray( 'provider', window.me.roles );
 					var seeker = '';
-					seeker = jQuery.inArray( 'seeker', model.get('roles') );
+					seeker = jQuery.inArray( 'seeker', window.me.roles );
 					// console.log('purchases');
 					// console.log(model.get('purchases'));
 					_template = _.template(videosDetailsViewHTML, {
