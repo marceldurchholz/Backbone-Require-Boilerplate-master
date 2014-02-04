@@ -504,7 +504,7 @@ function updateCoins(productId) {
 			// doAlert("Der In-App Kauf konnte leiner nicht zugeordnet werden. Bitte wenden Sie sich an den Support.","Unbekannter Fehler");
 			break;
 		}
-		if (parseInt(newcredits,0)>0) {
+		if (parseInt(addcredits,0)>0) {
 			newcredits = parseInt(me.credits,0) + parseInt(addcredits,0);
 			// alert(addcredits);
 			// console.log(newcredits);
@@ -532,6 +532,7 @@ function updateCoins(productId) {
 				hideModal();
 				doAlert('Sie sind nun APPinaut Anbieter und können allen Wissensdurstigen Ihr Material zur Verfügung stellen. Viel Erfolg!','Upgrade erfolgreich');
 				// window.location.reload();
+				window._thisViewMyProfileNested.render();
 			});
 			_me = me;
 		}
