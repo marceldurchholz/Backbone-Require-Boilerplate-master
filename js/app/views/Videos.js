@@ -14,6 +14,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				var _thisViewVideos = this;
 			},
 			initialize: function() {
+				this._thisViewVideos = this;
 				this.fetch();
 			},
 			sync: function() {

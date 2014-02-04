@@ -1860,7 +1860,7 @@ function purchaseVideoStart(me,videoData,creditsAfterPurchase) {
 			doAlert('Sie können das Video nun ansehen. Für weitere Käufe sind noch '+creditsAfterPurchase+' Credits verfügbar.','Aktion Erfolgreich');
 			// $('#loadvideobutton').hide();
 			// console.log(window);
-			window._thisViewVideoDetails.render();
+			window._thisViewVideos.render();
 			// window.location.reload();
 		}).fail(function() {
 			doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
