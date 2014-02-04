@@ -549,9 +549,18 @@ function updateCoins(productId) {
 function initStore() {
 	window.storekit.init({
 		debug: true, /* Because we like to see logs on the console */
+		noAutoFinish: true,
 		purchase: function (transactionId, productId) {
+			storekit.finish(transactionId);
+			storekit.loadReceipts(function (receipts) {
+				console.log('Receipt for appStore = ' + receipts.appStoreReceipt);
+				console.log('Receipt for ' + productId + ' = ' + receipts.forProduct(productId));
+			});
 			console.log('purchased: ' + productId);
 			updateCoins(productId);
+		},
+		finish: function (transactionId, productId) {
+			console.log('Finished transaction for ' + productId + ' : ' + transactionId);
 		},
 		restore: function (transactionId, productId) {
 			console.log('restored: ' + productId);
@@ -581,6 +590,10 @@ function initStore() {
 				if(invalidProductIds.length) {
 					console.log("Invalid Product IDs: " + JSON.stringify(invalidProductIds));
 				}
+			});			
+			// Also check the receipts
+			storekit.loadReceipts(function (receipts) {
+				console.log('appStoreReceipt:' + receipts.appStoreReceipt);
 			});
 		}
 	});
