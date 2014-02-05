@@ -3,6 +3,8 @@
 		<img style="width:100%;max-height:100%;max-width:160px;" src="images/avatar.jpg">
 	</div>
 	<div style="width:50%;float:left;clear:none;display:inline-block;padding-right:2%;">
+		<div style="color:#606060;font-size:1.2em;padding:5px 5px;"><%= user.username %></div>
+		<div class="clear"></div>
 		<input style="width:100%;" data-theme="a" data-mini="true" type="text" name="fullname" id="fullname" value="<%= user.fullname %>" placeholder="Name erforderlich..."/>
 		<div class="clear"></div>
 		<!-- <input style="width:100%;" data-theme="a" no-data-role="none" data-mini="true" type="text" name="username" id="username" value="<%= user.username %>" placeholder="Ihr Benutzername/E-Mail"/> -->
@@ -87,7 +89,8 @@
 		<h2>APPinaut® Upgrades<!-- <%= user.provider %> - Upgrades und Personal APPinaut®--></h2>
 		<ul data-iconpos="left" data-role="listview" data-filter="false">
 			<% if( user.provider < 0 ) { %>
-				<li data-icon="plus"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.UPGPROVAPP269T3" style="font-size:0.8em;font-weight:normal;">APPinaut® Anbieter werden (2,69 Euro mtl.)</a></li>
+				<li data-icon="plus"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.UPGPROVAPP269T3" style="font-size:0.8em;font-weight:normal;">1 Monat Anbieter (2,69 Euro)</a></li>
+				<li data-icon="plus"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.UPGPROVAPP1999T22" style="font-size:0.8em;font-weight:normal;">1 Jahr Anbieter inkl. 1 Testmonat (19,99 Euro)</a></li>
 			<% } else { %>
 				<li data-iconpos="left" data-icon="info"><a class="purchasebtn" style="font-size:0.8em;font-weight:bold;">Sie sind bereits APPinaut® Anbieter</a></li>
 			<% } %>

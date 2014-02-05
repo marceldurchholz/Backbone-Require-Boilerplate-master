@@ -500,6 +500,10 @@ function updateCoins(productId) {
 			addcredits = "0";
 			// alert("Gehen Sie auf allen Vieren und werden Sie bescheidener");
 			break;
+		  case "com.digitalverve.APPinaut.UPGPROVAPP1999T22":
+			addcredits = "0";
+			// alert("Gehen Sie auf allen Vieren und werden Sie bescheidener");
+			break;
 		  default:
 			// doAlert("Der In-App Kauf konnte leiner nicht zugeordnet werden. Bitte wenden Sie sich an den Support.","Unbekannter Fehler");
 			break;
@@ -524,6 +528,9 @@ function updateCoins(productId) {
 		}
 		else {
 			var newroles = ["user","provider","seeker"];
+			// if (productId=="com.digitalverve.APPinaut.UPGPROVAPP269T3") {
+			// }
+			// else if {
 			dpd.users.put(me.id, {roles: newroles}, function(result, err) { 
 				if(err) {
 					return console.log(err);
@@ -2375,7 +2382,46 @@ $(window).bind('hashchange', function(){
 	// alert('a');
 	// populateDeviceInfoTimer();
 	modifyiOS7StatusBar();
+	checkTopNaviRoles();
 });
+
+function checkTopNaviRoles() {
+	dpd.users.me(function(me) {
+		$( "#pageOptions li" ).each(function(index, value) {
+			var lirole = $(this).attr('data-roles');
+			// console.log(value);
+			// console.log(lirole);
+			// console.log(checkRole(lirole));
+			if (lirole == '' || lirole == 'public' || lirole == undefined) { 
+				$(this).css('visibility','visible');
+				$(this).css('display','block');
+			}
+			else {
+				if (lirole != undefined && checkRole(lirole)==true) {
+					// if (checkRole(lirole)==false) {
+					$(this).css('visibility','hidden');
+					$(this).css('display','none');
+					// }
+				}
+			}
+		});
+	});
+
+}
+
+function checkRole(role) {
+	var show = false;
+	$.each( window.me.roles, function( key, value ) {
+		if (role==value) {
+			show = true;
+			return(show);
+		}
+		else {
+			// show = false;
+		}
+	});
+	return(show);
+}
 
 $('#footervideolink').on("vclick", function (e) {
 	// report('footer clicked');
@@ -2527,20 +2573,6 @@ $("#body > *").off('click').on('click',function(event){
 	alert(event.currentTarget);
 });
 */
-
-function checkRole(role) {
-	var show = false;
-	$.each( window.me.roles, function( key, value ) {
-		if (role==value) {
-			show = true;
-			return(show);
-		}
-		else {
-			// show = false;
-		}
-	});
-	return(show);
-}
 
 function dateYmdHis() {
 	var date = new Date();
