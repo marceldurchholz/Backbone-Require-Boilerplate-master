@@ -19,7 +19,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							// doAlert('not logging in');
 							// return(false);
 							console.log(error.message);
-							doAlert('Eine Anmeldung mit diesen Zugangsdaten konnte nicht durchgeführt werden.','Fehler bei der Anmeldung!');
+							doAlert('Eine Anmeldung mit diesen Zugangsdaten konnte nicht durchgeführt werden. Zur Registrierung klicken Sie auf "Neuen Zugang anlegen".','Fehler bei der Anmeldung!');
 						} else {
 							// doAlert('logging in');
 							console.log(user);
@@ -134,7 +134,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 										cache: false,
 										success: function(response) { 
 											// alert(response);
-											doAlert('Die Registrierung war erfolgreich. Bitte vervollständige Dein Profil und bestätige Deine E-Mail-Adresse.','Herzlich Willkommen!');
+											// doAlert('Die Registrierung war erfolgreich. Bitte vervollständige Dein Profil und bestätige Deine E-Mail-Adresse.','Herzlich Willkommen!');
 											_thisViewLogin.sendLogin('#myprofile');
 										},
 										error: function(response) {

@@ -56,7 +56,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 						_thisViewMyProfileNested.checkActiveStatus();
 					});
 					if (_thisViewMyProfileNested.me.active==false || $("#fullname").val()=='') {
-						doAlert('Um alle Funktionen des APPinaut nutzen zu können, vervollständigen Sie bitte Ihr Profil und bestätigen Sie dies über den Link der Ihnen zugesendeten E-Mail.','Bestätigung erforderlich');
+						doAlert('Bitte vervollständigen Sie Ihr Profil und bestätigen Sie Ihre E-Mail-Adresse über den zugesendeten Link.','Fast fertig...');
 					}
 					
 				});
