@@ -159,11 +159,11 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				// $("#username").blur(this.changeInputValue);
 				$("input[type='checkbox']").bind( "change", function(event, ui) {
 					event.preventDefault();
-					console.log(event);
-					console.log(event.delegateTarget);
-					console.log(event.delegateTarget.id);
-					console.log( $("label[for='"+ event.delegateTarget.id +"']").text() );
-					console.log(event.delegateTarget.checked);
+					// console.log(event);
+					// console.log(event.delegateTarget);
+					// console.log(event.delegateTarget.id);
+					// console.log( $("label[for='"+ event.delegateTarget.id +"']").text() );
+					// console.log(event.delegateTarget.checked);
 					var o = new Object();
 					o.id = event.delegateTarget.id;
 					if (event.delegateTarget.checked==false) o.status = "";
@@ -196,8 +196,8 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				this.$el.off('click','#deletemyaccountbtn').on('click','#deletemyaccountbtn',function(e){
 					e.preventDefault();
 					// _thisViewLogin.sendLogin('#dashboard');
-					console.log('clicked');
-					console.log(e);
+					// console.log('clicked');
+					// console.log(e);
 					var confirmText = 'Wollen Sie Ihren Zugang wirklich unwiderruflich löschen?';
 					var confirmTitle = 'Sind Sie sicher?';
 					var confirmButtonLabels = 'Bitte löschen,Vorgang abbrechen';

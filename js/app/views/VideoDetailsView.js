@@ -8,6 +8,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			
 				el: "#page-content",
 				attributes: {"data-role": 'content'},
+				/*
 				createVideo: function () {
 					if (this._videosCollection.online==0) {
 						// this._videosCollection._localStorage_users.create(new Video({"fullname": "offline James King", "device": "5645-6543-5415-5233", "credits": "120", "pictureurl": "http://www.redner24.de/typo3temp/GB/Durchholz_Marcel_4c_1090c3626b_Durc_a4ff6064ff.jpg"}));
@@ -15,10 +16,11 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					}
 					else {
 						// this._videosCollection._localStorage_users.create(new VideoModel({"fullname": "offline James King", "device": "5645-6543-5415-5233", "credits": "120", "pictureurl": "http://www.redner24.de/typo3temp/GB/Durchholz_Marcel_4c_1090c3626b_Durc_a4ff6064ff.jpg"}));
-						this.create(new VideoModel({"uploader": "042cb1572ffbea5d", "videourl": "http://xyz.de.com.uk", "title": "This is a video title", "description": "This is a description", "price": "35", "thumbnailurl": "http://www.cbr250r.com.au/images/video-thumbnail.jpg"}));
+						this.create(new VideoModel({"uploader": "042cb1572ffbea5d", "videourl": "http://xyz.de.com.uk", "title": "This is a video title", "description": "This is a description", "price": "35", "thumbnailurl": ""}));
 					}
 					return(false);
 				},
+				*/
 				create: function(model) {
 					_thisViewVideoDetails = this;
 					$.ajax('http://dominik-lohmann.de:5000/videos', {
@@ -46,6 +48,15 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				},
 				initializeCollection:function(options) {
 					this._videosCollection = new videosCollection([], options);
+					dpd.users.me(function(user) {
+						if (user) { 
+							
+						}
+						else {
+							console.log('You are not logged in!');
+							system.redirectToUrl('#login');
+						}
+					});
 				},
 				fetch: function(options) {
 					_thisKnowledgeData = this;
@@ -68,9 +79,17 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				},
 				buyVideo: function(successUrl,videoid) {
 					_thisViewVideoDetails = this;
+					// _thisConfirmButtonLabels = ('Preise anzeigen,Abbrechen').split(",");
 					var CreditsAfterPurchase = parseFloat(this._videosCollection.user.credits) - parseFloat(this._videosCollection.models[0].attributes.price);
 					if (CreditsAfterPurchase<0) {
-						doAlert('Sie haben nicht genügend Credits.','Schade...');
+						// doAlert('Sie haben nicht genügend Credits.','Schade...');
+						doConfirm('Sie haben nicht genügend APPinaut® Coins.', 'Schade...', function (event) { 
+							if (event=="1") {
+								// doAlert('1','ok');
+								window.location.href = '#myprofile';
+							}
+						}, ('Preise anzeigen,Abbrechen').split(","));
+
 						return(false);
 					}
 					else {
@@ -153,6 +172,12 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					seeker = jQuery.inArray( 'seeker', window.me.roles );
 					// console.log('purchases');
 					// console.log(model.get('purchases'));
+					/*
+					var _thumbnailurl = '';
+					if () {
+						_thumbnailurl = '';
+					}
+					*/
 					_template = _.template(videosDetailsViewHTML, {
 						id: model.get('id'),
 						uploaderdata: _thisViewVideoDetails.uploaderdata,
@@ -191,9 +216,11 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					// console.log('this._videosCollection.models[0].attributes.videourl');
 					// console.log(this._videosCollection.models[0].attributes.videourl);
 					var showVideoLength = 0;
-					if( _.indexOf(this._videosCollection.models[0].attributes.purchases, this._videosCollection.models[0].attributes.id)==-1 ) { } else {
-						// alert('not buyed');
+					alert(showVideoLength);
+					if( _.indexOf(this._videosCollection.models[0].attributes.purchases, this._videosCollection.models[0].attributes.id)==-1 ) {
 						showVideoLength = 60;
+					} else {
+						// alert('not buyed');
 					}
 					// alert(showVideoLength);
 					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',this._videosCollection.models[0].attributes.videourl,showVideoLength);

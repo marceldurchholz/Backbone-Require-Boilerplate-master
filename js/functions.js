@@ -468,7 +468,7 @@ var dao = {
 };
 
 function updateCoins(productId) {
-	showModal();
+	// showModal();
 	$.ajax('http://dominik-lohmann.de:5000/users/?id='+window.me.id,{
 		type:"GET",
 		async: false,
@@ -558,6 +558,7 @@ function initStore() {
 		debug: true, /* Because we like to see logs on the console */
 		noAutoFinish: true,
 		purchase: function (transactionId, productId) {
+			showModal();
 			storekit.finish(transactionId);
 			storekit.loadReceipts(function (receipts) {
 				console.log('Receipt for appStore = ' + receipts.appStoreReceipt);
@@ -2325,15 +2326,16 @@ function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 	_V_("video_player_1").ready(function(){
 		// alert('jupp');
 		// { type: "video/mp4", src: "http://mobile002.appinaut.de/secure/data/media/video/Bird_Titmouse.mp4" }
-		console.log(_thisVideoUrl);
-		console.log("http://mobile002.appinaut.de/secure/data/media/video/index.php?showvideo="+_thisVideoUrl+".mp4");
+		// console.log(_thisVideoUrl);
+		// console.log("http://mobile002.appinaut.de/secure/data/media/video/index.php?showvideo="+_thisVideoUrl+".mp4");
 		myPlayer.src([
 			{ type: "video/mp4", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".mp4" },
 			{ type: "video/webm", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".webm" },
-			{ type: "video/ogg", src: "management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".ogv" }
+			{ type: "video/ogg", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".ogv" }
 		]);
 		// alert('bla');
 		// myPlayer.posterImage.show();  
+		// $("#video_player_1.vjs-poster").css('background-image', 'url(http://video-js.zencoder.com/oceans-clip.jpg)').show();
 		myPlayer.controlBar.hide();  
 		myPlayer.bigPlayButton.hide();  
 		// myPlayer.pause();
