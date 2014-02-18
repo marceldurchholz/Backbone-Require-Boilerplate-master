@@ -12,6 +12,11 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				// _thisViewMyProfileNested.me = window.me;
 				_thisViewMyProfileNested.initialized = window.me;
 				dpd.users.me(function(me) {
+					if (me) { }
+					else {
+						system.redirectToUrl('#login');
+						return(false);
+					}
 					console.log(me);
 					_thisViewMyProfileNested.me = me;
 					

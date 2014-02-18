@@ -47,16 +47,11 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					});
 				},
 				initializeCollection:function(options) {
-					this._videosCollection = new videosCollection([], options);
 					dpd.users.me(function(user) {
-						if (user) { 
-							
-						}
-						else {
-							console.log('You are not logged in!');
-							system.redirectToUrl('#login');
-						}
+						if (user) { }
+						else system.redirectToUrl('#login');
 					});
+					this._videosCollection = new videosCollection([], options);
 				},
 				fetch: function(options) {
 					_thisKnowledgeData = this;
@@ -216,7 +211,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					// console.log('this._videosCollection.models[0].attributes.videourl');
 					// console.log(this._videosCollection.models[0].attributes.videourl);
 					var showVideoLength = 0;
-					alert(showVideoLength);
+					// alert(showVideoLength);
 					if( _.indexOf(this._videosCollection.models[0].attributes.purchases, this._videosCollection.models[0].attributes.id)==-1 ) {
 						showVideoLength = 60;
 					} else {

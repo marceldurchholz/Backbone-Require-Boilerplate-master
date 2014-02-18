@@ -2388,6 +2388,7 @@ $(window).bind('hashchange', function(){
 });
 
 function checkTopNaviRoles() {
+	// alert('foo');
 	dpd.users.me(function(me) {
 		$( "#pageOptions li" ).each(function(index, value) {
 			var lirole = $(this).attr('data-roles');
@@ -2399,11 +2400,18 @@ function checkTopNaviRoles() {
 				$(this).css('display','block');
 			}
 			else {
-				if (lirole != undefined && checkRole(lirole)==true) {
-					// if (checkRole(lirole)==false) {
-					$(this).css('visibility','hidden');
-					$(this).css('display','none');
-					// }
+				if (lirole != undefined) {
+					//  && checkRole(lirole)==true
+					var bla = checkRole(lirole);
+					// alert(bla);
+					if (checkRole(lirole)==true) {
+						$(this).css('visibility','visible');
+						$(this).css('display','block');
+					}
+					else {
+						$(this).css('visibility','hidden');
+						$(this).css('display','none');
+					}
 				}
 			}
 		});

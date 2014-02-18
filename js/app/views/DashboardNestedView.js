@@ -7,8 +7,12 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 		var DashboardNestedViewVar = Backbone.View.extend({
 			el: "#DashboardNestedViewDiv",
 			initialize: function() {
+				_thisViewDashboardNested = this;
 				console.log('initialize DashboardNestedView.js');
-				this.initializeme();
+				dpd.users.me(function(me) {
+					if (me) _thisViewDashboardNested.initializeme();
+					else system.redirectToUrl('#login');
+				});
 			},
 			initializeme: function() {
 				console.log('initializeme DashboardNestedView.js');
