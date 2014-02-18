@@ -558,7 +558,7 @@ function initStore() {
 		debug: true, /* Because we like to see logs on the console */
 		noAutoFinish: true,
 		purchase: function (transactionId, productId) {
-			showModal();
+			// showModal();
 			storekit.finish(transactionId);
 			storekit.loadReceipts(function (receipts) {
 				console.log('Receipt for appStore = ' + receipts.appStoreReceipt);
