@@ -109,9 +109,31 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 							value.ccat = 'video';
 							value.icon = 'images/icon-videos-60.png';
 							value.href = '#videos/details/view/'+value.id;
-							_thisKnowledgeData.streamData.push(value);
+							// _thisKnowledgeData.streamData.push(value);
+							
+							var uploader = value.uploader; // "ed568841af69d94d";
+							$.ajax({
+								// type: 'get',
+								// timeout: 5000,
+								url: 'http://dominik-lohmann.de:5000/users/?id='+uploader,
+								async: false,
+								success: function(data, textStatus, XMLHttpRequest){
+									// console.log('Error: ' + textStatus);
+									_thisKnowledgeData.streamData.push(value);
+									// console.log(data);
+								},
+								error:function (xhr, ajaxOptions, thrownError){
+									// console.log('error');
+									// console.log(index);
+									// alert(xhr.status);
+									// alert(xhr.statusText);
+									// alert(xhr.responseText);
+								}
+							});
+
 						});
 					});
+					/*
 					var url = "http://dominik-lohmann.de:5000/cards?active=true&deleted=false";
 					$.ajax({
 						url: url+querystr,
@@ -136,6 +158,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 							_thisKnowledgeData.streamData.push(value);
 						});
 					});
+					*/
 					// Sort multidimensional arrays with oobjects by value 
 					// http://www.javascriptkit.com/javatutors/arraysort2.shtml
 					_thisKnowledgeData.streamData.sort(function(a, b){

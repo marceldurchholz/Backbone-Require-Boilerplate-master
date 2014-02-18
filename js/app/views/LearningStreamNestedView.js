@@ -124,6 +124,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						}
 					});
 				});
+				/*
 				$.ajax({
 					url: "http://dominik-lohmann.de:5000/cards?active=true&deleted=false",
 					async: false
@@ -152,6 +153,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						}
 					});
 				});
+				*/
 				
 				if (_thisViewLearningStreamNested.streamData.length==0) {
 					var value = new Object();
