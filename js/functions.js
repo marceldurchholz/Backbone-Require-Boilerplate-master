@@ -2402,7 +2402,7 @@ function checkTopNaviRoles() {
 			else {
 				if (lirole != undefined) {
 					//  && checkRole(lirole)==true
-					var bla = checkRole(lirole);
+					// var bla = checkRole(lirole);
 					// alert(bla);
 					if (checkRole(lirole)==true) {
 						$(this).css('visibility','visible');
