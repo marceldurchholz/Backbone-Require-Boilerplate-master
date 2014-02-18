@@ -101,7 +101,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 							dpd.users.put(_thisViewVideo.me.id, {following:{$push:_videoid}}, function(result, error) {
 								if (result) {
 									console.log(result);
-									doAlert('Das Medienobjekt befindet sich nun in Ihren Favoriten.','Favortit gespeichert!');
+									doAlert('Das Medienobjekt befindet sich nun in Ihren Favoriten.','Favorit gespeichert!');
 									}
 								else {
 									// console.log(error);
@@ -131,7 +131,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				else {
 					model.set("favclass","isVideoToFavourites");
 				}
-				console.log(model);
+				// console.log(model);
 				rowContent = _.template(videoPage, {
 					id: model.get('id'),
 					// uploader: model.get('uploader'),
@@ -154,7 +154,24 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				_thisViewVideo.rowContent = '';
 				_.each(this._videosCollection.models, function(model) {
 					this.id = model.get('id');
-					_thisViewVideo.rowContent = _thisViewVideo.rowContent + _thisViewVideo.insertData(model);
+					// console.log(model);
+					var uploader = model.attributes.uploader; // "ed568841af69d94d";
+					$.ajax({
+						// type: 'get',
+						// timeout: 5000,
+						url: 'http://dominik-lohmann.de:5000/users/?id='+uploader,
+						async: false,
+						success: function(data, textStatus, XMLHttpRequest){
+							_thisViewVideo.rowContent = _thisViewVideo.rowContent + _thisViewVideo.insertData(model);
+						},
+						error:function (xhr, ajaxOptions, thrownError){
+							// console.log('error');
+							// console.log(index);
+							// alert(xhr.status);
+							// alert(xhr.statusText);
+							// alert(xhr.responseText);
+						}
+					});
 				});
 				_thisViewVideo.htmlContent = '<ul id="videosListView" data-filter="true" data-filter-placeholder="Suchfilter..." data-filter-theme="a" data-role="listview" data-theme="a" data-divider-theme="b" data-autodividers="true">'+_thisViewVideo.rowContent+'</ul>';
 				$(this.el).html(_thisViewVideo.htmlContent);
