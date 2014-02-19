@@ -204,11 +204,11 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					return out;
 				  }
 				});				
+				hideModal();
 				this.$el.trigger('create');
 				new FastClick(document.body);
-				hideModal();
 				this.$el.fadeIn( 500, function() {
-					$('.ui-content').scrollTop(0);
+					// $('.ui-content').scrollTop(0);
 					new FastClick(document.body);
 				});
 				return this;				

@@ -48,7 +48,9 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				},
 				initializeCollection:function(options) {
 					dpd.users.me(function(user) {
-						if (user) { }
+						if (user) {
+							// this._videosCollection.user = user;
+						}
 						else system.redirectToUrl('#login');
 					});
 					this._videosCollection = new videosCollection([], options);
@@ -58,7 +60,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					var _thisViewVideoDetails = this;
 					var streamData = new Array();
 					_thisKnowledgeData.streamData = streamData;
-					// this.$el.hide();
+					this.$el.hide();
+					showModal();
 					this.initializeCollection(options);
 					this._videosCollection.fetch({
 						error: function(action, coll) {
@@ -242,12 +245,13 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					}
 					// alert(showVideoLength);
 					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',this._videosCollection.models[0].attributes.videourl,showVideoLength);
+					hideModal();
 					this.$el.trigger('create');
 					new FastClick(document.body);
-					// this.$el.fadeIn( 500, function() {
+					this.$el.fadeIn( 500, function() {
 						$('.ui-content').scrollTop(0);
 						new FastClick(document.body);
-					// });
+					});
 					_thisViewVideoDetails.bindEvents();
 					return this;
 				}

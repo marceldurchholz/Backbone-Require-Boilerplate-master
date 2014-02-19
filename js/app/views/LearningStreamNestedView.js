@@ -15,15 +15,17 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			},
 			fetch: function() {	
 				// alert('bla');
+				this.$el.hide();
+				showModal();
 				_thisViewLearningStreamNested = this;
 				console.log('fetching LearningStreamNestedView.js');
 				_thisViewLearningStreamNested.collectStreamData();
-				// this.$el.hide();
 			},
 			bindEvents: function() {
 				var _thisViewLearningStreamNested = this;
 				
-				dpd.videos.on('create', function(videoData) {
+				// dpd.videos.on('create', function(videoData) {
+				dpd.videos.once('create', function(videoData) {
 					// renderMessage(message);
 					// doAlert('new video existing');
 					// console.log(videoData);
@@ -190,6 +192,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				_thisViewLearningStreamNested.$el.html(_.template(LearningStreamNestedPage, {
 					data: _thisViewLearningStreamNested.streamData
 				},{variable: 'stream'}));
+				
+				hideModal();
 				this.$el.trigger('create');
 				// _thisViewLearningStream.$el.trigger('create');
 				new FastClick(document.body);

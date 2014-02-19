@@ -62,6 +62,7 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 				_thisViewDashboardNested = this;
 				console.log('fetching DashboardNestedView.js');
 				this.$el.hide();
+				showModal();
 			},
 			showDetails: function(e) {
 				// e.preventDefault();
@@ -106,6 +107,7 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 					, fullname: _thisViewDashboardNested.me.fullname
 				},{variable: 'user'});
 				$(this.el).html(htmlContent);
+				hideModal();
 				this.$el.trigger('create');
 				new FastClick(document.body);
 				this.$el.fadeIn( 500, function() {

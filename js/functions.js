@@ -2507,7 +2507,7 @@ var menuSwitched = function(status) {
 
 function showModal(){
 	$("#body").append('<div class="modalWindow"/>');
-	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;float:none;clear:both;">Loading the awesome...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div>' });
+	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div class="blink_me" style="text-align:center;float:none;clear:both;">Loading the awesome...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div>' });
 	// setTimeout('hideModal()', 60000);
 }
 
@@ -2604,3 +2604,4 @@ function handleOpenURL(url) {
   }, 0);
 }
 */
+

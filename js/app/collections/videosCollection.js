@@ -22,7 +22,7 @@ define(["jquery", "backbone", "models/VideoModel"],
 				this.localStorage = null;
 			}
 		},
-		model: VideoModel,		
+		model: VideoModel,
 		sortAttribute: "topic",
 		sortDirection: 1,
 		sortMovies: function (attr) {
@@ -40,7 +40,6 @@ define(["jquery", "backbone", "models/VideoModel"],
 		  }
 		},
 		fetch: function(options) {
-			/*
 			if (_thisCollectionVideos.online==1) {
 				dpd.users.me(function(user) {
 					if (user) {
@@ -54,8 +53,7 @@ define(["jquery", "backbone", "models/VideoModel"],
 					}
 				});
 			}
-			*/
-            options || (options = {});
+			options || (options = {});
             var data = (options.data || {});
             options.data = {date: this.date};
 			var responseObject = Backbone.Collection.prototype.fetch.call(this, options);

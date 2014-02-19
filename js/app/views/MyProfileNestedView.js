@@ -65,7 +65,8 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 			fetch: function() {	
 				_thisViewMyProfileNested = this;
 				console.log('fetching MyProfileNestedView.js');
-				// this.$el.hide();
+				this.$el.hide();
+				showModal();
 			},
 			changeInputValue: function(e) {
 				/*
@@ -248,6 +249,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 				},{variable: 'user'});
 				// alert(htmlContent);
 				$(this.el).html(htmlContent);
+				hideModal();
 				this.$el.trigger('create');
 				new FastClick(document.body);
 				this.$el.fadeIn( 500, function() {

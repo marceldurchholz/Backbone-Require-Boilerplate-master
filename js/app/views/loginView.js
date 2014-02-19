@@ -88,10 +88,30 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							var roles = ["user"];
 							var registered = dateYmdHis();
 							// active: false, 
-							var sponsor = "df8a74e899bba811";
+							
+							// var ownerid = ""; // df8a74e899bba811
+
+							$.ajax({
+								url: 'http://dominik-lohmann.de:5000/users/?roles=owner',
+								async: false,
+								success: function(ownerdata, textStatus, XMLHttpRequest){
+									_thisViewLogin.ownerdata = ownerdata[0];
+									_thisViewLogin.ownerid = ownerdata.id;
+									console.log(ownerdata);
+								},
+								error:function (xhr, ajaxOptions, thrownError){
+									doAlert('owner konnte nicht gefunden werden');
+									// alert(xhr.status);
+									// alert(xhr.statusText);
+									// alert(xhr.responseText);
+								}
+							});
+							// alert(_thisViewLogin.ownerdata.id);
+							var sponsor = _thisViewLogin.ownerdata.id;
+							
 							if (giftcode!='') sponsor = giftcode.replace('-','').toLowerCase();
 							dpd.users.post({username: username, password: password, sponsor: sponsor, roles: roles, registered: registered, credits: "0", purchases:[], followers:[], following:[], logincount:"0"}, function(user, error) {
-								console.log(user.id);
+								// console.log(user.id);
 								var uid = user.id;
 								if (error) {
 									console.log(error.message);
@@ -157,6 +177,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				sync: function() {
 				},
 				fetch: function() {
+					this.$el.hide();
+					showModal();
 					this.render();
 				},
 				initialize: function() {
@@ -164,14 +186,14 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					this.fetch();
 				},
 				toggleGiftcodeInput: function() {
-					$('#giftcodeInput').hide();
-					$("#giftcodeInput").fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300);
+					$('#giftcodeDiv').hide();
+					$("#giftcodeDiv").fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300);
 				},
 				bindEvents: function() {
 					var _thisViewLogin = this;
 					$('#showMenu').hide();
 					$('#showPageOptions').hide();
-					$('#giftcodeInput').toggle();
+					$('#giftcodeDiv').toggle();
 					this.$el.off('click','.sendLoginBtn').on('click','.sendLoginBtn',function(event){event.preventDefault();_thisViewLogin.sendLogin('#dashboard');});
 					this.$el.off('click','.sendRegisterBtn').on('click','.sendRegisterBtn',function(event){event.preventDefault();_thisViewLogin.sendRegister();});
 					this.$el.off('click','#giftcode').on('click','#giftcode',function(event){event.preventDefault();_thisViewLogin.toggleGiftcodeInput();});
@@ -182,6 +204,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewLogin.nestedView = new SidemenuView().fetch();
 					_thisViewLogin.$el.html(_.template(loginPage, {}));
+					hideModal();
 					this.$el.trigger('create');
 					new FastClick(document.body);
 					this.$el.fadeIn( 500, function() {
