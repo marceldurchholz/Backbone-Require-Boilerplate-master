@@ -2394,7 +2394,7 @@ $(window).bind('hashchange', function(){
 	// alert('a');
 	// populateDeviceInfoTimer();
 	modifyiOS7StatusBar();
-	// checkTopNaviRoles();
+	checkTopNaviRoles();
 });
 
 function checkTopNaviRoles() {

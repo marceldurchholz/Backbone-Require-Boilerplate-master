@@ -128,7 +128,6 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
 	
 	
-	$( "#pageOptions" ).hide();
 	var htmlContent = '';
 	htmlContent = '<ul data-role="listview">';
 		htmlContent += '<li data-roles="public" 		data-mini="true" data-iconpos="left" data-icon="arrow-l"><a style="font-weight:normal;" onClick="javascript:rotatePageOptionsIcon();history.back();return(false);">Zurück</a></li>';
@@ -139,9 +138,9 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		htmlContent += '<li data-roles="public" 		data-mini="true" data-iconpos="left" data-icon="grid"><a style="font-weight:normal;" href="#dashboard">Dashboard</a></li>';
 	htmlContent += '</ul>';
 	$( "#pageOptions" ).html(htmlContent);
-	$( "#pageOptions" ).trigger('create');
-	$('body').on('click', '#showPageOptionsIcon', function(event) {
-		event.preventDefault();
+	$( "#pageOptions" ).trigger('create');	
+	$( "#pageOptions" ).hide();
+		$('body').on('click', '#showPageOptionsIcon', function() {
 		// alert('bla');
 		showPageOptions();
 		checkTopNaviRoles();
