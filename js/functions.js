@@ -2384,12 +2384,12 @@ $(window).bind('hashchange', function(){
 	// alert('a');
 	// populateDeviceInfoTimer();
 	modifyiOS7StatusBar();
-	checkTopNaviRoles();
+	// checkTopNaviRoles();
 });
 
 function checkTopNaviRoles() {
 	// alert('foo');
-	dpd.users.me(function(me) {
+	// dpd.users.me(function(me) {
 		$( "#pageOptions li" ).each(function(index, value) {
 			var lirole = $(this).attr('data-roles');
 			// console.log(value);
@@ -2415,7 +2415,7 @@ function checkTopNaviRoles() {
 				}
 			}
 		});
-	});
+	// });
 
 }
 
@@ -2507,7 +2507,7 @@ var menuSwitched = function(status) {
 
 function showModal(){
 	$("#body").append('<div class="modalWindow"/>');
-	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div class="blink_me" style="text-align:center;float:none;clear:both;">Loading the awesome...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div>' });
+	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div class="blink_me" style="text-align:center;float:none;clear:both;">APPinaut is loading...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div>' });
 	// setTimeout('hideModal()', 60000);
 }
 
@@ -2517,6 +2517,7 @@ function hideModal(){
 }
 
 var system = {
+	contentHelper: 1,
 	// this.routerSwitched(false);
 	toggleLoading: function(status) {
 		console.log(status);
@@ -2540,6 +2541,7 @@ var system = {
 		}
 	}
 }
+// alert(system.contentHelper);
 
 function checkEmail(email){
   var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -2555,7 +2557,7 @@ function showPageOptions() {
 	// alert('roles');
 	// alert(roles);
 	
-	$( "#pageOptions" ).toggle( "slow", function() {
+	$( "#pageOptions" ).toggle( "fast", function() {
 		// $( "#page-content" ).toggle();
 		// $( "#showPageOptionsIcon" ).rotate({animateTo:360});
 		rotatePageOptionsIcon();

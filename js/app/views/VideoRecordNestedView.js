@@ -232,7 +232,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				$('#downloadVideoToggleButton').toggle();
 				$('#captureVideoRecordButton').toggle();
 				$('#downloadVideoInputDiv').toggle();
-				// $('#downloadVideoUrl').val('http://management-consulting.marcel-durchholz.de/secure/1391304708489.mp4');
+				if (window.system.contentHelper==1) $('#downloadVideoUrl').val('https://dl.dropboxusercontent.com/u/45253363/appinaut/videos/1111111111.mp4'); // http://management-consulting.marcel-durchholz.de/secure/1391304708489.mp4
 			},
 			render: function() {
 				var _thisViewRecordVideoNested = this;
