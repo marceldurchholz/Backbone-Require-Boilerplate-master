@@ -2315,10 +2315,13 @@ function resizeElement(elementid) {
 	var elfactor = (elheight/elwidth);
 	// console.log(elfactor);
 	var window_width = $(window).width();
+	var window_height = $(window).height();
+	var maxheight = $(window).height() / 5*2;
 	// console.log(window_width);
 	// var remaining = window_width - Math.floor(window_width / 128)  * 128;
 	var newwidthwborder = window_width;
 	var newheightwfactor = (window_width)*elfactor;
+	if (newheightwfactor>maxheight) newheightwfactor = maxheight;
 	// console.log(elfactor);
 	// this.$el.css('right', remaining / 2);
 	// console.log('newwidthwborder '+newwidthwborder);

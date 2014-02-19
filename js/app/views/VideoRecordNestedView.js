@@ -171,8 +171,14 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				*/
 				// $('#captureVideoUploadButton').button('disable');
 				// $('#submitbutton').button('disable');
-				resizeElement('#videobox');
-				resizeElement('#video_player');
+				window.resizeElement('#videobox');
+				window.resizeElement('#video_player');					
+				$(window).resize(function() {
+					window.resizeElement('#videobox');
+					window.resizeElement('#video_player');
+					// window.resizeElement('#video_player_1')
+				});
+
 			},
 			downloadVideo: function() {
 				var _thisViewRecordVideoNested = this;
