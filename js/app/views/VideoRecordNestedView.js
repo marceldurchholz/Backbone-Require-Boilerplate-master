@@ -171,6 +171,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				*/
 				// $('#captureVideoUploadButton').button('disable');
 				// $('#submitbutton').button('disable');
+				resizeElement('#videobox');
+				resizeElement('#video_player');
 			},
 			downloadVideo: function() {
 				var _thisViewRecordVideoNested = this;
@@ -252,6 +254,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				sendLocalStorageToElements(_thisViewRecordVideoNested.localStorageSubmitform.models);
 				var mediaFilePath = $('#camera_file').val();
 				console.log(mediaFilePath);
+				alert(mediaFilePath);
 				attachVideoToPlayer(mediaFilePath);
 				this.bindEvents();
 				this.$el.fadeIn( 500, function() {

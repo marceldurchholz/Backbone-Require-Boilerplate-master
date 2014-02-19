@@ -1979,7 +1979,8 @@ function sendLocalStorageToElements(videoRecordLocalStorage) {
 function attachVideoToPlayer(mediaFilePath) {
 	// var path = mediaFile.fullPath;
 	// var path = mediaFilePath;
-	console.log('attachVideoToPlayer: '+mediaFilePath);
+	// console.log('attachVideoToPlayer: '+mediaFilePath);
+	alert('attachVideoToPlayer: '+mediaFilePath);
 	var video_player = $('#video_player');
 	if (mediaFilePath==undefined) {
 		// console.log('hide');
@@ -1995,7 +1996,8 @@ function attachVideoToPlayer(mediaFilePath) {
 		var startTime = new Date();
 		video_player.src = mediaFilePath;
 		video_player.onloadend = function() {
-			console.log('Video load time: ' + (new Date() - startTime));
+			// console.log('Video load time: ' + (new Date() - startTime));
+			alert('Video load time: ' + (new Date() - startTime));
 		};
 	}
 	if (mediaFilePath=='') {
@@ -2308,18 +2310,18 @@ function resizeElement(elementid) {
 	console.log('resizeElement: '+elementid);
 	// var thumbnail_width = this.$el.outerWidth();
 	var elwidth = $(elementid).width();
-	console.log(elwidth);
+	// console.log(elwidth);
 	var elheight = $(elementid).height();
 	var elfactor = (elheight/elwidth);
-	console.log(elfactor);
+	// console.log(elfactor);
 	var window_width = $(window).width();
-	console.log(window_width);
+	// console.log(window_width);
 	// var remaining = window_width - Math.floor(window_width / 128)  * 128;
 	var newwidthwborder = window_width;
 	var newheightwfactor = (window_width)*elfactor;
-	console.log(elfactor);
+	// console.log(elfactor);
 	// this.$el.css('right', remaining / 2);
-	console.log('newwidthwborder '+newwidthwborder);
+	// console.log('newwidthwborder '+newwidthwborder);
 	$(elementid).css("width", newwidthwborder);
 	$(elementid).css("height", newheightwfactor);
 	// alert('jup');
