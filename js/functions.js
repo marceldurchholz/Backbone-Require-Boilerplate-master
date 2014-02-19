@@ -627,7 +627,10 @@ var app = {
 				// if(isMobile.any()) {
 				// }
 				
-				if(isMobile.any()) initStore();
+				if(isMobile.any()) {
+					initStore();
+					document.addEventListener("resume", _thisApp.onResume, false);
+				}
 				
 				new window.MobileRouter();
 				// return this.dfd.promise();
@@ -642,6 +645,9 @@ var app = {
 			  }
 		);
 	},
+	onResume: function() {
+		alert('app resumed');
+	}
 	fetchWorking: function() {
 		var setTimeoutWatcher = setTimeout(function foo() {
 			if ( _thisApp.dfd.state() === "pending" ) {
@@ -673,7 +679,7 @@ var app = {
 		console.log('fetching _thisApp.js');
 	},
 	receivedEvent: function(event) {
-		_thisApp.dfd.resolve(true);
+		_thisApp.dfd.resolve(true);		
 	}
 };
 	
