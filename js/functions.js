@@ -647,7 +647,7 @@ var app = {
 	},
 	onResume: function() {
 		alert('app resumed');
-	}
+	},
 	fetchWorking: function() {
 		var setTimeoutWatcher = setTimeout(function foo() {
 			if ( _thisApp.dfd.state() === "pending" ) {
