@@ -1797,16 +1797,18 @@ function purchaseVideoConfirm(me,videoData) {
 	this._me = me;
 	this._videoData = videoData;
 	// doAlert('Möchten Sie Video uying video ' + videoData.id);
-	var creditsAfterPurchase = parseFloat(me.credits) - parseFloat(videoData.price);
-	this._creditsAfterPurchase = creditsAfterPurchase;
-	console.log(creditsAfterPurchase,'creditsAfterPurchase');
-	doConfirm('Möchten Sie dieses Video für ' + this._videoData.price + ' APPinaut Coins ansehen?', 'Video ansehen', function (event) { 
+	if (this._videoData.price>0) doConfirm('Möchten Sie dieses Video für ' + this._videoData.price + ' APPinaut Coins ansehen?', 'Video ansehen', function (event) { 
 		// console.log(event);
-		console.log(this._me);
-		purchaseVideoConfirmCallback(event,this._me,this._videoData,this._creditsAfterPurchase); 
+		// console.log(this._me);
+		// purchaseVideoConfirmCallback(event,this._me,this._videoData,this._creditsAfterPurchase); 
+		if (event=="1") {
+			purchaseVideoStart(me,videoData);
+		}
 	}, undefined);
+	else purchaseVideoStart(me,videoData);
 }
 
+/*
 function purchaseVideoConfirmCallback(event,me,videoData,creditsAfterPurchase) {
 	// console.log(this.event);
 	// if (event=="1") doAlert('event=1 (OK)');
@@ -1817,8 +1819,14 @@ function purchaseVideoConfirmCallback(event,me,videoData,creditsAfterPurchase) {
 	}
 	// alert('You clicked confirm...');
 }
+*/
 
-function purchaseVideoStart(me,videoData,creditsAfterPurchase) {
+function purchaseVideoStart(me,videoData) {
+	var creditsAfterPurchase = parseFloat(me.credits) - parseFloat(videoData.price);
+	this._videoData = videoData;
+	this._creditsAfterPurchase = creditsAfterPurchase;
+	console.log(creditsAfterPurchase,'creditsAfterPurchase');
+	// return(false);
 	// alert('Video ' + videoData.id + ' wird über User ID ' + me.id + 'gekauft. Sie haben nun '+creditsAfterPurchase+' Credits.');
 	var data = new Object();
 	data.credits = ''+creditsAfterPurchase;
@@ -1865,19 +1873,21 @@ function purchaseVideoStart(me,videoData,creditsAfterPurchase) {
 			}),
 		}).done(function(uploaderdata) {
 			// doAlert( "Das Video wurde gekauft." );
-			doAlert('Sie können das Video nun ansehen. Für weitere Käufe sind noch '+creditsAfterPurchase+' Credits verfügbar.','Aktion Erfolgreich');
+			var alertmsg = 'Sie können das Video nun vollständig ansehen.';
+			if (_videoData.price>0) alertmsg += ' Für weitere Käufe sind noch '+creditsAfterPurchase+' Credits verfügbar.';
+			doAlert(alertmsg,'Information');
 			// $('#loadvideobutton').hide();
 			// console.log(window);
-			window._thisViewVideos.render();
 			// window.location.reload();
 		}).fail(function() {
 			doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
 		})
 		.always(function() {
 			// alert( "finished - nw redirecting" );
-			window.location.href = '#videos/details/view/'+videoData.id;
+			// window.location.href = '#videos/details/view/'+videoData.id;
+			// console.log(window);
+			window._thisViewVideoDetails.render();
 			// window.location.reload();
-			// console.log(this);
 		});
 	}
 }
@@ -2560,7 +2570,7 @@ function showPageOptions() {
 	$( "#pageOptions" ).toggle( "fast", function() {
 		// $( "#page-content" ).toggle();
 		// $( "#showPageOptionsIcon" ).rotate({animateTo:360});
-		rotatePageOptionsIcon();
+		// rotatePageOptionsIcon();
 		// Animation complete.
 		// alert('done!');
 	});

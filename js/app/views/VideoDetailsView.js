@@ -40,12 +40,85 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				bindEvents: function() {
 					_thisViewVideoDetails = this;
 					// this.$el.off('click','.createVideo').on('click','.createVideo',function(){_thisViewVideoDetails.createVideo();});
+
 					this.$el.off('click','#loadvideobutton').on('click','#loadvideobutton',function(e) { 
 						e.preventDefault();
 						var videoid = $(this).attr('data-videoid');
-						_thisViewVideoDetails.buyVideo('#videos/details/view/'+videoid,videoid); 
+						_thisViewVideoDetails.buyVideo(videoid); 
 					});
+					
+					this.$el.off('click','#downloadvideobutton').on('click','#downloadvideobutton',function(e) { 
+						e.preventDefault();
+						var videoid = $(this).attr('data-videoid');
+						_thisViewVideoDetails.downloadVideo(videoid); 
+					});
+
 				},
+
+				downloadVideo: function() {
+					var _thisViewVideoDetails = this;
+					showModal();
+					// var fileSystem;
+					// console.log('starting downloadVideo a');
+					var ft = new FileTransfer();
+					// console.log('starting downloadVideo b');
+					window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+						// console.log('starting downloadVideo c');
+						var downloadPath = fs.root.fullPath + "/download.mp4";
+						// console.log(downloadPath);
+						var uri = '';
+						uri = $('#downloadVideoUrl').val();
+						// if (!isMobile.any()) uri = encodeURI("http://management-consulting.marcel-durchholz.de/secure/4444444444.mp4");
+						// else uri =  $('#downloadVideoUrl').val();
+						// console.log('starting downloadVideo d');
+						// console.log(uri);
+						// console.log(downloadPath);
+						ft.onprogress = function(progressEvent) {
+							// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
+							// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
+							// console.log(progressEvent.loaded + " / " + progressEvent.total);
+							$('#modaltxt').html(progressEvent.loaded+"/"+progressEvent.total);
+						};
+						ft.download(uri, downloadPath, function(entry) {
+							console.log(entry);
+							// var media = new Media(entry.fullPath, null, function(e) { alert(JSON.stringify(e));});
+							// media.play();
+							_thisViewVideoDetails.downloadVideoToggle();
+							console.log(downloadPath);
+							// $('#camera_file').val(downloadPath);
+							hideModal();
+						}, 
+						function(error) {
+							console.log(error);
+							doAlert('Da ist etwas schiefgegangen. Die Datei konnte nicht vollständig heruntergeladen werden. Bitte probieren Sie es erneut oder wenden Sie sich an unseren Support. Vielen Dank.','Ups!');						
+							hideModal();
+						});
+						
+					});
+
+
+				save1downloadVideo: function(videoid) {
+					_thisViewVideoDetails = this;
+					alert('bla');
+					// _thisConfirmButtonLabels = ('Preise anzeigen,Abbrechen').split(",");
+					/*
+					var CreditsAfterPurchase = parseFloat(this._videosCollection.user.credits) - parseFloat(this._videosCollection.models[0].attributes.price);
+					if (CreditsAfterPurchase<0) {
+						// doAlert('Sie haben nicht genügend Credits.','Schade...');
+						doConfirm('Sie haben nicht genügend APPinaut® Coins.', 'Schade...', function (event) { 
+							if (event=="1") {
+								// doAlert('1','ok');
+								window.location.href = '#myprofile';
+							}
+						}, ('Preise anzeigen,Abbrechen').split(","));
+						return(false);
+					}
+					else {
+						purchaseVideoConfirm(this._videosCollection.user,this._videosCollection.models[0].attributes);
+					}
+					*/
+				},
+				
 				initializeCollection:function(options) {
 					dpd.users.me(function(user) {
 						if (user) {
@@ -75,7 +148,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						}
 					});
 				},
-				buyVideo: function(successUrl,videoid) {
+				buyVideo: function(videoid) {
 					_thisViewVideoDetails = this;
 					// _thisConfirmButtonLabels = ('Preise anzeigen,Abbrechen').split(",");
 					var CreditsAfterPurchase = parseFloat(this._videosCollection.user.credits) - parseFloat(this._videosCollection.models[0].attributes.price);
@@ -87,7 +160,6 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 								window.location.href = '#myprofile';
 							}
 						}, ('Preise anzeigen,Abbrechen').split(","));
-
 						return(false);
 					}
 					else {
