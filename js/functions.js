@@ -2528,7 +2528,14 @@ var menuSwitched = function(status) {
 
 function showModal(){
 	$("#body").append('<div class="modalWindow"/>');
-	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div class="blink_me" style="text-align:center;float:none;clear:both;">APPinaut is loading...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div><div id="modaltxt" style="text-align:center;float:none;clear:both;color:#909090;"><a href="#dashboard">Back to dashboard...</a></div>' });
+	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div class="blink_me" style="text-align:center;float:none;clear:both;">APPinaut is loading...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div><div id="modaltxt" style="text-align:center;float:none;clear:both;color:#909090;"><a class="breaktoDashboard">Back to dashboard...</a></div>' });
+	$(".breaktoDashboard").off('click').on('click',function(event){
+		alert('bla');
+		hideModal();
+		window.location.href = '#dashboard';
+	});
+	// $('#sidebarListViewDiv').on("vclick", "#menuelement a.contentLink", function (event) {
+	// $('#sidebarListViewDiv').on("vclick", "#menuelement a.contentLink", function (event) {
 	// setTimeout('hideModal()', 60000);
 }
 
