@@ -140,8 +140,9 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	htmlContent += '</ul>';
 	$( "#pageOptions" ).html(htmlContent);
 	$( "#pageOptions" ).trigger('create');
-	$('body').on('vclick', '.showPageOptions', function() {
-		console.log('bla');
+	$('body').on('click', '#showPageOptionsIcon', function(event) {
+		event.preventDefault();
+		// alert('bla');
 		showPageOptions();
 		checkTopNaviRoles();
 	});

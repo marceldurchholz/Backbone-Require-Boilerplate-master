@@ -110,15 +110,29 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							var sponsor = _thisViewLogin.ownerdata.id;
 							
 							if (giftcode!='') sponsor = giftcode.replace('-','').toLowerCase();
-							dpd.users.post({username: username, password: password, sponsor: sponsor, roles: roles, registered: registered, credits: "0", purchases:[], followers:[], following:[], logincount:"0"}, function(user, error) {
+							dpd.users.post({username: username, password: password, sponsor: sponsor, roles: roles, registered: registered, credits: "0", purchases:[], followers:[], following:[], logincount:"0"}, function(user, err) {
 								// console.log(user.id);
-								var uid = user.id;
-								if (error) {
-									console.log(error.message);
-									doAlert('Bitte versuchen Sie es erneut.','Fehler bei der Registrierung!');
-									return(false);
-								} 
-								else {
+								if (user==null) {
+									if(err) {
+										doAlert('Es ist leider ein Fehler bei der Registrierung aufgetreten!','Ups...');
+										return console.log(err);
+									}
+								}
+								// var uid = user.id;
+								/*
+								{
+									console.log(err);
+									alert(err.errors);
+									if (err=='{"errors":{"username":"is already in use"},"status":400}') {
+										doAlert('Benutzername in Verwendung!','Mhhh..');
+									}
+									// return console.log(err);
+									// console.log(error.message);
+									// doAlert('Bitte versuchen Sie es erneut.','Fehler bei der Registrierung!');
+									// return(false);
+								}
+								*/ 
+								// else {
 								
 									var obj = new Object();
 									obj.username = user.username;
@@ -126,7 +140,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 									// alert(user.sponsor);
 									// alert(giftcode);
 									obj.giftcode = giftcode;
-									obj.uid = uid;
+									obj.uid = user.id;
 									var url = 'http://prelaunch002.appinaut.de/secure/external/sendauthmail.php';							
 									/*
 									this._sponsorData = new Object();
@@ -162,10 +176,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 											doAlert('Die Registrierung konnte leider nicht durchgeführt werden.','Ups! Entschuldigung.');
 										},
 									});
-								
-								
-								}
-							});	
+								// }
+							});
 						}
 						else {
 							doAlert('Bitte geben Sie Ihre gültige E-Mail-Adresse im Feld Benutzername ein.','Ungültiger Benutzername!');
@@ -197,6 +209,10 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					this.$el.off('click','.sendLoginBtn').on('click','.sendLoginBtn',function(event){event.preventDefault();_thisViewLogin.sendLogin('#dashboard');});
 					this.$el.off('click','.sendRegisterBtn').on('click','.sendRegisterBtn',function(event){event.preventDefault();_thisViewLogin.sendRegister();});
 					this.$el.off('click','#giftcode').on('click','#giftcode',function(event){event.preventDefault();_thisViewLogin.toggleGiftcodeInput();});
+					if (system.contentHelper==1) {
+						$('#password').val('blafoo');
+						$('#username').val('info@digitalverve.de');
+					}
 				},
 				render: function() {
 					console.log('DOING render Videos.js called');

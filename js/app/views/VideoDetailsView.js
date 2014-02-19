@@ -95,7 +95,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						});
 						
 					});
-
+				},
 
 				save1downloadVideo: function(videoid) {
 					_thisViewVideoDetails = this;

@@ -68,8 +68,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					},
 					error: function(action, coll) {
 						console.log('ERROR fetching _videosCollection');
-						console.log(action);
-						console.log(coll);
+						// console.log(action);
+						// console.log(coll);
 						// _thisViewVideo.render();
 					}
 				});
@@ -124,17 +124,19 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						async: false
 					}).done(function(uploaderdata) {
 						// $( this ).addClass( "done" );
-						console.log(uploaderdata);
+						// console.log(uploaderdata);
 						_thisViewVideo.uploaderdata = uploaderdata;
 					});
 				}
-				console.log(jQuery.inArray(model.id, _thisViewVideo.me.following));
+				// console.log(jQuery.inArray(model.id, _thisViewVideo.me.following));
+				/*
 				if (jQuery.inArray(model.id, _thisViewVideo.me.following)==-1) {
 					model.set("favclass","addVideoToFavourites");
 				}
 				else {
 					model.set("favclass","isVideoToFavourites");
 				}
+				*/
 				// console.log(model);
 				rowContent = _.template(videoPage, {
 					id: model.get('id'),
@@ -173,7 +175,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				_thisViewVideo.htmlContent = '';
 				_thisViewVideo.rowContent = '';
 				_.each(this._videosCollection.models, function(model) {
-					this.id = model.get('id');
+					// this.id = model.get('id');
 					// console.log(model);
 					var uploader = model.attributes.uploader; // "ed568841af69d94d";
 					$.ajax({
@@ -185,11 +187,25 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 							_thisViewVideo.rowContent = _thisViewVideo.rowContent + _thisViewVideo.insertData(model);
 						},
 						error:function (xhr, ajaxOptions, thrownError){
-							// console.log('error');
-							// console.log(index);
-							// alert(xhr.status);
-							// alert(xhr.statusText);
-							// alert(xhr.responseText);
+							/*
+							console.log('error');
+							console.log(xhr.status);
+							console.log(xhr.statusText);
+							console.log(xhr.responseText);
+							console.log(ajaxOptions);
+							console.log(thrownError);
+							*/
+							if (xhr.responseText=='{"message":"not found","statusCode":404,"status":404}') {
+								console.log('deactivating');
+								
+								dpd.videos.put(model.attributes.id, {"active":false}, function(result, err) {
+								  if(err) return console.log(err);
+								  console.log(result, result.id);
+								});
+
+
+								
+							}
 						}
 					});
 				});
@@ -198,7 +214,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				$("#videosListView").listview({
 				  autodividers: true,
 				  autodividersSelector: function ( li ) {
-					console.log(li);
+					// console.log(li);
 					var rowTopic = li.data( "topic" );
 					var out = rowTopic;
 					return out;
