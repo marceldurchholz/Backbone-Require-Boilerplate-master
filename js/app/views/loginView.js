@@ -12,7 +12,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				},
 				sendLogin: function(targetUrl) {
 					_thisViewLogin = this;
-					var username = $('#username').val();
+					var username = $('#username').val().toLowerCase();
 					var password = $('#password').val();
 					dpd.users.login({username: username, password: password}, function(user, error) {
 						if (error) {

@@ -15,7 +15,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			},
 			fetch: function() {	
 				// alert('bla');
-				this.$el.hide();
+				// this.$el.hide();
 				showModal();
 				_thisViewLearningStreamNested = this;
 				console.log('fetching LearningStreamNestedView.js');
@@ -29,7 +29,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					// renderMessage(message);
 					// doAlert('new video existing');
 					// console.log(videoData);
-					console.log(videoData);
+					// console.log(videoData);
+					_thisViewLearningStreamNested.collectStreamData();
 					// window.location.reload();
 					_thisViewLearningStreamNested.fetch();
 				});
@@ -176,18 +177,20 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				});
 				_thisViewLearningStreamNested.render();
 			},
+			/*
 			reload: function() {
-				setTimeout(function() {
+				if (!_thisViewLearningStreamNested.reloadtimer) _thisViewLearningStreamNested.reloadtimer = setTimeout(function() {
+					alert('reloadtimer');
 					_thisViewLearningStreamNested.collectStreamData();
-					// alert('bla');
-				},5000);
+					// alert('reloadtimer');
+				},10000);
 			},
+			*/
 			render: function() {
 				this.bindEvents();
 				var _thisViewLearningStreamNested = this;
 				console.log(_thisViewLearningStreamNested);
 				console.log('DOING render LearningStreamNestedView.js called');
-								
 				// _thisViewLearningStreamNested.reload();
 				_thisViewLearningStreamNested.$el.html(_.template(LearningStreamNestedPage, {
 					data: _thisViewLearningStreamNested.streamData
@@ -197,16 +200,16 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				this.$el.trigger('create');
 				// _thisViewLearningStream.$el.trigger('create');
 				new FastClick(document.body);
-				this.$el.fadeIn( 500, function() {
+				// this.$el.fadeIn( 500, function() {
 					// $('.ui-content').scrollTop(0);
-					new FastClick(document.body);
+					// new FastClick(document.body);
 					/*
 					var LearningStreamUpdateInterval = setInterval(function(){
 						// alert("Hello");
 						// _thisViewLearningStreamNested.fetch();
 					},2000);
 					*/
-				});
+				// });
 				return this;				
 			}
 		});
