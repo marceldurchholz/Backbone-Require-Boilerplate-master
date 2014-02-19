@@ -2528,7 +2528,7 @@ var menuSwitched = function(status) {
 
 function showModal(){
 	$("#body").append('<div class="modalWindow"/>');
-	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div class="blink_me" style="text-align:center;float:none;clear:both;">APPinaut is loading...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div>' });
+	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div class="blink_me" style="text-align:center;float:none;clear:both;">APPinaut is loading...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div><div id="modaltxt" style="text-align:center;float:none;clear:both;color:#909090;"><a href="#dashboard">Back to dashboard...</a></div>' });
 	// setTimeout('hideModal()', 60000);
 }
 
