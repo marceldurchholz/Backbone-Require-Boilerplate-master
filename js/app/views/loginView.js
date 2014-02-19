@@ -32,7 +32,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 								dpd.users.me(function(me) {
 									_thisViewLogin.me = me;
 									$('#showMenu').show();
-									$('#showPageOptions').show();
+									$('#showPageOptionsIcon').show();
 									var newlogincount = 0;
 									var logincount = _thisViewLogin.me.logincount;
 									if (logincount==undefined) logincount=0;
@@ -204,7 +204,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				bindEvents: function() {
 					var _thisViewLogin = this;
 					$('#showMenu').hide();
-					$('#showPageOptions').hide();
+					$('#showPageOptionsIcon').hide();
 					$('#giftcodeDiv').toggle();
 					this.$el.off('click','.sendLoginBtn').on('click','.sendLoginBtn',function(event){event.preventDefault();_thisViewLogin.sendLogin('#dashboard');});
 					this.$el.off('click','.sendRegisterBtn').on('click','.sendRegisterBtn',function(event){event.preventDefault();_thisViewLogin.sendRegister();});

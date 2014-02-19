@@ -2400,6 +2400,7 @@ $(window).bind('hashchange', function(){
 function checkTopNaviRoles() {
 	// alert('foo');
 	// dpd.users.me(function(me) {
+	 try {
 		$( "#pageOptions li" ).each(function(index, value) {
 			var lirole = $(this).attr('data-roles');
 			// console.log(value);
@@ -2426,6 +2427,10 @@ function checkTopNaviRoles() {
 			}
 		});
 	// });
+	} catch (e) {
+		// alert(e);
+		// $( "#showPageOptions" ).hide();
+	}
 
 }
 
