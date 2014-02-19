@@ -57,10 +57,12 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				_thisViewVideo = this;
 				console.log('fetching VideoView.js');
 				this.$el.hide();
+				showModal();
+				
 				this._videosCollection = new videosCollection();
 				this._videosCollection.fetch({
 					success: function(coll, jsoncoll) {
-						console.log(_thisViewVideo);
+						// console.log(_thisViewVideo);
 						// _thisViewVideo.render();
 						_thisViewVideo.initializeme();
 					},
@@ -79,6 +81,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					event.preventDefault();
 					window.location.href = event.currentTarget.hash;
 				});
+				/*
 				this.$el.off('click','.isVideoToFavourites').on('click','.isVideoToFavourites',function(event){
 					event.preventDefault();
 					// alert('isVideoToFavourites');
@@ -110,6 +113,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						}
 					});
 				});
+				*/
 			},
 			insertData: function(model) {
 				_thisViewVideo = this;
@@ -150,6 +154,22 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				this.bindEvents();
 				var _thisViewVideo = this;
 				console.log('DOING render VideoView.js called');
+				
+				
+				/*
+				// Sort multidimensional arrays with oobjects by value 
+				// http://www.javascriptkit.com/javatutors/arraysort2.shtml
+				this._videosCollection.sort(function(a, b){
+				 var nameA=a.attributes.topic.toLowerCase(), nameB=b.attributes.topic.toLowerCase()
+				 if (nameA < nameB) //sort string ascending
+				  return -1 
+				 if (nameA > nameB)
+				  return 1
+				 return 0 //default return value (no sorting)
+				});
+				*/
+				
+				
 				_thisViewVideo.htmlContent = '';
 				_thisViewVideo.rowContent = '';
 				_.each(this._videosCollection.models, function(model) {
@@ -186,6 +206,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				});				
 				this.$el.trigger('create');
 				new FastClick(document.body);
+				hideModal();
 				this.$el.fadeIn( 500, function() {
 					$('.ui-content').scrollTop(0);
 					new FastClick(document.body);

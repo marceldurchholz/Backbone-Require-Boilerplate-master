@@ -16,13 +16,31 @@ define(["jquery", "backbone", "models/VideoModel"],
 			var offlineData = this.offlineData = this._localStorage_videos.findAll();
 			this.localStorage = this._localStorage_videos;
 			if (_thisCollectionVideos.online==1) {
+				// this.url = 'http://dominik-lohmann.de:5000/videos?{"$orderby":"topic"}';
 				this.url = 'http://dominik-lohmann.de:5000/videos/?active=true&deleted=false';
 				// this.url = 'http://dominik-lohmann.de:5000/videos/d6c9268c49a139bf';
 				this.localStorage = null;
 			}
 		},
-		model: VideoModel,
+		model: VideoModel,		
+		sortAttribute: "topic",
+		sortDirection: 1,
+		sortMovies: function (attr) {
+		  this.sortAttribute = attr;
+		  this.sort();
+		},
+		comparator: function(a, b) {
+		  var a = a.get(this.sortAttribute),
+			  b = b.get(this.sortAttribute);
+		  if (a == b) return 0;
+		  if (this.sortDirection == 1) {
+			 return a > b ? 1 : -1;
+		  } else {
+			 return a < b ? 1 : -1;
+		  }
+		},
 		fetch: function(options) {
+			/*
 			if (_thisCollectionVideos.online==1) {
 				dpd.users.me(function(user) {
 					if (user) {
@@ -36,6 +54,7 @@ define(["jquery", "backbone", "models/VideoModel"],
 					}
 				});
 			}
+			*/
             options || (options = {});
             var data = (options.data || {});
             options.data = {date: this.date};
