@@ -8,6 +8,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			
 			el: "#LearningStreamNestedViewDiv",
 			initialize: function() {
+				showModal();
 				console.log('initializing LearningStreamNestedView.js');
 				var _thisViewLearningStreamNested = this;
 				var streamData = new Array();
@@ -16,7 +17,6 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			fetch: function() {	
 				// alert('bla');
 				// this.$el.hide();
-				showModal();
 				_thisViewLearningStreamNested = this;
 				console.log('fetching LearningStreamNestedView.js');
 				_thisViewLearningStreamNested.collectStreamData();

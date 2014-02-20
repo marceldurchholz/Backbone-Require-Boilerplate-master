@@ -2415,6 +2415,7 @@ $(window).bind('hashchange', function(){
 	// $('#scrollable').scrollTop(0);
 	// alert('a');
 	// populateDeviceInfoTimer();
+	showModal();
 	modifyiOS7StatusBar();
 	checkTopNaviRoles();
 });
@@ -2543,12 +2544,13 @@ var menuSwitched = function(status) {
 };
 
 function showModal(){
+	// if ($('.modalWindow')) return(false);
 	$("#body").append('<div class="modalWindow"/>');
-	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div class="blink_me" style="text-align:center;float:none;clear:both;">APPinaut is loading...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div><div id="modaltxt" style="text-align:center;float:none;clear:both;color:#909090;"><a class="breaktoDashboard">Back to dashboard...</a></div>' });
+	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div class="blink_me" style="text-align:center;float:none;clear:both;">APPinaut lädt...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div><div id="modaltxt" style="text-align:center;float:none;clear:both;color:#909090;"><a class="breaktoDashboard">ausblenden</a></div>' });
 	$(".breaktoDashboard").off('click').on('click',function(event){
 		// alert('bla');
 		hideModal();
-		window.location.href = '#dashboard';
+		// window.location.href = '#dashboard';
 	});
 	// $('#sidebarListViewDiv').on("vclick", "#menuelement a.contentLink", function (event) {
 	// $('#sidebarListViewDiv').on("vclick", "#menuelement a.contentLink", function (event) {
