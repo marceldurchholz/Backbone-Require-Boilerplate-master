@@ -2146,13 +2146,13 @@ function captureVideoUpload(videoRecordLocalStorage) {
 						doAlert('Es ist ein Fehler passiert, der nicht passieren sollte. Bitte versuchen Sie Ihre Aktion erneut oder wenden Sie sich direkt an das APPinaut Support Team.','Ups! Fehler beim Upload!');
 						return console.log(err);
 					}
-					if (result) {
+					// if (result) {
 						hideModal();
 						if (formValues.flipactivate==false) {
 							doAlert('Nach Freigabe wird Ihr Video allen Wissensdurstigen angezeigt.','Upload erfolgreich!');
 						}
 						system.redirectToUrl('#learningstreamview');
-					}
+					// }
 				});
 			},
 			function(error) {
