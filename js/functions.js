@@ -2566,7 +2566,7 @@ function hideModal(){
 }
 
 var system = {
-	contentHelper: 0,
+	contentHelper: 2,
 	// this.routerSwitched(false);
 	toggleLoading: function(status) {
 		console.log(status);
