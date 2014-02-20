@@ -92,7 +92,7 @@
 	<gap:plugin name="org.apache.cordova.core.network-information" />
 	<gap:plugin name="org.apache.cordova.core.media" />
 	<gap:plugin name="org.apache.cordova.core.media-capture" />
-	<!-- <gap:plugin name="org.apache.cordova.core.console" /> -->
+	<gap:plugin name="org.apache.cordova.core.console" />
 	<gap:plugin name="org.apache.cordova.core.splashscreen" />
 	<gap:plugin name="org.apache.cordova.file" />
     <gap:plugin name="org.apache.cordova.file-transfer" />	

@@ -222,7 +222,7 @@ var dao = {
 		alert(bla);
 	},
 	initialize: function() {
-		alert('window.dao initialize');
+		// alert('window.dao initialize');
 		// alert('bbb');
 		var self = this;
 		// renderList();
@@ -234,14 +234,14 @@ var dao = {
 			// does not already exist.
 			this.db.transaction (
 				function(tx) {
-					tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='users'", this.txErrorHandler,
+					tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='videos'", this.txErrorHandler,
 						function(tx, results) {
 							if (results.rows.length == 1) {
-								alert('Using existing users table in local SQLite database');
+								// alert('Using existing users table in local SQLite database');
 							}
 							else
 							{
-								alert('users table does not exist in local SQLite database');
+								// alert('users table does not exist in local SQLite database');
 								self.createTable();
 							}
 					});
@@ -2566,7 +2566,7 @@ function hideModal(){
 }
 
 var system = {
-	contentHelper: 1,
+	contentHelper: 0,
 	// this.routerSwitched(false);
 	toggleLoading: function(status) {
 		console.log(status);
