@@ -254,13 +254,17 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				},{variable: 'video'}));
 				
 				if (!isMobile.any()) {
-					// $('#camera_file').val('file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4');
+					$('#camera_file').val('file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4');
+					// alert($('#camera_file').val());
 				}
+				// $(function(){
+					// $("#video_player").attr("src", "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4").get(0).play();
+				// });
 				this.$el.trigger('create');
 				sendLocalStorageToElements(_thisViewRecordVideoNested.localStorageSubmitform.models);
 				var mediaFilePath = $('#camera_file').val();
 				console.log(mediaFilePath);
-				alert(mediaFilePath);
+				// alert(mediaFilePath);
 				attachVideoToPlayer(mediaFilePath);
 				this.bindEvents();
 				this.$el.fadeIn( 500, function() {

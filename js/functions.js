@@ -1980,8 +1980,9 @@ function attachVideoToPlayer(mediaFilePath) {
 	// var path = mediaFile.fullPath;
 	// var path = mediaFilePath;
 	// console.log('attachVideoToPlayer: '+mediaFilePath);
-	alert('attachVideoToPlayer: '+mediaFilePath);
+	// alert('attachVideoToPlayer: '+mediaFilePath);
 	var video_player = $('#video_player');
+	// $("#video_player").attr("src", "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4").get(0).play();
 	if (mediaFilePath==undefined) {
 		// console.log('hide');
 		// $('#videobox').hide();
@@ -1991,10 +1992,12 @@ function attachVideoToPlayer(mediaFilePath) {
 		console.log('attaching to video player: ' + mediaFilePath);
 		$('#camera_file').val(mediaFilePath);
 	}
-	if (video_player && mediaFilePath!='') {
-		console.log('setting video player src');
+	if (mediaFilePath!='') {
+		// console.log('setting video player src');
 		var startTime = new Date();
-		video_player.src = mediaFilePath;
+		// video_player.src = mediaFilePath;
+		// video_player.attr("src", "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4").get(0).pause();
+		video_player.attr("src", mediaFilePath).get(0).pause();
 		video_player.onloadend = function() {
 			// console.log('Video load time: ' + (new Date() - startTime));
 			alert('Video load time: ' + (new Date() - startTime));
