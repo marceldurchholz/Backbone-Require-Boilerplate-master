@@ -66,8 +66,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						// console.log('starting downloadVideo c');
 						var downloadPath = fs.root.fullPath + "/download.mp4";
 						// console.log(downloadPath);
-						var uri = '';
-						uri = $('#downloadVideoUrl').val();
+						var uri = $('#video_player_1_html5_api').attr("src");
+						alert('uri: ' + uri);
 						// if (!isMobile.any()) uri = encodeURI("http://management-consulting.marcel-durchholz.de/secure/4444444444.mp4");
 						// else uri =  $('#downloadVideoUrl').val();
 						// console.log('starting downloadVideo d');
@@ -77,14 +77,15 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 							// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
 							// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
 							// console.log(progressEvent.loaded + " / " + progressEvent.total);
-							$('#modaltxt').html(progressEvent.loaded+"/"+progressEvent.total);
+							$('#modaltxt').html(progressEvent.loaded+" / "+progressEvent.total);
 						};
 						ft.download(uri, downloadPath, function(entry) {
 							console.log(entry);
 							// var media = new Media(entry.fullPath, null, function(e) { alert(JSON.stringify(e));});
 							// media.play();
 							_thisViewVideoDetails.downloadVideoToggle();
-							console.log(downloadPath);
+							// console.log(downloadPath);
+							doAlert(downloadPath,'Information');
 							// $('#camera_file').val(downloadPath);
 							hideModal();
 						}, 

@@ -10,7 +10,14 @@ define(["jquery", "backbone", "text!templates/noaccess.html", "text!templates/si
 
             initialize: function() {
 
-                this.render();
+				dpd.users.me(function(user) {
+					if (user) {
+						// this._videosCollection.user = user;
+					}
+					else system.redirectToUrl('#login');
+				});
+
+                // this.render();
 
             },
 

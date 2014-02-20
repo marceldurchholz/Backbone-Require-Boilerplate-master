@@ -30,6 +30,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				  },
 				  function( status ) {
 					alert( "you fail this time" );
+					system.redirectToUrl('#login');
 				  },
 				  function( status ) {
 					console.log('still fetchWorking');
@@ -77,6 +78,11 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 			savePageOne: function(event) {
 				event.preventDefault();
 				var _thisViewRecordVideoNested = this;
+				var videosrc = $("#video_player").attr("src");
+				if (videosrc==undefined || videosrc=='') {
+					doAlert('Bitte nehmen es eines auf auf oder verknüpfen Sie ein existierendes Video.','Und das Video?');
+					return(false);
+				}
 				_thisViewRecordVideoNested.formValues = new Object;
 				_.each(this.$('#submitform').serializeArray(), function(input){
 					// console.log('getting: '+input.name+' >> '+input.value);
@@ -240,7 +246,10 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				$('#downloadVideoToggleButton').toggle();
 				$('#captureVideoRecordButton').toggle();
 				$('#downloadVideoInputDiv').toggle();
-				if (window.system.contentHelper==1) $('#downloadVideoUrl').val('https://dl.dropboxusercontent.com/u/45253363/appinaut/videos/1111111111.mp4'); // http://management-consulting.marcel-durchholz.de/secure/1391304708489.mp4
+				if (window.system.contentHelper==1) {
+					$('#downloadVideoUrl').val('https://dl.dropboxusercontent.com/u/45253363/appinaut/videos/1111111111.mp4'); // http://management-consulting.marcel-durchholz.de/secure/1391304708489.mp4
+					$('#camera_file').val('file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4');
+				}
 			},
 			render: function() {
 				var _thisViewRecordVideoNested = this;
@@ -253,10 +262,12 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					interests:_thisViewRecordVideoNested.interests					
 				},{variable: 'video'}));
 				
+				/*
 				if (!isMobile.any()) {
 					$('#camera_file').val('file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4');
 					// alert($('#camera_file').val());
 				}
+				*/
 				// $(function(){
 					// $("#video_player").attr("src", "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4").get(0).play();
 				// });

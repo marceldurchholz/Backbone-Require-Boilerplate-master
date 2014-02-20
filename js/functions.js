@@ -2538,7 +2538,7 @@ function showModal(){
 	$("#body").append('<div class="modalWindow"/>');
 	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div class="blink_me" style="text-align:center;float:none;clear:both;">APPinaut is loading...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div><div id="modaltxt" style="text-align:center;float:none;clear:both;color:#909090;"><a class="breaktoDashboard">Back to dashboard...</a></div>' });
 	$(".breaktoDashboard").off('click').on('click',function(event){
-		alert('bla');
+		// alert('bla');
 		hideModal();
 		window.location.href = '#dashboard';
 	});
