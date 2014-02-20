@@ -211,7 +211,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					this.$el.off('click','#giftcode').on('click','#giftcode',function(event){event.preventDefault();_thisViewLogin.toggleGiftcodeInput();});
 					if (system.contentHelper==1) {
 						$('#password').val('blafoo');
-						$('#username').val('info@digitalverve.de');
+						$('#username').val('test@digitalverve.de');
 					}
 				},
 				render: function() {
