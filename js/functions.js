@@ -646,7 +646,15 @@ var app = {
 		);
 	},
 	onResume: function() {
-		alert('app resumed');
+		// alert('app resumed');
+		dpd.users.me(function(user) {
+			if (user) { }
+			else {
+				console.log('You are not logged in!');
+				window.location.href = "#noaccess";
+			}
+		});
+
 	},
 	fetchWorking: function() {
 		var setTimeoutWatcher = setTimeout(function foo() {
