@@ -92,8 +92,9 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 							// doAlert(downloadPath,'Information');
 							// $('#camera_file').val(downloadPath);
 							// $("#video_player").attr("src", "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4").get(0).play();
-							doAlert(uri);
-							$("#video_player_1_html5_api").attr("src", uri).get(0).play();
+							doAlert(downloadPath);
+							// $("#video_player_1_html5_api").attr("src", uri).get(0).play();
+							$("#video_player_1_html5_api").attr("src", downloadPath).get(0);
 							// window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',uri,0);
 							hideModal();
 						}, 
