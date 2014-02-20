@@ -55,7 +55,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 
 				},
 
-				downloadVideo: function() {
+				downloadVideo: function(videoid) {
 					var _thisViewVideoDetails = this;
 					showModal();
 					// var fileSystem;
@@ -95,6 +95,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 							doAlert(downloadPath);
 							// $("#video_player_1_html5_api").attr("src", uri).get(0).play();
 							$("#video_player_1_html5_api").attr("src", downloadPath).get(0);
+							_thisViewVideoDetails.rememberVideoLocation(videoid,downloadPath);
 							// window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',uri,0);
 							hideModal();
 						}, 

@@ -222,7 +222,7 @@ var dao = {
 		alert(bla);
 	},
 	initialize: function() {
-		// alert('window.dao initialize');
+		alert('window.dao initialize');
 		// alert('bbb');
 		var self = this;
 		// renderList();
@@ -249,7 +249,7 @@ var dao = {
 				}
 			)
 		}
-		if (!isMobile.any()) websqlReady.resolve("initialize done");
+		else websqlReady.resolve("initialize done");
 	},
 		
 	createTable: function() {
@@ -632,6 +632,9 @@ var app = {
 					document.addEventListener("resume", _thisApp.onResume, false);
 				}
 				
+				// alert('dao done');
+				// window.dao.test('foo');
+				window.dao.initialize();
 				new window.MobileRouter();
 				// return this.dfd.promise();
 				// return('deviceisready');
