@@ -32,7 +32,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					// console.log(videoData);
 					_thisViewLearningStreamNested.collectStreamData();
 					// window.location.reload();
-					_thisViewLearningStreamNested.fetch();
+					_thisViewLearningStreamNested.render();
 				});
 
 				
