@@ -188,7 +188,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 			},
 			downloadVideo: function() {
 				var _thisViewRecordVideoNested = this;
-				showModal();
+				// showModal();
 				var fileSystem;
 				// console.log('starting downloadVideo a');
 				var ft = new FileTransfer();
@@ -277,11 +277,12 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				console.log(mediaFilePath);
 				// alert(mediaFilePath);
 				attachVideoToPlayer(mediaFilePath);
-				this.bindEvents();
+				hideModal();
 				this.$el.fadeIn( 500, function() {
 					$('.ui-content').scrollTop(0);
 					new FastClick(document.body);
 				});
+				this.bindEvents();
 				return this;
 			}
 		});
