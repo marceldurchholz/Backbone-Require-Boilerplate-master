@@ -270,7 +270,7 @@ var dao = {
 			},
 			this.txErrorHandler,
 			function() {
-				alert('Table users successfully CREATED in local SQLite database');
+				// alert('Table users successfully CREATED in local SQLite database');
 				websqlReady.resolve("initialize done");
 				// this.fillTable();
 			}
