@@ -1,8 +1,8 @@
 // VideoDetailsView.js
 // -------
-define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "views/VideoView", "text!templates/videoDetailsView.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
+define(["jquery", "backbone", "collections/videosCollection", "text!templates/videoDetailsView.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
 
-    function($, Backbone, VideoModel, videosCollection, VideoListViewItems, videosDetailsViewHTML, sidemenusList, SidemenuView){
+    function($, Backbone, videosCollection, videosDetailsViewHTML, sidemenusList, SidemenuView){
 		
 			var VideoDetailsViewVar = Backbone.View.extend({
 			
@@ -20,7 +20,6 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					}
 					return(false);
 				},
-				*/
 				create: function(model) {
 					_thisViewVideoDetails = this;
 					$.ajax('http://dominik-lohmann.de:5000/videos', {
@@ -37,6 +36,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					});
 					return(false);
 				},
+				*/
 				bindEvents: function() {
 					_thisViewVideoDetails = this;
 					// this.$el.off('click','.createVideo').on('click','.createVideo',function(){_thisViewVideoDetails.createVideo();});
@@ -140,10 +140,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					this._videosCollection = new videosCollection([], options);
 				},
 				fetch: function(options) {
-					_thisKnowledgeData = this;
 					var _thisViewVideoDetails = this;
-					var streamData = new Array();
-					_thisKnowledgeData.streamData = streamData;
 					this.$el.hide();
 					showModal();
 					this.initializeCollection(options);
@@ -183,7 +180,9 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				},
 
 				collectRelatedData: function(topic) {
-					var _thisKnowledgeData = this;
+					var streamData = new Array();
+					_thisKnowledgeData = this;
+					_thisKnowledgeData.streamData = streamData;
 					var querystr = "";
 					if (topic!='') querystr += "&topic="+topic;
 					var url = "http://dominik-lohmann.de:5000/videos?active=true&deleted=false";
