@@ -2072,7 +2072,8 @@ function recordVideoUpload(videoRecordLocalStorage) {
 		options.mimeType = "video/mp4";
 		options.chunkedMode = false;
 		ft.upload(mediaFile,
-			"http://management-consulting.marcel-durchholz.de/secure/upload.php",
+			// "http://management-consulting.marcel-durchholz.de/secure/upload.php",
+			"http://prelaunch002.appinaut.de/secure/upload.php",
 			function(r) {
 				console.log("Code = " + r.responseCode);
 				console.log("Response = " + r.response);
@@ -2135,7 +2136,8 @@ function captureVideoUpload(videoRecordLocalStorage) {
 		options.mimeType = "video/mp4";
 		options.chunkedMode = false;
 		ft.upload(mediaFile,
-			"http://management-consulting.marcel-durchholz.de/secure/upload.php",
+			// "http://management-consulting.marcel-durchholz.de/secure/upload.php",
+			"http://prelaunch002.appinaut.de/secure/upload.php",
 			function(r) {
 				// console.log("Code = " + r.responseCode);
 				// console.log("Response = " + r.response);
@@ -2148,10 +2150,13 @@ function captureVideoUpload(videoRecordLocalStorage) {
 					}
 					// if (result) {
 						hideModal();
+						/*
 						if (formValues.flipactivate==false) {
 							doAlert('Nach Freigabe wird Ihr Video allen Wissensdurstigen angezeigt.','Upload erfolgreich!');
 						}
-						system.redirectToUrl('#learningstreamview');
+						*/
+						// system.redirectToUrl('#learningstreamview');
+						window.location.href = '#learningstreamview';
 					// }
 				});
 			},
@@ -2363,10 +2368,17 @@ function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 		// { type: "video/mp4", src: "http://mobile002.appinaut.de/secure/data/media/video/Bird_Titmouse.mp4" }
 		// console.log(_thisVideoUrl);
 		// console.log("http://mobile002.appinaut.de/secure/data/media/video/index.php?showvideo="+_thisVideoUrl+".mp4");
+		/*
 		myPlayer.src([
 			{ type: "video/mp4", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".mp4" },
 			{ type: "video/webm", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".webm" },
 			{ type: "video/ogg", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".ogv" }
+		]);
+		*/
+		myPlayer.src([
+			{ type: "video/mp4", src: "http://prelaunch002.appinaut.de/secure/index.php?showvideo="+_thisVideoUrl+".mp4" },
+			{ type: "video/webm", src: "http://prelaunch002.appinaut.de/secure/index.php?showvideo="+_thisVideoUrl+".webm" },
+			{ type: "video/ogg", src: "http://prelaunch002.appinaut.de/secure/index.php?showvideo="+_thisVideoUrl+".ogv" }
 		]);
 		// alert('bla');
 		// myPlayer.posterImage.show();  
