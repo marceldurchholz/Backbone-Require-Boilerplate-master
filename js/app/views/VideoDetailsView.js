@@ -107,7 +107,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						
 					});
 				},
-				function rememberVideoLocation(videoid,downloadPath) {
+				rememberVideoLocation: function(videoid,downloadPath) {
 					doAlert(videoid);
 					doAlert(downloadPath);
 				},
