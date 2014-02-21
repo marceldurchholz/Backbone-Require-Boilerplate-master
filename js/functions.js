@@ -2567,7 +2567,9 @@ var menuSwitched = function(status) {
 function showModal(){
 	// if ($('.modalWindow')) return(false);
 	$("#body").append('<div class="modalWindow"/>');
-	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div class="blink_me" style="text-align:center;float:none;clear:both;">APPinaut lädt...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div><div id="modaltxt" style="text-align:center;float:none;clear:both;color:#909090;"><a class="breaktoDashboard">ausblenden</a></div>' });
+	var breakLoading = '';
+	if (window.system.contentHelper==1) breakLoading = 'ausblenden';	
+	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div class="blink_me" style="text-align:center;float:none;clear:both;">APPinaut lädt...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div><div id="modaltxt" style="text-align:center;float:none;clear:both;color:#909090;"><a class="breaktoDashboard">'+breakLoading+'</a></div>' });
 	$(".breaktoDashboard").off('click').on('click',function(event){
 		// alert('bla');
 		hideModal();
