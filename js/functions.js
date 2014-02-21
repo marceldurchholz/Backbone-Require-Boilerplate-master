@@ -1800,7 +1800,7 @@ function mediaOnError(error) {
 }	
 
 function captureVideoRecord() {
-	var options = { limit: 1, duration: 3600 };
+	var options = { limit: 1, duration: 3600, quality: 10 };
 	// nur audio aufnehmen: navigator.device.capture.captureAudio
 	var popoverHandle = navigator.device.capture.captureVideo(getVideoWin, onGetVideoError, options);
 	window.onorientationchange = function() {
