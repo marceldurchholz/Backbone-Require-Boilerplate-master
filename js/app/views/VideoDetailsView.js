@@ -94,7 +94,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							// $("#video_player").attr("src", "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4").get(0).play();
 							doAlert(downloadPath);
 							// $("#video_player_1_html5_api").attr("src", uri).get(0).play();
-							$("#video_player_1_html5_api").attr("src", downloadPath).get(0);
+							$("#video_player_1_html5_api").attr("src", downloadPath); // .get(0)
 							_thisViewVideoDetails.rememberVideoLocation(videoid,downloadPath);
 							// window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',uri,0);
 							hideModal();
@@ -106,6 +106,10 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						});
 						
 					});
+				},
+				function rememberVideoLocation(videoid,downloadPath) {
+					doAlert(videoid);
+					doAlert(downloadPath);
 				},
 
 				save1downloadVideo: function(videoid) {
