@@ -568,19 +568,24 @@ function initStore() {
 			updateCoins(productId);
 		},
 		finish: function (transactionId, productId) {
-			console.log('Finished transaction for ' + productId + ' : ' + transactionId);
+			// console.log('Finished transaction for ' + productId + ' : ' + transactionId);
+			alert('Finished transaction for ' + productId + ' : ' + transactionId);
 		},
 		restore: function (transactionId, productId) {
-			console.log('restored: ' + productId);
+			// console.log('restored: ' + productId);
+			alert('restored: ' + productId);
 		},
 		restoreCompleted: function () {
-		   console.log('all restore complete');
+		   // console.log('all restore complete');
+		   alert('all restore complete');
 		},
 		restoreFailed: function (errCode) {
-			console.log('restore failed: ' + errCode);
+			// console.log('restore failed: ' + errCode);
+			alert('restore failed: ' + errCode);
 		},
 		error: function (errno, errtext) {
-			console.log('Failed: ' + errtext);
+			// console.log('Failed: ' + errtext);
+			alert('Failed: ' + errtext);
 		},
 		ready: function () {
 			var productIds = [
