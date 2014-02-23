@@ -4,7 +4,7 @@ define(['jquery'], function($){
   	$(document).bind("mobileinit", function () { 
 		// alert('mobileinit');
 		$.support.cors = true;
-		$.mobile.ajaxEnabled = false; 
+		$.mobile.ajaxEnabled = true; 
 		$.mobile.linkBindingEnabled = false; 
 		$.mobile.hashListeningEnabled = false; 
 		$.mobile.pushStateEnabled = false; 
@@ -18,7 +18,7 @@ define(['jquery'], function($){
 		
 		// Remove page from DOM when it's being replaced 
 		$('div[data-role="page"]').on('pagehide', function (event, ui) { 
-			alert('on page hide');
+			// alert('on page hide');
 			$(event.currentTarget).remove();
 			// alert($('#page-content').html());
 			// console.log(event);

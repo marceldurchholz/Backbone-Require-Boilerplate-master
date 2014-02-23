@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Planer", "views/Cards", "views/AdminUserListView", "views/AdminUserDetailsView", "views/VideoDetailsView", "views/PlanDetailsView", "views/CardDetailsView", "views/CardStartView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView", "views/supportView", "views/helpView", "views/agbView"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Planer", "views/Cards", "views/AdminUserListView", "views/AdminUserDetailsView", "views/VideoDetailsView", "views/MessageDetailsView", "views/PlanDetailsView", "views/CardDetailsView", "views/CardStartView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView", "views/supportView", "views/helpView", "views/agbView", "views/MessagesView"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Planer, Cards, AdminUserListView, AdminUserDetailsView, Videosdetailsview, Planerdetailsview, Cardsdetailsview, Cardstartview, Videorecordview, Learningstreamview, login, DashboardView, NoAccess, Logout, MyProfile, supportView, helpView, agbView) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Planer, Cards, AdminUserListView, AdminUserDetailsView, Videosdetailsview, MessageDetailsView, Planerdetailsview, Cardsdetailsview, Cardstartview, Videorecordview, Learningstreamview, login, DashboardView, NoAccess, Logout, MyProfile, supportView, helpView, agbView, MessagesView) {
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -38,6 +38,8 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"videos/details/:id" : "videodetails",
 				"videos/details/view/:id" : "videodetailsview",
 				"videos/record" : "videorecordview",
+				"messages" : "messages",
+				"messages/details/view/:id" : "messagedetailsrouter",
 				"planer" : "planer",
 				"planer/details/:id" : "plandetails",
 				"planer/details/view/:id" : "plandetailsview",
@@ -58,6 +60,9 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"agb" : "agb",
 				"logout" : "logout"
             },
+			messages: function() {
+				this.changePage(MessagesView,{});
+			},
 			startpage: function() {
 				// redirectToUrl();
 				// alert('routing to redirectToUrl');
@@ -129,6 +134,10 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             videodetailsview: function(id) {
 				// new Videosdetailsview({id:id});
 				this.changePage(Videosdetailsview, {id:id});
+            },
+            messagedetailsrouter: function(id) {
+				// new Videosdetailsview({id:id});
+				this.changePage(MessageDetailsView, {id:id});
             },
             plandetailsview: function(id) {
 				// new Videosdetailsview({id:id});

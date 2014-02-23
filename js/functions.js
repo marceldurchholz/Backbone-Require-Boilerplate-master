@@ -636,6 +636,7 @@ var app = {
 				if(isMobile.any()) {
 					initStore();
 					document.addEventListener("resume", _thisApp.onResume, false);
+					window.plugins.insomnia.keepAwake();
 				}
 				
 				// alert('dao done');
@@ -2676,3 +2677,27 @@ function handleOpenURL(url) {
 }
 */
 
+function are_arrs_equal(arr1, arr2){
+	return arr1.sort().toString() === arr2.sort().toString()
+}
+
+/**
+ * Tests two data structures for equality
+ * @param {object} x
+ * @param {object} y
+ * @returns {boolean}
+ */
+var equal = function(x, y) {
+    if (typeof x !== typeof y) return false;
+    if (x instanceof Array && y instanceof Array && x.length !== y.length) return false;
+    if (typeof x === 'object') {
+        for (var p in x) if (x.hasOwnProperty(p)) {
+            if (typeof x[p] === 'function' && typeof y[p] === 'function') continue;
+            if (x[p] instanceof Array && y[p] instanceof Array && x[p].length !== y[p].length) return false;
+            if (typeof x[p] !== typeof y[p]) return false;
+            if (typeof x[p] === 'object' && typeof y[p] === 'object') { if (!equal(x[p], y[p])) return false; } else
+            if (x[p] !== y[p]) return false;
+        }
+    } else return x === y;
+    return true;
+};

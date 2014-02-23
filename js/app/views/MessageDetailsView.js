@@ -1,10 +1,10 @@
-// VideoDetailsView.js
+// MessageDetailsView.js
 // -------
-define(["jquery", "backbone", "collections/videosCollection", "text!templates/videoDetailsView.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
+define(["jquery", "backbone", "collections/videosCollection", "text!templates/MessageDetailsView.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
 
     function($, Backbone, videosCollection, videosDetailsViewHTML, sidemenusList, SidemenuView){
 		
-			var VideoDetailsViewVar = Backbone.View.extend({
+			var MessageDetailsViewVar = Backbone.View.extend({
 			
 				el: "#page-content",
 				attributes: {"data-role": 'content'},
@@ -310,7 +310,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					$(window).resize(function() {
 						window.resizeElement('#video_player_1')
 					});
-					console.log('DOING render VideoDetailsView.js called');
+					console.log('DOING render MessageDetailsView.js called');
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewVideoDetails.nestedView = new SidemenuView().fetch();
 					var htmlContent = '';
@@ -344,7 +344,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 
 			});
 
-        return VideoDetailsViewVar;
+        return MessageDetailsViewVar;
 
     }
 

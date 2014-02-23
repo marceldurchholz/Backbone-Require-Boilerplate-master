@@ -1,0 +1,85 @@
+<!-- id: <%= video.id %> <br> -->
+<!--
+<h1><%= video.title %></h1>
+-->
+<h3 class="ui-bar ui-bar-b" style="border-top-width:0px;text-align:center;"><%= video.topic %></h3>
+<div id="videocontainer" style="b/order:10px solid red;b/ackground-color:#000000;">
+	<a id="videocontainerlink" style="width:100%;height:100%;">
+		<video id="video_player_1" class="video-js vjs-default-skin" poster="<%= video.thumbnailurl %>" data-setup="{}"></video>
+	</a>
+	<img src="images/shadow.png" style="width:100%;height:20px;">
+</div>
+
+<% if( _.indexOf(video.purchases, video.id)==-1 ) { %>
+	<div style="padding:0px 20px 20px 20px;"><a data-videoid="<%= video.id %>" id="loadvideobutton" class="loadvideobutton" data-theme="b" data-role="button"><%= video.pricetext %></a></div>
+<% } else  { %>
+	<div style="padding:0px 20px 20px 20px;"><a data-videoid="<%= video.id %>" id="downloadvideobutton" class="downloadvideobutton" data-theme="b" data-role="button">Video offline speichern</a></div>
+<% } %>
+
+<div style="padding:0px 20px 60px 20px;">
+	<div class="title">
+		<h5><%= video.title %></h5>
+	</div>
+	<p>
+	<div class="description">
+		<p>
+			<strong><%= video.uploader %></strong>
+			<!--
+			<a href="#admin/users/details/<%= video.uploaderdata.id %>">
+				<strong><%= video.uploader %></strong>
+			</a>
+			-->
+		</p>
+		<%= video.description %>
+	</div>
+	</p>
+
+	<!-- <%= video.provider %> -->
+	
+	<ul data-role="listview" data-inset="true">
+		<li data-theme="a" data-role="list-divider">Das könnte für Sie interessant sein...</li>
+		<!--
+		<li data-mini="true" data-iconpos="left" data-icon="info"><a style="font-weight:normal;" href="#myprofile">Wissensanbieter werden...</a></li>
+		-->
+		
+		<!-- <% var displayedvideos = 0; %> -->
+		<% _.each(video.related, function(related) { %>
+			<% if( related.id != video.id ) { %>
+				<% displayedvideos += 1; %>
+				<!--
+				<li data-roles="public" 	data-mini="true" data-iconpos="left" data-icon="arrow-r"><a style="font-weight:normal;" href="<%= related.href %>"><%= related.title %></a></li>
+				-->
+				<li style="max-height:60px !important;">
+					<a class="showVideoDetailsLink" href="<%= related.href %>">
+					<img style="padding:8px 0px 8px 25px;height:40px !important;max-height:40px !important;max-width:40px !important;" src="<%= related.icon %>" />
+					<h6 style="padding:0px 0px 10px 0px;margin:0;"><%= related.title %></h6>
+					<p><%= related.description %></p>
+					</a>
+				</li>
+			<% } %>
+		<% }); %>
+		<% if( video.provider < 0 ) { %>
+			<li style="max-height:60px !important;">
+				<a class="showVideoDetailsLink" href="#myprofile">
+				<img style="padding:8px 0px 8px 25px;height:40px !important;max-height:40px !important;max-width:40px !important;" src="images/avatar.jpg" />
+				<h6 style="padding:0px 0px 10px 0px;margin:0;">Wissensanbieter werden</h6>
+				<p>Bieten Sie jetzt Ihr Wissen an.</p>
+				</a>
+			</li>
+		<% } else { %>
+			<% if (displayedvideos<5) { %>
+				<li style="max-height:60px !important;">
+					<a class="showVideoDetailsLink" href="#videos/record">
+					<img style="padding:8px 0px 8px 25px;height:40px !important;max-height:40px !important;max-width:40px !important;" src="images/avatar.jpg" />
+					<h6 style="padding:0px 0px 10px 0px;margin:0;">Sie auf diesem Platz?</h6>
+					<p>Stellen Sie hier Ihr Video ein...</p>
+					</a>
+				</li>
+			<% } %>
+		<% } %>
+		
+	</ul>
+
+</div>
+
+<br><br><br>
