@@ -128,7 +128,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					// $('.ui-content').scrollTop(0);
 					new FastClick(document.body);
 					// alert($('#MessagesDetailsNestedViewDiv').height()-$(window).height());
-					$('.ui-content').scrollTop($('#MessagesDetailsNestedViewDiv').height()-$(window).height()+100);
+					$('.ui-content').scrollTop($('#flexiblecontent').height());
 				});
 				return this;				
 			}
