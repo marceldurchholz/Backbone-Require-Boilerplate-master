@@ -33,6 +33,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewSupport.nestedView = new SidemenuView().fetch();
 					_thisViewSupport.$el.html(_.template(supportPage, {}));
+					hideModal();
 					this.$el.trigger('create');
 					new FastClick(document.body);
 					this.$el.fadeIn( 500, function() {

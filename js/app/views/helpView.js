@@ -28,11 +28,12 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					this.fetch();
 				},
 				render: function() {
-					console.log('DOING render Videos.js called');
+					// console.log('DOING render Videos.js called');
 					_thisViewHelp = this;
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewHelp.nestedView = new SidemenuView().fetch();
 					_thisViewHelp.$el.html(_.template(helpPage, {}));
+					hideModal();
 					this.$el.trigger('create');
 					new FastClick(document.body);
 					this.$el.fadeIn( 500, function() {

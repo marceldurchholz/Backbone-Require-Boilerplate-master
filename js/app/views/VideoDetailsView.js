@@ -339,9 +339,39 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					hideModal();
 					this.$el.trigger('create');
 					new FastClick(document.body);
+					
+					_thisViewVideoDetails.blavar = this._videosCollection.models[0].attributes.title;
+					if (_thisViewVideoDetails.blavar.length>25) _thisViewVideoDetails.blavar = _thisViewVideoDetails.blavar.substr(0,25)+'...';
+					
 					this.$el.fadeIn( 500, function() {
 						$('.ui-content').scrollTop(0);
 						new FastClick(document.body);
+						fontResize();
+						// alert($('.readmore').html());
+						$('.readmore').expander({
+							slicePoint: 100,
+							preserveWords: true,
+							expandPrefix: '...',
+							expandEffect: 'fadeIn',
+							expandSpeed: 250,
+							collapseEffect: 'fadeOut',
+							collapseSpeed: 200,
+							expandText: ' Weiterlesen...',
+							userCollapseText: '',
+							userCollapse: false
+						});
+						$('.readmoretitle').expander({
+							slicePoint: 0,
+							preserveWords: false,
+							expandPrefix: '',
+							expandEffect: 'fadeIn',
+							expandSpeed: 250,
+							collapseEffect: 'fadeOut',
+							collapseSpeed: 200,
+							expandText: _thisViewVideoDetails.blavar,
+							userCollapseText: '',
+							userCollapse: false
+						});
 					});
 					_thisViewVideoDetails.bindEvents();
 					return this;
