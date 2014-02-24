@@ -2727,8 +2727,13 @@ function fontResize() {
 	var fullpixel = width*height;
 	// alert(fullpixel);
 	// 150000
-    var newFont = font * (fullpixel/180000);
-	if (newFont<11) newFont = 11;
+	var factor = (fullpixel/180000);
+	// alert(factor);
+	if (factor<1) factor = 1;
+	if (factor>1.5) factor = 1.5;
+    var newFont = font * factor;
+	if (newFont<12) newFont = 12;
+	
 	$('#body').each(function( index ) {
 		// alert($(this).css('font-size').substr($( this ).css('font-size').len-2,2));
 		if ($(this).css('font-size').substr($( this ).css('font-size').len-2,2)>22 || newFont>22) newFont = 22;
@@ -2737,5 +2742,16 @@ function fontResize() {
 		// alert($(this).css('font-size'));
 		// alert(newFont);
 	});
+	
+	
+	$('.resizetext').each(function( index, bla ) {
+		// alert($(this).html());
+		var font = $(this).css('font-size').substr($( this ).css('font-size').len-2,2);
+		newFont = font*factor;
+		if (newFont>22) newFont = 22;
+		// alert(newFont);
+		$(this).css("font-size", newFont+"px");
+	});
+	
 	
 };

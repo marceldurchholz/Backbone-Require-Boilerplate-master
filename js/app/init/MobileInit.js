@@ -181,7 +181,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		return(false);
 	});
 	
-	fontResize();
+	
 	// $(window).bind('resize', function() {
 	$(window).resize(function() {
 		fontResize();
