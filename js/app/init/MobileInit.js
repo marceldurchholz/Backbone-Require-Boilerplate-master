@@ -180,7 +180,40 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		history.back();
 		return(false);
 	});
+
+	$('#body').off( "keyup", "#messagetextarea").on( "keyup", "#messagetextarea", function( e ) {
+		// console.log('keyup');
+		// console.log($(this));
+		console.log($('#messagetextarea').val());
+		if ($('#messagetextarea').val() && $('#messagetextarea').val().length > 0) {
+			$('#messagesendbutton').show();
+		}
+		else {
+			$('#messagesendbutton').hide();
+		}
+	});
 	
+    $('#messagetextarea').keyup(function(e){
+    //do something like
+		console.log('chamged');
+       if($(this).val() != '')
+       {
+         //there is some text in the textarea
+       }
+    });
+	
+	$('#body').off( "focus", "#messagetextarea").on( "focus", "#messagetextarea", function( e ) {
+		e.preventDefault();
+		// console.log(o);
+		$('#messagetextarea').height(100);
+		// console.log(e.currentTarget.height());
+		console.log('focussed textarea');
+	});
+	$('#body').off( "blur", "#messagetextarea").on( "blur", "#messagetextarea", function( e ) {
+		e.preventDefault();
+		$('#messagetextarea').height(20);
+		console.log('blurred textarea');
+	});
 	
 	// $(window).bind('resize', function() {
 	$(window).resize(function() {

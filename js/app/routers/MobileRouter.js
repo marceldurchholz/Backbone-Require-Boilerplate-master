@@ -1,8 +1,8 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Planer", "views/Cards", "views/AdminUserListView", "views/AdminUserDetailsView", "views/VideoDetailsView", "views/MessageDetailsView", "views/PlanDetailsView", "views/CardDetailsView", "views/CardStartView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView", "views/supportView", "views/helpView", "views/agbView", "views/MessagesView"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Planer", "views/Cards", "views/AdminUserListView", "views/AdminUserDetailsView", "views/VideoDetailsView", "views/MessageDetailsView", "views/PlanDetailsView", "views/CardDetailsView", "views/CardStartView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView", "views/supportView", "views/helpView", "views/agbView", "views/MessagesView", "views/MessagesEditView"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Planer, Cards, AdminUserListView, AdminUserDetailsView, Videosdetailsview, MessageDetailsView, Planerdetailsview, Cardsdetailsview, Cardstartview, Videorecordview, Learningstreamview, login, DashboardView, NoAccess, Logout, MyProfile, supportView, helpView, agbView, MessagesView) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Planer, Cards, AdminUserListView, AdminUserDetailsView, Videosdetailsview, MessageDetailsView, Planerdetailsview, Cardsdetailsview, Cardstartview, Videorecordview, Learningstreamview, login, DashboardView, NoAccess, Logout, MyProfile, supportView, helpView, agbView, MessagesView, MessagesEditView) {
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -39,6 +39,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"videos/details/view/:id" : "videodetailsview",
 				"videos/record" : "videorecordview",
 				"messages" : "messages",
+				"messages/edit/:id" : "MessagesEditRouter",
 				"messages/details/view/:id" : "messagedetailsrouter",
 				"planer" : "planer",
 				"planer/details/:id" : "plandetails",
@@ -62,6 +63,9 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             },
 			messages: function() {
 				this.changePage(MessagesView,{});
+			},
+			MessagesEditRouter: function(id) {
+				this.changePage(MessagesEditView,{id:id});
 			},
 			startpage: function() {
 				// redirectToUrl();
@@ -225,6 +229,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 					_this.myView = new view(viewOptions);
 					new FastClick(document.body);
 				});
+				$('#pageFooter').html('');
 				
 				// this.myView.$el.off('create', this.testFunction);
 				// this.myView.$el.on('create', this.testFunction);
