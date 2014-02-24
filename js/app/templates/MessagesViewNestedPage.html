@@ -4,7 +4,7 @@
 		<% _.each(messages.data, function(message) { if (message) { %>
 			
 			<% if(message.display==1) { %>
-				<li style="max-height:60px !important;">
+				<li data-id="<%= message.id %>" class="swipeToDelete" style="max-height:60px !important;border:10px solid #000;padding-top:50px;">
 					<% if(message.unread>0) { %> <span class="ui-li-count" style="font-weight:normal;f/ont-size:12px;"><!--<%= message.unread %> / -->&nbsp;<%= message.anzahl %>&nbsp;</span><% } %>
 					<a class="showMessageDetailsLink" href="#messages/details/view/<%= message.id %>" style="padding-left:80px;">
 					<img style="padding:8px 0px 8px 20px;height:40px !important;max-height:40px !important;max-width:40px !important;" src="<% if(message.unread>0) { %>images/icon-message-unread-60.png<% } else { %>images/icon-message-read-60.png<% } %>" />

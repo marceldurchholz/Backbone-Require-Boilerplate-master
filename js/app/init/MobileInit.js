@@ -149,6 +149,34 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		showPageOptions();
 		checkTopNaviRoles();
 	});
+	
+	$('body').off( "swipeleft swiperight", ".swipeToDelete").on( "swipeleft swiperight", ".swipeToDelete", function( event ) {
+		alert('swiped on element');
+		var listitem = $(this);
+		
+		doConfirm('', 'Verlauf löschen?', function (event) { 
+			if (event=="1") {
+				deleteMessageFlow(listitem);
+			}
+		}, undefined);
+
+		/*
+		var listitem = $( this ),
+			// These are the classnames used for the CSS transition
+			dir = event.type === "swipeleft" ? "left" : "right",
+			// Check if the browser supports the transform (3D) CSS transition
+			transition = $.support.cssTransform3d ? dir : false;
+
+			confirmAndDelete( listitem, transition );
+		*/
+	});
+	
+	function deleteMessageFlow(listitem) {
+		alert('deleteMessageFlow');
+		var this_id = listitem.attr('data-id');
+		alert(this_id);
+		listitem.remove();
+	}
 
   }
 
