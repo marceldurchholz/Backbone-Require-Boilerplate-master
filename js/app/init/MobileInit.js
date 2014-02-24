@@ -175,7 +175,12 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		alert('deleteMessageFlow');
 		var this_id = listitem.attr('data-id');
 		alert(this_id);
-		listitem.remove();
+		
+		// listitem.fadeOut( 500, function() {
+		listitem.toggle( "fast", function() {
+			listitem.remove();
+		});
+		
 	}
 
   }
