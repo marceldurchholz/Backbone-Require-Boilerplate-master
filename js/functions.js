@@ -2395,10 +2395,10 @@ function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 		// alert('bla');
 		// myPlayer.posterImage.show();  
 		// $("#video_player_1.vjs-poster").css('background-image', 'url(http://video-js.zencoder.com/oceans-clip.jpg)').show();
-		myPlayer.controlBar.show();  
+		myPlayer.controlBar.hide();  
 		myPlayer.bigPlayButton.hide();  
 		// myPlayer.pause();
-		alert(showVideoLength);
+		// alert(showVideoLength);
 		myPlayer.on('timeupdate', function() {
 			if (myPlayer.currentTime() > showVideoLength) {
 				// $(".video-js")[0].player.pause();
