@@ -2706,3 +2706,4 @@ var equal = function(x, y) {
     } else return x === y;
     return true;
 };
+
