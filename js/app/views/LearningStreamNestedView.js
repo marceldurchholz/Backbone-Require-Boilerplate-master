@@ -6,7 +6,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 		
 		var LearningStreamNestedViewVar = Backbone.View.extend({
 			
-			el: "#LearningStreamNestedViewDiv",
+			el: "#LearningStreamViewDiv",
 			initialize: function() {
 				showModal();
 				console.log('initializing LearningStreamNestedView.js');

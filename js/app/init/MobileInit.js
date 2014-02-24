@@ -153,13 +153,12 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	$('body').off( "swipeleft", ".swipeToDelete").on( "swipeleft", ".swipeToDelete", function( e ) {
 		e.preventDefault();
 		// alert('swiped on element');
-		var listitem = $(this);
-		
+		var listitem = $(this);		
 		doConfirm('', 'Verlauf löschen?', function (clickevent) { 
-			if (clickevent=="2") {
+			if (clickevent=="1") {
 				deleteMessageFlow(listitem);
 			}
-		}, "Nein,Ja");
+		}, "Ja,Nein");
 	});
 	
 	function deleteMessageFlow(listitem) {
@@ -186,10 +185,10 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// console.log($(this));
 		console.log($('#messagetextarea').val());
 		if ($('#messagetextarea').val() && $('#messagetextarea').val().length > 0) {
-			$('#messagesendbutton').show();
+			$('#messagesendbutton').removeClass( 'ui-disabled' );
 		}
 		else {
-			$('#messagesendbutton').hide();
+			$('#messagesendbutton').addClass( 'ui-disabled' );
 		}
 	});
 	
