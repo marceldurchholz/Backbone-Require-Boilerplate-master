@@ -152,37 +152,20 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	
 	$('body').off( "swipeleft swiperight", ".swipeToDelete").on( "swipeleft swiperight", ".swipeToDelete", function( e ) {
 		e.preventDefault();
-		alert('swiped on element');
+		// alert('swiped on element');
 		var listitem = $(this);
 		
 		doConfirm('', 'Verlauf löschen?', function (clickevent) { 
-			if (clickevent=="1") {
+			if (clickevent=="2") {
 				deleteMessageFlow(listitem);
 			}
-		}, undefined);
-
-		/*
-		var listitem = $( this ),
-			// These are the classnames used for the CSS transition
-			dir = event.type === "swipeleft" ? "left" : "right",
-			// Check if the browser supports the transform (3D) CSS transition
-			transition = $.support.cssTransform3d ? dir : false;
-
-			confirmAndDelete( listitem, transition );
-		*/
-	});
-	
-	$('#body').off( "swiperight", "#page-content").on( "swiperight", "#page-content", function( e ) {
-		e.preventDefault();
-		alert('swiped on body');
-		history.back();
-		return(false);
+		}, "Nein,Ja");
 	});
 	
 	function deleteMessageFlow(listitem) {
-		alert('deleteMessageFlow');
+		// alert('deleteMessageFlow');
 		var this_id = listitem.attr('data-id');
-		alert(this_id);
+		// alert(this_id);
 		
 		// listitem.fadeOut( 500, function() {
 		listitem.toggle( "fast", function() {
@@ -190,7 +173,14 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		});
 		
 	}
-
+	
+	$('#body').off( "swiperight", "#page-content").on( "swiperight", "#page-content", function( e ) {
+		e.preventDefault();
+		// alert('swiped on body');
+		history.back();
+		return(false);
+	});
+	
   }
 
 );
