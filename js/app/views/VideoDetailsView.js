@@ -253,7 +253,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					_thisKnowledgeData.streamData.sort(function(a, b){
 						return b.cdate-a.cdate
 					});
-					console.log(_thisKnowledgeData.streamData);
+					// console.log(_thisKnowledgeData.streamData);
 					return(_thisKnowledgeData.streamData);
 					// _thisViewLearningStreamNested.render();
 				},
@@ -261,14 +261,19 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				insertVariables: function(model) {
 					_thisViewVideoDetails = this;
 					var uploader = model.get('uploader');
-					console.log(this.id);
-					$.ajax({
-						url: "http://dominik-lohmann.de:5000/users/?id="+uploader,
-						async: false
-					}).done(function(uploaderdata) {
-						console.log(uploaderdata);
-						_thisViewVideoDetails.uploaderdata = uploaderdata;
-					});					
+					// console.log(this.id);
+					if (uploader==window.me.id) {
+						_thisViewVideoDetails.uploaderdata = window.me;
+					}
+					else {
+						$.ajax({
+							url: "http://dominik-lohmann.de:5000/users/?id="+uploader,
+							async: false
+						}).done(function(uploaderdata) {
+							// console.log(uploaderdata);
+							_thisViewVideoDetails.uploaderdata = uploaderdata;
+						});
+					}
 					
 					var pricetext = '';
 					if (model.get('price')==0) pricetext = 'Video kostenlos laden';

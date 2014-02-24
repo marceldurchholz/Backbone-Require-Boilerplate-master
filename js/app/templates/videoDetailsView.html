@@ -28,6 +28,7 @@
 
 	<ul data-role="listview" data-inset="true">
 		<li data-theme="a" data-role="list-divider">Das könnte interessant sein...</li>
+		<% var displayedvideos = 0; %>
 		<% _.each(video.related, function(related) { %>
 			<% if( related.id != video.id ) { %>
 				<% displayedvideos += 1; %>

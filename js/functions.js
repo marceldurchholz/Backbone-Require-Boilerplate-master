@@ -2715,11 +2715,6 @@ function fontResize() {
 	var height = $(window).height();
     var width = $(window).width();
 	
-	$('#flexiblecontent').each(function( index ) {
-		// console.log( index + ": " + $( this ).text() );
-		console.log($( this ).text());
-	});
-
     var font = 13;
     //Get window width
 

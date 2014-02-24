@@ -17,46 +17,8 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 			initializeme: function() {
 				console.log('initializeme DashboardNestedView.js');
 				$(this.el).html('loading...');
-				$.when( this.fetchMe() ).then(
-				  function( status ) {
-					console.log(status);
-					_thisViewDashboardNested.me = status;
-					_thisViewDashboardNested.render();
-				  },
-				  function( status ) {
-					// console.log( status + ", you fail this time" );
-					alert( "you fail this time" );
-				  },
-				  function( status ) {
-					console.log('still fetchWorking');
-				  }
-				);
-			},
-			fetchWorking: function() {
-				var setTimeoutWatcher = setTimeout(function foo() {
-					if ( _thisViewDashboardNested.dfd.state() === "pending" ) {
-						_thisViewDashboardNested.dfd.notify( "working... " );
-						setTimeout( _thisViewDashboardNested.fetchWorking, 100 );
-					}
-				}, 1 );
-			},
-			fetchMe: function() {
-				_thisViewDashboardNested = this;
-				console.log('fetchMe DashboardNestedView.js');
-				_thisViewDashboardNested.dfd = new jQuery.Deferred();
-				_thisViewDashboardNested.fetchWorking();
-				dpd.users.me(function(user) {
-					if (user) {
-						var fetchMe = setTimeout ( function() {
-							_thisViewDashboardNested.dfd.resolve(user);
-						}, 0 );
-					}
-					else {
-						// location.href = "#noaccess";
-						// console.log('you are not logged in');
-					}
-				});
-				return this.dfd.promise();
+				_thisViewDashboardNested.me = window.me;
+				_thisViewDashboardNested.render();
 			},
 			fetch: function() {	
 				_thisViewDashboardNested = this;

@@ -40,6 +40,7 @@ define(["jquery", "backbone", "models/VideoModel"],
 		  }
 		},
 		fetch: function(options) {
+			/*
 			if (_thisCollectionVideos.online==1) {
 				dpd.users.me(function(user) {
 					if (user) {
@@ -53,6 +54,10 @@ define(["jquery", "backbone", "models/VideoModel"],
 					}
 				});
 			}
+			*/
+			// console.log('window.me');
+			// console.log(window.me);
+			_thisCollectionVideos.user = window.me;
 			options || (options = {});
             var data = (options.data || {});
             options.data = {date: this.date};
