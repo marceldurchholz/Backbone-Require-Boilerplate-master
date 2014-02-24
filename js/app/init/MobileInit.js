@@ -150,7 +150,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		checkTopNaviRoles();
 	});
 	
-	$('body').off( "swipeleft swiperight", ".swipeToDelete").on( "swipeleft swiperight", ".swipeToDelete", function( e ) {
+	$('body').off( "swipeleft", ".swipeToDelete").on( "swipeleft", ".swipeToDelete", function( e ) {
 		e.preventDefault();
 		// alert('swiped on element');
 		var listitem = $(this);
