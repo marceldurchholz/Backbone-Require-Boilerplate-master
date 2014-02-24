@@ -160,6 +160,30 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			}
 		}, "Ja,Nein");
 	});
+
+	$('body').off( "click", ".messagesendbutton").on( "click", ".messagesendbutton", function( e ) {
+		e.preventDefault();
+		// alert('bla');
+		$("#newmessageform").submit();
+	});
+
+	$('body').off( "submit", ".newmessageform").on( "submit", ".newmessageform", function( e ) {
+		e.preventDefault();
+		// alert('foo');
+		var data = $('.newmessageform').serialize();
+		console.log(data);
+		var sender = window.me.id;
+		var receiver = $('#receiver').val();
+		var content = $('#messagetextarea').val();
+		// console.log(sender);
+		// console.log(receiver);
+		// console.log(content);
+		dpd.messages.post({sender: sender, receiver: receiver, content: content}, function(result, err) {
+			if(err) return console.log(err);
+			console.log(result, result.id);
+		});
+		return(false);
+	});
 	
 	function deleteMessageFlow(listitem) {
 		// alert('deleteMessageFlow');

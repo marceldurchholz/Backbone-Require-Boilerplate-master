@@ -1,8 +1,8 @@
 // MessagesDetailsView.js
 // -------
-define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/SidemenuView", "text!templates/MessagesDetailsViewPage.html", "views/MessagesDetailsViewNested", "text!templates/FooterPersistentPage.html"],
+define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/SidemenuView", "text!templates/MessagesDetailsViewPage.html", "views/MessagesDetailsViewNested"],
 
-    function($, Backbone, sidemenusList, SidemenuView, MessagesDetailsViewPage, MessagesDetailsViewNested, FooterPersistentPage){
+    function($, Backbone, sidemenusList, SidemenuView, MessagesDetailsViewPage, MessagesDetailsViewNested){
 		
 		var MessagesDetailsVar = Backbone.View.extend({
 		
@@ -30,11 +30,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				_thisMessagesView.nestedView = new SidemenuView().fetch();
 				_thisMessagesView.$el.html(_.template(MessagesDetailsViewPage, {}));
 				// alert(this.options.id);
-				
-				_thisMessagesView.$el.html(_.template(MessagesDetailsViewPage, {}));
-				$('#pageFooter').html(_.template(FooterPersistentPage, {})).trigger('create'); // '<div data-role="navbar"><ul><li>blafoo</li></ul></div>'
-				// alert($('#pageFooter').html());
-				
+				_thisMessagesView.$el.html(_.template(MessagesDetailsViewPage, {}));				
 				_thisMessagesView.nestedView = new MessagesDetailsViewNested().fetch();
 				return this;				
 			}

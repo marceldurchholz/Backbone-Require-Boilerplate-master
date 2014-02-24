@@ -1,21 +1,21 @@
 // MessagesDetailsViewNested.js
 // -------
-define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html"],
+define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html", "text!templates/FooterPersistentPage.html"],
 
-    function($, Backbone, MessagesDetailsViewNestedPage){
+    function($, Backbone, MessagesDetailsViewNestedPage, FooterPersistentPage) {
 		
 		var MessageViewNestedVar = Backbone.View.extend({
 			
 			el: "#MessagesDetailsNestedViewDiv",
 			initialize: function() {
 				console.log('initializing MessagesDetailsViewNested.js');
+				this.$el.hide();
+				showModal();
 			},
 			fetch: function() {	
 				// alert('bla');
 				_thisMessagesDetailsViewNested = this;
 				console.log('fetching MessagesDetailsViewNested.js');
-				this.$el.hide();
-				showModal();
 				
 				// alert(_thisMessagesView.options.id);
 				dpd.messages.get(_thisMessagesView.options.id, function (result) {
@@ -26,6 +26,8 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 							// console.log(me.id);
 							// http://dominik-lohmann.de:5000/messages?{"$or":[{"sender":"009505631619d88e"},{"receiver":"009505631619d88e"}],$sort:{cdate:-1}}
 							// var query = {$or:[{"sender":result.sender},{"receiver":result.receiver}],$sort:{cdate:-1}};
+							if (result.receiver==window.me.id) _thisMessagesDetailsViewNested.receiver = result.sender;
+							else _thisMessagesDetailsViewNested.receiver = result.receiver;
 							var query = {  $or:[{"sender":result.sender,"receiver":result.receiver}  ,  {"sender":result.receiver,"receiver":result.sender}]  ,$sort:{cdate:-1}};
 							dpd.messages.get(query, function (allmessagesdata) {
 								// console.log(allmessagesdata);
@@ -112,6 +114,16 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					event.preventDefault();
 					window.location.href = event.currentTarget.hash;
 				});
+				dpd.messages.once('create', function(msgData) {
+					// renderMessage(message);
+					// doAlert('new video existing');
+					// console.log(videoData);
+					// console.log(videoData);
+					// _thisViewLearningStreamNested.collectStreamData();
+					// window.location.reload();
+					// alert('new msg existing');
+					_thisMessagesDetailsViewNested.fetch();
+				});
 			},
 			render: function() {
 				this.bindEvents();
@@ -123,6 +135,10 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				_thisMessagesDetailsViewNested.$el.html(_.template(MessagesDetailsViewNestedPage, {
 					data: _thisMessagesDetailsViewNested.messages
 				},{variable: 'messages'}));
+				
+				$('#pageFooter').html(_.template(FooterPersistentPage, {
+					receiver: _thisMessagesDetailsViewNested.receiver
+				},{variable: 'data'})).trigger('create'); // '<div data-role="navbar"><ul><li>blafoo</li></ul></div>'
 
 				hideModal();
 				this.$el.trigger('create');

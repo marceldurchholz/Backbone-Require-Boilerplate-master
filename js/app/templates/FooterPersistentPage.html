@@ -1,12 +1,14 @@
 				<div data-role="navbar">
 					<ul>
 						<li>
-							<form id="newmessageform">
+							<form id="newmessageform" class="newmessageform" action="#messages/details/view/de12c0c7c8f598a0">
+								<input type="hidden" id="receiver" class="receiver" value="<%= data.receiver %>">
 								<div data-corners="false" data-role="fieldcontain" class="ui-hide-label">
 									<label for="messagetextarea">Textarea:</label>
 									<textarea name="messagetextarea" id="messagetextarea" style="height: 40px !important;min-height:40px !important; max-height:100px !important;font-size:16px;width:100%;border: 0px !important;-moz-border-radius: 0px !important;-khtml-border-radius: 0px !important;-webkit-border-radius: 0px !important;border-radius: 0px !important;" cols="40" rows="4"></textarea>
-									<a class="ui-disabled" href="#" data-role="button" data-corners="false" data-theme="b" id="messagesendbutton">absenden</a>
 								</div>
+								<!-- <a class="ui-disabled" data-role="button" data-corners="false" data-theme="b" id="messagesendbutton" class="messagesendbutton">absenden</a> -->
+								<input data-corners="false" data-theme="b" type="button" id="messagesendbutton" class="messagesendbutton" value="absenden" />
 							</form>
 						</li>
 						<!--
