@@ -327,11 +327,14 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					});
 					// console.log('this._videosCollection.models[0].attributes.videourl');
 					// console.log(this._videosCollection.models[0].attributes.videourl);
-					var showVideoLength = 0;
 					// alert(showVideoLength);
-					if( _.indexOf(this._videosCollection.models[0].attributes.purchases, this._videosCollection.models[0].attributes.id)==-1 ) {
-						showVideoLength = 60;
+					// console.log(window.me.purchases);
+					// console.log(this._videosCollection.models[0].attributes.id);
+					// alert($.inArray( this._videosCollection.models[0].attributes.id , window.me.purchases ));
+					if( $.inArray( this._videosCollection.models[0].attributes.id , window.me.purchases ) >- 1 ) {
+						this._videosCollection.models[0].attributes.videourl,showVideoLength = 0;
 					} else {
+						this._videosCollection.models[0].attributes.videourl,showVideoLength = 60;
 						// alert('not buyed');
 					}
 					// alert(showVideoLength);
@@ -340,8 +343,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					this.$el.trigger('create');
 					new FastClick(document.body);
 					
-					_thisViewVideoDetails.blavar = this._videosCollection.models[0].attributes.title;
-					if (_thisViewVideoDetails.blavar.length>25) _thisViewVideoDetails.blavar = _thisViewVideoDetails.blavar.substr(0,25)+'...';
+					_thisViewVideoDetails.title_shorten = this._videosCollection.models[0].attributes.title;
+					if (_thisViewVideoDetails.title_shorten.length>25) _thisViewVideoDetails.title_shorten = _thisViewVideoDetails.title_shorten.substr(0,25)+'...';
 					
 					this.$el.fadeIn( 500, function() {
 						$('.ui-content').scrollTop(0);
@@ -368,7 +371,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							expandSpeed: 250,
 							collapseEffect: 'fadeOut',
 							collapseSpeed: 200,
-							expandText: _thisViewVideoDetails.blavar,
+							expandText: _thisViewVideoDetails.title_shorten,
 							userCollapseText: '',
 							userCollapse: false
 						});
