@@ -11,44 +11,26 @@
 </div>
 
 <% if( _.indexOf(video.purchases, video.id)==-1 ) { %>
-	<div style="padding:0px 20px 20px 20px;"><a data-videoid="<%= video.id %>" id="loadvideobutton" class="loadvideobutton" data-theme="b" data-role="button"><%= video.pricetext %></a></div>
+	<div style="padding:0px 20px 10px 20px;"><a data-videoid="<%= video.id %>" id="loadvideobutton" class="loadvideobutton" data-theme="b" data-role="button"><%= video.pricetext %></a></div>
 <% } else  { %>
-	<div style="padding:0px 20px 20px 20px;"><a data-videoid="<%= video.id %>" id="downloadvideobutton" class="downloadvideobutton" data-theme="b" data-role="button">Video offline speichern</a></div>
+	<div style="padding:0px 20px 10px 20px;"><a data-videoid="<%= video.id %>" id="downloadvideobutton" class="downloadvideobutton" data-theme="b" data-role="button">Video offline speichern</a></div>
 <% } %>
 
 <div style="padding:0px 20px 60px 20px;">
+	
 	<div class="title">
 		<h5><%= video.title %></h5>
 	</div>
-	<p>
-	<div class="description">
-		<p>
-			<strong><%= video.uploader %></strong>
-			<!--
-			<a href="#admin/users/details/<%= video.uploaderdata.id %>">
-				<strong><%= video.uploader %></strong>
-			</a>
-			-->
-		</p>
+	<div class="description" style="line-height:1.5em;">
+		<strong><%= video.uploader %></strong> <br>
 		<%= video.description %>
 	</div>
-	</p>
 
-	<!-- <%= video.provider %> -->
-	
 	<ul data-role="listview" data-inset="true">
-		<li data-theme="a" data-role="list-divider">Das könnte für Sie interessant sein...</li>
-		<!--
-		<li data-mini="true" data-iconpos="left" data-icon="info"><a style="font-weight:normal;" href="#myprofile">Wissensanbieter werden...</a></li>
-		-->
-		
-		<!-- <% var displayedvideos = 0; %> -->
+		<li data-theme="a" data-role="list-divider">Das könnte interessant sein...</li>
 		<% _.each(video.related, function(related) { %>
 			<% if( related.id != video.id ) { %>
 				<% displayedvideos += 1; %>
-				<!--
-				<li data-roles="public" 	data-mini="true" data-iconpos="left" data-icon="arrow-r"><a style="font-weight:normal;" href="<%= related.href %>"><%= related.title %></a></li>
-				-->
 				<li style="max-height:60px !important;">
 					<a class="showVideoDetailsLink" href="<%= related.href %>">
 					<img style="padding:8px 0px 8px 25px;height:40px !important;max-height:40px !important;max-width:40px !important;" src="<%= related.icon %>" />

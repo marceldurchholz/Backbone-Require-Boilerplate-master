@@ -2707,3 +2707,35 @@ var equal = function(x, y) {
     return true;
 };
 
+function fontResize() {
+    // alert('font-resizing');
+	//Set default resolution and font size
+    // var resolution = 1024;
+	// var height = 1024;
+	var height = $(window).height();
+    var width = $(window).width();
+	
+	$('#flexiblecontent').each(function( index ) {
+		// console.log( index + ": " + $( this ).text() );
+		console.log($( this ).text());
+	});
+
+    var font = 13;
+    //Get window width
+
+    //Set new font size
+	var fullpixel = width*height;
+	// alert(fullpixel);
+	// 150000
+    var newFont = font * (fullpixel/180000);
+	if (newFont<11) newFont = 11;
+	$('#body').each(function( index ) {
+		// alert($(this).css('font-size').substr($( this ).css('font-size').len-2,2));
+		if ($(this).css('font-size').substr($( this ).css('font-size').len-2,2)>22 || newFont>22) newFont = 22;
+		// $('body').css('font-size', newFont);
+		$( this ).css('font-size', newFont);
+		// alert($(this).css('font-size'));
+		// alert(newFont);
+	});
+	
+};
