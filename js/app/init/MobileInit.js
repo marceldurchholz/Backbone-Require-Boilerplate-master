@@ -150,12 +150,13 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		checkTopNaviRoles();
 	});
 	
-	$('body').off( "swipeleft swiperight", ".swipeToDelete").on( "swipeleft swiperight", ".swipeToDelete", function( event ) {
+	$('body').off( "swipeleft swiperight", ".swipeToDelete").on( "swipeleft swiperight", ".swipeToDelete", function( e ) {
+		e.preventDefault();
 		alert('swiped on element');
 		var listitem = $(this);
 		
-		doConfirm('', 'Verlauf löschen?', function (event) { 
-			if (event=="1") {
+		doConfirm('', 'Verlauf löschen?', function (clickevent) { 
+			if (clickevent=="1") {
 				deleteMessageFlow(listitem);
 			}
 		}, undefined);
@@ -169,6 +170,13 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
 			confirmAndDelete( listitem, transition );
 		*/
+	});
+	
+	$('#body').off( "swiperight", "#page-content").on( "swiperight", "#page-content", function( e ) {
+		e.preventDefault();
+		alert('swiped on body');
+		history.back();
+		return(false);
 	});
 	
 	function deleteMessageFlow(listitem) {
