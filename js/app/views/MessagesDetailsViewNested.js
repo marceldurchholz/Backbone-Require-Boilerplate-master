@@ -26,16 +26,19 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 							// console.log(me.id);
 							// http://dominik-lohmann.de:5000/messages?{"$or":[{"sender":"009505631619d88e"},{"receiver":"009505631619d88e"}],$sort:{cdate:-1}}
 							// var query = {$or:[{"sender":result.sender},{"receiver":result.receiver}],$sort:{cdate:-1}};
-							var query = {  $or:[{"sender":result.sender,"receiver":result.receiver}  ,  {"sender":result.receiver,"receiver":result.sender}]  ,$sort:{cdate:1}};
+							var query = {  $or:[{"sender":result.sender,"receiver":result.receiver}  ,  {"sender":result.receiver,"receiver":result.sender}]  ,$sort:{cdate:-1}};
 							dpd.messages.get(query, function (allmessagesdata) {
 								// console.log(allmessagesdata);
 								_thisMessagesDetailsViewNested.messages = new Array;
 								$.each( allmessagesdata, function( key, message ) {
 									if (message.unread==undefined) message.unread=0;
 									if (message.sender==me.id) message.unread = 0;
-									else if (jQuery.inArray(me.id, message.readby)<0) message.unread += 1;
+									else if ($.inArray(me.id, message.readby)<0) message.unread += 1;
+									if (message.unread==1) {
+										dpd.messages.put(message.id, {"readby": {$push:$.trim(window.me.id)}} );
+									}
 									_thisMessagesDetailsViewNested.messages.push(message);
-								});							
+								});
 								
 								
 								
@@ -116,7 +119,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				console.log('DOING render MessagesDetailsViewNested.js called');
 				
 				_thisMessagesDetailsViewNested.htmlContent = '';
-				_thisMessagesDetailsViewNested.htmlContent = _thisMessagesDetailsViewNested.messages;
+				// _thisMessagesDetailsViewNested.htmlContent = _thisMessagesDetailsViewNested.messages;
 				_thisMessagesDetailsViewNested.$el.html(_.template(MessagesDetailsViewNestedPage, {
 					data: _thisMessagesDetailsViewNested.messages
 				},{variable: 'messages'}));
@@ -128,8 +131,11 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					// $('.ui-content').scrollTop(0);
 					new FastClick(document.body);
 					// alert($('#MessagesDetailsNestedViewDiv').height()-$(window).height());
-					this.$el.scrollTop($('#flexiblecontent').height());
+					// alert($('#flexiblecontent').height());
 					fontResize();
+					$('#flexiblecontent').attr("height", "auto");
+					
+					$('.ui-content').scrollTop($('#MessagesDetailsViewDiv').height()); // $('#MessagesDetailsViewDiv').height()
 				});
 				return this;				
 			}
