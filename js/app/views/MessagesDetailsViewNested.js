@@ -115,6 +115,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					window.location.href = event.currentTarget.hash;
 				});
 				dpd.messages.once('create', function(msgData) {
+					// alert('aaa');
 					// renderMessage(message);
 					// doAlert('new video existing');
 					// console.log(videoData);
@@ -122,6 +123,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					// _thisViewLearningStreamNested.collectStreamData();
 					// window.location.reload();
 					// alert('new msg existing');
+					console.log(msgData);
 					_thisMessagesDetailsViewNested.fetch();
 				});
 			},
