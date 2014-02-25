@@ -170,8 +170,9 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	$('body').off( "submit", ".newmessageform").on( "submit", ".newmessageform", function( e ) {
 		e.preventDefault();
 		// alert('foo');
-		var data = $('.newmessageform').serialize();
-		console.log(data);
+		// var data = $('.newmessageform').serialize();
+		// console.log(data);
+		if($('#messagetextarea').val().length==0) return(false);
 		var sender = window.me.id;
 		var receiver = $('#receiver').val();
 		var content = $('#messagetextarea').val();
@@ -180,8 +181,14 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// console.log(content);
 		// var cdate = dateYmdHis();
 		// alert(getTimestamp());
+		$('#messagesendbutton').addClass( 'ui-disabled' );
+		$('#messagetextarea').addClass( 'ui-disabled' );
 		dpd.messages.post({sender: sender, receiver: receiver, content: content, cdate: system.timestamp}, function(result, err) {
-			if(err) return console.log(err);
+			if(err) {
+				$('#messagesendbutton').removeClass( 'ui-disabled' );
+				return console.log(err);
+			}
+			$('#messagesendbutton').removeClass( 'ui-disabled' );
 			// console.log(result, result.id);
 		});
 		return(false);
@@ -198,9 +205,10 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			var top = $(this).offset().top;
 			var elheight = $(this).height();
 			// console.log(pos);
-			if (top < 100) {
+			if (top+50 < 100) {
 				opa = top/100;
 			} else {
+				/*
 				// console.log(bottom);
 				// console.log($(window).height());
 				if (top > $(window).height()-elheight) {
@@ -210,6 +218,8 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 				else {
 					opa = 1;
 				}
+				*/
+				opa = 1;
 			}
 			$(this).css({'opacity':opa});
 		});
@@ -233,39 +243,46 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		history.back();
 		return(false);
 	});
+	
+	// resize:false;height: 40px !important;
 
-	$('#body').off( "keyup", "#messagetextarea").on( "keyup", "#messagetextarea", function( e ) {
-		// console.log('keyup');
-		// console.log($(this));
-		console.log($('#messagetextarea').val());
+	function checkTextareaValue() {
+		// console.log($('#messagetextarea').val().length);
 		if ($('#messagetextarea').val() && $('#messagetextarea').val().length > 0) {
+			// console.log('b');
 			$('#messagesendbutton').removeClass( 'ui-disabled' );
 		}
 		else {
+			// console.log('c');
 			$('#messagesendbutton').addClass( 'ui-disabled' );
 		}
-	});
+	}
 	
-    $('#messagetextarea').keyup(function(e){
-    //do something like
-		console.log('chamged');
-       if($(this).val() != '')
-       {
-         //there is some text in the textarea
-       }
-    });
+	$('#body').off( "keyup", "#messagetextarea").on( "keyup", "#messagetextarea", function( e ) {
+		// console.log('keyup');
+		// console.log($(this));
+		// console.log($('#messagetextarea').val());
+		checkTextareaValue();
+	});
 	
 	$('#body').off( "focus", "#messagetextarea").on( "focus", "#messagetextarea", function( e ) {
 		e.preventDefault();
+		checkTextareaValue();
 		// console.log(o);
-		$('#messagetextarea').height(100);
+		// $('#messagetextarea').height(100);
 		// console.log(e.currentTarget.height());
-		console.log('focussed textarea');
+		// $('#messagesendbuttondiv').show();
+		$('#page-content').stop().animate({
+		  scrollTop: $("#page-content")[0].scrollHeight
+		}, 0);
+		// console.log('focussed textarea');
 	});
 	$('#body').off( "blur", "#messagetextarea").on( "blur", "#messagetextarea", function( e ) {
+		checkTextareaValue();
 		e.preventDefault();
-		$('#messagetextarea').height(20);
-		console.log('blurred textarea');
+		// $('#messagetextarea').height(20);
+		// $('#messagesendbuttondiv').hide();
+		// console.log('blurred textarea');
 	});
 	
 	// $(window).bind('resize', function() {
