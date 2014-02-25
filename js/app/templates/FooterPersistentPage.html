@@ -1,20 +1,6 @@
-				<div data-role="navbar">
-					<ul>
-						<li>
 							<form id="newmessageform" class="newmessageform" action="#messages/details/view/de12c0c7c8f598a0">
 								<input type="hidden" id="receiver" class="receiver" value="<%= data.receiver %>">
-								<div data-corners="false" data-role="fieldcontain" class="ui-hide-label">
-									<label for="messagetextarea">Textarea:</label>
-									<textarea name="messagetextarea" id="messagetextarea" style="height: 40px !important;min-height:40px !important; max-height:100px !important;font-size:16px;width:100%;border: 0px !important;-moz-border-radius: 0px !important;-khtml-border-radius: 0px !important;-webkit-border-radius: 0px !important;border-radius: 0px !important;" cols="40" rows="4"></textarea>
-								</div>
+								<textarea name="messagetextarea" id="messagetextarea" style="position:fixed;bottom:45px;height: 40px !important;min-height:40px !important; max-height:100px !important;font-size:16px;width:100%;border: 0px !important;-moz-border-radius: 0px !important;-khtml-border-radius: 0px !important;-webkit-border-radius: 0px !important;border-radius: 0px !important;resize:false;" cols="40" rows="4"></textarea>
 								<!-- <a class="ui-disabled" data-role="button" data-corners="false" data-theme="b" id="messagesendbutton" class="messagesendbutton">absenden</a> -->
 								<input data-corners="false" data-theme="b" type="button" id="messagesendbutton" class="messagesendbutton" value="absenden" />
 							</form>
-						</li>
-						<!--
-						<li><a class="ui-btn-active ui-state-persist" href="b.html">Friends</a></li>
-						<li><a href="c.html">Albums</a></li>
-						<li><a href="d.html">Emails</a></li>
-						-->
-					</ul>
-				</div>

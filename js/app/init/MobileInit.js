@@ -187,6 +187,34 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		return(false);
 	});
 	
+	$('#page-content').scroll(function () {
+		// console.log('aaa');
+		$('.fadeWhenOffsite').each(function () {
+			// var opa = ( 100-$(window).scrollTop() )/100;
+			// console.log(opa);
+			var opa = 1;
+			// console.log($(window).scrollTop());
+			// var pos = ($(this).offset().top - $(window).scrollTop());
+			var top = $(this).offset().top;
+			var elheight = $(this).height();
+			// console.log(pos);
+			if (top < 100) {
+				opa = top/100;
+			} else {
+				// console.log(bottom);
+				// console.log($(window).height());
+				if (top > $(window).height()-elheight) {
+					// opa = 0.3;
+					opa = top;
+				}
+				else {
+					opa = 1;
+				}
+			}
+			$(this).css({'opacity':opa});
+		});
+	});
+	
 	function deleteMessageFlow(listitem) {
 		// alert('deleteMessageFlow');
 		var this_id = listitem.attr('data-id');

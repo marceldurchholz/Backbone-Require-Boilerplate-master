@@ -644,7 +644,7 @@ var app = {
 				$("body").css("-o-user-select","none");
 				$("body").css("user-select","none");
 				
-				var positionTimer = navigator.geolocation.watchPosition(
+				if (1==2) var positionTimer = navigator.geolocation.watchPosition(
 					function( position ){
 						// Log that a newer, perhaps more accurate
 						// position has been found.
@@ -2799,3 +2799,4 @@ function TSonError(error) {
     alert('code: '    + error.code    + '\n' +
           'message: ' + error.message + '\n');
 }
+

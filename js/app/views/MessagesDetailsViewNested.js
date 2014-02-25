@@ -28,7 +28,8 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 							// var query = {$or:[{"sender":result.sender},{"receiver":result.receiver}],$sort:{cdate:-1}};
 							if (result.receiver==window.me.id) _thisMessagesDetailsViewNested.receiver = result.sender;
 							else _thisMessagesDetailsViewNested.receiver = result.receiver;
-							var query = {  $or:[{"sender":result.sender,"receiver":result.receiver}  ,  {"sender":result.receiver,"receiver":result.sender}]  ,$sort:{cdate:1}};
+							// var query = {  $or:[{"sender":result.sender,"receiver":result.receiver}  ,  {"sender":result.receiver,"receiver":result.sender}]  ,$sort:{cdate:1}};
+							var query = {  $or:[{"sender":result.sender,"receiver":result.receiver}  ,  {"sender":result.receiver,"receiver":result.sender}] };
 							dpd.messages.get(query, function (allmessagesdata) {
 								// console.log(allmessagesdata);
 								_thisMessagesDetailsViewNested.messages = new Array;
@@ -126,6 +127,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					console.log(msgData);
 					_thisMessagesDetailsViewNested.fetch();
 				});
+
 			},
 			render: function() {
 				this.bindEvents();
@@ -153,7 +155,12 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					fontResize();
 					$('#flexiblecontent').attr("height", "auto");
 					
-					$('.ui-content').scrollTop($('#MessagesDetailsViewDiv').height()); // $('#MessagesDetailsViewDiv').height()
+					// $('.ui-content').scrollTop($('#MessagesDetailsViewDiv').height()); // $('#MessagesDetailsViewDiv').height()
+					// $('#page-content').scroll(function () {
+					$('#page-content').stop().animate({
+					  scrollTop: $("#page-content")[0].scrollHeight
+					}, 300);
+					
 				});
 				return this;				
 			}
