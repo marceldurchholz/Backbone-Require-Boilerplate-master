@@ -115,17 +115,21 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					event.preventDefault();
 					window.location.href = event.currentTarget.hash;
 				});
-				dpd.messages.once('create', function(msgData) {
-					// alert('aaa');
-					// renderMessage(message);
-					// doAlert('new video existing');
-					// console.log(videoData);
-					// console.log(videoData);
-					// _thisViewLearningStreamNested.collectStreamData();
-					// window.location.reload();
-					// alert('new msg existing');
+				dpd.messages.on('create', function(msgData) {
 					console.log(msgData);
-					_thisMessagesDetailsViewNested.fetch();
+					// var messages = new Object;
+					// messages.push(msgData);
+					_thisMessagesDetailsViewNested.messages.push(msgData);
+					// _thisMessagesDetailsViewNested.fetch();
+					_thisMessagesDetailsViewNested.$el.html(_.template(MessagesDetailsViewNestedPage, {
+						data: _thisMessagesDetailsViewNested.messages
+					},{variable: 'messages'}));
+					// _thisMessagesDetailsViewNested.$el.trigger('update');
+					_thisMessagesDetailsViewNested.$el.trigger('create');
+					$('#page-content').stop().animate({
+					  scrollTop: $("#page-content")[0].scrollHeight
+					}, 0);
+					// $('#MessagesDetailsViewDiv').append( "<p>Test</p>" );
 				});
 
 			},
@@ -143,6 +147,11 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				$('#pageFooter').html(_.template(FooterPersistentPage, {
 					receiver: _thisMessagesDetailsViewNested.receiver
 				},{variable: 'data'})).trigger('create'); // '<div data-role="navbar"><ul><li>blafoo</li></ul></div>'
+				// $('#messagetextarea').height(40);
+				
+				jQuery('#messagetextarea').elastic();
+				jQuery('#messagetextarea').trigger('update');
+
 
 				hideModal();
 				this.$el.trigger('create');

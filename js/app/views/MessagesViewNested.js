@@ -9,18 +9,19 @@ define(["jquery", "backbone", "text!templates/MessagesViewNestedPage.html"],
 			el: "#MessagesNestedViewDiv",
 			initialize: function() {
 				console.log('initializing MessagesViewNested.js');
+				this.$el.hide();
+				showModal();
 			},
 			fetch: function() {	
 				// alert('bla');
 				_thisMessagesViewNested = this;
 				console.log('fetching MessagesViewNested.js');
-				this.$el.hide();
-				showModal();
 				dpd.users.me(function(me) {
 					if (me) {
 						// console.log(me.id);
 						// http://dominik-lohmann.de:5000/messages?{"$or":[{"sender":"009505631619d88e"},{"receiver":"009505631619d88e"}],$sort:{cdate:-1}}
 						var query = {$or:[{"sender":me.id},{"receiver":me.id}],$sort:{cdate:-1}};
+						// var query = {$or:[{"sender":me.id},{"receiver":me.id}]};
 						dpd.messages.get(query, function (allmessagesdata) {
 							_thisMessagesViewNested.messages = new Array;
 							$.each( allmessagesdata, function( key, message ) {
@@ -32,6 +33,8 @@ define(["jquery", "backbone", "text!templates/MessagesViewNestedPage.html"],
 								_thisMessagesViewNested.messages.push(message);
 							});							
 							
+							_thisMessagesViewNested.messages.reverse();
+							
 							var displayedGroups = new Array();
 							$.each(_thisMessagesViewNested.messages,function(key4,message) {
 								_thisMessagesViewNested.messages[key4].display = 1;
@@ -40,7 +43,7 @@ define(["jquery", "backbone", "text!templates/MessagesViewNestedPage.html"],
 									inArray = are_arrs_equal(group, [message.sender,message.receiver]);									
 									if (inArray==true) return(false);
 								});
-								if (inArray==true) _thisMessagesViewNested.messages[key4].display=0;
+								if (inArray==true) _thisMessagesViewNested.messages[key4].display = 0;
 								else {
 									if (_thisMessagesViewNested.messages[key4].sender==me.id) _thisMessagesViewNested.messages[key4].fullname = me.fullname;
 									else {
@@ -76,7 +79,7 @@ define(["jquery", "backbone", "text!templates/MessagesViewNestedPage.html"],
 									});
 								}
 							});
-														
+							
 							_thisMessagesViewNested.render();
 							
 						});
@@ -92,6 +95,9 @@ define(["jquery", "backbone", "text!templates/MessagesViewNestedPage.html"],
 				this.$el.off('click','.showVideoDetailsLink').on('click','.showVideoDetailsLink',function(event){
 					event.preventDefault();
 					window.location.href = event.currentTarget.hash;
+				});
+				dpd.messages.once('create', function(msgData) {
+					_thisMessagesViewNested.fetch();
 				});
 			},
 			render: function() {

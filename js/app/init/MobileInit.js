@@ -186,15 +186,18 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		dpd.messages.post({sender: sender, receiver: receiver, content: content, cdate: system.timestamp}, function(result, err) {
 			if(err) {
 				$('#messagesendbutton').removeClass( 'ui-disabled' );
+				$('#messagetextarea').removeClass( 'ui-disabled' );
 				return console.log(err);
 			}
 			$('#messagesendbutton').removeClass( 'ui-disabled' );
+			$('#messagetextarea').removeClass( 'ui-disabled' );
+			$('#messagetextarea').val( '' );
 			// console.log(result, result.id);
 		});
 		return(false);
 	});
 	
-	$('#page-content').scroll(function () {
+	$('#page-contentaaa').scroll(function () {
 		// console.log('aaa');
 		$('.fadeWhenOffsite').each(function () {
 			// var opa = ( 100-$(window).scrollTop() )/100;
@@ -269,7 +272,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		e.preventDefault();
 		checkTextareaValue();
 		// console.log(o);
-		// $('#messagetextarea').height(100);
+		// $('#messagetextarea').height(0);
 		// console.log(e.currentTarget.height());
 		// $('#messagesendbuttondiv').show();
 		$('#page-content').stop().animate({
@@ -280,7 +283,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	$('#body').off( "blur", "#messagetextarea").on( "blur", "#messagetextarea", function( e ) {
 		checkTextareaValue();
 		e.preventDefault();
-		// $('#messagetextarea').height(20);
+		// $('#messagetextarea').height(40);
 		// $('#messagesendbuttondiv').hide();
 		// console.log('blurred textarea');
 	});

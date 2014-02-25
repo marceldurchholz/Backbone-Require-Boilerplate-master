@@ -30,6 +30,8 @@ require.config({
       // "jreadmore": "../jquery.jreadmore.0.1",
 	  
       "jexpander": "../jquery.expander",
+	  
+      "jelastic": "../jquery.elastic.source",
 
       "videojs": "../video-js/video",
 
@@ -71,6 +73,8 @@ require.config({
 	  
 	  "jexpander": ["jquery"],
 
+	  "jelastic": ["jquery"],
+	  
 	  "functions": ["jquery", "videojs"],
 	  
       // jQueryUI
@@ -83,7 +87,7 @@ require.config({
       "backbone": {
 
         // Depends on underscore/lodash and jQuery // "jquerypulltorefresh", 
-        "deps": ["functions", "underscore", "jquery", "jquerymobile", "jexpander"],
+        "deps": ["functions", "underscore", "jquery", "jquerymobile", "jexpander", "jelastic"],
 
         // Exports the global window.Backbone object
         "exports": "Backbone"
