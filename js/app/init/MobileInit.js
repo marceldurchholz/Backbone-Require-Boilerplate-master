@@ -284,9 +284,36 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		checkTextareaValue();
 		e.preventDefault();
 		// $('#messagetextarea').height(40);
+		// $('#messagetextarea').css("height","20px");
+		// $( '#messagetextarea' ).height( 20 );
+		// console.log($('#messagetextarea'));
 		// $('#messagesendbuttondiv').hide();
 		// console.log('blurred textarea');
 	});
+	
+	
+	$('#body').off( "keypress", "#messagetextarea").on( "keypress", "#messagetextarea", function( event ) {
+		if (event.which == 13) {
+			event.preventDefault();
+		}
+	});
+
+	$('#body').off( "keyup", "#messagetextarea").on( "keyup", "#messagetextarea", function( event ) {
+		var txt = $('#messagetextarea').val();
+		// console.log('keyup');
+		$('#messagetextarea').val(txt.replace(/[\n\r]+/g, " "));
+
+	});
+
+	/*
+	$('#body').off( "keyup", "#messagetextarea").on( "keyup", "#messagetextarea", function( event ) {
+		if (event.keyCode == 13) {
+			event.preventDefault();
+			console.log('keyup');
+			return(false);
+		}
+	});
+	*/
 	
 	// $(window).bind('resize', function() {
 	$(window).resize(function() {

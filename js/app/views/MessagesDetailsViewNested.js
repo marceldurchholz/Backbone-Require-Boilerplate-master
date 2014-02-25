@@ -116,6 +116,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					window.location.href = event.currentTarget.hash;
 				});
 				dpd.messages.on('create', function(msgData) {
+					console.log(msgData.id);
 					console.log(msgData);
 					// var messages = new Object;
 					// messages.push(msgData);
@@ -151,8 +152,9 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				},{variable: 'data'})).trigger('create'); // '<div data-role="navbar"><ul><li>blafoo</li></ul></div>'
 				// $('#messagetextarea').height(40);
 				
-				jQuery('#messagetextarea').elastic();
-				jQuery('#messagetextarea').trigger('update');
+				$('#messagetextarea').elastic();
+				$('#messagetextarea').attr("overflow", "scroll");
+				$('#messagetextarea').trigger('update');
 
 
 				hideModal();
@@ -164,7 +166,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					fontResize();
 					// alert($('#MessagesDetailsNestedViewDiv').height()-$(window).height());
 					// alert($('#flexiblecontent').height());
-					$('#flexiblecontent').attr("height", "auto");
+					// $('#flexiblecontent').attr("height", "auto");
 					
 					// $('.ui-content').scrollTop($('#MessagesDetailsViewDiv').height()); // $('#MessagesDetailsViewDiv').height()
 					// $('#page-content').scroll(function () {
