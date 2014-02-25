@@ -178,8 +178,9 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// console.log(sender);
 		// console.log(receiver);
 		// console.log(content);
-		var cdate = dateYmdHis();
-		dpd.messages.post({sender: sender, receiver: receiver, content: content, cdate: cdate}, function(result, err) {
+		// var cdate = dateYmdHis();
+		// alert(getTimestamp());
+		dpd.messages.post({sender: sender, receiver: receiver, content: content, cdate: window.timestamp}, function(result, err) {
 			if(err) return console.log(err);
 			console.log(result, result.id);
 		});

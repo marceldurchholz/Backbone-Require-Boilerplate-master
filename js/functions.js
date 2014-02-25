@@ -644,6 +644,25 @@ var app = {
 				$("body").css("-o-user-select","none");
 				$("body").css("user-select","none");
 				
+				var positionTimer = navigator.geolocation.watchPosition(
+					function( position ){
+						// Log that a newer, perhaps more accurate
+						// position has been found.
+						console.log( "Newer Position Found" );
+						// Set the new position of the existing marker.
+						system.timestamp = position.timestamp;
+						/*
+						updateMarker(
+							locationMarker,
+							position.coords.latitude,
+							position.coords.longitude,
+							"Updated / Accurate Position"
+						);
+						*/
+					}
+				);
+				
+				
 				// alert('dao done');
 				// window.dao.test('foo');
 				window.dao.initialize();
@@ -2396,7 +2415,7 @@ function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 		// myPlayer.posterImage.show();  
 		// $("#video_player_1.vjs-poster").css('background-image', 'url(http://video-js.zencoder.com/oceans-clip.jpg)').show();
 		myPlayer.controlBar.hide();  
-		myPlayer.bigPlayButton.hide();  
+		myPlayer.bigPlayButton.hide();
 		// myPlayer.pause();
 		// alert(showVideoLength);
 		myPlayer.on('timeupdate', function() {
@@ -2594,6 +2613,7 @@ function hideModal(){
 
 var system = {
 	contentHelper: 2,
+	timestamp: 0,
 	// this.routerSwitched(false);
 	toggleLoading: function(status) {
 		console.log(status);
@@ -2750,3 +2770,32 @@ function fontResize() {
 	
 	
 };
+
+function getTimestamp() {
+	alert(system.timestamp);
+}
+
+function agetTimestamp() {
+	navigator.geolocation.getCurrentPosition(TSonSuccess, TSonError);
+}
+var TSonSuccess = function(position) {
+    /*
+	alert('Latitude: '          + position.coords.latitude          + '\n' +
+          'Longitude: '         + position.coords.longitude         + '\n' +
+          'Altitude: '          + position.coords.altitude          + '\n' +
+          'Accuracy: '          + position.coords.accuracy          + '\n' +
+          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+          'Heading: '           + position.coords.heading           + '\n' +
+          'Speed: '             + position.coords.speed             + '\n' +
+          'Timestamp: '         + new Date(position.timestamp)      + '\n');
+	alert(position.timestamp);
+	*/
+	return(position.timestamp);
+};
+
+// onError Callback receives a PositionError object
+//
+function TSonError(error) {
+    alert('code: '    + error.code    + '\n' +
+          'message: ' + error.message + '\n');
+}
