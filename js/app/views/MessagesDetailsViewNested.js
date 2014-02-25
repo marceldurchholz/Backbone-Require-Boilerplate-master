@@ -126,6 +126,8 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					},{variable: 'messages'}));
 					// _thisMessagesDetailsViewNested.$el.trigger('update');
 					_thisMessagesDetailsViewNested.$el.trigger('create');
+					new FastClick(document.body);
+					fontResize();
 					$('#page-content').stop().animate({
 					  scrollTop: $("#page-content")[0].scrollHeight
 					}, 0);
@@ -159,9 +161,9 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				this.$el.fadeIn( 500, function() {
 					// $('.ui-content').scrollTop(0);
 					new FastClick(document.body);
+					fontResize();
 					// alert($('#MessagesDetailsNestedViewDiv').height()-$(window).height());
 					// alert($('#flexiblecontent').height());
-					fontResize();
 					$('#flexiblecontent').attr("height", "auto");
 					
 					// $('.ui-content').scrollTop($('#MessagesDetailsViewDiv').height()); // $('#MessagesDetailsViewDiv').height()
