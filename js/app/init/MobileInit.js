@@ -277,7 +277,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// $('#messagesendbuttondiv').show();
 		$('#page-content').stop().animate({
 		  scrollTop: $("#page-content")[0].scrollHeight
-		}, 100);
+		}, 800);
 		// console.log('focussed textarea');
 	});
 	$('#body').off( "blur", "#messagetextarea").on( "blur", "#messagetextarea", function( e ) {
