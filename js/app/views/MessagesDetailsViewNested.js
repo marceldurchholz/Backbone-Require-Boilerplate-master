@@ -17,6 +17,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				_thisMessagesDetailsViewNested = this;
 				console.log('fetching MessagesDetailsViewNested.js');
 				
+				var nameArray = new Array;
 				// alert(_thisMessagesView.options.id);
 				dpd.messages.get(_thisMessagesView.options.id, function (result) {
 					// console.log(result);
@@ -54,23 +55,30 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 										if (inArray==true) return(false);
 									});
 									if (inArray==true) _thisMessagesDetailsViewNested.messages[key4].display=1;
-									else {
-										if (_thisMessagesDetailsViewNested.messages[key4].sender==me.id) _thisMessagesDetailsViewNested.messages[key4].fullname = me.fullname;
+									// else {
+									if (nameArray[_thisMessagesDetailsViewNested.messages[key4].sender]==undefined) {
+										if (_thisMessagesDetailsViewNested.messages[key4].sender==me.id) nameArray[_thisMessagesDetailsViewNested.messages[key4].sender] = me.fullname;
 										else {
 											$.ajax({
 												url: 'http://dominik-lohmann.de:5000/users?id='+_thisMessagesDetailsViewNested.messages[key4].sender,
 												async: false
 											}).done(function(userdata) {
-												_thisMessagesDetailsViewNested.messages[key4].fullname = userdata.fullname;
+												nameArray[_thisMessagesDetailsViewNested.messages[key4].sender] = userdata.fullname;
 											});
 										}
 									}
+									_thisMessagesDetailsViewNested.messages[key4].fullname = nameArray[_thisMessagesDetailsViewNested.messages[key4].sender];
+									// console.log(_thisMessagesDetailsViewNested.messages[key4].fullname);
+									
+									
 									var groupArr = new Array;
 									groupArr.push(message.sender);
 									groupArr.push(message.receiver);
 									displayedGroups.push(groupArr);
 									// _thisMessagesDetailsViewNested.messages[key4] = message;
 								});
+								
+								console.log(nameArray);
 									
 								
 									

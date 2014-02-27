@@ -2,6 +2,11 @@
 
 	<% _.each(messages.data, function(message) { %>
 		<ul class="noswipeToDelete fadeWhenOffsite" data-role="listview" data-inset="true" data-icon="false" <% if(message.sender!=me.id) { %> data-theme="b" <% } %> style="<% if(message.sender!=me.id) { %> padding-right:20%; <% } else { %> padding-left:20%; <% } %> b/order:10px solid #000;" >
+			<% if(message.fullname!=undefined && message.fullname.trim()!="") { %>
+				<li style="font-size:9px;opacity:0.5;">
+					<%= message.fullname %>
+				</li>
+			<% } %>
 			<li style="<% if (message.unread!=1) { %> opacity:0.75 !important; <% } %> ">
 				<!-- <a href="javascript:void(0);"> -->
 					<!--<h2>Stephen Weber</h2>-->
