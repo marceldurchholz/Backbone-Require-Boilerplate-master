@@ -55,6 +55,7 @@ define(["jquery", "backbone", "text!templates/MessagesViewNestedPage.html"],
 											async: false
 										}).done(function(userdata) {
 											_thisMessagesViewNested.messages[key4].fullname = userdata.fullname;
+											_thisMessagesViewNested.messages[key4].replyto = userdata.id;
 										});
 									// }
 								}
