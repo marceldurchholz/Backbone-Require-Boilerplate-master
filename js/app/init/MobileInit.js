@@ -270,9 +270,10 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		}
 		*/
 		e.preventDefault();
-		console.log('keypress');
+		// console.log('keyup');
 		var txt = $('#messagetextarea').val();
 		$('#messagetextarea').val(txt.replace(/[\n\r]+/g, ""));
+		// $('#messagetextarea').css({'height':''});
 		// console.log($(this));
 		// console.log($('#messagetextarea').val());
 		checkTextareaValue();
@@ -280,6 +281,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	
 	$('#body').off( "focus", "#messagetextarea").on( "focus", "#messagetextarea", function( e ) {
 		e.preventDefault();
+		$('#messagetextarea').css({'max-height':'80px'});
 		checkTextareaValue();
 		// console.log(o);
 		// $('#messagetextarea').height(0);
@@ -291,8 +293,9 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// console.log('focussed textarea');
 	});
 	$('#body').off( "blur", "#messagetextarea").on( "blur", "#messagetextarea", function( e ) {
-		checkTextareaValue();
 		e.preventDefault();
+		$('#messagetextarea').css({'max-height':'40px'});
+		checkTextareaValue();
 		// $('#messagetextarea').height(40);
 		// $('#messagetextarea').css("height","20px");
 		// $( '#messagetextarea' ).height( 20 );
