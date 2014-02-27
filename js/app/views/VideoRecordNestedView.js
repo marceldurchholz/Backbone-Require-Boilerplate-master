@@ -133,6 +133,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 			},
 			bindEvents: function() {
 				var _thisViewRecordVideoNested = this;
+				$('#body').off( "swiperight", "#page-content");
 				/*
 				this.$el.off('click','#checkLocalTitleButton').on('click','#checkLocalTitleButton',function(event){
 					event.preventDefault();

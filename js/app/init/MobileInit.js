@@ -154,7 +154,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		e.preventDefault();
 		// alert('swiped on element');
 		var listitem = $(this);		
-		doConfirm('', 'Verlauf löschen?', function (clickevent) { 
+		doConfirm('', 'Wirklich löschen?', function (clickevent) { 
 			if (clickevent=="1") {
 				deleteMessageFlow(listitem);
 			}
@@ -243,13 +243,6 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		});
 		
 	}
-	
-	$('#body').off( "swiperight", "#page-content").on( "swiperight", "#page-content", function( e ) {
-		e.preventDefault();
-		// alert('swiped on body');
-		history.back();
-		return(false);
-	});
 	
 	// resize:false;height: 40px !important;
 

@@ -234,7 +234,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					// $('#page-content').scroll(function () {
 					$('#page-content').stop().animate({
 					  scrollTop: $("#page-content")[0].scrollHeight
-					}, 1000);
+					}, 100);
 					
 				});
 				return this;				

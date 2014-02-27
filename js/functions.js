@@ -2465,7 +2465,17 @@ $(window).bind('hashchange', function(){
 	showModal();
 	modifyiOS7StatusBar();
 	checkTopNaviRoles();
+	bindSwipeBack();
 });
+
+function bindSwipeBack() {
+	$('#body').off( "swiperight", "#page-content").on( "swiperight", "#page-content", function( e ) {
+		e.preventDefault();
+		// alert('swiped on body');
+		history.back();
+		return(false);
+	});
+}
 
 function checkTopNaviRoles() {
 	// alert('foo');
