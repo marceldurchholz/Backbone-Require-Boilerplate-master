@@ -21,15 +21,15 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				dpd.messages.get(_thisMessagesView.options.id, function (result) {
 					// console.log(result);
 
-					dpd.users.me(function(me) {
+					if (result) dpd.users.me(function(me) {
 						if (me) {
 							// console.log(me.id);
 							// http://dominik-lohmann.de:5000/messages?{"$or":[{"sender":"009505631619d88e"},{"receiver":"009505631619d88e"}],$sort:{cdate:-1}}
 							// var query = {$or:[{"sender":result.sender},{"receiver":result.receiver}],$sort:{cdate:-1}};
 							if (result.receiver==window.me.id) _thisMessagesDetailsViewNested.receiver = result.sender;
 							else _thisMessagesDetailsViewNested.receiver = result.receiver;
-							// var query = {  $or:[{"sender":result.sender,"receiver":result.receiver}  ,  {"sender":result.receiver,"receiver":result.sender}]  ,$sort:{cdate:1}};
-							var query = {  $or:[{"sender":result.sender,"receiver":result.receiver}  ,  {"sender":result.receiver,"receiver":result.sender}] };
+							var query = {  $or:[{"sender":result.sender,"receiver":result.receiver}  ,  {"sender":result.receiver,"receiver":result.sender}]  ,$sort:{cdate:1}};
+							// var query = {  $or:[{"sender":result.sender,"receiver":result.receiver}  ,  {"sender":result.receiver,"receiver":result.sender}] };
 							dpd.messages.get(query, function (allmessagesdata) {
 								// console.log(allmessagesdata);
 								_thisMessagesDetailsViewNested.messages = new Array;
@@ -116,7 +116,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					window.location.href = event.currentTarget.hash;
 				});
 				dpd.messages.on('create', function(msgData) {
-					console.log(msgData.id);
+					// console.log(msgData.id);
 					console.log(msgData);
 					// var messages = new Object;
 					// messages.push(msgData);
