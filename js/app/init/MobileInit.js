@@ -175,6 +175,10 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		if($('#messagetextarea').val().length==0) return(false);
 		var sender = window.me.id;
 		var receiver = $('#receiver').val();
+		if (receiver=='') {
+			doAlert('Bitte geben Sie den Namen des Empfängers ein...','Empfänger eingeben.');
+			return(false);
+		}
 		var content = $('#messagetextarea').val();
 		// console.log(sender);
 		// console.log(receiver);
@@ -250,7 +254,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	// resize:false;height: 40px !important;
 
 	function checkTextareaValue() {
-		console.log($('#messagetextarea').val().length);
+		// console.log($('#messagetextarea').val().length);
 		if ($('#messagetextarea').val() && $('#messagetextarea').val().length > 0) {
 			// console.log('b');
 			$('#messagesendbutton').removeClass( 'ui-disabled' );

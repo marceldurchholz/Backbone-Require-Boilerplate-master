@@ -27,7 +27,7 @@ define(["jquery", "backbone", "text!templates/MessagesViewNestedPage.html"],
 							$.each( allmessagesdata, function( key, message ) {
 								if (message.unread==undefined) message.unread=0;
 								if (message.sender==me.id) message.unread = 0;
-								else if (jQuery.inArray(me.id, message.readby)<0) message.unread += 1;
+								else if ($.inArray(me.id, message.readby)<0) message.unread += 1;
 								
 								
 								_thisMessagesViewNested.messages.push(message);
@@ -45,15 +45,18 @@ define(["jquery", "backbone", "text!templates/MessagesViewNestedPage.html"],
 								});
 								if (inArray==true) _thisMessagesViewNested.messages[key4].display = 0;
 								else {
-									if (_thisMessagesViewNested.messages[key4].sender==me.id) _thisMessagesViewNested.messages[key4].fullname = me.fullname;
-									else {
+									// if (_thisMessagesViewNested.messages[key4].sender==me.id) _thisMessagesViewNested.messages[key4].fullname = me.fullname;
+									// else {
+										var quid = "";
+										if (_thisMessagesViewNested.messages[key4].sender==me.id) quid = _thisMessagesViewNested.messages[key4].receiver;
+										else quid = _thisMessagesViewNested.messages[key4].sender;
 										$.ajax({
-											url: 'http://dominik-lohmann.de:5000/users?id='+_thisMessagesViewNested.messages[key4].sender,
+											url: 'http://dominik-lohmann.de:5000/users?id='+quid,
 											async: false
 										}).done(function(userdata) {
 											_thisMessagesViewNested.messages[key4].fullname = userdata.fullname;
 										});
-									}
+									// }
 								}
 								var groupArr = new Array;
 								groupArr.push(message.sender);
