@@ -250,7 +250,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	// resize:false;height: 40px !important;
 
 	function checkTextareaValue() {
-		// console.log($('#messagetextarea').val().length);
+		console.log($('#messagetextarea').val().length);
 		if ($('#messagetextarea').val() && $('#messagetextarea').val().length > 0) {
 			// console.log('b');
 			$('#messagesendbutton').removeClass( 'ui-disabled' );
@@ -261,8 +261,18 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		}
 	}
 	
+	
 	$('#body').off( "keyup", "#messagetextarea").on( "keyup", "#messagetextarea", function( e ) {
-		// console.log('keyup');
+		/*
+		if (e.which == 13) {
+			e.preventDefault();
+			return(false);
+		}
+		*/
+		e.preventDefault();
+		console.log('keypress');
+		var txt = $('#messagetextarea').val();
+		$('#messagetextarea').val(txt.replace(/[\n\r]+/g, ""));
 		// console.log($(this));
 		// console.log($('#messagetextarea').val());
 		checkTextareaValue();
@@ -291,20 +301,6 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// console.log('blurred textarea');
 	});
 	
-	
-	$('#body').off( "keypress", "#messagetextarea").on( "keypress", "#messagetextarea", function( event ) {
-		if (event.which == 13) {
-			event.preventDefault();
-		}
-	});
-
-	$('#body').off( "keyup", "#messagetextarea").on( "keyup", "#messagetextarea", function( event ) {
-		var txt = $('#messagetextarea').val();
-		// console.log('keyup');
-		$('#messagetextarea').val(txt.replace(/[\n\r]+/g, " "));
-
-	});
-
 	/*
 	$('#body').off( "keyup", "#messagetextarea").on( "keyup", "#messagetextarea", function( event ) {
 		if (event.keyCode == 13) {

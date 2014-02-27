@@ -131,7 +131,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					fontResize();
 					$('#page-content').stop().animate({
 					  scrollTop: $("#page-content")[0].scrollHeight
-					}, 1000);
+					}, 0);
 					// $('#MessagesDetailsViewDiv').append( "<p>Test</p>" );
 				});
 
@@ -152,9 +152,9 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				},{variable: 'data'})).trigger('create'); // '<div data-role="navbar"><ul><li>blafoo</li></ul></div>'
 				// $('#messagetextarea').height(40);
 				
-				$('#messagetextarea').elastic();
-				$('#messagetextarea').attr("overflow", "scroll");
-				$('#messagetextarea').trigger('update');
+				// $('#messagetextarea').elastic();
+				// $('#messagetextarea').attr("overflow", "scroll");
+				// $('#messagetextarea').trigger('update');
 
 
 				hideModal();
