@@ -455,7 +455,7 @@ var dao = {
 							employees = [],
 							i = 0;
 						// for (; i < len; i = i + 1) {
-						for (i < len; i = i + 1) {
+						for (i=0; i < len; i = i + 1) {
 							employees[i] = results.rows.item(i);
 						}
 						alert(len + ' rows found');
