@@ -226,11 +226,12 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					_thisViewLogin.$el.html(_.template(loginPage, {}));
 					hideModal();
 					this.$el.trigger('create');
+						new FastClick(document.body);
+						fontResize();
+						elementResizeByScreenHeight();
 					new FastClick(document.body);
 					this.$el.fadeIn( 500, function() {
 						$('.ui-content').scrollTop(0);
-						new FastClick(document.body);
-						fontResize();
 					});
 					this.bindEvents();
 					return this;

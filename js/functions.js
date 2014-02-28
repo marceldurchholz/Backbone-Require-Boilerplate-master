@@ -1982,6 +1982,7 @@ function getVideoWin(mediaFiles) {
 			// alert(path);
 			doAlert('Klicken Sie zum Fortsetzen auf weiter.','Aufnahme erfolgreich');
 			attachVideoToPlayer(mediaFiles[i].fullPath);
+			_thisViewRecordVideoNested.switchPage();
 			// alert('Bitte klicken Sie auf hochladen.');
 		}
 	} catch (e) {
@@ -1989,6 +1990,12 @@ function getVideoWin(mediaFiles) {
 		// log('mediaFiles: ' + mediaFiles.slice(0, 100));
 	}    
 	console.log('set video function end');
+}
+
+function testFunc() {
+	alert('blafoo');
+	// console.log(_thisViewRecordVideoNested);
+	_thisViewRecordVideoNested.render();
 }
 
 // TODO: File Transfer onProgress DOWNload
@@ -2747,6 +2754,14 @@ var equal = function(x, y) {
     return true;
 };
 
+function elementResizeByScreenHeight() {
+	var screenheight = $(window).height();
+	$('.elementResizeByScreenHeight').each(function( index, bla ) {
+		var percentheight = $(this).attr('data-percentheight');
+		$(this).css("height", (screenheight*percentheight/100)+"px");
+	});
+}
+
 function fontResize() {
     // alert('font-resizing');
 	//Set default resolution and font size
@@ -2760,8 +2775,8 @@ function fontResize() {
 
     //Set new font size
 	var fullpixel = width*height;
-	alert(width);
-	alert(height);
+	// alert(width);
+	// alert(height);
 	// alert(fullpixel);
 	// 150000
 	var factor = (fullpixel/180000);

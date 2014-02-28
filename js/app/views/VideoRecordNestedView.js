@@ -74,10 +74,25 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				}).done(function(interests) {
 					_thisViewRecordVideoNested.interests = interests;
 				});
+				_thisViewRecordVideoNested.interests.sort(function(a, b){
+					 var nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase()
+					 if (nameA < nameB) //sort string ascending
+					  return -1 
+					 if (nameA > nameB)
+					  return 1
+					 return 0 //default return value (no sorting)
+				});
+				console.log(_thisViewRecordVideoNested.interests);
+			},
+			switchPage: function() {
+				this.activePage = VideoRecordNestedPageTwo;
+				this.render();
 			},
 			savePageOne: function(event) {
 				event.preventDefault();
 				var _thisViewRecordVideoNested = this;
+				testFunc();
+				return(false);
 				var videosrc = $("#video_player").attr("src");
 				if (videosrc==undefined || videosrc=='') {
 					doAlert('Bitte nehmen es eines auf auf oder verknüpfen Sie ein existierendes Video.','Und das Video?');
@@ -89,8 +104,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					_thisViewRecordVideoNested.localStorageSubmitformModel.set(input.name,input.value);
 				});
 				_thisViewRecordVideoNested.localStorageSubmitform.set(_thisViewRecordVideoNested.localStorageSubmitformModel);
-				this.activePage = VideoRecordNestedPageTwo;
-				this.render();
+				this.switchPage();
 			},
 			backToPageOne: function(event) {
 				event.preventDefault();

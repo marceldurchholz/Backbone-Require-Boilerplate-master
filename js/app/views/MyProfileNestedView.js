@@ -49,7 +49,7 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 						 if (nameA > nameB)
 						  return 1
 						 return 0 //default return value (no sorting)
-						})
+						});
 						
 						_thisViewMyProfileNested.interests = interests;
 						_thisViewMyProfileNested.render();
