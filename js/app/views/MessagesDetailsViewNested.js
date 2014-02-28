@@ -193,7 +193,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					// fontResize();
 					$('#page-content').stop().animate({
 					  scrollTop: $("#page-content")[0].scrollHeight
-					}, 0);
+					}, 1000);
 					// $('#MessagesDetailsViewDiv').append( "<p>Test</p>" );
 				});
 
