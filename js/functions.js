@@ -248,7 +248,8 @@ var dao = {
 					tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='videos'", this.txErrorHandler,
 						function(tx, results) {
 							if (results.rows.length != 1) self.createTables();
-					});
+						}
+					);
 					// self.sync(renderList);
 				}
 			)

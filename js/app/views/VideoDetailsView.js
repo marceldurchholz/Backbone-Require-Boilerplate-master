@@ -120,7 +120,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						function(tx) {
 							// sample data 
 							// alert('saving into table videos START');
-							var query = "INSERT INTO videos (videoid,offlineurl) VALUES ('"+videoid+"','"+downloadPath+"')"; 
+							var query = "INSERT INTO videos (videoid,videourl) VALUES ('"+videoid+"','"+downloadPath+"')"; 
 							alert(query);
 							tx.executeSql(query);
 							alert('saving into table videos ENDE');
@@ -144,7 +144,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						function(tx) {
 							// sample data 
 							alert('saving into table videos START');
-							tx.executeSql("INSERT INTO videos (videoid,offlineurl) VALUES ('aaa','bbb')");
+							tx.executeSql("INSERT INTO videos (videoid,videourl) VALUES ('aaa','bbb')");
 							alert('saving into table videos ENDE');
 						},
 						function() {
