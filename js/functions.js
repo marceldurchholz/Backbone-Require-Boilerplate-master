@@ -247,14 +247,7 @@ var dao = {
 				function(tx) {
 					tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='videos'", this.txErrorHandler,
 						function(tx, results) {
-							if (results.rows.length == 1) {
-								// alert('Using existing videos table in local SQLite database');
-							}
-							else
-							{
-								// alert('videos table does not exist in local SQLite database');
-								self.createTable();
-							}
+							if (results.rows.length != 1) self.createTables();
 					});
 					// self.sync(renderList);
 				}
@@ -263,24 +256,14 @@ var dao = {
 		else websqlReady.resolve("initialize done");
 	},
 		
-	createTable: function() {
+	createTables: function() {
 		this.db.transaction(
-			function(tx) {
-				var sql =
-					"CREATE TABLE IF NOT EXISTS videos ( " +
-					"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-					"videoid VARCHAR(100), " +
-					"videourl VARCHAR(255))";
-				tx.executeSql(sql);
+			function(tx) { 
+				tx.executeSql("CREATE TABLE IF NOT EXISTS users ( " + "id VARCHAR(255), " + "username VARCHAR(255), " + "password VARCHAR(255))");
+				tx.executeSql("CREATE TABLE IF NOT EXISTS videos ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))");
 			},
-			function() {
-				alert('ERROR ON Table videos FILLED WITH SAMPLES in local SQLite database');
-			},
-			function() {
-				alert('Table videos successfully CREATED in local SQLite database');
-				websqlReady.resolve("initialize done");
-				// this.fillTable();
-			}
+			function() { alert('ERROR ON Tables CREATE local SQLite database'); },
+			function() { alert('SUCCESS Tables CREATE local SQLite database'); websqlReady.resolve("initialize done"); }
 		);
 	},
 	
