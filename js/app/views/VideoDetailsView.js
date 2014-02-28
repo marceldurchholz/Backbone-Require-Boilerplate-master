@@ -394,7 +394,10 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						// alert('not buyed');
 					}
 					// alert(showVideoLength);
-					if (_thisViewVideoDetails.videourl!='') this._videosCollection.models[0].attributes.videourl = _thisViewVideoDetails.videourl;
+					if (_thisViewVideoDetails.videourl!='') {
+						this._videosCollection.models[0].attributes.videourl = _thisViewVideoDetails.videourl;
+						$('#downloadvideobutton').hide();
+					}
 					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',this._videosCollection.models[0].attributes.videourl,showVideoLength);
 					alert(_thisViewVideoDetails.videourl);
 					alert(this._videosCollection.models[0].attributes.videourl);
