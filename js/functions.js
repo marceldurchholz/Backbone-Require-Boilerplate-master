@@ -1992,12 +1992,6 @@ function getVideoWin(mediaFiles) {
 	console.log('set video function end');
 }
 
-function testFunc() {
-	alert('blafoo');
-	// console.log(_thisViewRecordVideoNested);
-	_thisViewRecordVideoNested.render();
-}
-
 // TODO: File Transfer onProgress DOWNload
 // http://www.raymondcamden.com/index.cfm/2013/5/1/Using-the-Progress-event-in-PhoneGap-file-transfers
 
@@ -2638,7 +2632,7 @@ function hideModal(){
 }
 
 var system = {
-	contentHelper: 2,
+	contentHelper: 0,
 	timestamp: 0,
 	// this.routerSwitched(false);
 	toggleLoading: function(status) {

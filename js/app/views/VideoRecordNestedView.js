@@ -91,8 +91,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 			savePageOne: function(event) {
 				event.preventDefault();
 				var _thisViewRecordVideoNested = this;
-				testFunc();
-				return(false);
+				// testFunc();
+				// return(false);
 				var videosrc = $("#video_player").attr("src");
 				if (videosrc==undefined || videosrc=='') {
 					doAlert('Bitte nehmen es eines auf auf oder verknüpfen Sie ein existierendes Video.','Und das Video?');
@@ -127,12 +127,14 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					return(false);
 				}
 				*/
+				_thisViewRecordVideoNested.stop = false;
 				_thisViewRecordVideoNested.formValues = new Object;
 				_.each(this.$('#submitform').serializeArray(), function(input){
 					if (input.value=='') {
 						doAlert('Es fehlen Angaben in mindestens einem Formularfeld.','Formular unvollständig!');
+						console.log(input);
 						_thisViewRecordVideoNested.stop=true;
-						return(false);
+						// return(false);
 					}
 					// console.log('getting: '+input.name+' >> '+input.value);
 					_thisViewRecordVideoNested.localStorageSubmitformModel.set(input.name,input.value);
@@ -277,6 +279,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					interests:_thisViewRecordVideoNested.interests					
 				},{variable: 'video'}));
 				
+				var testvideo = 'file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4';
 				/*
 				if (!isMobile.any()) {
 					$('#camera_file').val('file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4');
@@ -291,7 +294,9 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				var mediaFilePath = $('#camera_file').val();
 				console.log(mediaFilePath);
 				// alert(mediaFilePath);
-				attachVideoToPlayer(mediaFilePath);
+				if (window.system.contentHelper==2) {
+					attachVideoToPlayer(testvideo);
+				}
 				hideModal();
 				this.$el.fadeIn( 500, function() {
 					$('.ui-content').scrollTop(0);
