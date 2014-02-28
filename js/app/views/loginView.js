@@ -218,7 +218,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				},
 				fetch: function() {
 					_thisViewLogin = this;
-					if (isMobile.any()) {
+					_thisViewLogin.username = "";
+					_thisViewLogin.password = "";
+					if (isMobile.any() && 1==2) {
 						try {
 							this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 							this.db.transaction (
@@ -257,8 +259,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						}
 					}
 					else {
-						_thisViewLogin.username = "";
-						_thisViewLogin.password = "";
 						_thisViewLogin.render();
 					}
 				},
