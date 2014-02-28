@@ -9,6 +9,8 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 			initialize: function() {
 				_thisViewDashboardNested = this;
 				console.log('initialize DashboardNestedView.js');
+				this.$el.hide();
+				showModal();
 				dpd.users.me(function(me) {
 					if (me) _thisViewDashboardNested.initializeme();
 					else system.redirectToUrl('#login');
@@ -23,8 +25,6 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 			fetch: function() {	
 				_thisViewDashboardNested = this;
 				console.log('fetching DashboardNestedView.js');
-				this.$el.hide();
-				showModal();
 			},
 			showDetails: function(e) {
 				// e.preventDefault();
@@ -72,7 +72,7 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 				hideModal();
 				this.$el.trigger('create');
 				new FastClick(document.body);
-				this.$el.fadeIn( 500, function() {
+				this.$el.fadeIn( 1000, function() {
 					$('.ui-content').scrollTop(0);
 					new FastClick(document.body);
 				});
