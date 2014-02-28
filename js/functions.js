@@ -2435,7 +2435,7 @@ function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 				if (showVideoLength!=0) {
 					myPlayer.posterImage.hide();  
 					myPlayer.currentTime(0);  
-					myPlayer.pause();
+					myPlayer.get(0).pause();
 				}
 				// myPlayer.cancelFullScreen();  
 				// myPlayer.controlBar.hide();  
