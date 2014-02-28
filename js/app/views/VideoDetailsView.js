@@ -68,7 +68,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					if (isMobile.any()) var ft = new FileTransfer();
 					if (isMobile.any()) window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 						// console.log('starting downloadVideo c');
-						var downloadPath = fs.root.fullPath + "/download.mp4";
+						var downloadPath = fs.root.fullPath + "/"+videoid+".mp4";
 						// console.log(downloadPath);
 						uri = $('#video_player_1_html5_api').attr("src");
 						// alert('uri: ' + uri);
@@ -120,7 +120,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						function(tx) {
 							// sample data 
 							// alert('saving into table videos START');
-							var query = "INSERT INTO videos (videoid,offlineurl) VALUES ('aaa','bbb')"; 
+							var query = "INSERT INTO videos (videoid,offlineurl) VALUES ('"+videoid+"','"+downloadPath+"')"; 
 							alert(query);
 							tx.executeSql(query);
 							alert('saving into table videos ENDE');
@@ -271,6 +271,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						url: url+querystr,
 						async: false
 					}).done(function(videoData) {
+						var nameArray = new Array;
 						_.each(videoData, function(value, index, list) {
 							value.ccat = 'video';
 							value.icon = 'images/icon-videos-60.png';
@@ -278,24 +279,35 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							// _thisKnowledgeData.streamData.push(value);
 							
 							var uploader = value.uploader; // "ed568841af69d94d";
-							$.ajax({
-								// type: 'get',
-								// timeout: 5000,
-								url: 'http://dominik-lohmann.de:5000/users/?id='+uploader,
-								async: false,
-								success: function(data, textStatus, XMLHttpRequest){
-									// console.log('Error: ' + textStatus);
-									_thisKnowledgeData.streamData.push(value);
-									// console.log(data);
-								},
-								error:function (xhr, ajaxOptions, thrownError){
-									// console.log('error');
-									// console.log(index);
-									// alert(xhr.status);
-									// alert(xhr.statusText);
-									// alert(xhr.responseText);
-								}
-							});
+							
+							/*
+							if (nameArray[uploader]==undefined) {
+								$.ajax({
+									// type: 'get',
+									// timeout: 5000,
+									url: 'http://dominik-lohmann.de:5000/users/?id='+uploader,
+									async: false,
+									success: function(data, textStatus, XMLHttpRequest){
+										// console.log('Error: ' + textStatus);
+										
+										nameArray[_thisMessagesDetailsViewNested.messages[key4].sender] = userdata.fullname;
+										// _thisKnowledgeData.streamData.push(value);
+										
+										// console.log(data);
+									},
+									error:function (xhr, ajaxOptions, thrownError){
+										// console.log('error');
+										// console.log(index);
+										// alert(xhr.status);
+										// alert(xhr.statusText);
+										// alert(xhr.responseText);
+									}
+								});
+							}
+							*/
+							_thisKnowledgeData.streamData.push(value);
+							// _thisMessagesDetailsViewNested.messages[key4].fullname = nameArray[uploader];
+							
 
 						});
 					});

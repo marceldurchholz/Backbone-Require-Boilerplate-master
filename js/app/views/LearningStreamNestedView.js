@@ -99,6 +99,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 							value.href = '#videos/details/view/'+value.id;
 							
 							
+							/*
 							// _.each(_thisViewLearningStreamNested.streamData, function(value, index, list) {
 								var uploader = value.uploader; // "ed568841af69d94d";
 								$.ajax({
@@ -120,8 +121,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 									}
 								});
 							// });
-
-							
+							*/
+							_thisViewLearningStreamNested.streamData.push(value);
 							
 							
 						}
