@@ -219,35 +219,40 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				fetch: function() {
 					_thisViewLogin = this;
 					if (isMobile.any()) {
-						this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
-						this.db.transaction (
-							function(tx) {
-								var query = "SELECT username, password FROM users";
-								alert(query);
-								tx.executeSql(query, 
-									function() {
-										alert('ERROR ON SELECT videourl');
-									},
-									function(tx, results) {
-										alert('getting len');
-										var len = results.rows.length, users = [], i = 0;
-										for (i=0; i < len; i = i + 1) {
-											users[i] = results.rows.item(i);
+						try {
+							this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
+							this.db.transaction (
+								function(tx) {
+									var query = "SELECT username, password FROM users";
+									alert(query);
+									tx.executeSql(query, 
+										function() {
+											alert('ERROR ON SELECT videourl');
+										},
+										function(tx, results) {
+											alert('getting len');
+											var len = results.rows.length, users = [], i = 0;
+											for (i=0; i < len; i = i + 1) {
+												users[i] = results.rows.item(i);
+											}
+											alert(len + ' rows found');
+											// alert(users);
+											// alert(users.toJSON);
+											// for (var i = 0; i < l; i++) {
+											// e = users[i];
+											alert(users);
+											_thisViewLogin.username = users[0].username;
+											_thisViewLogin.password = users[0].password;
+											_thisViewLogin.render();
+											// callback(users);
 										}
-										alert(len + ' rows found');
-										// alert(users);
-										// alert(users.toJSON);
-										// for (var i = 0; i < l; i++) {
-										// e = users[i];
-										alert(users);
-										_thisViewLogin.username = users.username;
-										_thisViewLogin.password = users.password;
-										_thisViewLogin.render();
-										// callback(users);
-									}
-								);
-							}
-						);
+									);
+								}
+							);
+						} catch (e) {
+							alert(e);
+							console.log(e);
+						}
 					}
 					else {
 						_thisViewLogin.username = "";
