@@ -174,14 +174,14 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 										for (i=0; i < len; i = i + 1) {
 											videos[i] = results.rows.item(i);
 										}
-										// alert(len + ' rows found');
+										alert(len + ' rows found');
 										// alert(videos);
 										// alert(videos.toJSON);
 										// for (var i = 0; i < l; i++) {
 										// e = videos[i];
 										if (len>0) {
 											alert(videos[i].videourl);
-											_thisViewVideoDetails.videourl = videos[i].videourl;
+											_thisViewVideoDetails.videourl = videos[0].videourl;
 										}
 										// callback(videos);
 									}
