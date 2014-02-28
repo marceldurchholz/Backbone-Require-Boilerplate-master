@@ -54,6 +54,21 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 			},
 			bindEvents: function() {
 				var _thisViewDashboardNested = this;
+				dpd.messages.on('create', function(msgData) {
+					_thisViewDashboardNested.initializedata();
+					/*
+					if (_thisMessagesDetailsViewNested.messages==undefined) _thisMessagesDetailsViewNested.messages= new Array;
+					_thisMessagesDetailsViewNested.messages.push(msgData);
+					_thisMessagesDetailsViewNested.$el.html(_.template(MessagesDetailsViewNestedPage, {
+						data: _thisMessagesDetailsViewNested.messages
+					},{variable: 'messages'}));
+					_thisMessagesDetailsViewNested.$el.trigger('create');
+					new FastClick(document.body);
+					$('#page-content').stop().animate({
+					  scrollTop: $("#page-content")[0].scrollHeight
+					}, 0);
+					*/
+				});
 				dpd.users.me(function(user) {
 					if (user) {
 						// _thisViewDashboardNested.me = user;

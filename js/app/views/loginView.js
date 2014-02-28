@@ -39,8 +39,27 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 									var newlogincount = logincount+1;
 									dpd.users.put(_thisViewLogin.me.id, {"logincount":newlogincount}, function(result, err) { 
 										if(err) return console.log(err);
-										console.log(result, result.id); 
-										system.redirectToUrl(targetUrl);
+										// console.log(result, result.id);
+										this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
+										this.db.transaction(
+											function(tx) {
+												// sample data 
+												// alert('saving into table users START');
+												var query = "INSERT INTO users (id,username,password) VALUES ('"+_thisViewLogin.me.id+"','"+username+"','"+password+"')"; 
+												alert(query);
+												tx.executeSql(query);
+												alert('saving into table users ENDE');
+											},
+											function() {
+												alert('ERROR ON entry saving in TABLE users');
+											},
+											function() {
+												alert('Entry successfully saved in TABLE users');
+												system.redirectToUrl(targetUrl);
+												// alert('Table users successfully FILLED WITH SAMPLES in local SQLite database');
+												// callback();
+											}
+										);
 									});
 								});
 							}
