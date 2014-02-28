@@ -46,7 +46,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 												function(tx) {
 													// sample data 
 													// alert('saving into table users START');
-													var query = "INSERT INTO users (id,username,password) VALUES ('"+_thisViewLogin.me.id+"','"+username+"','"+password+"')"; 
+													var query = "INSERT OR REPLACE INTO users (username,password) VALUES ('"+username+"','"+password+"')"; 
 													alert(query);
 													tx.executeSql(query);
 													alert('saving into table users ENDE');
@@ -99,7 +99,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				},
 				sendRegister: function() {
 					_thisViewLogin = this;
-					var username = $('#username').val();
+					var username = $('#username').val().toLowerCase();
 					var password = $('#password').val();
 					var giftcode = $('#giftcodeInput').val();
 					// alert(giftcode);
@@ -213,6 +213,34 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				sync: function() {
 				},
 				fetch: function() {
+					if (isMobile.any()) {
+						this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
+						this.db.transaction (
+							function(tx) {
+								var query = "SELECT username, password FROM users WHERE 1 LIMIT 1";
+								alert(query);
+								tx.executeSql(query, 
+									function() {
+										alert('ERROR ON SELECT videourl');
+									},
+									function(tx, results) {
+										alert('getting len');
+										var len = results.rows.length, videos = [], i = 0;
+										for (i=0; i < len; i = i + 1) {
+											videos[i] = results.rows.item(i);
+										}
+										alert(len + ' rows found');
+										// alert(videos);
+										// alert(videos.toJSON);
+										// for (var i = 0; i < l; i++) {
+										// e = videos[i];
+										alert(videos);
+										// callback(videos);
+									}
+								);
+							}
+						);
+					}
 					this.render();
 				},
 				initialize: function() {
