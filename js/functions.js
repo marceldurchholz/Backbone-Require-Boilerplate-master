@@ -2860,3 +2860,9 @@ var showDeleteBar = function(status) {
 		// console.log(value);
 	});
 };
+
+function scrollBottom() {
+	$('#page-content').stop().animate({
+		scrollTop: $("#page-content")[0].scrollHeight
+	}, 1000);
+}

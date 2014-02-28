@@ -191,9 +191,8 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					_thisMessagesDetailsViewNested.$el.trigger('create');
 					new FastClick(document.body);
 					// fontResize();
-					$('#page-content').stop().animate({
-					  scrollTop: $("#page-content")[0].scrollHeight
-					}, 1000);
+					// alert($("#page-content")[0].scrollHeight);
+					scrollBottom();
 					// $('#MessagesDetailsViewDiv').append( "<p>Test</p>" );
 				});
 
