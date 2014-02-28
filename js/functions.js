@@ -19,7 +19,7 @@ isMobile = {
     }
 };
 
-if(isMobile.any()){ 
+if (isMobile.any()) { 
 	// alert("document.write >> <script type='text/javascript' src='" + rootURL + "phonegap.js'></script>");
     document.write("<script type='text/javascript' src='" + rootURL + "phonegap.js'></script>"); 
     // initApp();
@@ -2478,6 +2478,7 @@ $(window).bind('hashchange', function(){
 	modifyiOS7StatusBar();
 	checkTopNaviRoles();
 	bindSwipeBack();
+	showDeleteBar(false);
 });
 
 function bindSwipeBack() {

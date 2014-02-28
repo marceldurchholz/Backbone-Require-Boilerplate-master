@@ -188,41 +188,44 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					this.$el.hide();
 					showModal();
 					console.log(options.id);
-					_thisViewVideoDetails.getVideo(options.id);
+					_thisViewVideoDetails.getVideo(options);
 				},
-				getVideo: function(videoid) {
-					alert(videoid);
+				getVideo: function(options) {
+					var _thisViewVideoDetails = this;
+					alert(options.id);
 					
-					this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
-					this.db.transaction (
-						function(tx) {
-							var query = "SELECT videourl FROM videos WHERE videoid='"+videoid+"'";
-							alert(query);
-							tx.executeSql(query, 
-								function() {
-									alert('ERROR ON SELECT videourl');
-								},
-								function(tx, results) {
-									alert('getting len');
-									var len = results.rows.length, videos = [], i = 0;
-									for (i=0; i < len; i = i + 1) {
-										videos[i] = results.rows.item(i);
+					if (isMobile.any()) {
+						this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
+						this.db.transaction (
+							function(tx) {
+								var query = "SELECT videourl FROM videos WHERE videoid='"+options.id+"'";
+								alert(query);
+								tx.executeSql(query, 
+									function() {
+										alert('ERROR ON SELECT videourl');
+									},
+									function(tx, results) {
+										alert('getting len');
+										var len = results.rows.length, videos = [], i = 0;
+										for (i=0; i < len; i = i + 1) {
+											videos[i] = results.rows.item(i);
+										}
+										alert(len + ' rows found');
+										// alert(videos);
+										// alert(videos.toJSON);
+										// for (var i = 0; i < l; i++) {
+										// e = videos[i];
+										alert(videos);
+										// callback(videos);
 									}
-									alert(len + ' rows found');
-									// alert(videos);
-									// alert(videos.toJSON);
-									// for (var i = 0; i < l; i++) {
-									// e = videos[i];
-									alert(videos);
-									// callback(videos);
-								}
-							);
-						}
-					);
+								);
+							}
+						);
+					}
 					
-					return(false);
-					this.initializeCollection(options);
-					this._videosCollection.fetch({
+					// return(false);
+					_thisViewVideoDetails.initializeCollection(options);
+					_thisViewVideoDetails._videosCollection.fetch({
 						error: function(action, coll) {
 							// console.log(action);
 							// console.log(coll);
