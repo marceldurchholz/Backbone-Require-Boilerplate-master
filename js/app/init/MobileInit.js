@@ -185,14 +185,17 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// console.log(content);
 		// var cdate = dateYmdHis();
 		// alert(getTimestamp());
+		$('.newmessageform').css({'opacity':'0.6'});
 		$('#messagesendbutton').addClass( 'ui-disabled' );
 		$('#messagetextarea').addClass( 'ui-disabled' );
 		dpd.messages.post({sender: sender, receiver: receiver, content: content, cdate: system.timestamp}, function(result, err) {
 			if(err) {
 				$('#messagesendbutton').removeClass( 'ui-disabled' );
 				$('#messagetextarea').removeClass( 'ui-disabled' );
+				$('.newmessageform').css({'opacity':'0.7'});
 				return console.log(err);
 			}
+			$('.newmessageform').css({'opacity':'0.7'});
 			$('#messagesendbutton').removeClass( 'ui-disabled' );
 			$('#messagetextarea').removeClass( 'ui-disabled' );
 			$('#messagetextarea').val( '' );
@@ -239,6 +242,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			// $(this).height();
 			$(this).css({'position':'fixed'});
 			$(this).css({'bottom':'0px'});
+			// $(this).css({'opacity':'0.7'});
 		});
 	});
 	
@@ -280,6 +284,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		*/
 		e.preventDefault();
 		// console.log('keyup');
+		$('.newmessageform').css({'opacity':'0.9'});
 		var txt = $('#messagetextarea').val();
 		$('#messagetextarea').val(txt.replace(/[\n\r]+/g, ""));
 		$('#newmessageform').css({'bottom':'0px'});
@@ -295,6 +300,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	
 	$('#body').off( "focus", "#messagetextarea").on( "focus", "#messagetextarea", function( e ) {
 		e.preventDefault();
+		$('.newmessageform').css({'opacity':'0.9'});
 		$('#messagetextarea').css({'max-height':'80px'});
 		checkTextareaValue();
 		// console.log(o);
@@ -308,6 +314,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	});
 	$('#body').off( "blur", "#messagetextarea").on( "blur", "#messagetextarea", function( e ) {
 		e.preventDefault();
+		$('.newmessageform').css({'opacity':'0.7'});
 		// $('#messagetextarea').css({'max-height':'40px'});
 		checkTextareaValue();
 		hideKeyboard();
