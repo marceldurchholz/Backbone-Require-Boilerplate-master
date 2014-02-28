@@ -162,14 +162,21 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 						this.db.transaction (
 							function(tx) {
-								var query = "SELECT videoid, videourl FROM videos WHERE videoid='"+options.id+"'";
+								var sql = "SELECT videourl as videourl FROM videos WHERE videoid='"+options.id+"'";
+								// var query = "SELECT videourl FROM videos WHERE videoid='"+options.id+"'";
 								// alert(query);
-								tx.executeSql(query, 
+								tx.executeSql(sql, 
 									function() {
 										alert('ERROR ON SELECT videourl');
 									},
 									function(tx, results) {
+										var videourl = results.rows.item(0).videourl;
+										alert('FOUND ' + videourl);
+										_thisViewVideoDetails.videourl = videourl;
+										alert(_thisViewVideoDetails.videourl);
+										// callback(lastSync);
 										// alert('getting len');
+										/*
 										var len = results.rows.length, videos = [], i = 0;
 										for (i=0; i < len; i = i + 1) {
 											videos[i] = results.rows.item(i);
@@ -186,6 +193,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 											_thisViewVideoDetails.videourl = videos[0].videourl;
 										}
 										// callback(videos);
+										*/
 									}
 								);
 							}
