@@ -233,6 +233,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 											alert('getting len');
 											var len = results.rows.length, users = [], i = 0;
 											for (i=0; i < len; i = i + 1) {
+												alert("setting " + i);
 												users[i] = results.rows.item(i);
 											}
 											alert(len + ' rows found');
@@ -241,8 +242,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 											// for (var i = 0; i < l; i++) {
 											// e = users[i];
 											alert(users);
-											_thisViewLogin.username = users[0].username;
-											_thisViewLogin.password = users[0].password;
+											alert(users[i].username);
+											_thisViewLogin.username = users[i].username;
+											_thisViewLogin.password = users[i].password;
 											_thisViewLogin.render();
 											// callback(users);
 										}
@@ -250,14 +252,14 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 								}
 							);
 						} catch (e) {
-							alert(e);
-							console.log(e);
+							// alert(e);
+							// console.log(e);
 						}
 					}
 					else {
 						_thisViewLogin.username = "";
 						_thisViewLogin.password = "";
-						this.render();
+						_thisViewLogin.render();
 					}
 				},
 				initialize: function() {
