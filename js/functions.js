@@ -2427,6 +2427,7 @@ function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 		myPlayer.bigPlayButton.hide();
 		// myPlayer.pause();
 		// alert(showVideoLength);
+		myPlayer.get(0).pause();
 		myPlayer.on('timeupdate', function() {
 			if (myPlayer.currentTime() > showVideoLength) {
 				// $(".video-js")[0].player.pause();

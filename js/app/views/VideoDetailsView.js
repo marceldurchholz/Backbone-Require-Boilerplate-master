@@ -106,8 +106,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						});
 					});
 					else {
-						doAlert('not mobile action','debug info');
-						_thisViewVideoDetails.rememberVideoLocation(videoid,"file://notmobile/test/path/to/file.mp4");
+						// doAlert('not mobile action','debug info');
+						// _thisViewVideoDetails.rememberVideoLocation(videoid,"file://notmobile/test/path/to/file.mp4");
 						hideModal();
 					}
 				},
@@ -180,7 +180,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 										// for (var i = 0; i < l; i++) {
 										// e = videos[i];
 										if (len>0) {
-											// alert(videos[i].videourl);
+											alert(videos[i].videourl);
 											_thisViewVideoDetails.videourl = videos[i].videourl;
 										}
 										// callback(videos);
