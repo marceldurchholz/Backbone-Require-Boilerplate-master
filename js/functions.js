@@ -2620,7 +2620,7 @@ function hideModal(){
 }
 
 var system = {
-	contentHelper: 2,
+	contentHelper: 0,
 	timestamp: 0,
 	// this.routerSwitched(false);
 	toggleLoading: function(status) {

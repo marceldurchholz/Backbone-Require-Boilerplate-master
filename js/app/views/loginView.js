@@ -213,6 +213,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				sync: function() {
 				},
 				fetch: function() {
+					_thisViewLogin = this;
 					if (isMobile.any()) {
 						this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 						this.db.transaction (
@@ -225,23 +226,30 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 									},
 									function(tx, results) {
 										alert('getting len');
-										var len = results.rows.length, videos = [], i = 0;
+										var len = results.rows.length, users = [], i = 0;
 										for (i=0; i < len; i = i + 1) {
-											videos[i] = results.rows.item(i);
+											users[i] = results.rows.item(i);
 										}
 										alert(len + ' rows found');
-										// alert(videos);
-										// alert(videos.toJSON);
+										// alert(users);
+										// alert(users.toJSON);
 										// for (var i = 0; i < l; i++) {
-										// e = videos[i];
-										alert(videos);
-										// callback(videos);
+										// e = users[i];
+										alert(users);
+										_thisViewLogin.username = users.username;
+										_thisViewLogin.password = users.password;
+										this.render();
+										// callback(users);
 									}
 								);
 							}
 						);
 					}
-					this.render();
+					else {
+						_thisViewLogin.username = "";
+						_thisViewLogin.password = "";
+						this.render();
+					}
 				},
 				initialize: function() {
 					var _thisViewLogin = this;
@@ -261,6 +269,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					this.$el.off('click','.sendLoginBtn').on('click','.sendLoginBtn',function(event){event.preventDefault();_thisViewLogin.sendLogin('#dashboard');});
 					this.$el.off('click','.sendRegisterBtn').on('click','.sendRegisterBtn',function(event){event.preventDefault();_thisViewLogin.sendRegister();});
 					this.$el.off('click','#giftcode').on('click','#giftcode',function(event){event.preventDefault();_thisViewLogin.toggleGiftcodeInput();});
+					$('#username').val(_thisViewLogin.username);
+					$('#password').val(_thisViewLogin.password);
 					if (system.contentHelper==1) {
 						$('#password').val('blafoo');
 						$('#username').val('info@digitalverve.de');
