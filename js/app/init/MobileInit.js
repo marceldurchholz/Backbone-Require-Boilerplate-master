@@ -150,16 +150,53 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		checkTopNaviRoles();
 	});
 	
+	
 	$('body').off( "swipeleft", ".swipeToDelete").on( "swipeleft", ".swipeToDelete", function( e ) {
 		e.preventDefault();
 		// alert('swiped on element');
-		var listitem = $(this);		
+		var listitem = $(this);
+		deleteMessageSwitch(listitem);
+		/*
+		doConfirm('Der Eintrag kann nicht wiederhergestellt werden!', 'Wirklich löschen?', function (clickevent) { 
+			if (clickevent=="1") {
+				deleteMessageSwitch(listitem);
+			}
+		}, "Ja,Nein");
+		*/
+	});
+	
+	function deleteMessageSwitch(el) {
+		var listitem = el;
+		// el.toggleClass( 'ui-btn-down-a' );
+		// el.toggleClass( 'ui-btn-up-a' );
+		el.toggleClass( 'ui-btn-down-d' );
+		el.toggleClass( 'ui-btn-up-d' );
+	}
+
+	$('abody').off( "swipeleft", ".swipeToDelete").on( "swipeleft", ".swipeToDelete", function( e ) {
+		e.preventDefault();
+		// alert('swiped on element');
+		var listitem = $(this);
 		doConfirm('', 'Wirklich löschen?', function (clickevent) { 
 			if (clickevent=="1") {
 				deleteMessageFlow(listitem);
 			}
 		}, "Ja,Nein");
 	});
+	
+	function deleteMessageFlow(listitem) {
+		// alert('deleteMessageFlow');
+		var this_id = listitem.attr('data-id');
+		// alert(this_id);
+		
+		// listitem.fadeOut( 500, function() {
+		listitem.toggle( "fast", function() {
+			listitem.remove();
+		});
+		
+	}
+	
+
 
 	$('body').off( "click", ".messagesendbutton").on( "click", ".messagesendbutton", function( e ) {
 		e.preventDefault();
@@ -245,18 +282,6 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			// $(this).css({'opacity':'0.7'});
 		});
 	});
-	
-	function deleteMessageFlow(listitem) {
-		// alert('deleteMessageFlow');
-		var this_id = listitem.attr('data-id');
-		// alert(this_id);
-		
-		// listitem.fadeOut( 500, function() {
-		listitem.toggle( "fast", function() {
-			listitem.remove();
-		});
-		
-	}
 	
 	// resize:false;height: 40px !important;
 
