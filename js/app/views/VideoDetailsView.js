@@ -64,9 +64,9 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					// $("#video_player_1_html5_api").attr("src", "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4").get(0).play();
 					// hideModal();
 					// return(false);
-					var ft = new FileTransfer();
 					// console.log('starting downloadVideo b');
-					window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+					if (isMobile.any()) var ft = new FileTransfer();
+					if (isMobile.any()) window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 						// console.log('starting downloadVideo c');
 						var downloadPath = fs.root.fullPath + "/download.mp4";
 						// console.log(downloadPath);
@@ -104,12 +104,34 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							doAlert('Da ist etwas schiefgegangen. Die Datei konnte nicht vollständig heruntergeladen werden. Bitte probieren Sie es erneut oder wenden Sie sich an unseren Support. Vielen Dank.','Ups!');						
 							hideModal();
 						});
-						
 					});
+					else {
+						doAlert('not mobile action','debug info');
+						_thisViewVideoDetails.rememberVideoLocation(videoid,"file://notmobile/test/path/to/file.mp4");
+						hideModal();
+					}
 				},
 				rememberVideoLocation: function(videoid,downloadPath) {
+					_thisViewVideoDetails = this;
 					doAlert('remenbering location of: '+videoid);
 					doAlert(downloadPath);
+					this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
+					this.db.transaction(
+						function(tx) {
+							// sample data 
+							alert('saving into table videos START');
+							tx.executeSql("INSERT INTO videos (videoid,offlineurl) VALUES ('aaa','bbb')");
+							alert('saving into table videos ENDE');
+						},
+						function() {
+							alert('ERROR ON entry saving in TABLE videos');
+						},
+						function() {
+							alert('Entry successfully saved in TABLE videos');
+							// alert('Table videos successfully FILLED WITH SAMPLES in local SQLite database');
+							// callback();
+						}
+					);
 				},
 
 				save1downloadVideo: function(videoid) {
