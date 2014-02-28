@@ -2427,7 +2427,7 @@ function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 		myPlayer.bigPlayButton.hide();
 		// myPlayer.pause();
 		// alert(showVideoLength);
-		myPlayer.get(0).pause();
+		// myPlayer.get(0).pause();
 		myPlayer.on('timeupdate', function() {
 			if (myPlayer.currentTime() > showVideoLength) {
 				// $(".video-js")[0].player.pause();
@@ -2436,7 +2436,7 @@ function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 				if (showVideoLength!=0) {
 					myPlayer.posterImage.hide();  
 					myPlayer.currentTime(0);  
-					myPlayer.get(0).pause();
+					myPlayer.pause();
 				}
 				// myPlayer.cancelFullScreen();  
 				// myPlayer.controlBar.hide();  
