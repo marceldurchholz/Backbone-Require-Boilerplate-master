@@ -294,7 +294,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				var mediaFilePath = $('#camera_file').val();
 				console.log(mediaFilePath);
 				// alert(mediaFilePath);
-				if (window.system.contentHelper==2) {
+				if (window.system.contentHelper==1) {
 					attachVideoToPlayer(testvideo);
 				}
 				hideModal();
