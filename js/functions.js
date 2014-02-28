@@ -2831,3 +2831,21 @@ function TSonError(error) {
           'message: ' + error.message + '\n');
 }
 
+
+var showDeleteBar = function(status) {
+	var deleteBarDeferred = $.Deferred();
+	var deleteBarDeferredWatcher = deleteBarDeferred.then(function( value ) {
+		return status;
+	});
+	deleteBarDeferred.resolve();
+	deleteBarDeferredWatcher.done(function( value ) {
+		if (value==true) {
+			$('#deleteBar').show();
+			// alert(value);
+		}
+		else {
+			$('#deleteBar').hide();
+		}
+		// console.log(value);
+	});
+};

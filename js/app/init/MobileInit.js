@@ -151,7 +151,8 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	});
 	
 	
-	$('body').off( "swipeleft", ".swipeToDelete").on( "swipeleft", ".swipeToDelete", function( e ) {
+	// $('body').off( "swipeleft", ".swipeToDelete").on( "swipeleft", ".swipeToDelete", function( e ) {
+	$('body').off( "click", ".swipeToDelete").on( "click", ".swipeToDelete", function( e ) {
 		e.preventDefault();
 		// alert('swiped on element');
 		var listitem = $(this);
@@ -159,7 +160,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		/*
 		doConfirm('Der Eintrag kann nicht wiederhergestellt werden!', 'Wirklich löschen?', function (clickevent) { 
 			if (clickevent=="1") {
-				deleteMessageSwitch(listitem);
+				deleteMessageFlow(listitem);
 			}
 		}, "Ja,Nein");
 		*/
@@ -171,28 +172,57 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// el.toggleClass( 'ui-btn-up-a' );
 		el.toggleClass( 'ui-btn-down-d' );
 		el.toggleClass( 'ui-btn-up-d' );
+		var selected = 0;
+		$('.swipeToDelete').each(function () {
+			// aaa
+			// console.log($(this).attr('class'));
+			if ($(this).hasClass( "ui-btn-up-d" )) {
+				selected = selected + 1;
+			}
+		});
+		// alert(selected);
+		if (selected>0) showDeleteBar(true);
+		else showDeleteBar(false);
 	}
 
+	$('body').off( "click", ".deleteBarLink").on( "click", ".deleteBarLink", function( e ) {
+		e.preventDefault();
+		// alert('swiped on element');
+		doConfirm('Der Eintrag kann nicht wiederhergestellt werden!', 'Wirklich löschen?', function (clickevent) { 
+			if (clickevent=="1") {
+				deleteMessageFlow();
+			}
+		}, "Ja,Nein");
+	});
+	
 	$('abody').off( "swipeleft", ".swipeToDelete").on( "swipeleft", ".swipeToDelete", function( e ) {
 		e.preventDefault();
 		// alert('swiped on element');
 		var listitem = $(this);
-		doConfirm('', 'Wirklich löschen?', function (clickevent) { 
+		doConfirm('Der Eintrag kann nicht wiederhergestellt werden!', 'Wirklich löschen?', function (clickevent) { 
 			if (clickevent=="1") {
 				deleteMessageFlow(listitem);
 			}
 		}, "Ja,Nein");
 	});
 	
-	function deleteMessageFlow(listitem) {
+	function deleteMessageFlow() {
 		// alert('deleteMessageFlow');
-		var this_id = listitem.attr('data-id');
-		// alert(this_id);
-		
-		// listitem.fadeOut( 500, function() {
-		listitem.toggle( "fast", function() {
-			listitem.remove();
+		$('.swipeToDelete').each(function () {
+			// aaa
+			// console.log($(this).attr('class'));
+			var this_id = $(this).attr('data-id');
+			if ($(this).hasClass( "ui-btn-up-d" )) {
+				// selected = selected + 1;
+				$(this).toggle( "fast", function() {
+					$(this).remove();
+				});
+			}
 		});
+		showDeleteBar(false);
+		
+		// alert(this_id);
+
 		
 	}
 	
