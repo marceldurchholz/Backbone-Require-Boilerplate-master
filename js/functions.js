@@ -236,7 +236,7 @@ var dao = {
 				},
 				this.txErrorHandler,
 				function() {
-					alert('Table videos successfully DROPPED in local SQLite database');
+					alert('Tables successfully DROPPED in local SQLite database');
 					callback();
 				}
 			);

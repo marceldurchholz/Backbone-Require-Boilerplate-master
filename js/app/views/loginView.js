@@ -222,7 +222,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 						this.db.transaction (
 							function(tx) {
-								var query = "SELECT username, password FROM users WHERE 1 LIMIT 1";
+								var query = "SELECT username, password FROM users";
 								alert(query);
 								tx.executeSql(query, 
 									function() {
@@ -242,7 +242,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 										alert(users);
 										_thisViewLogin.username = users.username;
 										_thisViewLogin.password = users.password;
-										this.render();
+										_thisViewLogin.render();
 										// callback(users);
 									}
 								);
