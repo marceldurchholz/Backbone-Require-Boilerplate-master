@@ -189,12 +189,12 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				sync: function() {
 				},
 				fetch: function() {
-					this.$el.hide();
-					showModal();
 					this.render();
 				},
 				initialize: function() {
 					var _thisViewLogin = this;
+					this.$el.hide();
+					showModal();
 					this.fetch();
 				},
 				toggleGiftcodeInput: function() {
@@ -225,9 +225,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					_thisViewLogin.nestedView = new SidemenuView().fetch();
 					_thisViewLogin.$el.html(_.template(loginPage, {}));
 					hideModal();
+					fontResize();
+					new FastClick(document.body);
 					this.$el.trigger('create');
-						new FastClick(document.body);
-						fontResize();
 						elementResizeByScreenHeight();
 					new FastClick(document.body);
 					this.$el.fadeIn( 500, function() {

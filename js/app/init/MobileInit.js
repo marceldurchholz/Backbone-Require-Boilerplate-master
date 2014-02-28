@@ -176,7 +176,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		var sender = window.me.id;
 		var receiver = $('#receiver').val();
 		if (receiver=='') {
-			doAlert('Bitte geben Sie den Namen des Empfängers ein...','Empfänger eingeben.');
+			doAlert('Es ist kein Empfänger definiert...','Ups. Entschuldigung!');
 			return(false);
 		}
 		var content = $('#messagetextarea').val();
@@ -196,6 +196,8 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			$('#messagesendbutton').removeClass( 'ui-disabled' );
 			$('#messagetextarea').removeClass( 'ui-disabled' );
 			$('#messagetextarea').val( '' );
+			$('#messagesendbutton').css({'color':'#707070'});
+			$('#messagetextarea').css({'max-height':'40px'});
 			// console.log(result, result.id);
 		});
 		return(false);
@@ -250,11 +252,13 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// console.log($('#messagetextarea').val().length);
 		if ($('#messagetextarea').val() && $('#messagetextarea').val().length > 0) {
 			// console.log('b');
-			$('#messagesendbutton').removeClass( 'ui-disabled' );
+			$('#messagesendbutton').css({'color':'#0645AD'});
+			// $('#messagesendbutton').removeClass( 'ui-disabled' );
 		}
 		else {
 			// console.log('c');
-			$('#messagesendbutton').addClass( 'ui-disabled' );
+			$('#messagesendbutton').css({'color':'#707070'});
+			// $('#messagesendbutton').addClass( 'ui-disabled' );
 		}
 	}
 	
@@ -270,8 +274,10 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// console.log('keyup');
 		var txt = $('#messagetextarea').val();
 		$('#messagetextarea').val(txt.replace(/[\n\r]+/g, ""));
-		
-		$('#newmessageform').css({'bottom':'0px'});		
+		$('#newmessageform').css({'bottom':'0px'});
+		$('#page-content').stop().animate({
+		  scrollTop: $("#page-content")[0].scrollHeight
+		}, 1000);
 		
 		// $('#messagetextarea').css({'height':''});
 		// console.log($(this));
@@ -294,7 +300,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	});
 	$('#body').off( "blur", "#messagetextarea").on( "blur", "#messagetextarea", function( e ) {
 		e.preventDefault();
-		$('#messagetextarea').css({'max-height':'40px'});
+		// $('#messagetextarea').css({'max-height':'40px'});
 		checkTextareaValue();
 		hideKeyboard();
 		// $('#messagetextarea').height(40);

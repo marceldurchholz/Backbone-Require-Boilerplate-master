@@ -190,7 +190,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					// _thisMessagesDetailsViewNested.$el.trigger('update');
 					_thisMessagesDetailsViewNested.$el.trigger('create');
 					new FastClick(document.body);
-					fontResize();
+					// fontResize();
 					$('#page-content').stop().animate({
 					  scrollTop: $("#page-content")[0].scrollHeight
 					}, 0);
@@ -222,8 +222,8 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 
 				hideModal();
 				_thisMessagesDetailsViewNested.$el.trigger('create');
-				new FastClick(document.body);
 				fontResize();
+				new FastClick(document.body);
 
 				setTimeout(function() {
 					_thisMessagesDetailsViewNested.$el.fadeIn( 500, function() {
