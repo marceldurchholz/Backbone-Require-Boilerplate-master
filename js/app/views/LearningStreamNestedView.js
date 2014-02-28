@@ -92,8 +92,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					async: false
 				}).done(function(videoData) {
 					_.each(videoData, function(value, index, list) {
-						var exists = jQuery.inArray( value.topic, _thisViewLearningStreamNested.me.interests )
-						if (exists>-1) {
+						var exists = jQuery.inArray( value.topic, _thisViewLearningStreamNested.me.interests );
+						if (exists>-1 || value.uploader == me.id) {
 							value.ccat = 'video';
 							value.icon = 'images/icon-videos-60.png';
 							value.href = '#videos/details/view/'+value.id;

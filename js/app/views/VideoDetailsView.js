@@ -115,6 +115,22 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				save1downloadVideo: function(videoid) {
 					_thisViewVideoDetails = this;
 					alert('bla');
+					this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
+					this.db.transaction(
+						function(tx) {
+							// sample data 
+							alert('saving into table videos START');
+							tx.executeSql("INSERT INTO videos (videoid,offlineurl) VALUES ('aaa','bbb')");
+							alert('saving into table videos ENDE');
+						},
+						function() {
+							alert('ERROR ON Table videos successfully FILLED WITH SAMPLES in local SQLite database');
+						},
+						function() {
+							alert('Table videos successfully FILLED WITH SAMPLES in local SQLite database');
+							// callback();
+						}
+					);
 					// _thisConfirmButtonLabels = ('Preise anzeigen,Abbrechen').split(",");
 					/*
 					var CreditsAfterPurchase = parseFloat(this._videosCollection.user.credits) - parseFloat(this._videosCollection.models[0].attributes.price);

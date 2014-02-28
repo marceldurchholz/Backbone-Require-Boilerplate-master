@@ -229,6 +229,17 @@ var dao = {
 		if (isMobile.any()) {
 			this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 
+			this.db.transaction(
+				function(tx) {
+					tx.executeSql('DROP TABLE IF EXISTS videos');
+				},
+				this.txErrorHandler,
+				function() {
+					alert('Table videos successfully DROPPED in local SQLite database');
+					callback();
+				}
+			);
+			
 			// Testing if the table exists is not needed and is here for logging purpose only. We can invoke createTable
 			// no matter what. The 'IF NOT EXISTS' clause will make sure the CREATE statement is issued only if the table
 			// does not already exist.
@@ -237,11 +248,11 @@ var dao = {
 					tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='videos'", this.txErrorHandler,
 						function(tx, results) {
 							if (results.rows.length == 1) {
-								// alert('Using existing users table in local SQLite database');
+								// alert('Using existing videos table in local SQLite database');
 							}
 							else
 							{
-								// alert('users table does not exist in local SQLite database');
+								// alert('videos table does not exist in local SQLite database');
 								self.createTable();
 							}
 					});
@@ -256,21 +267,17 @@ var dao = {
 		this.db.transaction(
 			function(tx) {
 				var sql =
-					"CREATE TABLE IF NOT EXISTS users ( " +
+					"CREATE TABLE IF NOT EXISTS videos ( " +
 					"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-					"fullname VARCHAR(100), " +
-					"pictureurl VARCHAR(100), " +
-					"device VARCHAR(100), " +
-					"credits VARCHAR(100), " +
-					"deleted INTEGER, " +
-					"lastModified VARCHAR(100))";
+					"videoid VARCHAR(100), " +
+					"offlineurl VARCHAR(255))";
 				tx.executeSql(sql);
-				// tx.executeSql("INSERT INTO users (fullname,pictureurl,device,credits,deleted,lastModified) VALUES ('Gary Donovan','','555','100',1,'2013-11-09 22:14:19')");
-				// tx.executeSql("INSERT INTO users (fullname,pictureurl,device,credits,deleted,lastModified) VALUES ('Lisa Wong','','999','20',0,'2013-11-09 22:14:19')");
 			},
-			this.txErrorHandler,
 			function() {
-				// alert('Table users successfully CREATED in local SQLite database');
+				alert('ERROR ON Table videos successfully FILLED WITH SAMPLES in local SQLite database');
+			},
+			function() {
+				// alert('Table videos successfully CREATED in local SQLite database');
 				websqlReady.resolve("initialize done");
 				// this.fillTable();
 			}
@@ -284,13 +291,15 @@ var dao = {
 				function(tx) {
 					// sample data 
 					alert('filling table INSERT START');
-					tx.executeSql("INSERT INTO users (id, fullname,pictureurl,device,credits,deleted,lastModified) VALUES (2, 'Gary Donovan','','555','100',1,'2013-11-09 22:14:19')");
-					tx.executeSql("INSERT INTO users (id, fullname,pictureurl,device,credits,deleted,lastModified) VALUES (1, 'Lisa Wong','','999','20',0,'2013-11-09 22:14:19')");
+					tx.executeSql("INSERT INTO videos (id, fullname,pictureurl,device,credits,deleted,lastModified) VALUES (2, 'Gary Donovan','','555','100',1,'2013-11-09 22:14:19')");
+					tx.executeSql("INSERT INTO videos (id, fullname,pictureurl,device,credits,deleted,lastModified) VALUES (1, 'Lisa Wong','','999','20',0,'2013-11-09 22:14:19')");
 					alert('filling table INSERT END');
 				},
-				this.txErrorHandler,
 				function() {
-					alert('Table users successfully FILLED WITH SAMPLES in local SQLite database');
+					alert('ERROR ON Table videos successfully FILLED WITH SAMPLES in local SQLite database');
+				},
+				function() {
+					alert('Table videos successfully FILLED WITH SAMPLES in local SQLite database');
 					// callback();
 				}
 			);
@@ -2751,6 +2760,8 @@ function fontResize() {
 
     //Set new font size
 	var fullpixel = width*height;
+	alert(width);
+	alert(height);
 	// alert(fullpixel);
 	// 150000
 	var factor = (fullpixel/180000);

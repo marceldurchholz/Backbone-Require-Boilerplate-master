@@ -33,7 +33,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewAgb.nestedView = new SidemenuView().fetch();
 					_thisViewAgb.$el.html(_.template(agbPage, {}));
+					hideModal();
 					this.$el.trigger('create');
+					fontResize();
 					new FastClick(document.body);
 					this.$el.fadeIn( 500, function() {
 						$('.ui-content').scrollTop(0);
