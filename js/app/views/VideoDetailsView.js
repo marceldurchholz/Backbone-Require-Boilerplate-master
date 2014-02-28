@@ -92,7 +92,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							// doAlert(downloadPath,'Information');
 							// $('#camera_file').val(downloadPath);
 							// $("#video_player").attr("src", "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4").get(0).play();
-							doAlert(downloadPath);
+							// doAlert(downloadPath);
 							// $("#video_player_1_html5_api").attr("src", uri).get(0).play();
 							$("#video_player_1_html5_api").attr("src", downloadPath); // .get(0)
 							_thisViewVideoDetails.rememberVideoLocation(videoid,downloadPath);
@@ -113,65 +113,27 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				},
 				rememberVideoLocation: function(videoid,downloadPath) {
 					_thisViewVideoDetails = this;
-					doAlert('remenbering location of: '+videoid);
-					doAlert(downloadPath);
+					// doAlert('remenbering location of: '+videoid);
+					// doAlert(downloadPath);
 					this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 					this.db.transaction(
 						function(tx) {
 							// sample data 
 							// alert('saving into table videos START');
 							var query = "INSERT INTO videos (videoid,videourl) VALUES ('"+videoid+"','"+downloadPath+"')"; 
-							alert(query);
+							// alert(query);
 							tx.executeSql(query);
-							alert('saving into table videos ENDE');
+							// alert('saving into table videos ENDE');
 						},
 						function() {
 							alert('ERROR ON entry saving in TABLE videos');
 						},
 						function() {
-							alert('Entry successfully saved in TABLE videos');
+							// alert('Entry successfully saved in TABLE videos');
 							// alert('Table videos successfully FILLED WITH SAMPLES in local SQLite database');
 							// callback();
 						}
 					);
-				},
-
-				save1downloadVideo: function(videoid) {
-					_thisViewVideoDetails = this;
-					alert('bla');
-					this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
-					this.db.transaction(
-						function(tx) {
-							// sample data 
-							alert('saving into table videos START');
-							tx.executeSql("INSERT INTO videos (videoid,videourl) VALUES ('aaa','bbb')");
-							alert('saving into table videos ENDE');
-						},
-						function() {
-							alert('ERROR ON Table videos successfully FILLED WITH SAMPLES in local SQLite database');
-						},
-						function() {
-							alert('Table videos successfully FILLED WITH SAMPLES in local SQLite database');
-							// callback();
-						}
-					);
-					// _thisConfirmButtonLabels = ('Preise anzeigen,Abbrechen').split(",");
-					/*
-					var CreditsAfterPurchase = parseFloat(this._videosCollection.user.credits) - parseFloat(this._videosCollection.models[0].attributes.price);
-					if (CreditsAfterPurchase<0) {
-						// doAlert('Sie haben nicht genügend Credits.','Schade...');
-						doConfirm('Sie haben nicht genügend APPinaut® Coins.', 'Schade...', function (event) { 
-							if (event=="1") {
-								// doAlert('1','ok');
-								window.location.href = '#myprofile';
-							}
-						}, ('Preise anzeigen,Abbrechen').split(","));
-						return(false);
-					}
-					else {
-						purchaseVideoConfirm(this._videosCollection.user,this._videosCollection.models[0].attributes);
-					}
-					*/
 				},
 				
 				initializeCollection:function(options) {
@@ -192,30 +154,35 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				},
 				getVideo: function(options) {
 					var _thisViewVideoDetails = this;
-					alert(options.id);
+					// _thisViewVideoDetails.videourl = "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4";
+					_thisViewVideoDetails.videourl = "";
+					// alert(options.id);
 					
 					if (isMobile.any()) {
 						this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 						this.db.transaction (
 							function(tx) {
 								var query = "SELECT videourl FROM videos WHERE videoid='"+options.id+"'";
-								alert(query);
+								// alert(query);
 								tx.executeSql(query, 
 									function() {
 										alert('ERROR ON SELECT videourl');
 									},
 									function(tx, results) {
-										alert('getting len');
+										// alert('getting len');
 										var len = results.rows.length, videos = [], i = 0;
 										for (i=0; i < len; i = i + 1) {
 											videos[i] = results.rows.item(i);
 										}
-										alert(len + ' rows found');
+										// alert(len + ' rows found');
 										// alert(videos);
 										// alert(videos.toJSON);
 										// for (var i = 0; i < l; i++) {
 										// e = videos[i];
-										alert(videos);
+										if (len>0) {
+											// alert(videos[i].videourl);
+											_thisViewVideoDetails.videourl = videos[i].videourl;
+										}
 										// callback(videos);
 									}
 								);
@@ -427,6 +394,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						// alert('not buyed');
 					}
 					// alert(showVideoLength);
+					if (_thisViewVideoDetails.videourl!='') this._videosCollection.models[0].attributes.videourl = _thisViewVideoDetails.videourl;
 					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',this._videosCollection.models[0].attributes.videourl,showVideoLength);
 					hideModal();
 					this.$el.trigger('create');

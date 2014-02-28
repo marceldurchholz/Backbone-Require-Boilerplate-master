@@ -215,7 +215,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	}
 	
 
-
+	bindSwipeBack();
 	$('body').off( "click", ".messagesendbutton").on( "click", ".messagesendbutton", function( e ) {
 		e.preventDefault();
 		// alert('bla');

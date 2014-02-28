@@ -2404,11 +2404,22 @@ function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 			{ type: "video/ogg", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".ogv" }
 		]);
 		*/
-		myPlayer.src([
-			{ type: "video/mp4", src: "http://prelaunch002.appinaut.de/secure/index.php?showvideo="+_thisVideoUrl+".mp4" },
-			{ type: "video/webm", src: "http://prelaunch002.appinaut.de/secure/index.php?showvideo="+_thisVideoUrl+".webm" },
-			{ type: "video/ogg", src: "http://prelaunch002.appinaut.de/secure/index.php?showvideo="+_thisVideoUrl+".ogv" }
-		]);
+		// alert(_thisVideoUrl);
+		// alert(_thisVideoUrl.length);
+		if (_thisVideoUrl.length <= 40) {
+			myPlayer.src([
+				{ type: "video/mp4", src: "http://prelaunch002.appinaut.de/secure/index.php?showvideo="+_thisVideoUrl+".mp4" },
+				{ type: "video/webm", src: "http://prelaunch002.appinaut.de/secure/index.php?showvideo="+_thisVideoUrl+".webm" },
+				{ type: "video/ogg", src: "http://prelaunch002.appinaut.de/secure/index.php?showvideo="+_thisVideoUrl+".ogv" }
+			]);
+		}
+		else {
+			myPlayer.src([
+				{ type: "video/mp4", src: _thisVideoUrl },
+				{ type: "video/webm", src: _thisVideoUrl },
+				{ type: "video/ogg", src: _thisVideoUrl }
+			]);
+		}
 		// alert('bla');
 		// myPlayer.posterImage.show();  
 		// $("#video_player_1.vjs-poster").css('background-image', 'url(http://video-js.zencoder.com/oceans-clip.jpg)').show();
@@ -2476,6 +2487,7 @@ $(window).bind('hashchange', function(){
 });
 
 function bindSwipeBack() {
+	// alert('bindSwipeBack');
 	$('#body').off( "swiperight", "#page-content").on( "swiperight", "#page-content", function( e ) {
 		e.preventDefault();
 		// alert('swiped on body');
