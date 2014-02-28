@@ -232,6 +232,7 @@ var dao = {
 			this.db.transaction(
 				function(tx) {
 					tx.executeSql('DROP TABLE IF EXISTS videos');
+					tx.executeSql('DROP TABLE IF EXISTS users');
 				},
 				this.txErrorHandler,
 				function() {
@@ -260,7 +261,7 @@ var dao = {
 	createTables: function() {
 		this.db.transaction(
 			function(tx) { 
-				tx.executeSql("CREATE TABLE IF NOT EXISTS users ( username PRIMARY KEY VARCHAR(255), password VARCHAR(255))");
+				tx.executeSql("CREATE TABLE IF NOT EXISTS users ( username VARCHAR(255) PRIMARY KEY, password VARCHAR(255))");
 				tx.executeSql("CREATE TABLE IF NOT EXISTS videos ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))");
 			},
 			function() { alert('ERROR ON Tables CREATE local SQLite database'); },
