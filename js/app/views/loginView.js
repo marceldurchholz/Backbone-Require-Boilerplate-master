@@ -7,6 +7,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 			var loginView = Backbone.View.extend({
 			
 				el: "#page-content",
+				collection: new Backbone.LocalStorage("loginStorage"),
 				attributes: {"data-role": 'content'},
 				events: {
 				},
@@ -44,6 +45,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 									dpd.users.put(_thisViewLogin.me.id, {"logincount":newlogincount}, function(result, err) { 
 										if(err) return console.log(err);
 										// console.log(result, result.id);
+										/*
 										if (isMobile.any()) {
 											this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 											this.db.transaction(
@@ -69,6 +71,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 										else {
 											system.redirectToUrl(targetUrl);
 										}
+										*/
+										system.redirectToUrl(targetUrl);
 									});
 								});
 							}
@@ -221,6 +225,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					_thisViewLogin.username = "";
 					_thisViewLogin.password = "";
 					if (isMobile.any() && 1==2) {
+						/*
 						try {
 							this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 							this.db.transaction (
@@ -257,6 +262,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							// alert(e);
 							// console.log(e);
 						}
+						*/
+						_thisViewLogin.render();
 					}
 					else {
 						_thisViewLogin.render();

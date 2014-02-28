@@ -7,7 +7,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 		var VideoRecordNestedViewVar = Backbone.View.extend({
 			
 			el: "#VideoRecordNestedViewDiv",
-			collection: new Backbone.LocalStorage("videoRecordStorageX"),
+			collection: new Backbone.LocalStorage("videoRecordStorage"),
 			model: VideoModel,
 			initialize: function() {
 				_thisViewRecordVideoNested = this;
