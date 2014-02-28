@@ -234,6 +234,14 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		});
 	});
 	
+	$('#page-content').scroll(function () {
+		$('.newmessageform').each(function () {
+			// $(this).height();
+			$(this).css({'position':'fixed'});
+			$(this).css({'bottom':'0px'});
+		});
+	});
+	
 	function deleteMessageFlow(listitem) {
 		// alert('deleteMessageFlow');
 		var this_id = listitem.attr('data-id');
