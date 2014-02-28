@@ -270,14 +270,14 @@ var dao = {
 					"CREATE TABLE IF NOT EXISTS videos ( " +
 					"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
 					"videoid VARCHAR(100), " +
-					"offlineurl VARCHAR(255))";
+					"videourl VARCHAR(255))";
 				tx.executeSql(sql);
 			},
 			function() {
-				alert('ERROR ON Table videos successfully FILLED WITH SAMPLES in local SQLite database');
+				alert('ERROR ON Table videos FILLED WITH SAMPLES in local SQLite database');
 			},
 			function() {
-				// alert('Table videos successfully CREATED in local SQLite database');
+				alert('Table videos successfully CREATED in local SQLite database');
 				websqlReady.resolve("initialize done");
 				// this.fillTable();
 			}
@@ -454,7 +454,8 @@ var dao = {
 						var len = results.rows.length,
 							employees = [],
 							i = 0;
-						for (; i < len; i = i + 1) {
+						// for (; i < len; i = i + 1) {
+						for (i < len; i = i + 1) {
 							employees[i] = results.rows.item(i);
 						}
 						alert(len + ' rows found');
@@ -2841,10 +2842,12 @@ var showDeleteBar = function(status) {
 	deleteBarDeferredWatcher.done(function( value ) {
 		if (value==true) {
 			$('#deleteBar').show();
+			$('.ui-listview-filter').hide();
 			// alert(value);
 		}
 		else {
 			$('#deleteBar').hide();
+			$('.ui-listview-filter').show();
 		}
 		// console.log(value);
 	});

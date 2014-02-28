@@ -151,36 +151,22 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	});
 	
 	
-	// $('body').off( "swipeleft", ".swipeToDelete").on( "swipeleft", ".swipeToDelete", function( e ) {
-	$('body').off( "click", ".swipeToDelete").on( "click", ".swipeToDelete", function( e ) {
+	$('body').off( "swipeleft", ".swipeToDelete").on( "swipeleft", ".swipeToDelete", function( e ) {
 		e.preventDefault();
 		// alert('swiped on element');
 		var listitem = $(this);
 		deleteMessageSwitch(listitem);
-		/*
-		doConfirm('Der Eintrag kann nicht wiederhergestellt werden!', 'Wirklich löschen?', function (clickevent) { 
-			if (clickevent=="1") {
-				deleteMessageFlow(listitem);
-			}
-		}, "Ja,Nein");
-		*/
 	});
 	
 	function deleteMessageSwitch(el) {
 		var listitem = el;
-		// el.toggleClass( 'ui-btn-down-a' );
-		// el.toggleClass( 'ui-btn-up-a' );
-		el.toggleClass( 'ui-btn-down-d' );
 		el.toggleClass( 'ui-btn-up-d' );
 		var selected = 0;
 		$('.swipeToDelete').each(function () {
-			// aaa
-			// console.log($(this).attr('class'));
 			if ($(this).hasClass( "ui-btn-up-d" )) {
 				selected = selected + 1;
 			}
 		});
-		// alert(selected);
 		if (selected>0) showDeleteBar(true);
 		else showDeleteBar(false);
 	}
@@ -195,6 +181,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		}, "Ja,Nein");
 	});
 	
+	/*
 	$('abody').off( "swipeleft", ".swipeToDelete").on( "swipeleft", ".swipeToDelete", function( e ) {
 		e.preventDefault();
 		// alert('swiped on element');
@@ -205,6 +192,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			}
 		}, "Ja,Nein");
 	});
+	*/
 	
 	function deleteMessageFlow() {
 		// alert('deleteMessageFlow');

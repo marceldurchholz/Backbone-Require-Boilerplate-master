@@ -119,8 +119,10 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					this.db.transaction(
 						function(tx) {
 							// sample data 
-							alert('saving into table videos START');
-							tx.executeSql("INSERT INTO videos (videoid,offlineurl) VALUES ('aaa','bbb')");
+							// alert('saving into table videos START');
+							var query = "INSERT INTO videos (videoid,offlineurl) VALUES ('aaa','bbb')"; 
+							alert(query);
+							tx.executeSql(query);
 							alert('saving into table videos ENDE');
 						},
 						function() {
@@ -185,6 +187,40 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					var _thisViewVideoDetails = this;
 					this.$el.hide();
 					showModal();
+					console.log(options.id);
+					_thisViewVideoDetails.getVideo(options.id);
+				},
+				getVideo: function(videoid) {
+					alert(videoid);
+					
+					this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
+					this.db.transaction (
+						function(tx) {
+							var query = "SELECT videourl FROM videos WHERE videoid='"+videoid+"'");
+							alert(query);
+							tx.executeSql(query, 
+								function() {
+									alert('ERROR ON SELECT videourl');
+								},
+								function(tx, results) {
+									alert('getting len');
+									var len = results.rows.length, videos = [], i = 0;
+									for (i=0; i < len; i = i + 1) {
+										videos[i] = results.rows.item(i);
+									}
+									alert(len + ' rows found');
+									// alert(videos);
+									// alert(videos.toJSON);
+									// for (var i = 0; i < l; i++) {
+									// e = videos[i];
+									alert(videos);
+									// callback(videos);
+								}
+							);
+						}
+					);
+					
+					return(false);
 					this.initializeCollection(options);
 					this._videosCollection.fetch({
 						error: function(action, coll) {
@@ -196,7 +232,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							// console.log(jsoncoll);
 							_thisViewVideoDetails.render();
 						}
-					});
+					});					
 				},
 				buyVideo: function(videoid) {
 					_thisViewVideoDetails = this;
