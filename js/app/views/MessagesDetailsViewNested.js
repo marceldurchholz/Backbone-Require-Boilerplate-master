@@ -210,9 +210,10 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					_thisMessagesDetailsViewNested.$el.html(_.template(MessagesDetailsViewNestedPage, {
 						data: _thisMessagesDetailsViewNested.messages
 					},{variable: 'messages'}));
-					$('#pageFooter').html(_.template(FooterPersistentPage, {
+					$('#messageFooter').html(_.template(FooterPersistentPage, {
 						receiver: _thisMessagesDetailsViewNested.receiver
 					},{variable: 'data'})).trigger('create'); // '<div data-role="navbar"><ul><li>blafoo</li></ul></div>'
+					$('#messagetextarea').css({'max-height':'40px'});
 					// $('#messagetextarea').height(40);
 					// $('#messagetextarea').elastic();
 					// $('#messagetextarea').attr("overflow", "scroll");

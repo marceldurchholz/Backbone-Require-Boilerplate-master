@@ -2041,7 +2041,8 @@ function attachVideoToPlayer(mediaFilePath) {
 		return(false);
 	}
 	else {
-		console.log('attaching to video player: ' + mediaFilePath);
+		// console.log('attaching to video player: ' + mediaFilePath);
+		alert('attaching to video player: ' + mediaFilePath);
 		$('#camera_file').val(mediaFilePath);
 	}
 	if (mediaFilePath!='') {

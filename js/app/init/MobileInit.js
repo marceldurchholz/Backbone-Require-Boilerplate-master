@@ -270,6 +270,9 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// console.log('keyup');
 		var txt = $('#messagetextarea').val();
 		$('#messagetextarea').val(txt.replace(/[\n\r]+/g, ""));
+		
+		$('#newmessageform').css({'bottom':'0px'});		
+		
 		// $('#messagetextarea').css({'height':''});
 		// console.log($(this));
 		// console.log($('#messagetextarea').val());
@@ -286,13 +289,14 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// $('#messagesendbuttondiv').show();
 		$('#page-content').stop().animate({
 		  scrollTop: $("#page-content")[0].scrollHeight
-		}, 800);
+		}, 1000);
 		// console.log('focussed textarea');
 	});
 	$('#body').off( "blur", "#messagetextarea").on( "blur", "#messagetextarea", function( e ) {
 		e.preventDefault();
 		$('#messagetextarea').css({'max-height':'40px'});
 		checkTextareaValue();
+		hideKeyboard();
 		// $('#messagetextarea').height(40);
 		// $('#messagetextarea').css("height","20px");
 		// $( '#messagetextarea' ).height( 20 );
