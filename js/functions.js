@@ -2464,6 +2464,14 @@ $(window).bind('hashchange', function(){
 	checkTopNaviRoles();
 	bindSwipeBack();
 	showDeleteBar(false);
+	
+	$("#flexiblecontent").animate({
+		marginLeft: "0px",
+	}, 500, function () {
+		menuStatus = false;
+		menuSwitched(false);
+	});
+
 });
 
 function bindSwipeBack() {
@@ -2545,7 +2553,8 @@ $('#footervideolink').on("vclick", function (e) {
 	return false;
 });
 
-$('#showMenu').on("vclick", function (e) {
+$('#showMenu').on("click", function (e) {
+	e.preventDefault();
 	if (menuStatus != true) {
 		$("#flexiblecontent").animate({
 			marginLeft: "220px",

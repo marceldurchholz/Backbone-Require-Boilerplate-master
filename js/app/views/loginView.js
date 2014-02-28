@@ -14,6 +14,10 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					_thisViewLogin = this;
 					var username = $('#username').val().toLowerCase();
 					var password = $('#password').val();
+					if (checkEmail(username)!=true || password=='') {
+						doAlert('Bitte überprüfen Sie die eingegebenen Daten.','Eingaben unvollständig oder nicht korrekt!');
+						return(false);
+					}
 					dpd.users.login({username: username, password: password}, function(user, error) {
 						if (error) {
 							// doAlert('not logging in');
