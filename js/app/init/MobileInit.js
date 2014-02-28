@@ -240,7 +240,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	$('#page-content').scroll(function () {
 		$('.newmessageform').each(function () {
 			// $(this).height();
-			$(this).css({'position':'fixed'});
+			// $(this).css({'position':'fixed'});
 			$(this).css({'bottom':'0px'});
 			// $(this).css({'opacity':'0.7'});
 		});
