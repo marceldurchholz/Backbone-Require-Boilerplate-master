@@ -239,7 +239,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 
 				hideModal();
 				_thisMessagesDetailsViewNested.$el.trigger('create');
-				fontResize();
+				// fontResize();
 				new FastClick(document.body);
 
 				setTimeout(function() {
