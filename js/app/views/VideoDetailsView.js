@@ -41,6 +41,21 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					_thisViewVideoDetails = this;
 					// this.$el.off('click','.createVideo').on('click','.createVideo',function(){_thisViewVideoDetails.createVideo();});
 
+					this.$el.off('click','#connectToLink').on('click','#connectToLink',function(e) { 
+						e.preventDefault();
+						// var videoid = $(this).attr('data-videoid');
+						// _thisViewVideoDetails.buyVideo(videoid); 
+						alert($(this).attr('data-id'));
+						var connectionid = $(this).attr('data-id');
+						showModal();
+						dpd.users.put(connectionid, 
+							{"followers": {$push:$.trim(window.me.id)}}, function(result, err) {
+							if(err) return console.log(err);
+							console.log(result, result.id);
+							hideModal();
+						});
+					});
+
 					this.$el.off('click','#loadvideobutton').on('click','#loadvideobutton',function(e) { 
 						e.preventDefault();
 						var videoid = $(this).attr('data-videoid');
