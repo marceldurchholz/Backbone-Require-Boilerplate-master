@@ -308,10 +308,10 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					new FastClick(document.body);
 					this.$el.trigger('create');
 					elementResizeByScreenHeight();
-					fontResize();
+					// fontResize();
 					new FastClick(document.body);
-					this.$el.fadeIn( 500, function() {
-						$('.ui-content').scrollTop(0);
+					this.$el.fadeIn( 1000, function() {
+						// $('.ui-content').scrollTop(0);
 					});
 					this.bindEvents();
 					return this;

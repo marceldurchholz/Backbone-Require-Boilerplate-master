@@ -237,7 +237,7 @@ var dao = {
 				this.txErrorHandler,
 				function() {
 					// alert('Tables successfully DROPPED in local SQLite database');
-					callback();
+					// callback();
 				}
 			);
 			
@@ -255,7 +255,7 @@ var dao = {
 				}
 			)
 		}
-		else websqlReady.resolve("initialize done");
+		// else websqlReady.resolve("initialize done");
 	},
 		
 	createTables: function() {
