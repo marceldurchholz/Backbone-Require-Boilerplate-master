@@ -231,7 +231,7 @@ var dao = {
 
 			this.db.transaction(
 				function(tx) {
-					tx.executeSql('DROP TABLE IF EXISTS videos');
+					// tx.executeSql('DROP TABLE IF EXISTS videos');
 					tx.executeSql('DROP TABLE IF EXISTS users');
 				},
 				this.txErrorHandler,
