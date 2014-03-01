@@ -97,17 +97,20 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							$("#video_player_1_html5_api").attr("src", downloadPath); // .get(0)
 							_thisViewVideoDetails.rememberVideoLocation(videoid,downloadPath);
 							// window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',uri,0);
+							$('#downloadvideobutton').hide();
 							hideModal();
 						}, 
 						function(error) {
 							console.log(error);
 							doAlert('Da ist etwas schiefgegangen. Die Datei konnte nicht vollständig heruntergeladen werden. Bitte probieren Sie es erneut oder wenden Sie sich an unseren Support. Vielen Dank.','Ups!');						
+							// $('#downloadvideobutton').hide();
 							hideModal();
 						});
 					});
 					else {
 						// doAlert('not mobile action','debug info');
 						// _thisViewVideoDetails.rememberVideoLocation(videoid,"file://notmobile/test/path/to/file.mp4");
+						$('#downloadvideobutton').hide();
 						hideModal();
 					}
 				},
@@ -171,9 +174,10 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 									},
 									function(tx, results) {
 										var videourl = results.rows.item(0).videourl;
-										alert('FOUND ' + videourl);
+										// alert('FOUND ' + videourl);
 										_thisViewVideoDetails.videourl = videourl;
-										alert(_thisViewVideoDetails.videourl);
+										// alert(_thisViewVideoDetails.videourl);
+										// $('#downloadvideobutton').hide();
 										// callback(lastSync);
 										// alert('getting len');
 										/*
@@ -409,8 +413,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						$('#downloadvideobutton').hide();
 					}
 					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',this._videosCollection.models[0].attributes.videourl,showVideoLength);
-					alert(_thisViewVideoDetails.videourl);
-					alert(this._videosCollection.models[0].attributes.videourl);
+					// alert(_thisViewVideoDetails.videourl);
+					// alert(this._videosCollection.models[0].attributes.videourl);
 					hideModal();
 					this.$el.trigger('create');
 					new FastClick(document.body);
