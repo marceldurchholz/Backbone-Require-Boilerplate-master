@@ -183,6 +183,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					// console.log(msgData);
 					// var messages = new Object;
 					// messages.push(msgData);
+					/*
 					if (_thisMessagesDetailsViewNested.messages==undefined) _thisMessagesDetailsViewNested.messages= new Array;
 					_thisMessagesDetailsViewNested.messages.push(msgData);
 					// _thisMessagesDetailsViewNested.fetch();
@@ -191,6 +192,21 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					},{variable: 'messages'}));
 					// _thisMessagesDetailsViewNested.$el.trigger('update');
 					_thisMessagesDetailsViewNested.$el.trigger('create');
+					var bla = _thisMessagesDetailsViewNested.$el.html(_.template(MessagesDetailsViewNestedPage, {
+						data: _thisMessagesDetailsViewNested.messages
+					},{variable: 'messages'}));
+					*/
+					console.log(msgData);
+					msgArray = new Array;
+					msgArray.push(msgData);
+					_thisMessagesDetailsViewNested.$el.append(_.template(MessagesDetailsViewNestedPage, {
+						data: msgArray
+					},{variable: 'messages'}));
+					_thisMessagesDetailsViewNested.$el.trigger('create');
+					scrollBottom();
+					
+					// console.log(bla);
+
 					// new FastClick(document.body);
 					// fontResize();
 					// alert($("#page-content")[0].scrollHeight);
