@@ -172,13 +172,15 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 			},
 			bindEvents: function() {
 				var _thisMessagesDetailsViewNested = this;
+				/*
 				this.$el.off('click','.showVideoDetailsLink').on('click','.showVideoDetailsLink',function(event){
 					event.preventDefault();
 					window.location.href = event.currentTarget.hash;
 				});
+				*/
 				dpd.messages.on('create', function(msgData) {
 					// console.log(msgData.id);
-					console.log(msgData);
+					// console.log(msgData);
 					// var messages = new Object;
 					// messages.push(msgData);
 					if (_thisMessagesDetailsViewNested.messages==undefined) _thisMessagesDetailsViewNested.messages= new Array;
@@ -189,10 +191,10 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					},{variable: 'messages'}));
 					// _thisMessagesDetailsViewNested.$el.trigger('update');
 					_thisMessagesDetailsViewNested.$el.trigger('create');
-					new FastClick(document.body);
+					// new FastClick(document.body);
 					// fontResize();
 					// alert($("#page-content")[0].scrollHeight);
-					scrollBottom();
+					// scrollBottom();
 					// $('#MessagesDetailsViewDiv').append( "<p>Test</p>" );
 				});
 
