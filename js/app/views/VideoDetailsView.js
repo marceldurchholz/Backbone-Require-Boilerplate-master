@@ -50,8 +50,11 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						showModal();
 						dpd.users.put(connectionid, 
 							{"followers": {$push:$.trim(window.me.id)}}, function(result, err) {
-							if(err) return console.log(err);
-							console.log(result, result.id);
+							if(err) {
+								return console.log(err);
+								hideModal();
+							}
+							// console.log(result, result.id);
 							hideModal();
 						});
 					});
@@ -172,52 +175,31 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				},
 				getVideo: function(options) {
 					var _thisViewVideoDetails = this;
-					// _thisViewVideoDetails.videourl = "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4";
-					_thisViewVideoDetails.videourl = "";
-					// alert(options.id);
-					
+					// _thisViewVideoDetails.offlineurl = "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4";
+					_thisViewVideoDetails.offlineurl = "";
 					if (isMobile.any()) {
 						this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 						this.db.transaction (
 							function(tx) {
 								var sql = "SELECT videourl as videourl FROM videos WHERE videoid='"+options.id+"'";
-								// var query = "SELECT videourl FROM videos WHERE videoid='"+options.id+"'";
-								// alert(query);
 								tx.executeSql(sql, 
 									function() {
 										alert('ERROR ON SELECT videourl');
 									},
 									function(tx, results) {
-										var videourl = results.rows.item(0).videourl;
-										// alert('FOUND ' + videourl);
-										_thisViewVideoDetails.videourl = videourl;
-										// alert(_thisViewVideoDetails.videourl);
-										// $('#downloadvideobutton').hide();
-										// callback(lastSync);
-										// alert('getting len');
-										/*
-										var len = results.rows.length, videos = [], i = 0;
-										for (i=0; i < len; i = i + 1) {
-											videos[i] = results.rows.item(i);
-											alert(results.rows.item(i).videourl);
-										}
-										alert(len + ' rows found');
-										// alert(videos);
-										// alert(videos.toJSON);
-										// for (var i = 0; i < l; i++) {
-										// e = videos[i];
-										if (len>0) {
-											alert(videos[i].videourl);
-											alert(videos[i].videourl);
-											_thisViewVideoDetails.videourl = videos[0].videourl;
-										}
-										// callback(videos);
-										*/
+										var offlineurl = results.rows.item(0).videourl;
+										_thisViewVideoDetails.offlineurl = offlineurl;
 									}
 								);
 							}
 						);
 					}
+					/*
+					else {
+						_thisViewVideoDetails.offlineurl = "/var/myurl/nsdfsnk.mp4";
+					}
+					alert(_thisViewVideoDetails.offlineurl);
+					*/
 					
 					// return(false);
 					_thisViewVideoDetails.initializeCollection(options);
@@ -381,6 +363,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						uploader: _thisViewVideoDetails.uploaderdata.fullname,
 						me_credits: this._videosCollection.user.credits,
 						videourl: model.get('videourl'),
+						offlineurl: model.get('offlineurl'),
 						topic: model.get('topic'),
 						title: model.get('title'),
 						description: model.get('description'),
@@ -403,6 +386,24 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					console.log('DOING render VideoDetailsView.js called');
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewVideoDetails.nestedView = new SidemenuView().fetch();
+					
+					if( $.inArray( this._videosCollection.models[0].attributes.id , window.me.purchases ) >- 1 ) {
+						this._videosCollection.models[0].attributes.videourl,showVideoLength = 0;
+					} else {
+						this._videosCollection.models[0].attributes.videourl,showVideoLength = 60;
+						// alert('not buyed');
+					}
+					// _thisViewVideoDetails.offlineurl
+					// alert(showVideoLength);
+					/*
+					if (_thisViewVideoDetails.offlineurl!='') {
+						// alert(_thisViewVideoDetails.offlineurl);
+						this._videosCollection.models[0].attributes.videourl = _thisViewVideoDetails.offlineurl;
+						$('#downloadvideobutton').hide();
+					}
+					*/
+					this._videosCollection.models[0].attributes.offlineurl = _thisViewVideoDetails.offlineurl;
+
 					var htmlContent = '';
 					$(this.el).html(htmlContent);
 					_.each(this._videosCollection.models, function(model) {
@@ -416,17 +417,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					// console.log(window.me.purchases);
 					// console.log(this._videosCollection.models[0].attributes.id);
 					// alert($.inArray( this._videosCollection.models[0].attributes.id , window.me.purchases ));
-					if( $.inArray( this._videosCollection.models[0].attributes.id , window.me.purchases ) >- 1 ) {
-						this._videosCollection.models[0].attributes.videourl,showVideoLength = 0;
-					} else {
-						this._videosCollection.models[0].attributes.videourl,showVideoLength = 60;
-						// alert('not buyed');
-					}
-					// alert(showVideoLength);
-					if (_thisViewVideoDetails.videourl!='') {
-						this._videosCollection.models[0].attributes.videourl = _thisViewVideoDetails.videourl;
-						$('#downloadvideobutton').hide();
-					}
+					if (this._videosCollection.models[0].attributes.offlineurl!='') this._videosCollection.models[0].attributes.videourl = this._videosCollection.models[0].attributes.offlineurl;
 					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',this._videosCollection.models[0].attributes.videourl,showVideoLength);
 					// alert(_thisViewVideoDetails.videourl);
 					// alert(this._videosCollection.models[0].attributes.videourl);

@@ -1907,6 +1907,7 @@ function purchaseVideoStart(me,videoData) {
 		// var el = new Object();
 		// el.value = videoData.id;
 		me.purchases.push(videoData.id);
+		// var videoData = videoData;
 		// console.log(me.purchases);
 		// return(false);
 		$.ajax('http://dominik-lohmann.de:5000/users/?id='+me.id,{
@@ -1925,6 +1926,7 @@ function purchaseVideoStart(me,videoData) {
 			// $('#loadvideobutton').hide();
 			// console.log(window);
 			// window.location.reload();
+			addOrder(me.id,_videoData.id,_videoData.uploader);
 		}).fail(function() {
 			doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
 		})
@@ -1936,6 +1938,17 @@ function purchaseVideoStart(me,videoData) {
 			// window.location.reload();
 		});
 	}
+}
+
+function addOrder(userid,videoid,creatorid) {
+	dpd.orders.post({"userid":""+userid,"videoid":""+videoid,"creatorid":""+creatorid}, function(result, err) {
+		if(err) {
+			return console.log(err);
+		}
+		// $.mobile.loading( 'hide' );
+		// hideModal();
+		console.log(result, result.id);
+	});
 }
 
 function onGetVideoError(e) {
@@ -2384,6 +2397,7 @@ function resizeElement(elementid) {
 function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 	_thisVideoId = videoId;
 	console.log(videoId);
+	// alert(videoUrl);
 	_thisVideoUrl = videoUrl;
 	console.log(videoUrl);
 	for( vid in _V_.players ){ 
