@@ -2882,5 +2882,7 @@ var showDeleteBar = function(status) {
 function scrollBottom() {
 	$('#page-content').stop().animate({
 		scrollTop: $("#page-content")[0].scrollHeight
-	}, 1000);
+	}, "slow", function() {
+		// animation done
+	});
 }

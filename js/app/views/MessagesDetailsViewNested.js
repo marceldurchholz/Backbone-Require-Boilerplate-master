@@ -202,8 +202,14 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					_thisMessagesDetailsViewNested.$el.append(_.template(MessagesDetailsViewNestedPage, {
 						data: msgArray
 					},{variable: 'messages'}));
-					_thisMessagesDetailsViewNested.$el.trigger('create');
-					$('#messagetextarea').focus();
+					// _thisMessagesDetailsViewNested.$el.trigger('pagecreate');
+					// alert(_thisMessagesDetailsViewNested.$el);
+					// $('#'+msgData.id+'').listview('update');
+					$('#'+msgData.id+'').listview().listview('refresh');
+					scrollBottom();
+					// MessagesDetailsViewListItem
+					// _thisMessagesDetailsViewNested.$el.trigger('create');
+					// $('#messagetextarea').focus();
 					/*
 					alert($("#page-content")[0].scrollHeight);
 					$('#page-content').stop().animate({
@@ -257,10 +263,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 						
 						// $('.ui-content').scrollTop($('#MessagesDetailsViewDiv').height()); // $('#MessagesDetailsViewDiv').height()
 						// $('#page-content').scroll(function () {
-						$('#page-content').stop().animate({
-						  scrollTop: $("#page-content")[0].scrollHeight
-						}, 1000);
-						
+						scrollBottom();
 					});
 					  // Do something after 2 seconds
 				}, 1000);
