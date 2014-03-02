@@ -203,7 +203,10 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 						data: msgArray
 					},{variable: 'messages'}));
 					_thisMessagesDetailsViewNested.$el.trigger('create');
-					scrollBottom();
+					alert($("#page-content")[0].scrollHeight);
+					$('#page-content').stop().animate({
+						scrollTop: $("#page-content")[0].scrollHeight
+					}, 8000);
 					
 					// console.log(bla);
 
