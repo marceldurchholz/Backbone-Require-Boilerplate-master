@@ -9,8 +9,8 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 			el: "#MessagesDetailsNestedViewDiv",
 			initialize: function() {
 				console.log('initializing MessagesDetailsViewNested.js');
-				this.$el.hide();
-				showModal();
+				// this.$el.hide();
+				// showModal();
 			},
 			showReceiverPanel: function() {
 				_thisMessagesDetailsViewNested = this;
@@ -199,6 +199,11 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					console.log(msgData);
 					msgArray = new Array;
 					msgArray.push(msgData);
+					
+					_thisMessagesDetailsViewNested.messages.push(msgData);
+					_thisMessagesDetailsViewNested.render();
+					
+					/*
 					_thisMessagesDetailsViewNested.$el.append(_.template(MessagesDetailsViewNestedPage, {
 						data: msgArray
 					},{variable: 'messages'}));
@@ -206,10 +211,9 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					// alert(_thisMessagesDetailsViewNested.$el);
 					// $('#'+msgData.id+'').listview('update');
 					$('#'+msgData.id+'').listview().listview('refresh');
-					// scrollBottom();
-					// $.mobile.silentScroll(9999999);
-					var id = 'page-content';
-					document.getElementById(id).scrollTop=document.getElementById(id).scrollHeight;
+					scrollBottom();
+					*/
+					
 					// MessagesDetailsViewListItem
 					// _thisMessagesDetailsViewNested.$el.trigger('create');
 					// $('#messagetextarea').focus();
@@ -238,40 +242,37 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				// _thisMessagesDetailsViewNested.htmlContent = '';
 				// _thisMessagesDetailsViewNested.htmlContent = _thisMessagesDetailsViewNested.messages;
 				if (_thisMessagesView.options.id!=0) {
-					$('#innerHeader').html($('#receiver'));
-					_thisMessagesDetailsViewNested.$el.html(_.template(MessagesDetailsViewNestedPage, {
-						data: _thisMessagesDetailsViewNested.messages
-					},{variable: 'messages'}));
+					// $('#innerHeader').html($('#receiver'));
 					$('#messageFooter').html(_.template(FooterPersistentPage, {
 						receiver: _thisMessagesDetailsViewNested.receiver
 					},{variable: 'data'})).trigger('create'); // '<div data-role="navbar"><ul><li>blafoo</li></ul></div>'
 					$('#messagetextarea').css({'max-height':'40px'});
+					_thisMessagesDetailsViewNested.$el.html(_.template(MessagesDetailsViewNestedPage, {
+						data: _thisMessagesDetailsViewNested.messages
+					},{variable: 'messages'})).trigger('create'); // .listview().listview('refresh'); // 
+					// alert('a');
 					// $('#messagetextarea').height(40);
 					// $('#messagetextarea').elastic();
 					// $('#messagetextarea').attr("overflow", "scroll");
 					// $('#messagetextarea').trigger('update');
 				}
 
-				hideModal();
-				_thisMessagesDetailsViewNested.$el.trigger('create');
+				// alert('b');
+				// hideModal();
+				// _thisMessagesDetailsViewNested.$el.trigger('create');
 				// fontResize();
-				new FastClick(document.body);
-
+				
 				setTimeout(function() {
 					_thisMessagesDetailsViewNested.$el.fadeIn( 500, function() {
 						// $('.ui-content').scrollTop(0);
 						// alert($('#MessagesDetailsNestedViewDiv').height()-$(window).height());
 						// alert($('#flexiblecontent').height());
-						// $('#flexiblecontent').attr("height", "auto");
+						new FastClick(document.body);
+						$('#page-content').attr("height", "auto");
 						
 						// $('.ui-content').scrollTop($('#MessagesDetailsViewDiv').height()); // $('#MessagesDetailsViewDiv').height()
 						// $('#page-content').scroll(function () {
-						// setTimeout(function(){$.mobile.silentScroll(8000);}, 1000); 
-						// alert($('#page-content').height());
-						// $.mobile.silentScroll($('#page-content').height());
-						var id = 'page-content';
-						document.getElementById(id).scrollTop=document.getElementById(id).scrollHeight;
-						// scrollBottom();
+						scrollBottom();
 					});
 					  // Do something after 2 seconds
 				}, 1000);
