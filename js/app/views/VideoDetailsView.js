@@ -208,12 +208,12 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							var offlineurl = "";
 							_thisViewVideoDetails.offlineurl = "";
 							// _thisViewVideoDetails.offlineurl = "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4";
-							alert(_thisViewVideoDetails.options);
+							alert(_thisViewVideoDetails.options.id);
 							if (isMobile.any()) {
 								this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 								this.db.transaction (
 									function(tx) {
-										var sql = "SELECT videourl as videourl FROM videos WHERE videoid='"+_thisViewVideoDetails.options+"'";
+										var sql = "SELECT videourl as videourl FROM videos WHERE videoid='"+_thisViewVideoDetails.options.id+"'";
 										alert(sql);
 										tx.executeSql(sql, 
 											function() {
