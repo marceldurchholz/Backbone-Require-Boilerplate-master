@@ -213,7 +213,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 								this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 								this.db.transaction (
 									function(tx) {
-										var sql = "SELECT videourl as videourl FROM videos WHERE videoid='"+options.id+"'";
+										var sql = "SELECT videourl as videourl FROM videos WHERE videoid='"+_thisViewVideoDetails.options+"'";
+										alert(sql);
 										tx.executeSql(sql, 
 											function() {
 												alert('ERROR ON SELECT videourl');
