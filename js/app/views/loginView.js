@@ -304,7 +304,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewLogin.nestedView = new SidemenuView().fetch();
 					_thisViewLogin.$el.html(_.template(loginPage, {}));
-					hideModal();
+					// hideModal();
 					new FastClick(document.body);
 					this.$el.trigger('create');
 					elementResizeByScreenHeight();

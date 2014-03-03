@@ -2655,12 +2655,31 @@ var menuSwitched = function(status) {
 	});
 };
 
+function timeoutwarning() {
+	// console.log(window.system.modaltimeout);
+	window.system.modaltimeout = window.system.modaltimeout - 1;
+}
 function showModal(){
 	// if ($('.modalWindow')) return(false);
+	console.log('showModal');
+	window.system.modaltimeout = 5000;
+	window.clearInterval(window.modaltimeoutvar);
+	window.modaltimeoutvar = window.setInterval(function() {
+		console.log(window.system.modaltimeout);
+		window.system.modaltimeout = window.system.modaltimeout - 1000;
+		if (window.system.modaltimeout<=0) {
+			var breaktoDashboardText = '<br>Die Aktion dauert dauert ungewöhnlich lang.<br><br><u style="cursor:pointer;">abbrechen</u>';
+			$('#breaktoDashboard').html(breaktoDashboardText);
+			$('#breaktoDashboard').show();
+			window.clearInterval(window.modaltimeoutvar);
+			window.system.modaltimeout = 0;
+		}
+	},1000);
 	$("#body").append('<div class="modalWindow"/>');
 	var breakLoading = '';
-	if (window.system.contentHelper==1) breakLoading = 'ausblenden';	
-	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div class="blink_me" style="text-align:center;float:none;clear:both;">APPinaut lädt...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div><div id="modaltxt" style="text-align:center;float:none;clear:both;color:#909090;"><a class="breaktoDashboard">'+breakLoading+'</a></div>' });
+	// if (window.system.contentHelper==1) breakLoading = 'ausblenden';
+	breakLoading = 'ausblenden';
+	$.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div class="blink_me" style="text-align:center;float:none;clear:both;">APPinaut lädt...</div><div id="modaltxt" style="text-align:center;float:none;clear:both;"></div><div id="modaltxt" style="text-align:center;float:none;clear:both;color:#909090;"><a class="breaktoDashboard" id="breaktoDashboard" style="display:none;">'+breakLoading+'</a></div>' });
 	$(".breaktoDashboard").off('click').on('click',function(event){
 		// alert('bla');
 		hideModal();
@@ -2671,7 +2690,9 @@ function showModal(){
 	// setTimeout('hideModal()', 60000);
 }
 
-function hideModal(){
+function hideModal() {
+	window.clearInterval(window.modaltimeoutvar);
+	window.system.modaltimeout = 0;
 	$(".modalWindow").remove();
 	$.mobile.loading( 'hide' );
 }
@@ -2679,6 +2700,7 @@ function hideModal(){
 var system = {
 	contentHelper: 0,
 	timestamp: 0,
+	modaltimeout: 0,
 	// this.routerSwitched(false);
 	toggleLoading: function(status) {
 		console.log(status);
