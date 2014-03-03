@@ -297,6 +297,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						$('#password').val('blafoo');
 						$('#username').val('test@digitalverve.de');
 					}
+					$('#password').focus();
+					$('#username').focus();
 				},
 				render: function() {
 					console.log('DOING render Videos.js called');
