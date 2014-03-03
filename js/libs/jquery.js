@@ -7820,19 +7820,17 @@ jQuery.ajaxTransport(function( options ) {
 									xhr.statusText
 								);
 							} else {
-								if (xhr.status!=404) {
-									complete(
-										xhrSuccessStatus[ xhr.status ] || xhr.status,
-										xhr.statusText,
-										// Support: IE9
-										// #11426: When requesting binary data, IE9 will throw an exception
-										// on any attempt to access responseText
-										typeof xhr.responseText === "string" ? {
-											text: xhr.responseText
-										} : undefined,
-										xhr.getAllResponseHeaders()
-									);
-								}
+								complete(
+									xhrSuccessStatus[ xhr.status ] || xhr.status,
+									xhr.statusText,
+									// Support: IE9
+									// #11426: When requesting binary data, IE9 will throw an exception
+									// on any attempt to access responseText
+									typeof xhr.responseText === "string" ? {
+										text: xhr.responseText
+									} : undefined,
+									xhr.getAllResponseHeaders()
+								);
 							}
 						}
 					};
@@ -7846,7 +7844,6 @@ jQuery.ajaxTransport(function( options ) {
 				// This may raise an exception which is actually
 				// handled in jQuery.ajax (so no try/catch here)
 				xhr.send( options.hasContent && options.data || null );
-				
 			},
 			abort: function() {
 				if ( callback ) {
