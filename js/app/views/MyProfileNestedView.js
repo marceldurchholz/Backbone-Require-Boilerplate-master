@@ -9,6 +9,8 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 			initialize: function() {
 				var _thisViewMyProfileNested = this;
 				console.log('initializing MyProfileNestedView.js');
+				_thisViewMyProfileNested.$el.hide();
+				showModal();
 				// _thisViewMyProfileNested.me = window.me;
 				_thisViewMyProfileNested.initialized = window.me;
 				dpd.users.me(function(me) {
@@ -65,8 +67,6 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 			fetch: function() {	
 				_thisViewMyProfileNested = this;
 				console.log('fetching MyProfileNestedView.js');
-				this.$el.hide();
-				showModal();
 			},
 			changeInputValue: function(e) {
 				/*
@@ -191,7 +191,15 @@ define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 					console.log("purchasing "+iapid);
 					// window.storekit.purchase("com.digitalverve.APPinaut."+iapid,1);
 					showModal();
-					window.storekit.purchase(iapid,1);
+					if (isMobile.any()) { 
+						window.storekit.purchase(iapid,1);
+					}
+					else {
+						console.log('window.storekit.purchase not available when not mobile');
+						_thisViewMyProfileNested.initialize();
+						hideModal();
+						
+					}
 					// window.storekit.purchase("com.digitalverve.APPinaut.250APP359T9", 1);
 					// window.storekit.purchase("com.digitalverve.APPinaut.250APP359T9");
 				});
