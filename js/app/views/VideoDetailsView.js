@@ -169,7 +169,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				},
 				fetch: function(options) {
 					var _thisViewVideoDetails = this;
-					this.$el.hide();
+					// this.$el.hide();
 					showModal();
 					// console.log(options.id);
 					_thisViewVideoDetails.getVideo(options);
@@ -177,6 +177,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				getVideo: function(options) {
 					var _thisViewVideoDetails = this;
 					// _thisViewVideoDetails.offlineurl = "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4";
+					alert(_thisViewVideoDetails.options);
 					_thisViewVideoDetails.offlineurl = "";
 					if (isMobile.any()) {
 						this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
@@ -185,12 +186,12 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 								var sql = "SELECT videourl as videourl FROM videos WHERE videoid='"+options.id+"'";
 								tx.executeSql(sql, 
 									function() {
-										console.log('ERROR ON SELECT videourl');
+										alert('ERROR ON SELECT videourl');
 									},
 									function(tx, results) {
 										var offlineurl = results.rows.item(0).videourl;
 										_thisViewVideoDetails.offlineurl = offlineurl;
-										_thisViewVideoDetails.getCollection(options);
+										_thisViewVideoDetails.getCollection(_thisViewVideoDetails.options);
 									}
 								);
 							}
