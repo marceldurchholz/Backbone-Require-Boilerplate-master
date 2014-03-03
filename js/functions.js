@@ -1889,7 +1889,7 @@ function purchaseVideoStart(me,videoData) {
 		_me = me;
 		if (_me.purchases==undefined) _me.purchases = new Array();
 		console.log('_me.purchases actual');
-		// console.log(_me.purchases);
+		console.log(_me.purchases);
 	}).fail(function() {
 		doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
 	})
@@ -1902,7 +1902,7 @@ function purchaseVideoStart(me,videoData) {
 	}
 	else {
 		if (_me.purchases==undefined) _me.purchases = new Array();
-		// console.log(me.purchases);
+		console.log(me.purchases);
 		// me.push( videoData.id );
 		// var el = new Object();
 		// el.value = videoData.id;

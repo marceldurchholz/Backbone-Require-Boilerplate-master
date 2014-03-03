@@ -275,7 +275,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					hideModal();
 					new FastClick(document.body);
 					this.$el.trigger('create');
-					this.$el.trigger('create');
 					// elementResizeByScreenHeight();
 					// fontResize();
 					new FastClick(document.body);
