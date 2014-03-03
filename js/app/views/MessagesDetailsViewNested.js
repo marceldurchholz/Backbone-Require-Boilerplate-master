@@ -8,9 +8,11 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 			
 			el: "#MessagesDetailsNestedViewDiv",
 			initialize: function() {
+				_thisMessagesDetailsViewNested = this;
 				console.log('initializing MessagesDetailsViewNested.js');
 				// this.$el.hide();
 				// showModal();
+				_thisMessagesDetailsViewNested.bindEvents();
 			},
 			showReceiverPanel: function() {
 				_thisMessagesDetailsViewNested = this;
@@ -178,6 +180,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					window.location.href = event.currentTarget.hash;
 				});
 				*/
+				dpd.messages.off('create');
 				dpd.messages.on('create', function(msgData) {
 					// console.log(msgData.id);
 					// console.log(msgData);
@@ -201,7 +204,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					msgArray.push(msgData);
 					
 					_thisMessagesDetailsViewNested.messages.push(msgData);
-					_thisMessagesDetailsViewNested.initialize();
+					_thisMessagesDetailsViewNested.fetch();
 					
 					/*
 					_thisMessagesDetailsViewNested.$el.append(_.template(MessagesDetailsViewNestedPage, {
@@ -235,7 +238,6 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 
 			},
 			render: function() {
-				this.bindEvents();
 				var _thisMessagesDetailsViewNested = this;
 				console.log('DOING render MessagesDetailsViewNested.js called');
 				
@@ -258,7 +260,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				}
 
 				// alert('b');
-				// hideModal();
+				hideModal();
 				// _thisMessagesDetailsViewNested.$el.trigger('create');
 				// fontResize();
 				

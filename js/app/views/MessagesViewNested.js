@@ -100,7 +100,8 @@ define(["jquery", "backbone", "text!templates/MessagesViewNestedPage.html"],
 					event.preventDefault();
 					window.location.href = event.currentTarget.hash;
 				});
-				dpd.messages.once('create', function(msgData) {
+				dpd.messages.off('create');
+				dpd.messages.on('create', function(msgData) {
 					_thisMessagesViewNested.fetch();
 				});
 			},
