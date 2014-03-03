@@ -32,7 +32,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				*/
 				console.log(me.id);
 				// var query = {"sponsor":me.id,"active":true,"deleted":false};
-				var query = {$or:[{"sponsor":me.id},{"followers":me.id}],$sort:{fullname:1}};
+				var query = {$fields: {id: 1, fullname: 1}, $or:[{"sponsor":me.id},{"followers":me.id}],$sort:{fullname:1}};
 				dpd.users.get(query, function (contactsArray,err) {
 				// dpd.users.get(function (contactsArray, err) {
 					if(err) {
@@ -73,7 +73,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					// dpd.messages.get(_thisMessagesView.options.id, function (result) {
 					var query = { "id":_thisMessagesView.options.id , $limit: 1 };
 					dpd.users.get(query, function (receiver) {
-						console.log(receiver);
+						// console.log(receiver);
 						_thisMessagesView.options.id = receiver.id;
 
 						if (receiver) dpd.users.me(function(me) {
@@ -84,7 +84,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 								// if (result.receiver==window.me.id) _thisMessagesDetailsViewNested.receiver = result.sender;
 								// else _thisMessagesDetailsViewNested.receiver = result.receiver;
 								_thisMessagesDetailsViewNested.receiver = receiver.id;
-								var query = {  $or:[{"sender":receiver.id,"receiver":me.id}  ,  {"sender":me.id,"receiver":receiver.id}]  ,$sort:{cdate:1}};
+								var query = { $or:[{"sender":receiver.id,"receiver":me.id}  ,  {"sender":me.id,"receiver":receiver.id}]  ,$sort:{cdate:1}};
 								// var query = {  $or:[{"sender":result.sender,"receiver":result.receiver}  ,  {"sender":result.receiver,"receiver":result.sender}] };
 								dpd.messages.get(query, function (allmessagesdata) {
 									// console.log(allmessagesdata);
