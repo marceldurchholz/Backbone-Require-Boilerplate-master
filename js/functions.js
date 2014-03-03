@@ -2897,9 +2897,12 @@ var showDeleteBar = function(status) {
 };
 
 function scrollBottom() {
-	$('#page-content').stop().animate({
-		scrollTop: $("#page-content")[0].scrollHeight
-	}, "slow", function() {
-		// animation done
-	});
+	// $('#page-content').stop().animate({
+	setTimeout(function() {
+		$('#page-content').animate({
+			scrollTop: $("#page-content")[0].scrollHeight
+		}, "slow", function() {
+			// animation done
+		});
+	}, 1000);
 }
