@@ -429,7 +429,6 @@ define(["jquery", "backbone", "collections/videosCollection", "models/videoModel
 				},
 				render: function() {
 					_thisViewVideoDetails = this;
-					console.log('rendering');
 					$(window).resize(function() {
 						window.resizeElement('#video_player_1')
 					});
@@ -468,8 +467,12 @@ define(["jquery", "backbone", "collections/videosCollection", "models/videoModel
 					this.$el.trigger('create');
 					new FastClick(document.body);
 					
+					var maxstrings = 0;
+					maxstrings = Math.round($(window).width()/11)-3;
+					// alert(maxstrings);
+					
 					_thisViewVideoDetails.title_shorten = _thisViewVideoDetails.videosArray[0].title;
-					if (_thisViewVideoDetails.title_shorten.length>25) _thisViewVideoDetails.title_shorten = _thisViewVideoDetails.title_shorten.substr(0,25)+'...';
+					if (_thisViewVideoDetails.title_shorten.length>maxstrings) _thisViewVideoDetails.title_shorten = _thisViewVideoDetails.title_shorten.substr(0,maxstrings)+'...';
 					
 					this.$el.fadeIn( 500, function() {
 						$('.ui-content').scrollTop(0);
@@ -477,11 +480,11 @@ define(["jquery", "backbone", "collections/videosCollection", "models/videoModel
 						fontResize();
 						// alert($('.readmore').html());
 						$('.readmore').expander({
-							slicePoint: 100,
+							slicePoint: maxstrings*5,
 							preserveWords: true,
 							expandPrefix: '...',
 							expandEffect: 'fadeIn',
-							expandSpeed: 250,
+							expandSpeed: 500,
 							collapseEffect: 'fadeOut',
 							collapseSpeed: 200,
 							expandText: ' Weiterlesen...',
@@ -493,7 +496,7 @@ define(["jquery", "backbone", "collections/videosCollection", "models/videoModel
 							preserveWords: false,
 							expandPrefix: '',
 							expandEffect: 'fadeIn',
-							expandSpeed: 250,
+							expandSpeed: 500,
 							collapseEffect: 'fadeOut',
 							collapseSpeed: 200,
 							expandText: _thisViewVideoDetails.title_shorten,

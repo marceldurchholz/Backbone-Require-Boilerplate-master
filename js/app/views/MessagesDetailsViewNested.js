@@ -33,7 +33,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				console.log(me.id);
 				// var query = {"sponsor":me.id,"active":true,"deleted":false};
 				// var query = {$fields: {id: 1, fullname: 1}, $or:[{"sponsor":me.id},{"followers":me.id}],$sort:{fullname:1}};
-				var query = {$or:[{"sponsor":me.id},{"followers":me.id}],$sort:{fullname:1}};
+				var query = {$or:[{"sponsor":me.id},{"followers":me.id}],active:true,deleted:false,$sort:{fullname:1}};
 				dpd.users.get(query, function (contactsArray,err) {
 				// dpd.users.get(function (contactsArray, err) {
 					if(err) {
