@@ -194,6 +194,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							}
 						);
 					}
+					alert(_thisViewVideoDetails.offlineurl);
 					/*
 					else {
 						_thisViewVideoDetails.offlineurl = "/var/myurl/nsdfsnk.mp4";
