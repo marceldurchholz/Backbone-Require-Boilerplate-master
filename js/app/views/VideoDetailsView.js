@@ -1,8 +1,8 @@
 // VideoDetailsView.js
 // -------
-define(["jquery", "backbone", "collections/videosCollection", "text!templates/videoDetailsView.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
+define(["jquery", "backbone", "collections/videosCollection", "models/videoModel", "text!templates/videoDetailsView.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
 
-    function($, Backbone, videosCollection, videosDetailsViewHTML, sidemenusList, SidemenuView){
+    function($, Backbone, videosCollection, VideoModel, videosDetailsViewHTML, sidemenusList, SidemenuView){
 		
 			var VideoDetailsViewVar = Backbone.View.extend({
 			
@@ -157,7 +157,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						}
 					);
 				},
-				
+				/*
 				initializeCollection:function(options) {
 					dpd.users.me(function(user) {
 						if (user) {
@@ -167,6 +167,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					});
 					this._videosCollection = new videosCollection([], options);
 				},
+				*/
 				fetch: function(options) {
 					var _thisViewVideoDetails = this;
 					// this.$el.hide();
@@ -177,23 +178,54 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				getVideo: function(options) {
 					var _thisViewVideoDetails = this;
 					_thisViewVideoDetails.getCollection(_thisViewVideoDetails.options);
-					/*
-					else {
-						_thisViewVideoDetails.offlineurl = offlineurl;
-						_thisViewVideoDetails.getCollection(_thisViewVideoDetails.options);
+				},
+				getOfflineUrl: function(options) {
+					_thisViewVideoDetails = this;
+					alert(options.id);
+					_thisViewVideoDetails.offlineurl = "";
+					_thisViewVideoDetails.videosArray[0].offlineurl = "";
+					if (isMobile.any()) {
+						this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
+						this.db.transaction (
+							function(tx) {
+								var sql = "SELECT videourl as videourl FROM videos WHERE videoid='"+_thisViewVideoDetails.options.id+"'";
+								alert(sql);
+								tx.executeSql(sql, 
+									function() {
+										alert('ERROR ON SELECT videourl');
+									},
+									function(tx, results) {
+										var offlineurl = results.rows.item(0).videourl;
+										_thisViewVideoDetails.offlineurl = offlineurl;
+										_thisViewVideoDetails.videosArray[0].offlineurl = _thisViewVideoDetails.offlineurl;
+										alert('gotten _thisViewVideoDetails.offlineurl ' + _thisViewVideoDetails.offlineurl);
+										_thisViewVideoDetails.render();
+									}
+								);
+							}
+						);
 					}
-					*/
-					/*
 					else {
-						_thisViewVideoDetails.offlineurl = "/var/myurl/nsdfsnk.mp4";
+						_thisViewVideoDetails.render();
 					}
-					alert(_thisViewVideoDetails.offlineurl);
-					*/
-					
-					// return(false);
 				},
 				getCollection: function(options) {
 					_thisViewVideoDetails = this;
+					// var query = {  active: true, followers: {$in: [me.id]}, id:toid };
+					var query = { id: options.id, active:true, deleted:false };
+					dpd.videos.get(query, function (result,err) {
+						if(err) {
+							console.log('dpd videos get failure');
+						}
+						_thisViewVideoDetails.videosArray = new Array;
+						_thisViewVideoDetails.videosArray.push(result);
+						// console.log(_thisViewVideoDetails.videosArray);
+						_thisViewVideoDetails.getOfflineUrl(_thisViewVideoDetails.options);
+						// this._videosCollection = new videosCollection([], options);
+						// _thisCollectionVideos.add(model);
+					});
+
+					/*
 					_thisViewVideoDetails.initializeCollection(options);
 					_thisViewVideoDetails._videosCollection.fetch({
 						error: function(action, coll) {
@@ -203,8 +235,6 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						success: function(coll, jsoncoll) {
 							// console.log(coll);
 							// console.log(jsoncoll);
-							
-							
 							var offlineurl = "";
 							_thisViewVideoDetails.offlineurl = "";
 							// _thisViewVideoDetails.offlineurl = "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4";
@@ -231,12 +261,13 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							}
 							// alert(_thisViewVideoDetails.offlineurl);
 						}
-					});					
+					});		
+					*/
 				},
 				buyVideo: function(videoid) {
 					_thisViewVideoDetails = this;
 					// _thisConfirmButtonLabels = ('Preise anzeigen,Abbrechen').split(",");
-					var CreditsAfterPurchase = parseFloat(this._videosCollection.user.credits) - parseFloat(this._videosCollection.models[0].attributes.price);
+					var CreditsAfterPurchase = parseFloat(window.me.credits) - parseFloat(_thisViewVideoDetails.videosArray[0].price);
 					if (CreditsAfterPurchase<0) {
 						// doAlert('Sie haben nicht genügend Credits.','Schade...');
 						doConfirm('Sie haben nicht genügend APPinaut® Coins.', 'Schade...', function (event) { 
@@ -248,7 +279,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						return(false);
 					}
 					else {
-						purchaseVideoConfirm(this._videosCollection.user,this._videosCollection.models[0].attributes);
+						purchaseVideoConfirm(window.me,_thisViewVideoDetails.videosArray[0]);
 					}
 				},
 				initialize: function(options) {
@@ -343,8 +374,9 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					// _thisViewLearningStreamNested.render();
 				},
 				
-				insertVariables: function(model) {
+				insertVariables: function(videoarray) {
 					_thisViewVideoDetails = this;
+					var model = new VideoModel(videoarray);
 					var uploader = model.get('uploader');
 					// console.log(this.id);
 					if (uploader==window.me.id) {
@@ -379,7 +411,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						id: model.get('id'),
 						uploaderdata: _thisViewVideoDetails.uploaderdata,
 						uploader: _thisViewVideoDetails.uploaderdata.fullname,
-						me_credits: this._videosCollection.user.credits,
+						me_credits: window.me.credits,
 						videourl: model.get('videourl'),
 						offlineurl: model.get('offlineurl'),
 						topic: model.get('topic'),
@@ -388,7 +420,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						price: model.get('price'),
 						seeker: seeker,
 						provider: provider,
-						purchases: this._videosCollection.user.purchases,
+						purchases: window.me.purchases,
 						pricetext: pricetext,
 						thumbnailurl: model.get('thumbnailurl'),
 						related: _thisViewVideoDetails.collectRelatedData(model.get('topic'))
@@ -405,47 +437,38 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewVideoDetails.nestedView = new SidemenuView().fetch();
 					
-					if( $.inArray( this._videosCollection.models[0].attributes.id , window.me.purchases ) >- 1 ) {
-						this._videosCollection.models[0].attributes.videourl,showVideoLength = 0;
+					if( $.inArray( _thisViewVideoDetails.videosArray[0].id , window.me.purchases ) >- 1 ) {
+						_thisViewVideoDetails.videosArray[0].videourl,showVideoLength = 0;
 					} else {
-						this._videosCollection.models[0].attributes.videourl,showVideoLength = 60;
-						// alert('not buyed');
+						_thisViewVideoDetails.videosArray[0].videourl,showVideoLength = 60;
 					}
-					// _thisViewVideoDetails.offlineurl
-					// alert(showVideoLength);
-					/*
-					if (_thisViewVideoDetails.offlineurl!='') {
-						// alert(_thisViewVideoDetails.offlineurl);
-						this._videosCollection.models[0].attributes.videourl = _thisViewVideoDetails.offlineurl;
-						$('#downloadvideobutton').hide();
-					}
-					*/
 					
-					alert(_thisViewVideoDetails.offlineurl);
-					this._videosCollection.models[0].attributes.offlineurl = _thisViewVideoDetails.offlineurl;
+					alert(_thisViewVideoDetails.videosArray[0].offlineurl);
+					_thisViewVideoDetails.videosArray[0].offlineurl = _thisViewVideoDetails.offlineurl;
 
 					var htmlContent = '';
 					$(this.el).html(htmlContent);
+					
+					// console.log(_thisViewVideoDetails.videosArray[0]);
+					
+					/*
 					_.each(this._videosCollection.models, function(model) {
 						this.id = model.get('id');
 						this.videourl = model.get('id');
 						_thisViewVideoDetails.insertVariables(model);
 					});
-					// console.log('this._videosCollection.models[0].attributes.videourl');
-					// console.log(this._videosCollection.models[0].attributes.videourl);
-					// alert(showVideoLength);
-					// console.log(window.me.purchases);
-					// console.log(this._videosCollection.models[0].attributes.id);
-					// alert($.inArray( this._videosCollection.models[0].attributes.id , window.me.purchases ));
-					if (this._videosCollection.models[0].attributes.offlineurl!='') this._videosCollection.models[0].attributes.videourl = this._videosCollection.models[0].attributes.offlineurl;
-					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',this._videosCollection.models[0].attributes.videourl,showVideoLength);
-					// alert(_thisViewVideoDetails.videourl);
-					// alert(this._videosCollection.models[0].attributes.videourl);
+					*/
+					_thisViewVideoDetails.insertVariables(_thisViewVideoDetails.videosArray[0]);
+					
+					
+					if (_thisViewVideoDetails.videosArray[0].offlineurl!='') _thisViewVideoDetails.videosArray[0].videourl = _thisViewVideoDetails.videosArray[0].offlineurl;
+					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',_thisViewVideoDetails.videosArray[0].videourl,showVideoLength);
+
 					hideModal();
 					this.$el.trigger('create');
 					new FastClick(document.body);
 					
-					_thisViewVideoDetails.title_shorten = this._videosCollection.models[0].attributes.title;
+					_thisViewVideoDetails.title_shorten = _thisViewVideoDetails.videosArray[0].title;
 					if (_thisViewVideoDetails.title_shorten.length>25) _thisViewVideoDetails.title_shorten = _thisViewVideoDetails.title_shorten.substr(0,25)+'...';
 					
 					this.$el.fadeIn( 500, function() {
