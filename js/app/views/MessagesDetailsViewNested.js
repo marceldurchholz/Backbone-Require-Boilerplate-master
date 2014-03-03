@@ -206,7 +206,10 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					// alert(_thisMessagesDetailsViewNested.$el);
 					// $('#'+msgData.id+'').listview('update');
 					$('#'+msgData.id+'').listview().listview('refresh');
-					scrollBottom();
+					// scrollBottom();
+					// $.mobile.silentScroll(9999999);
+					var id = 'page-content';
+					document.getElementById(id).scrollTop=document.getElementById(id).scrollHeight;
 					// MessagesDetailsViewListItem
 					// _thisMessagesDetailsViewNested.$el.trigger('create');
 					// $('#messagetextarea').focus();
@@ -263,7 +266,12 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 						
 						// $('.ui-content').scrollTop($('#MessagesDetailsViewDiv').height()); // $('#MessagesDetailsViewDiv').height()
 						// $('#page-content').scroll(function () {
-						scrollBottom();
+						// setTimeout(function(){$.mobile.silentScroll(8000);}, 1000); 
+						// alert($('#page-content').height());
+						// $.mobile.silentScroll($('#page-content').height());
+						var id = 'page-content';
+						document.getElementById(id).scrollTop=document.getElementById(id).scrollHeight;
+						// scrollBottom();
 					});
 					  // Do something after 2 seconds
 				}, 1000);
