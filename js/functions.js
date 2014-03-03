@@ -932,7 +932,7 @@ function debugModeEnabled(){
 function report(logtype,msg){
     try{
 		// alert(logtype + ': ' + msg);
-        // console.log(logtype + ': ' + msg);
+        console.log(logtype + ': ' + msg);
     }catch(e){ 
         // give up
     }            
@@ -1871,14 +1871,14 @@ function purchaseVideoStart(me,videoData) {
 	var creditsAfterPurchase = parseFloat(me.credits) - parseFloat(videoData.price);
 	this._videoData = videoData;
 	this._creditsAfterPurchase = creditsAfterPurchase;
-	report(creditsAfterPurchase,'creditsAfterPurchase');
+	console.log(creditsAfterPurchase,'creditsAfterPurchase');
 	// return(false);
 	// alert('Video ' + videoData.id + ' wird über User ID ' + me.id + 'gekauft. Sie haben nun '+creditsAfterPurchase+' Credits.');
 	var data = new Object();
 	data.credits = ''+creditsAfterPurchase;
 	data.purchases = me.purchases;
 	this._newData = data;
-	report(_newData.purchases);
+	console.log(_newData.purchases);
 	
 	this._me = me;
 	$.ajax('http://dominik-lohmann.de:5000/users/?id='+me.id,{
@@ -1888,7 +1888,7 @@ function purchaseVideoStart(me,videoData) {
 		// doAlert( "DONE!" );
 		_me = me;
 		if (_me.purchases==undefined) _me.purchases = new Array();
-		report('_me.purchases actual');
+		console.log('_me.purchases actual');
 		// console.log(_me.purchases);
 	}).fail(function() {
 		doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
@@ -2388,7 +2388,7 @@ function createOptionsEl(name, values, selectionDefault) {
 //* DEBUG */ window.console.log('js/global.js loaded...');
 
 function resizeElement(elementid) {
-	report('resizeElement: '+elementid);
+	console.log('resizeElement: '+elementid);
 	// var thumbnail_width = this.$el.outerWidth();
 	var elwidth = $(elementid).width();
 	// console.log(elwidth);
@@ -2413,15 +2413,15 @@ function resizeElement(elementid) {
 
 function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 	_thisVideoId = videoId;
-	report(videoId);
+	console.log(videoId);
 	// alert(videoUrl);
 	_thisVideoUrl = videoUrl;
-	report(videoUrl);
+	console.log(videoUrl);
 	for( vid in _V_.players ){ 
-		report('>>> '+vid.toString()); 
+		console.log('>>> '+vid.toString()); 
 		if(vid.toString() == "video_player_1"){ 
 		   delete _V_.players[vid] 
-		   report('deteleted');
+		   console.log('deteleted');
 		} 
 	}
 	var myvideoJS = videojs("video_player_1", { "controls": true, "autoplay": false, "preload": "off" }, function(){});
