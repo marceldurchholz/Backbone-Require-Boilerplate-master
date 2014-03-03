@@ -1926,7 +1926,10 @@ function purchaseVideoStart(me,videoData) {
 			// $('#loadvideobutton').hide();
 			// console.log(window);
 			// window.location.reload();
-			addOrder(me.id,_videoData.id,_videoData.uploader);
+			
+			addFollower(_videoData.uploader, me.id);
+			
+			addOrder(me.id,_videoData.id,_videoData.uploader,_videoData.price);
 		}).fail(function() {
 			doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
 		})
@@ -1940,8 +1943,22 @@ function purchaseVideoStart(me,videoData) {
 	}
 }
 
-function addOrder(userid,videoid,creatorid) {
-	dpd.orders.post({"userid":""+userid,"videoid":""+videoid,"creatorid":""+creatorid}, function(result, err) {
+function addFollower(toid,meid) {
+	// var query = {id:toid,$or:[{"sponsor":me.id},{"followers":me.id}],$sort:{fullname:1}};
+	var query = {  followers: {$in: [me.id]}, id:toid };
+	dpd.users.get(query, function (result,err) {
+		if(err) {
+			// alert(meid + ' is not yet follower from ' + toid);
+			dpd.users.put(toid, {"followers": {$push:$.trim(meid)}} );
+			// return console.log(err);
+		}
+		// alert(meid + ' IS ALREADY follower from ' + toid);
+		// console.log(result);
+	});
+}
+
+function addOrder(userid,videoid,creatorid,price) {
+	dpd.orders.post({"userid":""+userid,"videoid":""+videoid,"creatorid":""+creatorid,"price":""+price}, function(result, err) {
 		if(err) {
 			return console.log(err);
 		}
