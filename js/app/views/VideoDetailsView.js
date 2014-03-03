@@ -208,7 +208,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							var offlineurl = "";
 							_thisViewVideoDetails.offlineurl = "";
 							// _thisViewVideoDetails.offlineurl = "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4";
-							alert(_thisViewVideoDetails.options.id);
+							// alert(_thisViewVideoDetails.options.id);
 							if (isMobile.any()) {
 								this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 								this.db.transaction (
@@ -222,14 +222,14 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 											function(tx, results) {
 												var offlineurl = results.rows.item(0).videourl;
 												_thisViewVideoDetails.offlineurl = offlineurl;
+												alert('gotten offlineurl ' + offlineurl);
+												_thisViewVideoDetails.render();
 											}
 										);
 									}
 								);
 							}
-							alert(_thisViewVideoDetails.offlineurl);
-
-							_thisViewVideoDetails.render();
+							// alert(_thisViewVideoDetails.offlineurl);
 						}
 					});					
 				},
