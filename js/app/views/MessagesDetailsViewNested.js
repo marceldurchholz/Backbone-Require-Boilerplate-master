@@ -164,7 +164,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 									for (i=_thisMessagesDetailsViewNested.messages.length-1;i>_thisMessagesDetailsViewNested.messages.length-20;i--) {
 										// _thisMessagesDetailsViewNested.messages.splice (1, i);
 										// console.log(i);
-										_thisMessagesDetailsViewNested.messages[i].visible = '1'; // (1, i);
+										if (_thisMessagesDetailsViewNested.messages[i]!=undefined) _thisMessagesDetailsViewNested.messages[i].visible = '1'; // (1, i);
 									}
 									_thisMessagesDetailsViewNested.render();
 									
@@ -273,6 +273,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				// _thisMessagesDetailsViewNested.$el.trigger('create');
 				// fontResize();
 				
+				/*
 				setTimeout(function() {
 					_thisMessagesDetailsViewNested.$el.fadeIn( 500, function() {
 						// $('.ui-content').scrollTop(0);
@@ -287,6 +288,9 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					});
 					  // Do something after 2 seconds
 				}, 100);
+				*/
+				new FastClick(document.body);
+				scrollBottom();
 				return this;				
 			}
 		});

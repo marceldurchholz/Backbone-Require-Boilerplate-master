@@ -7849,7 +7849,7 @@ jQuery.ajaxTransport(function( options ) {
 				try {
 					xhr.send( options.hasContent && options.data || null );
 				} catch (e) {
-					console.log(e);
+					// console.log(e);
 				}
 				
 			},
