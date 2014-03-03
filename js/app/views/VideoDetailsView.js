@@ -176,34 +176,13 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				},
 				getVideo: function(options) {
 					var _thisViewVideoDetails = this;
-					var offlineurl = "";
-					_thisViewVideoDetails.offlineurl = "";
-					// _thisViewVideoDetails.offlineurl = "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4";
-					alert(_thisViewVideoDetails.options);
-					_thisViewVideoDetails.offlineurl = "";
-					if (isMobile.any()) {
-						this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
-						this.db.transaction (
-							function(tx) {
-								var sql = "SELECT videourl as videourl FROM videos WHERE videoid='"+options.id+"'";
-								tx.executeSql(sql, 
-									function() {
-										alert('ERROR ON SELECT videourl');
-									},
-									function(tx, results) {
-										var offlineurl = results.rows.item(0).videourl;
-										_thisViewVideoDetails.offlineurl = offlineurl;
-										_thisViewVideoDetails.getCollection(_thisViewVideoDetails.options);
-									}
-								);
-							}
-						);
-					}
+					_thisViewVideoDetails.getCollection(_thisViewVideoDetails.options);
+					/*
 					else {
 						_thisViewVideoDetails.offlineurl = offlineurl;
 						_thisViewVideoDetails.getCollection(_thisViewVideoDetails.options);
 					}
-					
+					*/
 					/*
 					else {
 						_thisViewVideoDetails.offlineurl = "/var/myurl/nsdfsnk.mp4";
@@ -224,6 +203,31 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						success: function(coll, jsoncoll) {
 							// console.log(coll);
 							// console.log(jsoncoll);
+							
+							
+							var offlineurl = "";
+							_thisViewVideoDetails.offlineurl = "";
+							// _thisViewVideoDetails.offlineurl = "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4";
+							alert(_thisViewVideoDetails.options);
+							if (isMobile.any()) {
+								this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
+								this.db.transaction (
+									function(tx) {
+										var sql = "SELECT videourl as videourl FROM videos WHERE videoid='"+options.id+"'";
+										tx.executeSql(sql, 
+											function() {
+												alert('ERROR ON SELECT videourl');
+											},
+											function(tx, results) {
+												var offlineurl = results.rows.item(0).videourl;
+												_thisViewVideoDetails.offlineurl = offlineurl;
+											}
+										);
+									}
+								);
+							}
+							alert(_thisViewVideoDetails.offlineurl);
+
 							_thisViewVideoDetails.render();
 						}
 					});					
