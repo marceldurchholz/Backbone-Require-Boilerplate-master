@@ -87,6 +87,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					if (isMobile.any()) window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 						// console.log('starting downloadVideo c');
 						var downloadPath = fs.root.fullPath + "/"+videoid+".mp4";
+						alert(downloadPath);
 						// console.log(downloadPath);
 						uri = $('#video_player_1_html5_api').attr("src");
 						// alert('uri: ' + uri);
@@ -170,7 +171,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					var _thisViewVideoDetails = this;
 					this.$el.hide();
 					showModal();
-					console.log(options.id);
+					// console.log(options.id);
 					_thisViewVideoDetails.getVideo(options);
 				},
 				getVideo: function(options) {
@@ -184,17 +185,18 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 								var sql = "SELECT videourl as videourl FROM videos WHERE videoid='"+options.id+"'";
 								tx.executeSql(sql, 
 									function() {
-										alert('ERROR ON SELECT videourl');
+										console.log('ERROR ON SELECT videourl');
 									},
 									function(tx, results) {
 										var offlineurl = results.rows.item(0).videourl;
 										_thisViewVideoDetails.offlineurl = offlineurl;
+										_thisViewVideoDetails.getCollection(options);
 									}
 								);
 							}
 						);
 					}
-					alert(_thisViewVideoDetails.offlineurl);
+					
 					/*
 					else {
 						_thisViewVideoDetails.offlineurl = "/var/myurl/nsdfsnk.mp4";
@@ -203,6 +205,9 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					*/
 					
 					// return(false);
+				},
+				getCollection: function(options) {
+					_thisViewVideoDetails = this;
 					_thisViewVideoDetails.initializeCollection(options);
 					_thisViewVideoDetails._videosCollection.fetch({
 						error: function(action, coll) {
@@ -403,6 +408,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						$('#downloadvideobutton').hide();
 					}
 					*/
+					
+					alert(_thisViewVideoDetails.offlineurl);
 					this._videosCollection.models[0].attributes.offlineurl = _thisViewVideoDetails.offlineurl;
 
 					var htmlContent = '';

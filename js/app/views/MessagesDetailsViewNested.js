@@ -32,18 +32,19 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				*/
 				console.log(me.id);
 				// var query = {"sponsor":me.id,"active":true,"deleted":false};
-				var query = {$fields: {id: 1, fullname: 1}, $or:[{"sponsor":me.id},{"followers":me.id}],$sort:{fullname:1}};
+				// var query = {$fields: {id: 1, fullname: 1}, $or:[{"sponsor":me.id},{"followers":me.id}],$sort:{fullname:1}};
+				var query = {$or:[{"sponsor":me.id},{"followers":me.id}],$sort:{fullname:1}};
 				dpd.users.get(query, function (contactsArray,err) {
 				// dpd.users.get(function (contactsArray, err) {
 					if(err) {
 						_thisMessagesDetailsViewNested.render();
 						return console.log(err);
 					}
-					console.log(contactsArray);
+					// console.log(contactsArray);
 					$('#MessagesDetailsViewDiv').html(_.template(MessagesReceiverPanelViewNestedPage, {
 						data: contactsArray
 					},{variable: 'contacts'}));
-					console.log(contactsArray);
+					// console.log(contactsArray);
 					// $('#MessagesDetailsViewDiv').height(window.innerHeight-150);
 					$('#MessagesDetailsViewDiv').trigger('create');
 					_thisMessagesDetailsViewNested.render();
