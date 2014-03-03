@@ -176,6 +176,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				},
 				getVideo: function(options) {
 					var _thisViewVideoDetails = this;
+					var offlineurl = "";
+					_thisViewVideoDetails.offlineurl = "";
 					// _thisViewVideoDetails.offlineurl = "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4";
 					alert(_thisViewVideoDetails.options);
 					_thisViewVideoDetails.offlineurl = "";
@@ -196,6 +198,10 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 								);
 							}
 						);
+					}
+					else {
+						_thisViewVideoDetails.offlineurl = offlineurl;
+						_thisViewVideoDetails.getCollection(_thisViewVideoDetails.options);
 					}
 					
 					/*
