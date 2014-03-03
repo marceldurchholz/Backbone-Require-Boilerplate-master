@@ -201,7 +201,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					msgArray.push(msgData);
 					
 					_thisMessagesDetailsViewNested.messages.push(msgData);
-					_thisMessagesDetailsViewNested.render();
+					_thisMessagesDetailsViewNested.initialize();
 					
 					/*
 					_thisMessagesDetailsViewNested.$el.append(_.template(MessagesDetailsViewNestedPage, {
