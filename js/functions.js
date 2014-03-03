@@ -2651,24 +2651,20 @@ var menuSwitched = function(status) {
 	menuSwitchedDeferred.resolve();
 	menuSwitchedDeferredWatcher.done(function( value ) {
 		// alert(value);
-		console.log(value);
+		// console.log(value);
 	});
 };
 
-function timeoutwarning() {
-	// console.log(window.system.modaltimeout);
-	window.system.modaltimeout = window.system.modaltimeout - 1;
-}
 function showModal(){
 	// if ($('.modalWindow')) return(false);
-	console.log('showModal');
-	window.system.modaltimeout = 5000;
+	// console.log('showModal');
+	window.system.modaltimeout = 30000;
 	window.clearInterval(window.modaltimeoutvar);
 	window.modaltimeoutvar = window.setInterval(function() {
-		console.log(window.system.modaltimeout);
+		// console.log(window.system.modaltimeout);
 		window.system.modaltimeout = window.system.modaltimeout - 1000;
 		if (window.system.modaltimeout<=0) {
-			var breaktoDashboardText = '<br>Die Aktion dauert ungewöhnlich lange.<br><br><u style="cursor:pointer;">abbrechen</u>';
+			var breaktoDashboardText = '<br>Die Aktion<br>dauert ungewöhnlich lange.<br><br><u style="cursor:pointer;">ausblenden</u>';
 			$('#breaktoDashboard').html(breaktoDashboardText);
 			$('#breaktoDashboard').show();
 			window.clearInterval(window.modaltimeoutvar);
@@ -2925,6 +2921,7 @@ function scrollBottom() {
 			scrollTop: $("#page-content")[0].scrollHeight
 		}, "fast", function() {
 			// animation done
+			$('#page-content').focus();
 		});
 	}, 1000);
 }

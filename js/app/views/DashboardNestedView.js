@@ -26,13 +26,15 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 				// var query = "";
 				dpd.messages.get(query, function(messagesdata) {
 					if (messagesdata) {
-						console.log(messagesdata.length);
+						// console.log(messagesdata.length);
 						_thisViewDashboardNested.me.newmsgs = messagesdata.length;
 						// return(false);
+						messagesdata.length = 0;
 						_thisViewDashboardNested.render();
 					}
 					else {
-						alert('error ? ! ?');
+						messagesdata.length = 0;
+						// alert('error ? ! ?');
 						// console.log('you are not logged in');
 					}
 				});
@@ -98,7 +100,8 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 					id: _thisViewDashboardNested.me.id
 					, pictureurl: _thisViewDashboardNested.me.pictureurl
 					, fullname: _thisViewDashboardNested.me.fullname
-					, newmsgs: _thisViewDashboardNested.me.newmsgs
+					// , newmsgs: _thisViewDashboardNested.me.newmsgs
+					, newmsgs: 0
 				},{variable: 'user'});
 				$(this.el).html(htmlContent);
 				hideModal();

@@ -137,6 +137,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 										
 									
 										
+									/*
 									$.each(_thisMessagesDetailsViewNested.messages,function(key4,message4) {
 										var groupArr = new Array();
 										if ($.inArray(me.id, _thisMessagesDetailsViewNested.messages[key4].readby)==-1) {
@@ -154,9 +155,16 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 											});
 										}
 									});
+									*/
 									
 									// console.log(_thisMessagesDetailsViewNested.messages);
 									
+									// alert(_thisMessagesDetailsViewNested.messages.length);
+									for (i=_thisMessagesDetailsViewNested.messages.length-1;i>_thisMessagesDetailsViewNested.messages.length-20;i--) {
+										// _thisMessagesDetailsViewNested.messages.splice (1, i);
+										// console.log(i);
+										_thisMessagesDetailsViewNested.messages[i].visible = '1'; // (1, i);
+									}
 									_thisMessagesDetailsViewNested.render();
 									
 								});
