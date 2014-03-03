@@ -2668,7 +2668,7 @@ function showModal(){
 		console.log(window.system.modaltimeout);
 		window.system.modaltimeout = window.system.modaltimeout - 1000;
 		if (window.system.modaltimeout<=0) {
-			var breaktoDashboardText = '<br>Die Aktion dauert dauert ungewöhnlich lang.<br><br><u style="cursor:pointer;">abbrechen</u>';
+			var breaktoDashboardText = '<br>Die Aktion dauert ungewöhnlich lange.<br><br><u style="cursor:pointer;">abbrechen</u>';
 			$('#breaktoDashboard').html(breaktoDashboardText);
 			$('#breaktoDashboard').show();
 			window.clearInterval(window.modaltimeoutvar);
@@ -2923,7 +2923,7 @@ function scrollBottom() {
 	setTimeout(function() {
 		$('#page-content').animate({
 			scrollTop: $("#page-content")[0].scrollHeight
-		}, "slow", function() {
+		}, "fast", function() {
 			// animation done
 		});
 	}, 1000);

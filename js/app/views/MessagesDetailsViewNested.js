@@ -277,7 +277,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 						scrollBottom();
 					});
 					  // Do something after 2 seconds
-				}, 1000);
+				}, 100);
 				return this;				
 			}
 		});
