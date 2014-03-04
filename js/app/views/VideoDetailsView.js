@@ -139,7 +139,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				},
 				fetch: function(options) {
 					var _thisViewVideoDetails = this;
-					this.$el.hide();
+					// this.$el.hide();
 					showModal();
 					console.log(options.id);
 					_thisViewVideoDetails.getVideo(options);
@@ -351,11 +351,22 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 									sql
 									, function(tx, rs) {
 										alert('sucess');
+										_thisViewVideoDetails.show();
 									}
 									, function(tx, error) {
 										alert('error');
+										_thisViewVideoDetails.show();
 									}
 								);
+								  setTimeout(function() {
+									// alert("received url: " + url);
+									// alert("received url");
+									// success('a','b');
+									// alert('not mobile');
+									alert();
+									_thisViewVideoDetails.show();
+								  }, 1000);
+
 								alert('tx done');
 							}
 						);
@@ -366,9 +377,30 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							// alert("received url");
 							// success('a','b');
 							alert('not mobile');
+							_thisViewVideoDetails.show();
 						  }, 3000);
 					}
 					return $def.promise();
+				},
+				show: function() {
+						_thisViewVideoDetails = this;
+						var htmlContent = '';
+						$(_thisViewVideoDetails.el).html(htmlContent);
+						_.each(_thisViewVideoDetails._videosCollection.models, function(model) {
+							_thisViewVideoDetails.id = model.get('id');
+							_thisViewVideoDetails.videourl = model.get('id');
+							_thisViewVideoDetails.insertVariables(model);
+						});
+						console.log('bla');
+						console.log(_thisViewVideoDetails._videosCollection.models[0].attributes);
+						// console.log(_thisViewVideoDetails._videosCollection.models[0].attributes);
+						// console.log(_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl);
+						if (_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl!='' && _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl!=undefined) {
+							_thisViewVideoDetails._videosCollection.models[0].attributes.videourl = _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl;
+						}
+						window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',_thisViewVideoDetails._videosCollection.models[0].attributes.videourl,showVideoLength);
+						_thisViewVideoDetails.$el.trigger('create');
+						new FastClick(document.body);
 				},
 				render: function() {
 					_thisViewVideoDetails = this;
