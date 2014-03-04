@@ -260,16 +260,15 @@ var dao = {
 	},
 		
 	findVideoById: function(id) {
+		var deferred = $.Deferred();
 		if (isMobile.any()) {
-			var deferred = $.Deferred();
 			this.db.transaction(
 				function (tx) {
-
 					var sql = "SELECT v.videoid, v.videourl " +
 						"FROM employee v " +
 						"WHERE v.id=:id";
-					alert(sql);
-					alert(id);
+					// alert(sql);
+					// alert(id);
 					tx.executeSql(sql, [id], function (tx, results) {
 						deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
 					});
@@ -279,11 +278,14 @@ var dao = {
 					deferred.reject("Transaction Error: " + error.message);
 				}
 			);
-			return deferred.promise();
 		}
 		else {
-			return("returnvalue");
+			deferred.resolve("returnvalue");
+			setTimeout(function() {
+				deferred.resolve("returnvalue");
+			}, 3000);
 		}
+		return deferred.promise();
 	},
 	
 	createTables: function() {

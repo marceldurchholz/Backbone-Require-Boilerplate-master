@@ -333,8 +333,18 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				getOfflineUrl: function() {
 					_thisViewVideoDetails = this;
 					window.dao.initialize();
-					var bla = window.dao.findVideoById(_thisViewVideoDetails.options.id);
-					alert(bla);
+					window.dao.findVideoById(_thisViewVideoDetails.options.id).done(function(result) {
+						alert('done');
+						alert(result);
+						alert(result.videourl);
+						_thisViewVideoDetails.show();
+						console.log(result);
+						_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = "";
+						if (result!=null && result!=undefined) {
+							_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = result.videourl;
+						}
+					});
+					// _thisViewVideoDetails.show();
 					/*
 					_thisViewVideoDetails = this;
 					_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = "";
@@ -408,6 +418,13 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						if (_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl!='' && _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl!=undefined) {
 							_thisViewVideoDetails._videosCollection.models[0].attributes.videourl = _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl;
 						}
+						
+						if( $.inArray( _thisViewVideoDetails._videosCollection.models[0].attributes.id , window.me.purchases ) >- 1 ) {
+							_thisViewVideoDetails._videosCollection.models[0].attributes.videourl,showVideoLength = 0;
+						} else {
+							_thisViewVideoDetails._videosCollection.models[0].attributes.videourl,showVideoLength = 60;
+						}
+
 						window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',_thisViewVideoDetails._videosCollection.models[0].attributes.videourl,showVideoLength);
 						_thisViewVideoDetails.$el.trigger('create');
 						new FastClick(document.body);
@@ -457,12 +474,6 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewVideoDetails.nestedView = new SidemenuView().fetch();
 					
-					if( $.inArray( _thisViewVideoDetails._videosCollection.models[0].attributes.id , window.me.purchases ) >- 1 ) {
-						_thisViewVideoDetails._videosCollection.models[0].attributes.videourl,showVideoLength = 0;
-					} else {
-						_thisViewVideoDetails._videosCollection.models[0].attributes.videourl,showVideoLength = 60;
-					}
-
 					hideModal();
 					
 					_thisViewVideoDetails.title_shorten = _thisViewVideoDetails._videosCollection.models[0].attributes.title;
