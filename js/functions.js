@@ -292,12 +292,14 @@ var dao = {
 	createTables: function() {
 		this.db.transaction(
 			function(tx) { 
-				tx.executeSql("CREATE TABLE IF NOT EXISTS users ( username VARCHAR(255) PRIMARY KEY, password VARCHAR(255))");
+				// tx.executeSql("CREATE TABLE IF NOT EXISTS users ( username VARCHAR(255) PRIMARY KEY, password VARCHAR(255))");
 				tx.executeSql("CREATE TABLE IF NOT EXISTS videos ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))");
 			},
-			function() { alert('ERROR ON Tables CREATE local SQLite database'); },
 			function() { 
-				// alert('SUCCESS Tables CREATE local SQLite database'); 
+				alert('ERROR ON Tables CREATE local SQLite database'); 
+			},
+			function() { 
+				alert('SUCCESS Tables CREATE local SQLite database'); 
 				// websqlReady.resolve("initialize done"); 
 			}
 		);
