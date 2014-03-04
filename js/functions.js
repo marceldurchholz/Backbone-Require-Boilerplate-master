@@ -265,7 +265,7 @@ var dao = {
 			this.db.transaction(
 				function (tx) {
 					var sql = "SELECT v.videoid, v.videourl " +
-						"FROM employee v " +
+						"FROM videos v " +
 						"WHERE v.id=:id";
 					// alert(sql);
 					// alert(id);
