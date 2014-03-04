@@ -367,8 +367,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 									// alert("received url");
 									// success('a','b');
 									// alert('not mobile');
-									alert(rs);
-									alert(rs.videourl);
+									// alert(rs);
+									// alert(rs.videourl);
 									_thisViewVideoDetails.show();
 								  }, 1000);
 
@@ -389,6 +389,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					return $def.promise();
 				},
 				show: function() {
+						alert('doing show()');
 						_thisViewVideoDetails = this;
 						var htmlContent = '';
 						$(_thisViewVideoDetails.el).html(htmlContent);
@@ -408,6 +409,38 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',_thisViewVideoDetails._videosCollection.models[0].attributes.videourl,showVideoLength);
 						_thisViewVideoDetails.$el.trigger('create');
 						new FastClick(document.body);
+						
+						_thisViewVideoDetails.$el.fadeIn( 500, function() {
+							$('.ui-content').scrollTop(0);
+							new FastClick(document.body);
+							fontResize();
+							// alert($('.readmore').html());
+							$('.readmore').expander({
+								slicePoint: 100,
+								preserveWords: true,
+								expandPrefix: '...',
+								expandEffect: 'fadeIn',
+								expandSpeed: 500,
+								collapseEffect: 'fadeOut',
+								collapseSpeed: 400,
+								expandText: ' Weiterlesen...',
+								userCollapseText: '',
+								userCollapse: false
+							});
+							$('.readmoretitle').expander({
+								slicePoint: 0,
+								preserveWords: false,
+								expandPrefix: '',
+								expandEffect: 'fadeIn',
+								expandSpeed: 500,
+								collapseEffect: 'fadeOut',
+								collapseSpeed: 400,
+								expandText: _thisViewVideoDetails.title_shorten,
+								userCollapseText: '',
+								userCollapse: false
+							});
+						});
+						
 				},
 				render: function() {
 					_thisViewVideoDetails = this;
