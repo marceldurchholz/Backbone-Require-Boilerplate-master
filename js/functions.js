@@ -275,7 +275,8 @@ var dao = {
 				},
 				function (error) {
 					alert("Transaction Error: " + error.message);
-					deferred.reject("Transaction Error: " + error.message);
+					// deferred.reject("Transaction Error: " + error.message);
+					deferred.resolve(null);
 				}
 			);
 		}
