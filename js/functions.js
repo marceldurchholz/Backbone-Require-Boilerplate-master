@@ -244,6 +244,7 @@ var dao = {
 			// Testing if the table exists is not needed and is here for logging purpose only. We can invoke createTable
 			// no matter what. The 'IF NOT EXISTS' clause will make sure the CREATE statement is issued only if the table
 			// does not already exist.
+			*/
 			this.db.transaction (
 				function(tx) {
 					tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='videos'", this.txErrorHandler,
@@ -254,7 +255,6 @@ var dao = {
 					// self.sync(renderList);
 				}
 			)
-			*/
 		}
 		// else websqlReady.resolve("initialize done");
 	},
@@ -298,7 +298,7 @@ var dao = {
 			function() { alert('ERROR ON Tables CREATE local SQLite database'); },
 			function() { 
 				// alert('SUCCESS Tables CREATE local SQLite database'); 
-				websqlReady.resolve("initialize done"); 
+				// websqlReady.resolve("initialize done"); 
 			}
 		);
 	},
