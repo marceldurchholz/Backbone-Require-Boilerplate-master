@@ -6,7 +6,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
   function($, Backbone, MobileRouter, LocalStorageAdapter) {
 
-	alert('mobileinit.js');
+	// alert('mobileinit.js');
 	
 	/*
 	$.support.cors = true;

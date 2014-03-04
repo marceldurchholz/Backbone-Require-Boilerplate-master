@@ -1,4 +1,4 @@
-alert('functions.js');
+// alert('functions.js');
 
 var isMobile = {};
 isMobile = {
@@ -691,20 +691,20 @@ var app = {
 	fetchWorking: function() {
 		var setTimeoutWatcher = setTimeout(function foo() {
 			if ( _thisApp.dfd.state() === "pending" ) {
-				_thisApp.dfd.notify( "working... " );
+				// _thisApp.dfd.notify( "working... " );
 				setTimeout( _thisApp.fetchWorking, 100 );
 			}
 		}, 1 );
 	},
 	fetchMe: function() {
 		_thisApp = this;
-		console.log('fetchMe app');
+		// console.log('fetchMe app');
 		_thisApp.dfd = new $.Deferred();
 		_thisApp.fetchWorking();
 		if(!isMobile.any()) {
 			var foox = window.setTimeout(function blax() {
 				_thisApp.dfd.resolve(true);
-			}, 5000);
+			}, 100);
 		}
 		else {
 			// document.addEventListener('load', this.onDeviceReady, false);
@@ -716,13 +716,13 @@ var app = {
 	},
 	fetch: function() {	
 		_thisApp = this;
-		console.log('fetching _thisApp.js');
+		// console.log('fetching _thisApp.js');
 	},
 	receivedEvent: function(event) {
 		alert('deviceready');
 		var foox = window.setTimeout(function blax() {
 			_thisApp.dfd.resolve(true);
-		}, 5000);
+		}, 100);
 		// _thisApp.dfd.resolve(true);		
 	}
 };
