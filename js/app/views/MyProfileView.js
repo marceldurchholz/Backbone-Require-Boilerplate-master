@@ -1,8 +1,8 @@
 // MyProfileView.js
 // -------
-define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/SidemenuView", "text!templates/MyProfileView.html", "views/MyProfileNestedView"],
+define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/SidemenuView", "models/VideoModel", "text!templates/sidebar.html", "collections/usersCollection", "views/MyProfileView", "text!templates/MyProfileView.html", "views/MyProfileNestedView", "models/VideoModel", "text!templates/videosList.html", "views/VideoView"],
 
-    function($, Backbone, sidemenusList, SidemenuView, MyProfilePage, MyProfileNestedView){
+    function($, Backbone, sidemenusList, SidemenuView, VideoModel, sidebar, usersCollection, MyProfileView, MyProfilePage, MyProfileNestedView, VideoModel, videosList, VideoView){
 		
 			var MyProfileViewVar = Backbone.View.extend({
 			
@@ -64,8 +64,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					console.log('DOING render Videos.js called');
 					
 					_thisViewProfile = this;
-					// $('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
-					// _thisViewProfile.nestedView = new SidemenuView().fetch();
+					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
+					_thisViewProfile.nestedView = new SidemenuView().fetch();
 					
 					_thisViewProfile.$el.html(_.template(MyProfilePage, {}));
 					_thisViewProfile.nestedView = new MyProfileNestedView().fetch();
