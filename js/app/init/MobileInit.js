@@ -6,6 +6,8 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
   function($, Backbone, MobileRouter, LocalStorageAdapter) {
 
+	alert('mobileinit.js');
+	
 	/*
 	$.support.cors = true;
 	$.mobile.allowCrossDomainPages = true;
@@ -261,37 +263,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		return(false);
 	});
 	
-	$('#noooooooo-page-content').scroll(function () {
-		// console.log('aaa');
-		$('.fadeWhenOffsite').each(function () {
-			// var opa = ( 100-$(window).scrollTop() )/100;
-			// console.log(opa);
-			var opa = 1;
-			// console.log($(window).scrollTop());
-			// var pos = ($(this).offset().top - $(window).scrollTop());
-			var top = $(this).offset().top;
-			var elheight = $(this).height();
-			// console.log(pos);
-			if (top+50 < 100) {
-				opa = top/100;
-			} else {
-				/*
-				// console.log(bottom);
-				// console.log($(window).height());
-				if (top > $(window).height()-elheight) {
-					// opa = 0.3;
-					opa = top;
-				}
-				else {
-					opa = 1;
-				}
-				*/
-				opa = 1;
-			}
-			$(this).css({'opacity':opa});
-		});
-	});
-	
+	/*
 	$('#page-content').scroll(function () {
 		$('.newmessageform').each(function () {
 			// $(this).height();
@@ -300,6 +272,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			// $(this).css({'opacity':'0.7'});
 		});
 	});
+	*/
 	
 	// resize:false;height: 40px !important;
 
@@ -381,7 +354,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	
 	// $(window).bind('resize', function() {
 	$(window).resize(function() {
-		fontResize();
+		// fontResize();
 	});
 	
   }
