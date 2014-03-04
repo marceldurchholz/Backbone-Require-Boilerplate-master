@@ -94,10 +94,10 @@
 	<gap:plugin name="org.apache.cordova.core.media-capture" />
 	<gap:plugin name="org.apache.cordova.core.console" />
 	<gap:plugin name="org.apache.cordova.core.splashscreen" />
-	<!-- <gap:plugin name="org.apache.cordova.file" /> -->
-	<gap:plugin name="org.apache.cordova.file" version="0.2.3" />
+	<gap:plugin name="org.apache.cordova.file" />
+	<!-- <gap:plugin name="org.apache.cordova.file" version="0.2.3" /> -->
     <gap:plugin name="org.apache.cordova.file-transfer" />	
-	<gap:plugin name="org.apache.cordova.vibration" />
+	<!-- <gap:plugin name="org.apache.cordova.vibration" /> -->
 	<gap:plugin name="cc.fovea.plugins.inapppurchase" />
 	<gap:plugin name="nl.x-services.plugins.insomnia" />
 	

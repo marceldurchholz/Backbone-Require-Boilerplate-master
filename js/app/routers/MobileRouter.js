@@ -6,6 +6,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 
 		var MobileRouter = Backbone.Router.extend({
 
+			/*
 			routerSwitched: function(status) {
 				var routerSwitchedDeferred = $.Deferred();
 				var routerSwitchedDeferredWatcher = routerSwitchedDeferred.then(function( value ) {
@@ -17,7 +18,8 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 					// console.log(value);
 				});
 			},
-            initialize: function() {
+            */
+			initialize: function() {
                 Backbone.history.start();
                 // Tells Backbone to start watching for hashchange events
 				// report('MobileRouter.js','initialize:');

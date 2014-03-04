@@ -1,4 +1,4 @@
-// alert('functions.js');
+alert('functions.js');
 
 var isMobile = {};
 isMobile = {
@@ -699,7 +699,7 @@ var app = {
 	fetchMe: function() {
 		_thisApp = this;
 		console.log('fetchMe app');
-		_thisApp.dfd = new jQuery.Deferred();
+		_thisApp.dfd = new $.Deferred();
 		_thisApp.fetchWorking();
 		if(!isMobile.any()) {
 			var foox = window.setTimeout(function blax() {
@@ -719,7 +719,11 @@ var app = {
 		console.log('fetching _thisApp.js');
 	},
 	receivedEvent: function(event) {
-		_thisApp.dfd.resolve(true);		
+		alert('deviceready');
+		var foox = window.setTimeout(function blax() {
+			_thisApp.dfd.resolve(true);
+		}, 5000);
+		// _thisApp.dfd.resolve(true);		
 	}
 };
 	
