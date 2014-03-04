@@ -9,9 +9,7 @@
 		<div class="clear"></div>
 		<!-- <input style="width:100%;" data-theme="a" no-data-role="none" data-mini="true" type="text" name="username" id="username" value="<%= user.username %>" placeholder="Ihr Benutzername/E-Mail"/> -->
 		<!-- <p><%= user.username %></p> -->
-		<div style="display:none;">
-			<input style="width:100%;" data-theme="a" no-data-role="none" data-mini="true" type="text" name="slogan" id="slogan" value="<%= user.slogan %>" placeholder="Motto oder Slogan"/>
-		</div>
+		<input style="width:100%;" data-theme="a" no-data-role="none" data-mini="true" type="text" name="slogan" id="slogan" value="<%= user.slogan %>" placeholder="Motto oder Slogan"/>
 		<div class="clear"></div>
 	</div>
 	<div style="width:9%;float:right;clear:none;display:inline-block;">
@@ -25,7 +23,7 @@
 </div>
 
 <div class="clear"></div>
-<textarea style="width:100%;height:<%= Math.round($(window).height()/5) %>px;max-height:300px;min-height:80px;" data-theme="a" no-data-role="none" data-mini="true" type="text" placeholder="Informieren Sie die Community! Was begeistert Sie oder welches Wissen macht Sie interessant?" name="perstext" id="perstext"><%= user.perstext %></textarea>
+<textarea style="width:100%;height:10%;" data-theme="a" no-data-role="none" data-mini="true" type="text" placeholder="Helfen Sie den Wissensanbietern. Was begeistert Sie?" name="perstext" id="perstext"><%= user.perstext %></textarea>
 
 <!--
 <%= user.id %> <br>
@@ -64,29 +62,6 @@
 <input type="button" value="Ihr Personal APPinaut®" data-icon="plus" data-theme="b">
 -->
 
-<div data-role="collapsible" data-theme="b" data-content-theme="a">
-	<h6>Interessengebiete auswählen</h6>
-	<!--<legend><h6>Interessengebiete</h6></legend>-->
-	<% console.log(user.interests) %>
-	<% _.each(user.interests, function(interests) { %>
-		<input data-inset="false" <%= interests.checked %> <%= interests.status %> data-mini="true" type="checkbox" name="checkbox-v-<%= interests.id %>" id="checkbox-v-<%= interests.id %>">
-		<label for="checkbox-v-<%= interests.id %>"><%= interests.name %></label>
-	<% }); %>
-
-	<!--
-	<input data-mini="true" type="checkbox" name="checkbox-v-2h" id="checkbox-v-2h"><label for="checkbox-v-2h">Marketing</label>
-	<input checked data-mini="true" type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a"><label for="checkbox-v-2a">Humor</label>
-	<input checked data-mini="true" type="checkbox" name="checkbox-v-2d" id="checkbox-v-2d"><label for="checkbox-v-2d">Persönlichkeitsentwicklung</label>
-	<input data-mini="true" type="checkbox" name="checkbox-v-2f" id="checkbox-v-2f"><label for="checkbox-v-2f">Rhetorik</label>
-	<input checked data-mini="true" type="checkbox" name="checkbox-v-2e" id="checkbox-v-2e"><label for="checkbox-v-2e">Selbstbewußtsein</label>
-	<input data-mini="true" type="checkbox" name="checkbox-v-2b" id="checkbox-v-2b"><label for="checkbox-v-2b">Stimme</label>
-	<input data-mini="true" type="checkbox" name="checkbox-v-2g" id="checkbox-v-2g"><label for="checkbox-v-2g">Suchmaschinenoptimierung</label>
-	<input checked data-mini="true" type="checkbox" name="checkbox-v-2c" id="checkbox-v-2c"><label for="checkbox-v-2c">Verkauf</label>
-	-->
-</div>
-
-<div class="clear"></div>
-
 <div id="restrictedArea">
 
 	<div data-role="collapsible" data-theme="b" data-content-theme="a">
@@ -122,6 +97,28 @@
 
 </div>
 
+<div data-role="collapsible" data-theme="b" data-content-theme="a">
+	<h6>Interessengebiete auswählen</h6>
+	<!--<legend><h6>Interessengebiete</h6></legend>-->
+	<% console.log(user.interests) %>
+	<% _.each(user.interests, function(interests) { %>
+		<input data-inset="false" <%= interests.checked %> <%= interests.status %> data-mini="true" type="checkbox" name="checkbox-v-<%= interests.id %>" id="checkbox-v-<%= interests.id %>">
+		<label for="checkbox-v-<%= interests.id %>"><%= interests.name %></label>
+	<% }); %>
+
+	<!--
+	<input data-mini="true" type="checkbox" name="checkbox-v-2h" id="checkbox-v-2h"><label for="checkbox-v-2h">Marketing</label>
+	<input checked data-mini="true" type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a"><label for="checkbox-v-2a">Humor</label>
+	<input checked data-mini="true" type="checkbox" name="checkbox-v-2d" id="checkbox-v-2d"><label for="checkbox-v-2d">Persönlichkeitsentwicklung</label>
+	<input data-mini="true" type="checkbox" name="checkbox-v-2f" id="checkbox-v-2f"><label for="checkbox-v-2f">Rhetorik</label>
+	<input checked data-mini="true" type="checkbox" name="checkbox-v-2e" id="checkbox-v-2e"><label for="checkbox-v-2e">Selbstbewußtsein</label>
+	<input data-mini="true" type="checkbox" name="checkbox-v-2b" id="checkbox-v-2b"><label for="checkbox-v-2b">Stimme</label>
+	<input data-mini="true" type="checkbox" name="checkbox-v-2g" id="checkbox-v-2g"><label for="checkbox-v-2g">Suchmaschinenoptimierung</label>
+	<input checked data-mini="true" type="checkbox" name="checkbox-v-2c" id="checkbox-v-2c"><label for="checkbox-v-2c">Verkauf</label>
+	-->
+</div>
+
+<div class="clear"></div>
 <hr>
 <div class="clear"></div>
 

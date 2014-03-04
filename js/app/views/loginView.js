@@ -150,31 +150,65 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 										return console.log(err);
 									}
 								}
+								// var uid = user.id;
 								/*
-								var obj = new Object();
-								obj.username = user.username;
-								obj.password = user.password;
-								// alert(user.sponsor);
-								// alert(giftcode);
-								obj.giftcode = giftcode;
-								obj.uid = user.id;
-								var url = 'http://prelaunch002.appinaut.de/secure/external/sendauthmail.php';							
-								$.ajax({
-									type: "POST",
-									url: url,
-									data: obj,
-									cache: false,
-									success: function(response) { 
-										// alert(response);
-										// doAlert('Die Registrierung war erfolgreich. Bitte vervollständige Dein Profil und bestätige Deine E-Mail-Adresse.','Herzlich Willkommen!');
-										_thisViewLogin.sendLogin('#myprofile');
-									},
-									error: function(response) {
-										console.log(response.status + " " + response.statusText);
-										doAlert('Die Registrierung konnte leider nicht durchgeführt werden.','Ups! Entschuldigung.');
-									},
-								});
-								*/
+								{
+									console.log(err);
+									alert(err.errors);
+									if (err=='{"errors":{"username":"is already in use"},"status":400}') {
+										doAlert('Benutzername in Verwendung!','Mhhh..');
+									}
+									// return console.log(err);
+									// console.log(error.message);
+									// doAlert('Bitte versuchen Sie es erneut.','Fehler bei der Registrierung!');
+									// return(false);
+								}
+								*/ 
+								// else {
+								
+									var obj = new Object();
+									obj.username = user.username;
+									obj.password = user.password;
+									// alert(user.sponsor);
+									// alert(giftcode);
+									obj.giftcode = giftcode;
+									obj.uid = user.id;
+									var url = 'http://prelaunch002.appinaut.de/secure/external/sendauthmail.php';							
+									/*
+									this._sponsorData = new Object();
+									$.ajax('http://dominik-lohmann.de:5000/users/?giftcode='+giftcode,{
+										type:"GET",
+										async: false,
+									}).done(function(sponsorData) {
+										// doAlert( "DONE!" );
+										_sponsorData = sponsorData;
+										// console.log('_me.purchases actual');
+										// console.log(_me.purchases);
+									}).fail(function() {
+										doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
+									})
+									.always(function() {
+										// alert( "finished - nw redirecting" );
+									});
+									var sponsor = sponsorData.id; // 'df8a74e899bba811';
+									*/
+
+									$.ajax({
+										type: "POST",
+										url: url,
+										data: obj,
+										cache: false,
+										success: function(response) { 
+											// alert(response);
+											// doAlert('Die Registrierung war erfolgreich. Bitte vervollständige Dein Profil und bestätige Deine E-Mail-Adresse.','Herzlich Willkommen!');
+											_thisViewLogin.sendLogin('#myprofile');
+										},
+										error: function(response) {
+											console.log(response.status + " " + response.statusText);
+											doAlert('Die Registrierung konnte leider nicht durchgeführt werden.','Ups! Entschuldigung.');
+										},
+									});
+								// }
 							});
 						}
 						else {
@@ -188,7 +222,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				},
 				fetch: function() {
 					_thisViewLogin = this;
-					alert('fetch');
 					_thisViewLogin.username = "";
 					_thisViewLogin.password = "";
 					if (isMobile.any() && 1==2) {
@@ -238,10 +271,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				},
 				initialize: function() {
 					var _thisViewLogin = this;
-					alert('initialize');
-					// this.$el.hide();
+					this.$el.hide();
 					showModal();
-					_thisViewLogin.fetch();
+					this.fetch();
 				},
 				toggleGiftcodeInput: function() {
 					$('#giftcodeDiv').hide();
@@ -265,20 +297,17 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						$('#password').val('blafoo');
 						$('#username').val('test@digitalverve.de');
 					}
-					// $('#password').focus();
-					// $('#username').focus();
 				},
 				render: function() {
 					console.log('DOING render Videos.js called');
 					_thisViewLogin = this;
-					alert('render');
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewLogin.nestedView = new SidemenuView().fetch();
 					_thisViewLogin.$el.html(_.template(loginPage, {}));
-					hideModal();
+					// hideModal();
 					new FastClick(document.body);
 					this.$el.trigger('create');
-					// elementResizeByScreenHeight();
+					elementResizeByScreenHeight();
 					// fontResize();
 					new FastClick(document.body);
 					this.$el.fadeIn( 1000, function() {
