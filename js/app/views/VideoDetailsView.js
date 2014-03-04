@@ -336,20 +336,27 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					$(this.el).html(_template);
 				},
 				getOfflineUrl: function() {
+					_thisViewVideoDetails = this;
 					var $def = $.Deferred();
 					if (isMobile.any()) {
+						alert('doing mobile query');
 						this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
+						alert('db opened');
 						this.db.transaction(
 							function(tx) {
+								alert('tx started');
+								var sql = "SELECT videourl as videourl FROM videos WHERE videoid = '"+_thisViewVideoDetails.options.id+"' ";
+								alert(sql);
 								tx.executeSql(
-									"SELECT videourl as videourl FROM videos WHERE videoid = '"+_thisViewVideoDetails.options.id+"' "
+									sql
 									, function(tx, rs) {
 										alert('sucess');
 									}
 									, function(tx, error) {
 										alert('error');
 									}
-								)
+								);
+								alert('tx done');
 							}
 						);
 					}
