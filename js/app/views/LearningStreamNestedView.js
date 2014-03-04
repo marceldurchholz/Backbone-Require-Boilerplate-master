@@ -8,11 +8,18 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			
 			el: "#LearningStreamViewDiv",
 			initialize: function() {
-				showModal();
 				console.log('initializing LearningStreamNestedView.js');
 				var _thisViewLearningStreamNested = this;
+				showModal();
+				_thisViewLearningStreamNested.checkLogin();
 				var streamData = new Array();
 				_thisViewLearningStreamNested.streamData = streamData;
+			},
+			checkLogin:function() {
+				dpd.users.me(function(user) {
+					if (user) { }
+					else system.redirectToUrl('#login');
+				});
 			},
 			fetch: function() {	
 				// alert('bla');
@@ -92,7 +99,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					async: false
 				}).done(function(videoData) {
 					_.each(videoData, function(value, index, list) {
-						var exists = jQuery.inArray( value.topic, _thisViewLearningStreamNested.me.interests );
+						var exists = $.inArray( value.topic, _thisViewLearningStreamNested.me.interests );
 						if (exists>-1 || value.uploader == me.id) {
 							value.ccat = 'video';
 							value.icon = 'images/icon-videos-60.png';
@@ -134,7 +141,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					async: false
 				}).done(function(cardData) {
 					_.each(cardData, function(value, index, list) {
-						var exists = jQuery.inArray( value.topic, _thisViewLearningStreamNested.me.interests )
+						var exists = $.inArray( value.topic, _thisViewLearningStreamNested.me.interests )
 						if (exists>-1) {
 							value.ccat = 'card';
 							value.icon = 'images/icon-cards-60.png';
@@ -148,7 +155,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					async: false
 				}).done(function(planData) {
 					_.each(planData, function(value, index, list) {
-						var exists = jQuery.inArray( value.topic, _thisViewLearningStreamNested.me.interests )
+						var exists = $.inArray( value.topic, _thisViewLearningStreamNested.me.interests )
 						if (exists>-1) {
 							value.ccat = 'plan';
 							value.icon = 'images/icon-planer-60.png';
@@ -190,8 +197,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			render: function() {
 				this.bindEvents();
 				var _thisViewLearningStreamNested = this;
-				console.log(_thisViewLearningStreamNested);
-				console.log('DOING render LearningStreamNestedView.js called');
+				// console.log(_thisViewLearningStreamNested);
+				// console.log('DOING render LearningStreamNestedView.js called');
 				// _thisViewLearningStreamNested.reload();
 				_thisViewLearningStreamNested.$el.html(_.template(LearningStreamNestedPage, {
 					data: _thisViewLearningStreamNested.streamData

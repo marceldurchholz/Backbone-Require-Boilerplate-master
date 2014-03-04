@@ -32,18 +32,19 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				*/
 				console.log(me.id);
 				// var query = {"sponsor":me.id,"active":true,"deleted":false};
-				var query = {$or:[{"sponsor":me.id},{"followers":me.id}],$sort:{fullname:1}};
+				// var query = {$fields: {id: 1, fullname: 1}, $or:[{"sponsor":me.id},{"followers":me.id}],$sort:{fullname:1}};
+				var query = {$or:[{"sponsor":me.id},{"followers":me.id}],active:true,deleted:false,$sort:{fullname:1}};
 				dpd.users.get(query, function (contactsArray,err) {
 				// dpd.users.get(function (contactsArray, err) {
 					if(err) {
 						_thisMessagesDetailsViewNested.render();
 						return console.log(err);
 					}
-					console.log(contactsArray);
+					// console.log(contactsArray);
 					$('#MessagesDetailsViewDiv').html(_.template(MessagesReceiverPanelViewNestedPage, {
 						data: contactsArray
 					},{variable: 'contacts'}));
-					console.log(contactsArray);
+					// console.log(contactsArray);
 					// $('#MessagesDetailsViewDiv').height(window.innerHeight-150);
 					$('#MessagesDetailsViewDiv').trigger('create');
 					_thisMessagesDetailsViewNested.render();
@@ -73,7 +74,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					// dpd.messages.get(_thisMessagesView.options.id, function (result) {
 					var query = { "id":_thisMessagesView.options.id , $limit: 1 };
 					dpd.users.get(query, function (receiver) {
-						console.log(receiver);
+						// console.log(receiver);
 						_thisMessagesView.options.id = receiver.id;
 
 						if (receiver) dpd.users.me(function(me) {
@@ -84,7 +85,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 								// if (result.receiver==window.me.id) _thisMessagesDetailsViewNested.receiver = result.sender;
 								// else _thisMessagesDetailsViewNested.receiver = result.receiver;
 								_thisMessagesDetailsViewNested.receiver = receiver.id;
-								var query = {  $or:[{"sender":receiver.id,"receiver":me.id}  ,  {"sender":me.id,"receiver":receiver.id}]  ,$sort:{cdate:1}};
+								var query = { $or:[{"sender":receiver.id,"receiver":me.id}  ,  {"sender":me.id,"receiver":receiver.id}]  ,$sort:{cdate:1}};
 								// var query = {  $or:[{"sender":result.sender,"receiver":result.receiver}  ,  {"sender":result.receiver,"receiver":result.sender}] };
 								dpd.messages.get(query, function (allmessagesdata) {
 									// console.log(allmessagesdata);
@@ -137,6 +138,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 										
 									
 										
+									/*
 									$.each(_thisMessagesDetailsViewNested.messages,function(key4,message4) {
 										var groupArr = new Array();
 										if ($.inArray(me.id, _thisMessagesDetailsViewNested.messages[key4].readby)==-1) {
@@ -154,9 +156,16 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 											});
 										}
 									});
+									*/
 									
 									// console.log(_thisMessagesDetailsViewNested.messages);
 									
+									// alert(_thisMessagesDetailsViewNested.messages.length);
+									for (i=_thisMessagesDetailsViewNested.messages.length-1;i>_thisMessagesDetailsViewNested.messages.length-20;i--) {
+										// _thisMessagesDetailsViewNested.messages.splice (1, i);
+										// console.log(i);
+										if (_thisMessagesDetailsViewNested.messages[i]!=undefined) _thisMessagesDetailsViewNested.messages[i].visible = '1'; // (1, i);
+									}
 									_thisMessagesDetailsViewNested.render();
 									
 								});
@@ -264,6 +273,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				// _thisMessagesDetailsViewNested.$el.trigger('create');
 				// fontResize();
 				
+				/*
 				setTimeout(function() {
 					_thisMessagesDetailsViewNested.$el.fadeIn( 500, function() {
 						// $('.ui-content').scrollTop(0);
@@ -277,7 +287,10 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 						scrollBottom();
 					});
 					  // Do something after 2 seconds
-				}, 1000);
+				}, 100);
+				*/
+				new FastClick(document.body);
+				scrollBottom();
 				return this;				
 			}
 		});
