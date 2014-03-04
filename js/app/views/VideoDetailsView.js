@@ -356,6 +356,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					_thisViewVideoDetails.title_shorten = _thisViewVideoDetails._videosCollection.models[0].attributes.title;
 					if (_thisViewVideoDetails.title_shorten.length>25) _thisViewVideoDetails.title_shorten = _thisViewVideoDetails.title_shorten.substr(0,25)+'...';
 
+					
 					this.getOfflineUrl = function() {
 						var $d = $.Deferred();
 						if (isMobile.any()) {
@@ -388,8 +389,10 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					};
 					this.getOfflineUrl()
 						.done(function(rs){
+							alert('done');
+							alert(rs);
 							// displayMyResult(rs);
-							_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = rs.videourl;
+							// _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = rs.videourl;
 							var htmlContent = '';
 							$(this.el).html(htmlContent);
 							_.each(_thisViewVideoDetails._videosCollection.models, function(model) {
@@ -397,8 +400,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 								_thisViewVideoDetails.videourl = model.get('id');
 								_thisViewVideoDetails.insertVariables(model);
 							});
-							console.log(_thisViewVideoDetails._videosCollection.models[0].attributes);
-							console.log(_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl);
+							// console.log(_thisViewVideoDetails._videosCollection.models[0].attributes);
+							// console.log(_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl);
 							if (_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl!='' && _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl!=undefined) {
 								_thisViewVideoDetails._videosCollection.models[0].attributes.videourl = _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl;
 							}
@@ -407,8 +410,10 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							new FastClick(document.body);
 						})
 						.fail(function(err){
+							alert('fail');
+							alert(err);
 							// displayMyError(err);
-							_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = _thisViewVideoDetails.offlineurl;
+							// _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = _thisViewVideoDetails.offlineurl;
 							var htmlContent = '';
 							$(_thisViewVideoDetails.el).html(htmlContent);
 							_.each(_thisViewVideoDetails._videosCollection.models, function(model) {
@@ -416,8 +421,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 								_thisViewVideoDetails.videourl = model.get('id');
 								_thisViewVideoDetails.insertVariables(model);
 							});
-							console.log(_thisViewVideoDetails._videosCollection.models[0].attributes);
-							console.log(_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl);
+							// console.log(_thisViewVideoDetails._videosCollection.models[0].attributes);
+							// console.log(_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl);
 							if (_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl!='' && _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl!=undefined) {
 								_thisViewVideoDetails._videosCollection.models[0].attributes.videourl = _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl;
 							}
