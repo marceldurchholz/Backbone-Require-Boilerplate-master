@@ -936,7 +936,7 @@ function debugModeEnabled(){
 function report(logtype,msg){
     try{
 		// alert(logtype + ': ' + msg);
-        console.log(logtype + ': ' + msg);
+        // console.log(logtype + ': ' + msg);
     }catch(e){ 
         // give up
     }            
@@ -2392,7 +2392,7 @@ function createOptionsEl(name, values, selectionDefault) {
 //* DEBUG */ window.console.log('js/global.js loaded...');
 
 function resizeElement(elementid) {
-	console.log('resizeElement: '+elementid);
+	// console.log('resizeElement: '+elementid);
 	// var thumbnail_width = this.$el.outerWidth();
 	var elwidth = $(elementid).width();
 	// console.log(elwidth);
@@ -2417,10 +2417,10 @@ function resizeElement(elementid) {
 
 function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 	_thisVideoId = videoId;
-	console.log(videoId);
+	// console.log(videoId);
 	// alert(videoUrl);
 	_thisVideoUrl = videoUrl;
-	console.log(videoUrl);
+	// console.log(videoUrl);
 	for( vid in _V_.players ){ 
 		console.log('>>> '+vid.toString()); 
 		if(vid.toString() == "video_player_1"){ 

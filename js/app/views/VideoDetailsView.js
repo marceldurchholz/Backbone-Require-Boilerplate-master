@@ -192,13 +192,17 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 									df.resolve(tab);
 								  }
 								  function errCB(tx, e) {
-									df.reject(e);
+									// df.reject(e);
+									console.log(e);
+									df.resolve("");
 								  }
 								}
 
 								querySql("SELECT videourl as videourl FROM videos WHERE videoid='"+options.id+"'").done(function(result) {
 								   alert(result); 
-								   console.log(result); 
+								   console.log(result);
+								   _thisViewVideoDetails.offlineurl = "";
+								   _thisViewVideoDetails.offlineurl = result.videourl;
 								   _thisViewVideoDetails.render();
 								});
 
