@@ -228,7 +228,7 @@ var dao = {
 		// renderList();
 		if (isMobile.any()) {
 			this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
-
+			/*
 			this.db.transaction(
 				function(tx) {
 					// tx.executeSql('DROP TABLE IF EXISTS videos');
@@ -254,10 +254,38 @@ var dao = {
 					// self.sync(renderList);
 				}
 			)
+			*/
 		}
 		// else websqlReady.resolve("initialize done");
 	},
 		
+	findVideoById: function(id) {
+		if (isMobile.any()) {
+			var deferred = $.Deferred();
+			this.db.transaction(
+				function (tx) {
+
+					var sql = "SELECT v.videoid, v.videourl " +
+						"FROM employee v " +
+						"WHERE v.id=:id";
+					alert(sql);
+					alert(id);
+					tx.executeSql(sql, [id], function (tx, results) {
+						deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
+					});
+				},
+				function (error) {
+					alert("Transaction Error: " + error.message);
+					deferred.reject("Transaction Error: " + error.message);
+				}
+			);
+			return deferred.promise();
+		}
+		else {
+			return("returnvalue");
+		}
+	},
+	
 	createTables: function() {
 		this.db.transaction(
 			function(tx) { 
@@ -271,7 +299,7 @@ var dao = {
 			}
 		);
 	},
-	
+
 	fillTable: function() {
 		// alert('filling table');
 		if (isMobile.any()) {

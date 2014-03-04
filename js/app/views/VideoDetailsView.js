@@ -118,10 +118,11 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							// alert('saving into table videos ENDE');
 						},
 						function() {
-							alert('ERROR ON entry saving in TABLE videos');
+							alert('ERROR ON entry saving in TABLE videos: '+query);
 						},
 						function() {
-							// alert('Entry successfully saved in TABLE videos');
+							// alert(query);
+							alert('Entry successfully saved in TABLE videos: '+query);
 							// alert('Table videos successfully FILLED WITH SAMPLES in local SQLite database');
 							// callback();
 						}
@@ -150,15 +151,9 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					_thisViewVideoDetails.initializeCollection(options);
 					_thisViewVideoDetails._videosCollection.fetch({
 						error: function(action, coll) {
-							// console.log(action);
-							// console.log(coll);
 							_thisViewVideoDetails.render();
 						},
 						success: function(coll, jsoncoll) {
-							// console.log(coll);
-							// console.log(jsoncoll);
-							// _thisViewVideoDetails.getOfflineUrl(_options);
-							// _thisViewVideoDetails.render();
 							_thisViewVideoDetails.render();
 						}
 					});					
@@ -337,6 +332,11 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				},
 				getOfflineUrl: function() {
 					_thisViewVideoDetails = this;
+					window.dao.initialize();
+					var bla = window.dao.findVideoById(_thisViewVideoDetails.options.id);
+					alert(bla);
+					/*
+					_thisViewVideoDetails = this;
 					_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = "";
 					var $def = $.Deferred();
 					if (isMobile.any()) {
@@ -369,10 +369,11 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 									// alert('not mobile');
 									// alert(rs);
 									// alert(rs.videourl);
+									alert(rs.videourl);
 									_thisViewVideoDetails.show();
 								  }, 1000);
 
-								alert('tx done');
+								alert('tx end');
 							}
 						);
 					}
@@ -387,6 +388,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						  }, 3000);
 					}
 					return $def.promise();
+					*/
 				},
 				show: function() {
 						alert('doing show()');
@@ -398,8 +400,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							_thisViewVideoDetails.videourl = model.get('id');
 							_thisViewVideoDetails.insertVariables(model);
 						});
-						console.log('bla');
-						console.log(_thisViewVideoDetails._videosCollection.models[0].attributes);
+						// console.log('bla');
+						// console.log(_thisViewVideoDetails._videosCollection.models[0].attributes);
 						// console.log(_thisViewVideoDetails._videosCollection.models[0].attributes);
 						// console.log(_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl);
 						alert('_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl: ' + _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl);
@@ -445,6 +447,9 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				render: function() {
 					_thisViewVideoDetails = this;
 					console.log('rendering');
+					
+					_thisViewVideoDetails.getOfflineUrl();
+					
 					$(window).resize(function() {
 						window.resizeElement('#video_player_1')
 					});
@@ -462,8 +467,6 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					
 					_thisViewVideoDetails.title_shorten = _thisViewVideoDetails._videosCollection.models[0].attributes.title;
 					if (_thisViewVideoDetails.title_shorten.length>25) _thisViewVideoDetails.title_shorten = _thisViewVideoDetails.title_shorten.substr(0,25)+'...';
-					
-					_thisViewVideoDetails.getOfflineUrl();
 					
 					// alert(_thisViewVideoDetails.videourl);
 					// alert(this._videosCollection.models[0].attributes.videourl);
