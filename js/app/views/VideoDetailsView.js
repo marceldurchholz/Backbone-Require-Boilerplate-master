@@ -335,6 +335,34 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					},{variable: 'video'});
 					$(this.el).html(_template);
 				},
+				getOfflineUrl: function() {
+					var $def = $.Deferred();
+					if (isMobile.any()) {
+						this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
+						this.db.transaction(
+							function(tx) {
+								tx.executeSql(
+									"SELECT videourl as videourl FROM videos WHERE videoid = '"+_thisViewVideoDetails.options.id+"' "
+									, function(tx, rs) {
+										alert('sucess');
+									}
+									, function(tx, error) {
+										alert('error');
+									}
+								)
+							}
+						);
+					}
+					else {
+						  setTimeout(function() {
+							// alert("received url: " + url);
+							// alert("received url");
+							// success('a','b');
+							alert('not mobile');
+						  }, 3000);
+					}
+					return $def.promise();
+				},
 				render: function() {
 					_thisViewVideoDetails = this;
 					console.log('rendering');
@@ -356,40 +384,10 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					_thisViewVideoDetails.title_shorten = _thisViewVideoDetails._videosCollection.models[0].attributes.title;
 					if (_thisViewVideoDetails.title_shorten.length>25) _thisViewVideoDetails.title_shorten = _thisViewVideoDetails.title_shorten.substr(0,25)+'...';
 
-					
-					this.getOfflineUrl = function() {
-						var $d = $.Deferred();
-						if (isMobile.any()) {
-							_thisViewVideoDetails.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
-							_thisViewVideoDetails.db.transaction(
-								function(tx) {
-									tx.executeSql(
-										"SELECT videourl as videourl FROM videos WHERE videoid = ?"
-										, _thisViewVideoDetails.options.id
-										, success
-										, error
-									)
-								}
-							);
-						}
-						else {
-							  setTimeout(function() {
-								// alert("received url: " + url);
-								// alert("received url");
-								success('a','b');
-							  }, 3000);
-						}
-						function success(tx, rs) {
-							$d.resolve(rs);
-						}
-						function error(tx, error) {
-							$d.reject(error);
-						}
-						return $d.promise();
-					};
-					this.getOfflineUrl()
+					_thisViewVideoDetails.getOfflineUrl()
 						.done(function(rs){
 							alert('done');
+							/*
 							alert(rs);
 							// displayMyResult(rs);
 							// _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = rs.videourl;
@@ -408,9 +406,11 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',_thisViewVideoDetails._videosCollection.models[0].attributes.videourl,showVideoLength);
 							_thisViewVideoDetails.$el.trigger('create');
 							new FastClick(document.body);
+							*/
 						})
 						.fail(function(err){
 							alert('fail');
+							/*
 							alert(err);
 							// displayMyError(err);
 							// _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = _thisViewVideoDetails.offlineurl;
@@ -429,11 +429,13 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',_thisViewVideoDetails._videosCollection.models[0].attributes.videourl,showVideoLength);
 							_thisViewVideoDetails.$el.trigger('create');
 							new FastClick(document.body);
+							*/
 						});
 					
 					// alert(_thisViewVideoDetails.videourl);
 					// alert(this._videosCollection.models[0].attributes.videourl);
 					
+					/*
 					_thisViewVideoDetails.$el.fadeIn( 500, function() {
 						$('.ui-content').scrollTop(0);
 						new FastClick(document.body);
@@ -465,7 +467,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						});
 					});
 					_thisViewVideoDetails.bindEvents();
-					return _thisViewVideoDetails;
+					*/
+					return this;
 				}
 
 			});
