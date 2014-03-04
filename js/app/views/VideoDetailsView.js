@@ -180,6 +180,29 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 						this.db.transaction (
 							function(tx) {
+							
+								var querySql = function(sql) {
+								  var df = $.Deferred();
+								  tx.executeSql(sql,[],sucessCB, errCB);
+								  function sucessCB(tx, results){  //<--- this results param
+									var tab = [];
+									for(i=0;i<results.length;i++){
+										tab.push(results.row.item(i))
+									}
+									df.resolve(tab);
+								  }
+								  function errCB(tx, e) {
+									df.reject(e);
+								  }
+								}
+
+								querySql("SELECT videourl as videourl FROM videos WHERE videoid='"+options.id+"'").done(function(result) {
+								   alert(result); 
+								   console.log(result); 
+								   _thisViewVideoDetails.render();
+								});
+
+								/*
 								var sql = "SELECT videourl as videourl FROM videos WHERE videoid='"+options.id+"'";
 								tx.executeSql(sql, 
 									function() {
@@ -192,8 +215,12 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 										_thisViewVideoDetails.render();
 									}
 								);
+								*/
 							}
 						);
+					}
+					else {
+						_thisViewVideoDetails.render();
 					}
 
 				},
