@@ -150,6 +150,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 										return console.log(err);
 									}
 								}
+								_thisViewLogin.sendLogin('#myprofile');
 								/*
 								var obj = new Object();
 								obj.username = user.username;
