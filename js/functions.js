@@ -955,8 +955,10 @@ function modifyiOS7StatusBar(){
 				$("#body").css('top', "0px");
 			}
 			else {
-				document.body.style.marginTop = "20px";
-				$("#body").css('top', "20px");
+				// document.body.style.marginTop = "20px";
+				// $("#body").css('top', "20px");
+				document.body.style.marginTop = "0px";
+				$("#body").css('top', "0px");
 			}
 			if (window.device.version && parseFloat(window.device.version) > 7) {
 				// document.body.style.marginTop = "20px";
