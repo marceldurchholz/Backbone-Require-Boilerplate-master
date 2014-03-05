@@ -269,7 +269,7 @@ var dao = {
 					var sql = "SELECT v.videoid, v.videourl " +
 						"FROM videos v " +
 						"WHERE v.videoid=:id";
-					// alert(sql);
+					alert(sql);
 					// alert(id);
 					tx.executeSql(sql, [id], function (tx, results) {
 						deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
@@ -285,8 +285,8 @@ var dao = {
 				},
 				function (error) {
 					alert("Transaction Error: " + error.message);
-					// deferred.reject("Transaction Error: " + error.message);
-					deferred.resolve(null);
+					deferred.reject("Transaction Error: " + error.message);
+					// deferred.resolve(null);
 				}
 			);
 		}

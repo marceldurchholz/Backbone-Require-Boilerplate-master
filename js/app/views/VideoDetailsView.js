@@ -334,11 +334,11 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					_thisViewVideoDetails = this;
 					window.dao.initialize();
 					window.dao.findVideoById(_thisViewVideoDetails.options.id).done(function(result) {
-						alert('done');
-						alert(result);
-						alert(result.videourl);
+						alert('done findVideoById');
+						// alert(result);
+						// alert(result.videourl);
 						_thisViewVideoDetails.show();
-						console.log(result);
+						// console.log(result);
 						_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = "";
 						if (result!=null && result!=undefined) {
 							_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = result.videourl;
