@@ -131,10 +131,11 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				},
 				
 				initializeCollection:function(options) {
+					_thisViewVideoDetails = this;
 					dpd.users.me(function(user) {
 						if (user) {
 							// this._videosCollection.user = user;
-							this.$el.hide();
+							_thisViewVideoDetails.$el.hide();
 						}
 						else system.redirectToUrl('#login');
 					});
@@ -315,6 +316,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						id: model.get('id'),
 						uploaderdata: _thisViewVideoDetails.uploaderdata,
 						uploader: _thisViewVideoDetails.uploaderdata.fullname,
+						uploaderid: model.get('uploader'),
 						me_credits: this._videosCollection.user.credits,
 						videourl: model.get('videourl'),
 						offlineurl: model.get('offlineurl'),

@@ -8,6 +8,42 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 			
 			el: "#MessagesDetailsNestedViewDiv",
 			initialize: function() {
+			
+				/*
+				dpd.messages.get({}, function (arr,err) {
+					if(err) {
+						return console.log(err);
+					}
+					$.each( arr, function( key, message ) {
+						dpd.messages.del(message.id, function (err) {
+						  if(err) console.log(err);
+						});						
+					});
+				});
+
+				dpd.orders.get({}, function (arr,err) {
+					if(err) {
+						return console.log(err);
+					}
+					$.each( arr, function( key, message ) {
+						dpd.orders.del(message.id, function (err) {
+						  if(err) console.log(err);
+						});						
+					});
+				});
+
+				dpd.users.get({}, function (arr,err) {
+					if(err) {
+						return console.log(err);
+					}
+					$.each( arr, function( key, message ) {
+						dpd.users.put(message.id, {"purchases":[], "followers":[], "interests":[], "following":[]}, function (result, err) {
+						  if(err) console.log(err);
+						});						
+					});
+				});
+				*/
+
 				_thisMessagesDetailsViewNested = this;
 				_thisMessagesDetailsViewNested.bindEvents();
 			},
@@ -15,7 +51,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				_thisMessagesDetailsViewNested = this;
 				$('#innerHeader').html('Empfänger auswählen...');
 				var contactsArray = new Array;
-				var query = {$or:[{"sponsor":me.id},{"followers":me.id}],active:true,deleted:false,$sort:{fullname:1}};
+				var query = {$or:[{"sponsor":me.id},{"followers":me.id}],id: {$ne: me.id}, active:true,deleted:false,$sort:{fullname:1}};
 				dpd.users.get(query, function (contactsArray,err) {
 					if(err) {
 						_thisMessagesDetailsViewNested.render();
@@ -62,7 +98,6 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 											if (inArray==true) return(false);
 										});
 										if (inArray==true) _thisMessagesDetailsViewNested.messages[key4].display=1;
-										// else {
 										if (nameArray[_thisMessagesDetailsViewNested.messages[key4].sender]==undefined) {
 											if (_thisMessagesDetailsViewNested.messages[key4].sender==me.id) nameArray[_thisMessagesDetailsViewNested.messages[key4].sender] = me.fullname;
 											else {
@@ -81,6 +116,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 										displayedGroups.push(groupArr);
 									});
 
+									// alert(_thisMessagesDetailsViewNested.messages.length);
 									for (i=_thisMessagesDetailsViewNested.messages.length-1;i>_thisMessagesDetailsViewNested.messages.length-20;i--) {
 										if (_thisMessagesDetailsViewNested.messages[i]!=undefined) _thisMessagesDetailsViewNested.messages[i].visible = '1'; // (1, i);
 									}
