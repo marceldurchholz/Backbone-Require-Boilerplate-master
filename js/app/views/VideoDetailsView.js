@@ -337,12 +337,12 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						alert('done findVideoById');
 						// alert(result);
 						// alert(result.videourl);
-						_thisViewVideoDetails.show();
 						// console.log(result);
 						_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = "";
 						if (result!=null && result!=undefined) {
 							_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = result.videourl;
 						}
+						_thisViewVideoDetails.show();
 					});
 					// _thisViewVideoDetails.show();
 					/*
@@ -415,6 +415,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						// console.log(_thisViewVideoDetails._videosCollection.models[0].attributes);
 						// console.log(_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl);
 						alert('_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl: ' + _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl);
+						alert('_thisViewVideoDetails._videosCollection.models[0].attributes.videourl: ' + _thisViewVideoDetails._videosCollection.models[0].attributes.videourl);
+						
 						if (_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl!='' && _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl!=undefined) {
 							_thisViewVideoDetails._videosCollection.models[0].attributes.videourl = _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl;
 						}
