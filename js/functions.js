@@ -264,9 +264,17 @@ var dao = {
 		if (isMobile.any()) {
 			this.db.transaction(
 				function (tx) {
+					/*
 					var sql = "SELECT v.videoid, v.videourl " +
 						"FROM videos v " +
 						"WHERE v.id=:id";
+					// alert(sql);
+					// alert(id);
+					tx.executeSql(sql, [id], function (tx, results) {
+						deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
+					});
+					*/
+					var sql = "SELECT videourl FROM videos WHERE videoid = '"+id+"' ";
 					// alert(sql);
 					// alert(id);
 					tx.executeSql(sql, [id], function (tx, results) {

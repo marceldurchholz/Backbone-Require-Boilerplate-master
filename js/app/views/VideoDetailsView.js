@@ -429,6 +429,9 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						_thisViewVideoDetails.$el.trigger('create');
 						new FastClick(document.body);
 						
+						_thisViewVideoDetails.title_shorten = _thisViewVideoDetails._videosCollection.models[0].attributes.title;
+						if (_thisViewVideoDetails.title_shorten.length>25) _thisViewVideoDetails.title_shorten = _thisViewVideoDetails.title_shorten.substr(0,25)+'...';
+						
 						_thisViewVideoDetails.$el.fadeIn( 500, function() {
 							$('.ui-content').scrollTop(0);
 							new FastClick(document.body);
@@ -475,9 +478,6 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					_thisViewVideoDetails.nestedView = new SidemenuView().fetch();
 					
 					hideModal();
-					
-					_thisViewVideoDetails.title_shorten = _thisViewVideoDetails._videosCollection.models[0].attributes.title;
-					if (_thisViewVideoDetails.title_shorten.length>25) _thisViewVideoDetails.title_shorten = _thisViewVideoDetails.title_shorten.substr(0,25)+'...';
 					
 					// alert(_thisViewVideoDetails.videourl);
 					// alert(this._videosCollection.models[0].attributes.videourl);
