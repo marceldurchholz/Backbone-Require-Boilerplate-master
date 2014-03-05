@@ -260,26 +260,28 @@ var dao = {
 	},
 		
 	findVideoById: function(id) {
+		alert('outer searching for id: ' + id);
 		var deferred = $.Deferred();
 		if (isMobile.any()) {
 			this.db.transaction(
 				function (tx) {
-					/*
+					alert('inner searching for id: ' + id);
 					var sql = "SELECT v.videoid, v.videourl " +
 						"FROM videos v " +
-						"WHERE v.id=:id";
+						"WHERE v.videoid=:id";
 					// alert(sql);
 					// alert(id);
 					tx.executeSql(sql, [id], function (tx, results) {
 						deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
 					});
-					*/
+					/*
 					var sql = "SELECT videourl FROM videos WHERE videoid = '"+id+"' ";
 					// alert(sql);
 					// alert(id);
 					tx.executeSql(sql, function (tx, results) {
 						deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
 					});
+					*/
 				},
 				function (error) {
 					alert("Transaction Error: " + error.message);
