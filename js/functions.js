@@ -2487,9 +2487,9 @@ function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 		*/
 		// alert(_thisVideoUrl);
 		// alert(_thisVideoUrl.length);
-		alert('_thisVideoUrl' + _thisVideoUrl);
-		alert('_thisVideoUrl.length' + _thisVideoUrl.length);
-		if (_thisVideoUrl.length <= 40) {
+		// alert('_thisVideoUrl: ' + _thisVideoUrl);
+		// alert('_thisVideoUrl.length' + _thisVideoUrl.length);
+		if (_thisVideoUrl.length <= 50) {
 			myPlayer.src([
 				{ type: "video/mp4", src: "http://prelaunch002.appinaut.de/secure/index.php?showvideo="+_thisVideoUrl+".mp4" },
 				{ type: "video/webm", src: "http://prelaunch002.appinaut.de/secure/index.php?showvideo="+_thisVideoUrl+".webm" },
