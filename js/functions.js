@@ -277,7 +277,7 @@ var dao = {
 					var sql = "SELECT videourl FROM videos WHERE videoid = '"+id+"' ";
 					// alert(sql);
 					// alert(id);
-					tx.executeSql(sql, [id], function (tx, results) {
+					tx.executeSql(sql, function (tx, results) {
 						deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
 					});
 				},
