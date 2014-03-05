@@ -2048,10 +2048,10 @@ function getVideoWin(mediaFiles) {
 			// my_media.play();
 			// var blax = JSON.stringify(mediaFiles);
 			// alert(path);
-			// doAlert('Klicken Sie zum Fortsetzen auf weiter.','Aufnahme erfolgreich');
+			doAlert('Klicken Sie zum Fortsetzen auf weiter.','Aufnahme erfolgreich');
 			// doAlert(mediaFiles[i].fullPath,'DEBUG FULLPATH');
 			attachVideoToPlayer(mediaFiles[i].fullPath);
-			_thisViewRecordVideoNested.switchPage();
+			// _thisViewRecordVideoNested.switchPage();
 			// alert('Bitte klicken Sie auf hochladen.');
 		}
 	} catch (e) {
