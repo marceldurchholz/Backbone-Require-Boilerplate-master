@@ -306,10 +306,10 @@ var dao = {
 				tx.executeSql("CREATE TABLE IF NOT EXISTS videos ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))");
 			},
 			function() { 
-				alert('ERROR ON Tables CREATE local SQLite database'); 
+				// alert('ERROR ON Tables CREATE local SQLite database'); 
 			},
 			function() { 
-				alert('SUCCESS Tables CREATE local SQLite database'); 
+				// alert('SUCCESS Tables CREATE local SQLite database'); 
 				// websqlReady.resolve("initialize done"); 
 			}
 		);
@@ -327,10 +327,10 @@ var dao = {
 					alert('filling table INSERT END');
 				},
 				function() {
-					alert('ERROR ON Table videos successfully FILLED WITH SAMPLES in local SQLite database');
+					// alert('ERROR ON Table videos successfully FILLED WITH SAMPLES in local SQLite database');
 				},
 				function() {
-					alert('Table videos successfully FILLED WITH SAMPLES in local SQLite database');
+					// alert('Table videos successfully FILLED WITH SAMPLES in local SQLite database');
 					// callback();
 				}
 			);
@@ -762,7 +762,7 @@ var app = {
 		// console.log('fetching _thisApp.js');
 	},
 	receivedEvent: function(event) {
-		alert('deviceready');
+		// alert('deviceready');
 		var foox = window.setTimeout(function blax() {
 			_thisApp.dfd.resolve(true);
 		}, 100);
