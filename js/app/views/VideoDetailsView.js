@@ -16,7 +16,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						e.preventDefault();
 						// var videoid = $(this).attr('data-videoid');
 						// _thisViewVideoDetails.buyVideo(videoid); 
-						alert($(this).attr('data-id'));
+						// alert($(this).attr('data-id'));
 						var connectionid = $(this).attr('data-id');
 						showModal();
 						dpd.users.put(connectionid, 
@@ -91,7 +91,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						}, 
 						function(error) {
 							console.log(error);
-							doAlert('Da ist etwas schiefgegangen. Die Datei konnte nicht vollständig heruntergeladen werden. Bitte probieren Sie es erneut oder wenden Sie sich an unseren Support. Vielen Dank.','Ups!');						
+							$('#downloadvideobutton').hide();
+							// doAlert('Da ist etwas schiefgegangen. Die Datei konnte nicht vollständig heruntergeladen werden. Bitte probieren Sie es erneut oder wenden Sie sich an unseren Support. Vielen Dank.','Ups!');						
 							// $('#downloadvideobutton').hide();
 							hideModal();
 						});
@@ -118,11 +119,11 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							// alert('saving into table videos ENDE');
 						},
 						function() {
-							alert('ERROR ON entry saving in TABLE videos: '+query);
+							console.log('ERROR ON entry saving in TABLE videos: '+query);
 						},
 						function() {
 							// alert(query);
-							alert('Entry successfully saved in TABLE videos: '+query);
+							console.log('Entry successfully saved in TABLE videos: '+query);
 							// alert('Table videos successfully FILLED WITH SAMPLES in local SQLite database');
 							// callback();
 						}
@@ -334,7 +335,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					_thisViewVideoDetails = this;
 					window.dao.initialize();
 					window.dao.findVideoById(_thisViewVideoDetails.options.id).done(function(result) {
-						alert('done findVideoById');
+						console.log('done findVideoById');
 						// alert(result);
 						// alert(result.videourl);
 						// console.log(result);
@@ -401,7 +402,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					*/
 				},
 				show: function() {
-						alert('doing show()');
+						console.log('doing show()');
 						_thisViewVideoDetails = this;
 						var htmlContent = '';
 						$(_thisViewVideoDetails.el).html(htmlContent);
@@ -414,8 +415,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						// console.log(_thisViewVideoDetails._videosCollection.models[0].attributes);
 						// console.log(_thisViewVideoDetails._videosCollection.models[0].attributes);
 						// console.log(_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl);
-						alert('_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl: ' + _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl);
-						alert('_thisViewVideoDetails._videosCollection.models[0].attributes.videourl: ' + _thisViewVideoDetails._videosCollection.models[0].attributes.videourl);
+						console.log('_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl: ' + _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl);
+						console.log('_thisViewVideoDetails._videosCollection.models[0].attributes.videourl: ' + _thisViewVideoDetails._videosCollection.models[0].attributes.videourl);
 						
 						if (_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl!='' && _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl!=undefined) {
 							_thisViewVideoDetails._videosCollection.models[0].attributes.videourl = _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl;

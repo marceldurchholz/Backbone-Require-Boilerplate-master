@@ -260,16 +260,16 @@ var dao = {
 	},
 		
 	findVideoById: function(id) {
-		alert('outer searching for id: ' + id);
+		// alert('outer searching for id: ' + id);
 		var deferred = $.Deferred();
 		if (isMobile.any()) {
 			this.db.transaction(
 				function (tx) {
-					alert('inner searching for id: ' + id);
+					// alert('inner searching for id: ' + id);
 					var sql = "SELECT v.videoid, v.videourl " +
 						"FROM videos v " +
 						"WHERE v.videoid=:id";
-					alert(sql);
+					// alert(sql);
 					// alert(id);
 					tx.executeSql(sql, [id], function (tx, results) {
 						deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
@@ -284,7 +284,7 @@ var dao = {
 					*/
 				},
 				function (error) {
-					alert("Transaction Error: " + error.message);
+					// alert("Transaction Error: " + error.message);
 					deferred.reject("Transaction Error: " + error.message);
 					// deferred.resolve(null);
 				}
@@ -2487,6 +2487,8 @@ function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 		*/
 		// alert(_thisVideoUrl);
 		// alert(_thisVideoUrl.length);
+		alert('_thisVideoUrl' + _thisVideoUrl);
+		alert('_thisVideoUrl.length' + _thisVideoUrl.length);
 		if (_thisVideoUrl.length <= 40) {
 			myPlayer.src([
 				{ type: "video/mp4", src: "http://prelaunch002.appinaut.de/secure/index.php?showvideo="+_thisVideoUrl+".mp4" },
