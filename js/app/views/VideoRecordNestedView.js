@@ -238,7 +238,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					}, 
 					function(error) {
 						console.log(error);
-						doAlert('Da ist etwas schiefgegangen. Die Datei konnte nicht vollständig heruntergeladen werden. Bitte probieren Sie es erneut oder wenden Sie sich an unseren Support. Vielen Dank.','Ups!');						
+						// doAlert('Da ist etwas schiefgegangen. Die Datei konnte nicht vollständig heruntergeladen werden. Bitte probieren Sie es erneut oder wenden Sie sich an unseren Support. Vielen Dank.','Ups!');						
 						hideModal();
 					});
 					
