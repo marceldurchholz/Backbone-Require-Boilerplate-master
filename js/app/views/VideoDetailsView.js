@@ -134,6 +134,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					dpd.users.me(function(user) {
 						if (user) {
 							// this._videosCollection.user = user;
+							this.$el.hide();
 						}
 						else system.redirectToUrl('#login');
 					});
@@ -141,7 +142,6 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				},
 				fetch: function(options) {
 					var _thisViewVideoDetails = this;
-					// this.$el.hide();
 					showModal();
 					console.log(options.id);
 					_thisViewVideoDetails.getVideo(options);
@@ -404,6 +404,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				show: function() {
 						console.log('doing show()');
 						_thisViewVideoDetails = this;
+						_thisViewVideoDetails.$el.show();
 						var htmlContent = '';
 						$(_thisViewVideoDetails.el).html(htmlContent);
 						_.each(_thisViewVideoDetails._videosCollection.models, function(model) {
