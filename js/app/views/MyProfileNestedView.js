@@ -9,6 +9,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 			initialize: function() {
 				var _thisViewMyProfileNested = this;
 				console.log('initializing MyProfileNestedView.js');
+				checkTopNaviRoles();
 				_thisViewMyProfileNested.$el.hide();
 				showModal();
 				// _thisViewMyProfileNested.me = window.me;
@@ -269,9 +270,10 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				},{variable: 'user'});
 				// alert(htmlContent);
 				$(this.el).html(htmlContent);
+				fontResize();
 				hideModal();
 				this.$el.trigger('create');
-				new FastClick(document.body);
+				// new FastClick(document.body);
 				this.$el.fadeIn( 500, function() {
 					$('.ui-content').scrollTop(0);
 					new FastClick(document.body);

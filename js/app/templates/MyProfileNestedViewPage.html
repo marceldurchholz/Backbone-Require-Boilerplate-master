@@ -5,7 +5,7 @@
 	<div style="width:50%;float:left;clear:none;display:inline-block;padding-right:2%;">
 		<input style="width:100%;" data-theme="a" data-mini="true" type="text" name="fullname" id="fullname" value="<%= user.fullname %>" placeholder="Name erforderlich..."/>
 		<div class="clear"></div>
-		<div style="color:#606060;font-size:1.2em;padding:5px 5px;"><!--<%= user.username %>--><%= user.id %></div>
+		<div style="color:#606060;font-size:14px;font-weight:normal;padding:5px 5px;line-height:1.5em;" class="resizetext"><!--<%= user.username %>--><% if( user.provider > -1 ) { %>Anbieter-ID:<br><%= user.id %><% } %></div>
 		<div class="clear"></div>
 		<!-- <input style="width:100%;" data-theme="a" no-data-role="none" data-mini="true" type="text" name="username" id="username" value="<%= user.username %>" placeholder="Ihr Benutzername/E-Mail"/> -->
 		<!-- <p><%= user.username %></p> -->
