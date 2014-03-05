@@ -19,7 +19,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						system.redirectToUrl('#login');
 						return(false);
 					}
-					console.log(me);
+					// console.log(me);
 					_thisViewMyProfileNested.me = me;
 					
 					$.ajax({

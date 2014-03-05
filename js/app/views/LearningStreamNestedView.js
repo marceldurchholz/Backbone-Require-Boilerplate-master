@@ -130,11 +130,10 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 							// });
 							*/
 							_thisViewLearningStreamNested.streamData.push(value);
-							
-							
 						}
 					});
 				});
+				// console.log(_thisViewLearningStreamNested.streamDatairefire);
 				/*
 				$.ajax({
 					url: "http://dominik-lohmann.de:5000/cards?active=true&deleted=false",
@@ -171,8 +170,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					value.ccat = 'plan';
 					value.icon = 'images/avatar.jpg';
 					value.href = '#myprofile';
-					value.title = 'Keine passenden Inhalte';
-					value.topic = 'Bitte wählen Sie (mehr) Interessen aus';
+					value.title = 'Noch keine Inhalte!';
+					value.topic = 'Bitte Interessen auswählen...';
 					value.description = ' Klicken Sie hier um auf Ihre Profileinstellungen zu gelangen...';
 					_thisViewLearningStreamNested.streamData.push(value);
 				}
