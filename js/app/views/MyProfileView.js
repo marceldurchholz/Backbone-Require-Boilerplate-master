@@ -61,7 +61,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				*/
 				render: function() {
 					this.bindEvents();
-					console.log('DOING render Videos.js called');
+					// console.log('DOING render Videos.js called');
 					
 					_thisViewProfile = this;
 					// $('#sidebarListViewDiv').html(_.template(sidemenusList, {}));

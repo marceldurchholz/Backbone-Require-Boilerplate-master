@@ -24,7 +24,7 @@ if (isMobile.any()) {
     document.write("<script type='text/javascript' src='" + rootURL + "phonegap.js'></script>"); 
     // initApp();
 }else{
-    console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
+    // console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
 }
 
 var currentHash = window.location.hash;
@@ -265,36 +265,23 @@ var dao = {
 		if (isMobile.any()) {
 			this.db.transaction(
 				function (tx) {
-					// alert('inner searching for id: ' + id);
-					var sql = "SELECT v.videoid, v.videourl " +
-						"FROM videos v " +
-						"WHERE v.videoid=:id";
-					// alert(sql);
-					// alert(id);
+					var sql = "SELECT v.videoid, v.videourl FROM videos v WHERE v.videoid=:id";
 					tx.executeSql(sql, [id], function (tx, results) {
 						deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
 					});
-					/*
-					var sql = "SELECT videourl FROM videos WHERE videoid = '"+id+"' ";
-					// alert(sql);
-					// alert(id);
-					tx.executeSql(sql, function (tx, results) {
-						deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
-					});
-					*/
 				},
 				function (error) {
-					// alert("Transaction Error: " + error.message);
 					deferred.reject("Transaction Error: " + error.message);
-					// deferred.resolve(null);
 				}
 			);
 		}
 		else {
-			deferred.resolve("returnvalue");
+			deferred.resolve();
+			/*
 			setTimeout(function() {
-				deferred.resolve("returnvalue");
+				deferred.resolve();
 			}, 3000);
+			*/
 		}
 		return deferred.promise();
 	},
@@ -964,10 +951,12 @@ function modifyiOS7StatusBar(){
 				// document.body.style.marginTop = "20px";
 			}
 			// StatusBar.backgroundColorByHexString("#3e8fd9");
-		} catch(e){ catchError('modifyiOS7StatusBar()',e); }
+		} catch(e){ 
+			// catchError('modifyiOS7StatusBar()',e); 
+		}
 	}
 	else {
-	console.log('not mobile: statusbar not modified');
+		// console.log('not mobile: statusbar not modified');
 	}
 }
 
@@ -2617,7 +2606,7 @@ $('#sidebarListViewDiv').on("vclick", "#menuelement a.contentLink", function (ev
 		// console.log(event.target.getAttribute('data-href'));
 		var tgt = event.target.getAttribute('data-href');
 		// alert(tgt);
-		console.log(tgt);
+		// console.log(tgt);
 		// .getAttribute('data-fruit');
 		// window.location.href = event.target.hash;
 		window.location.href = tgt;

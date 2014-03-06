@@ -10,32 +10,11 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				attributes: {"data-role": 'content'},
 				bindEvents: function() {
 					_thisViewVideoDetails = this;
-					// this.$el.off('click','.createVideo').on('click','.createVideo',function(){_thisViewVideoDetails.createVideo();});
-
-					this.$el.off('click','#connectToLink').on('click','#connectToLink',function(e) { 
-						e.preventDefault();
-						// var videoid = $(this).attr('data-videoid');
-						// _thisViewVideoDetails.buyVideo(videoid); 
-						// alert($(this).attr('data-id'));
-						var connectionid = $(this).attr('data-id');
-						showModal();
-						dpd.users.put(connectionid, 
-							{"followers": {$push:$.trim(window.me.id)}}, function(result, err) {
-							if(err) {
-								return console.log(err);
-								hideModal();
-							}
-							// console.log(result, result.id);
-							hideModal();
-						});
-					});
-
 					this.$el.off('click','#loadvideobutton').on('click','#loadvideobutton',function(e) { 
 						e.preventDefault();
 						var videoid = $(this).attr('data-videoid');
 						_thisViewVideoDetails.buyVideo(videoid); 
-					});
-					
+					});					
 					this.$el.off('click','#downloadvideobutton').on('click','#downloadvideobutton',function(e) { 
 						e.preventDefault();
 						var videoid = $(this).attr('data-videoid');
@@ -47,85 +26,42 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				downloadVideo: function(videoid) {
 					var _thisViewVideoDetails = this;
 					showModal();
-					// var fileSystem;
-					// console.log('starting downloadVideo a');
-					// var uri = '';
-					// $("#video_player_1_html5_api").attr("src", "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4").get(0).play();
-					// hideModal();
-					// return(false);
-					// console.log('starting downloadVideo b');
 					if (isMobile.any()) var ft = new FileTransfer();
 					if (isMobile.any()) window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
-						// console.log('starting downloadVideo c');
 						var downloadPath = fs.root.fullPath + "/"+videoid+".mp4";
-						// console.log(downloadPath);
 						uri = $('#video_player_1_html5_api').attr("src");
-						// alert('uri: ' + uri);
-						// if (!isMobile.any()) uri = encodeURI("http://management-consulting.marcel-durchholz.de/secure/4444444444.mp4");
-						// else uri =  $('#downloadVideoUrl').val();
-						// console.log('starting downloadVideo d');
-						// console.log(uri);
-						// console.log(downloadPath);
 						ft.onprogress = function(progressEvent) {
-							// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
-							// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
-							// console.log(progressEvent.loaded + " / " + progressEvent.total);
 							$('#modaltxt').html(progressEvent.loaded+" / "+progressEvent.total);
 						};
 						ft.download(uri, downloadPath, function(entry) {
-							// console.log(entry);
-							// var media = new Media(entry.fullPath, null, function(e) { alert(JSON.stringify(e));});
-							// media.play();
-							// _thisViewVideoDetails.downloadVideoToggle();
-							// console.log(downloadPath);
-							// doAlert(downloadPath,'Information');
-							// $('#camera_file').val(downloadPath);
-							// $("#video_player").attr("src", "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4").get(0).play();
-							// doAlert(downloadPath);
-							// $("#video_player_1_html5_api").attr("src", uri).get(0).play();
 							$("#video_player_1_html5_api").attr("src", downloadPath); // .get(0)
 							_thisViewVideoDetails.rememberVideoLocation(videoid,downloadPath);
-							// window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',uri,0);
 							$('#downloadvideobutton').hide();
 							hideModal();
 						}, 
 						function(error) {
 							console.log(error);
 							$('#downloadvideobutton').hide();
-							// doAlert('Da ist etwas schiefgegangen. Die Datei konnte nicht vollständig heruntergeladen werden. Bitte probieren Sie es erneut oder wenden Sie sich an unseren Support. Vielen Dank.','Ups!');						
-							// $('#downloadvideobutton').hide();
 							hideModal();
 						});
 					});
 					else {
-						// doAlert('not mobile action','debug info');
-						// _thisViewVideoDetails.rememberVideoLocation(videoid,"file://notmobile/test/path/to/file.mp4");
 						$('#downloadvideobutton').hide();
 						hideModal();
 					}
 				},
 				rememberVideoLocation: function(videoid,downloadPath) {
 					_thisViewVideoDetails = this;
-					// doAlert('remenbering location of: '+videoid);
-					// doAlert(downloadPath);
 					this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 					this.db.transaction(
 						function(tx) {
-							// sample data 
-							// alert('saving into table videos START');
-							var query = "INSERT INTO videos (videoid,videourl) VALUES ('"+videoid+"','"+downloadPath+"')"; 
-							// alert(query);
-							tx.executeSql(query);
-							// alert('saving into table videos ENDE');
+							tx.executeSql("INSERT INTO videos (videoid,videourl) VALUES ('"+videoid+"','"+downloadPath+"')");
 						},
 						function() {
-							console.log('ERROR ON entry saving in TABLE videos: '+query);
+							// console.log('ERROR ON entry saving in TABLE videos: '+query);
 						},
 						function() {
-							// alert(query);
-							console.log('Entry successfully saved in TABLE videos: '+query);
-							// alert('Table videos successfully FILLED WITH SAMPLES in local SQLite database');
-							// callback();
+							// console.log('Entry successfully saved in TABLE videos: '+query);
 						}
 					);
 				},
@@ -133,10 +69,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				initializeCollection:function(options) {
 					_thisViewVideoDetails = this;
 					dpd.users.me(function(user) {
-						if (user) {
-							// this._videosCollection.user = user;
-							_thisViewVideoDetails.$el.hide();
-						}
+						if (user) _thisViewVideoDetails.$el.hide();
 						else system.redirectToUrl('#login');
 					});
 					this._videosCollection = new videosCollection([], options);
@@ -144,7 +77,6 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				fetch: function(options) {
 					var _thisViewVideoDetails = this;
 					showModal();
-					console.log(options.id);
 					_thisViewVideoDetails.getVideo(options);
 				},
 				getVideo: function(options) {
@@ -158,27 +90,14 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						success: function(coll, jsoncoll) {
 							_thisViewVideoDetails.render();
 						}
-					});					
-
-					// _thisViewVideoDetails.offlineurl = "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4";
-					/*
-					else {
-						_thisViewVideoDetails.offlineurl = "/var/myurl/nsdfsnk.mp4";
-					}
-					alert(_thisViewVideoDetails.offlineurl);
-					*/
-					
-					// return(false);
+					});
 				},
 				buyVideo: function(videoid) {
 					_thisViewVideoDetails = this;
-					// _thisConfirmButtonLabels = ('Preise anzeigen,Abbrechen').split(",");
 					var CreditsAfterPurchase = parseFloat(this._videosCollection.user.credits) - parseFloat(this._videosCollection.models[0].attributes.price);
 					if (CreditsAfterPurchase<0) {
-						// doAlert('Sie haben nicht genügend Credits.','Schade...');
 						doConfirm('Sie haben nicht genügend APPinaut® Coins.', 'Schade...', function (event) { 
 							if (event=="1") {
-								// doAlert('1','ok');
 								window.location.href = '#myprofile';
 							}
 						}, ('Preise anzeigen,Abbrechen').split(","));
@@ -209,81 +128,21 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							value.ccat = 'video';
 							value.icon = 'images/icon-videos-60.png';
 							value.href = '#videos/details/view/'+value.id;
-							// _thisKnowledgeData.streamData.push(value);
-							
-							var uploader = value.uploader; // "ed568841af69d94d";
-							
-							/*
-							if (nameArray[uploader]==undefined) {
-								$.ajax({
-									// type: 'get',
-									// timeout: 5000,
-									url: 'http://dominik-lohmann.de:5000/users/?id='+uploader,
-									async: false,
-									success: function(data, textStatus, XMLHttpRequest){
-										// console.log('Error: ' + textStatus);
-										
-										nameArray[_thisMessagesDetailsViewNested.messages[key4].sender] = userdata.fullname;
-										// _thisKnowledgeData.streamData.push(value);
-										
-										// console.log(data);
-									},
-									error:function (xhr, ajaxOptions, thrownError){
-										// console.log('error');
-										// console.log(index);
-										// alert(xhr.status);
-										// alert(xhr.statusText);
-										// alert(xhr.responseText);
-									}
-								});
-							}
-							*/
-							_thisKnowledgeData.streamData.push(value);
-							// _thisMessagesDetailsViewNested.messages[key4].fullname = nameArray[uploader];
-							
-
-						});
-					});
-					/*
-					var url = "http://dominik-lohmann.de:5000/cards?active=true&deleted=false";
-					$.ajax({
-						url: url+querystr,
-						async: false
-					}).done(function(cardData) {
-						_.each(cardData, function(value, index, list) {
-							value.ccat = 'card';
-							value.icon = 'images/icon-cards-60.png';
-							value.href = '#cards/details/view/'+value.id;
+							var uploader = value.uploader;
 							_thisKnowledgeData.streamData.push(value);
 						});
 					});
-					var url = "http://dominik-lohmann.de:5000/planer?active=true&deleted=false";
-					$.ajax({
-						url: url+querystr,
-						async: false
-					}).done(function(planData) {
-						_.each(planData, function(value, index, list) {
-							value.ccat = 'plan';
-							value.icon = 'images/icon-planer-60.png';
-							value.href = '#planer/details/view/'+value.id;
-							_thisKnowledgeData.streamData.push(value);
-						});
-					});
-					*/
 					// Sort multidimensional arrays with oobjects by value 
 					// http://www.javascriptkit.com/javatutors/arraysort2.shtml
 					_thisKnowledgeData.streamData.sort(function(a, b){
 						return b.cdate-a.cdate
 					});
-					// console.log(_thisKnowledgeData.streamData);
 					return(_thisKnowledgeData.streamData);
-					// _thisViewLearningStreamNested.render();
 				},
 				
 				insertVariables: function(model) {
 					_thisViewVideoDetails = this;
 					var uploader = model.get('uploader');
-					// console.log(this.id);
 					if (uploader==window.me.id) {
 						_thisViewVideoDetails.uploaderdata = window.me;
 					}
@@ -292,7 +151,6 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							url: "http://dominik-lohmann.de:5000/users/?id="+uploader,
 							async: false
 						}).done(function(uploaderdata) {
-							// console.log(uploaderdata);
 							_thisViewVideoDetails.uploaderdata = uploaderdata;
 						});
 					}
@@ -301,9 +159,9 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					if (model.get('price')==0) pricetext = 'Video kostenlos laden';
 					else pricetext = 'Video für '+model.get('price')+' Coins kaufen';
 					var provider = '';
-					provider = jQuery.inArray( 'provider', window.me.roles );
+					provider = $.inArray( 'provider', window.me.roles );
 					var seeker = '';
-					seeker = jQuery.inArray( 'seeker', window.me.roles );
+					seeker = $.inArray( 'seeker', window.me.roles );
 					_template = _.template(videosDetailsViewHTML, {
 						id: model.get('id'),
 						uploaderdata: _thisViewVideoDetails.uploaderdata,
@@ -337,7 +195,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					});
 				},
 				show: function() {
-						console.log('doing show()');
+						// console.log('doing show()');
 						_thisViewVideoDetails = this;
 						_thisViewVideoDetails.$el.show();
 						$(_thisViewVideoDetails.el).html('');
@@ -367,7 +225,6 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							$('.ui-content').scrollTop(0);
 							new FastClick(document.body);
 							fontResize();
-							// alert($('.readmore').html());
 							$('.readmore').expander({
 								slicePoint: 100,
 								preserveWords: true,
@@ -401,7 +258,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					$(window).resize(function() {
 						window.resizeElement('#video_player_1')
 					});
-					console.log('DOING render VideoDetailsView.js called');
+					// console.log('DOING render VideoDetailsView.js called');
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewVideoDetails.nestedView = new SidemenuView().fetch();
 					hideModal();

@@ -67,7 +67,6 @@
 <div data-role="collapsible" data-theme="b" data-content-theme="a">
 	<h6>Interessengebiete auswählen</h6>
 	<!--<legend><h6>Interessengebiete</h6></legend>-->
-	<% console.log(user.interests) %>
 	<% _.each(user.interests, function(interests) { %>
 		<input data-inset="false" <%= interests.checked %> <%= interests.status %> data-mini="true" type="checkbox" name="checkbox-v-<%= interests.id %>" id="checkbox-v-<%= interests.id %>">
 		<label for="checkbox-v-<%= interests.id %>"><%= interests.name %></label>
