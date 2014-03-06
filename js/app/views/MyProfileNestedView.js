@@ -9,7 +9,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 			initialize: function() {
 				var _thisViewMyProfileNested = this;
 				console.log('initializing MyProfileNestedView.js');
-				checkTopNaviRoles();
 				_thisViewMyProfileNested.$el.hide();
 				showModal();
 				// _thisViewMyProfileNested.me = window.me;
@@ -226,6 +225,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					var confirmButtonLabels = 'Bitte löschen,Vorgang abbrechen';
 					doConfirm(confirmText, confirmTitle, _thisViewMyProfileNested.deleteMyAccount, confirmButtonLabels);
 				});
+				checkTopNaviRoles();
 			},
 			deleteMyAccount: function(response) {
 				console.log(response);
