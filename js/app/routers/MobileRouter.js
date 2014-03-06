@@ -222,12 +222,14 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// $("#page-content").css({"position":"fixed", "top":"100px"});
 				// $("#ui-page-active").css({"position":"fixed", "top":"200px"});
 				modifyiOS7StatusBar();
-				$( "#pageOptions" ).hide();
+				// $( "#pageOptions" ).hide();
+				$('.showPageOptions').hide();
 				var _this = this;
 				dpd.users.me(function(me) {
 					console.log('me');
 					console.log(me);
 					window.me = me;
+					if (window.me.active==true && window.me.fullname!="") $('.showPageOptions').show();
 					_this.myView = new view(viewOptions);
 					new FastClick(document.body);
 				});

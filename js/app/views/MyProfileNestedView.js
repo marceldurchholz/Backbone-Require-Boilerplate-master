@@ -14,13 +14,14 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				// _thisViewMyProfileNested.me = window.me;
 				_thisViewMyProfileNested.initialized = window.me;
 				dpd.users.me(function(me) {
-					if (me) { }
+					if (me) { 
+						_thisViewMyProfileNested.me = me;
+					}
 					else {
 						system.redirectToUrl('#login');
 						return(false);
 					}
 					// console.log(me);
-					_thisViewMyProfileNested.me = me;
 					
 					$.ajax({
 						url: "http://dominik-lohmann.de:5000/users",
@@ -32,7 +33,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							logincounts += user.logincount;
 						});
 						_thisViewMyProfileNested.me.level = Math.round(3*(window.me.logincount/logincounts),0);
-						// alert(_thisViewMyProfileNested.me.level);
 					});
 					
 					$.ajax({
@@ -40,10 +40,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						async: false
 					}).done(function(interests) {
 						_.each(interests, function(interest) {
-							var exists = jQuery.inArray( $.trim(interest.name), _thisViewMyProfileNested.me.interests );
+							var exists = $.inArray( $.trim(interest.name), _thisViewMyProfileNested.me.interests );
 							if (exists>-1) interest.checked = "checked";
 						});
-						
 						interests.sort(function(a, b){
 						 var nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase()
 						 if (nameA < nameB) //sort string ascending
@@ -52,14 +51,10 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						  return 1
 						 return 0 //default return value (no sorting)
 						});
-						
 						_thisViewMyProfileNested.interests = interests;
 						_thisViewMyProfileNested.render();
-						// _thisViewMyProfileNested.checkActiveStatus();
 					});
-					// if (_thisViewMyProfileNested.me.active==false || $("#fullname").val()=='') {
 					if ($("#fullname").val()=='') {
-						// doAlert('Bitte vervollständigen Sie Ihr Profil und bestätigen Sie Ihre E-Mail-Adresse über den zugesendeten Link.','Fast fertig...');
 						doAlert('Bitte hinterlegen Sie Ihren Namen zur Freischaltung.','Fast fertig...');
 					}
 					
@@ -71,12 +66,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				console.log('fetching MyProfileNestedView.js');
 			},
 			changeInputValue: function(e) {
-				/*
-				console.log(e);
-				console.log(e.currentTarget.id);
-				console.log(e.currentTarget.defaultValue);
-				console.log(e.currentTarget.value);
-				*/
 				dpd.users.me(function(me) {
 					_thisViewMyProfileNested.me = me;
 				});
@@ -168,28 +157,18 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						$('#restrictedArea').show();
 					}
 				}
-				// $("#fullname").attr("placeholder","Name erforderlich...");
 				
 				$("#fullname").blur(this.changeInputValue);
-				// $("#slogan").blur(this.changeInputValue);
 				$("#perstext").blur(this.changeInputValue);
-				// $("#username").blur(this.changeInputValue);
 				$("input[type='checkbox']").bind( "change", function(event, ui) {
 					event.preventDefault();
-					// console.log(event);
-					// console.log(event.delegateTarget);
-					// console.log(event.delegateTarget.id);
-					// console.log( $("label[for='"+ event.delegateTarget.id +"']").text() );
-					// console.log(event.delegateTarget.checked);
 					var o = new Object();
 					o.id = event.delegateTarget.id;
 					if (event.delegateTarget.checked==false) o.status = "";
 					else o.status = "checked";
 					o.label = $("label[for='"+ event.delegateTarget.id +"']").text();					
 					dpd.users.me(function(me) {
-						// console.log(me);
-						var exists = jQuery.inArray( $.trim(o.label), me.interests )
-						// console.log(exists);
+						var exists = $.inArray( $.trim(o.label), me.interests )
 						if (event.delegateTarget.checked==false && exists>-1) dpd.users.put(_thisViewMyProfileNested.me.id, {"interests": {$pull:$.trim(o.label)}} );
 						else if (event.delegateTarget.checked==true && exists==-1) dpd.users.put(_thisViewMyProfileNested.me.id, {"interests": {$push:$.trim(o.label)}} );
 					});
@@ -197,10 +176,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				
 				this.$el.off('click','.purchasebtn').on('click','.purchasebtn',function(e){
 					e.preventDefault();
-					// console.log(e.delegateTarget);
 					var iapid = $(this).attr('data-iapid');
 					console.log("purchasing "+iapid);
-					// window.storekit.purchase("com.digitalverve.APPinaut."+iapid,1);
 					showModal();
 					if (isMobile.any()) { 
 						window.storekit.purchase(iapid,1);
@@ -211,8 +188,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						hideModal();
 						
 					}
-					// window.storekit.purchase("com.digitalverve.APPinaut.250APP359T9", 1);
-					// window.storekit.purchase("com.digitalverve.APPinaut.250APP359T9");
 				});
 				
 				this.$el.off('click','#showdeletearea').on('click','#showdeletearea',function(e){
@@ -221,9 +196,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				});
 				this.$el.off('click','#deletemyaccountbtn').on('click','#deletemyaccountbtn',function(e){
 					e.preventDefault();
-					// _thisViewLogin.sendLogin('#dashboard');
-					// console.log('clicked');
-					// console.log(e);
 					var confirmText = 'Wollen Sie Ihren Zugang wirklich unwiderruflich löschen?';
 					var confirmTitle = 'Sind Sie sicher?';
 					var confirmButtonLabels = 'Bitte löschen,Vorgang abbrechen';
@@ -256,9 +228,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				// console.log(_thisViewMyProfileNested.me);
 				if (!_thisViewMyProfileNested.me.credits) _thisViewMyProfileNested.me.credits = "0";
 				var provider;
-				provider = jQuery.inArray( 'provider', _thisViewMyProfileNested.me.roles );
+				provider = $.inArray( 'provider', _thisViewMyProfileNested.me.roles );
 				var seeker;
-				seeker = jQuery.inArray( 'seeker', _thisViewMyProfileNested.me.roles );				
+				seeker = $.inArray( 'seeker', _thisViewMyProfileNested.me.roles );				
 				htmlContent = _.template(MyProfileNestedViewPage, {
 					id: _thisViewMyProfileNested.me.id
 					, pictureurl: _thisViewMyProfileNested.me.pictureurl

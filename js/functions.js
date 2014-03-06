@@ -1920,14 +1920,14 @@ function purchaseVideoStart(me,videoData) {
 	var creditsAfterPurchase = parseFloat(me.credits) - parseFloat(videoData.price);
 	this._videoData = videoData;
 	this._creditsAfterPurchase = creditsAfterPurchase;
-	console.log(creditsAfterPurchase,'creditsAfterPurchase');
+	// console.log(creditsAfterPurchase,'creditsAfterPurchase');
 	// return(false);
 	// alert('Video ' + videoData.id + ' wird über User ID ' + me.id + 'gekauft. Sie haben nun '+creditsAfterPurchase+' Credits.');
 	var data = new Object();
 	data.credits = ''+creditsAfterPurchase;
 	data.purchases = me.purchases;
 	this._newData = data;
-	console.log(_newData.purchases);
+	// console.log(_newData.purchases);
 	
 	this._me = me;
 	$.ajax('http://dominik-lohmann.de:5000/users/?id='+me.id,{
@@ -1937,8 +1937,8 @@ function purchaseVideoStart(me,videoData) {
 		// doAlert( "DONE!" );
 		_me = me;
 		if (_me.purchases==undefined) _me.purchases = new Array();
-		console.log('_me.purchases actual');
-		console.log(_me.purchases);
+		// console.log('_me.purchases actual');
+		// console.log(_me.purchases);
 	}).fail(function() {
 		doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
 	})
@@ -1951,7 +1951,7 @@ function purchaseVideoStart(me,videoData) {
 	}
 	else {
 		if (_me.purchases==undefined) _me.purchases = new Array();
-		console.log(me.purchases);
+		// console.log(me.purchases);
 		// me.push( videoData.id );
 		// var el = new Object();
 		// el.value = videoData.id;
@@ -1972,48 +1972,28 @@ function purchaseVideoStart(me,videoData) {
 			var alertmsg = 'Sie können das Video nun vollständig ansehen.';
 			if (_videoData.price>0) alertmsg += ' Für weitere Käufe sind noch '+creditsAfterPurchase+' Credits verfügbar.';
 			doAlert(alertmsg,'Information');
-			// $('#loadvideobutton').hide();
-			// console.log(window);
-			// window.location.reload();
-			
-			addFollower(_videoData.uploader, me.id);
-			
-			addOrder(me.id,_videoData.id,_videoData.uploader,_videoData.price);
+			addFollower(me, _videoData.uploader);
+			addOrder(me,_videoData.id,_videoData.uploader,_videoData.price);
 		}).fail(function() {
-			doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
+			console.log( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
 		})
 		.always(function() {
-			// alert( "finished - nw redirecting" );
-			// window.location.href = '#videos/details/view/'+videoData.id;
-			// console.log(window);
 			window._thisViewVideoDetails.render();
-			// window.location.reload();
 		});
 	}
 }
 
-function addFollower(toid,meid) {
+function addFollower(me, toid) {
 	// var query = {id:toid,$or:[{"sponsor":me.id},{"followers":me.id}],$sort:{fullname:1}};
 	var query = {  followers: {$in: [me.id]}, id:toid };
 	dpd.users.get(query, function (result,err) {
-		if(err) {
-			// alert(meid + ' is not yet follower from ' + toid);
-			dpd.users.put(toid, {"followers": {$push:$.trim(meid)}} );
-			// return console.log(err);
-		}
-		// alert(meid + ' IS ALREADY follower from ' + toid);
-		// console.log(result);
+		if(err) dpd.users.put(toid, {"followers": {$push:$.trim(me.id)}} );
 	});
 }
 
-function addOrder(userid,videoid,creatorid,price) {
-	dpd.orders.post({"userid":""+userid,"videoid":""+videoid,"creatorid":""+creatorid,"price":""+price}, function(result, err) {
-		if(err) {
-			return console.log(err);
-		}
-		// $.mobile.loading( 'hide' );
-		// hideModal();
-		console.log(result, result.id);
+function addOrder(me,videoid,creatorid,price) {
+	dpd.orders.post({"userid":""+me.id,"videoid":""+videoid,"creatorid":""+creatorid,"price":""+price}, function(result, err) {
+		if(err) return console.log(err);
 	});
 }
 
@@ -2467,30 +2447,15 @@ function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 	_thisVideoUrl = videoUrl;
 	// console.log(videoUrl);
 	for( vid in _V_.players ){ 
-		console.log('>>> '+vid.toString()); 
-		if(vid.toString() == "video_player_1"){ 
-		   delete _V_.players[vid] 
-		   console.log('deteleted');
+		// console.log('>>> '+vid.toString()); 
+		if(vid.toString() == "video_player_1") {
+		   delete _V_.players[vid];
+		   // console.log('deteleted');
 		} 
 	}
 	var myvideoJS = videojs("video_player_1", { "controls": true, "autoplay": false, "preload": "off" }, function(){});
 	var myPlayer = _V_("video_player_1");
 	_V_("video_player_1").ready(function(){
-		// alert('jupp');
-		// { type: "video/mp4", src: "http://mobile002.appinaut.de/secure/data/media/video/Bird_Titmouse.mp4" }
-		// console.log(_thisVideoUrl);
-		// console.log("http://mobile002.appinaut.de/secure/data/media/video/index.php?showvideo="+_thisVideoUrl+".mp4");
-		/*
-		myPlayer.src([
-			{ type: "video/mp4", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".mp4" },
-			{ type: "video/webm", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".webm" },
-			{ type: "video/ogg", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".ogv" }
-		]);
-		*/
-		// alert(_thisVideoUrl);
-		// alert(_thisVideoUrl.length);
-		// alert('_thisVideoUrl: ' + _thisVideoUrl);
-		// alert('_thisVideoUrl.length' + _thisVideoUrl.length);
 		if (_thisVideoUrl.length <= 50) {
 			myPlayer.src([
 				{ type: "video/mp4", src: "http://prelaunch002.appinaut.de/secure/index.php?showvideo="+_thisVideoUrl+".mp4" },
@@ -2505,43 +2470,19 @@ function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 				{ type: "video/ogg", src: _thisVideoUrl }
 			]);
 		}
-		// alert('bla');
-		// myPlayer.posterImage.show();  
-		// $("#video_player_1.vjs-poster").css('background-image', 'url(http://video-js.zencoder.com/oceans-clip.jpg)').show();
 		myPlayer.controlBar.hide();  
 		myPlayer.bigPlayButton.hide();
-		// myPlayer.pause();
-		// alert(showVideoLength);
-		// myPlayer.get(0).pause();
 		myPlayer.on('timeupdate', function() {
 			if (myPlayer.currentTime() > showVideoLength) {
-				// $(".video-js")[0].player.pause();
-				// Paypal-Buy-Now-button.png
-				// $("#video_player_1 .vjs-poster").css('background-image', 'url(/Paypal-Buy-Now-button.png)').show();
 				if (showVideoLength!=0) {
 					myPlayer.posterImage.hide();  
 					myPlayer.currentTime(0);  
 					myPlayer.pause();
 				}
-				// myPlayer.cancelFullScreen();  
-				// myPlayer.controlBar.hide();  
-				// myPlayer.bigPlayButton.hide();  
-				// $("#videocontainerlink").attr("href", "/blafoopeng/")
-				// myPlayer.currentTime(0);
-				// myPlayer.src({ type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" });
-				// $("#video_player_1.vjs-poster").css('background-image', 'url(http://video-js.zencoder.com/oceans-clip.jpg)').show();
 			}
 		});
 	resizeElement('#video_player_1');
 	});	
-	// alert('("video_player_1").ready(function(){');
-
-// $(document).ready(function() {
-// resizeVideoJS(); // Initialize the function
-// });
-// $(function(){
-	// resizeElement('#video_player_1');
-// });
 }
 
 window.addEventListener('load', function () {
@@ -2550,19 +2491,11 @@ window.addEventListener('load', function () {
 
 
 $(window).bind('hashchange', function(){
-	// currentHash = window.location.hash;
-	// console.log(window.location.hash);
-	// alert('MobileInit.js '+window.location.hash);
-	// $('div[data-role="page"]')
-	// $('#scrollable').scrollTop(0);
-	// alert('a');
-	// populateDeviceInfoTimer();
 	showModal();
 	modifyiOS7StatusBar();
 	checkTopNaviRoles();
 	bindSwipeBack();
 	showDeleteBar(false);
-	
 	$("#flexiblecontent").animate({
 		marginLeft: "0px",
 	}, 500, function () {
