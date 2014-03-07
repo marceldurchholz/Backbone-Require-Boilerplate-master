@@ -21,7 +21,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					}
 					dpd.users.login({username: username, password: password}, function(user, error) {
 						if (error) {
-							console.log(error.message);
 							doAlert('Eine Anmeldung mit diesen Zugangsdaten konnte nicht durchgeführt werden. Zur Registrierung klicken Sie auf "Neuen Zugang anlegen".','Fehler bei der Anmeldung!');
 						} else {
 							if (user==null) { 
@@ -39,7 +38,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 									if (logincount==undefined) logincount=0;
 									var newlogincount = logincount+1;
 									dpd.users.put(_thisViewLogin.me.id, {"logincount":newlogincount}, function(result, err) { 
-										if(err) return console.log(err);
+										if(err) { }
 										system.redirectToUrl(targetUrl);
 									});
 								});
@@ -72,7 +71,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 								if (user==null) {
 									if(err) {
 										doAlert('Es ist leider ein Fehler bei der Registrierung aufgetreten!','Ups...');
-										return console.log(err);
+										return { }
 									}
 								}
 								_thisViewLogin.sendLogin('#myprofile');
@@ -122,7 +121,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					}
 				},
 				render: function() {
-					console.log('DOING render loginView.js called');
 					_thisViewLogin = this;
 					_thisViewLogin.$el.html(_.template(loginPage, {}));
 					this.$el.trigger('create');
