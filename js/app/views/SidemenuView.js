@@ -7,12 +7,12 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 		var SidemenuView = Backbone.View.extend({
 			el: "#menuelement",
 			initialize: function() {
-				// console.log('initializing SidemenuView.js');
+				console.log('initializing SidemenuView.js');
 				_thisViewSidemenu = this;
 				this._sidemenusCollection = new sidemenusCollection();
 			},
 			fetch: function() {	
-				// console.log('fetching SidemenuView.js');
+				console.log('fetching SidemenuView.js');
 				this.$el.hide();
 				this._sidemenusCollection.fetch({
 					success: function(coll, jsoncoll) {
