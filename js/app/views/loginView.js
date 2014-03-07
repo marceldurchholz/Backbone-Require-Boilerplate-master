@@ -125,6 +125,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				render: function() {
 					_thisViewLogin = this;
 					_thisViewLogin.$el.html(_.template(loginPage, {}));
+					// window.createVideoPreview(_thisViewLogin.$('#video_player_1'),'video_player_1',"promo",0);
 					this.$el.trigger('create');
 					hideModal();
 					this.$el.fadeIn( 500, function() {

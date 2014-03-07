@@ -51,6 +51,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						hideModal();
 					}
 				},
+				
 				rememberVideoLocation: function(videoid,downloadPath) {
 					_thisViewVideoDetails = this;
 					this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
