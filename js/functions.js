@@ -1823,14 +1823,14 @@ function mediaOnError(error) {
 }	
 
 function captureVideoRecord() {
-	var options = { limit: 1, duration: 3600, quality: 10 };
+	var options = { limit: 1, duration: 600, quality: 6 };
 	// nur audio aufnehmen: navigator.device.capture.captureAudio
 	var popoverHandle = navigator.device.capture.captureVideo(getVideoWin, onGetVideoError, options);
 	window.onorientationchange = function() {
 		var newPopoverOptions = new CameraPopoverOptions(0, 0, 100, 100, 0);
 		popoverHandle.setPosition(newPopoverOptions);
 	}
-	console.log(popoverHandle);
+	// console.log(popoverHandle);
 }
 
 function purchaseVideoConfirm(me,videoData) {
@@ -1885,7 +1885,7 @@ function purchaseVideoStart(me,videoData) {
 		// console.log('_me.purchases actual');
 		// console.log(_me.purchases);
 	}).fail(function() {
-		doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
+		// doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
 	})
 	.always(function() {
 		// alert( "finished - nw redirecting" );
@@ -1920,7 +1920,7 @@ function purchaseVideoStart(me,videoData) {
 			addFollower(me, _videoData.uploader);
 			addOrder(me,_videoData.id,_videoData.uploader,_videoData.price);
 		}).fail(function() {
-			console.log( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
+			// alert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
 		})
 		.always(function() {
 			window._thisViewVideoDetails.render();
@@ -1945,12 +1945,12 @@ function addOrder(me,videoid,creatorid,price) {
 function onGetVideoError(e) {
 	// log('Error getting picture: ' + e.code);
 	// alert('bla3');
-	console.log('Video capture failed');
+	// alert('Video capture failed');
 }
 
 function getVideoWin(mediaFiles) {
-	console.log('captureVideoRecord');
-	console.log(mediaFiles);
+	// console.log('captureVideoRecord');
+	// console.log(mediaFiles);
 	try {
 		var i, path, len;
 		for (i = 0, len = mediaFiles.length; i < len; i += 1) {
@@ -1973,7 +1973,7 @@ function getVideoWin(mediaFiles) {
 			// my_media.play();
 			// var blax = JSON.stringify(mediaFiles);
 			// alert(path);
-			doAlert('Klicken Sie zum Fortsetzen auf weiter.','Aufnahme erfolgreich');
+			// doAlert('Klicken Sie zum Fortsetzen auf weiter.','Aufnahme erfolgreich');
 			// doAlert(mediaFiles[i].fullPath,'DEBUG FULLPATH');
 			attachVideoToPlayer(mediaFiles[i].fullPath);
 			// _thisViewRecordVideoNested.switchPage();
@@ -1983,7 +1983,7 @@ function getVideoWin(mediaFiles) {
 		// not DATA_URL
 		// log('mediaFiles: ' + mediaFiles.slice(0, 100));
 	}    
-	console.log('set video function end');
+	// console.log('set video function end');
 }
 
 // TODO: File Transfer onProgress DOWNload
@@ -2090,7 +2090,7 @@ function recordVideoUpload(videoRecordLocalStorage) {
 	// alert('bla');
 	// return(false);
 	var mediaFile = $('#camera_file').val();
-	log('class captureVideoUpload started');
+	// console.log('class captureVideoUpload started');
 	try {
 		// $.mobile.loading( 'show', { theme: 'b', textVisible: true, textonly: true, html: '<div style="text-align:center;">Uploading the awesome...</div>' });
 		showModal();
@@ -2127,15 +2127,15 @@ function recordVideoUpload(videoRecordLocalStorage) {
 				// $.mobile.loading('hide');
 				hideModal();
 				// alert("An error has occurred: Code = " = error.code);
-				log('Error uploading file ' + mediaFile + ': ' + error.code);
+				// console.log('Error uploading file ' + mediaFile + ': ' + error.code);
 			},
 			options
 		);
 	} catch (e) {
 		// not DATA_URL
-		log('class new FileTransfer not possible');
+		// console.log('class new FileTransfer not possible');
 	}
-	log('class recordVideoUpload ended');
+	// console.log('class recordVideoUpload ended');
 }
 
 // Upload files to server

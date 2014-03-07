@@ -8,42 +8,6 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 			
 			el: "#MessagesDetailsNestedViewDiv",
 			initialize: function() {
-			
-				/*
-				dpd.messages.get({}, function (arr,err) {
-					if(err) {
-						return console.log(err);
-					}
-					$.each( arr, function( key, message ) {
-						dpd.messages.del(message.id, function (err) {
-						  if(err) console.log(err);
-						});						
-					});
-				});
-
-				dpd.orders.get({}, function (arr,err) {
-					if(err) {
-						return console.log(err);
-					}
-					$.each( arr, function( key, message ) {
-						dpd.orders.del(message.id, function (err) {
-						  if(err) console.log(err);
-						});						
-					});
-				});
-
-				dpd.users.get({}, function (arr,err) {
-					if(err) {
-						return console.log(err);
-					}
-					$.each( arr, function( key, message ) {
-						dpd.users.put(message.id, {"purchases":[], "followers":[], "interests":[], "following":[]}, function (result, err) {
-						  if(err) console.log(err);
-						});						
-					});
-				});
-				*/
-
 				_thisMessagesDetailsViewNested = this;
 				_thisMessagesDetailsViewNested.bindEvents();
 			},
@@ -117,8 +81,11 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 									});
 
 									// alert(_thisMessagesDetailsViewNested.messages.length);
-									for (i=_thisMessagesDetailsViewNested.messages.length-1;i>_thisMessagesDetailsViewNested.messages.length-20;i--) {
-										if (_thisMessagesDetailsViewNested.messages[i]!=undefined) _thisMessagesDetailsViewNested.messages[i].visible = '1'; // (1, i);
+									if (_thisMessagesDetailsViewNested.messages.length>20) {
+										for (i=_thisMessagesDetailsViewNested.messages.length-1;i>_thisMessagesDetailsViewNested.messages.length-20;i--) {
+											if (_thisMessagesDetailsViewNested.messages[i]!=undefined) _thisMessagesDetailsViewNested.messages[i].visible = '1'; // (1, i);
+											else _thisMessagesDetailsViewNested.messages[i].visible = '0';
+										}
 									}
 									_thisMessagesDetailsViewNested.render();
 									
@@ -168,8 +135,9 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					},{variable: 'messages'})).trigger('create'); // .listview().listview('refresh'); // 
 				}
 				hideModal();
-				new FastClick(document.body);
+				this.$el.show();
 				scrollBottom();
+				new FastClick(document.body);
 				return this;				
 			}
 		});
