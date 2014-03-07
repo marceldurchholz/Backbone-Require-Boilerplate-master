@@ -29,6 +29,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					if (isMobile.any()) var ft = new FileTransfer();
 					if (isMobile.any()) window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 						var downloadPath = fs.root.fullPath + "/"+videoid+".mp4";
+						alert(downloadPath);
 						uri = $('#video_player_1_html5_api').attr("src");
 						ft.onprogress = function(progressEvent) {
 							$('#modaltxt').html(progressEvent.loaded+" / "+progressEvent.total);
@@ -55,13 +56,15 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 					this.db.transaction(
 						function(tx) {
-							tx.executeSql("INSERT INTO videos (videoid,videourl) VALUES ('"+videoid+"','"+downloadPath+"')");
+							var sql = "INSERT INTO videos (videoid,videourl) VALUES ('"+videoid+"','"+downloadPath+"')";
+							alert(sql);
+							tx.executeSql(sql);
 						},
 						function() {
-							// console.log('ERROR ON entry saving in TABLE videos: '+query);
+							alert('ERROR ON entry saving in TABLE videos: '+query);
 						},
 						function() {
-							// console.log('Entry successfully saved in TABLE videos: '+query);
+							alert('Entry successfully saved in TABLE videos: '+query);
 						}
 					);
 				},
@@ -192,7 +195,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						if (result!=null && result!=undefined && result!='') {
 							_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = result.videourl;
 						}
-						alert(_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl);
+						// alert(_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl);
 						_thisViewVideoDetails.show();
 					});
 				},
