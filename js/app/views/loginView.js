@@ -150,7 +150,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 										return console.log(err);
 									}
 								}
-								_thisViewLogin.sendLogin('#myprofile');
 								/*
 								var obj = new Object();
 								obj.username = user.username;
@@ -250,7 +249,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				},
 				bindEvents: function() {
 					var _thisViewLogin = this;
-					$('#body').off( "swiperight", "#page-content");
 					$('#showMenu').hide();
 					$('#showPageOptionsIcon').hide();
 					$('#giftcodeDiv').toggle();
