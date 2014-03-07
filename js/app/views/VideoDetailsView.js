@@ -26,56 +26,42 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				downloadVideo: function(videoid) {
 					var _thisViewVideoDetails = this;
 					showModal();
-					if (isMobile.any()) {
-						var ft = new FileTransfer();
-						window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
-							var downloadPath = fs.root.fullPath + "/"+videoid+".mp4";
-							alert(downloadPath);
-							uri = $('#video_player_1_html5_api').attr("src");
-							ft.onprogress = function(progressEvent) {
-								$('#modaltxt').html(progressEvent.loaded+" / "+progressEvent.total);
-							};
-							ft.download(uri, downloadPath, function(entry) {
-								$("#video_player_1_html5_api").attr("src", downloadPath); // .get(0)
-								_thisViewVideoDetails.rememberVideoLocation(videoid,downloadPath);
-								$('#downloadvideobutton').hide();
-								hideModal();
-							}, 
-							function(error) {
-								console.log(error);
-								$('#downloadvideobutton').hide();
-								hideModal();
-							});
+					if (isMobile.any()) var ft = new FileTransfer();
+					if (isMobile.any()) window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+						var downloadPath = fs.root.fullPath + "/"+videoid+".mp4";
+						uri = $('#video_player_1_html5_api').attr("src");
+						ft.onprogress = function(progressEvent) {
+							$('#modaltxt').html(progressEvent.loaded+" / "+progressEvent.total);
+						};
+						ft.download(uri, downloadPath, function(entry) {
+							$("#video_player_1_html5_api").attr("src", downloadPath); // .get(0)
+							_thisViewVideoDetails.rememberVideoLocation(videoid,downloadPath);
+							$('#downloadvideobutton').hide();
+							hideModal();
+						}, 
+						function(error) {
+							console.log(error);
+							$('#downloadvideobutton').hide();
+							hideModal();
 						});
-					}					
+					});
 					else {
 						$('#downloadvideobutton').hide();
 						hideModal();
 					}
 				},
-				
 				rememberVideoLocation: function(videoid,downloadPath) {
 					_thisViewVideoDetails = this;
-					// doAlert('remenbering location of: '+videoid);
-					// doAlert(downloadPath);
 					this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 					this.db.transaction(
 						function(tx) {
-							// sample data 
-							// alert('saving into table videos START');
-							var query = "INSERT INTO videos (videoid,videourl) VALUES ('"+videoid+"','"+downloadPath+"')"; 
-							alert(query);
-							tx.executeSql(query);
-							// alert('saving into table videos ENDE');
+							tx.executeSql("INSERT INTO videos (videoid,videourl) VALUES ('"+videoid+"','"+downloadPath+"')");
 						},
 						function() {
-							alert('ERROR ON entry saving in TABLE videos: '+query);
+							// console.log('ERROR ON entry saving in TABLE videos: '+query);
 						},
 						function() {
-							// alert(query);
-							alert('Entry successfully saved in TABLE videos: '+query);
-							// alert('Table videos successfully FILLED WITH SAMPLES in local SQLite database');
-							// callback();
+							// console.log('Entry successfully saved in TABLE videos: '+query);
 						}
 					);
 				},
@@ -83,13 +69,15 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				initializeCollection:function(options) {
 					_thisViewVideoDetails = this;
 					dpd.users.me(function(user) {
-						if (user) { }
+						if (user) _thisViewVideoDetails.$el.hide();
 						else system.redirectToUrl('#login');
 					});
 					this._videosCollection = new videosCollection([], options);
 				},
 				fetch: function(options) {
 					var _thisViewVideoDetails = this;
+					showModal();
+					console.log(options.id);
 					_thisViewVideoDetails.getVideo(options);
 				},
 				getVideo: function(options) {
@@ -121,16 +109,14 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					}
 				},
 				initialize: function(options) {
-					_thisViewVideoDetails = this;
-					_thisViewVideoDetails.$el.hide();
-					showModal();
+					_thisKnowledgeData = this;
 					this.fetch(options);
 				},
 
 				collectRelatedData: function(topic) {
 					var streamData = new Array();
-					_thisViewVideoDetails = this;
-					_thisViewVideoDetails.streamData = streamData;
+					_thisKnowledgeData = this;
+					_thisKnowledgeData.streamData = streamData;
 					var querystr = "";
 					if (topic!='') querystr += "&topic="+topic;
 					var url = "http://dominik-lohmann.de:5000/videos?active=true&deleted=false";
@@ -144,15 +130,15 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							value.icon = 'images/icon-videos-60.png';
 							value.href = '#videos/details/view/'+value.id;
 							var uploader = value.uploader;
-							_thisViewVideoDetails.streamData.push(value);
+							_thisKnowledgeData.streamData.push(value);
 						});
 					});
 					// Sort multidimensional arrays with oobjects by value 
 					// http://www.javascriptkit.com/javatutors/arraysort2.shtml
-					_thisViewVideoDetails.streamData.sort(function(a, b){
+					_thisKnowledgeData.streamData.sort(function(a, b){
 						return b.cdate-a.cdate
 					});
-					return(_thisViewVideoDetails.streamData);
+					return(_thisKnowledgeData.streamData);
 				},
 				
 				insertVariables: function(model) {
@@ -166,6 +152,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							url: "http://dominik-lohmann.de:5000/users/?id="+uploader,
 							async: false
 						}).done(function(uploaderdata) {
+							// console.log(uploaderdata);
 							_thisViewVideoDetails.uploaderdata = uploaderdata;
 						});
 					}
@@ -203,15 +190,16 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					window.dao.initialize();
 					window.dao.findVideoById(_thisViewVideoDetails.options.id).done(function(result) {
 						_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = "";
-						if (result!=null && result!=undefined && result!='') {
+						if (result!=null && result!=undefined) {
 							_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = result.videourl;
 						}
-						// alert(_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl);
 						_thisViewVideoDetails.show();
 					});
 				},
 				show: function() {
+						console.log('doing show()');
 						_thisViewVideoDetails = this;
+						_thisViewVideoDetails.$el.show();
 						$(_thisViewVideoDetails.el).html('');
 						_.each(_thisViewVideoDetails._videosCollection.models, function(model) {
 							_thisViewVideoDetails.id = model.get('id');
@@ -235,12 +223,11 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						_thisViewVideoDetails.title_shorten = _thisViewVideoDetails._videosCollection.models[0].attributes.title;
 						if (_thisViewVideoDetails.title_shorten.length>25) _thisViewVideoDetails.title_shorten = _thisViewVideoDetails.title_shorten.substr(0,25)+'...';
 						
-						// _thisViewVideoDetails.$el.show();
-						
 						_thisViewVideoDetails.$el.fadeIn( 500, function() {
 							$('.ui-content').scrollTop(0);
 							new FastClick(document.body);
 							fontResize();
+							// alert($('.readmore').html());
 							$('.readmore').expander({
 								slicePoint: 100,
 								preserveWords: true,
@@ -274,7 +261,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					$(window).resize(function() {
 						window.resizeElement('#video_player_1')
 					});
-					// console.log('DOING render VideoDetailsView.js called');
+					console.log('DOING render VideoDetailsView.js called');
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewVideoDetails.nestedView = new SidemenuView().fetch();
 					hideModal();

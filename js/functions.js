@@ -696,7 +696,7 @@ var app = {
 		if(!isMobile.any()) {
 			var foox = window.setTimeout(function blax() {
 				_thisApp.dfd.resolve(true);
-			}, 1000);
+			}, 0);
 		}
 		else {
 			// document.addEventListener('load', this.onDeviceReady, false);
@@ -712,7 +712,7 @@ var app = {
 	receivedEvent: function(event) {
 		var foox = window.setTimeout(function blax() {
 			_thisApp.dfd.resolve(true);
-		}, 1000);
+		}, 0);
 	}
 };
 	
