@@ -26,26 +26,28 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				downloadVideo: function(videoid) {
 					var _thisViewVideoDetails = this;
 					showModal();
-					if (isMobile.any()) var ft = new FileTransfer();
-					if (isMobile.any()) window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
-						var downloadPath = fs.root.fullPath + "/"+videoid+".mp4";
-						alert(downloadPath);
-						uri = $('#video_player_1_html5_api').attr("src");
-						ft.onprogress = function(progressEvent) {
-							$('#modaltxt').html(progressEvent.loaded+" / "+progressEvent.total);
-						};
-						ft.download(uri, downloadPath, function(entry) {
-							$("#video_player_1_html5_api").attr("src", downloadPath); // .get(0)
-							_thisViewVideoDetails.rememberVideoLocation(videoid,downloadPath);
-							$('#downloadvideobutton').hide();
-							hideModal();
-						}, 
-						function(error) {
-							console.log(error);
-							$('#downloadvideobutton').hide();
-							hideModal();
+					if (isMobile.any()) {
+						var ft = new FileTransfer();
+						window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+							var downloadPath = fs.root.fullPath + "/"+videoid+".mp4";
+							alert(downloadPath);
+							uri = $('#video_player_1_html5_api').attr("src");
+							ft.onprogress = function(progressEvent) {
+								$('#modaltxt').html(progressEvent.loaded+" / "+progressEvent.total);
+							};
+							ft.download(uri, downloadPath, function(entry) {
+								$("#video_player_1_html5_api").attr("src", downloadPath); // .get(0)
+								_thisViewVideoDetails.rememberVideoLocation(videoid,downloadPath);
+								$('#downloadvideobutton').hide();
+								hideModal();
+							}, 
+							function(error) {
+								console.log(error);
+								$('#downloadvideobutton').hide();
+								hideModal();
+							});
 						});
-					});
+					}					
 					else {
 						$('#downloadvideobutton').hide();
 						hideModal();
@@ -54,18 +56,26 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				
 				rememberVideoLocation: function(videoid,downloadPath) {
 					_thisViewVideoDetails = this;
+					// doAlert('remenbering location of: '+videoid);
+					// doAlert(downloadPath);
 					this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
 					this.db.transaction(
 						function(tx) {
-							var sql = "INSERT INTO videos (videoid,videourl) VALUES ('"+videoid+"','"+downloadPath+"')";
-							alert(sql);
-							tx.executeSql(sql);
+							// sample data 
+							// alert('saving into table videos START');
+							var query = "INSERT INTO videos (videoid,videourl) VALUES ('"+videoid+"','"+downloadPath+"')"; 
+							alert(query);
+							tx.executeSql(query);
+							// alert('saving into table videos ENDE');
 						},
 						function() {
 							alert('ERROR ON entry saving in TABLE videos: '+query);
 						},
 						function() {
+							// alert(query);
 							alert('Entry successfully saved in TABLE videos: '+query);
+							// alert('Table videos successfully FILLED WITH SAMPLES in local SQLite database');
+							// callback();
 						}
 					);
 				},

@@ -672,9 +672,12 @@ var app = {
 	},
 	onResume: function() {
 		dpd.users.me(function(user) {
-			if (user) { }
-			else console.log('You are not logged in!');
-				window.location.href = "#noaccess";
+			if (user) { 
+				hideModal();
+				return(false);
+			}
+			console.log('You are not logged in!');
+			window.location.href = "#noaccess";
 		});
 
 	},
@@ -693,7 +696,7 @@ var app = {
 		if(!isMobile.any()) {
 			var foox = window.setTimeout(function blax() {
 				_thisApp.dfd.resolve(true);
-			}, 0);
+			}, 1000);
 		}
 		else {
 			// document.addEventListener('load', this.onDeviceReady, false);
@@ -709,7 +712,7 @@ var app = {
 	receivedEvent: function(event) {
 		var foox = window.setTimeout(function blax() {
 			_thisApp.dfd.resolve(true);
-		}, 0);
+		}, 1000);
 	}
 };
 	
