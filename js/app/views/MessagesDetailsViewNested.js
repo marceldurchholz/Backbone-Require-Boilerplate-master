@@ -149,6 +149,16 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 			render: function() {
 				var _thisMessagesDetailsViewNested = this;
 				if (_thisMessagesView.options.id!=0) {
+					// $('#receiverHeader').html(_thisMessagesDetailsViewNested.receiver);
+
+					var sql = { id: _thisMessagesDetailsViewNested.receiver };
+					dpd.users.get(sql, function (receiverData,err) {
+						if(err) {
+							// return console.log(err);
+						}
+						$('#receiverHeader').html(receiverData.fullname);
+					});
+					
 					$('#messageFooter').html(_.template(FooterPersistentPage, {
 						receiver: _thisMessagesDetailsViewNested.receiver
 					},{variable: 'data'})).trigger('create'); // '<div data-role="navbar"><ul><li>blafoo</li></ul></div>'

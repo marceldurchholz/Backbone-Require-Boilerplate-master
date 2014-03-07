@@ -69,14 +69,13 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				initializeCollection:function(options) {
 					_thisViewVideoDetails = this;
 					dpd.users.me(function(user) {
-						if (user) _thisViewVideoDetails.$el.hide();
+						if (user) { }
 						else system.redirectToUrl('#login');
 					});
 					this._videosCollection = new videosCollection([], options);
 				},
 				fetch: function(options) {
 					var _thisViewVideoDetails = this;
-					showModal();
 					_thisViewVideoDetails.getVideo(options);
 				},
 				getVideo: function(options) {
@@ -108,14 +107,16 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					}
 				},
 				initialize: function(options) {
-					_thisKnowledgeData = this;
+					_thisViewVideoDetails = this;
+					_thisViewVideoDetails.$el.hide();
+					showModal();
 					this.fetch(options);
 				},
 
 				collectRelatedData: function(topic) {
 					var streamData = new Array();
-					_thisKnowledgeData = this;
-					_thisKnowledgeData.streamData = streamData;
+					_thisViewVideoDetails = this;
+					_thisViewVideoDetails.streamData = streamData;
 					var querystr = "";
 					if (topic!='') querystr += "&topic="+topic;
 					var url = "http://dominik-lohmann.de:5000/videos?active=true&deleted=false";
@@ -129,15 +130,15 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							value.icon = 'images/icon-videos-60.png';
 							value.href = '#videos/details/view/'+value.id;
 							var uploader = value.uploader;
-							_thisKnowledgeData.streamData.push(value);
+							_thisViewVideoDetails.streamData.push(value);
 						});
 					});
 					// Sort multidimensional arrays with oobjects by value 
 					// http://www.javascriptkit.com/javatutors/arraysort2.shtml
-					_thisKnowledgeData.streamData.sort(function(a, b){
+					_thisViewVideoDetails.streamData.sort(function(a, b){
 						return b.cdate-a.cdate
 					});
-					return(_thisKnowledgeData.streamData);
+					return(_thisViewVideoDetails.streamData);
 				},
 				
 				insertVariables: function(model) {
@@ -195,9 +196,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					});
 				},
 				show: function() {
-						// console.log('doing show()');
 						_thisViewVideoDetails = this;
-						_thisViewVideoDetails.$el.show();
 						$(_thisViewVideoDetails.el).html('');
 						_.each(_thisViewVideoDetails._videosCollection.models, function(model) {
 							_thisViewVideoDetails.id = model.get('id');
@@ -220,6 +219,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						
 						_thisViewVideoDetails.title_shorten = _thisViewVideoDetails._videosCollection.models[0].attributes.title;
 						if (_thisViewVideoDetails.title_shorten.length>25) _thisViewVideoDetails.title_shorten = _thisViewVideoDetails.title_shorten.substr(0,25)+'...';
+						
+						// _thisViewVideoDetails.$el.show();
 						
 						_thisViewVideoDetails.$el.fadeIn( 500, function() {
 							$('.ui-content').scrollTop(0);
