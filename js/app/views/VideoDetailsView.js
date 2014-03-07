@@ -8,6 +8,35 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 			
 				el: "#page-content",
 				attributes: {"data-role": 'content'},
+				/*
+				createVideo: function () {
+					if (this._videosCollection.online==0) {
+						// this._videosCollection._localStorage_users.create(new Video({"fullname": "offline James King", "device": "5645-6543-5415-5233", "credits": "120", "pictureurl": "http://www.redner24.de/typo3temp/GB/Durchholz_Marcel_4c_1090c3626b_Durc_a4ff6064ff.jpg"}));
+						alert('in offline mode you can not add data');
+					}
+					else {
+						// this._videosCollection._localStorage_users.create(new VideoModel({"fullname": "offline James King", "device": "5645-6543-5415-5233", "credits": "120", "pictureurl": "http://www.redner24.de/typo3temp/GB/Durchholz_Marcel_4c_1090c3626b_Durc_a4ff6064ff.jpg"}));
+						this.create(new VideoModel({"uploader": "042cb1572ffbea5d", "videourl": "http://xyz.de.com.uk", "title": "This is a video title", "description": "This is a description", "price": "35", "thumbnailurl": ""}));
+					}
+					return(false);
+				},
+				create: function(model) {
+					_thisViewVideoDetails = this;
+					$.ajax('http://dominik-lohmann.de:5000/videos', {
+					  type: "POST",
+					  contentType: "application/json",
+					  data: JSON.stringify(model.attributes),
+					  success: function(todo) {
+						_thisViewVideoDetails.fetch();
+					  }, 
+					  error: function(xhr,b) {
+						console.log(xhr);
+						alert(xhr);
+					  }
+					});
+					return(false);
+				},
+				*/
 				bindEvents: function() {
 					_thisViewVideoDetails = this;
 					// this.$el.off('click','.createVideo').on('click','.createVideo',function(){_thisViewVideoDetails.createVideo();});
@@ -16,7 +45,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						e.preventDefault();
 						// var videoid = $(this).attr('data-videoid');
 						// _thisViewVideoDetails.buyVideo(videoid); 
-						// alert($(this).attr('data-id'));
+						alert($(this).attr('data-id'));
 						var connectionid = $(this).attr('data-id');
 						showModal();
 						dpd.users.put(connectionid, 
@@ -91,8 +120,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						}, 
 						function(error) {
 							console.log(error);
-							$('#downloadvideobutton').hide();
-							// doAlert('Da ist etwas schiefgegangen. Die Datei konnte nicht vollständig heruntergeladen werden. Bitte probieren Sie es erneut oder wenden Sie sich an unseren Support. Vielen Dank.','Ups!');						
+							doAlert('Da ist etwas schiefgegangen. Die Datei konnte nicht vollständig heruntergeladen werden. Bitte probieren Sie es erneut oder wenden Sie sich an unseren Support. Vielen Dank.','Ups!');						
 							// $('#downloadvideobutton').hide();
 							hideModal();
 						});
@@ -119,11 +147,10 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							// alert('saving into table videos ENDE');
 						},
 						function() {
-							console.log('ERROR ON entry saving in TABLE videos: '+query);
+							alert('ERROR ON entry saving in TABLE videos');
 						},
 						function() {
-							// alert(query);
-							console.log('Entry successfully saved in TABLE videos: '+query);
+							// alert('Entry successfully saved in TABLE videos');
 							// alert('Table videos successfully FILLED WITH SAMPLES in local SQLite database');
 							// callback();
 						}
@@ -141,25 +168,32 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				},
 				fetch: function(options) {
 					var _thisViewVideoDetails = this;
-					// this.$el.hide();
+					this.$el.hide();
 					showModal();
 					console.log(options.id);
 					_thisViewVideoDetails.getVideo(options);
 				},
 				getVideo: function(options) {
 					var _thisViewVideoDetails = this;
-					var _options = options;
-					_thisViewVideoDetails.initializeCollection(options);
-					_thisViewVideoDetails._videosCollection.fetch({
-						error: function(action, coll) {
-							_thisViewVideoDetails.render();
-						},
-						success: function(coll, jsoncoll) {
-							_thisViewVideoDetails.render();
-						}
-					});					
-
 					// _thisViewVideoDetails.offlineurl = "file:///D:/cordova/Backbone-Require-Boilerplate-master/public_VIDEOS/testvideo.mp4";
+					_thisViewVideoDetails.offlineurl = "";
+					if (isMobile.any()) {
+						this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
+						this.db.transaction (
+							function(tx) {
+								var sql = "SELECT videourl as videourl FROM videos WHERE videoid='"+options.id+"'";
+								tx.executeSql(sql, 
+									function() {
+										alert('ERROR ON SELECT videourl');
+									},
+									function(tx, results) {
+										var offlineurl = results.rows.item(0).videourl;
+										_thisViewVideoDetails.offlineurl = offlineurl;
+									}
+								);
+							}
+						);
+					}
 					/*
 					else {
 						_thisViewVideoDetails.offlineurl = "/var/myurl/nsdfsnk.mp4";
@@ -168,6 +202,18 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					*/
 					
 					// return(false);
+					_thisViewVideoDetails.initializeCollection(options);
+					_thisViewVideoDetails._videosCollection.fetch({
+						error: function(action, coll) {
+							// console.log(action);
+							// console.log(coll);
+						},
+						success: function(coll, jsoncoll) {
+							// console.log(coll);
+							// console.log(jsoncoll);
+							_thisViewVideoDetails.render();
+						}
+					});					
 				},
 				buyVideo: function(videoid) {
 					_thisViewVideoDetails = this;
@@ -331,148 +377,9 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					},{variable: 'video'});
 					$(this.el).html(_template);
 				},
-				getOfflineUrl: function() {
-					_thisViewVideoDetails = this;
-					window.dao.initialize();
-					window.dao.findVideoById(_thisViewVideoDetails.options.id).done(function(result) {
-						console.log('done findVideoById');
-						// alert(result);
-						// alert(result.videourl);
-						// console.log(result);
-						_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = "";
-						if (result!=null && result!=undefined) {
-							_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = result.videourl;
-						}
-						_thisViewVideoDetails.show();
-					});
-					// _thisViewVideoDetails.show();
-					/*
-					_thisViewVideoDetails = this;
-					_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = "";
-					var $def = $.Deferred();
-					if (isMobile.any()) {
-						alert('doing mobile query');
-						this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
-						alert('db opened');
-						this.db.transaction(
-							function(tx) {
-								alert('tx started');
-								var sql = "SELECT videourl as videourl FROM videos WHERE videoid = '"+_thisViewVideoDetails.options.id+"' ";
-								alert(sql);
-								tx.executeSql(
-									sql
-									, function(tx, rs) {
-										alert('sucess');
-										alert(rs);
-										alert(rs.videourl);
-										_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = rs.videourl;
-										_thisViewVideoDetails.show();
-									}
-									, function(tx, error) {
-										alert('error');
-										_thisViewVideoDetails.show();
-									}
-								);
-								  setTimeout(function() {
-									// alert("received url: " + url);
-									// alert("received url");
-									// success('a','b');
-									// alert('not mobile');
-									// alert(rs);
-									// alert(rs.videourl);
-									alert(rs.videourl);
-									_thisViewVideoDetails.show();
-								  }, 1000);
-
-								alert('tx end');
-							}
-						);
-					}
-					else {
-						  setTimeout(function() {
-							// alert("received url: " + url);
-							// alert("received url");
-							// success('a','b');
-							// _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = "file://";
-							alert('not mobile');
-							_thisViewVideoDetails.show();
-						  }, 3000);
-					}
-					return $def.promise();
-					*/
-				},
-				show: function() {
-						console.log('doing show()');
-						_thisViewVideoDetails = this;
-						var htmlContent = '';
-						$(_thisViewVideoDetails.el).html(htmlContent);
-						_.each(_thisViewVideoDetails._videosCollection.models, function(model) {
-							_thisViewVideoDetails.id = model.get('id');
-							_thisViewVideoDetails.videourl = model.get('id');
-							_thisViewVideoDetails.insertVariables(model);
-						});
-						// console.log('bla');
-						// console.log(_thisViewVideoDetails._videosCollection.models[0].attributes);
-						// console.log(_thisViewVideoDetails._videosCollection.models[0].attributes);
-						// console.log(_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl);
-						console.log('_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl: ' + _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl);
-						console.log('_thisViewVideoDetails._videosCollection.models[0].attributes.videourl: ' + _thisViewVideoDetails._videosCollection.models[0].attributes.videourl);
-						
-						if (_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl!='' && _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl!=undefined) {
-							_thisViewVideoDetails._videosCollection.models[0].attributes.videourl = _thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl;
-						}
-						
-						if( $.inArray( _thisViewVideoDetails._videosCollection.models[0].attributes.id , window.me.purchases ) >- 1 ) {
-							_thisViewVideoDetails._videosCollection.models[0].attributes.videourl,showVideoLength = 0;
-						} else {
-							_thisViewVideoDetails._videosCollection.models[0].attributes.videourl,showVideoLength = 60;
-						}
-
-						window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',_thisViewVideoDetails._videosCollection.models[0].attributes.videourl,showVideoLength);
-						_thisViewVideoDetails.$el.trigger('create');
-						new FastClick(document.body);
-						
-						_thisViewVideoDetails.title_shorten = _thisViewVideoDetails._videosCollection.models[0].attributes.title;
-						if (_thisViewVideoDetails.title_shorten.length>25) _thisViewVideoDetails.title_shorten = _thisViewVideoDetails.title_shorten.substr(0,25)+'...';
-						
-						_thisViewVideoDetails.$el.fadeIn( 500, function() {
-							$('.ui-content').scrollTop(0);
-							new FastClick(document.body);
-							fontResize();
-							// alert($('.readmore').html());
-							$('.readmore').expander({
-								slicePoint: 100,
-								preserveWords: true,
-								expandPrefix: '...',
-								expandEffect: 'fadeIn',
-								expandSpeed: 500,
-								collapseEffect: 'fadeOut',
-								collapseSpeed: 400,
-								expandText: ' Weiterlesen...',
-								userCollapseText: '',
-								userCollapse: false
-							});
-							$('.readmoretitle').expander({
-								slicePoint: 0,
-								preserveWords: false,
-								expandPrefix: '',
-								expandEffect: 'fadeIn',
-								expandSpeed: 500,
-								collapseEffect: 'fadeOut',
-								collapseSpeed: 400,
-								expandText: _thisViewVideoDetails.title_shorten,
-								userCollapseText: '',
-								userCollapse: false
-							});
-						});
-						
-				},
 				render: function() {
 					_thisViewVideoDetails = this;
 					console.log('rendering');
-					
-					_thisViewVideoDetails.getOfflineUrl();
-					
 					$(window).resize(function() {
 						window.resizeElement('#video_player_1')
 					});
@@ -480,13 +387,48 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewVideoDetails.nestedView = new SidemenuView().fetch();
 					
-					hideModal();
-					
+					if( $.inArray( this._videosCollection.models[0].attributes.id , window.me.purchases ) >- 1 ) {
+						this._videosCollection.models[0].attributes.videourl,showVideoLength = 0;
+					} else {
+						this._videosCollection.models[0].attributes.videourl,showVideoLength = 60;
+						// alert('not buyed');
+					}
+					// _thisViewVideoDetails.offlineurl
+					// alert(showVideoLength);
+					/*
+					if (_thisViewVideoDetails.offlineurl!='') {
+						// alert(_thisViewVideoDetails.offlineurl);
+						this._videosCollection.models[0].attributes.videourl = _thisViewVideoDetails.offlineurl;
+						$('#downloadvideobutton').hide();
+					}
+					*/
+					this._videosCollection.models[0].attributes.offlineurl = _thisViewVideoDetails.offlineurl;
+
+					var htmlContent = '';
+					$(this.el).html(htmlContent);
+					_.each(this._videosCollection.models, function(model) {
+						this.id = model.get('id');
+						this.videourl = model.get('id');
+						_thisViewVideoDetails.insertVariables(model);
+					});
+					// console.log('this._videosCollection.models[0].attributes.videourl');
+					// console.log(this._videosCollection.models[0].attributes.videourl);
+					// alert(showVideoLength);
+					// console.log(window.me.purchases);
+					// console.log(this._videosCollection.models[0].attributes.id);
+					// alert($.inArray( this._videosCollection.models[0].attributes.id , window.me.purchases ));
+					if (this._videosCollection.models[0].attributes.offlineurl!='') this._videosCollection.models[0].attributes.videourl = this._videosCollection.models[0].attributes.offlineurl;
+					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',this._videosCollection.models[0].attributes.videourl,showVideoLength);
 					// alert(_thisViewVideoDetails.videourl);
 					// alert(this._videosCollection.models[0].attributes.videourl);
+					hideModal();
+					this.$el.trigger('create');
+					new FastClick(document.body);
 					
-					/*
-					_thisViewVideoDetails.$el.fadeIn( 500, function() {
+					_thisViewVideoDetails.title_shorten = this._videosCollection.models[0].attributes.title;
+					if (_thisViewVideoDetails.title_shorten.length>25) _thisViewVideoDetails.title_shorten = _thisViewVideoDetails.title_shorten.substr(0,25)+'...';
+					
+					this.$el.fadeIn( 500, function() {
 						$('.ui-content').scrollTop(0);
 						new FastClick(document.body);
 						fontResize();
@@ -516,7 +458,6 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							userCollapse: false
 						});
 					});
-					*/
 					_thisViewVideoDetails.bindEvents();
 					return this;
 				}

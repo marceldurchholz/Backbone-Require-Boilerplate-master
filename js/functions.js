@@ -228,7 +228,7 @@ var dao = {
 		// renderList();
 		if (isMobile.any()) {
 			this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
-			/*
+
 			this.db.transaction(
 				function(tx) {
 					// tx.executeSql('DROP TABLE IF EXISTS videos');
@@ -244,7 +244,6 @@ var dao = {
 			// Testing if the table exists is not needed and is here for logging purpose only. We can invoke createTable
 			// no matter what. The 'IF NOT EXISTS' clause will make sure the CREATE statement is issued only if the table
 			// does not already exist.
-			*/
 			this.db.transaction (
 				function(tx) {
 					tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='videos'", this.txErrorHandler,
@@ -259,62 +258,20 @@ var dao = {
 		// else websqlReady.resolve("initialize done");
 	},
 		
-	findVideoById: function(id) {
-		// alert('outer searching for id: ' + id);
-		var deferred = $.Deferred();
-		if (isMobile.any()) {
-			this.db.transaction(
-				function (tx) {
-					// alert('inner searching for id: ' + id);
-					var sql = "SELECT v.videoid, v.videourl " +
-						"FROM videos v " +
-						"WHERE v.videoid=:id";
-					// alert(sql);
-					// alert(id);
-					tx.executeSql(sql, [id], function (tx, results) {
-						deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
-					});
-					/*
-					var sql = "SELECT videourl FROM videos WHERE videoid = '"+id+"' ";
-					// alert(sql);
-					// alert(id);
-					tx.executeSql(sql, function (tx, results) {
-						deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
-					});
-					*/
-				},
-				function (error) {
-					// alert("Transaction Error: " + error.message);
-					deferred.reject("Transaction Error: " + error.message);
-					// deferred.resolve(null);
-				}
-			);
-		}
-		else {
-			deferred.resolve("returnvalue");
-			setTimeout(function() {
-				deferred.resolve("returnvalue");
-			}, 3000);
-		}
-		return deferred.promise();
-	},
-	
 	createTables: function() {
 		this.db.transaction(
 			function(tx) { 
-				// tx.executeSql("CREATE TABLE IF NOT EXISTS users ( username VARCHAR(255) PRIMARY KEY, password VARCHAR(255))");
+				tx.executeSql("CREATE TABLE IF NOT EXISTS users ( username VARCHAR(255) PRIMARY KEY, password VARCHAR(255))");
 				tx.executeSql("CREATE TABLE IF NOT EXISTS videos ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))");
 			},
+			function() { alert('ERROR ON Tables CREATE local SQLite database'); },
 			function() { 
-				alert('ERROR ON Tables CREATE local SQLite database'); 
-			},
-			function() { 
-				alert('SUCCESS Tables CREATE local SQLite database'); 
-				// websqlReady.resolve("initialize done"); 
+				// alert('SUCCESS Tables CREATE local SQLite database'); 
+				websqlReady.resolve("initialize done"); 
 			}
 		);
 	},
-
+	
 	fillTable: function() {
 		// alert('filling table');
 		if (isMobile.any()) {
@@ -734,20 +691,20 @@ var app = {
 	fetchWorking: function() {
 		var setTimeoutWatcher = setTimeout(function foo() {
 			if ( _thisApp.dfd.state() === "pending" ) {
-				// _thisApp.dfd.notify( "working... " );
+				_thisApp.dfd.notify( "working... " );
 				setTimeout( _thisApp.fetchWorking, 100 );
 			}
 		}, 1 );
 	},
 	fetchMe: function() {
 		_thisApp = this;
-		// console.log('fetchMe app');
-		_thisApp.dfd = new $.Deferred();
+		console.log('fetchMe app');
+		_thisApp.dfd = new jQuery.Deferred();
 		_thisApp.fetchWorking();
 		if(!isMobile.any()) {
 			var foox = window.setTimeout(function blax() {
 				_thisApp.dfd.resolve(true);
-			}, 100);
+			}, 1000);
 		}
 		else {
 			// document.addEventListener('load', this.onDeviceReady, false);
@@ -759,14 +716,10 @@ var app = {
 	},
 	fetch: function() {	
 		_thisApp = this;
-		// console.log('fetching _thisApp.js');
+		console.log('fetching _thisApp.js');
 	},
 	receivedEvent: function(event) {
-		alert('deviceready');
-		var foox = window.setTimeout(function blax() {
-			_thisApp.dfd.resolve(true);
-		}, 100);
-		// _thisApp.dfd.resolve(true);		
+		_thisApp.dfd.resolve(true);		
 	}
 };
 	
@@ -943,7 +896,7 @@ function postDeviceReadyActions(){
 / ----------------------------------------------------------- */
 function modifyiOS7StatusBar(){
 	// if (window.device.version) alert('>> '+window.device.version);
-    var doit = true;
+    var doit = false;
 	if (isMobile.any() && doit==true) {
 		try{
 			if (parseFloat(window.device.version) === 7.0) {
@@ -955,10 +908,8 @@ function modifyiOS7StatusBar(){
 				$("#body").css('top', "0px");
 			}
 			else {
-				// document.body.style.marginTop = "20px";
-				// $("#body").css('top', "20px");
-				document.body.style.marginTop = "0px";
-				$("#body").css('top', "0px");
+				document.body.style.marginTop = "20px";
+				$("#body").css('top', "20px");
 			}
 			if (window.device.version && parseFloat(window.device.version) > 7) {
 				// document.body.style.marginTop = "20px";
@@ -981,7 +932,7 @@ function debugModeEnabled(){
 function report(logtype,msg){
     try{
 		// alert(logtype + ': ' + msg);
-        // console.log(logtype + ': ' + msg);
+        console.log(logtype + ': ' + msg);
     }catch(e){ 
         // give up
     }            
@@ -2437,7 +2388,7 @@ function createOptionsEl(name, values, selectionDefault) {
 //* DEBUG */ window.console.log('js/global.js loaded...');
 
 function resizeElement(elementid) {
-	// console.log('resizeElement: '+elementid);
+	console.log('resizeElement: '+elementid);
 	// var thumbnail_width = this.$el.outerWidth();
 	var elwidth = $(elementid).width();
 	// console.log(elwidth);
@@ -2462,10 +2413,10 @@ function resizeElement(elementid) {
 
 function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 	_thisVideoId = videoId;
-	// console.log(videoId);
+	console.log(videoId);
 	// alert(videoUrl);
 	_thisVideoUrl = videoUrl;
-	// console.log(videoUrl);
+	console.log(videoUrl);
 	for( vid in _V_.players ){ 
 		console.log('>>> '+vid.toString()); 
 		if(vid.toString() == "video_player_1"){ 
@@ -2489,9 +2440,7 @@ function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 		*/
 		// alert(_thisVideoUrl);
 		// alert(_thisVideoUrl.length);
-		// alert('_thisVideoUrl: ' + _thisVideoUrl);
-		// alert('_thisVideoUrl.length' + _thisVideoUrl.length);
-		if (_thisVideoUrl.length <= 50) {
+		if (_thisVideoUrl.length <= 40) {
 			myPlayer.src([
 				{ type: "video/mp4", src: "http://prelaunch002.appinaut.de/secure/index.php?showvideo="+_thisVideoUrl+".mp4" },
 				{ type: "video/webm", src: "http://prelaunch002.appinaut.de/secure/index.php?showvideo="+_thisVideoUrl+".webm" },
@@ -2702,20 +2651,24 @@ var menuSwitched = function(status) {
 	menuSwitchedDeferred.resolve();
 	menuSwitchedDeferredWatcher.done(function( value ) {
 		// alert(value);
-		// console.log(value);
+		console.log(value);
 	});
 };
 
+function timeoutwarning() {
+	// console.log(window.system.modaltimeout);
+	window.system.modaltimeout = window.system.modaltimeout - 1;
+}
 function showModal(){
 	// if ($('.modalWindow')) return(false);
-	// console.log('showModal');
-	window.system.modaltimeout = 30000;
+	console.log('showModal');
+	window.system.modaltimeout = 5000;
 	window.clearInterval(window.modaltimeoutvar);
 	window.modaltimeoutvar = window.setInterval(function() {
-		// console.log(window.system.modaltimeout);
+		console.log(window.system.modaltimeout);
 		window.system.modaltimeout = window.system.modaltimeout - 1000;
 		if (window.system.modaltimeout<=0) {
-			var breaktoDashboardText = '<br>Die Aktion<br>dauert ungewöhnlich lange.<br><br><u style="cursor:pointer;">ausblenden</u>';
+			var breaktoDashboardText = '<br>Die Aktion dauert dauert ungewöhnlich lang.<br><br><u style="cursor:pointer;">abbrechen</u>';
 			$('#breaktoDashboard').html(breaktoDashboardText);
 			$('#breaktoDashboard').show();
 			window.clearInterval(window.modaltimeoutvar);
@@ -2970,9 +2923,8 @@ function scrollBottom() {
 	setTimeout(function() {
 		$('#page-content').animate({
 			scrollTop: $("#page-content")[0].scrollHeight
-		}, "fast", function() {
+		}, "slow", function() {
 			// animation done
-			$('#page-content').focus();
 		});
 	}, 1000);
 }

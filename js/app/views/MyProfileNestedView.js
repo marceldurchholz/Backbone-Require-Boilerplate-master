@@ -1,8 +1,8 @@
 // MyProfileNestedView.js
 // -------
-define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/SidemenuView", "text!templates/MyProfileNestedViewPage.html"],
+define(["jquery", "backbone", "text!templates/MyProfileNestedViewPage.html"],
 
-    function($, Backbone, sidemenusList, SidemenuView, MyProfileNestedViewPage){
+    function($, Backbone, MyProfileNestedViewPage){
 		
 		var MyProfileNestedView = Backbone.View.extend({
 			el: "#MyProfileNestedViewDiv",
@@ -55,12 +55,10 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						
 						_thisViewMyProfileNested.interests = interests;
 						_thisViewMyProfileNested.render();
-						// _thisViewMyProfileNested.checkActiveStatus();
+						_thisViewMyProfileNested.checkActiveStatus();
 					});
-					// if (_thisViewMyProfileNested.me.active==false || $("#fullname").val()=='') {
-					if ($("#fullname").val()=='') {
-						// doAlert('Bitte vervollständigen Sie Ihr Profil und bestätigen Sie Ihre E-Mail-Adresse über den zugesendeten Link.','Fast fertig...');
-						doAlert('Bitte vervollständigen Sie Ihr Profil.','Fast fertig...');
+					if (_thisViewMyProfileNested.me.active==false || $("#fullname").val()=='') {
+						doAlert('Bitte vervollständigen Sie Ihr Profil und bestätigen Sie Ihre E-Mail-Adresse über den zugesendeten Link.','Fast fertig...');
 					}
 					
 				});
@@ -93,11 +91,11 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					o.id = obj.id;
 					o.value = obj.value;
 					var newroles = ["user","seeker"];
-					if (obj.id=='fullname') if (obj.value=='') { doAlert('Es muss ein Vor- und Nachname eingegeben werden.','Information'); } else dpd.users.put(_thisViewMyProfileNested.me.id, {"fullname":obj.value, roles: newroles}, function(result, err) { 
+					if (obj.id=='fullname') if (obj.value!='') dpd.users.put(_thisViewMyProfileNested.me.id, {"fullname":obj.value, roles: newroles}, function(result, err) { 
 						if(err) return console.log(err); 
 						console.log(result, result.id); 
 						_thisViewMyProfileNested.me = result;
-						if (_thisViewMyProfileNested.me.active==false) {
+						if (_thisViewMyProfileNested.me.active==true) {
 							_thisViewMyProfileNested.activationMessage();
 						}
 					});
@@ -109,17 +107,12 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				// $('#showMenu').show();
 				// $('#showPageOptions').show();
 				// $('#restrictedArea').show();
-				// console.log(_thisViewMyProfileNested.initialized.active,_thisViewMyProfileNested.me.active);
-				// if (_thisViewMyProfileNested.initialized.active != _thisViewMyProfileNested.me.active) {
-					doAlert('Ihr Profil ist nun bereit zur Freischaltung. Diese Seite wird dazu einmal neu geladen,','Profil bereit!');
-					dpd.users.put(_thisViewMyProfileNested.me.id, {"active":true}, function(result, err) { 
-						if(err) return console.log(err); 
-						// console.log(result, result.id); 
-						// system.redirectToUrl('#logout');
-						_thisViewMyProfileNested.initialize();
-					});
+				console.log(_thisViewMyProfileNested.initialized.active,_thisViewMyProfileNested.me.active);
+				if (_thisViewMyProfileNested.initialized.active != _thisViewMyProfileNested.me.active) {
+					// doAlert('Ihr Profil ist nun bereit zur Freischaltung. Diese Seite wird dazu einmal neu geladen,','Profil bereit!');
+					_thisViewMyProfileNested.render();
 					// window.location.reload();
-				// }
+				}
 			},
 			checkActiveStatus: function() {
 				var _thisViewMyProfileNested = this;
@@ -242,13 +235,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 			render: function() {
 				var _thisViewMyProfileNested = this;
 				console.log('rendering MyProfileNestedView.js');
-				
-				$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
-				_thisViewMyProfileNested.nestedView = new SidemenuView().fetch();
-
 				var htmlContent = '';
 				$(this.el).html(htmlContent);
-				// console.log(_thisViewMyProfileNested.me);
+				console.log(_thisViewMyProfileNested.me);
 				if (!_thisViewMyProfileNested.me.credits) _thisViewMyProfileNested.me.credits = "0";
 				var provider;
 				provider = jQuery.inArray( 'provider', _thisViewMyProfileNested.me.roles );
