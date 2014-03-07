@@ -2034,7 +2034,7 @@ function getVideoWin(mediaFiles) {
 // http://www.raymondcamden.com/index.cfm/2013/5/1/Using-the-Progress-event-in-PhoneGap-file-transfers
 
 function sendLocalStorageToElements(videoRecordLocalStorage) {
-	console.log('************');
+	// console.log('************');
 	var models = videoRecordLocalStorage;
 	var keys = new Array();
 	for(var key in models) {
@@ -2043,7 +2043,7 @@ function sendLocalStorageToElements(videoRecordLocalStorage) {
 		for(var modelkey in modelsattribute) {
 			if($('#'+modelkey).is("textarea")) {
 				$('#'+modelkey).html(modelsattribute[modelkey]);
-				console.log(modelkey+' >> '+modelsattribute[modelkey]);
+				// console.log(modelkey+' >> '+modelsattribute[modelkey]);
 			}
 			else if($('#'+modelkey).is("select")) {
 				// alert(modelkey + ' is a select');
@@ -2058,11 +2058,11 @@ function sendLocalStorageToElements(videoRecordLocalStorage) {
 			}
 			else {
 				$('#'+modelkey).val(modelsattribute[modelkey]);
-				console.log(modelkey+' >> '+modelsattribute[modelkey]);
+				// console.log(modelkey+' >> '+modelsattribute[modelkey]);
 			}
 		}
 	}
-	console.log('************');
+	// console.log('************');
 }
 
 
@@ -2079,7 +2079,7 @@ function attachVideoToPlayer(mediaFilePath) {
 		return(false);
 	}
 	else {
-		console.log('attaching to video player: ' + mediaFilePath);
+		// console.log('attaching to video player: ' + mediaFilePath);
 		// alert('attaching to video player: ' + mediaFilePath);
 		$('#camera_file').val(mediaFilePath);
 	}
@@ -2095,7 +2095,7 @@ function attachVideoToPlayer(mediaFilePath) {
 		};
 	}
 	if (mediaFilePath=='') {
-		console.log('mediaFilePath empty','DEBUG');
+		// console.log('mediaFilePath empty','DEBUG');
 		// $('#captureVideoUploadButton').button('disable');
 		// $('#submitbutton').button('disable');
 	}
@@ -2130,7 +2130,7 @@ function attachVideoToPlayer(mediaFilePath) {
 */
 
 function recordVideoUpload(videoRecordLocalStorage) {	
-	console.log(videoRecordLocalStorage);
+	// console.log(videoRecordLocalStorage);
 	// alert('bla');
 	// return(false);
 	var mediaFile = $('#camera_file').val();
@@ -2144,7 +2144,7 @@ function recordVideoUpload(videoRecordLocalStorage) {
 		ft.onprogress = function(progressEvent) {
 			// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
 			// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
-			console.log(progressEvent.loaded + " / " + progressEvent.total);
+			// console.log(progressEvent.loaded + " / " + progressEvent.total);
 			$('#modaltxt').html(progressEvent.loaded+"/"+progressEvent.total);
 		};
 		var options = new FileUploadOptions();
@@ -2155,16 +2155,16 @@ function recordVideoUpload(videoRecordLocalStorage) {
 			// "http://management-consulting.marcel-durchholz.de/secure/upload.php",
 			"http://prelaunch002.appinaut.de/secure/upload.php",
 			function(r) {
-				console.log("Code = " + r.responseCode);
-				console.log("Response = " + r.response);
-				console.log("Sent = " + r.bytesSent);
+				// console.log("Code = " + r.responseCode);
+				// console.log("Response = " + r.response);
+				// console.log("Sent = " + r.bytesSent);
 				dpd.videos.post({"uploader":""+window.me.id,"videourl":""+options.fileName,"title":""+options.fileName,"description":""+options.fileName,"price":123,"thumbnailurl":""}, function(result, err) {
 					if(err) {
 						return console.log(err);
 					}
 					// $.mobile.loading( 'hide' );
 					hideModal();
-					console.log(result, result.id);
+					// console.log(result, result.id);
 				});
 			},
 			function(error) {
@@ -2186,18 +2186,18 @@ function recordVideoUpload(videoRecordLocalStorage) {
 function captureVideoUpload(videoRecordLocalStorage) {
 	var _this = this;
 	// alert('captureVideoUpload');
-	console.log('^^');
-	console.log(videoRecordLocalStorage);
-	console.log('^^');
+	// console.log('^^');
+	// console.log(videoRecordLocalStorage);
+	// console.log('^^');
 	// console.log('^^^^^^^^^^^^');
 	var models = videoRecordLocalStorage.models;
 	var formValues = new Array();
 	for(var key in models) {
 	   // formValues[formValues.length] = key;
 	   var modelsattribute = models[key].attributes;
-	   console.log(modelsattribute);
+	   // console.log(modelsattribute);
 		for(var modelkey in modelsattribute) {
-			console.log(modelkey+' >> '+modelsattribute[modelkey]);
+			// console.log(modelkey+' >> '+modelsattribute[modelkey]);
 			formValues[modelkey] = modelsattribute[modelkey];
 		}
 	}
@@ -2225,7 +2225,7 @@ function captureVideoUpload(videoRecordLocalStorage) {
 				dpd.videos.post({"uploader":""+_this._thisViewRecordVideoNested.me.id,"videourl":""+options.fileName,"active":true,"cdate":""+dateYmdHis(),"topic":""+formValues.interest,"title":""+formValues.title,"subtitle":""+formValues.subtitle,"description":""+formValues.description,"price":formValues.sliderprice}, function(result, err) {
 					if(err) {
 						hideModal();
-						doAlert('Es ist ein Fehler passiert, der nicht passieren sollte. Bitte versuchen Sie Ihre Aktion erneut oder wenden Sie sich direkt an das APPinaut Support Team.','Ups! Fehler beim Upload!');
+						// doAlert('Es ist ein Fehler passiert, der nicht passieren sollte. Bitte versuchen Sie Ihre Aktion erneut oder wenden Sie sich direkt an das APPinaut Support Team.','Ups! Fehler beim Upload!');
 						return console.log(err);
 					}
 					// if (result) {
