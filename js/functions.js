@@ -645,24 +645,10 @@ function initStore() {
 
 var app = {
 	initialize: function() {
-		// report('MobileInit.js','var app:initialize');
-		// this.bindEvents();
 		_thisApp = this;
 		$.when( _thisApp.fetchMe() ).then(
 			  function( deviceisready ) {
-				// console.log(status);
-				// _thisViewDashboardNested.me = status;
-				// _thisViewDashboardNested.render();
 				cordovaIsLoaded = true;
-				// new MobileRouter();
-				// populateHomepageData();
-				// status = deviceisready
-				// alert(deviceisready);
-				
-				// modifyiOS7StatusBar();
-				// if(isMobile.any()) {
-				// }
-				
 				if(isMobile.any()) {
 					initStore();
 					document.addEventListener("resume", _thisApp.onResume, false);
@@ -673,50 +659,22 @@ var app = {
 				$("body").css("-ms-user-select","none");
 				$("body").css("-o-user-select","none");
 				$("body").css("user-select","none");
-				
-				if (1==2) var positionTimer = navigator.geolocation.watchPosition(
-					function( position ){
-						// Log that a newer, perhaps more accurate
-						// position has been found.
-						console.log( "Newer Position Found" );
-						// Set the new position of the existing marker.
-						system.timestamp = position.timestamp;
-						/*
-						updateMarker(
-							locationMarker,
-							position.coords.latitude,
-							position.coords.longitude,
-							"Updated / Accurate Position"
-						);
-						*/
-					}
-				);
-				
-				
-				// alert('dao done');
-				// window.dao.test('foo');
 				window.dao.initialize();
 				new window.MobileRouter();
-				// return this.dfd.promise();
-				// return('deviceisready');
 			  },
 			  function( status ) {
-				// console.log( status + ", you fail this time" );
-				alert( "you fail this time" );
+				// console.log( "you fail this time" );
 			  },
 			  function( status ) {
-				console.log('still fetchWorking app');
+				// console.log('still fetchWorking app');
 			  }
 		);
 	},
 	onResume: function() {
-		// alert('app resumed');
 		dpd.users.me(function(user) {
 			if (user) { }
-			else {
-				console.log('You are not logged in!');
+			else console.log('You are not logged in!');
 				window.location.href = "#noaccess";
-			}
 		});
 
 	},
@@ -730,13 +688,12 @@ var app = {
 	},
 	fetchMe: function() {
 		_thisApp = this;
-		// console.log('fetchMe app');
 		_thisApp.dfd = new $.Deferred();
 		_thisApp.fetchWorking();
 		if(!isMobile.any()) {
 			var foox = window.setTimeout(function blax() {
 				_thisApp.dfd.resolve(true);
-			}, 100);
+			}, 0);
 		}
 		else {
 			// document.addEventListener('load', this.onDeviceReady, false);
@@ -748,14 +705,11 @@ var app = {
 	},
 	fetch: function() {	
 		_thisApp = this;
-		// console.log('fetching _thisApp.js');
 	},
 	receivedEvent: function(event) {
-		// alert('deviceready');
 		var foox = window.setTimeout(function blax() {
 			_thisApp.dfd.resolve(true);
-		}, 100);
-		// _thisApp.dfd.resolve(true);		
+		}, 0);
 	}
 };
 	
@@ -2843,9 +2797,6 @@ function getTimestamp() {
 	alert(system.timestamp);
 }
 
-function agetTimestamp() {
-	navigator.geolocation.getCurrentPosition(TSonSuccess, TSonError);
-}
 var TSonSuccess = function(position) {
     /*
 	alert('Latitude: '          + position.coords.latitude          + '\n' +

@@ -20,11 +20,14 @@
 	<feature name="http://api.phonegap.com/1.0/camera"/>
 	<feature name="http://api.phonegap.com/1.0/file"/>
 	<feature name="http://api.phonegap.com/1.0/storage"/>
+	<feature name="http://api.phonegap.com/1.0/geolocation"/>
 	<feature name="http://api.phonegap.com/1.0/capture"/>
 	<feature name="http://api.phonegap.com/1.0/network"/>
 	<feature name="http://api.phonegap.com/1.0/notification"/>
 	<feature name="http://api.phonegap.com/1.0/battery"/>
+	<feature name="http://api.phonegap.com/1.0/contacts"/>
 	<feature name="http://api.phonegap.com/1.0/media"/>
+
 	
 	<!-- setup phonegap version -->
     <preference name="phonegap-version"           value="3.1.0" />
@@ -69,7 +72,7 @@
 	<preference name="KeyboardShrinksView" value="false" />
     <preference name="SuppressesIncrementalRendering" value="true" />
     <preference name="TopActivityIndicator" value="gray" />
-    <preference name="EnableLocation" value="false" />
+    <preference name="EnableLocation" value="true" />
     <preference name="EnableViewportScale" value="false" />
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="ShowSplashScreenSpinner" value="true" />
