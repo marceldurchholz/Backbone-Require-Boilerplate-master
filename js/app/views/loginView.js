@@ -52,6 +52,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					var password = $('#password').val();
 					var giftcode = $('#giftcodeInput').val();
 					var uid = '';
+					var sponsor = '';
 					if (username!='' && password!='') {
 						if (checkEmail(username)==true) {
 							var roles = ["user"];
@@ -59,15 +60,16 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							$.ajax({
 								url: 'http://dominik-lohmann.de:5000/users/?roles=owner',
 								async: false,
-								success: function(ownerdata, textStatus, XMLHttpRequest){
-									_thisViewLogin.ownerdata = ownerdata[0];
+								success: function(sponsor, textStatus, XMLHttpRequest){
+									// _thisViewLogin.ownerdata = ownerdata[0];
+									// _thisViewLogin.ownerid = ownerdata.id;
+									_thisViewLogin.sponsor = _thisViewLogin.sponsor;
 								},
 								error:function (xhr, ajaxOptions, thrownError) { }
 							});
-							var sponsor = _thisViewLogin.ownerdata.id;
 							
 							if (giftcode!='') sponsor = giftcode.replace('-','').toLowerCase();
-							dpd.users.post({username: username, password: password, sponsor: sponsor, roles: roles, registered: registered, credits: "0", purchases:[], followers:[], following:[], logincount:"0"}, function(user, err) {
+							dpd.users.post({username: username, password: password, sponsor: sponsor.id, roles: roles, registered: registered, credits: "0", purchases:[], followers:[], following:[], logincount:"0"}, function(user, err) {
 								if (user==null) {
 									if(err) {
 										doAlert('Es ist leider ein Fehler bei der Registrierung aufgetreten!','Ups...');

@@ -189,9 +189,10 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					window.dao.initialize();
 					window.dao.findVideoById(_thisViewVideoDetails.options.id).done(function(result) {
 						_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = "";
-						if (result!=null && result!=undefined) {
+						if (result!=null && result!=undefined && result!='') {
 							_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl = result.videourl;
 						}
+						alert(_thisViewVideoDetails._videosCollection.models[0].attributes.offlineurl);
 						_thisViewVideoDetails.show();
 					});
 				},
