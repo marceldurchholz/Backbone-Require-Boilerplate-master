@@ -6,7 +6,42 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 
   function($, Backbone, MobileRouter, LocalStorageAdapter) {
 
-	alert('mobileinit.js');
+	/*
+	dpd.messages.get({}, function (arr,err) {
+		if(err) {
+			return console.log(err);
+		}
+		$.each( arr, function( key, message ) {
+			dpd.messages.del(message.id, function (err) {
+			  if(err) console.log(err);
+			});						
+		});
+	});
+
+	dpd.orders.get({}, function (arr,err) {
+		if(err) {
+			return console.log(err);
+		}
+		$.each( arr, function( key, message ) {
+			dpd.orders.del(message.id, function (err) {
+			  if(err) console.log(err);
+			});						
+		});
+	});
+
+	dpd.users.get({}, function (arr,err) {
+		if(err) {
+			return console.log(err);
+		}
+		$.each( arr, function( key, message ) {
+			dpd.users.put(message.id, {"purchases":[], "followers":[], "interests":[], "following":[]}, function (result, err) {
+			  if(err) console.log(err);
+			});						
+		});
+	});
+	*/
+
+	// alert('mobileinit.js');
 	
 	/*
 	$.support.cors = true;

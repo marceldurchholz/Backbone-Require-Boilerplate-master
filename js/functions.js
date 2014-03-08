@@ -1,4 +1,4 @@
-alert('functions.js');
+// alert('functions.js');
 
 var isMobile = {};
 isMobile = {
@@ -694,7 +694,7 @@ var app = {
 				_thisApp.dfd.notify( "working... " );
 				setTimeout( _thisApp.fetchWorking, 100 );
 			}
-		}, 1 );
+		}, 100 );
 	},
 	fetchMe: function() {
 		_thisApp = this;
@@ -722,7 +722,7 @@ var app = {
 		alert('deviceready');
 		var foox = window.setTimeout(function blax() {
 			_thisApp.dfd.resolve(true);
-		}, 5000);
+		}, 100);
 		// _thisApp.dfd.resolve(true);		
 	}
 };

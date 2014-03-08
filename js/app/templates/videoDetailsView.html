@@ -17,7 +17,7 @@
 	-->
 </div>
 
-<% if( _.indexOf(video.purchases, video.id)==-1 ) { %>
+<% if( _.indexOf(video.purchases, video.id)==-1 && video.uploaderid != me.id) { %>
 	<div style="padding:0px 20px 0px 20px;"><a data-videoid="<%= video.id %>" id="loadvideobutton" class="loadvideobutton" data-theme="b" data-role="button"><%= video.pricetext %></a></div>
 <% } else  { %>
 		<% if (video.offlineurl=="") { %>
