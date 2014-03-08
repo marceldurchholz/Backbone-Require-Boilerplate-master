@@ -39,8 +39,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				*/
 				bindEvents: function() {
 					_thisViewVideoDetails = this;
-					// this.$el.off('click','.createVideo').on('click','.createVideo',function(){_thisViewVideoDetails.createVideo();});
-
+					/*
 					this.$el.off('click','#connectToLink').on('click','#connectToLink',function(e) { 
 						e.preventDefault();
 						// var videoid = $(this).attr('data-videoid');
@@ -58,19 +57,24 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							hideModal();
 						});
 					});
-
+					*/
 					this.$el.off('click','#loadvideobutton').on('click','#loadvideobutton',function(e) { 
 						e.preventDefault();
 						var videoid = $(this).attr('data-videoid');
 						_thisViewVideoDetails.buyVideo(videoid); 
 					});
-					
+					this.$el.off('click','#complainvideolink').on('click','#complainvideolink',function(e) { 
+						e.preventDefault();
+						var videoid = $(this).attr('data-videoid');
+						window.location.href = "mailto:support@appinaut.de?subject=Meldung%20eines%20Videos%20oder%20eines%20Verstosses%20-%20"+videoid+"&body=Bitte%20teilen%20Sie%20uns%20den%20Hintergrund%20Ihrer%20Meldung%20oder%20des%20Verstosses%20detailliert%20mit.";
+					});
+					/*
 					this.$el.off('click','#downloadvideobutton').on('click','#downloadvideobutton',function(e) { 
 						e.preventDefault();
 						var videoid = $(this).attr('data-videoid');
 						_thisViewVideoDetails.downloadVideo(videoid); 
 					});
-
+					*/
 				},
 
 				downloadVideo: function(videoid) {
@@ -243,7 +247,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					_thisKnowledgeData = this;
 					_thisKnowledgeData.streamData = streamData;
 					var querystr = "";
-					if (topic!='') querystr += "&topic="+topic;
+					// if (topic!='') querystr += "&topic="+topic;
 					var url = "http://dominik-lohmann.de:5000/videos?active=true&deleted=false";
 					$.ajax({
 						url: url+querystr,
@@ -425,11 +429,13 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					this.$el.trigger('create');
 					new FastClick(document.body);
 					
+					var slicePoint = Math.round($(window).width()/10-5);
+					// alert(slicePoint);
 					_thisViewVideoDetails.title_shorten = this._videosCollection.models[0].attributes.title;
-					if (_thisViewVideoDetails.title_shorten.length>25) _thisViewVideoDetails.title_shorten = _thisViewVideoDetails.title_shorten.substr(0,25)+'...';
-					
-					var slicePoint = Math.round($(window).width()/10)-30;
-					alert(slicePoint);
+					if (_thisViewVideoDetails.title_shorten.length>slicePoint) _thisViewVideoDetails.title_shorten = _thisViewVideoDetails.title_shorten.substr(0,slicePoint)+'...';
+
+					_thisViewVideoDetails.fullname_shorten = _thisViewVideoDetails.uploaderdata.fullname;
+					if (_thisViewVideoDetails.fullname_shorten.length>slicePoint) _thisViewVideoDetails.fullname_shorten = _thisViewVideoDetails.fullname_shorten.substr(0,slicePoint)+'...';
 					
 					this.$el.fadeIn( 500, function() {
 						$('.ui-content').scrollTop(0);
@@ -437,7 +443,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						fontResize();
 						// alert($('.readmore').html());
 						$('.readmoretitle').expander({
-							slicePoint: slicePoint,
+							slicePoint: 0,
 							preserveWords: false,
 							expandPrefix: '',
 							expandEffect: 'fadeIn',
@@ -449,7 +455,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							userCollapse: false
 						});
 						$('.readmore').expander({
-							slicePoint: slicePoint*22,
+							slicePoint: slicePoint*4,
 							preserveWords: true,
 							expandPrefix: '...',
 							expandEffect: 'fadeIn',
@@ -460,16 +466,15 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							userCollapseText: '',
 							userCollapse: false
 						});
-						alert(_thisViewVideoDetails._videosCollection.models[0].attributes.uploader);
 						$('.readmorename').expander({
 							slicePoint: 0,
 							preserveWords: false,
-							expandPrefix: '...',
+							expandPrefix: '',
 							expandEffect: 'fadeIn',
 							expandSpeed: 500,
 							collapseEffect: 'fadeOut',
 							collapseSpeed: 200,
-							expandText: _thisViewVideoDetails._videosCollection.models[0].attributes.uploaderdate.fullname.substr(0,10)+'...',
+							expandText: _thisViewVideoDetails.fullname_shorten,
 							userCollapseText: '',
 							userCollapse: false
 						});

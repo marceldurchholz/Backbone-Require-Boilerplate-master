@@ -2,6 +2,17 @@
 <!--
 <h1><%= video.title %></h1>
 -->
+<!--
+<div data-role="popup" id="doppelt" name="doppelt" data-overlay-theme="a" style="max-width:400px;" class="ui-corner-all">
+   <div data-role="header" class="ui-corner-top">
+      <h1>Fehler</h1>
+   </div>
+    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>
+   <div data-role="content" class="ui-corner-bottom ui-content">
+      <h3 class="ui-title">irgendwas geht nicht!</h3>
+   </div>
+</div>
+-->
 <h3 class="ui-bar ui-bar-b" style="border-top-width:0px;text-align:center;"><%= video.topic %></h3>
 <div id="videocontainer" style="b/order:10px solid red;b/ackground-color:#000000;">
 	<a id="videocontainerlink" style="width:100%;height:100%;">
@@ -34,16 +45,23 @@
 			</div>
 		</h5>
 	</div>
-	<div class="description resizetext" style="line-height:1.5em;">
-		<!--
-		<a href="" id="connectToLink" class="connectToLink" data-id="<%= video.uploaderdata.id %>">
-			<img src="images/icon-flat-connect-18.png" style="padding-right:10px;">
-		</a>
-		-->
-		<strong><div class="readmorename"><%= video.uploader %></div></strong>
-		<br>
-		<div class="readmore"><%= video.description %></div>
-	</div>
+	<div class="clear"></div>
+		<div class="description resizetext" style="line-height:1.5em;">
+			<!--
+			<a href="" id="connectToLink" class="connectToLink" data-id="<%= video.uploaderdata.id %>">
+				<img src="images/icon-flat-connect-18.png" style="padding-right:10px;">
+			</a>
+			-->
+			<div style="float:left;">
+				<strong><div class="readmorename"><%= video.uploader %></div></strong>
+			</div>
+			<div style="float:right;">
+				<span><a id="complainvideolink" class="complainvideolink" style="font-weight:normal;" data-videoid="<%= video.id %>">melden</a></span>
+			</div>
+			<div class="clear"></div>
+			<div class="readmore" style="padding-top:10px;"><%= video.description %></div>
+		</div>
+	<div class="clear"></div>
 
 	<ul data-role="listview" data-inset="true">
 		<!-- <%= video.related.length %> -->
