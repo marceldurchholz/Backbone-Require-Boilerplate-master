@@ -80,9 +80,10 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 										displayedGroups.push(groupArr);
 									});
 
-									// alert(_thisMessagesDetailsViewNested.messages.length);
+									alert(_thisMessagesDetailsViewNested.messages.length);
+									
 									if (_thisMessagesDetailsViewNested.messages.length>20) {
-										for (i=_thisMessagesDetailsViewNested.messages.length-1;i>_thisMessagesDetailsViewNested.messages.length-20;i--) {
+										for (i=0;i>_thisMessagesDetailsViewNested.messages.length-20;i--) {
 											if (_thisMessagesDetailsViewNested.messages[i]!=undefined) _thisMessagesDetailsViewNested.messages[i].visible = '1'; // (1, i);
 											else _thisMessagesDetailsViewNested.messages[i].visible = '0';
 										}

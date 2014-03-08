@@ -126,6 +126,11 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					});
 				});
 				
+				this.$el.off('click','.providerinfobtn').on('click','.providerinfobtn',function(e){
+					e.preventDefault();
+					window.location.href = "http://www.appinaut.com/";
+				});
+				
 				this.$el.off('click','.purchasebtn').on('click','.purchasebtn',function(e){
 					e.preventDefault();
 					var iapid = $(this).attr('data-iapid');
@@ -139,6 +144,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						
 					}
 				});
+
 				
 				this.$el.off('click','#showdeletearea').on('click','#showdeletearea',function(e){
 					e.preventDefault();
