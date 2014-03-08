@@ -1,4 +1,4 @@
-// alert('functions.js');
+alert('functions.js');
 
 var isMobile = {};
 isMobile = {
@@ -699,12 +699,12 @@ var app = {
 	fetchMe: function() {
 		_thisApp = this;
 		console.log('fetchMe app');
-		_thisApp.dfd = new jQuery.Deferred();
+		_thisApp.dfd = new $.Deferred();
 		_thisApp.fetchWorking();
 		if(!isMobile.any()) {
 			var foox = window.setTimeout(function blax() {
 				_thisApp.dfd.resolve(true);
-			}, 1000);
+			}, 5000);
 		}
 		else {
 			// document.addEventListener('load', this.onDeviceReady, false);
@@ -719,7 +719,11 @@ var app = {
 		console.log('fetching _thisApp.js');
 	},
 	receivedEvent: function(event) {
-		_thisApp.dfd.resolve(true);		
+		alert('deviceready');
+		var foox = window.setTimeout(function blax() {
+			_thisApp.dfd.resolve(true);
+		}, 5000);
+		// _thisApp.dfd.resolve(true);		
 	}
 };
 	
@@ -2651,24 +2655,20 @@ var menuSwitched = function(status) {
 	menuSwitchedDeferred.resolve();
 	menuSwitchedDeferredWatcher.done(function( value ) {
 		// alert(value);
-		console.log(value);
+		// console.log(value);
 	});
 };
 
-function timeoutwarning() {
-	// console.log(window.system.modaltimeout);
-	window.system.modaltimeout = window.system.modaltimeout - 1;
-}
 function showModal(){
 	// if ($('.modalWindow')) return(false);
-	console.log('showModal');
-	window.system.modaltimeout = 5000;
+	// console.log('showModal');
+	window.system.modaltimeout = 30000;
 	window.clearInterval(window.modaltimeoutvar);
 	window.modaltimeoutvar = window.setInterval(function() {
-		console.log(window.system.modaltimeout);
+		// console.log(window.system.modaltimeout);
 		window.system.modaltimeout = window.system.modaltimeout - 1000;
 		if (window.system.modaltimeout<=0) {
-			var breaktoDashboardText = '<br>Die Aktion dauert dauert ungewöhnlich lang.<br><br><u style="cursor:pointer;">abbrechen</u>';
+			var breaktoDashboardText = '<br>Die Aktion<br>dauert ungewöhnlich lange.<br><br><u style="cursor:pointer;">ausblenden</u>';
 			$('#breaktoDashboard').html(breaktoDashboardText);
 			$('#breaktoDashboard').show();
 			window.clearInterval(window.modaltimeoutvar);
@@ -2923,8 +2923,9 @@ function scrollBottom() {
 	setTimeout(function() {
 		$('#page-content').animate({
 			scrollTop: $("#page-content")[0].scrollHeight
-		}, "slow", function() {
+		}, "fast", function() {
 			// animation done
+			$('#page-content').focus();
 		});
 	}, 1000);
 }
