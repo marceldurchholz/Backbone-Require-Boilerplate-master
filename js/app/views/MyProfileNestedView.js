@@ -11,7 +11,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				_thisViewMyProfileNested.$el.hide();
 				showModal();
 				dpd.users.me(function(me) {
-					if (me) _thisViewMyProfileNested.me = me;
+					if (me) { 
+						_thisViewMyProfileNested.me = me;
+					}
 					else {
 						system.redirectToUrl('#login');
 						return(false);
@@ -26,7 +28,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							if (user.logincount==undefined) user.logincount = 0;
 							logincounts += user.logincount;
 						});
-						_thisViewMyProfileNested.me.level = Math.round(3*(_thisViewMyProfileNested.me.logincount/logincounts),0);
+						_thisViewMyProfileNested.me.level = Math.round(3*(window.me.logincount/logincounts),0);
 					});
 					
 					$.ajax({
@@ -59,6 +61,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				_thisViewMyProfileNested = this;
 			},
 			changeInputValue: function(e) {
+				_thisViewMyProfileNested = this;
 				dpd.users.me(function(me) {
 					_thisViewMyProfileNested.me = me;
 					var obj = e.currentTarget;
@@ -68,28 +71,19 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							else return false;
 						}
 						var newroles = ["user","seeker"];
-						if (obj.id=='fullname') {
-							if (obj.value=='') { 
-								// doAlert('Es muss ein Vor- und Nachname eingegeben werden.','Information');
-								$('.emptyWarningDiv').show();
-							} else {
-								$('.emptyWarningDiv').hide();
-								dpd.users.put(_thisViewMyProfileNested.me.id, {"fullname":obj.value, roles: newroles}, function(result, err) { 
-									if(err) { }
-									_thisViewMyProfileNested.me = result;
-									if (_thisViewMyProfileNested.me.active==false) {
-										_thisViewMyProfileNested.sendActivation();
-									}
-								});
-							}
-						}
+						if (obj.id=='fullname') if (obj.value=='') { doAlert('Es muss ein Vor- und Nachname eingegeben werden.','Information'); } else dpd.users.put(_thisViewMyProfileNested.me.id, {"fullname":obj.value, roles: newroles}, function(result, err) { 
+							if(err) { }
+							_thisViewMyProfileNested.me = result;
+							if (_thisViewMyProfileNested.me.active==false) _thisViewMyProfileNested.activateProfile();
+						});
 						if (obj.id=='perstext') dpd.users.put(_thisViewMyProfileNested.me.id, {"perstext":obj.value}, function(result, err) { 
 							if(err) { }
 						});
 					}
 				});
 			},
-			sendActivation: function() {
+			activateProfile: function() {
+				var _thisViewMyProfileNested = this;
 				doAlert('Ihr Profil wurde freigeschaltet. Diese Seite wurde hierzu neu geladen,','Profil bereit!');
 				dpd.users.put(_thisViewMyProfileNested.me.id, {"active":true}, function(result, err) { 
 					if(err) { }
@@ -97,7 +91,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				});
 			},
 			bindEvents: function() {
-				_thisViewMyProfileNested = this;
+				var _thisViewMyProfileNested = this;
+				
 				$('#delaccuntarea').hide();
 				$('#restrictedArea').hide();
 				$('#showMenu').hide();
@@ -131,7 +126,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					var iapid = $(this).attr('data-iapid');
 					showModal();
 					if (isMobile.any()) { 
-						_thisViewMyProfileNested.storekit.purchase(iapid,1);
+						window.storekit.purchase(iapid,1);
 					}
 					else {
 						_thisViewMyProfileNested.initialize();
@@ -154,28 +149,29 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				checkTopNaviRoles();
 			},
 			deleteMyAccount: function(response) {
+				console.log(response);
 				if (response==1) {
 					doAlert('Das finden wir schade. Ihr Zugang wurde gelöscht. Schauen Sie gerne wieder einmal vorbei.','Auf Wiedersehen :-(');
 					var deldate = new Date();
 					var deletetedusername = 'DELETETED_'+deldate+'_'+_thisViewMyProfileNested.me.username;
 					dpd.users.put(_thisViewMyProfileNested.me.id, {"username":deletetedusername,"deleted":true}, function(result, err) { 
-						if(err) { }
+						if(err) return console.log(err); 
 						system.redirectToUrl('#logout');
 					});
 				}
 			},
 			render: function() {
-				_thisViewMyProfileNested = this;
+				var _thisViewMyProfileNested = this;
 				$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 				_thisViewMyProfileNested.nestedView = new SidemenuView().fetch();
+				var htmlContent = '';
+				$(this.el).html(htmlContent);
 				// console.log(_thisViewMyProfileNested.me);
 				if (!_thisViewMyProfileNested.me.credits) _thisViewMyProfileNested.me.credits = "0";
 				var provider;
 				provider = $.inArray( 'provider', _thisViewMyProfileNested.me.roles );
 				var seeker;
 				seeker = $.inArray( 'seeker', _thisViewMyProfileNested.me.roles );				
-				var htmlContent = '';
-				$(_thisViewMyProfileNested.el).html(htmlContent);
 				htmlContent = _.template(MyProfileNestedViewPage, {
 					id: _thisViewMyProfileNested.me.id
 					, pictureurl: _thisViewMyProfileNested.me.pictureurl
@@ -189,15 +185,17 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					, provider: provider
 					, seeker: seeker
 				},{variable: 'user'});
-				$(_thisViewMyProfileNested.el).html(htmlContent);
+				// alert(htmlContent);
+				$(this.el).html(htmlContent);
 				fontResize();
-				this.$el.trigger('create');
 				hideModal();
-				_thisViewMyProfileNested.bindEvents();
+				this.$el.trigger('create');
+				// new FastClick(document.body);
 				this.$el.fadeIn( 500, function() {
 					$('.ui-content').scrollTop(0);
 					new FastClick(document.body);
 				});
+				this.bindEvents();
 				return(this);
 			}
 		});

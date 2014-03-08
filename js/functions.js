@@ -24,7 +24,7 @@ if (isMobile.any()) {
     document.write("<script type='text/javascript' src='" + rootURL + "phonegap.js'></script>"); 
     // initApp();
 }else{
-    console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
+    // console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
 }
 
 var currentHash = window.location.hash;
@@ -228,7 +228,7 @@ var dao = {
 		// renderList();
 		if (isMobile.any()) {
 			this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
-
+			/*
 			this.db.transaction(
 				function(tx) {
 					// tx.executeSql('DROP TABLE IF EXISTS videos');
@@ -244,6 +244,7 @@ var dao = {
 			// Testing if the table exists is not needed and is here for logging purpose only. We can invoke createTable
 			// no matter what. The 'IF NOT EXISTS' clause will make sure the CREATE statement is issued only if the table
 			// does not already exist.
+			*/
 			this.db.transaction (
 				function(tx) {
 					tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='videos'", this.txErrorHandler,
@@ -258,20 +259,49 @@ var dao = {
 		// else websqlReady.resolve("initialize done");
 	},
 		
+	findVideoById: function(id) {
+		// alert('outer searching for id: ' + id);
+		var deferred = $.Deferred();
+		if (isMobile.any()) {
+			this.db.transaction(
+				function (tx) {
+					var sql = "SELECT v.videoid, v.videourl FROM videos v WHERE v.videoid=:id";
+					tx.executeSql(sql, [id], function (tx, results) {
+						deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
+					});
+				},
+				function (error) {
+					deferred.reject("Transaction Error: " + error.message);
+				}
+			);
+		}
+		else {
+			deferred.resolve();
+			/*
+			setTimeout(function() {
+				deferred.resolve();
+			}, 3000);
+			*/
+		}
+		return deferred.promise();
+	},
+	
 	createTables: function() {
 		this.db.transaction(
 			function(tx) { 
-				tx.executeSql("CREATE TABLE IF NOT EXISTS users ( username VARCHAR(255) PRIMARY KEY, password VARCHAR(255))");
+				// tx.executeSql("CREATE TABLE IF NOT EXISTS users ( username VARCHAR(255) PRIMARY KEY, password VARCHAR(255))");
 				tx.executeSql("CREATE TABLE IF NOT EXISTS videos ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))");
 			},
-			function() { alert('ERROR ON Tables CREATE local SQLite database'); },
+			function() { 
+				// alert('ERROR ON Tables CREATE local SQLite database'); 
+			},
 			function() { 
 				// alert('SUCCESS Tables CREATE local SQLite database'); 
-				websqlReady.resolve("initialize done"); 
+				// websqlReady.resolve("initialize done"); 
 			}
 		);
 	},
-	
+
 	fillTable: function() {
 		// alert('filling table');
 		if (isMobile.any()) {
@@ -284,10 +314,10 @@ var dao = {
 					alert('filling table INSERT END');
 				},
 				function() {
-					alert('ERROR ON Table videos successfully FILLED WITH SAMPLES in local SQLite database');
+					// alert('ERROR ON Table videos successfully FILLED WITH SAMPLES in local SQLite database');
 				},
 				function() {
-					alert('Table videos successfully FILLED WITH SAMPLES in local SQLite database');
+					// alert('Table videos successfully FILLED WITH SAMPLES in local SQLite database');
 					// callback();
 				}
 			);
@@ -691,20 +721,20 @@ var app = {
 	fetchWorking: function() {
 		var setTimeoutWatcher = setTimeout(function foo() {
 			if ( _thisApp.dfd.state() === "pending" ) {
-				_thisApp.dfd.notify( "working... " );
+				// _thisApp.dfd.notify( "working... " );
 				setTimeout( _thisApp.fetchWorking, 100 );
 			}
-		}, 100 );
+		}, 1 );
 	},
 	fetchMe: function() {
 		_thisApp = this;
-		console.log('fetchMe app');
+		// console.log('fetchMe app');
 		_thisApp.dfd = new $.Deferred();
 		_thisApp.fetchWorking();
 		if(!isMobile.any()) {
 			var foox = window.setTimeout(function blax() {
 				_thisApp.dfd.resolve(true);
-			}, 5000);
+			}, 100);
 		}
 		else {
 			// document.addEventListener('load', this.onDeviceReady, false);
@@ -716,10 +746,10 @@ var app = {
 	},
 	fetch: function() {	
 		_thisApp = this;
-		console.log('fetching _thisApp.js');
+		// console.log('fetching _thisApp.js');
 	},
 	receivedEvent: function(event) {
-		alert('deviceready');
+		// alert('deviceready');
 		var foox = window.setTimeout(function blax() {
 			_thisApp.dfd.resolve(true);
 		}, 100);
@@ -900,7 +930,7 @@ function postDeviceReadyActions(){
 / ----------------------------------------------------------- */
 function modifyiOS7StatusBar(){
 	// if (window.device.version) alert('>> '+window.device.version);
-    var doit = false;
+    var doit = true;
 	if (isMobile.any() && doit==true) {
 		try{
 			if (parseFloat(window.device.version) === 7.0) {
@@ -912,17 +942,21 @@ function modifyiOS7StatusBar(){
 				$("#body").css('top', "0px");
 			}
 			else {
-				document.body.style.marginTop = "20px";
-				$("#body").css('top', "20px");
+				// document.body.style.marginTop = "20px";
+				// $("#body").css('top', "20px");
+				document.body.style.marginTop = "0px";
+				$("#body").css('top', "0px");
 			}
 			if (window.device.version && parseFloat(window.device.version) > 7) {
 				// document.body.style.marginTop = "20px";
 			}
 			// StatusBar.backgroundColorByHexString("#3e8fd9");
-		} catch(e){ catchError('modifyiOS7StatusBar()',e); }
+		} catch(e){ 
+			// catchError('modifyiOS7StatusBar()',e); 
+		}
 	}
 	else {
-	console.log('not mobile: statusbar not modified');
+		// console.log('not mobile: statusbar not modified');
 	}
 }
 
@@ -936,7 +970,7 @@ function debugModeEnabled(){
 function report(logtype,msg){
     try{
 		// alert(logtype + ': ' + msg);
-        console.log(logtype + ': ' + msg);
+        // console.log(logtype + ': ' + msg);
     }catch(e){ 
         // give up
     }            
@@ -1875,14 +1909,14 @@ function purchaseVideoStart(me,videoData) {
 	var creditsAfterPurchase = parseFloat(me.credits) - parseFloat(videoData.price);
 	this._videoData = videoData;
 	this._creditsAfterPurchase = creditsAfterPurchase;
-	console.log(creditsAfterPurchase,'creditsAfterPurchase');
+	// console.log(creditsAfterPurchase,'creditsAfterPurchase');
 	// return(false);
 	// alert('Video ' + videoData.id + ' wird über User ID ' + me.id + 'gekauft. Sie haben nun '+creditsAfterPurchase+' Credits.');
 	var data = new Object();
 	data.credits = ''+creditsAfterPurchase;
 	data.purchases = me.purchases;
 	this._newData = data;
-	console.log(_newData.purchases);
+	// console.log(_newData.purchases);
 	
 	this._me = me;
 	$.ajax('http://dominik-lohmann.de:5000/users/?id='+me.id,{
@@ -1892,8 +1926,8 @@ function purchaseVideoStart(me,videoData) {
 		// doAlert( "DONE!" );
 		_me = me;
 		if (_me.purchases==undefined) _me.purchases = new Array();
-		console.log('_me.purchases actual');
-		console.log(_me.purchases);
+		// console.log('_me.purchases actual');
+		// console.log(_me.purchases);
 	}).fail(function() {
 		doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
 	})
@@ -1906,7 +1940,7 @@ function purchaseVideoStart(me,videoData) {
 	}
 	else {
 		if (_me.purchases==undefined) _me.purchases = new Array();
-		console.log(me.purchases);
+		// console.log(me.purchases);
 		// me.push( videoData.id );
 		// var el = new Object();
 		// el.value = videoData.id;
@@ -1927,48 +1961,28 @@ function purchaseVideoStart(me,videoData) {
 			var alertmsg = 'Sie können das Video nun vollständig ansehen.';
 			if (_videoData.price>0) alertmsg += ' Für weitere Käufe sind noch '+creditsAfterPurchase+' Credits verfügbar.';
 			doAlert(alertmsg,'Information');
-			// $('#loadvideobutton').hide();
-			// console.log(window);
-			// window.location.reload();
-			
-			addFollower(_videoData.uploader, me.id);
-			
-			addOrder(me.id,_videoData.id,_videoData.uploader,_videoData.price);
+			addFollower(me, _videoData.uploader);
+			addOrder(me,_videoData.id,_videoData.uploader,_videoData.price);
 		}).fail(function() {
-			doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
+			console.log( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
 		})
 		.always(function() {
-			// alert( "finished - nw redirecting" );
-			// window.location.href = '#videos/details/view/'+videoData.id;
-			// console.log(window);
 			window._thisViewVideoDetails.render();
-			// window.location.reload();
 		});
 	}
 }
 
-function addFollower(toid,meid) {
+function addFollower(me, toid) {
 	// var query = {id:toid,$or:[{"sponsor":me.id},{"followers":me.id}],$sort:{fullname:1}};
 	var query = {  followers: {$in: [me.id]}, id:toid };
 	dpd.users.get(query, function (result,err) {
-		if(err) {
-			// alert(meid + ' is not yet follower from ' + toid);
-			dpd.users.put(toid, {"followers": {$push:$.trim(meid)}} );
-			// return console.log(err);
-		}
-		// alert(meid + ' IS ALREADY follower from ' + toid);
-		// console.log(result);
+		if(err) dpd.users.put(toid, {"followers": {$push:$.trim(me.id)}} );
 	});
 }
 
-function addOrder(userid,videoid,creatorid,price) {
-	dpd.orders.post({"userid":""+userid,"videoid":""+videoid,"creatorid":""+creatorid,"price":""+price}, function(result, err) {
-		if(err) {
-			return console.log(err);
-		}
-		// $.mobile.loading( 'hide' );
-		// hideModal();
-		console.log(result, result.id);
+function addOrder(me,videoid,creatorid,price) {
+	dpd.orders.post({"userid":""+me.id,"videoid":""+videoid,"creatorid":""+creatorid,"price":""+price}, function(result, err) {
+		if(err) return console.log(err);
 	});
 }
 
@@ -2004,7 +2018,7 @@ function getVideoWin(mediaFiles) {
 			// var blax = JSON.stringify(mediaFiles);
 			// alert(path);
 			doAlert('Klicken Sie zum Fortsetzen auf weiter.','Aufnahme erfolgreich');
-			doAlert(mediaFiles[i].fullPath,'DEBUG FULLPATH');
+			// doAlert(mediaFiles[i].fullPath,'DEBUG FULLPATH');
 			attachVideoToPlayer(mediaFiles[i].fullPath);
 			// _thisViewRecordVideoNested.switchPage();
 			// alert('Bitte klicken Sie auf hochladen.');
@@ -2065,8 +2079,8 @@ function attachVideoToPlayer(mediaFilePath) {
 		return(false);
 	}
 	else {
-		// console.log('attaching to video player: ' + mediaFilePath);
-		alert('attaching to video player: ' + mediaFilePath);
+		console.log('attaching to video player: ' + mediaFilePath);
+		// alert('attaching to video player: ' + mediaFilePath);
 		$('#camera_file').val(mediaFilePath);
 	}
 	if (mediaFilePath!='') {
@@ -2392,7 +2406,7 @@ function createOptionsEl(name, values, selectionDefault) {
 //* DEBUG */ window.console.log('js/global.js loaded...');
 
 function resizeElement(elementid) {
-	console.log('resizeElement: '+elementid);
+	// console.log('resizeElement: '+elementid);
 	// var thumbnail_width = this.$el.outerWidth();
 	var elwidth = $(elementid).width();
 	// console.log(elwidth);
@@ -2417,34 +2431,21 @@ function resizeElement(elementid) {
 
 function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 	_thisVideoId = videoId;
-	console.log(videoId);
+	// console.log(videoId);
 	// alert(videoUrl);
 	_thisVideoUrl = videoUrl;
-	console.log(videoUrl);
+	// console.log(videoUrl);
 	for( vid in _V_.players ){ 
-		console.log('>>> '+vid.toString()); 
-		if(vid.toString() == "video_player_1"){ 
-		   delete _V_.players[vid] 
-		   console.log('deteleted');
+		// console.log('>>> '+vid.toString()); 
+		if(vid.toString() == "video_player_1") {
+		   delete _V_.players[vid];
+		   // console.log('deteleted');
 		} 
 	}
 	var myvideoJS = videojs("video_player_1", { "controls": true, "autoplay": false, "preload": "off" }, function(){});
 	var myPlayer = _V_("video_player_1");
 	_V_("video_player_1").ready(function(){
-		// alert('jupp');
-		// { type: "video/mp4", src: "http://mobile002.appinaut.de/secure/data/media/video/Bird_Titmouse.mp4" }
-		// console.log(_thisVideoUrl);
-		// console.log("http://mobile002.appinaut.de/secure/data/media/video/index.php?showvideo="+_thisVideoUrl+".mp4");
-		/*
-		myPlayer.src([
-			{ type: "video/mp4", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".mp4" },
-			{ type: "video/webm", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".webm" },
-			{ type: "video/ogg", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".ogv" }
-		]);
-		*/
-		// alert(_thisVideoUrl);
-		// alert(_thisVideoUrl.length);
-		if (_thisVideoUrl.length <= 40) {
+		if (_thisVideoUrl.length <= 50) {
 			myPlayer.src([
 				{ type: "video/mp4", src: "http://prelaunch002.appinaut.de/secure/index.php?showvideo="+_thisVideoUrl+".mp4" },
 				{ type: "video/webm", src: "http://prelaunch002.appinaut.de/secure/index.php?showvideo="+_thisVideoUrl+".webm" },
@@ -2458,43 +2459,19 @@ function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 				{ type: "video/ogg", src: _thisVideoUrl }
 			]);
 		}
-		// alert('bla');
-		// myPlayer.posterImage.show();  
-		// $("#video_player_1.vjs-poster").css('background-image', 'url(http://video-js.zencoder.com/oceans-clip.jpg)').show();
 		myPlayer.controlBar.hide();  
 		myPlayer.bigPlayButton.hide();
-		// myPlayer.pause();
-		// alert(showVideoLength);
-		// myPlayer.get(0).pause();
 		myPlayer.on('timeupdate', function() {
 			if (myPlayer.currentTime() > showVideoLength) {
-				// $(".video-js")[0].player.pause();
-				// Paypal-Buy-Now-button.png
-				// $("#video_player_1 .vjs-poster").css('background-image', 'url(/Paypal-Buy-Now-button.png)').show();
 				if (showVideoLength!=0) {
 					myPlayer.posterImage.hide();  
 					myPlayer.currentTime(0);  
 					myPlayer.pause();
 				}
-				// myPlayer.cancelFullScreen();  
-				// myPlayer.controlBar.hide();  
-				// myPlayer.bigPlayButton.hide();  
-				// $("#videocontainerlink").attr("href", "/blafoopeng/")
-				// myPlayer.currentTime(0);
-				// myPlayer.src({ type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" });
-				// $("#video_player_1.vjs-poster").css('background-image', 'url(http://video-js.zencoder.com/oceans-clip.jpg)').show();
 			}
 		});
 	resizeElement('#video_player_1');
 	});	
-	// alert('("video_player_1").ready(function(){');
-
-// $(document).ready(function() {
-// resizeVideoJS(); // Initialize the function
-// });
-// $(function(){
-	// resizeElement('#video_player_1');
-// });
 }
 
 window.addEventListener('load', function () {
@@ -2503,19 +2480,11 @@ window.addEventListener('load', function () {
 
 
 $(window).bind('hashchange', function(){
-	// currentHash = window.location.hash;
-	// console.log(window.location.hash);
-	// alert('MobileInit.js '+window.location.hash);
-	// $('div[data-role="page"]')
-	// $('#scrollable').scrollTop(0);
-	// alert('a');
-	// populateDeviceInfoTimer();
 	showModal();
 	modifyiOS7StatusBar();
 	checkTopNaviRoles();
 	bindSwipeBack();
 	showDeleteBar(false);
-	
 	$("#flexiblecontent").animate({
 		marginLeft: "0px",
 	}, 500, function () {
@@ -2637,7 +2606,7 @@ $('#sidebarListViewDiv').on("vclick", "#menuelement a.contentLink", function (ev
 		// console.log(event.target.getAttribute('data-href'));
 		var tgt = event.target.getAttribute('data-href');
 		// alert(tgt);
-		console.log(tgt);
+		// console.log(tgt);
 		// .getAttribute('data-fruit');
 		// window.location.href = event.target.hash;
 		window.location.href = tgt;
