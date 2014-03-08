@@ -21,13 +21,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					}
 					dpd.users.login({username: username, password: password}, function(user, error) {
 						if (error) {
-							// doAlert('not logging in');
-							// return(false);
-							console.log(error.message);
 							doAlert('Eine Anmeldung mit diesen Zugangsdaten konnte nicht durchgeführt werden. Zur Registrierung klicken Sie auf "Neuen Zugang anlegen".','Fehler bei der Anmeldung!');
 						} else {
-							// doAlert('logging in');
-							console.log(user);
 							if (user==null) { 
 								doAlert('Bitte versuchen Sie es erneut.','Fehler bei der Anmeldung!');
 								return(false);
@@ -43,35 +38,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 									if (logincount==undefined) logincount=0;
 									var newlogincount = logincount+1;
 									dpd.users.put(_thisViewLogin.me.id, {"logincount":newlogincount}, function(result, err) { 
-										if(err) return console.log(err);
-										// console.log(result, result.id);
-										/*
-										if (isMobile.any()) {
-											this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
-											this.db.transaction(
-												function(tx) {
-													// sample data 
-													// alert('saving into table users START');
-													var query = "INSERT OR REPLACE INTO users (username,password) VALUES ('"+username+"','"+password+"')"; 
-													alert(query);
-													tx.executeSql(query);
-													alert('saving into table users ENDE');
-												},
-												function() {
-													alert('ERROR ON entry saving in TABLE users');
-												},
-												function() {
-													alert('Entry successfully saved in TABLE users');
-													system.redirectToUrl(targetUrl);
-													// alert('Table users successfully FILLED WITH SAMPLES in local SQLite database');
-													// callback();
-												}
-											);
-										}
-										else {
-											system.redirectToUrl(targetUrl);
-										}
-										*/
+										if(err) { }
 										system.redirectToUrl(targetUrl);
 									});
 								});
@@ -79,103 +46,37 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						}
 					});
 				},
-				sendAuthMail: function() {
-					_thisViewLogin = this;
-					
-					/*
-					$.post( url, {
-						s: obj, 
-						async: false
-					}).done(function( data ) {
-						// var content = $( data ).find( "#content" );
-						// $( "#result" ).empty().append( content );
-						alert('post done');
-						_thisViewLogin.sendLogin('#myprofile');
-					});
-					/*
-					$.ajax({
-						url: "http://management-consulting.marcel-durchholz.de/secure/sendAuthMail.php",
-						async: false
-					}).done(function(responsedata) {
-						// $( this ).addClass( "done" );
-						console.log(responsedata);
-						// _thisViewCardDetails.uploaderdata = uploaderdata;
-						// alert();
-						_thisViewLogin.sendLogin('#myprofile');
-					});
-					*/
-				},
 				sendRegister: function() {
 					_thisViewLogin = this;
 					var username = $('#username').val().toLowerCase();
 					var password = $('#password').val();
 					var giftcode = $('#giftcodeInput').val();
-					// alert(giftcode);
 					var uid = '';
+					var sponsor = '';
 					if (username!='' && password!='') {
-						console.log(username);
-						console.log(checkEmail(username));
 						if (checkEmail(username)==true) {
-							// var roles = ["provider","seeker"];
 							var roles = ["user"];
 							var registered = dateYmdHis();
-							// active: false, 
-							
-							// var ownerid = ""; // df8a74e899bba811
-
 							$.ajax({
 								url: 'http://dominik-lohmann.de:5000/users/?roles=owner',
 								async: false,
-								success: function(ownerdata, textStatus, XMLHttpRequest){
-									_thisViewLogin.ownerdata = ownerdata[0];
-									_thisViewLogin.ownerid = ownerdata.id;
-									console.log(ownerdata);
+								success: function(sponsor, textStatus, XMLHttpRequest){
+									// _thisViewLogin.ownerdata = ownerdata[0];
+									// _thisViewLogin.ownerid = ownerdata.id;
+									_thisViewLogin.sponsor = _thisViewLogin.sponsor;
 								},
-								error:function (xhr, ajaxOptions, thrownError){
-									console.log('owner konnte nicht gefunden werden');
-									// xhr.status);
-									// alert(xhr.statusText);
-									// alert(xhr.responseText);
-								}
+								error:function (xhr, ajaxOptions, thrownError) { }
 							});
-							// alert(_thisViewLogin.ownerdata.id);
-							var sponsor = _thisViewLogin.ownerdata.id;
 							
 							if (giftcode!='') sponsor = giftcode.replace('-','').toLowerCase();
-							dpd.users.post({username: username, password: password, sponsor: sponsor, roles: roles, registered: registered, credits: "0", purchases:[], followers:[], following:[], logincount:"0"}, function(user, err) {
-								// console.log(user.id);
+							dpd.users.post({username: username, password: password, sponsor: sponsor.id, roles: roles, registered: registered, credits: "0", purchases:[], followers:[], following:[], logincount:"0"}, function(user, err) {
 								if (user==null) {
 									if(err) {
 										doAlert('Es ist leider ein Fehler bei der Registrierung aufgetreten!','Ups...');
-										return console.log(err);
+										return { }
 									}
 								}
 								_thisViewLogin.sendLogin('#myprofile');
-								/*
-								var obj = new Object();
-								obj.username = user.username;
-								obj.password = user.password;
-								// alert(user.sponsor);
-								// alert(giftcode);
-								obj.giftcode = giftcode;
-								obj.uid = user.id;
-								var url = 'http://prelaunch002.appinaut.de/secure/external/sendauthmail.php';							
-								$.ajax({
-									type: "POST",
-									url: url,
-									data: obj,
-									cache: false,
-									success: function(response) { 
-										// alert(response);
-										// doAlert('Die Registrierung war erfolgreich. Bitte vervollständige Dein Profil und bestätige Deine E-Mail-Adresse.','Herzlich Willkommen!');
-										_thisViewLogin.sendLogin('#myprofile');
-									},
-									error: function(response) {
-										console.log(response.status + " " + response.statusText);
-										doAlert('Die Registrierung konnte leider nicht durchgeführt werden.','Ups! Entschuldigung.');
-									},
-								});
-								*/
 							});
 						}
 						else {
@@ -187,62 +88,17 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				},
 				sync: function() {
 				},
-				fetch: function() {
-					_thisViewLogin = this;
-					// alert('fetch');
-					_thisViewLogin.username = "";
-					_thisViewLogin.password = "";
-					if (isMobile.any() && 1==2) {
-						/*
-						try {
-							this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
-							this.db.transaction (
-								function(tx) {
-									var query = "SELECT username, password FROM users";
-									alert(query);
-									tx.executeSql(query, 
-										function() {
-											alert('ERROR ON SELECT videourl');
-										},
-										function(tx, results) {
-											alert('getting len');
-											var len = results.rows.length, users = [], i = 0;
-											for (i=0; i < len; i = i + 1) {
-												alert("setting " + i);
-												users[i] = results.rows.item(i);
-											}
-											alert(len + ' rows found');
-											// alert(users);
-											// alert(users.toJSON);
-											// for (var i = 0; i < l; i++) {
-											// e = users[i];
-											alert(users);
-											alert(users[i].username);
-											_thisViewLogin.username = users[i].username;
-											_thisViewLogin.password = users[i].password;
-											_thisViewLogin.render();
-											// callback(users);
-										}
-									);
-								}
-							);
-						} catch (e) {
-							// alert(e);
-							// console.log(e);
-						}
-						*/
-						_thisViewLogin.render();
-					}
-					else {
-						_thisViewLogin.render();
-					}
-				},
 				initialize: function() {
 					var _thisViewLogin = this;
-					// alert('initialize');
-					// this.$el.hide();
 					showModal();
+					this.$el.hide();
 					_thisViewLogin.fetch();
+				},
+				fetch: function() {
+					_thisViewLogin = this;
+					_thisViewLogin.username = "";
+					_thisViewLogin.password = "";
+					_thisViewLogin.render();
 				},
 				toggleGiftcodeInput: function() {
 					$('#giftcodeDiv').hide();
@@ -260,31 +116,20 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					$('#username').val(_thisViewLogin.username);
 					$('#password').val(_thisViewLogin.password);
 					if (system.contentHelper==1) {
-						$('#password').val('blafoo');
 						$('#username').val('info@digitalverve.de');
 					}
 					if (system.contentHelper==2) {
-						$('#password').val('blafoo');
 						$('#username').val('test@digitalverve.de');
 					}
-					// $('#password').focus();
-					// $('#username').focus();
 				},
 				render: function() {
-					console.log('DOING render loginView.js called');
 					_thisViewLogin = this;
-					// alert('render');
-					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
-					_thisViewLogin.nestedView = new SidemenuView().fetch();
 					_thisViewLogin.$el.html(_.template(loginPage, {}));
-					hideModal();
-					new FastClick(document.body);
+					// window.createVideoPreview(_thisViewLogin.$('#video_player_1'),'video_player_1',"promo",0);
 					this.$el.trigger('create');
-					// elementResizeByScreenHeight();
-					// fontResize();
-					new FastClick(document.body);
-					this.$el.fadeIn( 1000, function() {
-						// $('.ui-content').scrollTop(0);
+					hideModal();
+					this.$el.fadeIn( 500, function() {
+						new FastClick(document.body);
 					});
 					this.bindEvents();
 					return this;

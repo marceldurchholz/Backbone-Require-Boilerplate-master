@@ -4,6 +4,7 @@
 	</div>
 	<div style="width:50%;float:left;clear:none;display:inline-block;padding-right:2%;">
 		<input style="width:100%;" data-theme="a" data-mini="true" type="text" name="fullname" id="fullname" value="<%= user.fullname %>" placeholder="Name erforderlich..."/>
+		<div class="clear resizetext emptyWarningDiv" style="color:red;display:none;">Es muss ein Name hinterlegt werden.</div>
 		<div class="clear"></div>
 		<div style="color:#606060;font-size:14px;font-weight:normal;padding:5px 5px;line-height:1.5em;" class="resizetext"><!--<%= user.username %>--><% if( user.provider > -1 ) { %>Anbieter-ID:<br><%= user.id %><% } %></div>
 		<div class="clear"></div>
@@ -25,7 +26,7 @@
 </div>
 
 <div class="clear"></div>
-<textarea style="width:100%;height:<%= Math.round($(window).height()/5) %>px;max-height:300px;min-height:80px;" data-theme="a" no-data-role="none" data-mini="true" type="text" placeholder="Informieren Sie die Community! Was begeistert Sie oder welches Wissen macht Sie interessant?" name="perstext" id="perstext"><%= user.perstext %></textarea>
+<textarea style="width:100%;height:<%= Math.round($(window).height()/5) %>px;max-height:300px;min-height:80px;" data-theme="a" no-data-role="none" data-mini="false" type="text" placeholder="Informieren Sie die Community! Was begeistert Sie oder welches Wissen macht Sie interessant?" name="perstext" id="perstext"><%= user.perstext %></textarea>
 
 <!--
 <%= user.id %> <br>
