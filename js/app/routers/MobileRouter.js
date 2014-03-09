@@ -1,12 +1,11 @@
 // MobileRouter.js
 // ---------------
-define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Planer", "views/Cards", "views/AdminUserListView", "views/AdminUserDetailsView", "views/VideoDetailsView", "views/MessageDetailsView", "views/PlanDetailsView", "views/CardDetailsView", "views/CardStartView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView", "views/supportView", "views/helpView", "views/agbView", "views/privacyView", "views/MessagesView", "views/MessagesEditView"],
+define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Planer", "views/Cards", "views/AdminUserListView", "views/AdminUserDetailsView", "views/VideoDetailsView", "views/MessageDetailsView", "views/PlanDetailsView", "views/CardDetailsView", "views/CardStartView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView", "views/supportView", "views/helpView", "views/agbView", "views/MessagesView", "views/MessagesEditView"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Planer, Cards, AdminUserListView, AdminUserDetailsView, Videosdetailsview, MessageDetailsView, Planerdetailsview, Cardsdetailsview, Cardstartview, Videorecordview, Learningstreamview, login, DashboardView, NoAccess, Logout, MyProfile, supportView, helpView, agbView, privacyView, MessagesView, MessagesEditView) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Planer, Cards, AdminUserListView, AdminUserDetailsView, Videosdetailsview, MessageDetailsView, Planerdetailsview, Cardsdetailsview, Cardstartview, Videorecordview, Learningstreamview, login, DashboardView, NoAccess, Logout, MyProfile, supportView, helpView, agbView, MessagesView, MessagesEditView) {
 
 		var MobileRouter = Backbone.Router.extend({
 
-			/*
 			routerSwitched: function(status) {
 				var routerSwitchedDeferred = $.Deferred();
 				var routerSwitchedDeferredWatcher = routerSwitchedDeferred.then(function( value ) {
@@ -18,8 +17,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 					// console.log(value);
 				});
 			},
-            */
-			initialize: function() {
+            initialize: function() {
                 Backbone.history.start();
                 // Tells Backbone to start watching for hashchange events
 				// report('MobileRouter.js','initialize:');
@@ -61,7 +59,6 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				"help" : "help",
 				"login" : "login",
 				"agb" : "agb",
-				"privacy" : "privacy",
 				"logout" : "logout"
             },
 			messages: function() {
@@ -172,9 +169,6 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             agb: function() {
 				this.changePage(agbView, {});
             },
-            privacy: function() {
-				this.changePage(privacyView, {});
-            },
             dashboard: function() {
                 // new DashboardView();
 				this.changePage(DashboardView, {});
@@ -226,12 +220,12 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				// $("#page-content").css({"position":"fixed", "top":"100px"});
 				// $("#ui-page-active").css({"position":"fixed", "top":"200px"});
 				modifyiOS7StatusBar();
-				$('.pageOptions').hide();
-				$('.showPageOptions').hide();
+				$( "#pageOptions" ).hide();
 				var _this = this;
 				dpd.users.me(function(me) {
+					console.log('me');
+					console.log(me);
 					window.me = me;
-					if (window.me.active==true && window.me.fullname!="") $('.showPageOptions').show();
 					_this.myView = new view(viewOptions);
 					new FastClick(document.body);
 				});

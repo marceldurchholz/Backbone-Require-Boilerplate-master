@@ -1,7 +1,7 @@
 <div id="LearningStreamNestedViewDiv" class="LearningStreamNestedViewDiv" style="margin-bottom:50px;padding:15px;">
 	<ul id="LearningStreamList" class="LearningStreamList" data-filter="true" data-filter-placeholder="Suchfilter..." data-filter-theme="a" data-count-theme="a" data-role="listview" data-theme="a" data-divider-theme="a" data-role="listview" style="max-height:80px !important;height:80px !important;">
 		<% _.each(stream.data, function(data) { %>
-			<li style="max-height:60px !important;" data-id="<%= data.id %>" class="noswipeToDelete">
+			<li style="max-height:60px !important;" data-id="<%= data.id %>" class="swipeToDelete">
 				<a class="showVideoDetailsLink" href="<%= data.href %>">
 				<img style="padding:8px 0px 8px 25px;height:40px !important;max-height:40px !important;max-width:40px !important;" src="<%= data.icon %>" />
 				<h6 style="padding:0px 0px 10px 0px;margin:0;"><%= data.title %></h6>
