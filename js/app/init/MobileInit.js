@@ -412,6 +412,13 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	});
 	*/
 	
+	$(document).on('click', ".external", function (e) {
+		e.preventDefault();
+		// alert('bla');
+		var targetURL = $(this).attr("href");
+		window.open(targetURL, "_system");
+	});
+
 	// $(window).bind('resize', function() {
 	$(window).resize(function() {
 		// fontResize();
