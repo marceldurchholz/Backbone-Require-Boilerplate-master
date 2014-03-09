@@ -189,6 +189,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	
 	
 	$('body').off( "swipeleft", ".swipeToDelete").on( "swipeleft", ".swipeToDelete", function( e ) {
+	// $('body').off( "click", ".swipeToDelete").on( "click", ".swipeToDelete", function( e ) {
 		e.preventDefault();
 		// alert('swiped on element');
 		var listitem = $(this);
@@ -233,14 +234,38 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	
 	function deleteMessageFlow() {
 		// alert('deleteMessageFlow');
+		// alert('deleteMessageFlow');
+		showModal();
 		$('.swipeToDelete').each(function () {
 			// aaa
 			// console.log($(this).attr('class'));
 			var this_id = $(this).attr('data-id');
+			var this_cat = $(this).attr('data-cat');
 			if ($(this).hasClass( "ui-btn-up-d" )) {
 				// selected = selected + 1;
-				$(this).toggle( "fast", function() {
-					$(this).remove();
+				// console.log('deleting flow id: '+this_id);
+				dpd.messages.get(this_id, function (result) {
+					// console.log(result);
+					var query = { $or:[{"sender":result.receiver,"receiver":me.id}  ,  {"sender":me.id,"receiver":result.receiver}] };
+					dpd.messages.get(query, function (messages) {
+						// console.log();
+						$.each( messages, function( key, message ) {
+							// console.log(key);
+							// console.log(message);
+							dpd.messages.del(message.id, function (err) {
+								if(err) {
+									// alert('error');
+									// console.log(err);
+									// hideModal();
+								}
+								else {
+									// alert('done');
+								}
+							});
+						});
+						window._thisMessagesViewNested.fetch();
+						hideModal();
+					});
 				});
 			}
 		});

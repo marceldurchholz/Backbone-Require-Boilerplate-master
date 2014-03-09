@@ -8,8 +8,9 @@ define(["jquery", "backbone", "text!templates/MessagesViewNestedPage.html"],
 			
 			el: "#MessagesNestedViewDiv",
 			initialize: function() {
+				var _thisMessagesViewNested = this;
 				console.log('initializing MessagesViewNested.js');
-				this.$el.hide();
+				_thisMessagesViewNested.$el.hide();
 				showModal();
 			},
 			fetch: function() {	
@@ -96,10 +97,6 @@ define(["jquery", "backbone", "text!templates/MessagesViewNestedPage.html"],
 			},
 			bindEvents: function() {
 				var _thisMessagesViewNested = this;
-				this.$el.off('click','.showVideoDetailsLink').on('click','.showVideoDetailsLink',function(event){
-					event.preventDefault();
-					window.location.href = event.currentTarget.hash;
-				});
 				dpd.messages.off('create');
 				dpd.messages.on('create', function(msgData) {
 					_thisMessagesViewNested.fetch();
