@@ -24,7 +24,7 @@ if (isMobile.any()) {
     document.write("<script type='text/javascript' src='" + rootURL + "phonegap.js'></script>"); 
     // initApp();
 }else{
-    console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
+    // console.log('NOT-DEVICE-MODE: Skipping loading of [phonegap.js] and plugins...');    
 }
 
 var currentHash = window.location.hash;
@@ -228,7 +228,7 @@ var dao = {
 		// renderList();
 		if (isMobile.any()) {
 			this.db = window.openDatabase("syncdemodb", "1.0", "Sync Demo DB", 200000);
-
+			/*
 			this.db.transaction(
 				function(tx) {
 					// tx.executeSql('DROP TABLE IF EXISTS videos');
@@ -244,6 +244,7 @@ var dao = {
 			// Testing if the table exists is not needed and is here for logging purpose only. We can invoke createTable
 			// no matter what. The 'IF NOT EXISTS' clause will make sure the CREATE statement is issued only if the table
 			// does not already exist.
+			*/
 			this.db.transaction (
 				function(tx) {
 					tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='videos'", this.txErrorHandler,
@@ -258,20 +259,49 @@ var dao = {
 		// else websqlReady.resolve("initialize done");
 	},
 		
+	findVideoById: function(id) {
+		// alert('outer searching for id: ' + id);
+		var deferred = $.Deferred();
+		if (isMobile.any()) {
+			this.db.transaction(
+				function (tx) {
+					var sql = "SELECT v.videoid, v.videourl FROM videos v WHERE v.videoid=:id";
+					tx.executeSql(sql, [id], function (tx, results) {
+						deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
+					});
+				},
+				function (error) {
+					deferred.reject("Transaction Error: " + error.message);
+				}
+			);
+		}
+		else {
+			deferred.resolve();
+			/*
+			setTimeout(function() {
+				deferred.resolve();
+			}, 3000);
+			*/
+		}
+		return deferred.promise();
+	},
+	
 	createTables: function() {
 		this.db.transaction(
 			function(tx) { 
-				tx.executeSql("CREATE TABLE IF NOT EXISTS users ( username VARCHAR(255) PRIMARY KEY, password VARCHAR(255))");
+				// tx.executeSql("CREATE TABLE IF NOT EXISTS users ( username VARCHAR(255) PRIMARY KEY, password VARCHAR(255))");
 				tx.executeSql("CREATE TABLE IF NOT EXISTS videos ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))");
 			},
-			function() { alert('ERROR ON Tables CREATE local SQLite database'); },
+			function() { 
+				// alert('ERROR ON Tables CREATE local SQLite database'); 
+			},
 			function() { 
 				// alert('SUCCESS Tables CREATE local SQLite database'); 
-				websqlReady.resolve("initialize done"); 
+				// websqlReady.resolve("initialize done"); 
 			}
 		);
 	},
-	
+
 	fillTable: function() {
 		// alert('filling table');
 		if (isMobile.any()) {
@@ -284,10 +314,10 @@ var dao = {
 					alert('filling table INSERT END');
 				},
 				function() {
-					alert('ERROR ON Table videos successfully FILLED WITH SAMPLES in local SQLite database');
+					// alert('ERROR ON Table videos successfully FILLED WITH SAMPLES in local SQLite database');
 				},
 				function() {
-					alert('Table videos successfully FILLED WITH SAMPLES in local SQLite database');
+					// alert('Table videos successfully FILLED WITH SAMPLES in local SQLite database');
 					// callback();
 				}
 			);
@@ -557,6 +587,7 @@ function initStore() {
 		noAutoFinish: true,
 		purchase: function (transactionId, productId) {
 			// showModal();
+			alert('start purchasing');
 			storekit.finish(transactionId);
 			storekit.loadReceipts(function (receipts) {
 				console.log('Receipt for appStore = ' + receipts.appStoreReceipt);
@@ -566,7 +597,7 @@ function initStore() {
 			updateCoins(productId);
 		},
 		finish: function (transactionId, productId) {
-			console.log('Finished transaction for ' + productId + ' : ' + transactionId);
+			alert('Finished transaction for ' + productId + ' : ' + transactionId);
 			// alert('Finished transaction for ' + productId + ' : ' + transactionId);
 		},
 		restore: function (transactionId, productId) {
@@ -582,7 +613,7 @@ function initStore() {
 			alert('restore failed: ' + errCode);
 		},
 		error: function (errno, errtext) {
-			console.log('Failed: ' + errtext);
+			alert('Failed: ' + errtext);
 			hideModal();
 			// alert('Failed: ' + errtext);
 		},
@@ -592,8 +623,7 @@ function initStore() {
 				"com.digitalverve.APPinaut.250APP359T4", 
 				"com.digitalverve.APPinaut.750APP799T9", 
 				"com.digitalverve.APPinaut.6500APP4999T51", 
-				"com.digitalverve.APPinaut.25000APP17999T72",
-				"com.digitalverve.APPinaut.UPGPROVAPP269T3"
+				"com.digitalverve.APPinaut.25000APP17999T72"
 			];
 			window.storekit.load(productIds, function(validProducts, invalidProductIds) {
 				$.each(validProducts, function (i, val) {
@@ -632,8 +662,9 @@ var app = {
 				// }
 				
 				if(isMobile.any()) {
+					alert('initStore();');
 					initStore();
-					document.addEventListener("resume", _thisApp.onResume, false);
+					// document.addEventListener("resume", _thisApp.onResume, false);
 					window.plugins.insomnia.keepAwake();
 				}
 				$("body").css("-webkit-user-select","none");
@@ -641,25 +672,6 @@ var app = {
 				$("body").css("-ms-user-select","none");
 				$("body").css("-o-user-select","none");
 				$("body").css("user-select","none");
-				
-				if (1==2) var positionTimer = navigator.geolocation.watchPosition(
-					function( position ){
-						// Log that a newer, perhaps more accurate
-						// position has been found.
-						console.log( "Newer Position Found" );
-						// Set the new position of the existing marker.
-						system.timestamp = position.timestamp;
-						/*
-						updateMarker(
-							locationMarker,
-							position.coords.latitude,
-							position.coords.longitude,
-							"Updated / Accurate Position"
-						);
-						*/
-					}
-				);
-				
 				
 				// alert('dao done');
 				// window.dao.test('foo');
@@ -691,15 +703,15 @@ var app = {
 	fetchWorking: function() {
 		var setTimeoutWatcher = setTimeout(function foo() {
 			if ( _thisApp.dfd.state() === "pending" ) {
-				_thisApp.dfd.notify( "working... " );
-				setTimeout( _thisApp.fetchWorking, 100 );
+				// _thisApp.dfd.notify( "working... " );
+				setTimeout( _thisApp.fetchWorking, 1000 );
 			}
 		}, 1 );
 	},
 	fetchMe: function() {
 		_thisApp = this;
-		console.log('fetchMe app');
-		_thisApp.dfd = new jQuery.Deferred();
+		// console.log('fetchMe app');
+		_thisApp.dfd = new $.Deferred();
 		_thisApp.fetchWorking();
 		if(!isMobile.any()) {
 			var foox = window.setTimeout(function blax() {
@@ -716,10 +728,14 @@ var app = {
 	},
 	fetch: function() {	
 		_thisApp = this;
-		console.log('fetching _thisApp.js');
+		// console.log('fetching _thisApp.js');
 	},
 	receivedEvent: function(event) {
-		_thisApp.dfd.resolve(true);		
+		// alert('deviceready');
+		var foox = window.setTimeout(function blax() {
+			_thisApp.dfd.resolve(true);
+		}, 1000);
+		// _thisApp.dfd.resolve(true);		
 	}
 };
 	
@@ -896,7 +912,7 @@ function postDeviceReadyActions(){
 / ----------------------------------------------------------- */
 function modifyiOS7StatusBar(){
 	// if (window.device.version) alert('>> '+window.device.version);
-    var doit = false;
+    var doit = true;
 	if (isMobile.any() && doit==true) {
 		try{
 			if (parseFloat(window.device.version) === 7.0) {
@@ -908,17 +924,21 @@ function modifyiOS7StatusBar(){
 				$("#body").css('top', "0px");
 			}
 			else {
-				document.body.style.marginTop = "20px";
-				$("#body").css('top', "20px");
+				// document.body.style.marginTop = "20px";
+				// $("#body").css('top', "20px");
+				document.body.style.marginTop = "0px";
+				$("#body").css('top', "0px");
 			}
 			if (window.device.version && parseFloat(window.device.version) > 7) {
 				// document.body.style.marginTop = "20px";
 			}
 			// StatusBar.backgroundColorByHexString("#3e8fd9");
-		} catch(e){ catchError('modifyiOS7StatusBar()',e); }
+		} catch(e){ 
+			// catchError('modifyiOS7StatusBar()',e); 
+		}
 	}
 	else {
-	console.log('not mobile: statusbar not modified');
+		// console.log('not mobile: statusbar not modified');
 	}
 }
 
@@ -932,7 +952,7 @@ function debugModeEnabled(){
 function report(logtype,msg){
     try{
 		// alert(logtype + ': ' + msg);
-        console.log(logtype + ': ' + msg);
+        // console.log(logtype + ': ' + msg);
     }catch(e){ 
         // give up
     }            
@@ -1829,14 +1849,14 @@ function mediaOnError(error) {
 }	
 
 function captureVideoRecord() {
-	var options = { limit: 1, duration: 3600, quality: 10 };
+	var options = { limit: 1, duration: 600, quality: 10 };
 	// nur audio aufnehmen: navigator.device.capture.captureAudio
 	var popoverHandle = navigator.device.capture.captureVideo(getVideoWin, onGetVideoError, options);
 	window.onorientationchange = function() {
 		var newPopoverOptions = new CameraPopoverOptions(0, 0, 100, 100, 0);
 		popoverHandle.setPosition(newPopoverOptions);
 	}
-	console.log(popoverHandle);
+	// console.log(popoverHandle);
 }
 
 function purchaseVideoConfirm(me,videoData) {
@@ -1871,14 +1891,14 @@ function purchaseVideoStart(me,videoData) {
 	var creditsAfterPurchase = parseFloat(me.credits) - parseFloat(videoData.price);
 	this._videoData = videoData;
 	this._creditsAfterPurchase = creditsAfterPurchase;
-	console.log(creditsAfterPurchase,'creditsAfterPurchase');
+	// console.log(creditsAfterPurchase,'creditsAfterPurchase');
 	// return(false);
 	// alert('Video ' + videoData.id + ' wird über User ID ' + me.id + 'gekauft. Sie haben nun '+creditsAfterPurchase+' Credits.');
 	var data = new Object();
 	data.credits = ''+creditsAfterPurchase;
 	data.purchases = me.purchases;
 	this._newData = data;
-	console.log(_newData.purchases);
+	// console.log(_newData.purchases);
 	
 	this._me = me;
 	$.ajax('http://dominik-lohmann.de:5000/users/?id='+me.id,{
@@ -1888,8 +1908,8 @@ function purchaseVideoStart(me,videoData) {
 		// doAlert( "DONE!" );
 		_me = me;
 		if (_me.purchases==undefined) _me.purchases = new Array();
-		console.log('_me.purchases actual');
-		console.log(_me.purchases);
+		// console.log('_me.purchases actual');
+		// console.log(_me.purchases);
 	}).fail(function() {
 		doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
 	})
@@ -1902,7 +1922,7 @@ function purchaseVideoStart(me,videoData) {
 	}
 	else {
 		if (_me.purchases==undefined) _me.purchases = new Array();
-		console.log(me.purchases);
+		// console.log(me.purchases);
 		// me.push( videoData.id );
 		// var el = new Object();
 		// el.value = videoData.id;
@@ -1923,48 +1943,28 @@ function purchaseVideoStart(me,videoData) {
 			var alertmsg = 'Sie können das Video nun vollständig ansehen.';
 			if (_videoData.price>0) alertmsg += ' Für weitere Käufe sind noch '+creditsAfterPurchase+' Credits verfügbar.';
 			doAlert(alertmsg,'Information');
-			// $('#loadvideobutton').hide();
-			// console.log(window);
-			// window.location.reload();
-			
-			addFollower(_videoData.uploader, me.id);
-			
-			addOrder(me.id,_videoData.id,_videoData.uploader,_videoData.price);
+			addFollower(me, _videoData.uploader);
+			addOrder(me,_videoData.id,_videoData.uploader,_videoData.price);
 		}).fail(function() {
-			doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
+			console.log( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
 		})
 		.always(function() {
-			// alert( "finished - nw redirecting" );
-			// window.location.href = '#videos/details/view/'+videoData.id;
-			// console.log(window);
 			window._thisViewVideoDetails.render();
-			// window.location.reload();
 		});
 	}
 }
 
-function addFollower(toid,meid) {
+function addFollower(me, toid) {
 	// var query = {id:toid,$or:[{"sponsor":me.id},{"followers":me.id}],$sort:{fullname:1}};
 	var query = {  followers: {$in: [me.id]}, id:toid };
 	dpd.users.get(query, function (result,err) {
-		if(err) {
-			// alert(meid + ' is not yet follower from ' + toid);
-			dpd.users.put(toid, {"followers": {$push:$.trim(meid)}} );
-			// return console.log(err);
-		}
-		// alert(meid + ' IS ALREADY follower from ' + toid);
-		// console.log(result);
+		if(err) dpd.users.put(toid, {"followers": {$push:$.trim(me.id)}} );
 	});
 }
 
-function addOrder(userid,videoid,creatorid,price) {
-	dpd.orders.post({"userid":""+userid,"videoid":""+videoid,"creatorid":""+creatorid,"price":""+price}, function(result, err) {
-		if(err) {
-			return console.log(err);
-		}
-		// $.mobile.loading( 'hide' );
-		// hideModal();
-		console.log(result, result.id);
+function addOrder(me,videoid,creatorid,price) {
+	dpd.orders.post({"userid":""+me.id,"videoid":""+videoid,"creatorid":""+creatorid,"price":""+price}, function(result, err) {
+		if(err) return console.log(err);
 	});
 }
 
@@ -1975,8 +1975,8 @@ function onGetVideoError(e) {
 }
 
 function getVideoWin(mediaFiles) {
-	console.log('captureVideoRecord');
-	console.log(mediaFiles);
+	// console.log('captureVideoRecord');
+	// console.log(mediaFiles);
 	try {
 		var i, path, len;
 		for (i = 0, len = mediaFiles.length; i < len; i += 1) {
@@ -1999,8 +1999,14 @@ function getVideoWin(mediaFiles) {
 			// my_media.play();
 			// var blax = JSON.stringify(mediaFiles);
 			// alert(path);
-			doAlert('Klicken Sie zum Fortsetzen auf weiter.','Aufnahme erfolgreich');
-			doAlert(mediaFiles[i].fullPath,'DEBUG FULLPATH');
+			// doAlert('Klicken Sie zum Fortsetzen auf weiter.','Aufnahme erfolgreich');
+			// doAlert(mediaFiles[i].fullPath,'DEBUG FULLPATH');
+			mediaFiles[i].getFormatData(function(data) {
+				alert(data.duration);
+				window.system.videolength = Math.ceil(data.duration);
+				alert(window.system.videolength);
+			});
+			
 			attachVideoToPlayer(mediaFiles[i].fullPath);
 			// _thisViewRecordVideoNested.switchPage();
 			// alert('Bitte klicken Sie auf hochladen.');
@@ -2009,14 +2015,14 @@ function getVideoWin(mediaFiles) {
 		// not DATA_URL
 		// log('mediaFiles: ' + mediaFiles.slice(0, 100));
 	}    
-	console.log('set video function end');
+	// console.log('set video function end');
 }
 
 // TODO: File Transfer onProgress DOWNload
 // http://www.raymondcamden.com/index.cfm/2013/5/1/Using-the-Progress-event-in-PhoneGap-file-transfers
 
 function sendLocalStorageToElements(videoRecordLocalStorage) {
-	console.log('************');
+	// console.log('************');
 	var models = videoRecordLocalStorage;
 	var keys = new Array();
 	for(var key in models) {
@@ -2025,7 +2031,7 @@ function sendLocalStorageToElements(videoRecordLocalStorage) {
 		for(var modelkey in modelsattribute) {
 			if($('#'+modelkey).is("textarea")) {
 				$('#'+modelkey).html(modelsattribute[modelkey]);
-				console.log(modelkey+' >> '+modelsattribute[modelkey]);
+				// console.log(modelkey+' >> '+modelsattribute[modelkey]);
 			}
 			else if($('#'+modelkey).is("select")) {
 				// alert(modelkey + ' is a select');
@@ -2044,7 +2050,7 @@ function sendLocalStorageToElements(videoRecordLocalStorage) {
 			}
 		}
 	}
-	console.log('************');
+	// console.log('************');
 }
 
 
@@ -2061,8 +2067,8 @@ function attachVideoToPlayer(mediaFilePath) {
 		return(false);
 	}
 	else {
-		// console.log('attaching to video player: ' + mediaFilePath);
-		alert('attaching to video player: ' + mediaFilePath);
+		console.log('attaching to video player: ' + mediaFilePath);
+		// alert('attaching to video player: ' + mediaFilePath);
 		$('#camera_file').val(mediaFilePath);
 	}
 	if (mediaFilePath!='') {
@@ -2168,18 +2174,18 @@ function recordVideoUpload(videoRecordLocalStorage) {
 function captureVideoUpload(videoRecordLocalStorage) {
 	var _this = this;
 	// alert('captureVideoUpload');
-	console.log('^^');
-	console.log(videoRecordLocalStorage);
-	console.log('^^');
+	// console.log('^^');
+	// console.log(videoRecordLocalStorage);
+	// console.log('^^');
 	// console.log('^^^^^^^^^^^^');
 	var models = videoRecordLocalStorage.models;
 	var formValues = new Array();
 	for(var key in models) {
 	   // formValues[formValues.length] = key;
 	   var modelsattribute = models[key].attributes;
-	   console.log(modelsattribute);
+	   // console.log(modelsattribute);
 		for(var modelkey in modelsattribute) {
-			console.log(modelkey+' >> '+modelsattribute[modelkey]);
+			// console.log(modelkey+' >> '+modelsattribute[modelkey]);
 			formValues[modelkey] = modelsattribute[modelkey];
 		}
 	}
@@ -2194,7 +2200,8 @@ function captureVideoUpload(videoRecordLocalStorage) {
 			$('#modaltxt').html( progressEvent.loaded + " / " + progressEvent.total );
 		};
 		var options = new FileUploadOptions();
-		options.fileName = new Date().getTime();
+		// options.fileName = new Date().getTime();
+		options.fileName = getRandomID();
 		options.mimeType = "video/mp4";
 		options.chunkedMode = false;
 		ft.upload(mediaFile,
@@ -2204,10 +2211,11 @@ function captureVideoUpload(videoRecordLocalStorage) {
 				// console.log("Code = " + r.responseCode);
 				// console.log("Response = " + r.response);
 				// console.log("Sent = " + r.bytesSent);
-				dpd.videos.post({"uploader":""+_this._thisViewRecordVideoNested.me.id,"videourl":""+options.fileName,"active":true,"cdate":""+dateYmdHis(),"topic":""+formValues.interest,"title":""+formValues.title,"subtitle":""+formValues.subtitle,"description":""+formValues.description,"price":formValues.sliderprice}, function(result, err) {
+				alert(r.bytesSent);
+				dpd.videos.post({"vsize":Math.ceil(r.bytesSent).toString(),"vlength":window.system.videolength.toString(),"uploader":""+_this._thisViewRecordVideoNested.me.id,"videourl":""+options.fileName,"active":true,"cdate":""+dateYmdHis(),"topic":""+formValues.interest,"title":""+formValues.title,"subtitle":""+formValues.subtitle,"description":""+formValues.description,"price":formValues.sliderprice}, function(result, err) {
 					if(err) {
 						hideModal();
-						doAlert('Es ist ein Fehler passiert, der nicht passieren sollte. Bitte versuchen Sie Ihre Aktion erneut oder wenden Sie sich direkt an das APPinaut Support Team.','Ups! Fehler beim Upload!');
+						// doAlert('Es ist ein Fehler passiert, der nicht passieren sollte. Bitte versuchen Sie Ihre Aktion erneut oder wenden Sie sich direkt an das APPinaut Support Team.','Ups! Fehler beim Upload!');
 						return console.log(err);
 					}
 					// if (result) {
@@ -2388,7 +2396,7 @@ function createOptionsEl(name, values, selectionDefault) {
 //* DEBUG */ window.console.log('js/global.js loaded...');
 
 function resizeElement(elementid) {
-	console.log('resizeElement: '+elementid);
+	// console.log('resizeElement: '+elementid);
 	// var thumbnail_width = this.$el.outerWidth();
 	var elwidth = $(elementid).width();
 	// console.log(elwidth);
@@ -2413,34 +2421,21 @@ function resizeElement(elementid) {
 
 function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 	_thisVideoId = videoId;
-	console.log(videoId);
+	// console.log(videoId);
 	// alert(videoUrl);
 	_thisVideoUrl = videoUrl;
-	console.log(videoUrl);
+	// console.log(videoUrl);
 	for( vid in _V_.players ){ 
-		console.log('>>> '+vid.toString()); 
-		if(vid.toString() == "video_player_1"){ 
-		   delete _V_.players[vid] 
-		   console.log('deteleted');
+		// console.log('>>> '+vid.toString()); 
+		if(vid.toString() == "video_player_1") {
+		   delete _V_.players[vid];
+		   // console.log('deteleted');
 		} 
 	}
 	var myvideoJS = videojs("video_player_1", { "controls": true, "autoplay": false, "preload": "off" }, function(){});
 	var myPlayer = _V_("video_player_1");
 	_V_("video_player_1").ready(function(){
-		// alert('jupp');
-		// { type: "video/mp4", src: "http://mobile002.appinaut.de/secure/data/media/video/Bird_Titmouse.mp4" }
-		// console.log(_thisVideoUrl);
-		// console.log("http://mobile002.appinaut.de/secure/data/media/video/index.php?showvideo="+_thisVideoUrl+".mp4");
-		/*
-		myPlayer.src([
-			{ type: "video/mp4", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".mp4" },
-			{ type: "video/webm", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".webm" },
-			{ type: "video/ogg", src: "http://management-consulting.marcel-durchholz.de/secure/index.php?showvideo="+_thisVideoUrl+".ogv" }
-		]);
-		*/
-		// alert(_thisVideoUrl);
-		// alert(_thisVideoUrl.length);
-		if (_thisVideoUrl.length <= 40) {
+		if (_thisVideoUrl.length <= 50) {
 			myPlayer.src([
 				{ type: "video/mp4", src: "http://prelaunch002.appinaut.de/secure/index.php?showvideo="+_thisVideoUrl+".mp4" },
 				{ type: "video/webm", src: "http://prelaunch002.appinaut.de/secure/index.php?showvideo="+_thisVideoUrl+".webm" },
@@ -2454,43 +2449,21 @@ function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 				{ type: "video/ogg", src: _thisVideoUrl }
 			]);
 		}
-		// alert('bla');
-		// myPlayer.posterImage.show();  
-		// $("#video_player_1.vjs-poster").css('background-image', 'url(http://video-js.zencoder.com/oceans-clip.jpg)').show();
+		console.log(myPlayer);
 		myPlayer.controlBar.hide();  
 		myPlayer.bigPlayButton.hide();
-		// myPlayer.pause();
-		// alert(showVideoLength);
-		// myPlayer.get(0).pause();
 		myPlayer.on('timeupdate', function() {
 			if (myPlayer.currentTime() > showVideoLength) {
-				// $(".video-js")[0].player.pause();
-				// Paypal-Buy-Now-button.png
-				// $("#video_player_1 .vjs-poster").css('background-image', 'url(/Paypal-Buy-Now-button.png)').show();
 				if (showVideoLength!=0) {
 					myPlayer.posterImage.hide();  
 					myPlayer.currentTime(0);  
 					myPlayer.pause();
 				}
-				// myPlayer.cancelFullScreen();  
-				// myPlayer.controlBar.hide();  
-				// myPlayer.bigPlayButton.hide();  
-				// $("#videocontainerlink").attr("href", "/blafoopeng/")
-				// myPlayer.currentTime(0);
-				// myPlayer.src({ type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" });
-				// $("#video_player_1.vjs-poster").css('background-image', 'url(http://video-js.zencoder.com/oceans-clip.jpg)').show();
 			}
 		});
+		
 	resizeElement('#video_player_1');
 	});	
-	// alert('("video_player_1").ready(function(){');
-
-// $(document).ready(function() {
-// resizeVideoJS(); // Initialize the function
-// });
-// $(function(){
-	// resizeElement('#video_player_1');
-// });
 }
 
 window.addEventListener('load', function () {
@@ -2499,19 +2472,11 @@ window.addEventListener('load', function () {
 
 
 $(window).bind('hashchange', function(){
-	// currentHash = window.location.hash;
-	// console.log(window.location.hash);
-	// alert('MobileInit.js '+window.location.hash);
-	// $('div[data-role="page"]')
-	// $('#scrollable').scrollTop(0);
-	// alert('a');
-	// populateDeviceInfoTimer();
 	showModal();
 	modifyiOS7StatusBar();
 	checkTopNaviRoles();
 	bindSwipeBack();
 	showDeleteBar(false);
-	
 	$("#flexiblecontent").animate({
 		marginLeft: "0px",
 	}, 500, function () {
@@ -2633,7 +2598,7 @@ $('#sidebarListViewDiv').on("vclick", "#menuelement a.contentLink", function (ev
 		// console.log(event.target.getAttribute('data-href'));
 		var tgt = event.target.getAttribute('data-href');
 		// alert(tgt);
-		console.log(tgt);
+		// console.log(tgt);
 		// .getAttribute('data-fruit');
 		// window.location.href = event.target.hash;
 		window.location.href = tgt;
@@ -2651,24 +2616,20 @@ var menuSwitched = function(status) {
 	menuSwitchedDeferred.resolve();
 	menuSwitchedDeferredWatcher.done(function( value ) {
 		// alert(value);
-		console.log(value);
+		// console.log(value);
 	});
 };
 
-function timeoutwarning() {
-	// console.log(window.system.modaltimeout);
-	window.system.modaltimeout = window.system.modaltimeout - 1;
-}
 function showModal(){
 	// if ($('.modalWindow')) return(false);
-	console.log('showModal');
-	window.system.modaltimeout = 5000;
+	// console.log('showModal');
+	window.system.modaltimeout = 30000;
 	window.clearInterval(window.modaltimeoutvar);
 	window.modaltimeoutvar = window.setInterval(function() {
-		console.log(window.system.modaltimeout);
+		// console.log(window.system.modaltimeout);
 		window.system.modaltimeout = window.system.modaltimeout - 1000;
 		if (window.system.modaltimeout<=0) {
-			var breaktoDashboardText = '<br>Die Aktion dauert dauert ungewöhnlich lang.<br><br><u style="cursor:pointer;">abbrechen</u>';
+			var breaktoDashboardText = '<br>Die Aktion<br>dauert ungewöhnlich lange.<br><br><u style="cursor:pointer;">ausblenden</u>';
 			$('#breaktoDashboard').html(breaktoDashboardText);
 			$('#breaktoDashboard').show();
 			window.clearInterval(window.modaltimeoutvar);
@@ -2701,6 +2662,7 @@ var system = {
 	contentHelper: 0,
 	timestamp: 0,
 	modaltimeout: 0,
+	videolength: 0,
 	// this.routerSwitched(false);
 	toggleLoading: function(status) {
 		console.log(status);
@@ -2778,6 +2740,18 @@ function dateYmdHis() {
     var m = date.getMonth() + 1;
     var y = date.getFullYear();
 	var val = '' + y + '' + (m<=9 ? '0' + m : m) + '' + (d <= 9 ? '0' + d : d) + '' + (H<=9 ? '0' + H : H)  + '' + (i<=9 ? '0' + i : i)  + '' + (s<=9 ? '0' + s : s);
+    return(val);
+}
+
+function dateYmdHisToGerman(date) {
+    // var s = date.getSeconds();
+    // var i = date.getMinutes();
+    // var H = date.getHours();
+    var d = date.substr(6,2);
+    var m = date.substr(4,2);
+    var y = date.substr(0,4);
+	// var val = '' + y + '' + (m<=9 ? '0' + m : m) + '' + (d <= 9 ? '0' + d : d) + '' + (H<=9 ? '0' + H : H)  + '' + (i<=9 ? '0' + i : i)  + '' + (s<=9 ? '0' + s : s);
+	var val = '' + d + '.' + m + '.' + y;
     return(val);
 }
 
@@ -2923,8 +2897,9 @@ function scrollBottom() {
 	setTimeout(function() {
 		$('#page-content').animate({
 			scrollTop: $("#page-content")[0].scrollHeight
-		}, "slow", function() {
+		}, "fast", function() {
 			// animation done
+			$('#page-content').focus();
 		});
 	}, 1000);
 }

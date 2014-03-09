@@ -7,6 +7,43 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
   function($, Backbone, MobileRouter, LocalStorageAdapter) {
 
 	/*
+	dpd.messages.get({}, function (arr,err) {
+		if(err) {
+			return console.log(err);
+		}
+		$.each( arr, function( key, message ) {
+			dpd.messages.del(message.id, function (err) {
+			  if(err) console.log(err);
+			});						
+		});
+	});
+
+	dpd.orders.get({}, function (arr,err) {
+		if(err) {
+			return console.log(err);
+		}
+		$.each( arr, function( key, message ) {
+			dpd.orders.del(message.id, function (err) {
+			  if(err) console.log(err);
+			});						
+		});
+	});
+
+	dpd.users.get({}, function (arr,err) {
+		if(err) {
+			return console.log(err);
+		}
+		$.each( arr, function( key, message ) {
+			dpd.users.put(message.id, {"purchases":[], "followers":[], "interests":[], "following":[]}, function (result, err) {
+			  if(err) console.log(err);
+			});						
+		});
+	});
+	*/
+
+	// alert('mobileinit.js');
+	
+	/*
 	$.support.cors = true;
 	$.mobile.allowCrossDomainPages = true;
 	$.mobile.ajaxEnabled = false;
@@ -152,6 +189,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	
 	
 	$('body').off( "swipeleft", ".swipeToDelete").on( "swipeleft", ".swipeToDelete", function( e ) {
+	// $('body').off( "click", ".swipeToDelete").on( "click", ".swipeToDelete", function( e ) {
 		e.preventDefault();
 		// alert('swiped on element');
 		var listitem = $(this);
@@ -196,14 +234,38 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	
 	function deleteMessageFlow() {
 		// alert('deleteMessageFlow');
+		// alert('deleteMessageFlow');
+		showModal();
 		$('.swipeToDelete').each(function () {
 			// aaa
 			// console.log($(this).attr('class'));
 			var this_id = $(this).attr('data-id');
+			var this_cat = $(this).attr('data-cat');
 			if ($(this).hasClass( "ui-btn-up-d" )) {
 				// selected = selected + 1;
-				$(this).toggle( "fast", function() {
-					$(this).remove();
+				// console.log('deleting flow id: '+this_id);
+				dpd.messages.get(this_id, function (result) {
+					// console.log(result);
+					var query = { $or:[{"sender":result.receiver,"receiver":me.id}  ,  {"sender":me.id,"receiver":result.receiver}] };
+					dpd.messages.get(query, function (messages) {
+						// console.log();
+						$.each( messages, function( key, message ) {
+							// console.log(key);
+							// console.log(message);
+							dpd.messages.del(message.id, function (err) {
+								if(err) {
+									// alert('error');
+									// console.log(err);
+									// hideModal();
+								}
+								else {
+									// alert('done');
+								}
+							});
+						});
+						window._thisMessagesViewNested.fetch();
+						hideModal();
+					});
 				});
 			}
 		});
@@ -261,37 +323,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		return(false);
 	});
 	
-	$('#noooooooo-page-content').scroll(function () {
-		// console.log('aaa');
-		$('.fadeWhenOffsite').each(function () {
-			// var opa = ( 100-$(window).scrollTop() )/100;
-			// console.log(opa);
-			var opa = 1;
-			// console.log($(window).scrollTop());
-			// var pos = ($(this).offset().top - $(window).scrollTop());
-			var top = $(this).offset().top;
-			var elheight = $(this).height();
-			// console.log(pos);
-			if (top+50 < 100) {
-				opa = top/100;
-			} else {
-				/*
-				// console.log(bottom);
-				// console.log($(window).height());
-				if (top > $(window).height()-elheight) {
-					// opa = 0.3;
-					opa = top;
-				}
-				else {
-					opa = 1;
-				}
-				*/
-				opa = 1;
-			}
-			$(this).css({'opacity':opa});
-		});
-	});
-	
+	/*
 	$('#page-content').scroll(function () {
 		$('.newmessageform').each(function () {
 			// $(this).height();
@@ -300,6 +332,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 			// $(this).css({'opacity':'0.7'});
 		});
 	});
+	*/
 	
 	// resize:false;height: 40px !important;
 
@@ -379,9 +412,16 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	});
 	*/
 	
+	$(document).on('click', ".external", function (e) {
+		e.preventDefault();
+		// alert('bla');
+		var targetURL = $(this).attr("href");
+		window.open(targetURL, "_system");
+	});
+
 	// $(window).bind('resize', function() {
 	$(window).resize(function() {
-		fontResize();
+		// fontResize();
 	});
 	
   }

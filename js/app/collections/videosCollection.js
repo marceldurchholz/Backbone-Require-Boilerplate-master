@@ -68,7 +68,7 @@ define(["jquery", "backbone", "models/VideoModel"],
 			Backbone.sync.call(model, method, model, options);
 		},
 		parse: function(responseVideos) {
-			console.log('parse responseVideos');
+			// console.log('parse responseVideos');
 			// console.log(_thisCollectionSidemenu.user);
 			_thisCollectionVideos.models = [];
 			this._localStorage_videos.models = [];

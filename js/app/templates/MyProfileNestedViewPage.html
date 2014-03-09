@@ -3,13 +3,16 @@
 		<img style="width:100%;max-height:100%;max-width:160px;" src="images/avatar.jpg">
 	</div>
 	<div style="width:50%;float:left;clear:none;display:inline-block;padding-right:2%;">
-		<div style="color:#606060;font-size:1.2em;padding:5px 5px;"><%= user.username %></div>
-		<div class="clear"></div>
 		<input style="width:100%;" data-theme="a" data-mini="true" type="text" name="fullname" id="fullname" value="<%= user.fullname %>" placeholder="Name erforderlich..."/>
+		<div class="clear resizetext emptyWarningDiv" style="color:red;display:none;">Es muss ein Name hinterlegt werden.</div>
+		<div class="clear"></div>
+		<div style="color:#606060;font-size:14px;font-weight:normal;padding:5px 5px;line-height:1.5em;" class="resizetext"><!--<%= user.username %>--><% if( user.provider > -1 ) { %>Anbieter-ID:<br><%= user.id %><% } %></div>
 		<div class="clear"></div>
 		<!-- <input style="width:100%;" data-theme="a" no-data-role="none" data-mini="true" type="text" name="username" id="username" value="<%= user.username %>" placeholder="Ihr Benutzername/E-Mail"/> -->
 		<!-- <p><%= user.username %></p> -->
-		<input style="width:100%;" data-theme="a" no-data-role="none" data-mini="true" type="text" name="slogan" id="slogan" value="<%= user.slogan %>" placeholder="Motto oder Slogan"/>
+		<div style="display:none;">
+			<input style="width:100%;" data-theme="a" no-data-role="none" data-mini="true" type="text" name="slogan" id="slogan" value="<%= user.slogan %>" placeholder="Motto oder Slogan"/>
+		</div>
 		<div class="clear"></div>
 	</div>
 	<div style="width:9%;float:right;clear:none;display:inline-block;">
@@ -23,7 +26,11 @@
 </div>
 
 <div class="clear"></div>
-<textarea style="width:100%;height:10%;" data-theme="a" no-data-role="none" data-mini="true" type="text" placeholder="Helfen Sie den Wissensanbietern. Was begeistert Sie?" name="perstext" id="perstext"><%= user.perstext %></textarea>
+<div class="resizetext" style="font-size:12px;">Helfen Sie den APPinaut® Wissensanbietern:</div>
+<div class="clear"></div>
+<textarea style="width:100%;height:<%= Math.round($(window).height()/5) %>px;max-height:300px;min-height:80px;" data-theme="a" no-data-role="none" data-mini="false" type="text" placeholder="Welche Themen begeistern Sie und welches Wissen interessiert Sie?" name="perstext" id="perstext"><%= user.perstext %></textarea>
+<div class="clear"></div>
+<hr>
 
 <!--
 <%= user.id %> <br>
@@ -62,45 +69,9 @@
 <input type="button" value="Ihr Personal APPinaut®" data-icon="plus" data-theme="b">
 -->
 
-<div id="restrictedArea">
-
-	<div data-role="collapsible" data-theme="b" data-content-theme="a">
-		<h2>Coins: Wissen kaufen</h2>
-		<ul data-iconpos="left" data-role="listview" data-filter="false">
-			<li data-iconpos="left" data-icon="info"><a style="font-size:0.8em;font-weight:bold;">Sie besitzen <%= user.credits %> APPinaut® Coins</a></li>
-			<li data-iconpos="left" data-icon="plus"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.250APP359T4" style="font-size:0.8em;font-weight:normal;">250 APPinaut® Coins (3,59 Euro)</a></li>
-			<li data-iconpos="left" data-icon="plus"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.750APP799T9" style="font-size:0.8em;font-weight:normal;">750 APPinaut® Coins (7,99 Euro)</a></li>
-			<li data-iconpos="left" data-icon="plus"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.2500APP2499T28" style="font-size:0.8em;font-weight:normal;">2.500 APPinaut® Coins (24,99 Euro)</a></li>
-			<li data-iconpos="left" data-icon="plus"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.6500APP4999T51" style="font-size:0.8em;font-weight:normal;">6.500 APPinaut® Coins (49,99 Euro)</a></li>
-			<li data-iconpos="left" data-icon="plus"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.25000APP17999T72" style="font-size:0.8em;font-weight:normal;">25.000 APPinaut® Coins (179,99 Euro)</a></li>
-		</ul>
-	</div>
-	
-	<div class="clear"></div>
-
-	<div data-role="collapsible" data-theme="b" data-content-theme="a">
-		<h2>Upgrade: Wissen anbieten<!-- <%= user.provider %> - Upgrades und Personal APPinaut®--></h2>
-		<ul data-iconpos="left" data-role="listview" data-filter="false">
-			<% if( user.provider < 0 ) { %>
-				<li data-icon="plus"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.UPGPROVAPP269T3" style="font-size:0.8em;font-weight:normal;">1 Monat anbieten (2,69 Euro)</a></li>
-				<li data-icon="plus"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.UPGPROVAPP1999T22" style="font-size:0.8em;font-weight:normal;">1 Jahr anbieten inkl. 1 Testmonat (19,99 Euro)</a></li>
-			<% } else { %>
-				<li data-iconpos="left" data-icon="info"><a class="purchasebtn" style="font-size:0.8em;font-weight:bold;">Sie sind bereits APPinaut® Anbieter</a></li>
-			<% } %>
-			<!--
-			<li data-iconpos="left" data-icon="arrow-r"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.UPGPERSAPP12999T66" style="font-size:0.8em;font-weight:normal;">Personal APPinaut® (129,99 Euro qrtl.)</a></li>
-			<li data-iconpos="left" data-icon="arrow-r"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.UPGPERSAPP39999T81" style="font-size:0.8em;font-weight:normal;">Personal APPinaut® (399,99 Euro jhrl.)</a></li>
-			<li data-iconpos="left" data-icon="arrow-r"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.UPGB2BAPP9999T62" style="font-size:0.8em;font-weight:normal;">APPinaut® B2B Programm (99,99 Euro jhrl.)</a></li>
-			-->
-		</ul>
-	</div>
-
-</div>
-
 <div data-role="collapsible" data-theme="b" data-content-theme="a">
-	<h6>Interessengebiete auswählen</h6>
+	<h6>Interessensbereiche filtern</h6>
 	<!--<legend><h6>Interessengebiete</h6></legend>-->
-	<% console.log(user.interests) %>
 	<% _.each(user.interests, function(interests) { %>
 		<input data-inset="false" <%= interests.checked %> <%= interests.status %> data-mini="true" type="checkbox" name="checkbox-v-<%= interests.id %>" id="checkbox-v-<%= interests.id %>">
 		<label for="checkbox-v-<%= interests.id %>"><%= interests.name %></label>
@@ -119,6 +90,46 @@
 </div>
 
 <div class="clear"></div>
+
+<div id="restrictedArea">
+
+	<div data-role="collapsible" data-theme="b" data-content-theme="a">
+		<h2>APPinaut Coins erwerben</h2>
+		<ul data-iconpos="left" data-role="listview" data-filter="false">
+			<li data-iconpos="left" data-icon="info"><a style="font-size:0.8em;font-weight:bold;">Sie besitzen <%= user.credits %> APPinaut® Coins</a></li>
+			<li data-iconpos="left" data-icon="plus"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.250APP359T4" style="font-size:0.8em;font-weight:normal;">250 APPinaut® Coins (3,59 Euro)</a></li>
+			<li data-iconpos="left" data-icon="plus"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.750APP799T9" style="font-size:0.8em;font-weight:normal;">750 APPinaut® Coins (7,99 Euro)</a></li>
+			<li data-iconpos="left" data-icon="plus"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.2500APP2499T28" style="font-size:0.8em;font-weight:normal;">2.500 APPinaut® Coins (24,99 Euro)</a></li>
+			<li data-iconpos="left" data-icon="plus"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.6500APP4999T51" style="font-size:0.8em;font-weight:normal;">6.500 APPinaut® Coins (49,99 Euro)</a></li>
+			<li data-iconpos="left" data-icon="plus"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.25000APP17999T72" style="font-size:0.8em;font-weight:normal;">25.000 APPinaut® Coins (179,99 Euro)</a></li>
+		</ul>
+	</div>
+	
+	<div class="clear"></div>
+
+	<% if( user.provider < 0 ) { %>
+		<div data-role="collapsible" data-theme="b" data-content-theme="a">
+			<h2>Sie sind Wissensanbieter?<!-- <%= user.provider %> - Upgrades und Personal APPinaut®--></h2>
+			<ul data-iconpos="left" data-role="listview" data-filter="false">
+					<li data-iconpos="left" data-icon="info"><a class="external" href="http://www.appinaut.com/" style="font-size:0.8em;font-weight:bold;">Werden Sie Teil des APPinaut®</a></li>
+				<% if( user.provider < 0 && 1==2 ) { %>
+					<li data-icon="plus"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.UPGPROVAPP269T3" style="font-size:0.8em;font-weight:normal;">1 Monat anbieten (2,69 Euro)</a></li>
+					<!--
+					<li data-icon="plus"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.UPGPROVAPP1999T22" style="font-size:0.8em;font-weight:normal;">1 Jahr anbieten inkl. 1 Testmonat (19,99 Euro)</a></li>
+					-->
+				<% } else if (1==2) { %>
+					<li data-iconpos="left" data-icon="info"><a class="purchasebtn" style="font-size:0.8em;font-weight:bold;">Sie sind bereits APPinaut® Anbieter</a></li>
+				<% } %>
+				<!--
+				<li data-iconpos="left" data-icon="arrow-r"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.UPGPERSAPP12999T66" style="font-size:0.8em;font-weight:normal;">Personal APPinaut® (129,99 Euro qrtl.)</a></li>
+				<li data-iconpos="left" data-icon="arrow-r"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.UPGPERSAPP39999T81" style="font-size:0.8em;font-weight:normal;">Personal APPinaut® (399,99 Euro jhrl.)</a></li>
+				<li data-iconpos="left" data-icon="arrow-r"><a class="purchasebtn" data-iapid="com.digitalverve.APPinaut.UPGB2BAPP9999T62" style="font-size:0.8em;font-weight:normal;">APPinaut® B2B Programm (99,99 Euro jhrl.)</a></li>
+				-->
+			</ul>
+		</div>
+	<% } %>
+</div>
+
 <hr>
 <div class="clear"></div>
 
