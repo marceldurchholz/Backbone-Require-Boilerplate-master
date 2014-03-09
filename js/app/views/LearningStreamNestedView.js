@@ -8,11 +8,18 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			
 			el: "#LearningStreamViewDiv",
 			initialize: function() {
-				showModal();
 				console.log('initializing LearningStreamNestedView.js');
 				var _thisViewLearningStreamNested = this;
+				showModal();
+				_thisViewLearningStreamNested.checkLogin();
 				var streamData = new Array();
 				_thisViewLearningStreamNested.streamData = streamData;
+			},
+			checkLogin:function() {
+				dpd.users.me(function(user) {
+					if (user) { }
+					else system.redirectToUrl('#login');
+				});
 			},
 			fetch: function() {	
 				// alert('bla');
@@ -92,7 +99,9 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					async: false
 				}).done(function(videoData) {
 					_.each(videoData, function(value, index, list) {
-						var exists = jQuery.inArray( value.topic, _thisViewLearningStreamNested.me.interests );
+						var exists = $.inArray( value.topic, _thisViewLearningStreamNested.me.interests );
+						if (_thisViewLearningStreamNested.me.interests == undefined) exists=1;
+						else if (_thisViewLearningStreamNested.me.interests.length==0) exists=1;
 						if (exists>-1 || value.uploader == me.id) {
 							value.ccat = 'video';
 							value.icon = 'images/icon-videos-60.png';
@@ -123,18 +132,17 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 							// });
 							*/
 							_thisViewLearningStreamNested.streamData.push(value);
-							
-							
 						}
 					});
 				});
+				// console.log(_thisViewLearningStreamNested.streamDatairefire);
 				/*
 				$.ajax({
 					url: "http://dominik-lohmann.de:5000/cards?active=true&deleted=false",
 					async: false
 				}).done(function(cardData) {
 					_.each(cardData, function(value, index, list) {
-						var exists = jQuery.inArray( value.topic, _thisViewLearningStreamNested.me.interests )
+						var exists = $.inArray( value.topic, _thisViewLearningStreamNested.me.interests )
 						if (exists>-1) {
 							value.ccat = 'card';
 							value.icon = 'images/icon-cards-60.png';
@@ -148,7 +156,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					async: false
 				}).done(function(planData) {
 					_.each(planData, function(value, index, list) {
-						var exists = jQuery.inArray( value.topic, _thisViewLearningStreamNested.me.interests )
+						var exists = $.inArray( value.topic, _thisViewLearningStreamNested.me.interests )
 						if (exists>-1) {
 							value.ccat = 'plan';
 							value.icon = 'images/icon-planer-60.png';
@@ -164,8 +172,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					value.ccat = 'plan';
 					value.icon = 'images/avatar.jpg';
 					value.href = '#myprofile';
-					value.title = 'Keine passenden Inhalte';
-					value.topic = 'Bitte wählen Sie (mehr) Interessen aus';
+					value.title = 'Noch keine Inhalte!';
+					value.topic = 'Bitte Interessen auswählen...';
 					value.description = ' Klicken Sie hier um auf Ihre Profileinstellungen zu gelangen...';
 					_thisViewLearningStreamNested.streamData.push(value);
 				}
@@ -190,8 +198,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			render: function() {
 				this.bindEvents();
 				var _thisViewLearningStreamNested = this;
-				console.log(_thisViewLearningStreamNested);
-				console.log('DOING render LearningStreamNestedView.js called');
+				// console.log(_thisViewLearningStreamNested);
+				// console.log('DOING render LearningStreamNestedView.js called');
 				// _thisViewLearningStreamNested.reload();
 				_thisViewLearningStreamNested.$el.html(_.template(LearningStreamNestedPage, {
 					data: _thisViewLearningStreamNested.streamData
