@@ -587,7 +587,7 @@ function initStore() {
 		noAutoFinish: true,
 		purchase: function (transactionId, productId) {
 			// showModal();
-			alert('start purchasing');
+			// alert('start purchasing');
 			storekit.finish(transactionId);
 			storekit.loadReceipts(function (receipts) {
 				console.log('Receipt for appStore = ' + receipts.appStoreReceipt);
@@ -613,7 +613,7 @@ function initStore() {
 			alert('restore failed: ' + errCode);
 		},
 		error: function (errno, errtext) {
-			alert('Failed: ' + errtext);
+			// alert('Failed: ' + errtext);
 			hideModal();
 			// alert('Failed: ' + errtext);
 		},
