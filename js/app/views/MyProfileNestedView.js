@@ -8,7 +8,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 			el: "#MyProfileNestedViewDiv",
 			initialize: function() {
 				var _thisViewMyProfileNested = this;
-				console.log('initializing MyProfileNestedView.js');
+				// console.log('initializing MyProfileNestedView.js');
 				_thisViewMyProfileNested.$el.hide();
 				showModal();
 				// _thisViewMyProfileNested.me = window.me;
@@ -67,7 +67,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 			},
 			fetch: function() {	
 				_thisViewMyProfileNested = this;
-				console.log('fetching MyProfileNestedView.js');
+				// console.log('fetching MyProfileNestedView.js');
 			},
 			changeInputValue: function(e) {
 				/*
@@ -81,10 +81,10 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				});
 				var obj = e.currentTarget;
 				if (obj.defaultValue != obj.value) {
-					console.log(_thisViewMyProfileNested.me.id);
-					console.log(obj.id);
+					// console.log(_thisViewMyProfileNested.me.id);
+					// console.log(obj.id);
 					if (obj.id=='username') {
-						console.log(checkEmail(obj.value));
+						// console.log(checkEmail(obj.value));
 						if (checkEmail(obj.value)==true) { }
 						else return false;
 					}
@@ -94,14 +94,14 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					var newroles = ["user","seeker"];
 					if (obj.id=='fullname') if (obj.value=='') { doAlert('Es muss ein Vor- und Nachname eingegeben werden.','Information'); } else dpd.users.put(_thisViewMyProfileNested.me.id, {"fullname":obj.value, roles: newroles}, function(result, err) { 
 						if(err) return console.log(err); 
-						console.log(result, result.id); 
+						// console.log(result, result.id); 
 						_thisViewMyProfileNested.me = result;
 						if (_thisViewMyProfileNested.me.active==false) {
 							_thisViewMyProfileNested.activationMessage();
 						}
 					});
 					// if (obj.id=='slogan') dpd.users.put(_thisViewMyProfileNested.me.id, {"slogan":obj.value}, function(result, err) { if(err) return console.log(err); console.log(result, result.id); });
-					if (obj.id=='perstext') dpd.users.put(_thisViewMyProfileNested.me.id, {"perstext":obj.value}, function(result, err) { if(err) return console.log(err); console.log(result, result.id); });
+					if (obj.id=='perstext') dpd.users.put(_thisViewMyProfileNested.me.id, {"perstext":obj.value}, function(result, err) { if(err) return console.log(err); /* console.log(result, result.id); */ });
 				}
 			},
 			activationMessage: function() {
@@ -131,7 +131,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				}
 				else {
 					// doAlert('Um alle Funktionen des APPinaut nutzen zu können, bestätigen Sie bitte Ihre E-Mail-Adresse über den Link in der Ihnen zugestellten E-Mail.','E-Mail-Bestätigung erforderlich');
-					console.log('active still false');
+					// console.log('active still false');
 					window.clearTimeout(doid);
 					var doid = window.setTimeout("_thisViewMyProfileNested.checkActiveStatus()", 10000);
 					/*
@@ -198,14 +198,14 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					e.preventDefault();
 					// console.log(e.delegateTarget);
 					var iapid = $(this).attr('data-iapid');
-					console.log("purchasing "+iapid);
+					// console.log("purchasing "+iapid);
 					// window.storekit.purchase("com.digitalverve.APPinaut."+iapid,1);
 					showModal();
 					if (isMobile.any()) { 
 						window.storekit.purchase(iapid,1);
 					}
 					else {
-						console.log('window.storekit.purchase not available when not mobile');
+						// console.log('window.storekit.purchase not available when not mobile');
 						_thisViewMyProfileNested.initialize();
 						hideModal();
 						
@@ -231,21 +231,21 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				checkTopNaviRoles();
 			},
 			deleteMyAccount: function(response) {
-				console.log(response);
+				// console.log(response);
 				if (response==1) {
 					doAlert('Das finden wir schade. Ihr Zugang wurde gelöscht. Schauen Sie gerne wieder einmal vorbei.','Auf Wiedersehen :-(');
 					var deldate = new Date();
 					var deletetedusername = 'DELETETED_'+deldate+'_'+_thisViewMyProfileNested.me.username;
 					dpd.users.put(_thisViewMyProfileNested.me.id, {"username":deletetedusername,"deleted":true}, function(result, err) { 
 						if(err) return console.log(err); 
-						console.log(result, result.id); 
+						// console.log(result, result.id); 
 						system.redirectToUrl('#logout');
 					});
 				}
 			},
 			render: function() {
 				var _thisViewMyProfileNested = this;
-				console.log('rendering MyProfileNestedView.js');
+				// console.log('rendering MyProfileNestedView.js');
 				
 				$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 				_thisViewMyProfileNested.nestedView = new SidemenuView().fetch();

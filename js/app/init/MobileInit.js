@@ -188,8 +188,8 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	});
 	
 	
-	$('body').off( "swipeleft", ".swipeToDelete").on( "swipeleft", ".swipeToDelete", function( e ) {
-	// $('body').off( "click", ".swipeToDelete").on( "click", ".swipeToDelete", function( e ) {
+	// $('body').off( "swipeleft", ".swipeToDelete").on( "swipeleft", ".swipeToDelete", function( e ) {
+	$('body').off( "click", ".swipeToDelete").on( "click", ".swipeToDelete", function( e ) {
 		e.preventDefault();
 		// alert('swiped on element');
 		var listitem = $(this);
@@ -214,7 +214,11 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// alert('swiped on element');
 		doConfirm('Der Eintrag kann nicht wiederhergestellt werden!', 'Wirklich löschen?', function (clickevent) { 
 			if (clickevent=="1") {
-				deleteMessageFlow();
+				$.when( deleteMessageFlow() ).done(
+					function( result ) {
+						console.log('end deleteMessageFlow');
+					}
+				);
 			}
 		}, "Ja,Nein");
 	});
@@ -236,44 +240,54 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		// alert('deleteMessageFlow');
 		// alert('deleteMessageFlow');
 		showModal();
+		var deferred = $.Deferred();
+		var count = 0;
 		$('.swipeToDelete').each(function () {
 			// aaa
 			// console.log($(this).attr('class'));
 			var this_id = $(this).attr('data-id');
+			$(this).remove();
 			var this_cat = $(this).attr('data-cat');
 			if ($(this).hasClass( "ui-btn-up-d" )) {
 				// selected = selected + 1;
 				// console.log('deleting flow id: '+this_id);
 				dpd.messages.get(this_id, function (result) {
 					// console.log(result);
-					var query = { $or:[{"sender":result.receiver,"receiver":me.id}  ,  {"sender":me.id,"receiver":result.receiver}] };
+					var query = { $or:[{"sender":result.receiver,"receiver":result.sender}  ,  {"sender":result.sender,"receiver":result.receiver}] };
 					dpd.messages.get(query, function (messages) {
 						// console.log();
-						$.each( messages, function( key, message ) {
+						// $.each( messages, function( key, message ) {
+						for(key = 0; key < messages.length; key++) {
+							var message = messages[key];
 							// console.log(key);
 							// console.log(message);
 							dpd.messages.del(message.id, function (err) {
+								count++;
 								if(err) {
-									// alert('error');
-									// console.log(err);
-									// hideModal();
+									if (count==messages.length) deleteMessageFlowDone();
 								}
 								else {
-									// alert('done');
+									if (count==messages.length) deleteMessageFlowDone();
 								}
 							});
-						});
-						window._thisMessagesViewNested.fetch();
-						hideModal();
+						}
+						// $('#MessagesNestedViewDiv').html('');
+						// window._thisMessagesViewNested.fetch();
 					});
 				});
 			}
 		});
-		showDeleteBar(false);
-		
+		// deferred.resolve(count);
+		// window._thisMessagesViewNested.fetch();
+		// return deferred.promise();
 		// alert(this_id);
-
-		
+	}
+	
+	function deleteMessageFlowDone() {
+		console.log('done');
+		hideModal();
+		window._thisMessagesViewNested.fetch();
+		showDeleteBar(false);
 	}
 	
 
