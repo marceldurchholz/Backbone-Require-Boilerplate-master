@@ -60,10 +60,24 @@
 		</div>
 		<div class="clear"></div>
 		
-		<span><a id="complainvideolink" class="complainvideolink" style="font-weight:normal;" data-videoid="<%= video.id %>">Videodetails</a></span>
+		<div style="padding-top:10px;">
+			<a id="detailsvideolink" class="detailsvideolink" style="font-weight:normal;" data-videoid="<%= video.id %>">
+				Videodetails anzeigen
+			</a>
+			<div id="videodetailsdiv" style="display:none;">
+				<!-- Länge: <% if( _.indexOf(video.purchases, video.id)==-1 && video.uploaderid != me.id) { %>max. 60 Sekunden (Vorschau)<% } else  { %><%= video.vlength %><% } %> -->
+				Länge: ca. <%= Math.ceil(video.vlength/60) %> Minuten
+				<div class="clear"></div>
+				Dateigröße: <%= Math.round(video.vsize*100/1024/1024)/100 %> Mbyte
+				<div class="clear"></div>
+				Bereitgestellt am: <%= video.cdate %>
+				<div class="clear"></div>
+				<div class="clear" style="padding-bottom:10px;"></div>
+			</div>
+		</div>	
 		<div class="clear"></div>
 
-		<div class="readmore" style="padding-top:10px;"><%= video.description %></div>
+		<div class="readmore"><%= video.description %></div>
 	</div>
 	<div class="clear"></div>
 

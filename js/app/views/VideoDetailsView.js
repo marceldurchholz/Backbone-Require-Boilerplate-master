@@ -68,6 +68,13 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						var videoid = $(this).attr('data-videoid');
 						window.location.href = "mailto:support@appinaut.de?subject=Meldung%20eines%20Videos%20oder%20eines%20Verstosses%20-%20"+videoid+"&body=Bitte%20teilen%20Sie%20uns%20den%20Hintergrund%20Ihrer%20Meldung%20oder%20des%20Verstosses%20detailliert%20mit.";
 					});
+					this.$el.off('click','#detailsvideolink').on('click','#detailsvideolink',function(e) { 
+						e.preventDefault();
+						// var videoid = $(this).attr('data-videoid');
+						// window.location.href = "mailto:support@appinaut.de?subject=Meldung%20eines%20Videos%20oder%20eines%20Verstosses%20-%20"+videoid+"&body=Bitte%20teilen%20Sie%20uns%20den%20Hintergrund%20Ihrer%20Meldung%20oder%20des%20Verstosses%20detailliert%20mit.";
+						$('#videodetailsdiv').toggle();
+						$('#detailsvideolink').toggle();
+					});
 					/*
 					this.$el.off('click','#downloadvideobutton').on('click','#downloadvideobutton',function(e) { 
 						e.preventDefault();
@@ -374,6 +381,9 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						price: model.get('price'),
 						seeker: seeker,
 						provider: provider,
+						cdate: dateYmdHisToGerman(model.get('cdate')),
+						vlength: model.get('vlength'),
+						vsize: model.get('vsize'),
 						purchases: this._videosCollection.user.purchases,
 						pricetext: pricetext,
 						thumbnailurl: model.get('thumbnailurl'),
@@ -412,7 +422,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					$(this.el).html(htmlContent);
 					_.each(this._videosCollection.models, function(model) {
 						this.id = model.get('id');
-						this.videourl = model.get('id');
+						this.videourl = model.get('videourl');
 						_thisViewVideoDetails.insertVariables(model);
 					});
 					// console.log('this._videosCollection.models[0].attributes.videourl');

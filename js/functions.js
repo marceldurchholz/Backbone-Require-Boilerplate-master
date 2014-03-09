@@ -1867,14 +1867,14 @@ function mediaOnError(error) {
 }	
 
 function captureVideoRecord() {
-	var options = { limit: 1, duration: 3600, quality: 10 };
+	var options = { limit: 1, duration: 600, quality: 10 };
 	// nur audio aufnehmen: navigator.device.capture.captureAudio
 	var popoverHandle = navigator.device.capture.captureVideo(getVideoWin, onGetVideoError, options);
 	window.onorientationchange = function() {
 		var newPopoverOptions = new CameraPopoverOptions(0, 0, 100, 100, 0);
 		popoverHandle.setPosition(newPopoverOptions);
 	}
-	console.log(popoverHandle);
+	// console.log(popoverHandle);
 }
 
 function purchaseVideoConfirm(me,videoData) {
@@ -1993,8 +1993,8 @@ function onGetVideoError(e) {
 }
 
 function getVideoWin(mediaFiles) {
-	console.log('captureVideoRecord');
-	console.log(mediaFiles);
+	// console.log('captureVideoRecord');
+	// console.log(mediaFiles);
 	try {
 		var i, path, len;
 		for (i = 0, len = mediaFiles.length; i < len; i += 1) {
@@ -2017,8 +2017,14 @@ function getVideoWin(mediaFiles) {
 			// my_media.play();
 			// var blax = JSON.stringify(mediaFiles);
 			// alert(path);
-			doAlert('Klicken Sie zum Fortsetzen auf weiter.','Aufnahme erfolgreich');
+			// doAlert('Klicken Sie zum Fortsetzen auf weiter.','Aufnahme erfolgreich');
 			// doAlert(mediaFiles[i].fullPath,'DEBUG FULLPATH');
+			mediaFiles[i].getFormatData(function(data) {
+				alert(data.duration);
+				window.system.videolength = data.duration;
+				alert(window.system.videolength);
+			});
+			
 			attachVideoToPlayer(mediaFiles[i].fullPath);
 			// _thisViewRecordVideoNested.switchPage();
 			// alert('Bitte klicken Sie auf hochladen.');
@@ -2027,14 +2033,14 @@ function getVideoWin(mediaFiles) {
 		// not DATA_URL
 		// log('mediaFiles: ' + mediaFiles.slice(0, 100));
 	}    
-	console.log('set video function end');
+	// console.log('set video function end');
 }
 
 // TODO: File Transfer onProgress DOWNload
 // http://www.raymondcamden.com/index.cfm/2013/5/1/Using-the-Progress-event-in-PhoneGap-file-transfers
 
 function sendLocalStorageToElements(videoRecordLocalStorage) {
-	console.log('************');
+	// console.log('************');
 	var models = videoRecordLocalStorage;
 	var keys = new Array();
 	for(var key in models) {
@@ -2043,7 +2049,7 @@ function sendLocalStorageToElements(videoRecordLocalStorage) {
 		for(var modelkey in modelsattribute) {
 			if($('#'+modelkey).is("textarea")) {
 				$('#'+modelkey).html(modelsattribute[modelkey]);
-				console.log(modelkey+' >> '+modelsattribute[modelkey]);
+				// console.log(modelkey+' >> '+modelsattribute[modelkey]);
 			}
 			else if($('#'+modelkey).is("select")) {
 				// alert(modelkey + ' is a select');
@@ -2062,7 +2068,7 @@ function sendLocalStorageToElements(videoRecordLocalStorage) {
 			}
 		}
 	}
-	console.log('************');
+	// console.log('************');
 }
 
 
@@ -2186,18 +2192,18 @@ function recordVideoUpload(videoRecordLocalStorage) {
 function captureVideoUpload(videoRecordLocalStorage) {
 	var _this = this;
 	// alert('captureVideoUpload');
-	console.log('^^');
-	console.log(videoRecordLocalStorage);
-	console.log('^^');
+	// console.log('^^');
+	// console.log(videoRecordLocalStorage);
+	// console.log('^^');
 	// console.log('^^^^^^^^^^^^');
 	var models = videoRecordLocalStorage.models;
 	var formValues = new Array();
 	for(var key in models) {
 	   // formValues[formValues.length] = key;
 	   var modelsattribute = models[key].attributes;
-	   console.log(modelsattribute);
+	   // console.log(modelsattribute);
 		for(var modelkey in modelsattribute) {
-			console.log(modelkey+' >> '+modelsattribute[modelkey]);
+			// console.log(modelkey+' >> '+modelsattribute[modelkey]);
 			formValues[modelkey] = modelsattribute[modelkey];
 		}
 	}
@@ -2212,7 +2218,8 @@ function captureVideoUpload(videoRecordLocalStorage) {
 			$('#modaltxt').html( progressEvent.loaded + " / " + progressEvent.total );
 		};
 		var options = new FileUploadOptions();
-		options.fileName = new Date().getTime();
+		// options.fileName = new Date().getTime();
+		options.fileName = getRandomID();
 		options.mimeType = "video/mp4";
 		options.chunkedMode = false;
 		ft.upload(mediaFile,
@@ -2222,10 +2229,11 @@ function captureVideoUpload(videoRecordLocalStorage) {
 				// console.log("Code = " + r.responseCode);
 				// console.log("Response = " + r.response);
 				// console.log("Sent = " + r.bytesSent);
-				dpd.videos.post({"uploader":""+_this._thisViewRecordVideoNested.me.id,"videourl":""+options.fileName,"active":true,"cdate":""+dateYmdHis(),"topic":""+formValues.interest,"title":""+formValues.title,"subtitle":""+formValues.subtitle,"description":""+formValues.description,"price":formValues.sliderprice}, function(result, err) {
+				alert(r.bytesSent);
+				dpd.videos.post({"vsize":r.bytesSent,"uploader":""+_this._thisViewRecordVideoNested.me.id,"videourl":""+options.fileName,"active":true,"cdate":""+dateYmdHis(),"topic":""+formValues.interest,"title":""+formValues.title,"subtitle":""+formValues.subtitle,"description":""+formValues.description,"price":formValues.sliderprice}, function(result, err) {
 					if(err) {
 						hideModal();
-						doAlert('Es ist ein Fehler passiert, der nicht passieren sollte. Bitte versuchen Sie Ihre Aktion erneut oder wenden Sie sich direkt an das APPinaut Support Team.','Ups! Fehler beim Upload!');
+						// doAlert('Es ist ein Fehler passiert, der nicht passieren sollte. Bitte versuchen Sie Ihre Aktion erneut oder wenden Sie sich direkt an das APPinaut Support Team.','Ups! Fehler beim Upload!');
 						return console.log(err);
 					}
 					// if (result) {
@@ -2459,6 +2467,7 @@ function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 				{ type: "video/ogg", src: _thisVideoUrl }
 			]);
 		}
+		console.log(myPlayer);
 		myPlayer.controlBar.hide();  
 		myPlayer.bigPlayButton.hide();
 		myPlayer.on('timeupdate', function() {
@@ -2470,6 +2479,7 @@ function createVideoPreview(videoObj,videoId,videoUrl,showVideoLength) {
 				}
 			}
 		});
+		
 	resizeElement('#video_player_1');
 	});	
 }
@@ -2670,6 +2680,7 @@ var system = {
 	contentHelper: 0,
 	timestamp: 0,
 	modaltimeout: 0,
+	videolength: 0,
 	// this.routerSwitched(false);
 	toggleLoading: function(status) {
 		console.log(status);
@@ -2747,6 +2758,18 @@ function dateYmdHis() {
     var m = date.getMonth() + 1;
     var y = date.getFullYear();
 	var val = '' + y + '' + (m<=9 ? '0' + m : m) + '' + (d <= 9 ? '0' + d : d) + '' + (H<=9 ? '0' + H : H)  + '' + (i<=9 ? '0' + i : i)  + '' + (s<=9 ? '0' + s : s);
+    return(val);
+}
+
+function dateYmdHisToGerman(date) {
+    // var s = date.getSeconds();
+    // var i = date.getMinutes();
+    // var H = date.getHours();
+    var d = date.substr(6,2);
+    var m = date.substr(4,2);
+    var y = date.substr(0,4);
+	// var val = '' + y + '' + (m<=9 ? '0' + m : m) + '' + (d <= 9 ? '0' + d : d) + '' + (H<=9 ? '0' + H : H)  + '' + (i<=9 ? '0' + i : i)  + '' + (s<=9 ? '0' + s : s);
+	var val = '' + d + '.' + m + '.' + y;
     return(val);
 }
 
