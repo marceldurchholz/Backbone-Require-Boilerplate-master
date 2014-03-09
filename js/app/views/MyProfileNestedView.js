@@ -134,7 +134,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				this.$el.off('click','.purchasebtn').on('click','.purchasebtn',function(e){
 					e.preventDefault();
 					var iapid = $(this).attr('data-iapid');
-					showModal();
+					// showModal();
 					if (isMobile.any()) { 
 						_thisViewMyProfileNested.storekit.purchase(iapid,1);
 					}

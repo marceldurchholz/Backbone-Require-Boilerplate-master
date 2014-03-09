@@ -583,10 +583,11 @@ function updateCoins(productId) {
 
 function initStore() {
 	window.storekit.init({
-		debug: true, /* Because we like to see logs on the console */
+		debug: false, /* Because we like to see logs on the console */
 		noAutoFinish: true,
 		purchase: function (transactionId, productId) {
 			// showModal();
+			alert('start purchasing');
 			storekit.finish(transactionId);
 			storekit.loadReceipts(function (receipts) {
 				console.log('Receipt for appStore = ' + receipts.appStoreReceipt);
@@ -596,7 +597,7 @@ function initStore() {
 			updateCoins(productId);
 		},
 		finish: function (transactionId, productId) {
-			console.log('Finished transaction for ' + productId + ' : ' + transactionId);
+			alert('Finished transaction for ' + productId + ' : ' + transactionId);
 			// alert('Finished transaction for ' + productId + ' : ' + transactionId);
 		},
 		restore: function (transactionId, productId) {
@@ -612,7 +613,7 @@ function initStore() {
 			alert('restore failed: ' + errCode);
 		},
 		error: function (errno, errtext) {
-			console.log('Failed: ' + errtext);
+			alert('Failed: ' + errtext);
 			hideModal();
 			// alert('Failed: ' + errtext);
 		},
@@ -663,7 +664,7 @@ var app = {
 				
 				if(isMobile.any()) {
 					initStore();
-					document.addEventListener("resume", _thisApp.onResume, false);
+					// document.addEventListener("resume", _thisApp.onResume, false);
 					window.plugins.insomnia.keepAwake();
 				}
 				$("body").css("-webkit-user-select","none");
@@ -671,25 +672,6 @@ var app = {
 				$("body").css("-ms-user-select","none");
 				$("body").css("-o-user-select","none");
 				$("body").css("user-select","none");
-				
-				if (1==2) var positionTimer = navigator.geolocation.watchPosition(
-					function( position ){
-						// Log that a newer, perhaps more accurate
-						// position has been found.
-						console.log( "Newer Position Found" );
-						// Set the new position of the existing marker.
-						system.timestamp = position.timestamp;
-						/*
-						updateMarker(
-							locationMarker,
-							position.coords.latitude,
-							position.coords.longitude,
-							"Updated / Accurate Position"
-						);
-						*/
-					}
-				);
-				
 				
 				// alert('dao done');
 				// window.dao.test('foo');
@@ -722,7 +704,7 @@ var app = {
 		var setTimeoutWatcher = setTimeout(function foo() {
 			if ( _thisApp.dfd.state() === "pending" ) {
 				// _thisApp.dfd.notify( "working... " );
-				setTimeout( _thisApp.fetchWorking, 100 );
+				setTimeout( _thisApp.fetchWorking, 1000 );
 			}
 		}, 1 );
 	},
@@ -734,7 +716,7 @@ var app = {
 		if(!isMobile.any()) {
 			var foox = window.setTimeout(function blax() {
 				_thisApp.dfd.resolve(true);
-			}, 100);
+			}, 1000);
 		}
 		else {
 			// document.addEventListener('load', this.onDeviceReady, false);
@@ -752,7 +734,7 @@ var app = {
 		// alert('deviceready');
 		var foox = window.setTimeout(function blax() {
 			_thisApp.dfd.resolve(true);
-		}, 100);
+		}, 1000);
 		// _thisApp.dfd.resolve(true);		
 	}
 };
