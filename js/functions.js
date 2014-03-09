@@ -613,7 +613,7 @@ function initStore() {
 			alert('restore failed: ' + errCode);
 		},
 		error: function (errno, errtext) {
-			alert('Failed: ' + errtext);
+			alert('Failed: ' + errno + ' / ' + errtext);
 			hideModal();
 			// alert('Failed: ' + errtext);
 		},
