@@ -2,6 +2,17 @@
 <!--
 <h1><%= video.title %></h1>
 -->
+<!--
+<div data-role="popup" id="doppelt" name="doppelt" data-overlay-theme="a" style="max-width:400px;" class="ui-corner-all">
+   <div data-role="header" class="ui-corner-top">
+      <h1>Fehler</h1>
+   </div>
+    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>
+   <div data-role="content" class="ui-corner-bottom ui-content">
+      <h3 class="ui-title">irgendwas geht nicht!</h3>
+   </div>
+</div>
+-->
 <h3 class="ui-bar ui-bar-b" style="border-top-width:0px;text-align:center;"><%= video.topic %></h3>
 <div id="videocontainer" style="b/order:10px solid red;b/ackground-color:#000000;">
 	<a id="videocontainerlink" style="width:100%;height:100%;">
@@ -17,11 +28,11 @@
 	-->
 </div>
 
-<% if( _.indexOf(video.purchases, video.id)==-1 ) { %>
+<% if( _.indexOf(video.purchases, video.id)==-1 && video.uploaderid != me.id) { %>
 	<div style="padding:0px 20px 0px 20px;"><a data-videoid="<%= video.id %>" id="loadvideobutton" class="loadvideobutton" data-theme="b" data-role="button"><%= video.pricetext %></a></div>
 <% } else  { %>
 		<% if (video.offlineurl=="") { %>
-		<div style="padding:0px 20px 0px 20px;"><a data-videoid="<%= video.id %>" id="downloadvideobutton" class="downloadvideobutton" data-theme="b" data-role="button">Video offline speichern</a></div>
+			<!-- <div style="padding:0px 20px 0px 20px;"><a data-videoid="<%= video.id %>" id="downloadvideobutton" class="downloadvideobutton" data-theme="b" data-role="button">Video offline speichern</a></div> -->
 		<% } %>
 <% } %>
 
@@ -29,25 +40,52 @@
 	
 	<div class="title">
 		<h5 class="resizetext" style="font-size:18px;line-height:1.3em;" >
-			<div class="readmoretitle">
-				<%= video.title %>
-			</div>
+			<div class="readmoretitle"><%= video.title %></div>
 		</h5>
 	</div>
+	<div class="clear"></div>
+	
+
 	<div class="description resizetext" style="line-height:1.5em;">
 		<!--
 		<a href="" id="connectToLink" class="connectToLink" data-id="<%= video.uploaderdata.id %>">
 			<img src="images/icon-flat-connect-18.png" style="padding-right:10px;">
 		</a>
 		-->
-		<strong><%= video.uploader %></strong><br>
-		<div class="readmore">
-			<%= video.description %>
+		<div style="float:left;">
+			<strong><div class="readmorename"><%= video.uploader %></div></strong>
 		</div>
+		<div style="float:right;">
+			<span><a id="complainvideolink" class="complainvideolink" style="font-weight:normal;" data-videoid="<%= video.id %>">melden</a></span>
+		</div>
+		<div class="clear"></div>
+		
+		<div style="padding-top:10px;">
+			<a id="detailsvideolink" class="detailsvideolink" style="font-weight:normal;" data-videoid="<%= video.id %>">
+				Videodetails anzeigen
+			</a>
+			<div id="videodetailsdiv" style="display:none;">
+				<!-- Länge: <% if( _.indexOf(video.purchases, video.id)==-1 && video.uploaderid != me.id) { %>max. 60 Sekunden (Vorschau)<% } else  { %><%= video.vlength %><% } %> -->
+				Länge: ca. <%= Math.ceil(video.vlength/60) %> Minuten
+				<div class="clear"></div>
+				Dateigröße: <%= Math.round(video.vsize*100/1024/1024)/100 %> Mbyte
+				<div class="clear"></div>
+				Bereitgestellt am: <%= video.cdate %>
+				<div class="clear"></div>
+				<div class="clear" style="padding-bottom:10px;"></div>
+			</div>
+		</div>	
+		<div class="clear"></div>
+
+		<div class="readmore"><%= video.description %></div>
 	</div>
+	<div class="clear"></div>
 
 	<ul data-role="listview" data-inset="true">
-		<li data-theme="a" data-role="list-divider">Das könnte interessant sein...</li>
+		<!-- <%= video.related.length %> -->
+		<% if (video.related.length>1) { %>
+			<li data-theme="a" data-role="list-divider">Das könnte interessant sein...</li>
+		<% } %>
 		<% var displayedvideos = 0; %>
 		<% _.each(video.related, function(related) { %>
 			<% if( related.id != video.id ) { %>
@@ -61,7 +99,7 @@
 				</li>
 			<% } %>
 		<% }); %>
-		<% if( video.provider < 0 ) { %>
+		<% if( video.provider < 0  && 1==2) { %>
 			<li style="max-height:60px !important;">
 				<a class="showVideoDetailsLink" href="#myprofile">
 				<img style="padding:8px 0px 8px 25px;height:40px !important;max-height:40px !important;max-width:40px !important;" src="images/avatar.jpg" />
@@ -70,7 +108,7 @@
 				</a>
 			</li>
 		<% } else { %>
-			<% if (displayedvideos<5) { %>
+			<% if (displayedvideos<5 && 1==2) { %>
 				<li style="max-height:60px !important;">
 					<a class="showVideoDetailsLink" href="#videos/record">
 					<img style="padding:8px 0px 8px 25px;height:40px !important;max-height:40px !important;max-width:40px !important;" src="images/avatar.jpg" />
@@ -80,7 +118,6 @@
 				</li>
 			<% } %>
 		<% } %>
-		
 	</ul>
 
 </div>
