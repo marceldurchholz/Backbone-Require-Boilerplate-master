@@ -296,6 +296,7 @@ var dao = {
 				// alert('ERROR ON Tables CREATE local SQLite database'); 
 			},
 			function() { 
+				window.system.showtutorial = true;
 				// alert('SUCCESS Tables CREATE local SQLite database'); 
 				// websqlReady.resolve("initialize done"); 
 			}
@@ -2659,6 +2660,7 @@ function hideModal() {
 }
 
 var system = {
+	showtutorial: false,
 	contentHelper: 0,
 	timestamp: 0,
 	modaltimeout: 0,

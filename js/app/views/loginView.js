@@ -129,6 +129,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					this.$el.trigger('create');
 					// hideModal();
 					this.$el.fadeIn( 500, function() {
+						if (window.system.showtutorial == true) {
+							alert('now show the tutorial');
+						}
 						new FastClick(document.body);
 					});
 					this.bindEvents();
