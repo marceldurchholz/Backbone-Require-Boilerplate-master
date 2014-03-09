@@ -132,7 +132,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					// $('#messageFooter').css({'position':'absolute'});
 					// $('#messageFooter').css({'bottom':'80px'});
 
-					$('#MessagesDetailsNestedViewDiv').html('<div style="height:5000px;">aaa</div>');
+					$('#MessagesDetailsNestedViewDiv').html('');
 					$('#MessagesDetailsNestedViewDiv').html(_.template(MessagesDetailsViewNestedPage, {
 						data: _thisMessagesDetailsViewNested.messages
 					},{variable: 'messages'})); // .listview().listview('refresh'); // 
@@ -143,7 +143,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 
 				}
 				hideModal();
-				this.$el.show();
+				// this.$el.show();
 				scrollBottom();
 				new FastClick(document.body);
 				return this;				
