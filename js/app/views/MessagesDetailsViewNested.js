@@ -136,7 +136,6 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					$('#MessagesDetailsNestedViewDiv').html(_.template(MessagesDetailsViewNestedPage, {
 						data: _thisMessagesDetailsViewNested.messages
 					},{variable: 'messages'})); // .listview().listview('refresh'); // 
-					$('#MessagesDetailsNestedViewDiv').css({'height':'auto'});
 					// $('#MessagesDetailsNestedViewDiv').css({'border':'1px solid #909090'});
 					$('#MessagesDetailsNestedViewDiv').css({'z-index':'999'});
 					
@@ -144,8 +143,17 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				}
 				hideModal();
 				// this.$el.show();
-				scrollBottom();
-				new FastClick(document.body);
+				setTimeout(function() {
+					$('#page-content').animate({
+						scrollTop: $("#page-content")[0].scrollHeight
+					}, "fast", function() {
+						// animation done
+						$('#page-content').focus();
+						$('#dyndiv').css({'height':'auto'});
+						new FastClick(document.body);
+					});
+				}, 1000);
+				
 				return this;				
 			}
 		});
