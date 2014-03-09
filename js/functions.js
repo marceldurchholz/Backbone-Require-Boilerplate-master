@@ -2002,9 +2002,9 @@ function getVideoWin(mediaFiles) {
 			// doAlert('Klicken Sie zum Fortsetzen auf weiter.','Aufnahme erfolgreich');
 			// doAlert(mediaFiles[i].fullPath,'DEBUG FULLPATH');
 			mediaFiles[i].getFormatData(function(data) {
-				alert(data.duration);
+				// alert(data.duration);
 				window.system.videolength = Math.ceil(data.duration);
-				alert(window.system.videolength);
+				// alert(window.system.videolength);
 			});
 			
 			attachVideoToPlayer(mediaFiles[i].fullPath);
@@ -2067,7 +2067,7 @@ function attachVideoToPlayer(mediaFilePath) {
 		return(false);
 	}
 	else {
-		console.log('attaching to video player: ' + mediaFilePath);
+		// console.log('attaching to video player: ' + mediaFilePath);
 		// alert('attaching to video player: ' + mediaFilePath);
 		$('#camera_file').val(mediaFilePath);
 	}
@@ -2079,11 +2079,11 @@ function attachVideoToPlayer(mediaFilePath) {
 		video_player.attr("src", mediaFilePath).get(0).pause();
 		video_player.onloadend = function() {
 			// console.log('Video load time: ' + (new Date() - startTime));
-			alert('Video load time: ' + (new Date() - startTime));
+			// alert('Video load time: ' + (new Date() - startTime));
 		};
 	}
 	if (mediaFilePath=='') {
-		console.log('mediaFilePath empty','DEBUG');
+		// console.log('mediaFilePath empty','DEBUG');
 		// $('#captureVideoUploadButton').button('disable');
 		// $('#submitbutton').button('disable');
 	}
@@ -2620,10 +2620,10 @@ var menuSwitched = function(status) {
 	});
 };
 
-function showModal(){
+function showModal() {
 	// if ($('.modalWindow')) return(false);
 	// console.log('showModal');
-	window.system.modaltimeout = 30000;
+	window.system.modaltimeout = 5000;
 	window.clearInterval(window.modaltimeoutvar);
 	window.modaltimeoutvar = window.setInterval(function() {
 		// console.log(window.system.modaltimeout);
@@ -2633,7 +2633,7 @@ function showModal(){
 			$('#breaktoDashboard').html(breaktoDashboardText);
 			$('#breaktoDashboard').show();
 			window.clearInterval(window.modaltimeoutvar);
-			window.system.modaltimeout = 0;
+			window.system.modaltimeout = 5000;
 		}
 	},1000);
 	$("#body").append('<div class="modalWindow"/>');

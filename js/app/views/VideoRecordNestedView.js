@@ -221,11 +221,16 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					// console.log('starting downloadVideo d');
 					// console.log(uri);
 					// console.log(downloadPath);
+					var oldprogress = 0;
 					ft.onprogress = function(progressEvent) {
 						// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*100)+' %');
 						// $('#uploadstatusbar').html(round((progressEvent.loaded/progressEvent.total)*10000)+' % (' + progressEvent.loaded + ' / ' + progressEvent.total + ')');
-						console.log(progressEvent.loaded + " / " + progressEvent.total);
-						$('#modaltxt').html(progressEvent.loaded+"/"+progressEvent.total);
+						// console.log(progressEvent.loaded + " / " + progressEvent.total);
+						$('#modaltxt').html(progressEvent.loaded+" / "+progressEvent.total);
+						if (oldprogress == progressEvent.loaded) {} 
+						else window.system.modaltimeout = 5000;
+						oldprogress = progressEvent.loaded;
+						
 					};
 					ft.download(uri, downloadPath, 
 					function(entry) {

@@ -188,8 +188,8 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	});
 	
 	
-	// $('body').off( "swipeleft", ".swipeToDelete").on( "swipeleft", ".swipeToDelete", function( e ) {
-	$('body').off( "click", ".swipeToDelete").on( "click", ".swipeToDelete", function( e ) {
+	$('body').off( "swipeleft", ".swipeToDelete").on( "swipeleft", ".swipeToDelete", function( e ) {
+	// $('body').off( "click", ".swipeToDelete").on( "click", ".swipeToDelete", function( e ) {
 		e.preventDefault();
 		// alert('swiped on element');
 		var listitem = $(this);

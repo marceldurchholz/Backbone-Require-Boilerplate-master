@@ -127,7 +127,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					_thisViewLogin.$el.html(_.template(loginPage, {}));
 					// window.createVideoPreview(_thisViewLogin.$('#video_player_1'),'video_player_1',"promo",0);
 					this.$el.trigger('create');
-					hideModal();
+					// hideModal();
 					this.$el.fadeIn( 500, function() {
 						new FastClick(document.body);
 					});
