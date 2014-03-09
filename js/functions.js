@@ -1337,7 +1337,7 @@ function nullClickEvent(e){ 	e.stopPropagation(); }
 
 function getRandomID(){
 	var dateNow = new Date();
-	return String(Number(dateNow.getMilliseconds() * dateNow.getSeconds()));
+	return String(dateNow * Number(dateNow.getMilliseconds() * dateNow.getSeconds()));
 }
 
 function getDeviceID(){
