@@ -662,7 +662,7 @@ var app = {
 				// }
 				
 				if(isMobile.any()) {
-					alert('initStore();');
+					// alert('initStore();');
 					initStore();
 					// document.addEventListener("resume", _thisApp.onResume, false);
 					window.plugins.insomnia.keepAwake();
