@@ -126,6 +126,9 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					});
 					
 					$('#MessagesDetailsNestedViewDiv').html('<div style="height:5000px;">aaa</div>');
+					$('#MessagesDetailsNestedViewDiv').html(_.template(MessagesDetailsViewNestedPage, {
+						data: _thisMessagesDetailsViewNested.messages
+					},{variable: 'messages'})); // .listview().listview('refresh'); // 
 					$('#MessagesDetailsNestedViewDiv').css({'height':'auto'});
 					$('#MessagesDetailsNestedViewDiv').css({'border':'1px solid #909090'});
 					$('#MessagesDetailsNestedViewDiv').css({'z-index':'999'});
