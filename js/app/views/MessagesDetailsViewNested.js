@@ -121,24 +121,19 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 
 					var sql = { id: _thisMessagesDetailsViewNested.receiver };
 					dpd.users.get(sql, function (receiverData,err) {
-						if(err) {
-							// return console.log(err);
-						}
+						if(err) { }
 						$('#receiverHeader').html(receiverData.fullname);
 					});
 					
-					$('#messageFooter').html(_.template(FooterPersistentPage, {
-						receiver: _thisMessagesDetailsViewNested.receiver
-					},{variable: 'data'})).trigger('create'); // '<div data-role="navbar"><ul><li>blafoo</li></ul></div>'
-					$('#messagetextarea').css({'max-height':'40px'});
-					
-					$('#MessagesDetailsNestedViewDiv').html(_.template(MessagesDetailsViewNestedPage, {
-						data: _thisMessagesDetailsViewNested.messages
-					},{variable: 'messages'})); // .listview().listview('refresh'); // 
+					$('#MessagesDetailsNestedViewDiv').html('<div style="height:5000px;">aaa</div>');
 					$('#MessagesDetailsNestedViewDiv').css({'height':'auto'});
 					$('#MessagesDetailsNestedViewDiv').css({'border':'1px solid #909090'});
 					$('#MessagesDetailsNestedViewDiv').css({'z-index':'999'});
 					
+					$('#messageFooter').html(_.template(FooterPersistentPage, {
+						receiver: _thisMessagesDetailsViewNested.receiver
+					},{variable: 'data'})).trigger('create'); // '<div data-role="navbar"><ul><li>blafoo</li></ul></div>'
+					$('#messagetextarea').css({'max-height':'40px'});					
 				}
 				hideModal();
 				this.$el.show();
