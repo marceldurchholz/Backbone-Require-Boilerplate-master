@@ -23,7 +23,7 @@
 	   $(function() {
 			// alert('<%= message.id %>');
 			$('#MessagesDetailsNestedViewDiv_<%= message.id %>').trigger('create');
-			// $('#MessagesDetailsNestedViewDiv').find("ul").listview().listview('refresh');
+			$('#MessagesDetailsNestedViewDiv').find("ul").listview().listview('refresh');
 			// $('#page-content').animate({scrollTop:scrollTo},'fast');
 	   });
 	</script>

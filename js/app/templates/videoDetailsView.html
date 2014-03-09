@@ -40,27 +40,31 @@
 	
 	<div class="title">
 		<h5 class="resizetext" style="font-size:18px;line-height:1.3em;" >
-			<div class="readmoretitle">
-				<%= video.title %>
-			</div>
+			<div class="readmoretitle"><%= video.title %></div>
 		</h5>
 	</div>
 	<div class="clear"></div>
-		<div class="description resizetext" style="line-height:1.5em;">
-			<!--
-			<a href="" id="connectToLink" class="connectToLink" data-id="<%= video.uploaderdata.id %>">
-				<img src="images/icon-flat-connect-18.png" style="padding-right:10px;">
-			</a>
-			-->
-			<div style="float:left;">
-				<strong><div class="readmorename"><%= video.uploader %></div></strong>
-			</div>
-			<div style="float:right;">
-				<span><a id="complainvideolink" class="complainvideolink" style="font-weight:normal;" data-videoid="<%= video.id %>">melden</a></span>
-			</div>
-			<div class="clear"></div>
-			<div class="readmore" style="padding-top:10px;"><%= video.description %></div>
+	
+
+	<div class="description resizetext" style="line-height:1.5em;">
+		<!--
+		<a href="" id="connectToLink" class="connectToLink" data-id="<%= video.uploaderdata.id %>">
+			<img src="images/icon-flat-connect-18.png" style="padding-right:10px;">
+		</a>
+		-->
+		<div style="float:left;">
+			<strong><div class="readmorename"><%= video.uploader %></div></strong>
 		</div>
+		<div style="float:right;">
+			<span><a id="complainvideolink" class="complainvideolink" style="font-weight:normal;" data-videoid="<%= video.id %>">melden</a></span>
+		</div>
+		<div class="clear"></div>
+		
+		<span><a id="complainvideolink" class="complainvideolink" style="font-weight:normal;" data-videoid="<%= video.id %>">Videodetails</a></span>
+		<div class="clear"></div>
+
+		<div class="readmore" style="padding-top:10px;"><%= video.description %></div>
+	</div>
 	<div class="clear"></div>
 
 	<ul data-role="listview" data-inset="true">
