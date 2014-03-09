@@ -1,4 +1,4 @@
-<div id="dyndiv" style="height:auto;">
+<div id="dyndiv">
 
 <% _.each(messages.data, function(message) { %>
 	<div id="MessagesDetailsNestedViewDiv_<%= message.id %>">
@@ -23,8 +23,8 @@
 	   $(function() {
 			// alert('<%= message.id %>');
 			$('#MessagesDetailsNestedViewDiv_<%= message.id %>').trigger('create');
-			$('#MessagesDetailsNestedViewDiv').find("ul").listview().listview('refresh');
-			// 
+			// $('#MessagesDetailsNestedViewDiv').find("ul").listview().listview('refresh');
+			// $('#page-content').animate({scrollTop:scrollTo},'fast');
 	   });
 	</script>
 <% }); %>

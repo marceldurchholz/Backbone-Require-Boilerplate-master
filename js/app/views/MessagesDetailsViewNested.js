@@ -109,7 +109,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				dpd.messages.off('create');
 				dpd.messages.on('create', function(msgData) {
 					msgArray = new Array;
-					msgArray.push(msgData);					
+					msgArray.push(msgData);
 					_thisMessagesDetailsViewNested.messages.push(msgData);
 					_thisMessagesDetailsViewNested.fetch();
 				});
@@ -142,23 +142,32 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					
 
 				}
+				/*
 				if (_thisMessagesDetailsViewNested.alreadyinitialized==undefined) {
 					$('#dyndiv').css({'height':$(window).height()}); // -200
 				}
+				*/
+				
+				var scrollTo = 0;
 				// this.$el.show();
 				setTimeout(function() {
-					$('#page-content').animate({
-						scrollTop: $("#page-content")[0].scrollHeight
-					}, "fast", function() {
-						// animation done
-						$('#page-content').focus();
-						// $('#dyndiv').css({'height':'auto'});
-						$('#dyndiv').css({'height':'auto'});
-						hideModal();
-						_thisMessagesDetailsViewNested.alreadyinitialized = true;
-						new FastClick(document.body);
-					});
-				}, 0);
+					// scrollTo = $("#messagetextarea").offset().top;
+					scrollTo = $('#dyndiv').height()+50;
+					// scrollTo = 999999;
+					// alert(scrollTo);
+					$('#page-content').animate({scrollTop:scrollTo},'slow');
+					hideModal();
+				}, 1);
+				
+				/*
+				$('html, body').animate({
+					scrollTop:$('#').offset().top
+				},'slow');
+				*/
+				
+				// $('#dyndiv').css({'height':'auto'});
+				// _thisMessagesDetailsViewNested.alreadyinitialized = true;
+				// new FastClick(document.body);
 				
 				return this;				
 			}
