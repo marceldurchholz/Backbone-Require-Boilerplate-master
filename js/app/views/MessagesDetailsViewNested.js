@@ -125,18 +125,22 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 						$('#receiverHeader').html(receiverData.fullname);
 					});
 					
+					$('#messageFooter').html(_.template(FooterPersistentPage, {
+						receiver: _thisMessagesDetailsViewNested.receiver
+					},{variable: 'data'})).trigger('create'); // '<div data-role="navbar"><ul><li>blafoo</li></ul></div>'
+					$('#messagetextarea').css({'max-height':'40px'});
+					// $('#messageFooter').css({'position':'absolute'});
+					// $('#messageFooter').css({'bottom':'80px'});
+
 					$('#MessagesDetailsNestedViewDiv').html('<div style="height:5000px;">aaa</div>');
 					$('#MessagesDetailsNestedViewDiv').html(_.template(MessagesDetailsViewNestedPage, {
 						data: _thisMessagesDetailsViewNested.messages
 					},{variable: 'messages'})); // .listview().listview('refresh'); // 
 					$('#MessagesDetailsNestedViewDiv').css({'height':'auto'});
-					$('#MessagesDetailsNestedViewDiv').css({'border':'1px solid #909090'});
+					// $('#MessagesDetailsNestedViewDiv').css({'border':'1px solid #909090'});
 					$('#MessagesDetailsNestedViewDiv').css({'z-index':'999'});
 					
-					$('#messageFooter').html(_.template(FooterPersistentPage, {
-						receiver: _thisMessagesDetailsViewNested.receiver
-					},{variable: 'data'})).trigger('create'); // '<div data-role="navbar"><ul><li>blafoo</li></ul></div>'
-					$('#messagetextarea').css({'max-height':'40px'});					
+
 				}
 				hideModal();
 				this.$el.show();
