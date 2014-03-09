@@ -10,6 +10,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 			initialize: function() {
 				_thisMessagesDetailsViewNested = this;
 				_thisMessagesDetailsViewNested.bindEvents();
+				showModal();
 			},
 			showReceiverPanel: function() {
 				_thisMessagesDetailsViewNested = this;
@@ -141,7 +142,9 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					
 
 				}
-				hideModal();
+				if (_thisMessagesDetailsViewNested.alreadyinitialized==undefined) {
+					$('#dyndiv').css({'height':$(window).height()}); // -200
+				}
 				// this.$el.show();
 				setTimeout(function() {
 					$('#page-content').animate({
@@ -149,10 +152,13 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					}, "fast", function() {
 						// animation done
 						$('#page-content').focus();
+						// $('#dyndiv').css({'height':'auto'});
 						$('#dyndiv').css({'height':'auto'});
+						hideModal();
+						_thisMessagesDetailsViewNested.alreadyinitialized = true;
 						new FastClick(document.body);
 					});
-				}, 1000);
+				}, 0);
 				
 				return this;				
 			}
