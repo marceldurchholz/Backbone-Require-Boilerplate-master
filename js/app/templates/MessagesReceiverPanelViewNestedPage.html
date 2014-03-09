@@ -2,7 +2,7 @@
 	<% _.each(contacts.data, function(contact) { %>
 		<li style="padding: 0px -20px; margin: 0px 20px;" style="font-size:16px !important;" class="resizetext">
 			<a data-id="<%= contact.id %>" href="#messages/details/view/<%= contact.id %>" style="font-weight:normal;">
-				<%= contact.fullname %><!-- <%= contact.id %> / <%= me.id %> -->
+				<%= contact.fullname %>
 			</a>
 		</li>
 	<% }); %>

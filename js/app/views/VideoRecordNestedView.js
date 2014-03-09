@@ -29,7 +29,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					_thisViewRecordVideoNested.render();
 				  },
 				  function( status ) {
-					console.log( "you fail this time" );
+					alert( "you fail this time" );
 					system.redirectToUrl('#login');
 				  },
 				  function( status ) {
@@ -82,7 +82,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					  return 1
 					 return 0 //default return value (no sorting)
 				});
-				// console.log(_thisViewRecordVideoNested.interests);
+				console.log(_thisViewRecordVideoNested.interests);
 			},
 			switchPage: function() {
 				this.activePage = VideoRecordNestedPageTwo;
@@ -132,7 +132,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				_.each(this.$('#submitform').serializeArray(), function(input){
 					if (input.value=='') {
 						doAlert('Es fehlen Angaben in mindestens einem Formularfeld.','Formular unvollständig!');
-						// console.log(input);
+						console.log(input);
 						_thisViewRecordVideoNested.stop=true;
 						// return(false);
 					}
@@ -238,7 +238,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 					}, 
 					function(error) {
 						console.log(error);
-						// doAlert('Da ist etwas schiefgegangen. Die Datei konnte nicht vollständig heruntergeladen werden. Bitte probieren Sie es erneut oder wenden Sie sich an unseren Support. Vielen Dank.','Ups!');						
+						doAlert('Da ist etwas schiefgegangen. Die Datei konnte nicht vollständig heruntergeladen werden. Bitte probieren Sie es erneut oder wenden Sie sich an unseren Support. Vielen Dank.','Ups!');						
 						hideModal();
 					});
 					
