@@ -100,7 +100,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				}).done(function(videoData) {
 					_.each(videoData, function(value, index, list) {
 						var exists = $.inArray( value.topic, _thisViewLearningStreamNested.me.interests );
-						if (_thisViewLearningStreamNested.me.interests.length==0) exists=1;
+						if (_thisViewLearningStreamNested.me.interests == undefined) exists=1;
+						else if (_thisViewLearningStreamNested.me.interests.length==0) exists=1;
 						if (exists>-1 || value.uploader == me.id) {
 							value.ccat = 'video';
 							value.icon = 'images/icon-videos-60.png';
