@@ -29,7 +29,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				});
 			},
 			fetch: function() {	
-				_thisMessagesDetailsViewNested = this;
+				var _thisMessagesDetailsViewNested = this;
 				var nameArray = new Array;
 				if (_thisMessagesView.options.id==0) {
 					_thisMessagesDetailsViewNested.showReceiverPanel();
@@ -88,11 +88,12 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 										}
 									}
 									_thisMessagesDetailsViewNested.render();
-									
+									$('#MessagesDetailsNestedViewDiv').show();
+									_thisMessagesDetailsViewNested.$el.show();
 								});
 							}
 							else {
-								console.log('You are not logged in!');
+								// console.log('You are not logged in!');
 								window.location.href = "#noaccess";
 							}
 						});
