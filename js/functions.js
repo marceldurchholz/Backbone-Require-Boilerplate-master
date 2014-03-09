@@ -583,7 +583,7 @@ function updateCoins(productId) {
 
 function initStore() {
 	window.storekit.init({
-		debug: false, /* Because we like to see logs on the console */
+		debug: true, /* Because we like to see logs on the console */
 		noAutoFinish: true,
 		purchase: function (transactionId, productId) {
 			// showModal();
