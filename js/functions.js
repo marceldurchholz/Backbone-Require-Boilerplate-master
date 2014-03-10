@@ -2608,7 +2608,7 @@ $('#sidebarListViewDiv').on("vclick", "#menuelement a.contentLink", function (ev
 		// window.location.href = event.target.hash;
 		if (type=="popup") {
 			$( ""+tgt ).popup().trigger('create').css("height",$(window).height()-50).css("width",$(window).width()-50);
-			$( ""+tgt ).popup( "open", {transition: 'flip'} );
+			$( ""+tgt ).popup( "open", {transition: 'fade'} );
 		}
 		else window.location.href = tgt;
 		// alert('getURLParameter(window.location.href): ' + getURLParameter(window.location.href));

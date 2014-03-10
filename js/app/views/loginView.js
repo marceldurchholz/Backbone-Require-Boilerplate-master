@@ -131,11 +131,11 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					this.$el.fadeIn( 500, function() {
 						if (window.system.showtutorial == true) {
 							// alert('now show the tutorial');
-							// $( "#welcomepopup" ).popup().trigger('create').css("height",$(window).height()-50).css("width",$(window).width()-50).popup( "open", {transition: 'flip'} );
+							// $( "#welcomepopup" ).popup().trigger('create').css("height",$(window).height()-50).css("width",$(window).width()-50).popup( "open", {transition: 'fade'} );
 							$( "#welcomepopup" ).popup().trigger('create').css("height",$(window).height()-50).css("width",$(window).width()-50);
 							$( "#tutorialpopup" ).popup().trigger('create').css("height",$(window).height()-50).css("width",$(window).width()-50);
-							$( "#welcomepopup" ).popup( "open", {transition: 'flip'} );
-							// $( "#tutorialpopup" ).popup( "open", {transition: 'flip'} );
+							$( "#welcomepopup" ).popup( "open", {transition: 'fade'} );
+							// $( "#tutorialpopup" ).popup( "open", {transition: 'fade'} );
 						}
 						new FastClick(document.body);
 					});
