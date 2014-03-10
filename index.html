@@ -84,6 +84,13 @@
 		}
 		#body {
 			background-color:#FFF;
+			overflow:hidden !important;
+            -ms-user-select: none;
+            -o-user-select: none;
+			-moz-user-select: none;
+			-khtml-user-select: none;
+			-webkit-user-select: none;
+			user-select: none;
 		}
 		#flexiblecontent {
 			b/ackground-color:#333 !important;
@@ -156,17 +163,6 @@
 		}
     </style>
 	
-	<style type="text/css">
-		#body {  
-            -ms-user-select: none;
-            -o-user-select: none;
-			-moz-user-select: none;
-			-khtml-user-select: none;
-			-webkit-user-select: none;
-			user-select: none;
-		}
-    </style>
-
 	
 </head>
 <body id="body">
@@ -224,11 +220,6 @@
 	</div>
 	
 	<div data-role="popup" id="welcomepopup" name="welcomepopup" data-overlay-theme="a" class="ui-corner-all">
-	   <!--
-	   <div class="ui-corner-top">
-		  <h1>Fehler</h1>
-	   </div>
-		-->
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>
 		<div data-role="content" class="ui-corner-bottom ui-content">
 		  <h3 class="ui-title">Herzlich willkommen!</h3>
@@ -243,11 +234,6 @@
 	</div>
 	
 	<div data-role="popup" id="tutorialpopup" name="tutorialpopup" data-overlay-theme="a" class="ui-corner-all">
-	   <!--
-	   <div class="ui-corner-top">
-		  <h1>Fehler</h1>
-	   </div>
-		-->
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>
 		<div data-role="content" class="ui-corner-bottom ui-content">
 		  <h3 class="ui-title">Auch wenn es ganz einfach ist.</h3>

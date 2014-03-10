@@ -239,6 +239,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 					new FastClick(document.body);
 				});
 				$('#pageFooter').html('');
+				$('#body').css('overflow','hidden !mportant');
 				
 				// this.myView.$el.off('create', this.testFunction);
 				// this.myView.$el.on('create', this.testFunction);

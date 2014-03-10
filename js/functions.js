@@ -2601,11 +2601,16 @@ $('#sidebarListViewDiv').on("vclick", "#menuelement a.contentLink", function (ev
 		// console.log(event);
 		// console.log(event.target.getAttribute('data-href'));
 		var tgt = event.target.getAttribute('data-href');
+		var type = event.target.getAttribute('data-type');
 		// alert(tgt);
 		// console.log(tgt);
 		// .getAttribute('data-fruit');
 		// window.location.href = event.target.hash;
-		window.location.href = tgt;
+		if (type=="popup") {
+			$( ""+tgt ).popup().trigger('create').css("height",$(window).height()-50).css("width",$(window).width()-50);
+			$( ""+tgt ).popup( "open", {transition: 'flip'} );
+		}
+		else window.location.href = tgt;
 		// alert('getURLParameter(window.location.href): ' + getURLParameter(window.location.href));
 		// $.mobile.changePage( "#aboutus", { transition: "slideup", changeHash: true });
 		// $.mobile.changePage( "#aboutus" , { reverse: false, changeHash: false } );
@@ -2698,13 +2703,11 @@ function checkEmail(email){
   return regex.test(email);
 }
 
-/*
 // var showPageOptionsIconDeg = 0;
 function rotatePageOptionsIcon() {
 	// window.showPageOptionsIconDeg += 180;
 	// $("#showPageOptionsIcon").css({'transform': 'rotate('+window.showPageOptionsIconDeg+'deg)'});
 }
-*/
 
 function showPageOptions() {
 	// alert('roles');

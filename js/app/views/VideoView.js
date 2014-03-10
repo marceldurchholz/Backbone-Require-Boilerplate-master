@@ -8,10 +8,10 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			
 			el: "#VideosNestedViewDiv",
 			initialize: function() {
-				console.log('initializing VideoView.js');
+				// console.log('initializing VideoView.js');
 			},
 			initializeme: function() {
-				console.log('initializing ME in VideoView.js');
+				// console.log('initializing ME in VideoView.js');
 				$(this.el).html('loading...');
 				$.when( this.fetchMe() ).then(
 				  function( status ) {
@@ -22,7 +22,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					alert( "you fail this time" );
 				  },
 				  function( status ) {
-					console.log('still fetchWorking');
+					// console.log('still fetchWorking');
 				  }
 				);
 			},
@@ -36,7 +36,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			},
 			fetchMe: function() {
 				_thisViewVideo = this;
-				console.log('fetchMe VideoView.js');
+				// console.log('fetchMe VideoView.js');
 				_thisViewVideo.dfd = new jQuery.Deferred();
 				_thisViewVideo.fetchWorking();
 				dpd.users.me(function(user) {
@@ -55,7 +55,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			fetch: function() {	
 				// alert('bla');
 				_thisViewVideo = this;
-				console.log('fetching VideoView.js');
+				// console.log('fetching VideoView.js');
 				this.$el.hide();
 				showModal();
 				
@@ -155,7 +155,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			render: function() {
 				this.bindEvents();
 				var _thisViewVideo = this;
-				console.log('DOING render VideoView.js called');
+				// console.log('DOING render VideoView.js called');
 				
 				
 				/*
@@ -196,11 +196,11 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 							console.log(thrownError);
 							*/
 							if (xhr.responseText=='{"message":"not found","statusCode":404,"status":404}') {
-								console.log('deactivating');
+								// console.log('deactivating');
 								
 								dpd.videos.put(model.attributes.id, {"active":false}, function(result, err) {
 								  if(err) return console.log(err);
-								  console.log(result, result.id);
+								  // console.log(result, result.id);
 								});
 
 

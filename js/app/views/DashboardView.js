@@ -24,7 +24,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 			render: function() {
 				this.bindEvents();
 				_thisViewDashboard = this;
-				console.log('DOING render DashboardView.js called');
+				// console.log('DOING render DashboardView.js called');
 				// var ani = setTimeout ( function() {
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewDashboard.nestedView = new SidemenuView().fetch();
