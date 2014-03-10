@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.digitalverve.APPinaut"
-        version   = "0.9.8">
+        version   = "1.0.1">
 
     <name>APPinaut</name>
 
@@ -36,12 +36,14 @@
 	<feature name="http://api.phonegap.com/1.0/camera"/>
 	<feature name="http://api.phonegap.com/1.0/file"/>
 	<feature name="http://api.phonegap.com/1.0/storage"/>
-	<feature name="http://api.phonegap.com/1.0/geolocation"/>
 	<feature name="http://api.phonegap.com/1.0/capture"/>
 	<feature name="http://api.phonegap.com/1.0/network"/>
 	<feature name="http://api.phonegap.com/1.0/notification"/>
+	<!--
+	<feature name="http://api.phonegap.com/1.0/geolocation"/>
 	<feature name="http://api.phonegap.com/1.0/battery"/>
 	<feature name="http://api.phonegap.com/1.0/contacts"/>
+	-->
 	<feature name="http://api.phonegap.com/1.0/media"/>
 	
 	<!-- setup phonegap version -->
@@ -138,7 +140,7 @@
     -->
     <!-- Customize your app and platform with the preference element. -->
     <preference name="orientation"                value="portrait" />        <!-- all: default means both landscape and portrait are enabled -->
-    <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
+    <preference name="target-device"              value="handset" />      <!-- all: iPhone / possible values handset, tablet, or universal -->
     <preference name="fullscreen"                 value="true" />           <!-- all: hides the status bar at the top of the screen -->
     <!-- <preference name="UIWebViewBounce" 			  value="true" /> -->
     <preference name="DisallowOverscroll" 		  value="true" />
