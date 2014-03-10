@@ -180,6 +180,31 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	// $( "#pageOptions" ).html(htmlContent);
 	// $( "#pageOptions" ).trigger('create');	
 	// $('body').on('click', '#showPageOptionsLink', function(e) {
+	
+	
+	$('body').off('click','#closewelcomepopupbtn').on('click','#closewelcomepopupbtn',function(e) { 
+		e.preventDefault();
+		setTimeout(function() {
+			$( "#welcomepopup" ).popup( "close" );
+		},1);
+	});
+	
+	// $( "#tutorialpopup" ).popup( "open", {transition: 'flip'} );
+	$( "#welcomepopup" ).bind({
+		popupafterclose: function(event, ui) { 
+			// alert('bla'); 
+			$( "#tutorialpopup" ).popup( "open", {transition: 'flip'} );
+			// $( "#tutorialpopup" ).popup().trigger('create').css("height",$(window).height()-50).css("width",$(window).width()-50).popup( "open", {transition: 'flip'} );
+		}
+	});
+
+	$('body').off('click','#closepopupbtn').on('click','#closepopupbtn',function(e) { 
+		e.preventDefault();
+		setTimeout(function() {
+			$( "#tutorialpopup" ).popup( "close" );
+		},1);
+	});
+	
 	$('body').off('click','#showPageOptionsLink').on('click','#showPageOptionsLink',function(e) { 
 		e.preventDefault();
 		// alert('bla');

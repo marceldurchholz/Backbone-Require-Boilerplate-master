@@ -179,9 +179,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				},
 				fetch: function(options) {
 					var _thisViewVideoDetails = this;
-					this.$el.hide();
 					showModal();
-					console.log(options.id);
+					// console.log(options.id);
 					_thisViewVideoDetails.getVideo(options);
 				},
 				getVideo: function(options) {
@@ -246,6 +245,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				},
 				initialize: function(options) {
 					_thisKnowledgeData = this;
+					this.$el.hide();
 					this.fetch(options);
 				},
 

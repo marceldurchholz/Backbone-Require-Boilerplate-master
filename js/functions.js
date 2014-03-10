@@ -668,6 +668,9 @@ var app = {
 					// document.addEventListener("resume", _thisApp.onResume, false);
 					window.plugins.insomnia.keepAwake();
 				}
+				else {
+					window.system.showtutorial = true;
+				}
 				$("body").css("-webkit-user-select","none");
 				$("body").css("-moz-user-select","none");
 				$("body").css("-ms-user-select","none");
