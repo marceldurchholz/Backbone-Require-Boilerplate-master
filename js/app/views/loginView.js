@@ -127,7 +127,15 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					_thisViewLogin.$el.html(_.template(loginPage, {}));
 					// window.createVideoPreview(_thisViewLogin.$('#video_player_1'),'video_player_1',"promo",0);
 					this.$el.trigger('create');
+					$( ".dynspace_small" ).each(function(index, value) {
+						var nowheight = $(this).height();
+						// alert(nowheight);
+						var thenheight = $(window).height()/100*nowheight;
+						// alert(thenheight);
+						$(this).css('height',thenheight);
+					});
 					hideModal();
+					fontResize();
 					this.$el.fadeIn( 500, function() {
 						if (window.system.showtutorial == true) {
 							// alert('now show the tutorial');

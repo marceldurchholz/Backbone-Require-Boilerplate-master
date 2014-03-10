@@ -2487,7 +2487,6 @@ $(window).bind('hashchange', function(){
 		menuStatus = false;
 		menuSwitched(false);
 	});
-
 });
 
 function bindSwipeBack() {
@@ -2914,3 +2913,10 @@ function scrollBottom() {
 		});
 	}, 1000);
 }
+
+/*
+function pageScript(func) {
+  var $context = $("div:jqmData(role='page'):last");
+  func($context);
+}
+*/

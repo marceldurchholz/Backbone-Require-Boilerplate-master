@@ -56,12 +56,17 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 	$.mobile.page.prototype.options.degradeInputs.date = true;
 	$.mobile.page.prototype.options.domCache = false;
 	$.mobile.ignoreContentEnabled=true;
+	$.mobile.page.prototype.options.domCache = false;
+	$.mobile.defaultPageTransition = 'fade'; 
+	$.mobile.defaultDialogTransition = "fade";
 	$.mobile.document.unbind("pageshow");
 	$.mobile.document.bind("pageshow", $.mobile.ajaxwhenpageshowed );
 	$.mobile.ajaxwhenpageshowed = function ajaxwhenpageshowed() {
 		alert('b');
 	};
 	*/
+	
+
 	
 	// $(document).on('login', function () {
 	/*
@@ -314,7 +319,8 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		showDeleteBar(false);
 	}
 	
-
+	
+	
 	bindSwipeBack();
 	$('body').off( "click", ".messagesendbutton").on( "click", ".messagesendbutton", function( e ) {
 		e.preventDefault();
