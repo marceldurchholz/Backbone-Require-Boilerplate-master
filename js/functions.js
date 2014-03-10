@@ -591,27 +591,27 @@ function initStore() {
 			// alert('start purchasing');
 			storekit.finish(transactionId);
 			storekit.loadReceipts(function (receipts) {
-				console.log('Receipt for appStore = ' + receipts.appStoreReceipt);
-				console.log('Receipt for ' + productId + ' = ' + receipts.forProduct(productId));
+				// console.log('Receipt for appStore = ' + receipts.appStoreReceipt);
+				// console.log('Receipt for ' + productId + ' = ' + receipts.forProduct(productId));
 			});
-			console.log('purchased: ' + productId);
+			// console.log('purchased: ' + productId);
 			updateCoins(productId);
 		},
 		finish: function (transactionId, productId) {
-			alert('Finished transaction for ' + productId + ' : ' + transactionId);
+			// alert('Finished transaction for ' + productId + ' : ' + transactionId);
 			// alert('Finished transaction for ' + productId + ' : ' + transactionId);
 		},
 		restore: function (transactionId, productId) {
 			// console.log('restored: ' + productId);
-			alert('restored: ' + productId);
+			// alert('restored: ' + productId);
 		},
 		restoreCompleted: function () {
 		   // console.log('all restore complete');
-		   alert('all restore complete');
+		   // alert('all restore complete');
 		},
 		restoreFailed: function (errCode) {
 			// console.log('restore failed: ' + errCode);
-			alert('restore failed: ' + errCode);
+			// alert('restore failed: ' + errCode);
 		},
 		error: function (errno, errtext) {
 			// alert('Failed: ' + errtext);
