@@ -202,6 +202,7 @@ require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone
 		e.preventDefault();
 		setTimeout(function() {
 			$( "#tutorialpopup" ).popup( "close" );
+			window.system.showtutorial = false;
 		},1);
 	});
 	
