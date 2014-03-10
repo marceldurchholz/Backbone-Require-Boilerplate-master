@@ -2606,7 +2606,7 @@ $('#sidebarListViewDiv').on("vclick", "#menuelement a.contentLink", function (ev
 		// .getAttribute('data-fruit');
 		// window.location.href = event.target.hash;
 		if (type=="popup") {
-			$( ""+tgt ).popup().trigger('create').css("height",$(window).height()-50).css("width",$(window).width()-50);
+			$( ""+tgt ).popup().trigger('create').css("height","auto").css("width","auto");
 			$( ""+tgt ).popup( "open", {transition: 'fade'} );
 		}
 		else window.location.href = tgt;
