@@ -133,7 +133,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							// alert('now show the tutorial');
 							// $( "#welcomepopup" ).popup().trigger('create').css("height",$(window).height()-50).css("width",$(window).width()-50).popup( "open", {transition: 'fade'} );
 							$( "#welcomepopup" ).popup().trigger('create').css("height",$(window).height()-50).css("width",$(window).width()-50);
+							$( "#welcomepopup" ).popup().trigger('create').css("height","auto").css("width","auto");
 							$( "#tutorialpopup" ).popup().trigger('create').css("height",$(window).height()-50).css("width",$(window).width()-50);
+							$( "#tutorialpopup" ).popup().trigger('create').css("height","auto").css("width","auto");
 							$( "#welcomepopup" ).popup( "open", {transition: 'fade'} );
 							// $( "#tutorialpopup" ).popup( "open", {transition: 'fade'} );
 						}
