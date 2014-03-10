@@ -231,7 +231,10 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				var _this = this;
 				dpd.users.me(function(me) {
 					window.me = me;
-					if (window.me.active==true && window.me.fullname!="") $('.showPageOptions').show();
+					if (window.me.active==true && window.me.fullname!="") {
+						$('.showPageOptions').show();
+						$('#showPageOptionsIcon').show();
+					}
 					_this.myView = new view(viewOptions);
 					new FastClick(document.body);
 				});

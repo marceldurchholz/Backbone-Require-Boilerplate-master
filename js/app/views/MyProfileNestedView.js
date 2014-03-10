@@ -155,13 +155,14 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 			*/
 			bindEvents: function() {
 				var _thisViewMyProfileNested = this;
-				
+				$('#showPageOptionsIcon').hide();
 				$('#delaccuntarea').hide();
 				$('#restrictedArea').hide();
 				$('#showMenu').hide();
 				$('.showPageOptions').hide();
 				if (_thisViewMyProfileNested.me.active==true) {
 					if ($("#fullname").val()!='') {
+						// $('#showPageOptionsIcon').show();
 						$('#showMenu').show();
 						$('.showPageOptions').show();
 						$('#restrictedArea').show();

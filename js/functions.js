@@ -2698,11 +2698,14 @@ function checkEmail(email){
   return regex.test(email);
 }
 
-var showPageOptionsIconDeg = 0;
+/*
+// var showPageOptionsIconDeg = 0;
 function rotatePageOptionsIcon() {
 	// window.showPageOptionsIconDeg += 180;
 	// $("#showPageOptionsIcon").css({'transform': 'rotate('+window.showPageOptionsIconDeg+'deg)'});
 }
+*/
+
 function showPageOptions() {
 	// alert('roles');
 	// alert(roles);
