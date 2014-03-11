@@ -13,38 +13,47 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				},
 				sendLogin: function(targetUrl) {
 					_thisViewLogin = this;
+					showModal();
 					var username = $('#username').val().toLowerCase();
 					var password = $('#password').val();
 					if (checkEmail(username)!=true || password=='') {
 						doAlert('Bitte überprüfen Sie die eingegebenen Daten.','Eingaben unvollständig oder nicht korrekt!');
+						hideModal();
 						return(false);
 					}
-					dpd.users.login({username: username, password: password}, function(user, error) {
-						if (error) {
-							doAlert('Eine Anmeldung mit diesen Zugangsdaten konnte nicht durchgeführt werden. Zur Registrierung klicken Sie auf "Neuen Zugang anlegen".','Fehler bei der Anmeldung!');
-						} else {
-							if (user==null) { 
-								doAlert('Bitte versuchen Sie es erneut.','Fehler bei der Anmeldung!');
-								return(false);
-								// alert('user =  null');
-							}
-							else {
-								dpd.users.me(function(me) {
-									_thisViewLogin.me = me;
-									$('#showMenu').show();
-									$('#showPageOptionsIcon').show();
-									var newlogincount = 0;
-									var logincount = _thisViewLogin.me.logincount;
-									if (logincount==undefined) logincount=0;
-									var newlogincount = logincount+1;
-									dpd.users.put(_thisViewLogin.me.id, {"logincount":newlogincount}, function(result, err) { 
-										if(err) { }
-										system.redirectToUrl(targetUrl);
+					setTimeout(function() {
+						dpd.users.login({username: username, password: password}, function(user, error) {
+							if (error) {
+								doAlert('Eine Anmeldung mit diesen Zugangsdaten konnte nicht durchgeführt werden. Zur Registrierung klicken Sie auf "Neuen Zugang anlegen".','Fehler bei der Anmeldung!');
+								hideModal();
+							} else {
+								if (user==null) { 
+									doAlert('Bitte versuchen Sie es erneut.','Fehler bei der Anmeldung!');
+									hideModal();
+									return(false);
+									// alert('user =  null');
+								}
+								else {
+									dpd.users.me(function(me) {
+										_thisViewLogin.me = me;
+										$('#showMenu').show();
+										$('#showPageOptionsIcon').show();
+										var newlogincount = 0;
+										var logincount = _thisViewLogin.me.logincount;
+										if (logincount==undefined) logincount=0;
+										var newlogincount = logincount+1;
+										dpd.users.put(_thisViewLogin.me.id, {"logincount":newlogincount}, function(result, err) { 
+											if(err) { 
+												hideModal();
+											}
+											system.redirectToUrl(targetUrl);
+										});
 									});
-								});
+								}
 							}
-						}
-					});
+						});
+					}, 1000);
+
 				},
 				sendRegister: function() {
 					_thisViewLogin = this;
