@@ -2614,6 +2614,7 @@ $('#sidebarListViewDiv').on("vclick", "#menuelement a.contentLink", function (ev
 		// window.location.href = event.target.hash;
 		if (type=="popup") {
 			$( ""+tgt ).popup().trigger('create').css("height","auto").css("width","auto");
+			$( ""+tgt ).popup().trigger('create').css("max-height","300").css("max-width","auto");
 			$( ""+tgt ).popup( "open", {transition: 'fade'} );
 		}
 		else window.location.href = tgt;
