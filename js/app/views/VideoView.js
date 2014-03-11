@@ -122,16 +122,18 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			insertData: function(model) {
 				_thisViewVideo = this;
 				var uploader = model.get('uploader');
-				if ( typeof( _thisViewVideo.uploaderdata ) == "undefined") {
+				/*
+				// if ( typeof( _thisViewVideo.uploaderdata ) == "undefined") {
 					$.ajax({
 						url: "http://dominik-lohmann.de:5000/users/?id="+uploader,
 						async: false
 					}).done(function(uploaderdata) {
 						// $( this ).addClass( "done" );
-						// console.log(uploaderdata);
+						console.log(uploaderdata);
 						_thisViewVideo.uploaderdata = uploaderdata;
 					});
-				}
+				// }
+				*/
 				// console.log($.inArray(model.id, _thisViewVideo.me.following));
 				/*
 				if ($.inArray(model.id, _thisViewVideo.me.following)==-1) {
@@ -145,7 +147,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				rowContent = _.template(videoPage, {
 					id: model.get('id'),
 					// uploader: model.get('uploader'),
-					uploader: _thisViewVideo.uploaderdata.fullname,
+					uploader: model.get('uploaderdata').fullname,
 					videourl: model.get('videourl'),
 					title: model.get('title'),
 					description: model.get('description'),
@@ -188,9 +190,10 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						url: 'http://dominik-lohmann.de:5000/users/?id='+uploader,
 						async: false,
 						success: function(data, textStatus, XMLHttpRequest){
+							model.attributes.uploaderdata = data;
 							_thisViewVideo.rowContent = _thisViewVideo.rowContent + _thisViewVideo.insertData(model);
 						},
-						error:function (xhr, ajaxOptions, thrownError){
+						error:function (xhr, ajaxOptions, thrownError) {
 							/*
 							console.log('error');
 							console.log(xhr.status);

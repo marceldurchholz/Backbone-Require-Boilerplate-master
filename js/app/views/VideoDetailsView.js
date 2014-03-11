@@ -300,7 +300,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						var nameArray = new Array;
 						_.each(videoData, function(value, index, list) {
 							value.ccat = 'video';
-							value.icon = 'images/icon-videos-60.png';
+							value.icon = 'images/icon-multimedia-60.png';
 							value.href = '#videos/details/view/'+value.id;
 							// _thisKnowledgeData.streamData.push(value);
 							

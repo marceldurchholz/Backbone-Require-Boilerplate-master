@@ -104,7 +104,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						else if (_thisViewLearningStreamNested.me.interests.length==0) exists=1;
 						if (exists>-1 || value.uploader == me.id) {
 							value.ccat = 'video';
-							value.icon = 'images/icon-videos-60.png';
+							value.icon = 'images/icon-multimedia-60.png';
 							value.href = '#videos/details/view/'+value.id;
 							
 							

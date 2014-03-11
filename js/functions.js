@@ -1964,6 +1964,10 @@ function addFollower(me, toid) {
 	dpd.users.get(query, function (result,err) {
 		if(err) dpd.users.put(toid, {"followers": {$push:$.trim(me.id)}} );
 	});
+	var query = {  following: {$in: [toid]}, id:me.id };
+	dpd.users.get(query, function (result,err) {
+		if(err) dpd.users.put(me.id, {"following": {$push:$.trim(toid)}} );
+	});
 }
 
 function addVideoReport(me, videoid) {
@@ -2710,6 +2714,13 @@ function checkEmail(email){
   var regex = /^[a-zA-Z0-9]+$/;
   // /^\w+$/;
   return regex.test(email);
+}
+
+function checkString(str){
+  // var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  var regex = /^[a-zA-Z0-9_.+-\@]+$/;
+  // /^\w+$/;
+  return regex.test(str);
 }
 
 // var showPageOptionsIconDeg = 0;

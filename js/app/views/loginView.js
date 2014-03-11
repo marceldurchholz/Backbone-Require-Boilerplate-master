@@ -16,7 +16,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					showModal();
 					var username = $('#username').val().toLowerCase();
 					var password = $('#password').val();
-					if (checkEmail(username)!=true || password=='') {
+					if (checkString(username)!=true || password=='') {
 						doAlert('Bitte überprüfen Sie die eingegebenen Daten.','Eingaben unvollständig oder nicht korrekt!');
 						hideModal();
 						return(false);
@@ -63,7 +63,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					var uid = '';
 					var sponsor = '';
 					if (username!='' && password!='') {
-						if (checkEmail(username)==true) {
+						if (checkString(username)==true) {
 							var roles = ["user","seeker"];
 							var registered = dateYmdHis();
 							$.ajax({
@@ -78,7 +78,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							});
 							
 							if (giftcode!='') sponsor = giftcode.replace('-','').toLowerCase();
-							dpd.users.post({username: username, password: password, fullname: username, active: true, sponsor: sponsor.id, roles: roles, registered: registered, credits: "0", purchases:[], followers:[], following:[], logincount:"0"}, function(user, err) {
+							dpd.users.post({username: username, password: password, fullname: username, active: true, messageble: true, sponsor: sponsor.id, roles: roles, registered: registered, credits: "0", purchases:[], followers:[], following:[], logincount:"0"}, function(user, err) {
 								if (user==null) {
 									if(err) {
 										doAlert('Es ist leider ein Fehler bei der Registrierung aufgetreten!','Ups...');
@@ -169,9 +169,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							// $( "#welcomepopup" ).css({ "max-height": '300px' });
 							$( "#tutorialpopup" ).popup().trigger('create');
 							$( "#tutorialpopup" ).css("height","auto").css("width","auto");
-							$( "#tutorialpopup" ).css({ "max-height": $(window).height()-70+'px' });
-							$( "#tutorialpopup" ).css({ "overflow-x": 'hidden' });
-							$( "#tutorialpopup" ).css({ "overflow-y": 'scroll' });
+							// $( "#tutorialpopup" ).css({ "max-height": $(window).height()-70+'px' });
+							// $( "#tutorialpopup" ).css({ "overflow-x": 'hidden' });
+							// $( "#tutorialpopup" ).css({ "overflow-y": 'scroll' });
 							$( "#welcomepopup" ).popup( "open", {transition: 'fade'} );
 							// $( "#tutorialpopup" ).popup( "open", {transition: 'fade'} );
 						}
