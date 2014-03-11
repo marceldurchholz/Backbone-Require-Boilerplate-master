@@ -39,9 +39,9 @@
 <div style="padding:0px 20px 60px 20px;">
 	
 	<div class="title">
-		<h5 class="resizetext" style="font-size:18px;line-height:1.3em;" >
-			<div class="readmoretitle"><%= video.title %></div>
-		</h5>
+			<h5 class="resizetext" style="font-size:18px;line-height:1.3em;" >
+				<div class="readmoretitle"><%= video.title %></div>
+			</h5>
 	</div>
 	<div class="clear"></div>
 	
@@ -52,12 +52,7 @@
 			<img src="images/icon-flat-connect-18.png" style="padding-right:10px;">
 		</a>
 		-->
-		<div style="float:left;">
-			<strong><div class="readmorename"><%= video.uploader %></div></strong>
-		</div>
-		<div style="float:right;">
-			<span><a id="complainvideolink" class="complainvideolink" style="font-weight:normal;" data-videoid="<%= video.id %>">melden</a></span>
-		</div>
+		<strong><div class="readmorename"><%= video.uploader %></div></strong>
 		<div class="clear"></div>
 		
 		<div style="padding-top:10px;">
@@ -78,6 +73,17 @@
 		<div class="clear"></div>
 
 		<div class="readmore"><%= video.description %></div>
+		<div class="clear"></div>
+		
+		<p>
+			<div style="float:left;">
+				<span><a id="complainvideolink" class="complainvideolink" style="font-weight:normal;" data-videoid="<%= video.id %>">Beschwerde schreiben</a></span>
+			</div>
+			<div style="float:right;">
+				<% if(video.ireported >= 0) { %><% } else { %><span><a id="reportvideolink" class="reportvideolink" style="font-weight:normal;" data-videoid="<%= video.id %>">Verstoß melden<br></a></span><% } %>
+			</div>
+		</p>
+
 	</div>
 	<div class="clear"></div>
 

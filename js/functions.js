@@ -1338,7 +1338,7 @@ function isiPhone(){
 function nullClickEvent(e){ 	e.stopPropagation(); }
 
 
-function getRandomID(){
+function getRandomID() {
 	var dateNow = new Date();
 	return String(dateNow * Number(dateNow.getMilliseconds() * dateNow.getSeconds()));
 }
@@ -1963,6 +1963,13 @@ function addFollower(me, toid) {
 	var query = {  followers: {$in: [me.id]}, id:toid };
 	dpd.users.get(query, function (result,err) {
 		if(err) dpd.users.put(toid, {"followers": {$push:$.trim(me.id)}} );
+	});
+}
+
+function addVideoReport(me, videoid) {
+	var query = {  reportedby: {$in: [me.id]}, id:videoid };
+	dpd.videos.get(query, function (result,err) {
+		if(err) dpd.videos.put(videoid, {"reportedby": {$push:$.trim(me.id)}} );
 	});
 }
 
@@ -2698,7 +2705,9 @@ var system = {
 // alert(system.contentHelper);
 
 function checkEmail(email){
-  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  // var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  var regex = /^[a-zA-Z0-9]+$/;
+  // /^\w+$/;
   return regex.test(email);
 }
 

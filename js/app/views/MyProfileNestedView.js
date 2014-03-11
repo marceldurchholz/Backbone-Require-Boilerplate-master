@@ -57,10 +57,12 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						// _thisViewMyProfileNested.checkActiveStatus();
 					});
 					// if (_thisViewMyProfileNested.me.active==false || $("#fullname").val()=='') {
+					/*
 					if ($("#fullname").val()=='') {
 						// doAlert('Bitte vervollständigen Sie Ihr Profil und bestätigen Sie Ihre E-Mail-Adresse über den zugesendeten Link.','Fast fertig...');
 						doAlert('Bitte hinterlegen Sie Ihren Namen zur Freischaltung.','Fast fertig...');
 					}
+					*/
 					
 				});
 

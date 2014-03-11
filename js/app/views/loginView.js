@@ -55,7 +55,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					var sponsor = '';
 					if (username!='' && password!='') {
 						if (checkEmail(username)==true) {
-							var roles = ["user"];
+							var roles = ["user","seeker"];
 							var registered = dateYmdHis();
 							$.ajax({
 								url: 'http://dominik-lohmann.de:5000/users/?roles=owner',
@@ -69,27 +69,28 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							});
 							
 							if (giftcode!='') sponsor = giftcode.replace('-','').toLowerCase();
-							dpd.users.post({username: username, password: password, sponsor: sponsor.id, roles: roles, registered: registered, credits: "0", purchases:[], followers:[], following:[], logincount:"0"}, function(user, err) {
+							dpd.users.post({username: username, password: password, fullname: username, active: true, sponsor: sponsor.id, roles: roles, registered: registered, credits: "0", purchases:[], followers:[], following:[], logincount:"0"}, function(user, err) {
 								if (user==null) {
 									if(err) {
 										doAlert('Es ist leider ein Fehler bei der Registrierung aufgetreten!','Ups...');
 										return { }
 									}
 								}
-								_thisViewLogin.sendLogin('#myprofile');
+								_thisViewLogin.sendLogin(_thisViewLogin.redirecturl);
 							});
 						}
 						else {
-							doAlert('Bitte geben Sie Ihre gültige E-Mail-Adresse im Feld Benutzername ein.','Ungültiger Benutzername!');
+							doAlert('Bitte geben Sie einen gültigen Benutzernamen / E-Mail-Adresse ein.','Ungültiger Benutzername!');
 						}
 					} else {
-						doAlert('Bitte geben Sie für einen neuen Zugang Ihre gültige E-Mail-Adresse und Ihr gewünschtes Passwort ein.','Registrierung unvollständig');
+						doAlert('Bitte geben Sie zur Registrierung einen gültigen Benutzernamen / E-Mail-Adresse und Ihr gewünschtes Passwort ein.','Registrierung unvollständig');
 					}
 				},
 				sync: function() {
 				},
 				initialize: function() {
 					var _thisViewLogin = this;
+					_thisViewLogin.redirecturl = '#myprofile';
 					showModal();
 					this.$el.hide();
 					_thisViewLogin.fetch();
@@ -113,14 +114,26 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					this.$el.off('click','.sendLoginBtn').on('click','.sendLoginBtn',function(event){event.preventDefault();_thisViewLogin.sendLogin('#dashboard');});
 					this.$el.off('click','.sendRegisterBtn').on('click','.sendRegisterBtn',function(event){event.preventDefault();_thisViewLogin.sendRegister();});
 					this.$el.off('click','#giftcode').on('click','#giftcode',function(event){event.preventDefault();_thisViewLogin.toggleGiftcodeInput();});
+					
+					this.$el.off('click','.anonymlogin').on('click','.anonymlogin',function(event){event.preventDefault();_thisViewLogin.sendAnonymlogin();});
 					$('#username').val(_thisViewLogin.username);
 					$('#password').val(_thisViewLogin.password);
+					/*
 					if (system.contentHelper==1) {
 						$('#username').val('info@digitalverve.de');
 					}
 					if (system.contentHelper==2) {
 						$('#username').val('test@digitalverve.de');
 					}
+					*/
+				},
+				sendAnonymlogin: function() {
+					_thisViewLogin = this;
+					$('#username').val(getRandomID());
+					$('#password').val(getRandomID());
+					_thisViewLogin.sendRegister();
+					_thisViewLogin.redirecturl = '#dashboard';
+					_thisViewLogin.sendLogin(_thisViewLogin.redirecturl);
 				},
 				render: function() {
 					_thisViewLogin = this;
@@ -130,7 +143,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					$( ".dynspace_small" ).each(function(index, value) {
 						var nowheight = $(this).height();
 						// alert(nowheight);
-						var thenheight = $(window).height()/100*nowheight;
+						var thenheight = $(this).height()*$(window).height()*1/100;
 						// alert(thenheight);
 						$(this).css('height',thenheight);
 					});

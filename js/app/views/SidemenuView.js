@@ -16,30 +16,19 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 				this.$el.hide();
 				this._sidemenusCollection.fetch({
 					success: function(coll, jsoncoll) {
-						// console.log('jsoncoll');
 						_thisViewSidemenu.collection = new sidemenusCollection(jsoncoll,{});
-						// console.log(_thisViewSidemenu._sidemenusCollection.models);
 						_thisViewSidemenu.render();
 					},
 					error: function(action, coll) {
-						console.log(action);
-						console.log(coll);
-						// alert('ERROR !!!');
 						doAlert('Eine Offlinefunktion wurde noch nicht in diesen APPinaut integriert. Sollte die Internetfunktion Ihres Smartphones deaktiviert sein, aktivieren Sie diese bitte wieder über die Einstellungen.','Oh Oh. Keine Internetverbindung?');
 						$(this.el).html('Fehler beim Laden des Seitenmenüs.');
-						// _thisViewSidemenu.render();
 					}
 				});
-				// alert('bla');
 			},
 			showDetails: function(e) {
 				e.preventDefault();
 				var id = $(e.currentTarget).data("id");
-				// var item = this.collection;
-				// console.log(item);
-				console.log('showDetails: '+id);
 				window.location.hash = '#sidemenus/details/view/'+id;
-				// alert('bla');
 			},
 			bindEvents: function() {
 				var _thisViewSidemenu = this;

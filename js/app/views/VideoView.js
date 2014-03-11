@@ -37,17 +37,21 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 			fetchMe: function() {
 				_thisViewVideo = this;
 				// console.log('fetchMe VideoView.js');
-				_thisViewVideo.dfd = new jQuery.Deferred();
+				_thisViewVideo.dfd = new $.Deferred();
 				_thisViewVideo.fetchWorking();
-				dpd.users.me(function(user) {
-					if (user) {
+				dpd.users.me(function(me) {
+					if (me) {
 						var fetchMe = setTimeout ( function() {
-							_thisViewVideo.dfd.resolve(user);
+							_thisViewVideo.dfd.resolve(me);
 						}, 0 );
 					}
 					else {
-						console.log('You are not logged in!');
-						window.location.href = "#noaccess";
+						// console.log('You are not logged in!');
+						// window.location.href = "#noaccess";
+						var meid = getRandomID().toString();
+						var me = new Object();
+						me.id = meid;
+						_thisViewVideo.dfd.resolve(me);
 					}
 				});
 				return this.dfd.promise();
@@ -128,9 +132,9 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 						_thisViewVideo.uploaderdata = uploaderdata;
 					});
 				}
-				// console.log(jQuery.inArray(model.id, _thisViewVideo.me.following));
+				// console.log($.inArray(model.id, _thisViewVideo.me.following));
 				/*
-				if (jQuery.inArray(model.id, _thisViewVideo.me.following)==-1) {
+				if ($.inArray(model.id, _thisViewVideo.me.following)==-1) {
 					model.set("favclass","addVideoToFavourites");
 				}
 				else {
