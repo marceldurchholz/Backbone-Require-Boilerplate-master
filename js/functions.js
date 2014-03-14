@@ -1,3 +1,6 @@
+try {
+
+
 // alert('functions.js');
 
 var isMobile = {};
@@ -2941,3 +2944,9 @@ function pageScript(func) {
   func($context);
 }
 */
+
+
+
+} catch (e) {
+	console.log('error in js script');
+}

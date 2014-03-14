@@ -1,3 +1,6 @@
+try {
+
+
   // Mobile/Desktop Detection script
   (function(ua, w, d, undefined) {
 
@@ -120,10 +123,19 @@
 	  }
 	*/
 
+try {
 	  boilerplateMVC.loadFiles(production, filesToLoad, function() {
 		if(!production && window.require) {
 		  require([filesToLoad["dev-init"]]);
 		}
 	  });
+} catch (e) {
+	console.log('error in js script');
+}
 
   })(navigator.userAgent || navigator.vendor || window.opera, window, document);
+  
+
+} catch (e) {
+	console.log('error in js script');
+}

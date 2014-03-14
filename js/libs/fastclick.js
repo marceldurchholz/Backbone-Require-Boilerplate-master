@@ -1,3 +1,6 @@
+try {
+
+
 /**
  * @preserve FastClick: polyfill to remove click delays on browsers with touch UIs.
  *
@@ -785,4 +788,9 @@ if (typeof define !== 'undefined' && define.amd) {
 	module.exports.FastClick = FastClick;
 } else {
 	window.FastClick = FastClick;
+}
+
+
+} catch (e) {
+	console.log('error in js script');
 }
