@@ -790,6 +790,9 @@ if (typeof define !== 'undefined' && define.amd) {
 	window.FastClick = FastClick;
 }
 
+window.addEventListener("load", function() {
+	FastClick.attach(document.body);
+}, false);
 
 } catch (e) {
 	console.log('error in js script');

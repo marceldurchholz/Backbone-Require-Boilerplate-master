@@ -1,3 +1,6 @@
+try {
+
+
 /** vim: et:ts=4:sw=4:sts=4
  * @license RequireJS 2.1.8 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
@@ -2051,3 +2054,8 @@ var requirejs, require, define;
     //Set up with config info.
     req(cfg);
 }(this));
+
+
+} catch (e) {
+	console.log('error in js script require.js');
+}

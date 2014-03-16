@@ -1,6 +1,6 @@
 body {
 	-webkit-text-size-adjust:none;
-	background:#45494c url(../../images/menu/menuBg.png) top left repeat-y;
+	/* background:#45494c url(../../images/menu/menuBg.png) top left repeat-y; */
 }
 #social-icons {
 	float:left;

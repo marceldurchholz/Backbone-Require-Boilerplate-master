@@ -6,7 +6,8 @@ try {
 var isMobile = {};
 isMobile = {
     Android: function() {
-        return navigator.userAgent.match(/Android/i) ? true : false;
+        /* return navigator.userAgent.match(/Android/i) ? true : false; */
+        return navigator.userAgent.match(/Android/i) ? false : false;
     },
     BlackBerry: function() {
         return navigator.userAgent.match(/BlackBerry/i) ? true : false;
