@@ -1321,14 +1321,19 @@ function removeProtectedDelimeters(str){
 	return str;	
 }
 
+function nothing() {
+	// empty callback function
+}
+
 function openExternalURL(url) {
 	// openExternal(url, usePhoneGap);
 	try {
 		// window.plugins.ChildBrowser.openExternal(url);
-		// openExternal(url);
-		window.plugins.childBrowser.openExternal('http://www.google.com');
+		cordova.exec(nothing, nothing, "OpenUrl", "openUrl", url);
+		// openExternal('http://www.google.com');
+		// window.plugins.childBrowser.openExternal('http://www.google.com');
 	} catch (e) {
-		doAlert(e);
+		alert(e);
 	}    
 }
 
