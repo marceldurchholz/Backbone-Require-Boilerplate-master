@@ -100,8 +100,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				initialize: function() {
 					var _thisViewLogin = this;
 					_thisViewLogin.redirecturl = '#myprofile';
-					showModal();
-					this.$el.hide();
+					// showModal();
+					// this.$el.hide();
 					_thisViewLogin.fetch();
 				},
 				fetch: function() {
@@ -141,6 +141,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					_thisViewLogin.$el.html(_.template(loginPage, {}));
 					// window.createVideoPreview(_thisViewLogin.$('#video_player_1'),'video_player_1',"promo",0);
 					this.$el.trigger('create');
+					/*
 					$( ".dynspace_small" ).each(function(index, value) {
 						var nowheight = $(this).height();
 						// alert(nowheight);
@@ -169,7 +170,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						}
 						new FastClick(document.body);
 					});
-					// this.bindEvents();
+					this.bindEvents();
+					*/
 					return this;
 				}
 
