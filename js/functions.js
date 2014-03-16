@@ -33,14 +33,15 @@ try {
 	
 	isMobile = {
 		Android: function() {
-			/* return navigator.userAgent.match(/Android/i) ? true : false; */
-			return navigator.userAgent.match(/Android/i) ? false : false;
+			return navigator.userAgent.match(/Android/i) ? true : false;
+			// return navigator.userAgent.match(/Android/i) ? false : false;
 		},
 		BlackBerry: function() {
 			return navigator.userAgent.match(/BlackBerry/i) ? true : false;
 		},
 		iOS: function() {
-			return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+			// return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+			return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? false : false;
 		},
 		Windows: function() {
 			return navigator.userAgent.match(/IEMobile/i) ? true : false;
@@ -51,6 +52,7 @@ try {
 	};
 
 	if (isMobile.any() && top.location != self.location) {
+		alert("breakting frame");
 		top.location.replace(self.location);
 	}
 	else {
