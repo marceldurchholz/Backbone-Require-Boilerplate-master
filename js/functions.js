@@ -648,28 +648,12 @@ function initStore() {
 
 var app = {
 	initialize: function() {
-		// report('MobileInit.js','var app:initialize');
-		// this.bindEvents();
 		_thisApp = this;
 		$.when( _thisApp.fetchMe() ).then(
 			  function( deviceisready ) {
-				// console.log(status);
-				// _thisViewDashboardNested.me = status;
-				// _thisViewDashboardNested.render();
 				cordovaIsLoaded = true;
-				// new MobileRouter();
-				// populateHomepageData();
-				// status = deviceisready
-				// alert(deviceisready);
-				
-				// modifyiOS7StatusBar();
-				// if(isMobile.any()) {
-				// }
-				
 				if(isMobile.any()) {
-					// alert('initStore();');
 					initStore();
-					// document.addEventListener("resume", _thisApp.onResume, false);
 					window.plugins.insomnia.keepAwake();
 				}
 				else {
@@ -680,17 +664,11 @@ var app = {
 				$("body").css("-ms-user-select","none");
 				$("body").css("-o-user-select","none");
 				$("body").css("user-select","none");
-				
-				// alert('dao done');
-				// window.dao.test('foo');
 				window.dao.initialize();
 				new window.MobileRouter();
-				// return this.dfd.promise();
-				// return('deviceisready');
 			  },
 			  function( status ) {
-				// console.log( status + ", you fail this time" );
-				alert( "you fail this time" );
+				console.log( "you fail this time" );
 			  },
 			  function( status ) {
 				console.log('still fetchWorking app');
@@ -746,30 +724,6 @@ var app = {
 		// _thisApp.dfd.resolve(true);		
 	}
 };
-	
-function populateHomepageData() {
-	var id = 'devicereadydiv';
-	var parentElement = document.getElementById(id);
-	var listeningElement = parentElement.querySelector('.listening');
-	listeningElement.setAttribute('style', 'display:none;');
-	var receivedElement = parentElement.querySelector('.received');
-	receivedElement.setAttribute('style', 'display:block;');
-}
-
-/* ----------------------------------------------------------- /
-    initApp
-/ ----------------------------------------------------------- */
-/*
-function initApp(){
-    report('TEST','--> initApp()..');  
-    try{
-		// $(document).ready(function(){
-		doAlert('initApp','Native Message');
-		// populateDeviceInfo();
-        // });
-    }catch(e){ catchError('initApp()',e); }            
-}
-*/
 
 function checkFileExists(fileName){
     var http = new XMLHttpRequest();
@@ -786,88 +740,6 @@ function printObject(o) {
   alert(out);
 }
 
-/* ----------------------------------------------------------- /
- populateDeviceInfo (incl. Timer)
-/ ----------------------------------------------------------- */
-/*
-function populateDeviceInfoTimer() {
-	setTimeout(function() {
-		populateDeviceInfo();
-		// window.scrollTo(0, 1); 
-	},5000);
-}
-*/
-
-function populateDeviceInfo(){
-	report('functions.js','populateDeviceInfo() START');
-	// doAlert('TEST','--> populateDeviceInfo()..');
-	// $( document ).delegate("#pageid", "pageinit", function() {  
-	// $( document ).ready(function() {
-	// $("#page-content").on('pagebeforeshow', function() {
-	// });
-    try {
-	
-		currentHash = window.location.hash;
-		if (currentHash=='') currentHash = '#home';
-		// alert('functions.js, hash: '+currentHash);
-		switch(currentHash) {
-			case "#home":
-			
-				if (isMobile.any()) {
-					window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
-						imagePath = fs.root.fullPath + "/photoshot.jpg"; // full file path
-						// alert(imagePath);
-						document.getElementById('camera_image_b').src = imagePath;
-					});
-				}
-
-/*
-				if(!isMobile.any()) {
-					report('populateDeviceInfo()','isMobile.any NOT true');
-					// alert('populateDeviceInfo');
-					document.getElementById("device_internet").innerHTML = 'NOT MOBILE';
-				}
-				else {
-*/
-					report('populateDeviceInfo()','isMobile.any IS true');
-					// alert('populateDeviceInfo');
-					// document.getElementById("device_internet").innerHTML = 'IS MOBILE';
-
-					/*
-					var id = 'devicereadydiv';
-					var parentElement = document.getElementById(id);
-					var listeningElement = parentElement.querySelector('.listening');
-					listeningElement.setAttribute('style', 'display:none;');
-					var receivedElement = parentElement.querySelector('.received');
-					receivedElement.setAttribute('style', 'display:block;');
-
-					// document.getElementById("device_internet").innerHTML = isConnectedToInternet();
-					document.getElementById("user_agent").innerHTML = navigator.userAgent;
-					document.getElementById("width").innerHTML = screen.width;
-					document.getElementById("height").innerHTML = screen.height;
-					document.getElementById("colorDepth").innerHTML = screen.colorDepth;
-					*/
-					// if (document.getElementById("device_internet")) document.getElementById("device_internet").innerHTML = 'IS MOBILE';
-					// document.getElementById("platform").innerHTML = device.platform;
-					// document.getElementById("version").innerHTML = device.version;
-					// document.getElementById("uuid").innerHTML = device.uuid;
-					// document.getElementById("name").innerHTML = device.name;
-					// document.getElementById("model").innerHTML = device.model;
-					// document.getElementById("device_conn").innerHTML = getConnectionType();
-					// $('#device_conn span').html(getConnectionType());
-					// $('#device_platform span').html(getDevicePlatform());
-					// $('#device_model span').html(getDeviceModel());
-					// $('#device_os span').html(getOS());
-					// $('#device_version span').html(getDeviceVersion());
-					// $('#device_internet span').html(isConnectedToInternet());
-					// doAlert('$(#device_conn span).html(getConnectionType());','--> populateDeviceInfo()..');
-//				}
-			break;
-		}
-	}catch(e){ 
-		catchError('populateDeviceInfo()',e); 
-	}
-}
 
 function isConnectedToInternet(){
 	var connectionType = getConnectionType();
@@ -904,7 +776,7 @@ function getConnectionType() {
 / ----------------------------------------------------------- */
 function modifyiOS7StatusBar(){
 	// if (window.device.version) alert('>> '+window.device.version);
-    var doit = true;
+    var doit = false;
 	if (isMobile.any() && doit==true) {
 		try{
 			if (parseFloat(window.device.version) === 7.0) {
