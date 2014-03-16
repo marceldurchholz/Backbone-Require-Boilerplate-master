@@ -48,9 +48,9 @@ require.config({
 
       "bootstrap": "../libs/plugins/bootstrap",
 
-      "text": "../libs/plugins/text",
-
-      "jasminejquery": "../libs/plugins/jasmine-jquery"
+      "text": "../libs/plugins/text"
+	  
+	  /* ,"jasminejquery": "../libs/plugins/jasmine-jquery" */
 
   },
 
@@ -105,10 +105,10 @@ require.config({
 	  "backbone.LocalStorage": {
 		"deps": ["backbone"],
 		"exports": "backbone.LocalStorage"
-	  },
+	  }
 	  
       // Jasmine-jQuery plugin
-      "jasminejquery": ["jquery"]
+      // , "jasminejquery": ["jquery"]
 
   }
 
