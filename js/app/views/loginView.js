@@ -127,14 +127,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					this.$el.off('click','.anonymlogin').on('click','.anonymlogin',function(event){event.preventDefault();_thisViewLogin.sendAnonymlogin();});
 					$('#username').val(_thisViewLogin.username);
 					$('#password').val(_thisViewLogin.password);
-					/*
-					if (system.contentHelper==1) {
-						$('#username').val('info@digitalverve.de');
-					}
-					if (system.contentHelper==2) {
-						$('#username').val('test@digitalverve.de');
-					}
-					*/
 				},
 				sendAnonymlogin: function() {
 					_thisViewLogin = this;
@@ -177,7 +169,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						}
 						new FastClick(document.body);
 					});
-					this.bindEvents();
+					// this.bindEvents();
 					return this;
 				}
 

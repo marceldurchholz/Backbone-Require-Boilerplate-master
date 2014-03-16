@@ -1451,7 +1451,13 @@ function removeProtectedDelimeters(str){
 
 function openExternalURL(url) {
 	// openExternal(url, usePhoneGap);
-	window.plugins.ChildBrowser.openExternal(url);
+	try {
+		// window.plugins.ChildBrowser.openExternal(url);
+		// openExternal(url);
+		window.plugins.childBrowser.openExternal('http://www.google.com');
+	} catch (e) {
+		doAlert(e);
+	}    
 }
 
 function openExternalURL_save1(strURL) {	
