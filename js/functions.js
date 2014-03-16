@@ -1449,7 +1449,12 @@ function removeProtectedDelimeters(str){
 	return str;	
 }
 
-function openExternalURL(strURL) {	
+function openExternalURL(url) {
+	// openExternal(url, usePhoneGap);
+	window.plugins.ChildBrowser.openExternal(url);
+}
+
+function openExternalURL_save1(strURL) {	
 	if (!isMobile.any()) {
 		doAlert('You are not mobile at the moment...','Ohh');
 		return(false);
