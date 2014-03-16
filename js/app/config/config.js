@@ -39,8 +39,8 @@ require.config({
 	  
 	  "bindmobile": "../jqm-config",
 
-	  // "deployd": "../dpd",
-	  "deployd": "http://dominik-lohmann.de:5000/dpd",
+	  "deployd": "../dpd",
+	  // "deployd": "http://dominik-lohmann.de:5000/dpd",
 
       // Plugins
       // -------
