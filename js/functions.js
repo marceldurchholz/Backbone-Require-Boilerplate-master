@@ -30,7 +30,7 @@ try {
 	var autoLockIsDisabled = false;
 	var cdvBadge = null;
 	var isMobile = {};
-
+	
 	isMobile = {
 		Android: function() {
 			/* return navigator.userAgent.match(/Android/i) ? true : false; */
@@ -50,18 +50,14 @@ try {
 		}
 	};
 
-	alert(top.location);
-	alert(self.location);
 	if (isMobile.any() && top.location != self.location) {
 		top.location.replace(self.location);
 	}
 	else {
-
 		var currentHash = window.location.hash;
 		var imagePath = '';
 		var menuStatus = false;
 		var footervideoStatus = false;
-
 		function renderList(employees) {
 			alert('Rendering list using local SQLite data...');
 			dao.findAll(function(employees) {
