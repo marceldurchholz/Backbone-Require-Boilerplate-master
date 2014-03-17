@@ -24,7 +24,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					}
 					setTimeout(function() {
 						// alert(username);
-						dpd.users.login({username: username, password: password}, function(user, error) {
+						// dpd.users.login({username: username, password: password}, function(user, error) {
+						dpd.users.post({username: username, password: password}, function(user, error) {
 							if (error) {
 								doAlert('Eine Anmeldung mit diesen Zugangsdaten konnte nicht durchgeführt werden. Zur Registrierung klicken Sie auf "Neuen Zugang anlegen".','Fehler bei der Anmeldung!');
 								hideModal();

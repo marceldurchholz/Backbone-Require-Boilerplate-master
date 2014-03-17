@@ -27,7 +27,8 @@ define(["jquery", "backbone", "text!templates/MessagesEditNestedPage.html"],
 					dpd.messages.get(_thisMessagesEditView.options.id, function (result) {
 						// console.log(result);
 
-						if (result!=null) dpd.users.me(function(me) {
+						if (result!=null) dpd('users').get(window.system.uid, function(me, err) {
+							// dpd.users.me(function(me) {
 							if (me) {
 								// console.log(me.id);
 								// http://dominik-lohmann.de:5000/messages?{"$or":[{"sender":"009505631619d88e"},{"receiver":"009505631619d88e"}],$sort:{cdate:-1}}

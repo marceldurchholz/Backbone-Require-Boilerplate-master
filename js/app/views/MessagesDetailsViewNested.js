@@ -18,7 +18,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				var contactsArray = new Array;
 				// var query = {$or:[{"sponsor":me.id},{"followers":me.id}],  "followers" : {"$in" : [me.id]}   , id:{$ne: me.id}, active:true,deleted:false,messageble:true,$sort:{fullname:1}};
 				// var query = { "following" : {"$in" : [me.id]}   };
-				var query = {  $or:[{"sponsor":me.id},{"following":{"$in":[me.id]}},{"followers":{"$in":[me.id]}}] , id:{$ne: me.id} , active:true,deleted:false,messageble:true,$sort:{fullname:1} };
+				var query = {  $or:[{"sponsor":window.me.id},{"following":{"$in":[window.me.id]}},{"followers":{"$in":[window.me.id]}}] , id:{$ne: window.me.id} , active:true,deleted:false,messageble:true,$sort:{fullname:1} };
 				dpd.users.get(query, function (contactsArray,err) {
 					if(err) {
 						_thisMessagesDetailsViewNested.render();
@@ -41,8 +41,10 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 					var query = { "id":_thisMessagesView.options.id , $limit: 1 };
 					dpd.users.get(query, function (receiver) {
 						_thisMessagesView.options.id = receiver.id;
-						if (receiver) dpd.users.me(function(me) {
+						if (receiver) dpd('users').get(window.system.uid, function(me, err) { 
+							// dpd.users.me(function(me) {
 							if (me) {
+								window.me = me;
 								_thisMessagesDetailsViewNested.receiver = receiver.id;
 								var query = { $or:[{"sender":receiver.id,"receiver":me.id}  ,  {"sender":me.id,"receiver":receiver.id}]  ,$sort:{cdate:1}};
 								dpd.messages.get(query, function (allmessagesdata) {
@@ -110,10 +112,12 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 				var _thisMessagesDetailsViewNested = this;
 				dpd.messages.off('create');
 				dpd.messages.on('create', function(msgData) {
-					msgArray = new Array;
-					msgArray.push(msgData);
-					_thisMessagesDetailsViewNested.messages.push(msgData);
-					_thisMessagesDetailsViewNested.fetch();
+					if (msgData.sender==window.system.uid || msgData.receiver==window.system.uid) {
+						msgArray = new Array;
+						msgArray.push(msgData);
+						_thisMessagesDetailsViewNested.messages.push(msgData);
+						_thisMessagesDetailsViewNested.fetch();
+					}
 				});
 
 			},

@@ -2509,11 +2509,17 @@ try {
 		$('.newmessageform').css({'opacity':'0.6'});
 		$('#messagesendbutton').addClass( 'ui-disabled' );
 		$('#messagetextarea').addClass( 'ui-disabled' );
-		dpd.messages.post({sender: sender, receiver: receiver, content: content, cdate: system.timestamp}, function(result, err) {
+		// alert(sender);
+		// alert(receiver);
+		// alert(content);
+		// alert(system.timestamp);
+		var postvals = {sender: sender, receiver: receiver, content: content, cdate: system.timestamp};
+		dpd.messages.post(postvals, function(result, err) {
 			if(err) {
 				$('#messagesendbutton').removeClass( 'ui-disabled' );
 				$('#messagetextarea').removeClass( 'ui-disabled' );
 				$('.newmessageform').css({'opacity':'0.7'});
+				alert(err.message);
 				return console.log(err);
 			}
 			$('.newmessageform').css({'opacity':'0.7'});
