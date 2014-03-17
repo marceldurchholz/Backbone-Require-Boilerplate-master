@@ -16,6 +16,7 @@ define(["jquery", "backbone", "text!templates/LogoutView.html"],
 				dpd.users.logout(function(err) {
 					if (err) console.log(err);
 					else {
+						window.system.uid = "0";
 						document.location.hash = "home";
 					}
 				});
