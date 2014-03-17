@@ -54,8 +54,9 @@ try {
 	};
 
 	if (isMobile.any() && top.location != self.location) {
-		// alert("breakting frame");
-		// top.location.replace(self.location);
+		// alert("breaking frame");
+		// cordovaIsLoaded
+		top.location.replace(self.location);
 	}
 	else {
 		var currentHash = window.location.hash;
@@ -598,8 +599,7 @@ try {
 				_thisApp = this;
 				$.when( _thisApp.fetchMe() ).then(
 					  function( deviceisready ) {
-						cordovaIsLoaded = true;
-						if(isMobile.any()) {
+						if(isMobile.any()) {							
 							initStore();
 							window.plugins.insomnia.keepAwake();
 						}
@@ -648,9 +648,9 @@ try {
 				_thisApp.dfd = new $.Deferred();
 				_thisApp.fetchWorking();
 				if(!isMobile.any()) {
-					var foox = window.setTimeout(function blax() {
+					// var foox = window.setTimeout(function blax() {
 						_thisApp.dfd.resolve(true);
-					}, 1000);
+					// }, 1000);
 				}
 				else {
 					// document.addEventListener('load', this.onDeviceReady, false);
@@ -666,9 +666,17 @@ try {
 			},
 			receivedEvent: function(event) {
 				// alert('deviceready');
-				var foox = window.setTimeout(function blax() {
-					_thisApp.dfd.resolve(true);
-				}, 1000);
+				// var foox = window.setTimeout(function blax() {
+					if (top.location != self.location) {
+						alert("breaking frame B");
+						// cordovaIsLoaded
+						top.location.replace(self.location);
+					}
+					else {
+						cordovaIsLoaded = true;
+						_thisApp.dfd.resolve(true);
+					}
+				// }, 1000);
 				// _thisApp.dfd.resolve(true);		
 			}
 		};

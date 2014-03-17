@@ -1,3 +1,4 @@
+// alert("detectmobile");
 try {
 
 
