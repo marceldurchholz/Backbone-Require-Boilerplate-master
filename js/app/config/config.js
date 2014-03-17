@@ -27,9 +27,7 @@ require.config({
 
       "functions": "../functions",
 	  
-      // "jreadmore": "../jquery.jreadmore.0.1",
-	  
-      "jexpander": "../jquery.expander",
+      "jexpander": "../jquery.expander.min",
 	  
       "jelastic": "../jquery.elastic.source",
 
@@ -68,8 +66,6 @@ require.config({
 
       // jQueryUI
       "jqueryui": ["jquery"],
-	  
-	  // "jreadmore": ["jquery"],
 	  
 	  "jexpander": ["jquery"],
 
