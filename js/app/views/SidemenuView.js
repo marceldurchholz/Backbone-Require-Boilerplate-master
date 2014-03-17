@@ -49,7 +49,7 @@ define(["jquery", "backbone", "collections/sidemenusCollection", "text!templates
 						id: model.get('id'),
 						urloffline: model.get('urloffline'),
 						userfriendly: model.get('userfriendly'),
-						me: me,
+						me: window.me,
 						icon: model.get('icon').substring(1)
 					},{variable: 'sidemenu'});
 					_thisViewSidemenu.$el.append(htmlContent);

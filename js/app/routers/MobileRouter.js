@@ -2,7 +2,7 @@
 // ---------------
 define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "views/Aboutus", "views/Listview", "views/Videos", "views/Planer", "views/Cards", "views/AdminUserListView", "views/AdminUserDetailsView", "views/VideoDetailsView", "views/MessageDetailsView", "views/PlanDetailsView", "views/CardDetailsView", "views/CardStartView", "views/VideoRecordView", "views/LearningStreamView", "views/loginView", "views/DashboardView", "views/NoAccess", "views/LogoutView", "views/MyProfileView", "views/supportView", "views/helpView", "views/agbView", "views/privacyView", "views/MessagesView", "views/MessagesEditView"],
         
-    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Planer, Cards, AdminUserListView, AdminUserDetailsView, Videosdetailsview, MessageDetailsView, Planerdetailsview, Cardsdetailsview, Cardstartview, Videorecordview, Learningstreamview, login, DashboardView, NoAccess, Logout, MyProfile, supportView, helpView, agbView, privacyView, MessagesView, MessagesEditView) {
+    function($, Backbone, Profile, System, View, Aboutus, Listview, Videos, Planer, Cards, AdminUserListView, AdminUserDetailsView, Videosdetailsview, MessageDetailsView, Planerdetailsview, Cardsdetailsview, Cardstartview, Videorecordview, Learningstreamview, loginView, DashboardView, NoAccess, Logout, MyProfile, supportView, helpView, agbView, privacyView, MessagesView, MessagesEditView) {
 
 		var MobileRouter = Backbone.Router.extend({
 
@@ -161,7 +161,7 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
             login: function() {
 				// alert('routing to login');
                 // new login();
-				this.changePage(login, {});
+				this.changePage(loginView, {});
             },
             support: function() {
 				this.changePage(supportView, {});
@@ -229,11 +229,18 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				$('.pageOptions').hide();
 				$('.showPageOptions').hide();
 				var _this = this;
-				dpd.users.me(function(me) {
-					window.me = me;
-					if (window.me.active==true && window.me.fullname!="") {
-						$('.showPageOptions').show();
-						$('#showPageOptionsIcon').show();
+				// dpd.users.me(function(me) {
+				// alert(window.system.uid);
+				dpd('users').get(window.system.uid, function(me, err) {
+					if (err) {
+						// return(false);
+					}
+					else {
+						window.me = me;
+						if (window.me.active==true && window.me.fullname!="") {
+							$('.showPageOptions').show();
+							$('#showPageOptionsIcon').show();
+						}
 					}
 					_this.myView = new view(viewOptions);
 					new FastClick(document.body);

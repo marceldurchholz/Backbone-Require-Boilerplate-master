@@ -31,6 +31,8 @@ try {
 	var cdvBadge = null;
 	var isMobile = {};
 	
+	var me = new Object();
+	
 	isMobile = {
 		Android: function() {
 			return navigator.userAgent.match(/Android/i) ? true : false;
@@ -52,8 +54,8 @@ try {
 	};
 
 	if (isMobile.any() && top.location != self.location) {
-		alert("breakting frame");
-		top.location.replace(self.location);
+		// alert("breakting frame");
+		// top.location.replace(self.location);
 	}
 	else {
 		var currentHash = window.location.hash;
@@ -622,7 +624,8 @@ try {
 			},
 			onResume: function() {
 				// alert('app resumed');
-				dpd.users.me(function(user) {
+				// dpd.users.me(function(user) {
+				dpd('users').get(window.system.uid, function(me, err) {
 					if (user) { }
 					else {
 						console.log('You are not logged in!');
@@ -2771,6 +2774,7 @@ try {
 		}
 
 		var system = {
+			uid: "0",
 			showtutorial: false,
 			contentHelper: 0,
 			timestamp: 0,

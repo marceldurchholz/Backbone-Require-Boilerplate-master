@@ -9,7 +9,7 @@ define(["jquery", "backbone", "text!templates/MessagesViewNestedPage.html"],
 			el: "#MessagesNestedViewDiv",
 			initialize: function() {
 				var _thisMessagesViewNested = this;
-				console.log('initializing MessagesViewNested.js');
+				// console.log('initializing MessagesViewNested.js');
 				_thisMessagesViewNested.$el.hide();
 				showModal();
 			},
@@ -17,7 +17,8 @@ define(["jquery", "backbone", "text!templates/MessagesViewNestedPage.html"],
 				// alert('bla');
 				_thisMessagesViewNested = this;
 				console.log('fetching MessagesViewNested.js');
-				dpd.users.me(function(me) {
+				// dpd.users.me(function(me) {
+				dpd('users').get(window.system.uid, function(me, err) {
 					if (me) {
 						// console.log(me.id);
 						// http://dominik-lohmann.de:5000/messages?{"$or":[{"sender":"009505631619d88e"},{"receiver":"009505631619d88e"}],$sort:{cdate:-1}}
@@ -29,8 +30,6 @@ define(["jquery", "backbone", "text!templates/MessagesViewNestedPage.html"],
 								if (message.unread==undefined) message.unread=0;
 								if (message.sender==me.id) message.unread = 0;
 								else if ($.inArray(me.id, message.readby)<0) message.unread += 1;
-								
-								
 								_thisMessagesViewNested.messages.push(message);
 							});							
 							

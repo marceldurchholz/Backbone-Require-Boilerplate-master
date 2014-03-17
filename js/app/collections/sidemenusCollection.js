@@ -32,7 +32,10 @@ define(["jquery", "backbone", "models/SidemenuModel"],
 		fetch: function(options) {
 			_thisCollectionSidemenu = this;
 			if (_thisCollectionSidemenu.online==1) {
-				dpd.users.me(function(user) {
+				if (window.system.uid==undefined) window.system.uid = "0";
+				// alert('uid : '+window.system.uid);
+				dpd('users').get(window.system.uid, function(user, err) {
+				// dpd.users.me(function(user) {
 					if (user) {
 						// alert(user.roles);
 						_thisCollectionSidemenu.user = user;
@@ -107,15 +110,15 @@ define(["jquery", "backbone", "models/SidemenuModel"],
 			console.log(xhr);
 			if (xhr.status=='404') {
 				if (xhr.responseJSON==undefined) {
-					alert('probably no internet connection');
+					alert('Diese App benötigt eine Internetverbindung.');
 				}
 				else {
-					alert('probably request url wrong or not reachable');
+					alert('Die Abfrage konnte nicht durchgeführt werden oder das Ziel ist nicht erreichbar.');
 				}
 			}
 		},
 		successHandler: function(xhr) {
-			alert('successHandler');
+			// alert('successHandler');
 			console.log(xhr);
 		}
 	});

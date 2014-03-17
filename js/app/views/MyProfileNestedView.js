@@ -13,7 +13,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				showModal();
 				// _thisViewMyProfileNested.me = window.me;
 				_thisViewMyProfileNested.initialized = window.me;
-				dpd.users.me(function(me) {
+				// dpd.users.me(function(me) {
+				dpd('users').get(window.system.uid, function(me, err) {
 					if (me) { 
 						_thisViewMyProfileNested.me = me;
 					}
@@ -78,7 +79,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				console.log(e.currentTarget.defaultValue);
 				console.log(e.currentTarget.value);
 				*/
-				dpd.users.me(function(me) {
+				// dpd.users.me(function(me) {
+				dpd('users').get(window.system.uid, function(me, err) {
 					_thisViewMyProfileNested.me = me;
 				});
 				var obj = e.currentTarget;
@@ -125,7 +127,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 			},
 			checkActiveStatus: function() {
 				var _thisViewMyProfileNested = this;
-				dpd.users.me(function(me) {
+				// dpd.users.me(function(me) {
+				dpd('users').get(window.system.uid, function(me, err) {
 					_thisViewMyProfileNested.me = me;
 				});
 				if (_thisViewMyProfileNested.me.active==true && _thisViewMyProfileNested.me.fullname!='' && _thisViewMyProfileNested.me.fullname!=undefined) {
@@ -188,7 +191,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					if (event.delegateTarget.checked==false) o.status = "";
 					else o.status = "checked";
 					o.label = $("label[for='"+ event.delegateTarget.id +"']").text();					
-					dpd.users.me(function(me) {
+					// dpd.users.me(function(me) {
+					dpd('users').get(window.system.uid, function(me, err) {
 						// console.log(me);
 						var exists = jQuery.inArray( $.trim(o.label), me.interests )
 						// console.log(exists);

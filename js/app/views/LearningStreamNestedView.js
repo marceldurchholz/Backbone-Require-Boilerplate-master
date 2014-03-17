@@ -16,7 +16,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				_thisViewLearningStreamNested.streamData = streamData;
 			},
 			checkLogin:function() {
-				dpd.users.me(function(user) {
+				// dpd.users.me(function(user) {
+				dpd('users').get(window.system.uid, function(user, err) {
 					if (user) { }
 					else system.redirectToUrl('#login');
 				});

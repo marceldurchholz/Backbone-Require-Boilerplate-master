@@ -102,9 +102,8 @@
 	<!-- <gap:plugin name="org.apache.cordova.vibration" /> -->
 	<gap:plugin name="cc.fovea.plugins.inapppurchase" />
 	<gap:plugin name="nl.x-services.plugins.insomnia" />
-	<!--
 	<gap:plugin name="com.phonegap.plugins.childbrowser" />
-	-->
+	
 	<!--
 	<gap:plugin name="org.apache.cordova.core.device-motion" />
 	<gap:plugin name="org.apache.cordova.core.contacts" /> 

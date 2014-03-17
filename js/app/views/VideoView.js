@@ -19,7 +19,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 					_thisViewVideo.render();
 				  },
 				  function( status ) {
-					alert( "you fail this time" );
+					alert( "Benutzer konnte nicht erkannt werden." );
 				  },
 				  function( status ) {
 					// console.log('still fetchWorking');
@@ -39,7 +39,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				// console.log('fetchMe VideoView.js');
 				_thisViewVideo.dfd = new $.Deferred();
 				_thisViewVideo.fetchWorking();
-				dpd.users.me(function(me) {
+				// dpd.users.me(function(me) {
+				dpd('users').get(window.system.uid, function(me, err) {
 					if (me) {
 						var fetchMe = setTimeout ( function() {
 							_thisViewVideo.dfd.resolve(me);

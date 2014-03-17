@@ -25,7 +25,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 			render: function() {
 				this.bindEvents();
 				_thisMessagesView = this;
-				console.log('DOING render MessagesView.js called');
+				// console.log('DOING render MessagesView.js called');
 				$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 				_thisMessagesView.nestedView = new SidemenuView().fetch();
 				_thisMessagesView.$el.html(_.template(MessagesList, {}));

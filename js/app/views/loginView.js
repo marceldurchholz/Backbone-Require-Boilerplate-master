@@ -16,17 +16,20 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					showModal();
 					var username = $('#username').val().toLowerCase();
 					var password = $('#password').val();
+					// alert(username);
 					if (checkString(username)!=true || password=='') {
 						doAlert('Bitte überprüfen Sie die eingegebenen Daten.','Eingaben unvollständig oder nicht korrekt!');
 						hideModal();
 						return(false);
 					}
 					setTimeout(function() {
+						// alert(username);
 						dpd.users.login({username: username, password: password}, function(user, error) {
 							if (error) {
 								doAlert('Eine Anmeldung mit diesen Zugangsdaten konnte nicht durchgeführt werden. Zur Registrierung klicken Sie auf "Neuen Zugang anlegen".','Fehler bei der Anmeldung!');
 								hideModal();
 							} else {
+								// alert(user.uid);
 								if (user==null) { 
 									doAlert('Bitte versuchen Sie es erneut.','Fehler bei der Anmeldung!');
 									hideModal();
@@ -34,8 +37,14 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 									// alert('user =  null');
 								}
 								else {
-									dpd.users.me(function(me) {
+									// alert('a login : '+user.username);
+									window.system.uid = user.uid;
+									// dpd.users.get(function(me,err) {
+									// alert(window.system.uid);
+									dpd('users').get(window.system.uid, function(me, err) {
+										window.me = me;
 										_thisViewLogin.me = me;
+										// alert(me.username);
 										$('#showMenu').show();
 										$('#showPageOptionsIcon').show();
 										var newlogincount = 0;
@@ -46,7 +55,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 											if(err) { 
 												hideModal();
 											}
-											system.redirectToUrl(targetUrl);
+											// alert('redirecting');
+											// system.redirectToUrl(targetUrl);
+											window.location.href="#dashboard";
 										});
 									});
 								}
@@ -79,6 +90,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							
 							if (giftcode!='') sponsor = giftcode.replace('-','').toLowerCase();
 							dpd.users.post({username: username, password: password, fullname: username, active: true, messageble: true, sponsor: sponsor.id, roles: roles, registered: registered, credits: "0", purchases:[], followers:[], following:[], logincount:"0"}, function(user, err) {
+								// alert(user);
+								// alert(user.username);
 								if (user==null) {
 									if(err) {
 										doAlert('Es ist leider ein Fehler bei der Registrierung aufgetreten!','Ups...');
@@ -133,8 +146,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					$('#username').val(getRandomID());
 					$('#password').val(getRandomID());
 					_thisViewLogin.sendRegister();
-					_thisViewLogin.redirecturl = '#dashboard';
-					_thisViewLogin.sendLogin(_thisViewLogin.redirecturl);
+					// _thisViewLogin.redirecturl = '#dashboard';
+					// _thisViewLogin.sendLogin(_thisViewLogin.redirecturl);
 				},
 				render: function() {
 					_thisViewLogin = this;

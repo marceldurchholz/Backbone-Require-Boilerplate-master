@@ -9,11 +9,21 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 			initialize: function() {
 				_thisViewDashboardNested = this;
 				console.log('initialize DashboardNestedView.js');
+				// alert('dashboard');
 				this.$el.hide();
 				showModal();
-				dpd.users.me(function(me) {
-					if (me) _thisViewDashboardNested.initializedata();
-					else system.redirectToUrl('#login');
+				// alert(window.me.username);
+				// dpd.users.me(function(me) {
+				// alert(window.system.uid);
+				dpd('users').get(window.system.uid, function(me, err) {
+					if (me) {
+						// alert('yes');
+						_thisViewDashboardNested.initializedata();
+					}
+					else {
+						// alert('no');
+						system.redirectToUrl('#login');
+					}
 				});
 			},
 			initializedata: function() {
@@ -72,7 +82,8 @@ define(["jquery", "backbone", "text!templates/DashboardNestedViewPage.html"],
 					}, 0);
 					*/
 				});
-				dpd.users.me(function(user) {
+				// dpd.users.me(function(user) {
+				dpd('users').get(window.system.uid, function(user, err) {
 					if (user) {
 						// _thisViewDashboardNested.me = user;
 						if (_thisViewDashboardNested.me.active==false || user.fullname=='') {

@@ -62,7 +62,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						e.preventDefault();
 						var videoid = $(this).attr('data-videoid');
 						
-						dpd.users.me(function(me) {
+						// dpd.users.me(function(me) {
+						dpd('users').get(window.system.uid, function(me, err) {
 							if (me) {
 								_thisViewVideoDetails.buyVideo(videoid);
 								// alert(videoid);
@@ -191,7 +192,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				},
 				
 				initializeCollection:function(options) {
-					dpd.users.me(function(me) {
+					// dpd.users.me(function(me) {
+					dpd('users').get(window.system.uid, function(me, err) {
 						if (me) {
 							window.me = me;
 							// this._videosCollection.user = user;
@@ -471,6 +473,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					// alert($.inArray( this._videosCollection.models[0].attributes.id , window.me.purchases ));
 					if (this._videosCollection.models[0].attributes.offlineurl!='') this._videosCollection.models[0].attributes.videourl = this._videosCollection.models[0].attributes.offlineurl;
 					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',this._videosCollection.models[0].attributes.videourl,showVideoLength);
+					$('video_player_1_html5_api').css("z-index","2147483647");
 					// alert(_thisViewVideoDetails.videourl);
 					// alert(this._videosCollection.models[0].attributes.videourl);
 					hideModal();
