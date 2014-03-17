@@ -2217,10 +2217,13 @@ try {
 
 	var app = {
 		initialize: function() {
+			
 			_thisApp = this;
 			$.when( _thisApp.fetchMe() ).then(
 				  function( deviceisready ) {
-					// if(isMobile.any()) {							
+					// if(isMobile.any()) {
+					$('#body').show();
+					showModal();
 					if(isPhoneGap()) {
 						initStore();
 						window.plugins.insomnia.keepAwake();
@@ -2295,7 +2298,7 @@ try {
 						window.setTimeout(function blaz() {
 							// alert('resolve on ios');
 							_thisApp.dfd.resolve(true);
-						}, 5000);
+						}, 1000);
 						// this.receivedEvent();
 					}
 				}

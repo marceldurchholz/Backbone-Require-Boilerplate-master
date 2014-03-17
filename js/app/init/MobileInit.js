@@ -2,10 +2,10 @@
 // -------------
 
 // Include Mobile Specific JavaScript files here (or inside of your Mobile router)
-require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone.validateAll", "backbone.LocalStorage"],
+require(["jquery", "backbone", "routers/MobileRouter", "jquerymobile", "backbone.validateAll", "backbone.LocalStorage", "functions"],
 
-  function($, Backbone, MobileRouter, LocalStorageAdapter) {
-
+  function($, Backbone, MobileRouter) {
+	// LocalStorageAdapter
 	/*
 	dpd.messages.get({}, function (arr,err) {
 		if(err) {
