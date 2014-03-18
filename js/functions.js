@@ -591,7 +591,8 @@ try {
 
 	function isPhoneGap() {
 		// return (cordova || PhoneGap || phonegap) && /^file:\/{3}[^\/]/i.test(window.location.href) && /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
-		return /^file:\/{3}[^\/]/i.test(window.location.href) && /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
+		// return /^file:\/{3}[^\/]/i.test(window.location.href) && /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
+		return /^file:\/{3}[^\/]/i.test(window.location.href) && /iphone|ipod|ipad/i.test(navigator.userAgent);
 	}
 
 	function checkFileExists(fileName){
