@@ -50,7 +50,8 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 				console.log('fetchMe VideoRecordNestedView.js');
 				_thisViewRecordVideoNested.dfd = new jQuery.Deferred();
 				_thisViewRecordVideoNested.fetchWorking();
-				dpd.users.me(function(user) {
+				dpd('users').get(window.system.uid, function(user, err) { 
+				// dpd.users.me(function(user) {
 					if (user) {
 						var fetchMe = setTimeout ( function() {
 							_thisViewRecordVideoNested.dfd.resolve(user);

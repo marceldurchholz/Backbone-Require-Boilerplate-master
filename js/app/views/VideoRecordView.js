@@ -24,11 +24,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 			render: function() {
 				this.bindEvents();
 				_thisViewRecordVideo = this;
-				console.log('DOING render VideoRecordView.js called');
 				$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 				_thisViewRecordVideo.nestedView = new SidemenuView().fetch();
-				// _thisViewRecordVideo.$el.html(_.template(videosList, {}));
-				// _thisViewRecordVideo.nestedView = new VideoRecordNestedView().fetch();
 				_thisViewRecordVideo.$el.html(_.template(VideoRecordPage, {}));
 				_thisViewRecordVideo.nestedView = new VideoRecordNestedView().fetch();
 				return this;				
