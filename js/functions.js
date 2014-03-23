@@ -649,6 +649,7 @@ try {
 		var doit = true;
 		if (isPhoneGap() && doit==true) {
 			try {
+				StatusBar.hide();
 				document.body.style.marginTop = "0px";
 				$("#body").css('top', "0px");
 				/*
