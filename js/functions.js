@@ -2806,6 +2806,7 @@ try {
 
 	var system = {
 		uid: "0",
+		aoid: "",
 		showtutorial: false,
 		contentHelper: 0,
 		timestamp: 0,

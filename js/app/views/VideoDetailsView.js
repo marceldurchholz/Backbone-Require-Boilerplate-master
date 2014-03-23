@@ -295,19 +295,19 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					var querystr = "";
 					// if (topic!='') querystr += "&topic="+topic;
 					var url = "http://dominik-lohmann.de:5000/videos?active=true&deleted=false";
+					var anzahl = 0;
 					$.ajax({
 						url: url+querystr,
 						async: false
 					}).done(function(videoData) {
 						var nameArray = new Array;
 						_.each(videoData, function(value, index, list) {
+							anzahl = anzahl + 1;
 							value.ccat = 'video';
 							value.icon = 'images/icon-multimedia-60.png';
 							value.href = '#videos/details/view/'+value.id;
 							// _thisKnowledgeData.streamData.push(value);
-							
 							var uploader = value.uploader; // "ed568841af69d94d";
-							
 							/*
 							if (nameArray[uploader]==undefined) {
 								$.ajax({
@@ -335,8 +335,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							*/
 							_thisKnowledgeData.streamData.push(value);
 							// _thisMessagesDetailsViewNested.messages[key4].fullname = nameArray[uploader];
-							
-
+							if (anzahl > 4) return(false);
 						});
 					});
 					/*
