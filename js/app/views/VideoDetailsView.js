@@ -294,7 +294,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					_thisKnowledgeData.streamData = streamData;
 					var querystr = "";
 					// if (topic!='') querystr += "&topic="+topic;
-					var url = "http://dominik-lohmann.de:5000/videos?active=true&deleted=false";
+					var url = "http://dominik-lohmann.de:5000/videos?active=true&deleted=false&public=true";
 					var anzahl = 0;
 					$.ajax({
 						url: url+querystr,
@@ -439,6 +439,14 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					console.log('DOING render VideoDetailsView.js called');
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewVideoDetails.nestedView = new SidemenuView().fetch();
+					
+					dpd('users').get(window.system.uid, function(me, err) {
+						if (me) {
+							window.me = me;
+						}
+						else {
+						}
+					});
 					
 					if( $.inArray( this._videosCollection.models[0].attributes.id , window.me.purchases ) >- 1 ) {
 						this._videosCollection.models[0].attributes.videourl,showVideoLength = 0;

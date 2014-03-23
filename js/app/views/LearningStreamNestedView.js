@@ -96,7 +96,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 
 				
 				$.ajax({
-					url: "http://dominik-lohmann.de:5000/videos?active=true&deleted=false",
+					url: "http://dominik-lohmann.de:5000/videos?active=true&deleted=false&public=true",
 					async: false
 				}).done(function(videoData) {
 					_.each(videoData, function(value, index, list) {

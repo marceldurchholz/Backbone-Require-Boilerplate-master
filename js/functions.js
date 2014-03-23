@@ -648,7 +648,10 @@ try {
 		// if (window.device.version) alert('>> '+window.device.version);
 		var doit = true;
 		if (isPhoneGap() && doit==true) {
-			try{
+			try {
+				document.body.style.marginTop = "0px";
+				$("#body").css('top', "0px");
+				/*
 				if (parseFloat(window.device.version) === 7.0) {
 					// StatusBar.overlaysWebView(false);
 					// StatusBar.styleLightContent();
@@ -667,6 +670,7 @@ try {
 					// document.body.style.marginTop = "20px";
 				}
 				// StatusBar.backgroundColorByHexString("#3e8fd9");
+				*/
 			} catch(e){ 
 				// catchError('modifyiOS7StatusBar()',e); 
 			}
