@@ -468,6 +468,10 @@ try {
 				addcredits = "6500";
 				// alert("Gehen Sie auf allen Vieren und werden Sie bescheidener");
 				break;
+			  case "com.digitalverve.APPinaut.16000APP9999T60":
+				addcredits = "16000";
+				// alert("Gehen Sie auf allen Vieren und werden Sie bescheidener");
+				break;
 			  case "com.digitalverve.APPinaut.25000APP17999T72":
 				addcredits = "25000";
 				// alert("Gehen Sie auf allen Vieren und werden Sie bescheidener");
@@ -1966,7 +1970,7 @@ try {
 					// console.log("Code = " + r.responseCode);
 					// console.log("Response = " + r.response);
 					// console.log("Sent = " + r.bytesSent);
-					alert(r.bytesSent);
+					// alert(r.bytesSent);
 					dpd.videos.post({"vsize":Math.ceil(r.bytesSent).toString(),"vlength":window.system.videolength.toString(),"uploader":""+_this._thisViewRecordVideoNested.me.id,"videourl":""+options.fileName,"active":true,"cdate":""+dateYmdHis(),"topic":""+formValues.interest,"title":""+formValues.title,"subtitle":""+formValues.subtitle,"description":""+formValues.description,"price":formValues.sliderprice}, function(result, err) {
 						if(err) {
 							hideModal();
