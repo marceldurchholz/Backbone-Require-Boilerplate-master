@@ -302,14 +302,16 @@ try {
 				this.db.transaction(
 					function(tx) {
 						// alert('filling table INSERT START');
-						tx.executeSql("INSERT OR REPLACE INTO INTO me (id, username, password) VALUES (1, '"+username+"', '"+password+"')");
+						var sql3 = "INSERT OR REPLACE INTO INTO me (username, password) VALUES ('"+username+"', '"+password+"')";
+						alert(sql3);
+						tx.executeSql(sql3);
 						// alert('filling table INSERT END');
 					},
 					function() {
-						// alert('ERROR ON Table videos successfully FILLED WITH SAMPLES in local SQLite database');
+						alert('ERROR ON Table metbl FILLING WITH SAMPLES in local SQLite database');
 					},
 					function() {
-						// alert('Table videos successfully FILLED WITH SAMPLES in local SQLite database');
+						alert('Table metbl successfully FILLED WITH SAMPLES in local SQLite database');
 						// callback();
 					}
 				);
