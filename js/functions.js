@@ -2069,7 +2069,8 @@ try {
 					// console.log("Response = " + r.response);
 					// console.log("Sent = " + r.bytesSent);
 					// alert(r.bytesSent);
-					dpd.videos.post({"vsize":Math.ceil(r.bytesSent).toString(),"vlength":window.system.videolength.toString(),"uploader":""+_this._thisViewRecordVideoNested.me.id,"videourl":""+options.fileName,"active":true,"cdate":""+dateYmdHis(),"topic":""+formValues.interest,"title":""+formValues.title,"subtitle":""+formValues.subtitle,"description":""+formValues.description,"price":formValues.sliderprice}, function(result, err) {
+					// dpd.videos.post({"vsize":Math.ceil(r.bytesSent).toString(),"vlength":window.system.videolength.toString(),"uploader":""+_this._thisViewRecordVideoNested.me.id,"videourl":""+options.fileName,"active":true,"cdate":""+dateYmdHis(),"topic":""+formValues.interest,"title":""+formValues.title,"subtitle":""+formValues.subtitle,"description":""+formValues.description,"price":formValues.sliderprice}, function(result, err) {
+					dpd.videos.post({"vsize":Math.ceil(r.bytesSent).toString(),"vlength":window.system.videolength.toString(),"uploader":""+_this._thisViewRecordVideoNested.me.id,"videourl":""+options.fileName,"active":formValues.flipactivate,"cdate":""+dateYmdHis(),"topic":""+formValues.interest,"title":""+formValues.title,"subtitle":""+formValues.subtitle,"description":""+formValues.description,"price":formValues.sliderprice}, function(result, err) {
 						if(err) {
 							hideModal();
 							// doAlert('Es ist ein Fehler passiert, der nicht passieren sollte. Bitte versuchen Sie Ihre Aktion erneut oder wenden Sie sich direkt an das APPinaut Support Team.','Ups! Fehler beim Upload!');

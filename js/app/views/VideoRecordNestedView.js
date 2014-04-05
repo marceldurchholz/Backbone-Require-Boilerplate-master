@@ -229,7 +229,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 						// console.log(progressEvent.loaded + " / " + progressEvent.total);
 						$('#modaltxt').html(progressEvent.loaded+" / "+progressEvent.total);
 						if (oldprogress == progressEvent.loaded) {} 
-						else window.system.modaltimeout = 5000;
+						else window.system.modaltimeout = 60000;
 						oldprogress = progressEvent.loaded;
 						
 					};
