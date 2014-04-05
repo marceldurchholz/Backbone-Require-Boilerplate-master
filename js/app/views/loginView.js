@@ -127,7 +127,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					_thisViewLogin.password = "";
 					// window.dao.rememberUserDataGet(_thisViewLogin.render);
 					_thisViewLogin.userdata = new Object();
-					_thisViewLogin.userdata = window.dao.rememberUserDataGet();
+					_thisViewLogin.userdata = window.dao.rememberUserDataGet(1);
 					if (_thisViewLogin.userdata.length>0) {
 						_thisViewLogin.username = _thisViewLogin.userdata.username;
 						_thisViewLogin.password = _thisViewLogin.userdata.password;						

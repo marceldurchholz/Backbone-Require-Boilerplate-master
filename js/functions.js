@@ -229,9 +229,7 @@ try {
 		
 		createTables: function() {
 			this.db.transaction(
-				/*
 				function(tx) { 
-					tx.executeSql("CREATE TABLE IF NOT EXISTS metable ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "username VARCHAR(255), password VARCHAR(255))");
 					tx.executeSql("CREATE TABLE IF NOT EXISTS videos ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))");
 				},
 				function(error) { 
@@ -243,23 +241,40 @@ try {
 					alert('SUCCESS Tables CREATE local SQLite database'); 
 					// websqlReady.resolve("initialize done"); 
 				}
-				*/
+				/*
 				function(tx) { 
-					var sql1 = 'CREATE TABLE IF NOT EXISTS metable ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "username VARCHAR(255), password VARCHAR(255))';
-					tx.executeSql(sql1,[], function (tx, results) {
-					});
-					var sql1 = 'CREATE TABLE IF NOT EXISTS videos ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))';
+					var sql1 = 'CREATE TABLE IF NOT EXISTS metbl ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "username VARCHAR(255), password VARCHAR(255))';
 					tx.executeSql(sql1,[], function (tx, results) {
 					});
 				}
+				function(tx) { 
+					var sql2 = 'CREATE TABLE IF NOT EXISTS videos ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))';
+					tx.executeSql(sql2,[], function (tx, results) {
+					});
+				}
+				*/
+			);
+			this.db.transaction(
+				function(tx) { 
+					tx.executeSql("CREATE TABLE IF NOT EXISTS metbl ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))");
+				},
+				function(error) { 
+					alert('ERROR ON Tables CREATE local SQLite database'); 
+					alert(error);
+				},
+				function() { 
+					window.system.showtutorial = true;
+					alert('SUCCESS Tables CREATE local SQLite database'); 
+					// websqlReady.resolve("initialize done"); 
+				}
 			);
 		},
-		rememberUserDataGet: function() {
+		rememberUserDataGet: function(id) {
 			var deferred = $.Deferred();
 			if (isPhoneGap()) {
 				this.db.transaction(
 					function (tx) {
-						var sql = "SELECT m.username, m.password FROM metable m WHERE m.id=1";
+						var sql = "SELECT m.username, m.password FROM metbl m WHERE m.id=:id";
 						tx.executeSql(sql, [id], function (tx, results) {
 							alert('found');
 							alert(results.username);
