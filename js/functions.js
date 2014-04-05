@@ -231,11 +231,12 @@ try {
 			this.db.transaction(
 				function(tx) { 
 					// tx.executeSql("CREATE TABLE IF NOT EXISTS users ( username VARCHAR(255) PRIMARY KEY, password VARCHAR(255))");
-					tx.executeSql("CREATE TABLE IF NOT EXISTS me ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "username VARCHAR(255), " + "password VARCHAR(255))");
 					tx.executeSql("CREATE TABLE IF NOT EXISTS videos ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))");
+					tx.executeSql("CREATE TABLE IF NOT EXISTS metable ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "username VARCHAR(255), " + "password VARCHAR(255))");
 				},
-				function() { 
-					// alert('ERROR ON Tables CREATE local SQLite database'); 
+				function(error) { 
+					alert('ERROR ON Tables CREATE local SQLite database'); 
+					alert(error);
 				},
 				function() { 
 					window.system.showtutorial = true;
@@ -250,7 +251,7 @@ try {
 				this.db.transaction(
 					function (tx) {
 						var id = "1";
-						var sql = "SELECT m.username, m.password FROM me m WHERE m.id=:id";
+						var sql = "SELECT m.username, m.password FROM metable m WHERE m.id=:id";
 						tx.executeSql(sql, [id], function (tx, results) {
 							alert('found');
 							alert(results.username);
