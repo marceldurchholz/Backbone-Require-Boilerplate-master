@@ -302,7 +302,7 @@ try {
 				this.db.transaction(
 					function(tx) {
 						// alert('filling table INSERT START');
-						var sql3 = "INSERT OR REPLACE INTO INTO me (username, password) VALUES ('"+username+"', '"+password+"')";
+						var sql3 = "INSERT OR REPLACE INTO metbl (username, password) VALUES ('"+username+"', '"+password+"')";
 						alert(sql3);
 						tx.executeSql(sql3);
 						// alert('filling table INSERT END');
