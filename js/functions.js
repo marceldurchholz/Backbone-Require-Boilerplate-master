@@ -300,7 +300,7 @@ try {
 			if (isPhoneGap()) {
 				this.db.transaction(
 					function (tx) {
-						var id = 1;
+						var id = window.system.kdnr;
 						var sql = "SELECT m.username, m.password FROM metbl m WHERE m.id=:id";
 						tx.executeSql(sql, [id], function (tx, results) {
 							// alert('found');
@@ -331,7 +331,7 @@ try {
 				this.db.transaction(
 					function(tx) {
 						// alert('filling table INSERT START');
-						var sql3 = "INSERT OR REPLACE INTO metbl (id, username, password) VALUES (1, '"+username+"', '"+password+"')";
+						var sql3 = "INSERT OR REPLACE INTO metbl (id, username, password) VALUES ("+window.system.kdnr+", '"+username+"', '"+password+"')";
 						// alert(sql3);
 						tx.executeSql(sql3);
 						// alert('filling table INSERT END');
@@ -2916,6 +2916,7 @@ try {
 	var system = {
 		uid: "0",
 		app: {title:"Mobile Training and Infotainment", calltoaction:"Registrieren oder Einloggen um zu entdecken"},
+		kdnr: "20001",
 		aoid: "042cb1572ffbea5d",
 		master: true,
 		showtutorial: false,
