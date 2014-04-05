@@ -277,8 +277,10 @@ try {
 						var sql = "SELECT m.username, m.password FROM metbl m WHERE m.id=:id";
 						tx.executeSql(sql, [id], function (tx, results) {
 							alert('found');
-							alert(results.username);
-							alert(results[0].username);
+							// alert(results.username);
+							// alert(results[0].username);
+							alert(results.rows.length);
+							alert(results.rows.item(0).username);
 							deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
 						});
 					},
