@@ -150,9 +150,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				},
 				bindEvents: function() {
 					var _thisViewLogin = this;
-					if (_thisViewLogin.autologin==true) {
-						_thisViewLogin.sendLogin('#dashboard');
-					}
 					$('#body').off( "swiperight", "#page-content");
 					$('#showMenu').hide();
 					$('#showPageOptionsIcon').hide();
@@ -164,6 +161,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					this.$el.off('click','.anonymlogin').on('click','.anonymlogin',function(event){event.preventDefault();_thisViewLogin.sendAnonymlogin();});
 					$('#username').val(_thisViewLogin.username);
 					$('#password').val(_thisViewLogin.password);
+					if (_thisViewLogin.autologin==true) {
+						_thisViewLogin.sendLogin('#dashboard');
+					}
 				},
 				sendAnonymlogin: function() {
 					_thisViewLogin = this;
