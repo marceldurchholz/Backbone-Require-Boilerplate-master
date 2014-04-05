@@ -120,3 +120,21 @@
 	50% { opacity: 0.0; }
 	100% { opacity: 1.0; }
 }
+
+
+.ui-slider {
+	width : 100% !important;
+	b/ackground : yellow;
+}
+input.ui-slider-input {
+	display : none !important;
+}
+.ui-slider-handle {
+	b/ackground : red;
+}
+.ui-slider-track {
+	margin-left: 15px !important;
+}
+.ui-br {
+	border:0 !important;
+}
