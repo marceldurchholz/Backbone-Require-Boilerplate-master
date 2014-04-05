@@ -230,7 +230,7 @@ try {
 		createTables: function() {
 			this.db.transaction(
 				function(tx) { 
-					tx.executeSql("CREATE TABLE IF NOT EXISTS metable ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "username VARCHAR(255) PRIMARY KEY, password VARCHAR(255))");
+					tx.executeSql("CREATE TABLE IF NOT EXISTS metable ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "username VARCHAR(255), password VARCHAR(255))");
 					tx.executeSql("CREATE TABLE IF NOT EXISTS videos ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))");
 				},
 				function(error) { 
