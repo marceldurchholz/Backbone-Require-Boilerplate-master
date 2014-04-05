@@ -256,7 +256,7 @@ try {
 			);
 			this.db.transaction(
 				function(tx) { 
-					tx.executeSql("CREATE TABLE IF NOT EXISTS metbl ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "username VARCHAR(255), " + "password VARCHAR(255))");
+					tx.executeSql("CREATE TABLE IF NOT EXISTS metbl ( " + "id INTEGER PRIMARY KEY, " + "username VARCHAR(255), " + "password VARCHAR(255))");
 				},
 				function(error) { 
 					alert('ERROR ON Tables CREATE local SQLite database'); 
@@ -270,6 +270,7 @@ try {
 			);
 		},
 		rememberUserDataDelete: function(callback) {
+			alert('rememberUserDataDelete');
 			if (isPhoneGap()) {
 				this.db.transaction(
 					function (tx) {
@@ -330,7 +331,7 @@ try {
 				this.db.transaction(
 					function(tx) {
 						// alert('filling table INSERT START');
-						var sql3 = "INSERT OR REPLACE INTO metbl (username, password) VALUES ('"+username+"', '"+password+"')";
+						var sql3 = "INSERT OR REPLACE INTO metbl (id, username, password) VALUES (1, '"+username+"', '"+password+"')";
 						alert(sql3);
 						tx.executeSql(sql3);
 						// alert('filling table INSERT END');
