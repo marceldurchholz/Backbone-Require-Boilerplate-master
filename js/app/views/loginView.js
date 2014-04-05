@@ -48,14 +48,17 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 										// alert(me.username);
 										$('#showMenu').show();
 										$('#showPageOptionsIcon').show();
-										var newlogincount = 0;
 										var logincount = _thisViewLogin.me.logincount;
 										if (logincount==undefined) logincount=0;
+										var newlogincount = 0;
 										var newlogincount = logincount+1;
 										dpd.users.put(_thisViewLogin.me.id, {"logincount":newlogincount}, function(result, err) { 
 											if(err) { 
 												hideModal();
 											}
+											// alert(username);
+											// alert(password);
+											window.dao.rememberUserData(username, password);
 											// alert('redirecting');
 											// system.redirectToUrl(targetUrl);
 											window.location.href="#dashboard";
@@ -122,6 +125,13 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					_thisViewLogin = this;
 					_thisViewLogin.username = "";
 					_thisViewLogin.password = "";
+					// window.dao.rememberUserDataGet(_thisViewLogin.render);
+					_thisViewLogin.userdata = new Object();
+					_thisViewLogin.userdata = window.dao.rememberUserDataGet();
+					if (_thisViewLogin.userdata.length>0) {
+						_thisViewLogin.username = _thisViewLogin.userdata.username;
+						_thisViewLogin.password = _thisViewLogin.userdata.password;						
+					}
 					_thisViewLogin.render();
 				},
 				toggleGiftcodeInput: function() {

@@ -207,7 +207,6 @@ try {
 		},
 			
 		findVideoById: function(id) {
-			// alert('outer searching for id: ' + id);
 			var deferred = $.Deferred();
 			if (isPhoneGap()) {
 				this.db.transaction(
@@ -224,11 +223,6 @@ try {
 			}
 			else {
 				deferred.resolve();
-				/*
-				setTimeout(function() {
-					deferred.resolve();
-				}, 3000);
-				*/
 			}
 			return deferred.promise();
 		},
@@ -237,6 +231,7 @@ try {
 			this.db.transaction(
 				function(tx) { 
 					// tx.executeSql("CREATE TABLE IF NOT EXISTS users ( username VARCHAR(255) PRIMARY KEY, password VARCHAR(255))");
+					tx.executeSql("CREATE TABLE IF NOT EXISTS me ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "username VARCHAR(255), " + "password VARCHAR(255))");
 					tx.executeSql("CREATE TABLE IF NOT EXISTS videos ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))");
 				},
 				function() { 
@@ -249,7 +244,47 @@ try {
 				}
 			);
 		},
-
+		rememberUserDataGet: function(callback) {
+			var deferred = $.Deferred();
+			if (isPhoneGap()) {
+				this.db.transaction(
+					function (tx) {
+						var id = "1";
+						var sql = "SELECT m.username, m.password FROM me m WHERE m.id=:id";
+						tx.executeSql(sql, [id], function (tx, results) {
+							deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
+						});
+					},
+					function (error) {
+						deferred.reject("Transaction Error: " + error.message);
+					}
+				);
+			}
+			else {
+				deferred.resolve();
+			}
+			return deferred.promise();
+			// callback();
+		},
+		rememberUserData: function(username, password) {
+			if (isPhoneGap()) {
+				this.db.transaction(
+					function(tx) {
+						// alert('filling table INSERT START');
+						tx.executeSql("INSERT OR REPLACE INTO INTO me (id, username, password) VALUES ('1', '"+username+"', '"+password+"')");
+						// alert('filling table INSERT END');
+					},
+					function() {
+						// alert('ERROR ON Table videos successfully FILLED WITH SAMPLES in local SQLite database');
+					},
+					function() {
+						// alert('Table videos successfully FILLED WITH SAMPLES in local SQLite database');
+						// callback();
+					}
+				);
+			}
+			// if (!isPhoneGap()) websqlReady.resolve("initialize done");
+		},
 		fillTable: function() {
 			// alert('filling table');
 			if (isPhoneGap()) {
