@@ -14,6 +14,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				var _thisViewCards = this;
 			},
 			initialize: function() {
+				this._thisViewCards = this;
 				this.fetch();
 			},
 			sync: function() {
@@ -24,12 +25,10 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 			render: function() {
 				this.bindEvents();
 				_thisViewCards = this;
-				console.log('DOING render Cards.js called');
-				$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 				_thisViewCards.nestedView = new SidemenuView().fetch();
 				_thisViewCards.$el.html(_.template(cardsList, {}));
 				_thisViewCards.nestedView = new CardView().fetch();
-				return this;
+				return this;				
 			}
 		});
 

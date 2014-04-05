@@ -575,6 +575,7 @@ try {
 					"com.digitalverve.APPinaut.250APP359T4", 
 					"com.digitalverve.APPinaut.750APP799T9", 
 					"com.digitalverve.APPinaut.6500APP4999T51", 
+					"com.digitalverve.APPinaut.16000APP9999T60",
 					"com.digitalverve.APPinaut.25000APP17999T72"
 				];
 				window.storekit.load(productIds, function(validProducts, invalidProductIds) {
@@ -2286,7 +2287,7 @@ try {
 				window.setTimeout(function blay() {
 					// alert('resolve');
 					_thisApp.dfd.resolve(true);
-				}, 5000);
+				}, 1000);
 			}
 			else {
 				// document.addEventListener('load', this.onDeviceReady, false);
@@ -2815,7 +2816,9 @@ try {
 
 	var system = {
 		uid: "0",
-		aoid: "",
+		app: {title:"Mobile Training and Infotainment", calltoaction:"Registrieren oder Einloggen um zu entdecken"},
+		aoid: "042cb1572ffbea5d",
+		master: true,
 		showtutorial: false,
 		contentHelper: 0,
 		timestamp: 0,
