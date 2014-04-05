@@ -12,9 +12,11 @@
 			<button data-mini="true" id="formbackbutton" type="button" name="button" data-theme="a">Zurück</button>
 			<br>
 		
-			<label for="sliderprice" style="font-size:11px;">Preis in Coins</label>
-			<input type="range" name="sliderprice" id="sliderprice" value="<%= video.slider_price %>" min="0" max="6000" step="150" data-mini="false" data-theme="a" data-track-theme="b"/>
-
+			<div data-role="fieldcontain" class="ui-hide-label">
+				<label for="sliderprice" style="font-size:11px;">Preis in Coins (Euro: <div id="priceineuro"></div>)</label>
+				<input type="range" name="sliderprice" id="sliderprice" value="<%= video.slider_price %>" min="0" max="6000" step="150" data-mini="false" data-theme="a" data-track-theme="b"/>
+			</div>
+			
 			<input data-mini="false" type="text" name="title" id="title" placeholder="Titel der Multimediadatei"/>
 			
 			<textarea data-mini="false" style="height:35%;" name="description" id="description" placeholder="Fügen Sie hier eine Beschreibung Ihrer Multimediadatei ein."></textarea>

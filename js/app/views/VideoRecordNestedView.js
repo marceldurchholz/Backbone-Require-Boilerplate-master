@@ -151,6 +151,35 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videoRecordColle
 			bindEvents: function() {
 				var _thisViewRecordVideoNested = this;
 				$('#body').off( "swiperight", "#page-content");
+				
+				var changeVar = $('#testSlider').val();
+				$('#testSlider').bind('change', function () {
+					$('#priceineuro').innerHTML = changeVar + " Euro";
+					/*
+					if (changeVar !== $(this).val()) {						
+						$('div').removeClass('active');
+						changeVar = $(this).val();
+						var foo = parseInt(changeVar);
+						switch (foo) {
+							case 5:
+								$('#fifth').addClass('active');
+							case 4:
+								$('#fourth').addClass('active');
+							case 3:
+								$('#third').addClass('active');
+							case 2:
+								$('#second').addClass('active');
+							case 1:
+								$('#first').addClass('active');
+								break;
+							default:
+								alert('something went kind of wrong');
+								break;
+						}
+					}
+					*/
+				});
+				
 				/*
 				this.$el.off('click','#checkLocalTitleButton').on('click','#checkLocalTitleButton',function(event){
 					event.preventDefault();
