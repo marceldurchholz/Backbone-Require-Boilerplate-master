@@ -126,16 +126,21 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					_thisViewLogin.username = "";
 					_thisViewLogin.password = "";
 					// window.dao.rememberUserDataGet(_thisViewLogin.render);
-					_thisViewLogin.userdata = new Object();
-					_thisViewLogin.userdata = window.dao.rememberUserDataGet(1);
-					if (_thisViewLogin.userdata.length>0) {
-						alert('first');
-						alert(_thisViewLogin.userdata);
+					// alert('first');
+					window.dao.rememberUserDataGet(_thisViewLogin.rememberUserDataCallback);
+				},
+				rememberUserDataCallback: function(userdata) {
+					// alert('second');
+					_thisViewLogin.userdata = userdata;
+					// alert(_thisViewLogin.userdata.username);
+					if (_thisViewLogin.userdata.username!='') {
+						// alert(_thisViewLogin.userdata);
 						alert(_thisViewLogin.userdata.username);
 						_thisViewLogin.username = _thisViewLogin.userdata.username;
 						_thisViewLogin.password = _thisViewLogin.userdata.password;						
+						_thisViewLogin.sendLogin('#dashboard');
 					}
-					alert('second');
+					alert('third');
 					_thisViewLogin.render();
 				},
 				toggleGiftcodeInput: function() {

@@ -269,11 +269,15 @@ try {
 				}
 			);
 		},
-		rememberUserDataGet: function(id) {
-			var deferred = $.Deferred();
+		rememberUserDataGet: function(callback) {
+			// var deferred = $.Deferred();
+			var userdata = new Object();
+			userdata.username = "bla";
+			userdata.password = "foo";
 			if (isPhoneGap()) {
 				this.db.transaction(
 					function (tx) {
+						var id = 1;
 						var sql = "SELECT m.username, m.password FROM metbl m WHERE m.id=:id";
 						tx.executeSql(sql, [id], function (tx, results) {
 							alert('found');
@@ -281,20 +285,22 @@ try {
 							// alert(results[0].username);
 							alert('length '+results.rows.length);
 							alert('results.row... '+results.rows.item(0).username);
-							deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
+							// deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
+							callback(results.rows.item(0));
 						});
 					},
 					function (error) {
 						alert('error');
 						alert(error.message);
-						deferred.reject("Transaction Error: " + error.message);
+						// deferred.reject("Transaction Error: " + error.message);
+						callback(userdata);
 					}
 				);
 			}
 			else {
-				deferred.resolve();
+				callback(userdata);
 			}
-			return deferred.promise();
+			// return deferred.promise();
 			// callback();
 		},
 		rememberUserData: function(username, password) {
