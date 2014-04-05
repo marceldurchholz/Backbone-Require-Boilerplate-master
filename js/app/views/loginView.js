@@ -129,9 +129,13 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					_thisViewLogin.userdata = new Object();
 					_thisViewLogin.userdata = window.dao.rememberUserDataGet(1);
 					if (_thisViewLogin.userdata.length>0) {
+						alert('first');
+						alert(_thisViewLogin.userdata);
+						alert(_thisViewLogin.userdata.username);
 						_thisViewLogin.username = _thisViewLogin.userdata.username;
 						_thisViewLogin.password = _thisViewLogin.userdata.password;						
 					}
+					alert('second');
 					_thisViewLogin.render();
 				},
 				toggleGiftcodeInput: function() {

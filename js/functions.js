@@ -279,8 +279,8 @@ try {
 							alert('found');
 							// alert(results.username);
 							// alert(results[0].username);
-							alert(results.rows.length);
-							alert(results.rows.item(0).username);
+							alert('length '+results.rows.length);
+							alert('results.row... '+results.rows.item(0).username);
 							deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
 						});
 					},
