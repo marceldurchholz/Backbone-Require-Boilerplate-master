@@ -229,6 +229,7 @@ try {
 		
 		createTables: function() {
 			this.db.transaction(
+				/*
 				function(tx) { 
 					tx.executeSql("CREATE TABLE IF NOT EXISTS metable ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "username VARCHAR(255), password VARCHAR(255))");
 					tx.executeSql("CREATE TABLE IF NOT EXISTS videos ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))");
@@ -239,21 +240,18 @@ try {
 				},
 				function() { 
 					window.system.showtutorial = true;
-					// alert('SUCCESS Tables CREATE local SQLite database'); 
+					alert('SUCCESS Tables CREATE local SQLite database'); 
 					// websqlReady.resolve("initialize done"); 
 				}
-				/*
-				var sql1 = 'CREATE TABLE IF NOT EXISTS metable ( username VARCHAR(255) PRIMARY KEY, password VARCHAR(255))';
-				tx.executeSql(sql1,[], function (tx, results) {
-					var test =  new Array();
-					test[0]='INSERT INTO ORDER (id, status) VALUES (1, "new" )';
-					test[1]='INSERT INTO ORDER (id, status) VALUES (2, "done" )';
-					test[2]='INSERT INTO ORDER (id, status) VALUES (3, "new" )';                                                                 
-					for( i in test ) {   
-						tx.executeSql(test[i]); 
-					}
-				});
 				*/
+				function(tx) { 
+					var sql1 = 'CREATE TABLE IF NOT EXISTS metable ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "username VARCHAR(255), password VARCHAR(255))';
+					tx.executeSql(sql1,[], function (tx, results) {
+					});
+					var sql1 = 'CREATE TABLE IF NOT EXISTS videos ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))';
+					tx.executeSql(sql1,[], function (tx, results) {
+					});
+				}
 			);
 		},
 		rememberUserDataGet: function() {
@@ -261,8 +259,7 @@ try {
 			if (isPhoneGap()) {
 				this.db.transaction(
 					function (tx) {
-						var id = "1";
-						var sql = "SELECT m.username, m.password FROM metable m WHERE m.id=:id";
+						var sql = "SELECT m.username, m.password FROM metable m WHERE m.id=1";
 						tx.executeSql(sql, [id], function (tx, results) {
 							alert('found');
 							alert(results.username);
@@ -288,7 +285,7 @@ try {
 				this.db.transaction(
 					function(tx) {
 						// alert('filling table INSERT START');
-						tx.executeSql("INSERT OR REPLACE INTO INTO me (id, username, password) VALUES ('1', '"+username+"', '"+password+"')");
+						tx.executeSql("INSERT OR REPLACE INTO INTO me (id, username, password) VALUES (1, '"+username+"', '"+password+"')");
 						// alert('filling table INSERT END');
 					},
 					function() {
