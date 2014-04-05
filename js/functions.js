@@ -233,12 +233,12 @@ try {
 					tx.executeSql("CREATE TABLE IF NOT EXISTS videos ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))");
 				},
 				function(error) { 
-					alert('ERROR ON Tables CREATE local SQLite database'); 
-					alert(error);
+					// alert('ERROR ON Tables CREATE local SQLite database'); 
+					// alert(error);
 				},
 				function() { 
 					window.system.showtutorial = true;
-					alert('SUCCESS Tables CREATE local SQLite database'); 
+					// alert('SUCCESS Tables CREATE local SQLite database'); 
 					// websqlReady.resolve("initialize done"); 
 				}
 				/*
@@ -259,18 +259,18 @@ try {
 					tx.executeSql("CREATE TABLE IF NOT EXISTS metbl ( " + "id INTEGER PRIMARY KEY, " + "username VARCHAR(255), " + "password VARCHAR(255))");
 				},
 				function(error) { 
-					alert('ERROR ON Tables CREATE local SQLite database'); 
-					alert(error);
+					// alert('ERROR ON Tables CREATE local SQLite database'); 
+					// alert(error);
 				},
 				function() { 
 					window.system.showtutorial = true;
-					alert('SUCCESS Tables CREATE local SQLite database'); 
+					// alert('SUCCESS Tables CREATE local SQLite database'); 
 					// websqlReady.resolve("initialize done"); 
 				}
 			);
 		},
 		rememberUserDataDelete: function(callback) {
-			alert('rememberUserDataDelete');
+			// alert('rememberUserDataDelete');
 			if (isPhoneGap()) {
 				this.db.transaction(
 					function (tx) {
@@ -281,8 +281,8 @@ try {
 						});
 					},
 					function (error) {
-						alert('error');
-						alert(error.message);
+						// alert('error');
+						// alert(error.message);
 						// deferred.reject("Transaction Error: " + error.message);
 						callback();
 					}
@@ -332,15 +332,15 @@ try {
 					function(tx) {
 						// alert('filling table INSERT START');
 						var sql3 = "INSERT OR REPLACE INTO metbl (id, username, password) VALUES (1, '"+username+"', '"+password+"')";
-						alert(sql3);
+						// alert(sql3);
 						tx.executeSql(sql3);
 						// alert('filling table INSERT END');
 					},
 					function() {
-						alert('ERROR ON Table metbl FILLING WITH SAMPLES in local SQLite database');
+						// alert('ERROR ON Table metbl FILLING WITH SAMPLES in local SQLite database');
 					},
 					function() {
-						alert('Table metbl successfully FILLED WITH SAMPLES in local SQLite database');
+						// alert('Table metbl successfully FILLED WITH SAMPLES in local SQLite database');
 						// callback();
 					}
 				);
@@ -2355,6 +2355,7 @@ try {
 				  }
 			);
 		},
+		/*
 		onResume: function() {
 			// alert('app resumed');
 			// dpd.users.me(function(user) {
@@ -2367,6 +2368,7 @@ try {
 			});
 
 		},
+		*/
 		fetchWorking: function() {
 			var setTimeoutWatcher = setTimeout(function foo() {
 				if ( _thisApp.dfd.state() === "pending" ) {

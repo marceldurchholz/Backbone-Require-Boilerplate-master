@@ -20,7 +20,7 @@ define(["jquery", "backbone", "text!templates/LogoutView.html"],
 				});
             },
 			rememberUserDataDeleteCallback: function() {
-				alert('rememberUserDataDeleteCallback');
+				// alert('rememberUserDataDeleteCallback');
                 _thisViewLogout.render();				
 			},
             events: {
