@@ -230,9 +230,8 @@ try {
 		createTables: function() {
 			this.db.transaction(
 				function(tx) { 
-					// tx.executeSql("CREATE TABLE IF NOT EXISTS users ( username VARCHAR(255) PRIMARY KEY, password VARCHAR(255))");
+					tx.executeSql("CREATE TABLE IF NOT EXISTS metable ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "username VARCHAR(255) PRIMARY KEY, password VARCHAR(255))");
 					tx.executeSql("CREATE TABLE IF NOT EXISTS videos ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))");
-					tx.executeSql("CREATE TABLE IF NOT EXISTS metable ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "username VARCHAR(255), " + "password VARCHAR(255))");
 				},
 				function(error) { 
 					alert('ERROR ON Tables CREATE local SQLite database'); 
@@ -243,6 +242,18 @@ try {
 					// alert('SUCCESS Tables CREATE local SQLite database'); 
 					// websqlReady.resolve("initialize done"); 
 				}
+				/*
+				var sql1 = 'CREATE TABLE IF NOT EXISTS metable ( username VARCHAR(255) PRIMARY KEY, password VARCHAR(255))';
+				tx.executeSql(sql1,[], function (tx, results) {
+					var test =  new Array();
+					test[0]='INSERT INTO ORDER (id, status) VALUES (1, "new" )';
+					test[1]='INSERT INTO ORDER (id, status) VALUES (2, "done" )';
+					test[2]='INSERT INTO ORDER (id, status) VALUES (3, "new" )';                                                                 
+					for( i in test ) {   
+						tx.executeSql(test[i]); 
+					}
+				});
+				*/
 			);
 		},
 		rememberUserDataGet: function() {
