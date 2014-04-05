@@ -116,6 +116,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				},
 				initialize: function() {
 					var _thisViewLogin = this;
+					_thisViewLogin.autologin = false;
 					_thisViewLogin.redirecturl = '#myprofile';
 					showModal();
 					this.$el.hide();
@@ -135,12 +136,12 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					// alert(_thisViewLogin.userdata.username);
 					if (_thisViewLogin.userdata.username!='') {
 						// alert(_thisViewLogin.userdata);
-						alert(_thisViewLogin.userdata.username);
+						// alert(_thisViewLogin.userdata.username);
 						_thisViewLogin.username = _thisViewLogin.userdata.username;
 						_thisViewLogin.password = _thisViewLogin.userdata.password;						
-						_thisViewLogin.sendLogin('#dashboard');
+						_thisViewLogin.autologin = true;
 					}
-					alert('third');
+					// alert('third');
 					_thisViewLogin.render();
 				},
 				toggleGiftcodeInput: function() {
@@ -149,6 +150,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				},
 				bindEvents: function() {
 					var _thisViewLogin = this;
+					if (_thisViewLogin.autologin==true) {
+						_thisViewLogin.sendLogin('#dashboard');
+					}
 					$('#body').off( "swiperight", "#page-content");
 					$('#showMenu').hide();
 					$('#showPageOptionsIcon').hide();
