@@ -256,7 +256,7 @@ try {
 			);
 			this.db.transaction(
 				function(tx) { 
-					tx.executeSql("CREATE TABLE IF NOT EXISTS metbl ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))");
+					tx.executeSql("CREATE TABLE IF NOT EXISTS metbl ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "username VARCHAR(255), " + "password VARCHAR(255))");
 				},
 				function(error) { 
 					alert('ERROR ON Tables CREATE local SQLite database'); 
