@@ -269,29 +269,51 @@ try {
 				}
 			);
 		},
+		rememberUserDataDelete: function(callback) {
+			if (isPhoneGap()) {
+				this.db.transaction(
+					function (tx) {
+						var id = 1;
+						var sql = "DELETE FROM metbl WHERE id=:id";
+						tx.executeSql(sql, [id], function (tx, results) {
+							callback();
+						});
+					},
+					function (error) {
+						alert('error');
+						alert(error.message);
+						// deferred.reject("Transaction Error: " + error.message);
+						callback();
+					}
+				);
+			}
+			else {
+				callback();
+			}
+		},
 		rememberUserDataGet: function(callback) {
 			// var deferred = $.Deferred();
 			var userdata = new Object();
-			userdata.username = "bla";
-			userdata.password = "foo";
+			userdata.username = "";
+			userdata.password = "";
 			if (isPhoneGap()) {
 				this.db.transaction(
 					function (tx) {
 						var id = 1;
 						var sql = "SELECT m.username, m.password FROM metbl m WHERE m.id=:id";
 						tx.executeSql(sql, [id], function (tx, results) {
-							alert('found');
+							// alert('found');
 							// alert(results.username);
 							// alert(results[0].username);
-							alert('length '+results.rows.length);
-							alert('results.row... '+results.rows.item(0).username);
+							// alert('length '+results.rows.length);
+							// alert('results.row... '+results.rows.item(0).username);
 							// deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
 							callback(results.rows.item(0));
 						});
 					},
 					function (error) {
-						alert('error');
-						alert(error.message);
+						// alert('error');
+						// alert(error.message);
 						// deferred.reject("Transaction Error: " + error.message);
 						callback(userdata);
 					}
