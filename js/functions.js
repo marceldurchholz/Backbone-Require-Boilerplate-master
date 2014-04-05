@@ -244,7 +244,7 @@ try {
 				}
 			);
 		},
-		rememberUserDataGet: function(callback) {
+		rememberUserDataGet: function() {
 			var deferred = $.Deferred();
 			if (isPhoneGap()) {
 				this.db.transaction(
@@ -252,10 +252,15 @@ try {
 						var id = "1";
 						var sql = "SELECT m.username, m.password FROM me m WHERE m.id=:id";
 						tx.executeSql(sql, [id], function (tx, results) {
+							alert('found');
+							alert(results.username);
+							alert(results[0].username);
 							deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
 						});
 					},
 					function (error) {
+						alert('error');
+						alert(error.message);
 						deferred.reject("Transaction Error: " + error.message);
 					}
 				);
