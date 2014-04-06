@@ -2296,7 +2296,7 @@ try {
 					{ type: "video/ogg", src: _thisVideoUrl }
 				]);
 			}
-			console.log(myPlayer);
+			// console.log(myPlayer);
 			myPlayer.controlBar.hide();  
 			myPlayer.bigPlayButton.hide();
 			myPlayer.on('timeupdate', function() {
