@@ -241,22 +241,10 @@ try {
 					// alert('SUCCESS Tables CREATE local SQLite database'); 
 					// websqlReady.resolve("initialize done"); 
 				}
-				/*
-				function(tx) { 
-					var sql1 = 'CREATE TABLE IF NOT EXISTS metbl ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "username VARCHAR(255), password VARCHAR(255))';
-					tx.executeSql(sql1,[], function (tx, results) {
-					});
-				}
-				function(tx) { 
-					var sql2 = 'CREATE TABLE IF NOT EXISTS videos ( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "videoid VARCHAR(255), " + "videourl VARCHAR(255))';
-					tx.executeSql(sql2,[], function (tx, results) {
-					});
-				}
-				*/
 			);
 			this.db.transaction(
 				function(tx) { 
-					tx.executeSql("CREATE TABLE IF NOT EXISTS metbl ( " + "id INTEGER PRIMARY KEY, " + "username VARCHAR(255), " + "password VARCHAR(255))");
+					tx.executeSql("CREATE TABLE IF NOT EXISTS metbl ( " + "id INTEGER PRIMARY KEY, " + "username VARCHAR(255), " + "password VARCHAR(255)), " + "autologin VARCHAR(255))");
 				},
 				function(error) { 
 					// alert('ERROR ON Tables CREATE local SQLite database'); 
@@ -274,8 +262,9 @@ try {
 			if (isPhoneGap()) {
 				this.db.transaction(
 					function (tx) {
-						var id = 1;
-						var sql = "DELETE FROM metbl WHERE id=:id";
+						var id = window.system.kdnr;
+						// var sql = "DELETE FROM metbl WHERE id=:id";
+						var sql = "UPDATE metbl SET autologin = '1' WHERE id=:id";
 						tx.executeSql(sql, [id], function (tx, results) {
 							callback();
 						});
@@ -301,7 +290,7 @@ try {
 				this.db.transaction(
 					function (tx) {
 						var id = window.system.kdnr;
-						var sql = "SELECT m.username, m.password FROM metbl m WHERE m.id=:id";
+						var sql = "SELECT m.username, m.password, m.autologin FROM metbl m WHERE m.id=:id";
 						tx.executeSql(sql, [id], function (tx, results) {
 							// alert('found');
 							// alert(results.username);
@@ -326,12 +315,12 @@ try {
 			// return deferred.promise();
 			// callback();
 		},
-		rememberUserData: function(username, password) {
+		rememberUserData: function(username, password, autologin) {
 			if (isPhoneGap()) {
 				this.db.transaction(
 					function(tx) {
 						// alert('filling table INSERT START');
-						var sql3 = "INSERT OR REPLACE INTO metbl (id, username, password) VALUES ("+window.system.kdnr+", '"+username+"', '"+password+"')";
+						var sql3 = "INSERT OR REPLACE INTO metbl (id, username, password, autologin) VALUES ("+window.system.kdnr+", '"+username+"', '"+password+"', '"+autologin+"')";
 						// alert(sql3);
 						tx.executeSql(sql3);
 						// alert('filling table INSERT END');
