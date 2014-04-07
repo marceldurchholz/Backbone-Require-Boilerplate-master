@@ -25,6 +25,7 @@ define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection",
 				submitAnswer: function (event) {
 					event.preventDefault();
 					_thisViewCardStart = this;
+					showModal();
 					var $this = $(this);
 					var submitFormData = $('#submitform').serializeArray();
 					_.each(submitFormData, function(obj) {
@@ -78,6 +79,7 @@ define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection",
 						
 						this.cardpage = cardpage;
 						// console.log(this.cardpage);
+						/*
 						console.log('---------------------------------------');
 						console.log('---------------------------------------');
 						console.log('checking cardpageid ' + cardpage.id);
@@ -88,6 +90,7 @@ define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection",
 						console.log(cardpage.question);
 						console.log('running through potential answers');
 						console.log('+++++++++++++++++++++++++++++++++++++++');
+						*/
 						
 						_.each(cardpage.answers, function(answer) {
 							// var correctanswer = model.get('');
