@@ -1809,6 +1809,7 @@ try {
 				console.log( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
 			})
 			.always(function() {
+				window.me.purchases = _newData.purchases;
 				window._thisViewVideoDetails.render();
 			});
 		}
@@ -2331,6 +2332,7 @@ try {
 						myPlayer.posterImage.hide();  
 						myPlayer.currentTime(0);  
 						myPlayer.pause();
+						doAlert('Wenn Sie dieses Video kaufen, können Sie mehr als diese Vorschau sehen.','Sie finden das interesant?');
 					}
 				}
 			});
