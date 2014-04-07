@@ -257,9 +257,9 @@ try {
 				}
 			);
 		},
-		rememberUserDataDelete: function(callback) {
+		rememberUserDataDeleteAutologin: function(callback) {
 			// alert('rememberUserDataDelete');
-			alert(window.system.kdnr);
+			// alert(window.system.kdnr);
 			if (isPhoneGap()) {
 				this.db.transaction(
 					function (tx) {

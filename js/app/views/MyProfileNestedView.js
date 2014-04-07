@@ -311,13 +311,18 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				// console.log(response);
 				if (response==1) {
 					doAlert('Das finden wir schade. Ihr Zugang wurde gelöscht. Schauen Sie gerne wieder einmal vorbei.','Auf Wiedersehen :-(');
-					var deldate = new Date();
-					var deletetedusername = 'DELETETED_'+deldate+'_'+_thisViewMyProfileNested.me.username;
-					dpd.users.put(_thisViewMyProfileNested.me.id, {"username":deletetedusername,"deleted":true}, function(result, err) { 
-						if(err) return console.log(err); 
-						// console.log(result, result.id); 
+					if (isMobile.any()) { 
+						var deldate = new Date();
+						var deletetedusername = 'DELETETED_'+deldate+'_'+_thisViewMyProfileNested.me.username;
+						dpd.users.put(_thisViewMyProfileNested.me.id, {"username":deletetedusername,"deleted":true}, function(result, err) { 
+							if(err) return console.log(err); 
+							// console.log(result, result.id); 
+							system.redirectToUrl('#logout');
+						});
+					}
+					else {
 						system.redirectToUrl('#logout');
-					});
+					}
 				}
 			},
 			render: function() {
