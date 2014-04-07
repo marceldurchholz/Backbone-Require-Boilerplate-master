@@ -15,7 +15,8 @@ define(["jquery", "backbone", "text!templates/LogoutView.html"],
 					else {
 						window.dao.rememberUserDataDelete(_thisViewLogout.rememberUserDataDeleteCallback);
 						window.system.uid = "0";
-						document.location.hash = "home";
+						// document.location.hash = "home";
+						document.location.href = "#login";
 					}
 				});
             },

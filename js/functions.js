@@ -244,11 +244,11 @@ try {
 			);
 			this.db.transaction(
 				function(tx) { 
-					tx.executeSql("CREATE TABLE IF NOT EXISTS metbl ( " + "id INTEGER PRIMARY KEY, " + "username VARCHAR(255), " + "password VARCHAR(255)), " + "autologin VARCHAR(255))");
+					tx.executeSql("CREATE TABLE IF NOT EXISTS metbl ( " + "id INTEGER PRIMARY KEY, " + "username VARCHAR(255), " + "password VARCHAR(255), " + "autologin VARCHAR(255))");
 				},
 				function(error) { 
-					// alert('ERROR ON Tables CREATE local SQLite database'); 
-					// alert(error);
+					alert('ERROR ON Tables CREATE local SQLite database'); 
+					alert(error);
 				},
 				function() { 
 					window.system.showtutorial = true;
@@ -259,19 +259,20 @@ try {
 		},
 		rememberUserDataDelete: function(callback) {
 			// alert('rememberUserDataDelete');
+			alert(window.system.kdnr);
 			if (isPhoneGap()) {
 				this.db.transaction(
 					function (tx) {
 						var id = window.system.kdnr;
 						// var sql = "DELETE FROM metbl WHERE id=:id";
-						var sql = "UPDATE metbl SET autologin = '1' WHERE id=:id";
+						var sql = "UPDATE metbl SET autologin = '0' WHERE id=:id";
 						tx.executeSql(sql, [id], function (tx, results) {
 							callback();
 						});
 					},
 					function (error) {
-						// alert('error');
-						// alert(error.message);
+						alert('error');
+						alert(error.message);
 						// deferred.reject("Transaction Error: " + error.message);
 						callback();
 					}
@@ -2903,12 +2904,9 @@ try {
 		$.mobile.loading( 'hide' );
 	}
 
-	var system = {
+	window.system = {
 		uid: "0",
-		app: {title:"Mobile Training and Infotainment", calltoaction:"Registrieren oder Einloggen um zu entdecken"},
 		kdnr: "20001",
-		aoid: "042cb1572ffbea5d",
-		master: true,
 		showtutorial: false,
 		contentHelper: 0,
 		timestamp: 0,
@@ -2937,6 +2935,17 @@ try {
 			}
 		}
 	}
+	$.ajax('http://dominik-lohmann.de:5000/users/?kdnr='+window.system.kdnr,{
+		type:"GET",
+		async: false,
+	}).done(function(result) {
+		var me = result[0];
+		// alert(me.slogan);
+		window.system.app = {title:me.slogan, calltoaction:"Registrieren oder Einloggen um zu entdecken"};
+		window.system.aoid = me.id;
+		window.system.master = me.master;
+	});
+	
 	// alert(system.contentHelper);
 
 	function checkEmail(email){
@@ -3066,7 +3075,7 @@ try {
 		var height = $(window).height();
 		var width = $(window).width();
 		
-		var font = 13;
+		var font = 10;
 		//Get window width
 
 		//Set new font size
@@ -3077,10 +3086,9 @@ try {
 		// 150000
 		var factor = (fullpixel/180000);
 		// alert(factor);
-		if (factor<1) factor = 1;
-		if (factor>1.2) factor = 1.2;
+		if (factor<0.8) factor = 0.8;
+		if (factor>1.4) factor = 1.4;
 		var newFont = font * factor;
-		if (newFont<12) newFont = 12;
 		/*
 		$('#body').each(function( index ) {
 			// alert($(this).css('font-size').substr($( this ).css('font-size').len-2,2));
@@ -3095,7 +3103,8 @@ try {
 			// alert($(this).html());
 			var font = $(this).css('font-size').substr($( this ).css('font-size').len-2,2);
 			newFont = font*factor;
-			if (newFont>20) newFont = 20;
+			if (newFont<12) newFont = 12;
+			if (newFont>24) newFont = 24;
 			// alert(newFont);
 			$(this).css("font-size", newFont+"px");
 		});

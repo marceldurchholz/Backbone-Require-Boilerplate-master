@@ -314,6 +314,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					var querystr = "";
 					// if (topic!='') querystr += "&topic="+topic;
 					var url = "http://dominik-lohmann.de:5000/videos?active=true&deleted=false&public=true";
+					if (window.system.master!=true) url = url+"&uploader="+window.system.aoid;
 					var anzahl = 0;
 					$.ajax({
 						url: url+querystr,
@@ -358,6 +359,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						});
 					});
 					var url = "http://dominik-lohmann.de:5000/cards?active=true&deleted=false&public=true";
+					if (window.system.master!=true) url = url+"&uploader="+window.system.aoid;
 					$.ajax({
 						url: url+querystr,
 						async: false
@@ -509,13 +511,13 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					this.$el.trigger('create');
 					new FastClick(document.body);
 					
-					var slicePoint = Math.round($(window).width()/10-14);
+					var slicePoint = Math.round($(window).width()/12-14);
 					// alert(slicePoint);
 					_thisViewVideoDetails.title_shorten = this._videosCollection.models[0].attributes.title;
 					if (_thisViewVideoDetails.title_shorten.length>slicePoint) _thisViewVideoDetails.title_shorten = _thisViewVideoDetails.title_shorten.substr(0,slicePoint)+'...';
 
 					_thisViewVideoDetails.fullname_shorten = _thisViewVideoDetails.uploaderdata.fullname;
-					if (_thisViewVideoDetails.fullname_shorten.length>slicePoint) _thisViewVideoDetails.fullname_shorten = _thisViewVideoDetails.fullname_shorten.substr(0,slicePoint)+'...';
+					if (_thisViewVideoDetails.fullname_shorten.length>slicePoint) _thisViewVideoDetails.fullname_shorten = _thisViewVideoDetails.fullname_shorten.substr(0,slicePoint*2)+'...';
 					
 					this.$el.fadeIn( 500, function() {
 						$('.ui-content').scrollTop(0);
