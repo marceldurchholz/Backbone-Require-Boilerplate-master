@@ -1,8 +1,8 @@
 // CardStartView.js
 // -------
-define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection", "collections/answersCollection", "models/AnswerModel", "views/CardView", "text!templates/cardStartView.html", "text!templates/cardFinishView.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
+define(["jquery", "backbone", "collections/answersCollection", "models/AnswerModel", "views/CardView", "text!templates/cardStartView.html", "text!templates/cardFinishView.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
 
-    function($, Backbone, CardModel, cardsCollection, answersCollection, AnswerModel, CardListViewItems, cardsStartViewHTML, cardsFinishViewHTML, sidemenusList, SidemenuView){
+    function($, Backbone, answersCollection, AnswerModel, CardListViewItems, cardsStartViewHTML, cardsFinishViewHTML, sidemenusList, SidemenuView){
 		
 			var CardStartViewVar = Backbone.View.extend({
 			
@@ -18,11 +18,6 @@ define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection",
 					_thisViewCardStart.lastquestion = "";
 					_thisViewCardStart.answerCountdownIntervalStatus = 0;
 					_thisViewCardStart.answerCountdownButtonDelayText = 10;
-					// _thisViewCardStart._answersCollection.set(_thisViewCardStart._AnswerModel);
-					// _thisViewCardStart.listenTo(_thisViewCardStart._answersCollection, 'change', _thisViewCardStart.alarm);
-				},
-				alarm: function() {
-					alert('alarm');
 				},
 				retryCard: function (event) {
 					event.preventDefault();

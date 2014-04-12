@@ -260,6 +260,7 @@ try {
 		rememberUserDataDeleteAutologin: function(callback) {
 			// alert('rememberUserDataDeleteAutologin');
 			// alert(window.system.kdnr);
+			var _thisFunction = this;
 			if (isPhoneGap()) {
 				this.db.transaction(
 					function (tx) {
@@ -283,27 +284,31 @@ try {
 			}
 		},
 		rememberUserDataDelete: function(callback) {
-			// alert('rememberUserDataDelete');
-			// alert(window.system.kdnr);
+			// callback();
+			// alert('rememberUserDataDelete: '+window.system.kdnr);
 			if (isPhoneGap()) {
 				this.db.transaction(
 					function (tx) {
 						var id = window.system.kdnr;
+						// alert(id);
 						// var sql = "DELETE FROM metbl WHERE id=:id";
-						var sql = "UPDATE metbl SET username = '0', password = '0' WHERE id=:id";
+						var sql = "DELETE FROM metbl WHERE id=:id";
+						// var sql = "UPDATE metbl SET autologin = '0' WHERE id=:id";
+						// alert(sql);
 						tx.executeSql(sql, [id], function (tx, results) {
 							callback();
 						});
 					},
 					function (error) {
-						alert('error');
-						alert(error.message);
+						// alert('error');
+						// alert(error.message);
 						// deferred.reject("Transaction Error: " + error.message);
 						callback();
 					}
 				);
 			}
 			else {
+				// alert(callback)
 				callback();
 			}
 		},
@@ -316,7 +321,9 @@ try {
 				this.db.transaction(
 					function (tx) {
 						var id = window.system.kdnr;
+						// alert(id);
 						var sql = "SELECT m.username, m.password, m.autologin FROM metbl m WHERE m.id=:id";
+						// alert(sql);
 						tx.executeSql(sql, [id], function (tx, results) {
 							// alert('found');
 							// alert(results.username);
@@ -324,6 +331,9 @@ try {
 							// alert('length '+results.rows.length);
 							// alert('results.row... '+results.rows.item(0).username);
 							// deferred.resolve(results.rows.length === 1 ? results.rows.item(0) : null);
+							// alert(results.rows.item(0).username);
+							// alert(results.rows.item(0).password);
+							// alert(results.rows.item(0).autologin);
 							callback(results.rows.item(0));
 						});
 					},
@@ -2813,6 +2823,20 @@ try {
 		});
 		return(show);
 	}
+	
+	function checkAppRole(role) {
+		var show = false;
+		$.each( window.system.owner.roles, function( key, value ) {
+			if (role==value) {
+				show = true;
+				return(show);
+			}
+			else {
+				// show = false;
+			}
+		});
+		return(show);
+	}
 
 	$('#footervideolink').on("vclick", function (e) {
 		// report('footer clicked');
@@ -2932,6 +2956,9 @@ try {
 	}
 
 	window.system = {
+		owner: new Object(),
+		me: new Object(),
+		master: true,
 		uid: "0",
 		kdnr: "20001",
 		showtutorial: false,
@@ -2966,11 +2993,11 @@ try {
 		type:"GET",
 		async: false,
 	}).done(function(result) {
-		var me = result[0];
-		// alert(me.slogan);
-		window.system.app = {title:me.slogan, calltoaction:"Registrieren oder Einloggen um zu entdecken"};
-		window.system.aoid = me.id;
-		window.system.master = me.master;
+		var owner = result[0];
+		window.system.app = {title:owner.slogan, calltoaction:"Registrieren oder Einloggen um zu entdecken"};
+		window.system.owner = owner;
+		window.system.aoid = owner.id;
+		window.system.master = owner.master;
 	});
 	
 	// alert(system.contentHelper);
@@ -3044,9 +3071,11 @@ try {
 		// var s = date.getSeconds();
 		// var i = date.getMinutes();
 		// var H = date.getHours();
-		var d = date.substr(6,2);
-		var m = date.substr(4,2);
-		var y = date.substr(0,4);
+		// var d = date.substr(6,2);
+		if (date==undefined) date = "??????????????";
+		var d = (undefined ? "" : date.substr(6,2));
+		var m = (undefined ? "" : date.substr(4,2));
+		var y = (undefined ? "" : date.substr(0,4));
 		// var val = '' + y + '' + (m<=9 ? '0' + m : m) + '' + (d <= 9 ? '0' + d : d) + '' + (H<=9 ? '0' + H : H)  + '' + (i<=9 ? '0' + i : i)  + '' + (s<=9 ? '0' + s : s);
 		var val = '' + d + '.' + m + '.' + y;
 		return(val);
