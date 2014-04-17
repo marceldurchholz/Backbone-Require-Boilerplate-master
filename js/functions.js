@@ -2712,8 +2712,15 @@ try {
 				show = true;
 				return(show);
 			}
-			else {
-				// show = false;
+		});
+		return(show);
+	}
+	function checkRoles(smroles) {
+		var show = false;
+		$.each( smroles, function( keysm, rolesm ) {
+			if (checkRole(rolesm)==true) {
+				show = true;
+				return(show);
 			}
 		});
 		return(show);
@@ -2721,15 +2728,27 @@ try {
 	
 	function checkAppConfig(role) {
 		var show = false;
-		$.each( window.system.owner.appviews, function( key, value ) {
-			if (role==value) {
-				show = true;
-				return(show);
-			}
-			else {
-				// show = false;
-			}
-		});
+		if (role=='provider') show = true;
+		else if (window.system.owner.appviews!=undefined) {
+			$.each( window.system.owner.appviews, function( key, value ) {
+				if (role==value) {
+					show = true;
+					return(show);
+				}
+			});
+		}
+		return(show);
+	}
+	function checkAppConfigs(roles) {
+		var show = false;
+		if (window.system.owner.appviews!=undefined) {
+			$.each( roles, function( key, role ) {
+				if (checkAppConfig(role)==true) {
+					show = true;
+					return(show);
+				}
+			});
+		}
 		return(show);
 	}
 	
@@ -2851,13 +2870,13 @@ try {
 	}
 
 	window.system = {
+		master: true,
+		kdnr: "20001",
 		owner: new Object(),
 		appoptions: new Array(),
 		me: new Object(),
 		aoid: "", // 042cb1572ffbea5d
-		master: true,
 		uid: "", // 042cb1572ffbea5d
-		kdnr: "20001",
 		showtutorial: false,
 		contentHelper: 0,
 		timestamp: 0,
