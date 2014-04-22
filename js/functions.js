@@ -2411,16 +2411,76 @@ try {
 		checkTopNaviAppConfig();
 	});
 	
+	$('body').off( "swipeleft", ".swipeToDeleteHover").on( "swipeleft", ".swipeToDeleteHover", function( e ) {
+	// $('body').off( "click", ".swipeToDeleteHover").on( "click", ".swipeToDeleteHover", function( e ) {
+		e.preventDefault();
+		// alert('swiped on element to hover');
+		var delbarid = $(this).attr('data-delbarid');
+		// alert(delbarid);
+		var delbar = $('#'+delbarid);
+		var w = $(window).width()-30-15;
+		delbar.css("width",w+"px"); // .css("z-index","auto");
+		delbar.css("opacity","1.0"); // .css("z-index","auto");
+		$(this).removeClass( 'swipeToDeleteHover' );
+		$(this).addClass( 'swipeToDeleteHoverActive' );
+		// $(this).find('input:text, input:checkbox').each(function() {
+	});
+	$('body').off( "swipeleft", ".swipeToDeleteHover").on( "swipeleft", ".swipeToDeleteHover", function( e ) {
+	// $('body').off( "click", ".swipeToDeleteHoverActive").on( "click", ".swipeToDeleteHoverActive", function( e ) {
+		e.preventDefault();
+		// alert('swiped on element to hover deactivate');
+		var delbarid = $(this).attr('data-delbarid');
+		// alert(delbarid);
+		var delbar = $('#'+delbarid);
+		delbar.css("width","45px"); // .css("z-index","auto");
+		delbar.css("opacity","0.5"); // .css("z-index","auto");
+		$(this).removeClass( 'swipeToDeleteHoverActive' );
+		$(this).addClass( 'swipeToDeleteHover' );
+	});
+	
+	$('body').off( "click", ".navigateButton").on( "click", ".navigateButton", function( e ) {
+		e.preventDefault();
+		var href = $(this).attr('href');
+		// alert(cardpageid);
+		window.location.href = href;
+		return(false);
+		// window.location.href = e.currentTarget.hash;
+	});
+	
+	$('body').off( "click", ".showDelBarBtn").on( "click", ".showDelBarBtn", function( e ) {
+		e.preventDefault();
+		// alert('swiped on element to hover activate');
+		var delbarid = $(this).attr('data-delbarid');
+		// alert(delbarid);
+		var delbar = $('#'+delbarid);
+		var w = $(window).width()-30-15;
+		delbar.css("width",w+"px"); // .css("z-index","auto");
+		delbar.css("opacity","1.0"); // .css("z-index","auto");
+		$(this).removeClass( 'showDelBarBtn' );
+		$(this).addClass( 'hideDelBarBtn' );
+	});
+	$('body').off( "click", ".hideDelBarBtn").on( "click", ".hideDelBarBtn", function( e ) {
+		e.preventDefault();
+		// alert('swiped on element to hover deactivate');
+		var delbarid = $(this).attr('data-delbarid');
+		// alert(delbarid);
+		var delbar = $('#'+delbarid);
+		delbar.css("width","45px"); // .css("z-index","auto");
+		delbar.css("opacity","0.5"); // .css("z-index","auto");
+		$(this).removeClass( 'hideDelBarBtn' );
+		$(this).addClass( 'showDelBarBtn' );
+	});
+	
 	
 	$('body').off( "swipeleft", ".swipeToDelete").on( "swipeleft", ".swipeToDelete", function( e ) {
 	// $('body').off( "click", ".swipeToDelete").on( "click", ".swipeToDelete", function( e ) {
 		e.preventDefault();
 		// alert('swiped on element');
 		var listitem = $(this);
-		deleteMessageSwitch(listitem);
+		deleteElementSwitch(listitem);
 	});
 	
-	function deleteMessageSwitch(el) {
+	function deleteElementSwitch(el) {
 		var listitem = el;
 		el.toggleClass( 'ui-btn-up-d' );
 		var selected = 0;
@@ -2438,9 +2498,9 @@ try {
 		// alert('swiped on element');
 		doConfirm('Der Eintrag kann nicht wiederhergestellt werden!', 'Wirklich löschen?', function (clickevent) { 
 			if (clickevent=="1") {
-				$.when( deleteMessageFlow() ).done(
+				$.when( deleteFlowClicked() ).done(
 					function( result ) {
-						console.log('end deleteMessageFlow');
+						// console.log('end deleteFlowClicked');
 					}
 				);
 			}
@@ -2454,63 +2514,63 @@ try {
 		var listitem = $(this);
 		doConfirm('Der Eintrag kann nicht wiederhergestellt werden!', 'Wirklich löschen?', function (clickevent) { 
 			if (clickevent=="1") {
-				deleteMessageFlow(listitem);
+				deleteFlowClicked(listitem);
 			}
 		}, "Ja,Nein");
 	});
 	*/
 	
-	function deleteMessageFlow() {
-		// alert('deleteMessageFlow');
-		// alert('deleteMessageFlow');
-		showModal();
-		var deferred = $.Deferred();
-		var count = 0;
-		$('.swipeToDelete').each(function () {
-			// aaa
-			// console.log($(this).attr('class'));
-			var this_id = $(this).attr('data-id');
-			$(this).remove();
-			var this_cat = $(this).attr('data-cat');
-			if ($(this).hasClass( "ui-btn-up-d" )) {
-				// selected = selected + 1;
-				// console.log('deleting flow id: '+this_id);
-				dpd.messages.get(this_id, function (result) {
-					// console.log(result);
-					var query = { $or:[{"sender":result.receiver,"receiver":result.sender}  ,  {"sender":result.sender,"receiver":result.receiver}] };
-					dpd.messages.get(query, function (messages) {
-						// console.log();
-						// $.each( messages, function( key, message ) {
-						for(key = 0; key < messages.length; key++) {
-							var message = messages[key];
-							// console.log(key);
-							// console.log(message);
-							dpd.messages.del(message.id, function (err) {
-								count++;
-								if(err) {
-									if (count==messages.length) deleteMessageFlowDone();
-								}
-								else {
-									if (count==messages.length) deleteMessageFlowDone();
-								}
-							});
-						}
-						// $('#MessagesNestedViewDiv').html('');
-						// window._thisMessagesViewNested.fetch();
-					});
-				});
-			}
-		});
-		// deferred.resolve(count);
-		// window._thisMessagesViewNested.fetch();
-		// return deferred.promise();
-		// alert(this_id);
+	function deleteFlowClicked() {
+		deleteMessageFlow();
 	}
 	
-	function deleteMessageFlowDone() {
+	function deleteMessageFlow() {
+		showModal();
+		var count = 0;
+		// console.log($('.swipeToDelete').find('li .ui-btn-up-d'));
+		$('.swipeToDelete').each(function () {
+			var this_cat = $(this).attr('data-cat');
+			if ($(this).hasClass( "ui-btn-up-d" )) {
+				$(this).remove();
+				if (this_cat=='messages') {
+					var this_id = $(this).attr('data-id');
+					dpd.messages.get(this_id, function (result) {
+						var query = { $or:[{"sender":result.receiver,"receiver":result.sender}  ,  {"sender":result.sender,"receiver":result.receiver}] };
+						dpd.messages.get(query, function (messages) {
+							for(key = 0; key < messages.length; key++) {
+								var message = messages[key];
+								dpd.messages.put(message.id, {"deleted":true}, function(result, err) {
+									count++;
+									if (count==messages.length) {
+										window._thisMessagesViewNested.fetch();
+										deleteFlowDone();
+									}
+								});
+							}
+						});
+					});
+				}
+				if (this_cat=='cardpages') {
+					var this_id = $(this).attr('data-cardpageid');
+					// console.log(this_id);
+					dpd.cardpages.put(this_id, {"deleted":true}, function(result, err) {
+						if(err) {
+							return console.log(err);
+							hideModal();
+						}
+						// console.log(result);
+						hideModal();
+					});
+					window._thisViewCardEditNested.initialize();
+					deleteFlowDone();
+				}
+			}
+		});
+	}
+	
+	function deleteFlowDone() {
 		console.log('done');
 		hideModal();
-		window._thisMessagesViewNested.fetch();
 		showDeleteBar(false);
 	}
 	
@@ -3178,7 +3238,7 @@ try {
 		alert('code: '    + error.code    + '\n' +
 			  'message: ' + error.message + '\n');
 	}
-
+	
 	function scrollBottom() {
 		// $('#page-content').stop().animate({
 		setTimeout(function() {
