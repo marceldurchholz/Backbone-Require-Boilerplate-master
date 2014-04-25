@@ -4,7 +4,7 @@
 		<% _.each(users.data, function(user) { %>
 			<li data-topic="<%= user.fullname.substr(0,1) %>">
 				<a href="#admin/users/details/<%= user.id %>">
-					<h3><%= user.fullname %></h3>
+					<h3 <% if(user.active==false) {%>style="color:red;"<% } %>><%= user.fullname %></h3>
 					<p><%= dateYmdHisToGerman(user.registered) %></p>
 					<!--
 					<img style="padding:5px;width:70px !important;height:70px !important;" src="<%= user.pictureurl %>" />

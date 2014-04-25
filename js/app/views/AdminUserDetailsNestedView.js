@@ -23,17 +23,50 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 					if (_thisViewAdminUserDetailsNested.me.interests == undefined) _thisViewAdminUserDetailsNested.me.interests = new Array();
 				});
 
-				console.log(_thisViewAdminUserDetails.options.id);
+				// console.log(_thisViewAdminUserDetails.options.id);
 				
 				$.ajax({
 					url: "http://dominik-lohmann.de:5000/users/"+_thisViewAdminUserDetails.options.id,
 					async: false
 				}).done(function(user) {
+					if (user.interests==undefined) user.interests= new Array();
 					_thisViewAdminUserDetailsNested.user = user;
-					if (_thisViewAdminUserDetailsNested.user.interests == undefined) _thisViewAdminUserDetailsNested.user.interests = new Array();
+					// if (_thisViewAdminUserDetailsNested.user.interests == undefined) _thisViewAdminUserDetailsNested.user.interests = new Array();
 				});
 
-				console.log(_thisViewAdminUserDetailsNested.user);
+				// console.log(_thisViewAdminUserDetailsNested.user);
+				
+				$.ajax({
+					url: "http://dominik-lohmann.de:5000/interests/",
+					async: false
+				}).done(function(interests) {
+					_thisViewAdminUserDetailsNested.interests = interests;
+				});
+				// console.log(_thisViewAdminUserDetailsNested.interests);
+
+				// Sort multidimensional arrays with oobjects by value 
+				// http://www.javascriptkit.com/javatutors/arraysort2.shtml
+				// cards via NAME
+				_thisViewAdminUserDetailsNested.interests.sort(function(a, b){
+					var nameA=a.name.toLowerCase()
+					var nameB=b.name.toLowerCase();
+					if (nameA < nameB) return -1 
+					if (nameA > nameB) return 1
+					return 0;
+				});
+
+				
+				/*
+				_.each(_thisViewAdminUserDetailsNested.interests, function(interest, index, list) {
+					if (interest.quantity==undefined) interest.quantity=0;
+					_.each(_thisViewAdminUserDetailsNested.videos, function(video, index, list) {
+						if (video.topic==interest.name) {
+							interest.quantity = interest.quantity+1;
+						}
+					});
+					_thisViewAdminUserDetailsNested.interests[index] = interest;
+				});
+				*/
 				
 				_thisViewAdminUserDetailsNested.render();
 			},
@@ -41,11 +74,11 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 				_thisViewAdminUserDetailsNested = this;
 				$('#delaccuntarea').hide();
 				
-				this.$el.off('click','#showdeletearea').on('click','#showdeletearea',function(e){
+				_thisViewAdminUserDetailsNested.$el.off('click','#showdeletearea').on('click','#showdeletearea',function(e){
 					e.preventDefault();
 					$('#delaccuntarea').show();
 				});
-				this.$el.off('click','#deleteaccountbtn').on('click','#deleteaccountbtn',function(e){
+				_thisViewAdminUserDetailsNested.$el.off('click','#deleteaccountbtn').on('click','#deleteaccountbtn',function(e){
 					e.preventDefault();
 					var confirmText = 'Wollen Sie den Benutzer wirklich unwiderruflich löschen?';
 					var confirmTitle = 'Sind Sie sicher?';
@@ -54,6 +87,21 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 						_thisViewAdminUserDetailsNested.deleteAccount(response);
 						}
 					, confirmButtonLabels);
+				});
+				
+				_thisViewAdminUserDetailsNested.$el.off('change','.activateusercb').on('change','.activateusercb',function(e){
+					e.preventDefault();
+					// showModal();
+					var userid = $(this).attr('data-userid');
+					var isactive = $(this).is(":checked");
+					dpd.users.put(userid, {"active":isactive}, function(result, err) {
+						if(err) {
+							// hideModal();
+							return console.log(err);
+						}
+						// hideModal();
+					});
+					return(false);
 				});
 
 			},
@@ -90,6 +138,7 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 				// console.log(_thisViewAdminUserDetailsNested.user.appviews);				
 				htmlContent = _.template(AdminUserDetailsNestedPage, {
 					id: _thisViewAdminUserDetailsNested.user.id
+					, active: _thisViewAdminUserDetailsNested.user.active
 					, kdnr: _thisViewAdminUserDetailsNested.user.kdnr
 					, pictureurl: _thisViewAdminUserDetailsNested.user.pictureurl
 					, fullname: _thisViewAdminUserDetailsNested.user.fullname

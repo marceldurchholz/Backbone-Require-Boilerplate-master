@@ -69,7 +69,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							var exists = $.inArray( $.trim(interest.name), _thisViewMyProfileNested.me.interests );
 							if (exists>-1) interest.checked = "checked";
 						});
-						// interests.quantity=new Array();
 						interests.sort(function(a, b){
 						 var nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase()
 						 if (nameA < nameB) //sort string ascending
@@ -81,7 +80,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						
 						_thisViewMyProfileNested.interests = interests;
 						_.each(_thisViewMyProfileNested.interests, function(interest, index, list) {
-							// if (_thisViewMyProfileNested.interests.quantity[video.topic]==undefined) _thisViewMyProfileNested.interests.quantity=0;
 							if (interest.quantity==undefined) interest.quantity=0;
 							_.each(_thisViewMyProfileNested.videos, function(video, index, list) {
 								if (video.topic==interest.name) {

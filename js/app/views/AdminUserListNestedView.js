@@ -26,7 +26,7 @@ define(["jquery", "backbone", "collections/AdminUserCollection", "text!templates
 					_thisViewAdminUser.me = me;
 				});
 
-				var requestUrl = "http://dominik-lohmann.de:5000/users?active=true&deleted=false";
+				var requestUrl = "http://dominik-lohmann.de:5000/users?deleted=false"; // active=true&
 				if (window.system.master!=true) requestUrl = requestUrl + "&sponsor="+_thisViewAdminUser.me.id;
 				$.ajax({
 					url: requestUrl,

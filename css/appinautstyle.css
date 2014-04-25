@@ -220,3 +220,11 @@ img { border: 0; max-width: 100%; }
 	h/eight:26px !important;
 	padding-left:5px;
 }
+
+.ui-btn-up-a, .ui-btn-hover-a  > * {
+	font-weight:normal !important;
+}
+
+.nobold > * {
+	font-weight:normal !important;
+}
