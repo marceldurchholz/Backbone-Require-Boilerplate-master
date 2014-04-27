@@ -14,6 +14,7 @@
 						</a>
 					</li>
 				<ul style="padding:15px;padding-bottom:100px;margin-bottom:100px;" id="CardEditList" data-filter-theme="a" data-count-theme="a" data-role="listview" data-theme="a" data-divider-theme="f" data-role="listview" data-inset="false">
+					<% console.log(stream.data.cardsArray); %>
 					<% _.each(stream.data.cardsArray, function(data) { %>
 						<li data-role="list-divider"><%= data.topic %></li>
 						<li data-id="<%= data.id %>" class="noswipeToDelete" ><a href="#cards/edit/<%= data.id %>">

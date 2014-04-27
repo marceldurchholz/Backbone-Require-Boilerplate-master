@@ -1,5 +1,4 @@
 <div style="margin-bottom:100px;">
-	<% console.log(users.data); %>
 	<ul id="AdminUserListView" data-filter="true" data-filter-placeholder="Suchfilter..." data-filter-theme="a" data-count-theme="none" data-role="listview" data-theme="a" data-autodividers="true" data-divider-theme="a">
 		<% _.each(users.data, function(user) { %>
 			<li data-topic="<%= user.fullname.substr(0,1) %>">

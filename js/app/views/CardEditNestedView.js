@@ -545,7 +545,7 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 						_thisViewCardEditNested.collectCardData(_thisViewCardEditNested.options.cardsetid,_thisViewCardEditNested.options.pageid);
 					}
 					else {
-						console.log('edit cardpage');
+						// console.log('edit cardpage');
 						_thisViewCardEditNested.streamData.view = 'edit';
 						_thisViewCardEditNested.streamData.pagetype = 'Lernkarte';
 						_thisViewCardEditNested.streamData.pagetitle = 'Lernkarte bearbeiten';
@@ -563,7 +563,7 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 					async: false
 				}).done(function(usergroups) {
 					_thisViewCardEditNested.me.allusergroups = usergroups;
-					console.log(_thisViewCardEditNested.me.allusergroups);
+					// console.log(_thisViewCardEditNested.me.allusergroups);
 				});
 				
 				if (_thisViewCardEditNested.streamData.view!="new") {
@@ -576,6 +576,8 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 						url: requestUrl,
 						async: false
 					}).done(function(cardData) {
+						console.log(cardData);
+						// return(false);
 						myObj = new Object();
 						if (cardsetid!="") {
 							myObj.cardData = cardData; 
@@ -583,12 +585,13 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 							cardData = myObj;
 						}
 						// else cardData = cardDataX;
-						console.log(cardData);
+						// console.log(cardData);
 						
 						_.each(cardData, function(value, index, list) {
 							// console.log(index+" > "+value);
 							// console.log(value.uploader,_thisViewCardEditNested.me.id);
-							if ((window.system.master==true && value.public==true) || value.uploader==_thisViewCardEditNested.me.id) { 
+							if (value.uploader==undefined) value.uploader='';
+							if (value.uploader!='' && (window.system.master==true || value.uploader==_thisViewCardEditNested.me.id)) { 
 								// console.log('bla');
 								if (_thisViewCardEditNested.userArray == undefined) _thisViewCardEditNested.userArray = new Array();
 								if (_thisViewCardEditNested.userArray[value.uploader] != undefined) {
@@ -608,6 +611,7 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 								}							
 							}
 						});
+						console.log(cardData);
 						
 						if (cardsetid!="") {
 							if (cardsetid==myObj.cardData.id) { 
