@@ -98,7 +98,8 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 				$('#delaccuntarea').hide();
 
 				// swipeleft
-				_thisViewAdminUserDetailsNested.$el.off( "click", ".swipetodeletetd").on( "click", ".swipetodeletetd", function( e ) {
+				// _thisViewAdminUserDetailsNested.$el.off( "click", ".swipetodeletetd").on( "click", ".swipetodeletetd", function( e ) {
+				_thisViewAdminUserDetailsNested.$el.off( "swipeleft", ".swipetodeletetd").on( "swipeleft", ".swipetodeletetd", function( e ) {
 					e.preventDefault();
 					var usergroupid = $(this).attr('data-usergroupid');
 					var _thisEl = $(this);

@@ -556,8 +556,10 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 			},
 			collectCardData: function(cardsetid,pageid) {
 				
+				var requestUrl = "http://dominik-lohmann.de:5000/usergroups/?deleted=false";
+				if (window.system.master!=true) requestUrl = requestUrl+"&owner="+window.me.id;
 				$.ajax({
-					url: "http://dominik-lohmann.de:5000/usergroups/?owner="+window.me.id,
+					url: requestUrl,
 					async: false
 				}).done(function(usergroups) {
 					_thisViewCardEditNested.me.allusergroups = usergroups;
