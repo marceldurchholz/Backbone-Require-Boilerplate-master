@@ -591,7 +591,7 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 							// console.log(index+" > "+value);
 							// console.log(value.uploader,_thisViewCardEditNested.me.id);
 							if (value.uploader==undefined) value.uploader='';
-							if (value.uploader!='' && (window.system.master==true || value.uploader==_thisViewCardEditNested.me.id)) { 
+							if (value.uploader!='' && (_thisViewCardEditNested.me.master==true || value.uploader==_thisViewCardEditNested.me.id)) { 
 								// console.log('bla');
 								if (_thisViewCardEditNested.userArray == undefined) _thisViewCardEditNested.userArray = new Array();
 								if (_thisViewCardEditNested.userArray[value.uploader] != undefined) {
