@@ -221,10 +221,15 @@ img { border: 0; max-width: 100%; }
 	padding-left:5px;
 }
 
-.ui-btn-up-a, .ui-btn-hover-a  > * {
+.ui-btn-up-a > *, .ui-btn-hover-a  > * {
 	font-weight:normal !important;
+	font-size:12.5px !important;
 }
 
 .nobold > * {
 	font-weight:normal !important;
+}
+
+.textalignleft > * {
+	text-align:left !important;
 }

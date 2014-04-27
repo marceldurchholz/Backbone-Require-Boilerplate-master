@@ -33,9 +33,8 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 					_thisViewAdminUserDetailsNested.user = user;
 					// if (_thisViewAdminUserDetailsNested.user.interests == undefined) _thisViewAdminUserDetailsNested.user.interests = new Array();
 				});
-
-				// console.log(_thisViewAdminUserDetailsNested.user);
 				
+				// console.log(_thisViewAdminUserDetailsNested.user);
 				$.ajax({
 					url: "http://dominik-lohmann.de:5000/interests/",
 					async: false
@@ -43,7 +42,6 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 					_thisViewAdminUserDetailsNested.interests = interests;
 				});
 				// console.log(_thisViewAdminUserDetailsNested.interests);
-
 				// Sort multidimensional arrays with oobjects by value 
 				// http://www.javascriptkit.com/javatutors/arraysort2.shtml
 				// cards via NAME
@@ -54,8 +52,6 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 					if (nameA > nameB) return 1
 					return 0;
 				});
-
-				
 				/*
 				_.each(_thisViewAdminUserDetailsNested.interests, function(interest, index, list) {
 					if (interest.quantity==undefined) interest.quantity=0;
@@ -68,11 +64,53 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 				});
 				*/
 				
+				var requestUrl = "http://dominik-lohmann.de:5000/usergroups/";
+				if (window.system.master!=true) requestUrl = requestUrl + "?owner="+_thisViewAdminUserDetailsNested.me.id;
+				$.ajax({
+					url: requestUrl,
+					async: false
+				}).done(function(allusergroups) {
+					_thisViewAdminUserDetailsNested.allusergroups = allusergroups;
+				});
+				console.log(_thisViewAdminUserDetailsNested.allusergroups);
+				
 				_thisViewAdminUserDetailsNested.render();
 			},
 			bindEvents: function() {
 				_thisViewAdminUserDetailsNested = this;
 				$('#delaccuntarea').hide();
+				
+				_thisViewAdminUserDetailsNested.$el.off('change','.usergroupcb').on('change','.usergroupcb',function(e){
+					e.preventDefault();
+					var userid = $(this).attr('data-userid');
+					var usergroupid = $(this).attr('data-usergroupid');
+					var isactive = $(this).is(":checked");
+					var o = new Object();
+					o.id = e.currentTarget.id;
+					if (e.currentTarget.checked==false) o.status = "";
+					else o.status = "checked";
+					o.label = $("label[for='"+ e.currentTarget.id +"']").text();
+					/*
+					console.log(o);
+					console.log(o.id);
+					console.log(o.status);
+					console.log(o.label);
+					*/
+					dpd('users').get(userid, function(user, err) {
+						var exists = $.inArray( $.trim(usergroupid), user.usergroups )
+						if (o.status=="checked" && exists==-1) dpd.users.put(_thisViewAdminUserDetailsNested.user.id, {"usergroups": {$push:$.trim(usergroupid)}} );
+						else dpd.users.put(_thisViewAdminUserDetailsNested.user.id, {"usergroups": {$pull:$.trim(usergroupid)}} );
+						// hideModal();
+					});
+					return(false);
+				});
+				
+				_thisViewAdminUserDetailsNested.$el.off('click','#addusergrouprow').on('click','#addusergrouprow',function(e){
+					e.preventDefault();
+					alert('bla');
+					return(false);
+					// $('#delaccuntarea').show();
+				});
 				
 				_thisViewAdminUserDetailsNested.$el.off('click','#showdeletearea').on('click','#showdeletearea',function(e){
 					e.preventDefault();
@@ -148,7 +186,8 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 					, credits: _thisViewAdminUserDetailsNested.user.credits
 					, level: _thisViewAdminUserDetailsNested.user.level
 					, interests: _thisViewAdminUserDetailsNested.interests
-					, appviews: _thisViewAdminUserDetailsNested.user.appviews
+					, usergroups: _thisViewAdminUserDetailsNested.user.usergroups
+					, allusergroups: _thisViewAdminUserDetailsNested.allusergroups
 				},{variable: 'user'});
 				// alert(htmlContent);
 				$(this.el).html(htmlContent);
