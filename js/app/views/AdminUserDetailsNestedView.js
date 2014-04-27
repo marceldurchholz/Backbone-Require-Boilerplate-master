@@ -64,22 +64,59 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 				});
 				*/
 				
-				var requestUrl = "http://dominik-lohmann.de:5000/usergroups/";
-				if (window.system.master!=true) requestUrl = requestUrl + "?owner="+_thisViewAdminUserDetailsNested.me.id;
+				var requestUrl = "http://dominik-lohmann.de:5000/usergroups/?deleted=false";
+				if (window.system.master!=true) requestUrl = requestUrl + "&owner="+_thisViewAdminUserDetailsNested.me.id;
 				$.ajax({
 					url: requestUrl,
 					async: false
 				}).done(function(allusergroups) {
 					_thisViewAdminUserDetailsNested.allusergroups = allusergroups;
 				});
-				console.log(_thisViewAdminUserDetailsNested.allusergroups);
+				_thisViewAdminUserDetailsNested.allusergroups.sort(function(a, b){
+					var nameA=a.name.toLowerCase()
+					var nameB=b.name.toLowerCase();
+					if (nameA < nameB) return -1 
+					if (nameA > nameB) return 1
+					return 0;
+				});
+				// console.log(_thisViewAdminUserDetailsNested.allusergroups);
 				
 				_thisViewAdminUserDetailsNested.render();
+			},
+			deleteUsergroup: function(_thisEl,usergroupid) {
+				showModal();
+				// alert('deleting now: '+usergroupid);
+				dpd.usergroups.put(usergroupid, {"deleted":true}, function(result, err) {
+					if(err) return console.log(err);
+					// console.log(result, result.id);
+					_thisEl.remove();
+					hideModal();
+				});
 			},
 			bindEvents: function() {
 				_thisViewAdminUserDetailsNested = this;
 				$('#delaccuntarea').hide();
-				
+
+				// swipeleft
+				_thisViewAdminUserDetailsNested.$el.off( "click", ".swipetodeletetd").on( "click", ".swipetodeletetd", function( e ) {
+					e.preventDefault();
+					var usergroupid = $(this).attr('data-usergroupid');
+					var _thisEl = $(this);
+					doConfirm('Möchten Sie diese Gruppe wirklich löschen?', 'Wirklich löschen?', function (clickevent) { 
+						if (clickevent=="1") {
+							_thisViewAdminUserDetailsNested.deleteUsergroup(_thisEl,usergroupid);
+							/*
+							$.when( deleteFlowClicked() ).done(
+								function( result ) {
+									// console.log('end deleteFlowClicked');
+								}
+							);
+							*/
+						}
+					}, "Ja,Nein");
+					// alert('peng');
+				});
+
 				_thisViewAdminUserDetailsNested.$el.off('change','.usergroupcb').on('change','.usergroupcb',function(e){
 					e.preventDefault();
 					var userid = $(this).attr('data-userid');
@@ -107,7 +144,25 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 				
 				_thisViewAdminUserDetailsNested.$el.off('click','#addusergrouprow').on('click','#addusergrouprow',function(e){
 					e.preventDefault();
-					alert('bla');
+					// alert('bla');
+					var usergroupname = $('#newgroupinput').val();
+					if (usergroupname=="") {
+						doAlert('Bitte geben die Bezeichnung der neuen Gruppe ein.','Bitte Bezeichnung eingeben');
+						return(false);
+					}
+					dpd.usergroups.post({"deleted":false,"owner":_thisViewAdminUserDetailsNested.me.id,"name":usergroupname}, function(result, err) {
+						if(err) return console.log(err);
+						// console.log(result, result.id);
+						var usergroupid = result.id;
+						var checkboxid = "checkbox-v-usergroup-"+usergroupid;
+						var checked = ""; // CHECKED
+						var newgrouptemplate = '<tr><td colspan="2" style="text-align:left;"><input data-usergroupid="'+usergroupid+'" data-userid="'+_thisViewAdminUserDetailsNested.me.id+'" '+checked+' data-inset="false" data-mini="true" type="checkbox" class="usergroupcb" name="'+checkboxid+'" id="'+checkboxid+'"><label class="usergroupcb" for="'+checkboxid+'">'+usergroupname+'</label></td></tr>';
+						// $('newgrouptemplate').insertBefore($('#insertrowbeforehere'));
+						$('#insertrowbeforehere').before(newgrouptemplate);
+						$("input#"+checkboxid).closest("div").trigger("create");
+						$('#newgroupinput').val('');
+					});
+					
 					return(false);
 					// $('#delaccuntarea').show();
 				});

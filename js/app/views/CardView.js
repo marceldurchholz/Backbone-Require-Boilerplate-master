@@ -1,8 +1,8 @@
 // CardView.js
 // -------
-define(["jquery", "backbone", "collections/cardsCollection", "text!templates/cardsViewPage.html"],
+define(["jquery", "backbone", "text!templates/cardsViewPage.html"],
 
-    function($, Backbone, cardsCollection, cardsViewPage){
+    function($, Backbone, cardsViewPage){
 		
 		var CardViewVar = Backbone.View.extend({
 			
@@ -44,19 +44,30 @@ define(["jquery", "backbone", "collections/cardsCollection", "text!templates/car
 				}).done(function(cardData) {
 					_thisViewCards.uploaderArray = new Array();
 					_.each(cardData, function(value, index, list) {
-						var exists = $.inArray( value.topic, _thisViewCards.me.interests );
-						if (_thisViewCards.me.interests == undefined) exists=1;
-						else if (_thisViewCards.me.interests.length==0) exists=1;
+						var exists = 1;
+						// exists = $.inArray( value.topic, _thisViewCards.me.interests );
+						// if (_thisViewCards.me.interests == undefined) exists=1;
+						// else if (_thisViewCards.me.interests.length==0) exists=1;
+
+						if (value.usergroups == undefined) value.usergroups = new Array();
+						if (window.me.usergroups == undefined) window.me.usergroups = new Array();
+						if (value.usergroups.length>0) {
+							var exists=-1;
+							$.each( value.usergroups, function( key, role ) {
+								$.each( window.me.usergroups, function( keyme, valueme ) {
+									if (role==valueme) {
+										exists=1;
+										return(false);
+									}
+								});
+							});
+						}
+
 						if (exists>-1 || value.uploader == me.id) {
 							value.ccat = 'card';
 							value.icon = 'images/icon-cards-60.png';
 							value.href = '#cards/details/view/'+value.id;
-							// if (window.system.master==true && value.public==true) { 
-								// _thisViewCards.streamData.push(value);
-							// }
 							var uploader = value.uploader;
-							// console.log(uploader);
-							// console.log(_thisViewCards.uploaderArray[uploader]);
 							if (_thisViewCards.uploaderArray[uploader]==undefined) {
 								$.ajax({
 									url: 'http://dominik-lohmann.de:5000/users/?id='+uploader,
@@ -66,28 +77,16 @@ define(["jquery", "backbone", "collections/cardsCollection", "text!templates/car
 										value.uploaderdata = data;
 										_thisViewCards.uploaderArray[data.id]==data;
 										console.log(_thisViewCards.uploaderArray[data.id]);
-										// _thisViewCards.streamData.push(value);
-										// _thisViewCards.rowContent = _thisViewCards.rowContent + _thisViewCards.insertData(value);
 									},
 									error:function (xhr, ajaxOptions, thrownError) {
 										console.log(xhr.responseText);
-										/*
-										if (xhr.responseText=='{"message":"not found","statusCode":404,"status":404}') {
-											dpd.videos.put(model.attributes.id, {"active":false}, function(result, err) {
-											  if(err) return console.log(err);
-											});
-										}
-										*/
 									}
 								});
 							}
 							else {
 								value.uploaderdata = _thisViewCards.uploaderArray[uploader];
-							}
-							
-							// if ((window.system.master==true && value.public==true) || (window.system.master==false && window.system.aoid==value.uploader)) { 
-								_thisViewCards.streamData.push(value);
-							// }
+							}							
+							_thisViewCards.streamData.push(value);
 						}
 					});
 				});

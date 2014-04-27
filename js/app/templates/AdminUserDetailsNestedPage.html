@@ -88,29 +88,25 @@
 
 <div data-role="collapsible" data-theme="b" data-content-theme="a">
 	<h6>Gruppen-/Zugriffsrechte</h6>
-	<table cellspacing="0" cellpadding="0" style="width:100%;">
+	<table cellspacing="0" cellpadding="0" style="width:<%= $(window).width()-30-30-30 %>px !important;">
 		<tbody>
-				<% _.each(user.allusergroups, function(usergroup) { %>
-					<tr>
-						<!--
-						<td style="text-align:left;width:40px;">
-							<label style="position:relative;right:-0.9em" data-corners="false" data-iconpos="notext"><input type='checkbox' /></label>
-						</td>
-						<td style="text-align:left;">
-							<%= usergroup.name %>
-						</td>
-						-->
-						<td style="text-align:left;">
-							<input data-usergroupid="<%= usergroup.id %>" data-userid="<%= user.id %>" data-inset="false" <% if($.inArray( $.trim(usergroup.id), user.usergroups )>-1) { %>CHECKED<% } %> data-mini="true" type="checkbox" class="usergroupcb" name="checkbox-v-usergroup-<%= usergroup.id %>" id="checkbox-v-usergroup-<%= usergroup.id %>">
-							<label class="usergroupcb" for="checkbox-v-usergroup-<%= usergroup.id %>"><%= usergroup.name %></label>
-						</td>
-					</tr>
-				<% }); %>
-				<tr>
-					<td style="text-align:left;">
-						<span id="addusergrouprow" class="textalignleft"><a href="#" data-role="button">Neue Gruppe hinzufügen</a></span>
+			<% _.each(user.allusergroups, function(usergroup) { %>
+				<tr data-usergroupid="<%= usergroup.id %>" class="swipetodeletetd">
+					<td style="text-align:left;" colspan="2">
+						<input data-usergroupid="<%= usergroup.id %>" data-userid="<%= user.id %>" data-inset="false" <% if($.inArray( $.trim(usergroup.id), user.usergroups )>-1) { %>CHECKED<% } %> data-mini="true" type="checkbox" class="usergroupcb" name="checkbox-v-usergroup-<%= usergroup.id %>" id="checkbox-v-usergroup-<%= usergroup.id %>">
+						<label class="usergroupcb" for="checkbox-v-usergroup-<%= usergroup.id %>"><%= usergroup.name %></label>
 					</td>
 				</tr>
+			<% }); %>
+			<tr style="display:none;" id="insertrowbeforehere"><td colspan="2"></td></tr>
+			<tr>
+				<td style="text-align:left;width:<%= $(window).width()-30-30-50 %>px !important;">
+					<input id="newgroupinput" name="newgroupinput" data-theme="a" data-mini="true" type="text" value="" placeholder="Neue Gruppe..."/>
+				</td>
+				<td style="width:50px;">
+					<span id="addusergrouprow" class="textalignleft"><a href="#" data-role="button">&#10003;</a></span>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 </div>

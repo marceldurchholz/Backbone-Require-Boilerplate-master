@@ -105,7 +105,7 @@ define(["jquery", "backbone", "text!templates/LearningStreamNestedPage.html"],
 						var exists = $.inArray( value.topic, _thisViewLearningStreamNested.me.interests );
 						if (_thisViewLearningStreamNested.me.interests == undefined) exists=1;
 						else if (_thisViewLearningStreamNested.me.interests.length==0) exists=1;
-						if (exists>-1 || value.uploader == me.id) {
+						if (exists>0 || value.uploader == me.id) {
 							value.ccat = 'video';
 							value.icon = 'images/icon-multimedia-60.png';
 							value.href = '#videos/details/view/'+value.id;
@@ -127,7 +127,22 @@ define(["jquery", "backbone", "text!templates/LearningStreamNestedPage.html"],
 						var exists = $.inArray( value.topic, _thisViewLearningStreamNested.me.interests );
 						if (_thisViewLearningStreamNested.me.interests == undefined) exists=1;
 						else if (_thisViewLearningStreamNested.me.interests.length==0) exists=1;
-						if (exists>-1 || value.uploader == me.id) {
+						
+						if (value.usergroups == undefined) value.usergroups = new Array();
+						if (window.me.usergroups == undefined) window.me.usergroups = new Array();
+						if (value.usergroups.length>0) {
+							exists=0;
+							$.each( value.usergroups, function( key, role ) {
+								$.each( window.me.usergroups, function( keyme, valueme ) {
+									if (role==valueme) {
+										exists=1;
+										return(false);
+									}
+								});
+							});
+						}
+						
+						if (exists>0 || value.uploader == me.id) {
 							value.ccat = 'card';
 							value.icon = 'images/icon-cards-60.png';
 							value.href = '#cards/details/view/'+value.id;

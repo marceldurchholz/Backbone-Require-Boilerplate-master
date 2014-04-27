@@ -320,14 +320,40 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						url: url,
 						async: false
 					}).done(function(videoData) {
+						// console.log(videoData);
+						// return(false);
 						_.each(videoData, function(value, index, list) {
-							anzahl = anzahl + 1;
-							value.ccat = 'video';
-							value.icon = 'images/icon-multimedia-60.png';
-							value.href = '#videos/details/view/'+value.id;
-							var uploader = value.uploader;
-							if ((window.system.master==true && value.public==true) || window.system.master==false) { 
-								_thisKnowledgeData.streamData.push(value);
+							
+							var exists = 1;
+							// exists = $.inArray( value.topic, _thisViewCards.me.interests );
+							// if (_thisViewCards.me.interests == undefined) exists=1;
+							// else if (_thisViewCards.me.interests.length==0) exists=1;
+
+							if (value.usergroups == undefined) value.usergroups = new Array();
+							if (window.me.usergroups == undefined) window.me.usergroups = new Array();
+							if (value.usergroups.length>0) {
+								var exists=-1;
+								$.each( value.usergroups, function( key, role ) {
+									$.each( window.me.usergroups, function( keyme, valueme ) {
+										if (role==valueme) {
+											exists=1;
+											return(false);
+										}
+									});
+								});
+							}
+							
+							// console.log(value.title+''+exists);
+
+							if (exists>-1 || value.uploader == me.id) {
+									anzahl = anzahl + 1;
+									value.ccat = 'video';
+									value.icon = 'images/icon-multimedia-60.png';
+									value.href = '#videos/details/view/'+value.id;
+									var uploader = value.uploader;
+									if ((window.system.master==true && value.public==true) || window.system.master==false) { 
+										_thisKnowledgeData.streamData.push(value);
+									}
 							}
 							if (anzahl > 4) return(false);
 						});
@@ -339,13 +365,39 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						async: false
 					}).done(function(cardData) {
 						_.each(cardData, function(value, index, list) {
-							anzahl = anzahl + 1;
-							value.ccat = 'card';
-							value.icon = 'images/icon-cards-60.png';
-							value.href = '#cards/details/view/'+value.id;
-							if ((window.system.master==true && value.public==true) || window.system.master==false) { 
-								_thisKnowledgeData.streamData.push(value);
+							
+							var exists = 1;
+							// exists = $.inArray( value.topic, _thisViewCards.me.interests );
+							// if (_thisViewCards.me.interests == undefined) exists=1;
+							// else if (_thisViewCards.me.interests.length==0) exists=1;
+
+							if (value.usergroups == undefined) value.usergroups = new Array();
+							if (window.me.usergroups == undefined) window.me.usergroups = new Array();
+							if (value.usergroups.length>0) {
+								var exists=-1;
+								$.each( value.usergroups, function( key, role ) {
+									$.each( window.me.usergroups, function( keyme, valueme ) {
+										if (role==valueme) {
+											exists=1;
+											return(false);
+										}
+									});
+								});
 							}
+							
+							if (exists>-1 || value.uploader == me.id) {
+
+								anzahl = anzahl + 1;
+								value.ccat = 'card';
+								value.icon = 'images/icon-cards-60.png';
+								value.href = '#cards/details/view/'+value.id;
+								if ((window.system.master==true && value.public==true) || window.system.master==false) { 
+									_thisKnowledgeData.streamData.push(value);
+								}
+								
+							}
+							
+							
 							if (anzahl > 4) return(false);
 						});
 					});

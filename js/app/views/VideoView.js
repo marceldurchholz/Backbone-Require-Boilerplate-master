@@ -98,9 +98,10 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				}).done(function(videoData) {
 					_thisViewVideo.uploaderArray = new Array();
 					_.each(videoData, function(value, index, list) {
-						var exists = $.inArray( value.topic, _thisViewVideo.me.interests );
-						if (_thisViewVideo.me.interests == undefined) exists=1;
-						else if (_thisViewVideo.me.interests.length==0) exists=1;
+						// var exists = $.inArray( value.topic, _thisViewVideo.me.interests );
+						// if (_thisViewVideo.me.interests == undefined) exists=1;
+						// else if (_thisViewVideo.me.interests.length==0) exists=1;
+						var exists = 1;
 						if (exists>-1 || value.uploader == me.id) {
 							value.ccat = 'video';
 							value.icon = 'images/icon-multimedia-60.png';
