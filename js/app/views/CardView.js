@@ -120,88 +120,54 @@ define(["jquery", "backbone", "text!templates/cardsViewPage.html"],
 			bindEvents: function() {
 				var _thisViewCards = this;
 				// this.$el.off('click','.clickRow').on('click','.clickRow',function(){_thisViewCards.clicked(e);});
+				
 				this.$el.off('click','.showCardDetailsLink').on('click','.showCardDetailsLink',function(event){
 					event.preventDefault();
 					window.location.href = event.currentTarget.hash;
 				});
+				
+				_thisViewCards.$el.off( "swipeleft", ".swipetodeletetd").on( "swipeleft", ".swipetodeletetd", function( e ) {
+					e.preventDefault();
+					var _thisEl = $(this);
+					var cardsetid = $(this).attr('data-cardsetid');
+					var dbtype = $(this).attr('data-dbtype');
+					if (dbtype=="card") {
+						doConfirm('Möchten Sie dieses Lernset wirklich löschen?', 'Wirklich löschen?', function (clickevent) { 
+							if (clickevent=="1") {
+								_thisViewCards.deleteCardset(_thisEl,cardsetid);
+							}
+						}, "Ja,Nein");
+					}
+				});
 			},
-			/*
-			insertData: function(model) {
-				_thisViewCards = this;
-				var uploader = model.get('uploader');
-				rowContent = '';
-				// if (model.get('uploader') == window.system.aoid) {
-				//	if (window.system.master!=true) {
-						rowContent = _.template(cardsViewPage, {
-							id: model.get('id'),
-							// uploader: model.get('uploader'),
-							uploader: model.get('uploaderdata').fullname,
-							url: model.get('url'),
-							title: model.get('title'),
-							description: model.get('description'),
-							price: model.get('price'),
-							thumbnailurl: model.get('thumbnailurl'),
-							topic: model.get('topic')
-						},{variable: 'card'});
-				//	}
-				// }
-				return(rowContent);
+			deleteCardset: function(_thisEl,cardsetid) {
+				showModal();
+				// alert('deleting now: '+cardsetid);
+				dpd.cards.put(cardsetid, {"deleted":true}, function(result, err) {
+					if(err) return console.log(err);
+					// console.log(result, result.id);
+					_thisEl.remove();
+					hideModal();
+				});
 			},
-			*/
+
 			render: function() {
 				var _thisViewCards = this;
-				console.log(_thisViewCards.streamData);
-				/*
-				_thisViewCards.htmlContent = '';
-				_thisViewCards.rowContent = '';
-				_.each(this._cardsCollection.models, function(model) {
-					var uploader = model.attributes.uploader; // "ed568841af69d94d";
-					$.ajax({
-						url: 'http://dominik-lohmann.de:5000/users/?id='+uploader,
-						async: false,
-						success: function(data, textStatus, XMLHttpRequest){
-							model.attributes.uploaderdata = data;
-							_thisViewCards.rowContent = _thisViewCards.rowContent + _thisViewCards.insertData(model);
-						},
-						error:function (xhr, ajaxOptions, thrownError) {
-							if (xhr.responseText=='{"message":"not found","statusCode":404,"status":404}') {
-								dpd.cards.put(model.attributes.id, {"active":false}, function(result, err) {
-								  if(err) return console.log(err);
-								});
-							}
-						}
-					});
-				});
-				_thisViewCards.htmlContent = '<ul id="cardsListView" data-filter="true" data-filter-placeholder="Suchfilter..." data-filter-theme="a" data-role="listview" data-theme="a" data-divider-theme="f" data-autodividers="true">'+_thisViewCards.rowContent+'</ul>';
-				$(this.el).html(_thisViewCards.htmlContent);
-				$("#cardsListView").listview({
-				  autodividers: true,
-				  autodividersSelector: function ( li ) {
-					// console.log(li);
-					var rowTopic = li.data( "topic" );
-					var out = rowTopic;
-					return out;
-				  }
-				});
-				*/
-				
+				// console.log(_thisViewCards.streamData);
 				_thisViewCards.$el.html(_.template(cardsViewPage, {
 					data: _thisViewCards.streamData
 				},{variable: 'stream'}));
-				
 				$("#cardsListView").listview({
 				  autodividers: true,
 				  autodividersSelector: function ( li ) {
-					// console.log(li);
 					var rowTopic = li.data( "topic" );
 					var out = rowTopic;
 					return out;
 				  }
 				});
-				
-				hideModal();
 				this.$el.trigger('create');
 				new FastClick(document.body);
+				hideModal();
 				/*
 				this.$el.fadeIn( 500, function() {
 					// $('.ui-content').scrollTop(0);

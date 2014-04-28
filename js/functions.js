@@ -2352,8 +2352,14 @@ try {
 		}
 	};
 
+	function clearIntervals() {
+		if (window._thisViewCardStart) {
+			_thisViewCardStart.answerCountdownLoopStop();
+			_thisViewCardStart.answerCountdownButtonDelayStop();
+		}
+	}
+	
 	function bindSwipeBack() {
-		// alert('bindSwipeBack');
 		$('#body').off( "swiperight", "#page-content").on( "swiperight", "#page-content", function( e ) {
 			e.preventDefault();
 			// alert('swiped on body');
@@ -2361,6 +2367,7 @@ try {
 			return(false);
 		});
 	}
+	bindSwipeBack();
 
 	window.addEventListener('load', function () {
 		new FastClick(document.body);
@@ -2372,6 +2379,7 @@ try {
 		checkTopNaviAppConfig();
 		// checkTopNaviRoles();
 		bindSwipeBack();
+		clearIntervals();
 		showDeleteBar(false);
 		$("#flexiblecontent").animate({
 			marginLeft: "0px",
@@ -2381,6 +2389,25 @@ try {
 		});
 	});
 
+	/*
+	$('body').off('click','#captureVideoLinkButton').on('click','#captureVideoLinkButton',function(e) { 
+		e.preventDefault();
+		// $('#linkVideoUrl').val('bla');
+		var videoLink = $('#linkVideoUrl').val();
+		var popupid = 'popupBasic';
+		// var el = $( "#"+popupid );
+		var activepage = $('#popupBasic-popup');
+		var el = activepage.find('#popupBasic');
+		console.log(el);
+		el.popup( "close" );
+		$('#body').find('#popupBasic').each(function() {
+			console.log($(this));
+			$(this).remove();
+		});
+		// $('#popupBasic').remove();
+	});
+	*/
+	
 	$('body').off('click','#closewelcomepopupbtn').on('click','#closewelcomepopupbtn',function(e) { 
 		e.preventDefault();
 		setTimeout(function() {
@@ -2574,9 +2601,6 @@ try {
 		showDeleteBar(false);
 	}
 	
-	
-	
-	bindSwipeBack();
 	$('body').off( "click", ".messagesendbutton").on( "click", ".messagesendbutton", function( e ) {
 		e.preventDefault();
 		// alert('bla');

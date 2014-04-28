@@ -62,6 +62,17 @@
 					<li data-icon="back"><a style="font-weight:normal;" href="#cards/edit">Zurück zur Lernsetübersicht</a></li>
 				</ul>
 			</div>
+			<div style="padding:0px;">
+				<label for="interest" class="select"></label>
+				<% console.log(stream.data) %>
+				<select data-inline="false" data-mini="true" data-corners="false" name="interest" id="interest">
+					<!-- <option value="">Kategorie / Wissensgebiet</option> -->
+					<% _.each(stream.data.allinterests, function(interest) { %>
+						<option <% if(stream.data.topic==interest.name) { %>SELECTED<% } %> value="<%= interest.name %>"><%= interest.name %></option> <!--  <%= stream.data.topic %> -->
+					<% }); %>
+				</select>
+			</div>
+			
 			
 			<div style="padding:0px;">			
 				<div class="ui-field-contain" style="margin:0px;padding:0px;width:100%;">
@@ -165,7 +176,7 @@
 				
 				<div class="clear" style="height:10px;"></div>
 				<span class="nobold">
-				<input id="xxxaddAnswerBtn" name="xxxaddAnswerBtn" style="font-weight:normal;" data-theme="f" data-mini="true" type="button" value="Antworten speichern" />
+				<input data-theme="f" data-mini="true" type="button" value="Antworten speichern" />
 				</span>
 
 				<!--

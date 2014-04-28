@@ -149,9 +149,40 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				var _thisViewVideo = this;
 				this.$el.off('click','.showVideoDetailsLink').on('click','.showVideoDetailsLink',function(event){
 					event.preventDefault();
-					window.location.href = event.currentTarget.hash;
+					// window.location.href = event.currentTarget.hash;
+				});
+				
+				_thisViewVideo.$el.off( "swipeleft", ".swipetodeletetd").on( "swipeleft", ".swipetodeletetd", function( e ) {
+					e.preventDefault();
+					var _thisEl = $(this);
+					var dbtype = $(this).attr('data-dbtype');
+					if (dbtype=="card") {
+						var cardsetid = $(this).attr('data-cardsetid');
+						doConfirm('Möchten Sie dieses Lernset wirklich löschen?', 'Wirklich löschen?', function (clickevent) { 
+							if (clickevent=="1") {
+								_thisViewVideo.deleteCardset(_thisEl,cardsetid);
+							}
+						}, "Ja,Nein");
+					}
+					if (dbtype=="video") {
+						var videoid = $(this).attr('data-videoid');
+						doConfirm('Möchten Sie dieses Video wirklich löschen?', 'Wirklich löschen?', function (clickevent) { 
+							if (clickevent=="1") {
+								_thisViewVideo.deleteVideo(_thisEl,videoid);
+							}
+						}, "Ja,Nein");
+					}
 				});
 			},
+			deleteVideo: function(_thisEl,videoid) {
+				showModal();
+				dpd.videos.put(videoid, {"deleted":true}, function(result, err) {
+					if(err) return console.log(err);
+					_thisEl.remove();
+					hideModal();
+				});
+			},
+			
 			/*
 			insertData: function(value) {
 				_thisViewVideo = this;

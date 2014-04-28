@@ -1,8 +1,8 @@
 // VideoDetailsView.js
 // -------
-define(["jquery", "backbone", "collections/videosCollection", "text!templates/videoDetailsView.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
+define(["jquery", "backbone", "collections/videosCollection", "text!templates/videoDetailsView.html", "text!templates/sidemenusList.html", "views/SidemenuView", "text!templates/usergroupsPopupPage.html"],
 
-    function($, Backbone, videosCollection, videosDetailsViewHTML, sidemenusList, SidemenuView){
+    function($, Backbone, videosCollection, videosDetailsViewHTML, sidemenusList, SidemenuView, usergroupsPopupPage){
 		
 			var VideoDetailsViewVar = Backbone.View.extend({
 			
@@ -124,6 +124,71 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						_thisViewVideoDetails.downloadVideo(videoid); 
 					});
 					*/
+
+					_thisViewVideoDetails.$el.off('click','#setusergroupbtn').on('click','#setusergroupbtn',function(e){
+						e.preventDefault();
+						var streamdata = new Object();
+						var videoid = $(this).attr('data-videoid');						
+						streamdata.videoid = _thisViewVideoDetails._videosCollection.models[0].attributes.id;
+						streamdata.activeusergroups = _thisViewVideoDetails._videosCollection.models[0].attributes.usergroups;
+
+						var requestUrl = "http://dominik-lohmann.de:5000/usergroups/?deleted=false";
+						if (window.me.master!=true) requestUrl = requestUrl+"&owner="+window.me.id;
+						$.ajax({
+							url: requestUrl,
+							async: false
+						}).done(function(allusergroups) {
+							streamdata.allusergroups = allusergroups;
+						});
+						$.ajax({
+							url: "http://dominik-lohmann.de:5000/videos/"+videoid,
+							async: false
+						}).done(function(video) {
+							streamdata.usergroups = video.usergroups;
+							_thisViewVideoDetails._videosCollection.models[0].attributes.usergroups = streamdata.usergroups;
+						});
+
+						var popupid = 'popupBasic';
+						$('#pageoverlay').append('<div style="z-index:9999;width:'+($(window).width()-30)+'px;min-width:200px !important;max-width:650px !important;" data-role="popup" data-dismissible="true" data-overlay-theme="a" class="ui-corner-all" data-theme="b" id="'+popupid+'"></div>');
+						$('#'+popupid).html('<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>');			
+						$('#'+popupid).append('<div class="ui-corner-bottom ui-content" id="popupcontent" data-role="content"></div>');
+						$( "#"+popupid ).bind({
+							popupafterclose: function(event, ui) { 
+								$('#body').find('.ui-popup-container').each(function() {
+									$(this).remove();
+								});
+								$('#pageoverlay').find('#popupBasic').each(function() {
+									$(this).remove();
+								});
+							}
+						});
+						var popupcontent = _.template(usergroupsPopupPage, {
+							data: streamdata
+						},{variable:'streamdata'});
+						$('#popupcontent').html(popupcontent);
+						var el = $( "#"+popupid );
+						el.popup().trigger('create');
+						el.popup( "open", {transition: 'fade'} );
+					});
+					
+					$('#body').off('change','.usergroupcb').on('change','.usergroupcb',function(e) { 
+						e.preventDefault();
+						var videoid = $(this).attr('data-videoid');
+						// alert(_thisViewVideoDetails._videosCollection.models[0].attributes.id);
+						// return(false);
+						var usergroupid = $(this).attr('data-usergroupid');
+						if (e.currentTarget.checked==false) status = "";
+						else status = "checked";
+						// return(false);
+						dpd('videos').get(videoid, function(video, err) {
+							var exists = $.inArray( $.trim(usergroupid), video.usergroups )
+							if (status=="checked" && exists==-1) dpd.videos.put(videoid, {"usergroups": {$push:$.trim(usergroupid)}} );
+							else dpd.videos.put(videoid, {"usergroups": {$pull:$.trim(usergroupid)}} );
+						});
+						return(false);
+					});
+					
+
 				},
 
 				downloadVideo: function(videoid) {
@@ -446,9 +511,9 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					if (model.get('price')==0) pricetext = 'Video kostenlos laden';
 					else pricetext = 'Video für '+model.get('price')+' Coins kaufen';
 					var provider = '';
-					provider = jQuery.inArray( 'provider', window.me.roles );
+					provider = $.inArray( 'provider', window.me.roles );
 					var seeker = '';
-					seeker = jQuery.inArray( 'seeker', window.me.roles );
+					seeker = $.inArray( 'seeker', window.me.roles );
 					// console.log('purchases');
 					// console.log(model.get('purchases'));
 					/*
@@ -499,12 +564,18 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						}
 					});
 					
-					if( ($.inArray( this._videosCollection.models[0].attributes.id , window.me.purchases ) >- 1) || (Math.round(this._videosCollection.models[0].attributes.price)==0) ) {
-						this._videosCollection.models[0].attributes.videourl,showVideoLength = 0;
+					// video.uploaderdata.id
+					if ( 
+						($.inArray( this._videosCollection.models[0].attributes.id , window.me.purchases ) >- 1) 
+						|| (Math.round(this._videosCollection.models[0].attributes.price)==0) 
+						|| (this._videosCollection.models[0].attributes.uploader==window.me.id) 
+					) {
+						this._videosCollection.models[0].attributes.showVideoLength = 0;
 					} else {
-						this._videosCollection.models[0].attributes.videourl,showVideoLength = 60;
+						this._videosCollection.models[0].attributes.showVideoLength = 60;
 						// alert('not buyed');
 					}
+					// alert(this._videosCollection.models[0].attributes.showVideoLength);
 					// _thisViewVideoDetails.offlineurl
 					// alert(showVideoLength);
 					/*
@@ -530,7 +601,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					// console.log(this._videosCollection.models[0].attributes.id);
 					// alert($.inArray( this._videosCollection.models[0].attributes.id , window.me.purchases ));
 					if (this._videosCollection.models[0].attributes.offlineurl!='') this._videosCollection.models[0].attributes.videourl = this._videosCollection.models[0].attributes.offlineurl;
-					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',this._videosCollection.models[0].attributes.videourl,showVideoLength);
+					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',this._videosCollection.models[0].attributes.videourl,this._videosCollection.models[0].attributes.showVideoLength);
 					$('video_player_1_html5_api').css("z-index","2147483647");
 					// alert(_thisViewVideoDetails.videourl);
 					// alert(this._videosCollection.models[0].attributes.videourl);

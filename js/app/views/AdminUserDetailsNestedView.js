@@ -157,7 +157,7 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 						var usergroupid = result.id;
 						var checkboxid = "checkbox-v-usergroup-"+usergroupid;
 						var checked = ""; // CHECKED
-						var newgrouptemplate = '<tr><td colspan="2" style="text-align:left;"><input data-usergroupid="'+usergroupid+'" data-userid="'+_thisViewAdminUserDetailsNested.me.id+'" '+checked+' data-inset="false" data-mini="true" type="checkbox" class="usergroupcb" name="'+checkboxid+'" id="'+checkboxid+'"><label class="usergroupcb" for="'+checkboxid+'">'+usergroupname+'</label></td></tr>';
+						var newgrouptemplate = '<tr><td class="swipetodeletetd" style="text-align:left;" colspan="2" data-usergroupid="'+usergroupid+'"><input data-usergroupid="'+usergroupid+'" data-userid="'+_thisViewAdminUserDetailsNested.me.id+'" '+checked+' data-inset="false" data-mini="true" type="checkbox" class="usergroupcb" name="'+checkboxid+'" id="'+checkboxid+'"><label class="usergroupcb" for="'+checkboxid+'">'+usergroupname+'</label></td></tr>';
 						// $('newgrouptemplate').insertBefore($('#insertrowbeforehere'));
 						$('#insertrowbeforehere').before(newgrouptemplate);
 						$("input#"+checkboxid).closest("div").trigger("create");
