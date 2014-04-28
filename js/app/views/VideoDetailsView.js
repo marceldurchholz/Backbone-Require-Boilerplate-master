@@ -130,7 +130,6 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						var streamdata = new Object();
 						var videoid = $(this).attr('data-videoid');						
 						streamdata.videoid = _thisViewVideoDetails._videosCollection.models[0].attributes.id;
-						// streamdata.activeusergroups = _thisViewVideoDetails._videosCollection.models[0].attributes.usergroups;
 
 						var requestUrl = "http://dominik-lohmann.de:5000/usergroups/?deleted=false";
 						if (window.me.master!=true) requestUrl = requestUrl+"&owner="+window.me.id;
@@ -144,10 +143,14 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							url: "http://dominik-lohmann.de:5000/videos/"+videoid,
 							async: false
 						}).done(function(video) {
+							streamdata.dbtype = 'video';
+							streamdata.objid = video.id;
 							streamdata.activeusergroups = video.usergroups;
 							_thisViewVideoDetails._videosCollection.models[0].attributes.usergroups = streamdata.activeusergroups;
-							streamdata.active = video.active;
-							_thisViewVideoDetails._videosCollection.models[0].attributes.usergroups = streamdata.active;
+							streamdata.objactive = video.active;
+							_thisViewVideoDetails._videosCollection.models[0].attributes.active = streamdata.objactive;
+							streamdata.objpublic = video.public;
+							_thisViewVideoDetails._videosCollection.models[0].attributes.public = streamdata.objpublic;
 						});
 
 						var popupid = 'popupBasic';
@@ -189,15 +192,6 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						});
 						return(false);
 					});
-					
-					$('#body').off('change','.activecb').on('change','.activecb',function(e) { 
-						e.preventDefault();
-						var videoid = $(this).attr('data-videoid');
-						var status = e.currentTarget.checked;
-						dpd.videos.put(videoid, {"active":status});
-						return(false);
-					});
-					
 
 				},
 

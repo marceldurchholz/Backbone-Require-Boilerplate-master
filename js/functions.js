@@ -2679,6 +2679,26 @@ try {
 		}
 	}
 	
+	$('#body').off('change','.activecb').on('change','.activecb',function(e) { 
+		e.preventDefault();
+		var id = $(this).attr('data-id');
+		// alert(id);
+		var status = e.currentTarget.checked;
+		var dbtype = $(this).attr('data-dbtype');
+		if (dbtype=="video") dpd.videos.put(id, {"active":status});
+		else if (dbtype=="card") dpd.cards.put(id, {"active":status});
+		return(false);
+	});
+	
+	$('#body').off('change','.publiccb').on('change','.publiccb',function(e) { 
+		e.preventDefault();
+		var id = $(this).attr('data-id');
+		var status = e.currentTarget.checked;
+		var dbtype = $(this).attr('data-dbtype');
+		if (dbtype=="video") dpd.videos.put(id, {"public":status});
+		else if (dbtype=="card") dpd.cards.put(id, {"public":status});
+		return(false);
+	});
 	
 	$('#body').off( "keyup", "#messagetextarea").on( "keyup", "#messagetextarea", function( e ) {
 		/*

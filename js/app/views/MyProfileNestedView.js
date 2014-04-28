@@ -57,12 +57,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							_thisViewMyProfileNested.videos = videos;
 					});
 					
-					/*
-					$.ajax({
-						url: "http://dominik-lohmann.de:5000/interests",
-						async: false
-					}).done(function(interests) {
-					*/
 					dpd('interests').get(function(interests, err) {
 						// console.log(interests);
 						_.each(interests, function(interest) {
@@ -264,8 +258,8 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							// console.log(exists);
 							// if (event.delegateTarget.checked==false && exists>-1) dpd.users.put(_thisViewMyProfileNested.me.id, {"interests": {$pull:$.trim(o.label)}} );
 							// else if (event.delegateTarget.checked==true && exists==-1) dpd.users.put(_thisViewMyProfileNested.me.id, {"interests": {$push:$.trim(o.label)}} );
-							if (o.status=="checked" && exists==-1) dpd.users.put(_thisViewMyProfileNested.me.id, {"interests": {$push:$.trim(o.id)}} );
-							else dpd.users.put(_thisViewMyProfileNested.me.id, {"interests": {$pull:$.trim(o.id)}} );
+							if (o.status=="checked" && exists==-1) dpd.users.put(_thisViewMyProfileNested.me.id, {"interests": {$push:$.trim(o.label)}} );
+							else dpd.users.put(_thisViewMyProfileNested.me.id, {"interests": {$pull:$.trim(o.label)}} );
 						});
 					}
 					else if (event.currentTarget.className=="appviewscb") {

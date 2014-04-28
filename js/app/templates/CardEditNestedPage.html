@@ -74,6 +74,7 @@
 			</div>
 			
 			
+			<!--
 			<div style="padding:0px;">			
 				<div class="ui-field-contain" style="margin:0px;padding:0px;width:100%;">
 					<fieldset style="width:100% !important;" data-inset="false" data-corners="false" data-cardsetid="<%= _thisViewCardEditNested.options.cardsetid %>" data-mini="true">
@@ -84,6 +85,7 @@
 					</fieldset>
 				</div>
 			</div>
+			-->
 			
 			<div style="padding:15px;">
 				<ul id="CardPagesEditListHeader" data-filter-theme="a" data-count-theme="a" data-role="listview" data-theme="a" data-divider-theme="f" data-inset="false">
@@ -107,13 +109,7 @@
 			</div>
 			
 			<div class="ui-field-contain" style="margin:0px;padding:0px;width:100%;">
-			  <!--
-			  <fieldset style="width:100% !important;" data-inset="false" data-corners="false" data-cardsetid="<%= _thisViewCardEditNested.options.cardsetid %>" <% if(stream.data.active==true) { %>CHECKED<% } %> data-mini="true">
-				  <input data-cardsetid="<%= _thisViewCardEditNested.options.cardsetid %>" style="width:100% !important;" data-corners="false" type="checkbox" class="activatecardsetcb" name="checkbox-activatecardsetcb-<%= _thisViewCardEditNested.options.cardsetid %>" id="checkbox-activatecardsetcb-<%= _thisViewCardEditNested.options.cardsetid %>">
-				  <label style="width:100% !important;" data-corners="false" for="checkbox-activatecardsetcb-<%= _thisViewCardEditNested.options.cardsetid %>">Dieses Lernset jetzt aktivieren</label>
-			  </fieldset>
-			  -->
-				<a href="#" data-inset="false" data-corners="false" data-mini="true" data-role="button" data-theme="b" id="setUsergroupsBtn">Zugriffsrechte einschränken</a>
+				<a href="#" data-cardsetid="<%= _thisViewCardEditNested.options.cardsetid %>" data-inset="false" data-corners="false" data-mini="true" data-role="button" data-theme="b" id="setUsergroupsBtn">Zugriffsrechte einschränken</a>
 				<input name="deleteCardSetBtn" class="deleteCardSetBtn" data-corners="false" data-cardpageid="<%= stream.data.activePageArray[0].id %>" data-cardsetid="<%= _thisViewCardEditNested.options.cardsetid %>" data-theme="d" data-mini="true" type="button" value="&#10007; &nbsp; Dieses Lernset löschen"/>
 				<div class="clear" style="height:10px;"></div>
 

@@ -35,7 +35,8 @@ define(["jquery", "backbone", "text!templates/cardsViewPage.html"],
 					if (_thisViewCards.me.interests == undefined) _thisViewCards.me.interests = new Array();
 				});
 
-				var requestUrl = "http://dominik-lohmann.de:5000/cards?active=true&deleted=false";
+				var requestUrl = "http://dominik-lohmann.de:5000/cards?deleted=false";
+				// active=true&
 				if (window.system.master==false) requestUrl = requestUrl + "&uploader="+window.system.aoid;
 				else requestUrl = requestUrl + "&public=true";
 				$.ajax({
@@ -62,8 +63,10 @@ define(["jquery", "backbone", "text!templates/cardsViewPage.html"],
 								});
 							});
 						}
+						
+						if (value.uploader == me.id) exists=1;
 
-						if (exists>-1 || value.uploader == me.id) {
+						if (exists>-1) {
 							value.ccat = 'card';
 							value.icon = 'images/icon-cards-60.png';
 							value.href = '#cards/details/view/'+value.id;
@@ -73,10 +76,10 @@ define(["jquery", "backbone", "text!templates/cardsViewPage.html"],
 									url: 'http://dominik-lohmann.de:5000/users/?id='+uploader,
 									async: false,
 									success: function(data, textStatus, XMLHttpRequest) {
-										console.log(data);
+										// console.log(data);
 										value.uploaderdata = data;
 										_thisViewCards.uploaderArray[data.id]==data;
-										console.log(_thisViewCards.uploaderArray[data.id]);
+										// console.log(_thisViewCards.uploaderArray[data.id]);
 									},
 									error:function (xhr, ajaxOptions, thrownError) {
 										console.log(xhr.responseText);

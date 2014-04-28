@@ -112,8 +112,6 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 						}
 					}
 				});
-				// console.log(newanswerArray);
-				// console.log(_thisViewCardEditNested.streamData.activePageArray[0].id);
 				dpd.cardpages.put(_thisViewCardEditNested.streamData.activePageArray[0].id, {"answers":newanswerArray}, function(result, err) {
 					if(err) {
 						return console.log(err);
@@ -171,26 +169,44 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 				
 				_thisViewCardEditNested.$el.off('click','#setUsergroupsBtn').on('click','#setUsergroupsBtn',function(e){
 					e.preventDefault();
+					var cardsetid = $(this).attr('data-cardsetid');
 					$.ajax({
 						url: "http://dominik-lohmann.de:5000/cards/"+_thisViewCardEditNested.options.cardsetid,
 						async: false
 					}).done(function(card) {
-						// _thisViewCardEditNested.streamData.activePageArray[0].usergroups = card.usergroups;
 						_thisViewCardEditNested.me.activeusergroups = card.usergroups;
+						_thisViewCardEditNested.me.objactive = card.active;
+						_thisViewCardEditNested.me.objpublic = card.public;
 						console.log(_thisViewCardEditNested.me.activeusergroups);
 					});
-					/*
-					$.ajax({
-						url: "http://dominik-lohmann.de:5000/users/"+window.me.id,
-						async: false
-					}).done(function(me) {
-						_thisViewCardEditNested.me.activeusergroups = _thisViewCardEditNested.streamData.activePageArray[0].usergroups;
+					
+					var popupid = 'popupBasic';
+					$('#pageoverlay').append('<div style="z-index:9999;width:'+($(window).width()-30)+'px;min-width:200px !important;max-width:650px !important;" data-role="popup" data-dismissible="true" data-overlay-theme="a" class="ui-corner-all" data-theme="b" id="'+popupid+'"></div>');
+					$('#'+popupid).html('<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>');			
+					$('#'+popupid).append('<div class="ui-corner-bottom ui-content" id="popupcontent" data-role="content"></div>');
+					$( "#"+popupid ).bind({
+						popupafterclose: function(event, ui) { 
+							$('#body').find('.ui-popup-container').each(function() {
+								$(this).remove();
+							});
+							$('#pageoverlay').find('#popupBasic').each(function() {
+								$(this).remove();
+							});
+						}
 					});
-					*/
-					var popupid = 'popupBasic'; // dateYmdHis();
+					var popupcontent = _.template(usergroupsPopupPage, {
+						data: _thisViewCardEditNested.me
+					},{variable:'streamdata'});
+					$('#popupcontent').html(popupcontent);
+					var el = $( "#"+popupid );
+					el.popup().trigger('create');
+					el.popup( "open", {transition: 'fade'} );
+					
+					/*
 					$('[data-role="content"]').append('<div data-role="popup" data-dismissible="true" data-overlay-theme="a" class="ui-corner-all" data-theme="b" id="'+popupid+'"></div>');
 					$('#'+popupid).append('<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>');			
 					$('#'+popupid).append('<div class="ui-corner-bottom ui-content" id="popupcontent" data-role="content"></div>');
+
 					_thisViewCardEditNested.me.cardsetid = _thisViewCardEditNested.options.cardsetid;
 					var popupcontent = _.template(usergroupsPopupPage, {
 						data: _thisViewCardEditNested.me
@@ -199,6 +215,7 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 					var el = $( "#"+popupid );
 					el.popup().trigger('create');
 					el.popup( "open", {transition: 'fade'} );
+					*/
 				});
 				
 				$('#body').off('change','.usergroupcb').on('change','.usergroupcb',function(e) { 
@@ -387,7 +404,9 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 					return(false);
 				});
 				
+				/*
 				_thisViewCardEditNested.$el.off('change','.activatecardsetcb').on('change','.activatecardsetcb',function(e){
+				// _thisViewCardEditNested.$el.off('change','.activecb').on('change','.activecb',function(e){
 					e.preventDefault();
 					var isactive = $(this).is(":checked"); // $(this).val();
 					var cardsetid = $(this).attr('data-cardsetid');
@@ -412,6 +431,7 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 					});
 					return(false);
 				});
+				*/
 				
 				_thisViewCardEditNested.$el.off('change','.answercb').on('change','.answercb',function(e){
 					e.preventDefault();
@@ -627,8 +647,11 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 							if (cardsetid==myObj.cardData.id) { 
 								console.log('foo');
 								console.log(myObj.cardData);
-								_thisViewCardEditNested.streamData.active = myObj.cardData.active;
-								_thisViewCardEditNested.streamData.public = myObj.cardData.public;
+								_thisViewCardEditNested.me.dbtype = "card";
+								_thisViewCardEditNested.me.objid = myObj.cardData.id;
+								_thisViewCardEditNested.me.objpublic = myObj.cardData.public;
+								_thisViewCardEditNested.me.objactive = myObj.cardData.active;
+								console.log(_thisViewCardEditNested.me.objactive);
 								_thisViewCardEditNested.streamData.topic = myObj.cardData.topic;
 								_thisViewCardEditNested.streamData.pagetitle = myObj.cardData.title;
 								var requestUrl = "http://dominik-lohmann.de:5000/cardpages?deleted=false&cardid="+cardsetid; // active=true&
