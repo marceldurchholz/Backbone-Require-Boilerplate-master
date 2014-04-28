@@ -2971,7 +2971,7 @@ try {
 	function showModal() {
 		// if ($('.modalWindow')) return(false);
 		// console.log('showModal');
-		window.system.modaltimeout = 5000;
+		window.system.modaltimeout = 15000;
 		window.clearInterval(window.modaltimeoutvar);
 		window.modaltimeoutvar = window.setInterval(function() {
 			// console.log(window.system.modaltimeout);
@@ -2981,7 +2981,7 @@ try {
 				$('#breaktoDashboard').html(breaktoDashboardText);
 				$('#breaktoDashboard').show();
 				window.clearInterval(window.modaltimeoutvar);
-				window.system.modaltimeout = 5000;
+				window.system.modaltimeout = 15000;
 			}
 		},1000);
 		$("#body").append('<div class="modalWindow"/>');
