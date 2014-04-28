@@ -588,12 +588,12 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 					async: false
 				}).done(function(allinterests) {
 					_thisViewCardEditNested.streamData.allinterests = allinterests;
-				});
-				_thisViewCardEditNested.streamData.allinterests.sort(function(a, b){
-					var nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase()
-					if (nameA < nameB) return -1 
-					if (nameA > nameB) return 1
-					return 0
+					_thisViewCardEditNested.streamData.allinterests.sort(function(a, b){
+						var nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase()
+						if (nameA < nameB) return -1 
+						if (nameA > nameB) return 1
+						return 0
+					});
 				});
 
 				if (_thisViewCardEditNested.streamData.view!="new") {
