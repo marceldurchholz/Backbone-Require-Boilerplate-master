@@ -160,7 +160,7 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 				
 				_thisViewCardEditNested.$el.off('change','#interest').on('change','#interest',function(e){
 					e.preventDefault();
-					alert('changed');
+					// alert('changed');
 					var topic = $(this).find(":selected").val(); // .attr('data-interestname');
 					console.log(topic);
 					var cardsetid = _thisViewCardEditNested.options.cardsetid;
