@@ -1,8 +1,8 @@
 // VideoView.js
 // -------
-define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection", "text!templates/videoView.html"],
+define(["jquery", "backbone", "text!templates/videoView.html"],
 
-    function($, Backbone, VideoModel, videosCollection, videoPage){
+    function($, Backbone, videoPage){
 		
 		var VideoViewVar = Backbone.View.extend({
 			
@@ -88,7 +88,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				if (_thisViewVideo.me.interests == undefined) _thisViewVideo.me.interests = new Array();
 				});
 				
-				var requestUrl = "http://dominik-lohmann.de:5000/videos?active=true&deleted=false";
+				var requestUrl = "http://dominik-lohmann.de:5000/videos?deleted=false";
 				// if (window.system.master!=true) requestUrl = requestUrl + "&uploader="+window.system.aoid;
 				if (window.system.master==false) requestUrl = requestUrl + "&uploader="+window.system.aoid;
 				else requestUrl = requestUrl + "&public=true";

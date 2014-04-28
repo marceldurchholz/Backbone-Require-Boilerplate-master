@@ -175,15 +175,18 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 						url: "http://dominik-lohmann.de:5000/cards/"+_thisViewCardEditNested.options.cardsetid,
 						async: false
 					}).done(function(card) {
-						console.log(card);
-						_thisViewCardEditNested.streamData.activePageArray[0].usergroups = card.usergroups;
+						// _thisViewCardEditNested.streamData.activePageArray[0].usergroups = card.usergroups;
+						_thisViewCardEditNested.me.activeusergroups = card.usergroups;
+						console.log(_thisViewCardEditNested.me.activeusergroups);
 					});
+					/*
 					$.ajax({
 						url: "http://dominik-lohmann.de:5000/users/"+window.me.id,
 						async: false
 					}).done(function(me) {
-						_thisViewCardEditNested.me.usergroupsactive = _thisViewCardEditNested.streamData.activePageArray[0].usergroups;
+						_thisViewCardEditNested.me.activeusergroups = _thisViewCardEditNested.streamData.activePageArray[0].usergroups;
 					});
+					*/
 					var popupid = 'popupBasic'; // dateYmdHis();
 					$('[data-role="content"]').append('<div data-role="popup" data-dismissible="true" data-overlay-theme="a" class="ui-corner-all" data-theme="b" id="'+popupid+'"></div>');
 					$('#'+popupid).append('<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>');			

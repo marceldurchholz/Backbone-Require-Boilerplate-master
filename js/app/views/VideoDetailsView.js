@@ -130,7 +130,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						var streamdata = new Object();
 						var videoid = $(this).attr('data-videoid');						
 						streamdata.videoid = _thisViewVideoDetails._videosCollection.models[0].attributes.id;
-						streamdata.activeusergroups = _thisViewVideoDetails._videosCollection.models[0].attributes.usergroups;
+						// streamdata.activeusergroups = _thisViewVideoDetails._videosCollection.models[0].attributes.usergroups;
 
 						var requestUrl = "http://dominik-lohmann.de:5000/usergroups/?deleted=false";
 						if (window.me.master!=true) requestUrl = requestUrl+"&owner="+window.me.id;
@@ -144,8 +144,10 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							url: "http://dominik-lohmann.de:5000/videos/"+videoid,
 							async: false
 						}).done(function(video) {
-							streamdata.usergroups = video.usergroups;
-							_thisViewVideoDetails._videosCollection.models[0].attributes.usergroups = streamdata.usergroups;
+							streamdata.activeusergroups = video.usergroups;
+							_thisViewVideoDetails._videosCollection.models[0].attributes.usergroups = streamdata.activeusergroups;
+							streamdata.active = video.active;
+							_thisViewVideoDetails._videosCollection.models[0].attributes.usergroups = streamdata.active;
 						});
 
 						var popupid = 'popupBasic';
@@ -185,6 +187,14 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							if (status=="checked" && exists==-1) dpd.videos.put(videoid, {"usergroups": {$push:$.trim(usergroupid)}} );
 							else dpd.videos.put(videoid, {"usergroups": {$pull:$.trim(usergroupid)}} );
 						});
+						return(false);
+					});
+					
+					$('#body').off('change','.activecb').on('change','.activecb',function(e) { 
+						e.preventDefault();
+						var videoid = $(this).attr('data-videoid');
+						var status = e.currentTarget.checked;
+						dpd.videos.put(videoid, {"active":status});
 						return(false);
 					});
 					
