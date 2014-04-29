@@ -8,56 +8,8 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 			
 				el: "#page-content",
 				attributes: {"data-role": 'content'},
-				/*
-				createVideo: function () {
-					if (this._videosCollection.online==0) {
-						// this._videosCollection._localStorage_users.create(new Video({"fullname": "offline James King", "device": "5645-6543-5415-5233", "credits": "120", "pictureurl": "http://www.redner24.de/typo3temp/GB/Durchholz_Marcel_4c_1090c3626b_Durc_a4ff6064ff.jpg"}));
-						alert('in offline mode you can not add data');
-					}
-					else {
-						// this._videosCollection._localStorage_users.create(new VideoModel({"fullname": "offline James King", "device": "5645-6543-5415-5233", "credits": "120", "pictureurl": "http://www.redner24.de/typo3temp/GB/Durchholz_Marcel_4c_1090c3626b_Durc_a4ff6064ff.jpg"}));
-						this.create(new VideoModel({"uploader": "042cb1572ffbea5d", "videourl": "http://xyz.de.com.uk", "title": "This is a video title", "description": "This is a description", "price": "35", "thumbnailurl": ""}));
-					}
-					return(false);
-				},
-				create: function(model) {
-					_thisViewVideoDetails = this;
-					$.ajax('http://dominik-lohmann.de:5000/videos', {
-					  type: "POST",
-					  contentType: "application/json",
-					  data: JSON.stringify(model.attributes),
-					  success: function(todo) {
-						_thisViewVideoDetails.fetch();
-					  }, 
-					  error: function(xhr,b) {
-						console.log(xhr);
-						alert(xhr);
-					  }
-					});
-					return(false);
-				},
-				*/
 				bindEvents: function() {
 					_thisViewVideoDetails = this;
-					/*
-					this.$el.off('click','#connectToLink').on('click','#connectToLink',function(e) { 
-						e.preventDefault();
-						// var videoid = $(this).attr('data-videoid');
-						// _thisViewVideoDetails.buyVideo(videoid); 
-						alert($(this).attr('data-id'));
-						var connectionid = $(this).attr('data-id');
-						showModal();
-						dpd.users.put(connectionid, 
-							{"followers": {$push:$.trim(window.me.id)}}, function(result, err) {
-							if(err) {
-								return console.log(err);
-								hideModal();
-							}
-							// console.log(result, result.id);
-							hideModal();
-						});
-					});
-					*/
 					this.$el.off('click','#showOptionsBtn').on('click','#showOptionsBtn',function(e) { 
 						e.preventDefault();
 						$('#toggleDiv').fadeIn();
@@ -69,21 +21,14 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					});
 					this.$el.off('click','#sendMessageBtn').on('click','#sendMessageBtn',function(e) { 
 						e.preventDefault();
-						// var exists = $.inArray( $.trim(window.me.id), _thisViewVideoDetails.uploaderdata.followers );
-						// if (exists>-1) {
-							// alert('you are a follower of him...')
-							window.location.href = "#messages/details/view/"+_thisViewVideoDetails.uploaderdata.id;
-						// }
+						window.location.href = "#messages/details/view/"+_thisViewVideoDetails.uploaderdata.id;
 					});
 					
 					this.$el.off('click','#loadvideobutton').on('click','#loadvideobutton',function(e) { 
 						var videoid = $(this).attr('data-videoid');
-						
-						// dpd.users.me(function(me) {
 						dpd('users').get(window.system.uid, function(me, err) {
 							if (me) {
 								_thisViewVideoDetails.buyVideo(videoid);
-								// alert(videoid);
 							}
 							else {
 								doConfirm('Um diese Funktion zu nutzen, registrieren Sie sich bitte.', 'Video kaufen', function (event) { 
@@ -154,9 +99,9 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						});
 
 						var popupid = 'popupBasic';
-						$('#pageoverlay').append('<div style="z-index:9999;width:'+($(window).width()-30)+'px;min-width:200px !important;max-width:650px !important;" data-role="popup" data-dismissible="true" data-overlay-theme="a" class="ui-corner-all" data-theme="a" id="'+popupid+'"></div>');
+						$('#pageoverlay').append('<div style="z-index:9999;background-color:#000;width:'+($(window).width()-30)+'px;min-width:200px !important;max-width:650px !important;" data-role="popup" data-dismissible="true" data-overlay-theme="a" class="ui-corner-all" data-theme="a" id="'+popupid+'"></div>');
 						$('#'+popupid).html('<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>');			
-						$('#'+popupid).append('<div class="ui-corner-bottom ui-content" style="z-index:9999;" id="popupcontent" data-role="content"></div>');
+						$('#'+popupid).append('<div class="ui-corner-bottom ui-content" style="z-index:9999;background-color:#000;" id="popupcontent" data-role="content"></div>');
 						// alert('bla>'+dateYmdHis());
 						// console.log($('#'+popupid).html());
 						$( "#"+popupid ).bind({
@@ -180,17 +125,17 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					
 					$('#body').off('change','.usergroupcb').on('change','.usergroupcb',function(e) { 
 						e.preventDefault();
-						var videoid = $(this).attr('data-videoid');
+						var id = $(this).attr('data-id');
 						// alert(_thisViewVideoDetails._videosCollection.models[0].attributes.id);
 						// return(false);
 						var usergroupid = $(this).attr('data-usergroupid');
 						if (e.currentTarget.checked==false) status = "";
 						else status = "checked";
 						// return(false);
-						dpd('videos').get(videoid, function(video, err) {
+						dpd('videos').get(id, function(video, err) {
 							var exists = $.inArray( $.trim(usergroupid), video.usergroups )
-							if (status=="checked" && exists==-1) dpd.videos.put(videoid, {"usergroups": {$push:$.trim(usergroupid)}} );
-							else dpd.videos.put(videoid, {"usergroups": {$pull:$.trim(usergroupid)}} );
+							if (status=="checked" && exists==-1) dpd.videos.put(id, {"usergroups": {$push:$.trim(usergroupid)}} );
+							else dpd.videos.put(id, {"usergroups": {$pull:$.trim(usergroupid)}} );
 						});
 						return(false);
 					});
@@ -552,7 +497,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					});
 					
 					// video.uploaderdata.id
-					console.log(this._videosCollection);
+					// console.log(this._videosCollection);
 					if ( 
 						($.inArray( this._videosCollection.models[0].attributes.id , window.me.purchases ) >- 1) 
 						|| (Math.round(this._videosCollection.models[0].attributes.price)==0) 

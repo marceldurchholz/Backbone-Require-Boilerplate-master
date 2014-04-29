@@ -76,7 +76,7 @@
 	
 
 	<div class="description resizetext" style="line-height:1.5em;">
-		<% if (window.me.id != video.uploaderdata.id) { %>
+		<% if (window.system.aoid != video.uploaderdata.id) { %>
 			<strong><div class="readmorename"><%= video.uploader %></div></strong>
 			<div class="clear"></div>
 		<% } %>
@@ -93,7 +93,7 @@
 				<div class="clear"></div>
 				Bereitstellung: <%= video.cdate %>
 				<div class="clear"></div>
-				Preis: <% if(video.price==undefined || Math.ceil(video.price==0)) { %><% } else { %><%= video.price %> APPinaut&reg; Coins<% } %>
+				Preis: <% if(video.price==undefined || Math.ceil(video.price==0)) { %>kostenlos<% } else { %><%= video.price %>APPinaut&reg; Coins<% } %>
 				<div class="clear"></div>
 				<div class="clear" style="padding-bottom:10px;"></div>
 			</div>

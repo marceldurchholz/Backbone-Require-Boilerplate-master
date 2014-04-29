@@ -65,7 +65,7 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 				*/
 				
 				var requestUrl = "http://dominik-lohmann.de:5000/usergroups/?deleted=false";
-				if (window.system.master!=true) requestUrl = requestUrl + "&owner="+_thisViewAdminUserDetailsNested.me.id;
+				if (window.me.master!=true) requestUrl = requestUrl + "&owner="+_thisViewAdminUserDetailsNested.me.id;
 				$.ajax({
 					url: requestUrl,
 					async: false

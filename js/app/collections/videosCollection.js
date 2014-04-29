@@ -8,8 +8,6 @@ define(["jquery", "backbone", "models/VideoModel"],
 	var VideosCollection = Backbone.Collection.extend({
 		initialize: function(models, options) {
 			this.options = options || {};
-			this.bind("error", this.errorHandler);
-			this.bind("success", this.successHandler);
 			_thisCollectionVideos = this;
 			var online = _thisCollectionVideos.online = 1;
 			this._localStorage_videos = new Store('videos');
@@ -45,23 +43,6 @@ define(["jquery", "backbone", "models/VideoModel"],
 		  }
 		},
 		fetch: function(options) {
-			/*
-			if (_thisCollectionVideos.online==1) {
-				dpd.users.me(function(user) {
-					if (user) {
-						// alert(user.roles);
-						_thisCollectionVideos.user = user;
-						// console.log(user.roles);
-					}
-					else {
-						// location.href = "#noaccess";
-						// console.log('you are not logged in');
-					}
-				});
-			}
-			*/
-			// console.log('window.me');
-			// console.log(window.me);
 			_thisCollectionVideos.user = window.me;
 			options || (options = {});
             var data = (options.data || {});
@@ -92,21 +73,6 @@ define(["jquery", "backbone", "models/VideoModel"],
 				}
 			}
 			return(_thisCollectionVideos.models);
-		},
-		errorHandler: function(xhr) {
-			// console.log(xhr);
-			if (xhr.status=='404') {
-				if (xhr.responseJSON==undefined) {
-					alert('probably no internet connection');
-				}
-				else {
-					alert('probably request url wrong or not reachable');
-				}
-			}
-		},
-		successHandler: function(xhr) {
-			alert('successHandler');
-			// console.log(xhr);
 		}
 	});
 
