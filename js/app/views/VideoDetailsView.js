@@ -590,12 +590,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						window.resizeWideScreen('#videobox');
 					});
 
-					hideModal();
-					this.$el.fadeIn( 500, function() {
-						$('.ui-content').scrollTop(0);
-						new FastClick(document.body);
-						fontResize();
-						// alert($('.readmore').html());
+					fontResize();
 						$('.readmoretitle').expander({
 							slicePoint: 0,
 							preserveWords: false,
@@ -632,6 +627,11 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							userCollapseText: '',
 							userCollapse: false
 						});
+					hideModal();
+					this.$el.fadeIn( 500, function() {
+						$('.ui-content').scrollTop(0);
+						// alert($('.readmore').html());
+						new FastClick(document.body);
 					});
 					_thisViewVideoDetails.bindEvents();
 					return this;
