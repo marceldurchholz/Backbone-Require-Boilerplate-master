@@ -164,13 +164,17 @@ define(["jquery", "backbone", "text!templates/captureVideoLinkPage.html", "model
 				// this.render();
 				console.log(_thisViewRecordVideoNested.localStorageSubmitform);
 				
+				var attributes = _thisViewRecordVideoNested.localStorageSubmitform.models[0].attributes;
+				console.log(attributes);
+				
 				// return(false);
-				if (isMobile.any()) captureVideoUpload(_thisViewRecordVideoNested.localStorageSubmitform);
-				else {
-					var attributes = _thisViewRecordVideoNested.localStorageSubmitform.models[0].attributes;
-					console.log(attributes);
+				var rval = new Object();
+				rval = checkYoutubeUrl(attributes.camera_file);
+				
+				if (rval.isyoutube==true) {
 					if (attributes.flipactivate=="on") var isactive = true; else var isactive = false;
-					dpd.videos.post({"external":true,"vsize":"","vlength":"","uploader":""+_thisViewRecordVideoNested.me.id,"videourl":""+attributes.camera_file,"active":isactive,"cdate":""+dateYmdHis(),"topic":""+attributes.interest,"title":""+attributes.title,"subtitle":"","description":""+attributes.description,"price":attributes.sliderprice}, function(result, err) {
+					if (attributes.flippublic=="on") var ispublic = true; else var ispublic = false;
+					dpd.videos.post({"external":true,"vsize":"","vlength":"","uploader":""+_thisViewRecordVideoNested.me.id,"videourl":""+attributes.camera_file,"active":isactive,"public":ispublic,"cdate":""+dateYmdHis(),"topic":""+attributes.interest,"title":""+attributes.title,"subtitle":"","description":""+attributes.description,"price":attributes.sliderprice}, function(result, err) {
 						if(err) {
 							hideModal();
 							return console.log(err);
@@ -178,6 +182,9 @@ define(["jquery", "backbone", "text!templates/captureVideoLinkPage.html", "model
 						hideModal();
 						window.location.href = '#learningstreamview';
 					});
+				}
+				else {
+					captureVideoUpload(_thisViewRecordVideoNested.localStorageSubmitform);
 				}
 			},
 			bindEvents: function() {
