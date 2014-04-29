@@ -112,12 +112,14 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 								$('#pageoverlay').find('#popupBasic').each(function() {
 									$(this).remove();
 								});
+								$('#videoboxinnerdiv').show();
 							}
 						});
 						var popupcontent = _.template(usergroupsPopupPage, {
 							data: streamdata
 						},{variable:'streamdata'});
 						$('#popupcontent').html(popupcontent);
+						$('#videoboxinnerdiv').hide();
 						var el = $( "#"+popupid );
 						el.popup().trigger('create');
 						el.popup( "open", {transition: 'fade'} );
