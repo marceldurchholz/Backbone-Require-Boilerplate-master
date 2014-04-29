@@ -282,29 +282,10 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				},
 				
 				initializeCollection:function(options) {
-					// dpd.users.me(function(me) {
-					dpd('users').get(window.system.uid, function(me, err) {
-						if (me) {
-							window.me = me;
-							// this._videosCollection.user = user;
-						}
-						else {
-							/*
-							var meid = getRandomID().toString();
-							var me = new Object();
-							me.id = meid;
-							_thisViewVideoDetails.dfd.resolve(me);
-							var r = getRandomID().toString();
-							_thisViewVideoDetails.dfd.resolve(r);
-							*/
-							var meid = getRandomID().toString();
-							var me = new Object();
-							me.id = meid;
-							window.me = me;
-							// system.redirectToUrl('#login');
-						}
-					});
-					this._videosCollection = new videosCollection([], options);
+					var _thisViewVideoDetails = this;
+					_thisViewVideoDetails._videosCollection = new videosCollection([], options);
+					// console.log(options);
+					// console.log(this._videosCollection);
 				},
 				fetch: function(options) {
 					var _thisViewVideoDetails = this;
@@ -571,6 +552,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					});
 					
 					// video.uploaderdata.id
+					console.log(this._videosCollection);
 					if ( 
 						($.inArray( this._videosCollection.models[0].attributes.id , window.me.purchases ) >- 1) 
 						|| (Math.round(this._videosCollection.models[0].attributes.price)==0) 

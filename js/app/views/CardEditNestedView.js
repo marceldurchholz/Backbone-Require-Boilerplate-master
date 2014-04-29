@@ -220,17 +220,17 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 				
 				$('#body').off('change','.usergroupcb').on('change','.usergroupcb',function(e) { 
 					e.preventDefault();
-					var cardsetid = $(this).attr('data-cardsetid');
+					var id = $(this).attr('data-id');
 					var usergroupid = $(this).attr('data-usergroupid');
 					var o = new Object();
 					o.id = e.currentTarget.id;
 					if (e.currentTarget.checked==false) o.status = "";
 					else o.status = "checked";
 					o.label = $("label[for='"+ e.currentTarget.id +"']").text();
-					dpd('cards').get(cardsetid, function(card, err) {
+					dpd('cards').get(id, function(card, err) {
 						var exists = $.inArray( $.trim(usergroupid), card.usergroups )
-						if (o.status=="checked" && exists==-1) dpd.cards.put(cardsetid, {"usergroups": {$push:$.trim(usergroupid)}} );
-						else dpd.cards.put(cardsetid, {"usergroups": {$pull:$.trim(usergroupid)}} );
+						if (o.status=="checked" && exists==-1) dpd.cards.put(id, {"usergroups": {$push:$.trim(usergroupid)}} );
+						else dpd.cards.put(id, {"usergroups": {$pull:$.trim(usergroupid)}} );
 					});
 					return(false);
 				});
