@@ -35,13 +35,19 @@
 			<div><%= card.dbObject.completed %> Nutzer haben dieses Lernset absolviert.</div>
 			<div class="clear"></div>
 			-->
-			<div style="width:100%;">
+			<div class="clear" style="height:20px;"></div>
+			<div style="float:right;width:67%;">
+				<div style="font-size:12px;" class="resizetext"><!--<%= card.dbObject.correct %>--><%= (Math.round(card.dbObject.correct/card.dbObject.completed*100,0)/100)*100 %> %<br>schafften es ohne Fehler.</div>
+				<div class="clear" style="height:5px;"></div>
+				<div class="clear"></div>
+				<div style="font-size:12px;" class="resizetext"><!--<%= card.dbObject.wrong %>--><%= (Math.round(card.dbObject.wrong/card.dbObject.completed*100,0)/100)*100 %> %<br>hatten Fehler in den Anworten.</div>
+				<div class="clear" style="height:20px;"></div>
+				<div class="clear"></div>
+			</div>				
+			<div style="float:left;width:30%;">
 				<img style="width:100%;" src="http://chart.apis.google.com/chart?chs=500x500&chd=t:<%= card.dbObject.correct %>,<%= card.dbObject.wrong %>&cht=p&chco=629632,CD0000&chf=bg,s,65432100">
 			</div>
-			<div style="font-size:12px;" class="resizetext"><!--<%= card.dbObject.correct %>--><%= (Math.round(card.dbObject.correct/card.dbObject.completed*100,0)/100)*100 %> % schafften dieses Lernset fehlerfrei.</div>
-			<div class="clear"></div>
-			<div style="font-size:12px;" class="resizetext"><!--<%= card.dbObject.wrong %>--><%= (Math.round(card.dbObject.wrong/card.dbObject.completed*100,0)/100)*100 %> % hatten Fehler in den Anworten.</div>
-			<div class="clear"></div>
+			<div class="clear" style="height:20px;"></div>
 		</p>
 			
 		<% if (card.failures>0) { %>
