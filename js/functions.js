@@ -2174,6 +2174,105 @@ try {
 
 	//* DEBUG */ window.console.log('js/global.js loaded...');
 
+	/**
+	 * parses and returns URI query parameters 
+	 * 
+	 * @param {string} param parm
+	 * @param {bool?} asArray if true, returns an array instead of a scalar 
+	 * @returns {Object|Array} 
+	 */
+	function getURIParameter(param, asArray) {
+		return document.location.search.substring(1).split('&').reduce(function(p,c) {
+			var parts = c.split('=', 2).map(function(param) { return decodeURIComponent(param); });
+			if(parts.length == 0 || parts[0] != param) return (p instanceof Array) && !asArray ? null : p;
+			return asArray ? p.concat(parts.concat(true)[1]) : parts.concat(true)[1];
+		}, []);
+	}
+
+	function getTokens(val){
+		var tokens = [];
+		var query = "";
+		var a = new Array();
+		a = val.split("?");
+		if (a[1]!=undefined) {
+			query = a[1].split('&');
+			$.each(query, function(i,value){    
+				var token = value.split('=');   
+				var key = decodeURIComponent(token[0]);     
+				var data = decodeURIComponent(token[1]);
+				tokens[key] = data;
+			});
+		}
+		return tokens;
+	}
+	function checkYoutubeUrl(val) {
+		var rval = new Object();
+		rval.isyoutube = false;
+		var tokens = getTokens(val);
+		// console.log(tokens);
+		if (tokens.v!=undefined && tokens.v!="") {
+			rval.isyoutube = true;
+			rval.youtubeid = tokens.v;
+		}
+		else {
+			rval = checkYoutubeEmbedUrl(val);
+		}
+		return rval;
+	}
+	function checkYoutubeEmbedUrl(val) {
+		var rval = new Object();
+		rval.isyoutube = false;
+		var folders = val.split('/');
+		var youtubeid = "";
+		// console.log('folders');
+		// console.log(folders);
+		$.each(folders, function(i,value){
+			value = value.split("?")[0];
+			if (value=="embed" && folders[i+1].split("?")[0]!=undefined) {
+				youtubeid = folders[i+1].split("?")[0];
+				// alert(youtubeid);
+				rval.isyoutube = true;
+				rval.youtubeid = youtubeid;
+				return(rval);
+			}
+			// var token = value.split('=');   
+			// var key = decodeURIComponent(token[0]);     
+			// var data = decodeURIComponent(token[1]);
+			// tokens[key] = data;
+			// console.log(value);
+		});
+		/*
+		if (tokens.v!=undefined && tokens.v!="") {
+			rval.isyoutube = true;
+			rval.youtubeid = tokens.v;
+		}
+		else {
+			//  und nu... nix...
+		}
+		*/
+		return rval;
+	}
+	
+	function getQueryParams(qs) {
+		qs = qs.split("+").join(" ");
+		var params = {}, tokens, re = /[?&]?([^=]+)=([^&]*)/g;
+		while (tokens = re.exec(qs)) {
+			params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+		}
+		return params;
+	}
+
+	function resizeWideScreen(elementid) {
+		// var elwidth = $(elementid).width();
+		var elwidth = $(window).width();
+		var elheight = elwidth/10*16;
+		var maxheight = $(window).height() / 3;
+		// var newheightwfactor = (window_width)*elfactor;
+		if (elheight>maxheight) elheight = maxheight;
+		$(elementid).css("width", elwidth);
+		$(elementid).css("height", elheight);
+	}
+	
 	function resizeElement(elementid) {
 		// console.log('resizeElement: '+elementid);
 		// var thumbnail_width = this.$el.outerWidth();

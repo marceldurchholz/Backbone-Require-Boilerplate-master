@@ -14,7 +14,10 @@
 </div>
 -->
 <h3 class="ui-bar ui-bar-b" style="border-top-width:0px;text-align:center;"><%= video.topic %></h3>
-<div id="videocontainer">
+<div id="youtubebox" style="width:100%;">
+	<iframe id="youtube_player_1" class="youtube-player" style="width:100%;" type="text/html" src="" frameborder="0" allowfullscreen></iframe>
+</div>
+<div id="videobox">
 	<video id="video_player_1" class="video-js vjs-default-skin" poster="<%= video.thumbnailurl %>" data-setup="{}"></video>
 	<div style="width:100%;height:0px;overflow:visible;">
 		<div style="width:100%;height:0px;overflow:visible;text-align:center;">
@@ -93,7 +96,7 @@
 				<div class="clear"></div>
 				Bereitstellung: <%= video.cdate %>
 				<div class="clear"></div>
-				Preis: <% if(video.price==undefined || Math.ceil(video.price==0)) { %>kostenlos<% } else { %><%= video.price %>APPinaut&reg; Coins<% } %>
+				Preis: <% if(video.price==undefined || Math.ceil(video.price==0)) { %>kostenlos<% } else { %><%= video.price %> APPinaut&reg; Coins<% } %>
 				<div class="clear"></div>
 				<div class="clear" style="padding-bottom:10px;"></div>
 			</div>

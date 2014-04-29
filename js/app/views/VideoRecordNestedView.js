@@ -1,8 +1,8 @@
 // VideoRecordNestedView.js
 // -------
-define(["jquery", "backbone", "text!templates/captureVideoLinkPage.html", "models/VideoModel", "collections/videoRecordCollection", "text!templates/VideoRecordNestedPage.html", "text!templates/VideoRecordNestedPageTwo.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
+define(["jquery", "backbone", "text!templates/captureVideoLinkPage.html", "models/VideoModel", "collections/videoRecordCollection", "text!templates/VideoRecordNestedPage.html", "text!templates/VideoRecordNestedPageTwo.html"],
 
-    function($, Backbone, captureVideoLinkPage, VideoModel, videoRecordCollection, VideoRecordNestedPage, VideoRecordNestedPageTwo, sidemenusList, SidemenuView){
+    function($, Backbone, captureVideoLinkPage, VideoModel, videoRecordCollection, VideoRecordNestedPage, VideoRecordNestedPageTwo){
 		
 		var VideoRecordNestedViewVar = Backbone.View.extend({
 			
@@ -109,7 +109,7 @@ define(["jquery", "backbone", "text!templates/captureVideoLinkPage.html", "model
 				var _thisViewRecordVideoNested = this;
 				// testFunc();
 				// return(false);
-				var videosrc = $("#video_player").attr("src");
+				var videosrc = $("#camera_file").val();
 				if (videosrc==undefined || videosrc=='') {
 					// if (!isMobile.any()) videosrc = 'https://dl.dropboxusercontent.com/u/45253363/appinaut/videos/1111111111.mp4';
 					// else {
@@ -189,15 +189,32 @@ define(["jquery", "backbone", "text!templates/captureVideoLinkPage.html", "model
 					var popupid = 'popupBasic';
 					$('#pageoverlay').append('<div style="z-index:9999;width:'+($(window).width()-30)+'px;min-width:200px !important;max-width:650px !important;" data-role="popup" data-dismissible="true" data-overlay-theme="a" class="ui-corner-all" data-theme="b" id="'+popupid+'"></div>');
 					$('#'+popupid).html('<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>');			
-					$('#'+popupid).append('<div class="ui-corner-bottom ui-content" id="popupcontent" data-role="content"></div>');
+					$('#'+popupid).append('<div class="ui-corner-bottom ui-content" id="popupcontent" data-role="content" style="z-index:9999;"></div>');
 					$( "#"+popupid ).bind({
 						popupafterclose: function(event, ui) { 
-							var videoLink = $('#linkVideoUrl').val();
+							// var videoLink = $('#linkVideoUrl').val();
+							// var video_player = $('#video_player');
 							// var videoLink = "http://download.wavetlan.com/SVV/Media/HTTP/H264/Talkinghead_Media/H264_test1_Talkinghead_mp4_480x360.mp4";
-							if (videoLink!='') {
-								var video_player = $('#video_player');
-								video_player.attr("src", videoLink).get(0).play();
-								$('#camera_file').val(videoLink);
+							console.log($('#linkVideoUrl').val());
+							if ($('#linkVideoUrl').val()!="") {
+								console.log($('#linkVideoUrl').val());
+								var ytcheck = new Object();
+								ytcheck = checkYoutubeUrl($('#linkVideoUrl').val());
+								if (ytcheck.isyoutube==true) {
+									// console.log('hiding');
+									$('#videobox').hide();
+									$('#youtubebox').show();
+									$('#youtube_player').attr("src", $('#linkVideoUrl').val());
+								}
+								else {
+									// console.log('showing');
+									// $('#youtubebox').html('');
+									$('#youtubebox').hide();
+									$('#videobox').show();
+									$('#video_player').attr("src", $('#linkVideoUrl').val());
+								}
+								$('#camera_file').val($('#linkVideoUrl').val());
+								// alert($('#camera_file').val());
 							}
 							$('#body').find('.ui-popup-container').each(function() {
 								$(this).remove();
@@ -297,10 +314,14 @@ define(["jquery", "backbone", "text!templates/captureVideoLinkPage.html", "model
 				// $('#captureVideoUploadButton').button('disable');
 				// $('#submitbutton').button('disable');
 				window.resizeElement('#videobox');
-				window.resizeElement('#video_player');					
+				window.resizeElement('#video_player');
+				window.resizeElement('#youtubebox');
+				window.resizeElement('#youtube_player');
 				$(window).resize(function() {
 					window.resizeElement('#videobox');
 					window.resizeElement('#video_player');
+					window.resizeElement('#youtubebox');
+					window.resizeElement('#youtube_player');
 					// window.resizeElement('#video_player_1')
 				});
 				

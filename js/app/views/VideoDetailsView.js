@@ -481,9 +481,6 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 				render: function() {
 					_thisViewVideoDetails = this;
 					// console.log('rendering');
-					$(window).resize(function() {
-						window.resizeElement('#video_player_1')
-					});
 					// console.log('DOING render VideoDetailsView.js called');
 					$('#sidebarListViewDiv').html(_.template(sidemenusList, {}));
 					_thisViewVideoDetails.nestedView = new SidemenuView().fetch();
@@ -533,12 +530,42 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					// console.log(window.me.purchases);
 					// console.log(this._videosCollection.models[0].attributes.id);
 					// alert($.inArray( this._videosCollection.models[0].attributes.id , window.me.purchases ));
-					if (this._videosCollection.models[0].attributes.offlineurl!='') this._videosCollection.models[0].attributes.videourl = this._videosCollection.models[0].attributes.offlineurl;
-					window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',this._videosCollection.models[0].attributes.videourl,this._videosCollection.models[0].attributes.showVideoLength);
-					$('video_player_1_html5_api').css("z-index","2147483647");
-					// alert(_thisViewVideoDetails.videourl);
-					// alert(this._videosCollection.models[0].attributes.videourl);
-					hideModal();
+					
+					// var isyoutube = false;
+					var youtubeid = "";
+					
+					// var youtubeurl = "http://www.youtube-nocookie.com/embed/FTcmgUKjOEc?modestbranding=1&showsearch=0&showinfo=0&theme=light&iv_load_policy=3&enablejsapi=1&loop=0&autoplay=0&controls=0&rel=0";
+					// var youtubeurl = "http://www.youtube.com/watch?v=FTcmgUKjOEc";
+					// this._videosCollection.models[0].attributes.videourl = youtubeurl;
+					
+					var youtubeEmbedObject = new Object();
+					
+					// youtubeEmbedObject = checkYoutubeUrl(this._videosCollection.models[0].attributes.videourl);
+					// console.log(youtubeEmbedObject);
+					var ytcheck = new Object();
+					ytcheck = checkYoutubeUrl(this._videosCollection.models[0].attributes.videourl);
+					// console.log(ytcheck);
+					// var isyoutube = this._videosCollection.models[0].attributes.videourl).isyoutube;
+					if (ytcheck.isyoutube == true) {
+						// alert('isyoutubeurl');
+						$('#videobox').hide();
+						$('#youtubebox').show();
+						this._videosCollection.models[0].attributes.videourl = "http://www.youtube.com/embed/"+ytcheck.youtubeid+"?modestbranding=1&showsearch=0&showinfo=0&theme=light&iv_load_policy=3&enablejsapi=1&loop=0&autoplay=0&controls=0&rel=0";
+						$('#youtube_player_1').attr("src", this._videosCollection.models[0].attributes.videourl);
+						// isyoutube = true;
+						// console.log(youtubeEmbedObject.v);
+						// youtubeid = ytcheck.youtubeid;					
+					}
+					else {
+						$('#videobox').show();
+						$('#youtubebox').hide();
+						if (this._videosCollection.models[0].attributes.offlineurl!='') this._videosCollection.models[0].attributes.videourl = this._videosCollection.models[0].attributes.offlineurl;
+						window.createVideoPreview(_thisViewVideoDetails.$('#video_player_1'),'video_player_1',this._videosCollection.models[0].attributes.videourl,this._videosCollection.models[0].attributes.showVideoLength);
+						$('video_player_1_html5_api').css("z-index","2147483647");
+						// alert(_thisViewVideoDetails.videourl);
+						// alert(this._videosCollection.models[0].attributes.videourl);
+					}
+					
 					this.$el.trigger('create');
 					new FastClick(document.body);
 					
@@ -550,6 +577,18 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					_thisViewVideoDetails.fullname_shorten = _thisViewVideoDetails.uploaderdata.fullname;
 					if (_thisViewVideoDetails.fullname_shorten.length>slicePoint) _thisViewVideoDetails.fullname_shorten = _thisViewVideoDetails.fullname_shorten.substr(0,slicePoint*2)+'...';
 					
+					window.resizeWideScreen('#video_player_1');
+					window.resizeWideScreen('#youtube_player_1');
+					window.resizeWideScreen('#youtubebox');
+					window.resizeWideScreen('#videobox');
+					$(window).resize(function() {
+						window.resizeWideScreen('#video_player_1');
+						window.resizeWideScreen('#youtube_player_1');
+						window.resizeWideScreen('#youtubebox');
+						window.resizeWideScreen('#videobox');
+					});
+
+					hideModal();
 					this.$el.fadeIn( 500, function() {
 						$('.ui-content').scrollTop(0);
 						new FastClick(document.body);
