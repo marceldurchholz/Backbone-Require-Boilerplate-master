@@ -3,6 +3,7 @@
   
   var isDroid = navigator.userAgent.match(/Android/)
   var isiOS = navigator.userAgent.match(/(iPhone|iPod|iPad)/)
+  var isiPhone = ((navigator.platform.indexOf("iPhone") != -1) || (navigator.platform.indexOf("iPod") != -1) || (navigator.platform.indexOf("iPad") != -1) )
   /*
   var droidScripts = [
     "script/cordova-android.js",
@@ -17,7 +18,7 @@
     "phonegap.js"
   ]
   // if (isDroid) droidScripts.forEach(loadScript)
-  if (isiOS) iosScripts.forEach(loadScript)
+  if (isiPhone) iosScripts.forEach(loadScript)
  
   function loadScript(src) {
     var line = '<script type="text/javascript" charset="utf-8" src="' + src + '"></script>';

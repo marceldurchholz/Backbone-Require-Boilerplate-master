@@ -48,7 +48,7 @@ try {
 			return navigator.userAgent.match(/IEMobile/i) ? true : false;
 		},
 		iPhone: function() {
-			return ((navigator.platform.indexOf("iPhone") != -1) || (navigator.platform.indexOf("iPod") != -1) ) ? true : false;
+			return ((navigator.platform.indexOf("iPhone") != -1) || (navigator.platform.indexOf("iPod") != -1) || (navigator.platform.indexOf("iPad") != -1) ) ? true : false;
 		},
 		any: function() {
 			return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows() || isMobile.iPhone());
