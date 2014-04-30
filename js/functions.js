@@ -3385,6 +3385,34 @@ try {
 			});
 		}, 1000);
 	}
+	
+	function resizeDynFont() {
+		$( ".dynsizetext" ).each(function(index, value) {
+			// var nowheight = $(this).height();
+			// alert(nowheight);
+			var settedpercentheight = $(this).attr('data-percentheight');
+			if (settedpercentheight==undefined) settedpercentheight=1;
+			var newheight = Math.ceil($(window).height()*(settedpercentheight/100));
+			var settedpercentwidth = $(this).attr('data-percentwidth');
+			if (settedpercentwidth==undefined) settedpercentwidth=1;
+			var newwidth= Math.ceil($(window).width()*(settedpercentwidth/100));
+			$(this).css('height',newheight);
+		});
+	}
+	
+	function resizeDynSpaces() {
+		$( ".dynspace_small" ).each(function(index, value) {
+			// var nowheight = $(this).height();
+			// alert(nowheight);
+			var settedpercentheight = $(this).attr('data-percentheight');
+			if (settedpercentheight==undefined) settedpercentheight=1;
+			var newheight = Math.ceil($(window).height()*(settedpercentheight/100));
+			var settedpercentwidth = $(this).attr('data-percentwidth');
+			if (settedpercentwidth==undefined) settedpercentwidth=1;
+			var newwidth= Math.ceil($(window).width()*(settedpercentwidth/100));
+			$(this).css('height',newheight);
+		});
+	}
 
 	var showDeleteBar = function(status) {
 		var deleteBarDeferred = $.Deferred();

@@ -66,6 +66,20 @@ define(["jquery", "backbone", "text!templates/cardsViewPage.html"],
 						
 						if (value.uploader == me.id) exists=1;
 
+						var cardPagesArray = new Array();
+						var requestUrl = "http://dominik-lohmann.de:5000/cardpages/?active=true&deleted=false&cardid="+value.id;
+						if (window.system.master==false) requestUrl = requestUrl + "&uploader="+window.system.aoid;
+						else requestUrl = requestUrl + "&public=true";
+						$.ajax({
+							url: requestUrl,
+							async: false
+						}).done(function(cardpagesArray) {
+							// cardPagesArray = cardpagesArray;
+							// return(false);
+							// if (value);
+							if (cardpagesArray.length==0) exists=-1;
+						});
+						
 						if (exists>-1) {
 							value.ccat = 'card';
 							value.icon = 'images/icon-cards-60.png';

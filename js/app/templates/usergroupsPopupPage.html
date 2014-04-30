@@ -1,6 +1,6 @@
-<div style="padding:0px;">			
+<div style="padding:0px;">		
 	<div class="ui-field-contain" style="margin:0px;padding:0px;width:100%;">
-		<fieldset style="width:100% !important;" data-inset="false" data-corners="false" data-mini="true">
+		<fieldset style="width:100% !important;max-height:<%= ($(window).height()/3*2) %>px !important;overflow-y:auto !important;padding:0px 2px 0px 0px;" data-inset="false" data-corners="false" data-mini="true">
 			<!--
 			<%= streamdata.data.objid %>
 			<% console.log(streamdata); %>
@@ -11,7 +11,7 @@
 			<% } %>
 			<% if(streamdata.data.objpublic!=undefined) { %>
 				<input data-theme="d" data-id="<%= streamdata.data.objid %>" data-dbtype="<%= streamdata.data.dbtype %>" data-inset="false" <% if(streamdata.data.objpublic==true) { %>CHECKED<% } %> data-mini="true" data-corners="false" type="checkbox" class="publiccb" name="checkbox-publiccb-<%= streamdata.data.objid %>" id="checkbox-publiccb-<%= streamdata.data.objid %>">
-					<label style="width:100% !important;" data-corners="false" for="checkbox-publiccb-<%= streamdata.data.objid %>">Auch im öffentlichen APPinaut</label>
+					<label style="width:100% !important;" data-corners="false" for="checkbox-publiccb-<%= streamdata.data.objid %>">Auch für den APPinaut&reg;</label>
 			<% } %>
 			<% _.each(streamdata.data.allusergroups, function(usergroup) { %>
 				<input data-usergroupid="<%= usergroup.id %>" data-id="<%= streamdata.data.objid %>" data-id="<%= streamdata.data.objid %>" data-inset="false" <% if($.inArray( $.trim(usergroup.id), streamdata.data.activeusergroups )>-1) { %>CHECKED<% } %> data-mini="true" style="w/idth:100% !important;" data-corners="false" type="checkbox" class="usergroupcb" name="checkbox-usergroupcb-<%= usergroup.id %>" id="checkbox-usergroupcb-<%= usergroup.id %>">

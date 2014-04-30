@@ -2,53 +2,55 @@
 
 <div style="margin-bottom:50px;padding:15px;width;100%;">
 
-	<h6 style="font-size:24px;" class="resizetext"><%= card.title %></h6>
+	<h6 class="quickfit"><%= card.title %></h6>
 	
 	<form id="submitform" action="#cards/start/view/<%= card.cardid %>/<%= card.nextpage %>" method="post" class="no-ui-body no-ui-body-a no-ui-corner-all" style="border:0;">
 		
 		<input type="hidden" id="id" name="id" value="<%= card.id %>">
 		<input type="hidden" id="page" name="page" value="<%= card.page %>">
 		
-		<!--
-		<p><div style="font-size:16px;" class="resizetext"><%= card.title %></div></p>
-		-->
+		<div class="clear dynspace_small" data-percentheight="2" style="height:auto;">&nbsp;</div>
+		
 		<% if (card.failures==0) { %>
-			<p>
-				<div style="font-size:14px;padding-top:10px;padding-bottom:0px;font-weight:bold;" class="resizetext">
-					Herzlichen Glückwunsch. <br>
-					Das war absolut fehlerfrei.
-				</div>
-			</p>
+			<div style="padding-bottom:0px;font-weight:bold;max-width:75%;" class="quickfit">
+				Herzlichen Glückwunsch. <br>
+				Das war absolut fehlerfrei.
+			</div>
 		<% } else { %>
-			<p>
-				<div style="color:red;font-size:14px;font-weight:bold;" class="resizetext">Sie haben <%= card.failures %> Fehler gemacht.</div>
-			</p>
+			<div style="color:red;font-weight:bold;max-width:75%;" class="quickfit">Sie haben <%= card.failures %> Fehler gemacht</div>
 		<% } %>
 			
-		<!--
-		<p>
-			<strong>Statistik zu diesem Lernset</strong>
-		</p>
-		-->
-		<p>
-			<!--
-			<div><%= card.dbObject.completed %> Nutzer haben dieses Lernset absolviert.</div>
-			<div class="clear"></div>
-			-->
-			<div class="clear" style="height:20px;"></div>
-			<div style="float:right;width:67%;">
-				<div style="font-size:12px;" class="resizetext"><!--<%= card.dbObject.correct %>--><%= (Math.round(card.dbObject.correct/card.dbObject.completed*100,0)/100)*100 %> %<br>schafften es ohne Fehler.</div>
-				<div class="clear" style="height:5px;"></div>
-				<div class="clear"></div>
-				<div style="font-size:12px;" class="resizetext"><!--<%= card.dbObject.wrong %>--><%= (Math.round(card.dbObject.wrong/card.dbObject.completed*100,0)/100)*100 %> %<br>hatten Fehler in den Anworten.</div>
-				<div class="clear" style="height:20px;"></div>
-				<div class="clear"></div>
-			</div>				
-			<div style="float:left;width:30%;">
-				<img style="width:100%;" src="http://chart.apis.google.com/chart?chs=500x500&chd=t:<%= card.dbObject.correct %>,<%= card.dbObject.wrong %>&cht=p&chco=629632,CD0000&chf=bg,s,65432100">
+		<div class="clear dynspace_small" data-percentheight="8" style="height:auto;">&nbsp;</div>
+				
+		<div class="clear">
+			<div style="float:left;width:22%;height:auto;padding-right:2%;" id="heightto">
+				<img style="height:100%;" src="http://chart.apis.google.com/chart?chs=500x500&chd=t:<%= card.dbObject.correct %>,<%= card.dbObject.wrong %>&cht=p&chco=629632,CD0000&chf=bg,s,65432100">
 			</div>
-			<div class="clear" style="height:20px;"></div>
-		</p>
+			<div style="float:left;width:75%;" id="heightfrom">
+				<div class="clear dynspace_small" data-percentheight="1" style="height:auto;">&nbsp;</div>
+				<div class="quickfit" style="font-size:12px;"><%= (((Math.round(card.dbObject.correct/card.dbObject.completed*100,0))/100)*100).toString().split(".")[0] %> % haben es fehlerfrei geschafft</div>
+				<div class="clear dynspace_small" data-percentheight="3" style="height:auto;">&nbsp;</div>
+				<div class="quickfit" style="font-size:12px;"><%= (((Math.round(card.dbObject.wrong/card.dbObject.completed*100,0))/100)*100).toString().split(".")[0] %> % hatten fehlerhafte Anworten</div>
+				<div class="clear dynspace_small" data-percentheight="2" style="height:auto;">&nbsp;</div>
+			</div>
+		</div>
+		<div class="clear dynspace_small" data-percentheight="7" style="height:auto;">&nbsp;</div>
+			
+		<!--
+		<div class="clear">
+			<div style="float:left;width:22%;height:auto;padding-right:2%;" id="heightto">
+				<img style="height:100%;" src="http://chart.apis.google.com/chart?chs=500x500&chd=t:<%= card.dbObject.correct %>,<%= card.dbObject.wrong %>&cht=p&chco=629632,CD0000&chf=bg,s,65432100">
+			</div>
+			<div style="float:left;width:75%;">
+				<div class="clear dynspace_small" data-percentheight="1" style="height:auto;">&nbsp;</div>
+				<div class="quickfit" style="font-size:12px;"><%= (((Math.round(card.dbObject.correct/card.dbObject.completed*100,0))/100)*100).toString().split(".")[0] %> % haben es fehlerfrei geschafft</div>
+				<div class="clear dynspace_small" data-percentheight="3" style="height:auto;">&nbsp;</div>
+				<div class="quickfit" style="font-size:12px;"><%= (((Math.round(card.dbObject.wrong/card.dbObject.completed*100,0))/100)*100).toString().split(".")[0] %> % hatten fehlerhafte Anworten</div>
+				<div class="clear dynspace_small" data-percentheight="2" style="height:auto;">&nbsp;</div>
+			</div>
+		</div>
+		<div class="clear" style="height:20px;"></div>
+		-->
 			
 		<% if (card.failures>0) { %>
 			<div id="showDetailsBtnArea" name="showDetailsBtnArea">

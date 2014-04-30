@@ -201,15 +201,9 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					_thisViewLogin.$el.html(_.template(loginPage, {}));
 					// window.createVideoPreview(_thisViewLogin.$('#video_player_1'),'video_player_1',"promo",0);
 					this.$el.trigger('create');
-					$( ".dynspace_small" ).each(function(index, value) {
-						var nowheight = $(this).height();
-						// alert(nowheight);
-						var thenheight = $(this).height()*$(window).height()*1/100;
-						// alert(thenheight);
-						$(this).css('height',thenheight);
-					});
-					hideModal();
 					fontResize();
+					resizeDynSpaces();
+					hideModal();
 					this.$el.fadeIn( 500, function() {
 						if (window.system.showtutorial == true) {
 							// alert('now show the tutorial');

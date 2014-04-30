@@ -374,7 +374,6 @@ define(["jquery", "backbone", "collections/answersCollection", "models/AnswerMod
 					}
 					
 					// _thisViewCardStart.$el.trigger('create');
-					// fontResize();
 					
 					/*
 					_thisViewCardStart.$el.fadeIn( 500, function() {
@@ -391,8 +390,92 @@ define(["jquery", "backbone", "collections/answersCollection", "models/AnswerMod
 					_thisViewCardStart = this;
 					// console.log('return _thisViewCardStart;');
 					_thisViewCardStart.$el.trigger('create');
+					resizeDynSpaces();
+					resizeDynFont();
+					$(".quickfit").each(function() {
+						var jThis = $(this);
+						var owidth = jThis.width();
+						var oheight = jThis.height();
+						var ofont = Math.ceil(parseInt(jThis.css("font-size")));
+						var thisfont = parseInt(jThis.css("font-size"));
+						jThis.css("font-size",thisfont+"px");
+						// console.log('ofont: '+ofont);
+						var thisheight = jThis.height();
+						// console.log(oheight,ofont,Math.ceil(oheight/ofont));
+						var ofactor = Math.ceil(oheight/ofont);
+						// console.log(ofactor);
+						var newfactor = ofactor;
+						// console.log(oheight,thisheight,thisfont,thisheight/thisfont);
+						var i=0;
+						// for(var i=thisfont;i<=200 && oheight<=thisheight;i++) { 
+						if (thisheight/thisfont==1) {
+							while (newfactor<=ofactor) {
+								i++;
+								thisfont = i;
+								jThis.css("font-size",thisfont+"px");
+								var thisheight = jThis.height();
+								var thisfont = parseInt(jThis.css("font-size"));
+								var newfactor = Math.ceil(thisheight/thisfont);
+								// console.log(ofactor,newfactor);
+								// console.log(thisheight,thisfont,Math.ceil(thisheight/thisfont));
+								// console.log(oheight,thisheight,thisfont,thisheight/thisfont);
+								// console.log(ofactor,newfactor);
+								console.log(ofactor,newfactor);
+							}
+						} else {
+							while (thisheight<=oheight && i<=200) {
+								i++;
+								thisfont = i;
+								jThis.css("font-size",thisfont+"px");
+								var thisheight = jThis.height();
+								var thisfont = parseInt(jThis.css("font-size"));
+								var newfactor = Math.ceil(thisheight/thisfont);
+								// console.log(ofactor,newfactor);
+								// console.log(thisheight,thisfont,Math.ceil(thisheight/thisfont));
+								console.log(oheight,thisheight,thisfont,thisheight/thisfont);
+								// console.log(ofactor,newfactor);
+							}
+						}
+						console.log(oheight,thisheight,thisfont,thisheight/thisfont);
+						jThis.css("font-size",(thisfont-1)+"px");
+						jThis.css("line-height","1em");
+						$('.heightto').css("height",$('#heightfrom').height()+"px");
+						/*
+						var jThis=$(this);
+						var jthisheight = jThis.height();
+						var factor = 10;
+						var fontSize = jThis.css("font-size");
+						// console.log(parseInt(fontSize));
+						var maxFontSize = parseInt(fontSize)*factor;
+						// console.log(maxFontSize);
+						var originalLines=jThis.height()/parseInt(fontSize);
+						var newLines = jThis.height()/parseInt(fontSize);
+						// console.log(originalLines);
+						var originalHeight=jThis.height();
+						console.log(originalHeight);
+						// console.log(newLines);
+						jThis.css("line-height","1em");
+						// console.log(jThis.height()/parseInt(fontSize));
+						*/
+						// for(var i=parseInt(fontSize);newLines<=originalLines && i<=maxFontSize;i++) { 
+							/*
+							jThis.css("font-size",""+i+"px"); 
+							var newLines = jThis.height()/parseInt(fontSize);
+							console.log(i);
+							console.log(parseInt(fontSize));
+							console.log(originalLines);
+							console.log(newLines);
+							console.log(jThis.height());
+							if (jThis.height()>i) { return(false); }
+							if (originalLines>jThis.height()/parseInt(fontSize)) { return(false); }
+							jThis.css("font-size",""+i+"px"); 
+							var newLines = jThis.height()/parseInt(fontSize);
+							*/
+						// }
+						// console.log(parseInt(fontSize));
+						// jThis.css("font-size",""+(parseInt(fontSize)-2)+"px");
+					});
 					hideModal();
-					fontResize();
 					_thisViewCardStart.bindEvents();
 					$("#submitAnswerBtn").button('disable');
 					return _thisViewCardStart;

@@ -23,7 +23,7 @@ define(["jquery", "backbone", "text!templates/AdminUserListItemPage.html"],
 				});
 
 				var requestUrl = "http://dominik-lohmann.de:5000/users?deleted=false"; // active=true&
-				if (window.system.me.master!=true) requestUrl = requestUrl + "&sponsor="+_thisViewAdminUser.me.id;
+				if (window.me.master!=true) requestUrl = requestUrl + "&sponsor="+_thisViewAdminUser.me.id;
 				$.ajax({
 					url: requestUrl,
 					async: false

@@ -99,9 +99,9 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						});
 
 						var popupid = 'popupBasic';
-						$('#pageoverlay').append('<div style="z-index:9999;background-color:#000;width:'+($(window).width()-30)+'px;min-width:200px !important;max-width:650px !important;" data-role="popup" data-dismissible="true" data-overlay-theme="a" class="ui-corner-all" data-theme="a" id="'+popupid+'"></div>');
+						$('#pageoverlay').append('<div style="z-index:9999;b/ackground-color:#000;width:'+($(window).width()-60)+'px;min-width:200px !important;max-width:650px !important;" data-role="popup" data-dismissible="true" data-overlay-theme="a" class="ui-corner-all" data-theme="a" id="'+popupid+'"></div>');
 						$('#'+popupid).html('<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>');			
-						$('#'+popupid).append('<div class="ui-corner-bottom ui-content" style="z-index:9999;background-color:#000;" id="popupcontent" data-role="content"></div>');
+						$('#'+popupid).append('<div class="ui-corner-bottom ui-content" style="z-index:9999;b/ackground-color:#000;" id="popupcontent" data-role="content"></div>');
 						// alert('bla>'+dateYmdHis());
 						// console.log($('#'+popupid).html());
 						$( "#"+popupid ).bind({
