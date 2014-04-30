@@ -277,6 +277,10 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						// _thisViewMyProfileNested.initialize();
 						// alert('not iphone doing paypal');
 						doAlert('APPinaut® Coins können im Preview nicht gekauft werden.','Information');
+						var pplink = "";
+						pplink = "http://www.wikipedia.org";
+						pplink = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XQM2GLEJK6MEA"; // iapa // 3,59
+						window.open(pplink,'_system','location=yes')
 						hideModal();
 					}
 					return(false);
