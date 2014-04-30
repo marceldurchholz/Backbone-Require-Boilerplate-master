@@ -23,7 +23,10 @@
 			<% if (card.offlineurl=="") { %>
 			<% } %>
 		<% } %>
+	<% } else  { %>
+		<a data-inset="false" data-corners="false" data-id="<%= card.id %>" id="buybutton" class="buybutton" data-theme="f" data-role="button"><%= card.pricetext %></a>
 	<% } %>
+
 </div>
 <div class="clear"></div>
 
@@ -54,7 +57,7 @@
 			<div id="detailsdiv" style="display:none;">
 				Bereitstellung: <%= dateYmdHisToGerman(card.cdate) %>
 				<div class="clear"></div>
-				<a data-id="<%= card.id %>" id="changePriceBtn" href="">Preis: <% if(card.price==undefined || Math.ceil(card.price==0)) { %>kostenlos<% } else { %><%= card.price %> APPinaut&reg; Coins<% } %></a>
+				<<% if(window.me.id==card.uploaderdata.id) { %>a<% } else {%>div<% } %> data-id="<%= card.id %>" <% if(window.me.id==card.uploaderdata.id) { %>id="changePriceBtn" <% } %> >Preis: <% if(card.price==undefined || Math.ceil(card.price==0)) { %>kostenlos<% } else { %><%= card.price %> APPinaut&reg; Coins<% } %></<% if(window.me.id==card.uploaderdata.id) { %>a<% } else {%>div<% } %>>
 				<div class="clear"></div>
 				<div class="clear" style="padding-bottom:10px;"></div>
 			</div>

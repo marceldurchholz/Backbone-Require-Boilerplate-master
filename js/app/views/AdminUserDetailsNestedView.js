@@ -7,23 +7,26 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 		var MyProfileNestedView = Backbone.View.extend({
 			el: "#AdminUserDetailsNestedViewDiv",
 			initialize: function() {
-				_thisViewAdminUserDetailsNested = this;
+				var _thisViewAdminUserDetailsNested = this;
 				_thisViewAdminUserDetailsNested.$el.hide();
 				showModal();
 			},
 			fetch: function() {	
 				_thisViewAdminUserDetailsNested = this;
 
-				$.ajax({
-					url: "http://dominik-lohmann.de:5000/users/"+window.me.id,
-					async: false
-				}).done(function(me) {
-					// alert(me.id);
-					_thisViewAdminUserDetailsNested.me = me;
-					if (_thisViewAdminUserDetailsNested.me.interests == undefined) _thisViewAdminUserDetailsNested.me.interests = new Array();
-				});
+				if (window.me.interests==undefined) window.me.interests=new Array();
 
-				// console.log(_thisViewAdminUserDetails.options.id);
+				$.ajax({
+					url: "http://dominik-lohmann.de:5000/users",
+					async: false
+				}).done(function(users) {
+					var logincounts = 0;
+					_.each(users, function(user) {
+						if (user.logincount==undefined) user.logincount = 0;
+						logincounts += user.logincount;
+					});
+					window.me.level = Math.round(3*(window.me.logincount/logincounts),0);
+				});
 				
 				$.ajax({
 					url: "http://dominik-lohmann.de:5000/users/"+_thisViewAdminUserDetails.options.id,
@@ -65,7 +68,7 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 				*/
 				
 				var requestUrl = "http://dominik-lohmann.de:5000/usergroups/?deleted=false";
-				if (window.me.master!=true) requestUrl = requestUrl + "&owner="+_thisViewAdminUserDetailsNested.me.id;
+				if (window.me.master!=true) requestUrl = requestUrl + "&owner="+window.me.id;
 				$.ajax({
 					url: requestUrl,
 					async: false
@@ -96,26 +99,30 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 			bindEvents: function() {
 				_thisViewAdminUserDetailsNested = this;
 				$('#delaccuntarea').hide();
-
-				// swipeleft
-				// _thisViewAdminUserDetailsNested.$el.off( "click", ".swipetodeletetd").on( "click", ".swipetodeletetd", function( e ) {
 				_thisViewAdminUserDetailsNested.$el.off( "swipeleft", ".swipetodeletetd").on( "swipeleft", ".swipetodeletetd", function( e ) {
 					e.preventDefault();
 					var usergroupid = $(this).attr('data-usergroupid');
 					var _thisEl = $(this);
-					doConfirm('Möchten Sie diese Gruppe wirklich löschen?', 'Wirklich löschen?', function (clickevent) { 
-						if (clickevent=="1") {
-							_thisViewAdminUserDetailsNested.deleteUsergroup(_thisEl,usergroupid);
-							/*
-							$.when( deleteFlowClicked() ).done(
-								function( result ) {
-									// console.log('end deleteFlowClicked');
+					var msg = "Möchten Sie diese Gruppe wirklich löschen?";
+					
+					var query = { usergroups: {$in: [usergroupid]} };
+					dpd.users.get(query, function (users,err) {
+						if(err) { console.log(err); }
+						if (users.length>0) {
+							msg = msg + " Verknüpfungen zu bestehenden Einträgen werden ebenfalls entfernt.";
+							// console.log(users);
+							doConfirm(msg, 'Wirklich löschen?', function (clickevent) { 
+								if (clickevent=="1") {
+									_.each(users, function(user, index, list) {
+										// console.log(user);
+										dpd.users.put(user.id, {"usergroups": {$pull:$.trim(usergroupid)}} );
+									});
+									_thisViewAdminUserDetailsNested.deleteUsergroup(_thisEl,usergroupid);
 								}
-							);
-							*/
+							}, "Ja,Nein");
 						}
-					}, "Ja,Nein");
-					// alert('peng');
+					});
+					return(false);
 				});
 
 				_thisViewAdminUserDetailsNested.$el.off('change','.usergroupcb').on('change','.usergroupcb',function(e){
@@ -151,13 +158,13 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 						doAlert('Bitte geben die Bezeichnung der neuen Gruppe ein.','Bitte Bezeichnung eingeben');
 						return(false);
 					}
-					dpd.usergroups.post({"deleted":false,"owner":_thisViewAdminUserDetailsNested.me.id,"name":usergroupname}, function(result, err) {
+					dpd.usergroups.post({"deleted":false,"owner":window.me.id,"name":usergroupname}, function(result, err) {
 						if(err) return console.log(err);
 						// console.log(result, result.id);
 						var usergroupid = result.id;
 						var checkboxid = "checkbox-v-usergroup-"+usergroupid;
 						var checked = ""; // CHECKED
-						var newgrouptemplate = '<tr><td class="swipetodeletetd" style="text-align:left;" colspan="2" data-usergroupid="'+usergroupid+'"><input data-usergroupid="'+usergroupid+'" data-userid="'+_thisViewAdminUserDetailsNested.me.id+'" '+checked+' data-inset="false" data-mini="true" type="checkbox" class="usergroupcb" name="'+checkboxid+'" id="'+checkboxid+'"><label class="usergroupcb" for="'+checkboxid+'">'+usergroupname+'</label></td></tr>';
+						var newgrouptemplate = '<tr><td class="swipetodeletetd" style="text-align:left;" colspan="2" data-usergroupid="'+usergroupid+'"><input data-usergroupid="'+usergroupid+'" data-userid="'+window.me.id+'" '+checked+' data-inset="false" data-mini="true" type="checkbox" class="usergroupcb" name="'+checkboxid+'" id="'+checkboxid+'"><label class="usergroupcb" for="'+checkboxid+'">'+usergroupname+'</label></td></tr>';
 						// $('newgrouptemplate').insertBefore($('#insertrowbeforehere'));
 						$('#insertrowbeforehere').before(newgrouptemplate);
 						$("input#"+checkboxid).closest("div").trigger("create");
@@ -226,7 +233,7 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 				// console.log('rendering MyProfileNestedView.js');
 				
 				var htmlContent = '';
-				$(this.el).html(htmlContent);
+				$(_thisViewAdminUserDetailsNested.el).html(htmlContent);
 				// console.log(_thisViewAdminUserDetailsNested.user);
 				if (!_thisViewAdminUserDetailsNested.user.credits) _thisViewAdminUserDetailsNested.user.credits = "0";
 				// console.log(_thisViewAdminUserDetailsNested.user.appviews);				
@@ -240,23 +247,23 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 					, perstext: _thisViewAdminUserDetailsNested.user.perstext
 					, username: _thisViewAdminUserDetailsNested.user.username
 					, credits: _thisViewAdminUserDetailsNested.user.credits
-					, level: _thisViewAdminUserDetailsNested.user.level
+					, level: window.me.level
 					, interests: _thisViewAdminUserDetailsNested.interests
 					, usergroups: _thisViewAdminUserDetailsNested.user.usergroups
 					, allusergroups: _thisViewAdminUserDetailsNested.allusergroups
 				},{variable: 'user'});
 				// alert(htmlContent);
-				$(this.el).html(htmlContent);
+				$(_thisViewAdminUserDetailsNested.el).html(htmlContent);
 				fontResize();
 				hideModal();
-				this.$el.trigger('create');
+				_thisViewAdminUserDetailsNested.$el.trigger('create');
 				// new FastClick(document.body);
-				this.$el.fadeIn( 500, function() {
+				_thisViewAdminUserDetailsNested.$el.fadeIn( 500, function() {
 					$('.ui-content').scrollTop(0);
 					new FastClick(document.body);
 				});
-				this.bindEvents();
-				return(this);
+				_thisViewAdminUserDetailsNested.bindEvents();
+				return(_thisViewAdminUserDetailsNested);
 			}
 		});
 

@@ -1783,26 +1783,26 @@ try {
 	}
 
 	function addFollower(me, toid) {
-		// var query = {id:toid,$or:[{"sponsor":me.id},{"followers":me.id}],$sort:{fullname:1}};
-		var query = {  followers: {$in: [me.id]}, id:toid };
+		var query = { followers: {$in: [me.id]}, id:toid };
 		dpd.users.get(query, function (result,err) {
 			if(err) dpd.users.put(toid, {"followers": {$push:$.trim(me.id)}} );
 		});
-		var query = {  following: {$in: [toid]}, id:me.id };
+		var query = { following: {$in: [toid]}, id:me.id };
 		dpd.users.get(query, function (result,err) {
 			if(err) dpd.users.put(me.id, {"following": {$push:$.trim(toid)}} );
 		});
 	}
 
 	function addVideoReport(me, videoid) {
-		var query = {  reportedby: {$in: [me.id]}, id:videoid };
+		var query = { reportedby: {$in: [me.id]}, id:videoid };
 		dpd.videos.get(query, function (result,err) {
 			if(err) dpd.videos.put(videoid, {"reportedby": {$push:$.trim(me.id)}} );
 		});
 	}
 
 	function addOrder(me,videoid,creatorid,price) {
-		dpd.orders.post({"userid":""+me.id,"videoid":""+videoid,"creatorid":""+creatorid,"price":""+price}, function(result, err) {
+		var cdate = dateYmdHis();
+		dpd.orders.post({"userid":""+me.id,"videoid":""+videoid,"cdate":""+cdate,"creatorid":""+creatorid,"price":""+price}, function(result, err) {
 			if(err) return console.log(err);
 		});
 	}

@@ -15,17 +15,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 				_thisViewMyProfileNested.initialized = window.me;
 				// dpd.users.me(function(me) {
 				
-				if (1==2) dpd.users.me(function(user) {
-				  if (user) {
-					// alert('you are loggedIn');
-					console.log(user);
-					// $('h1').text("Welcome, " + user.username + "!");
-				  } else {
-					// alert('NOT loggedIn');
-					// location.href = "/";
-				  }
-				});
-				
 				dpd('users').get(window.system.uid, function(me, err) {
 				// dpd.users.me(function(me) {
 					if (me) { 
@@ -47,7 +36,6 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							logincounts += user.logincount;
 						});
 						_thisViewMyProfileNested.me.level = Math.round(3*(window.me.logincount/logincounts),0);
-						// alert(_thisViewMyProfileNested.me.level);
 					});
 					
 					$.ajax({
@@ -83,31 +71,16 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							_thisViewMyProfileNested.interests[index] = interest;
 						});
 						
-						// _thisViewMyProfileNested.checkActiveStatus();
-						// console.log(_thisViewMyProfileNested.interests);
-						// alert(_thisViewMyProfileNested.interests.length);
+						var requestUrl = "http://dominik-lohmann.de:5000/orders/?userid="+window.me.id;
+						$.ajax({
+							url: requestUrl,
+							async: false
+						}).done(function(orders) {
+							_thisViewMyProfileNested.orders = orders;
+						});
+
 						_thisViewMyProfileNested.render();
 					});
-					// alert(_thisViewMyProfileNested.interests.length);
-
-					
-					// console.log(_thisViewMyProfileNested.interests);
-					
-					
-					
-
-					
-					
-					
-					
-					// if (_thisViewMyProfileNested.me.active==false || $("#fullname").val()=='') {
-					/*
-					if ($("#fullname").val()=='') {
-						// doAlert('Bitte vervollständigen Sie Ihr Profil und bestätigen Sie Ihre E-Mail-Adresse über den zugesendeten Link.','Fast fertig...');
-						doAlert('Bitte hinterlegen Sie Ihren Namen zur Freischaltung.','Fast fertig...');
-					}
-					*/
-					
 				});
 
 			},
@@ -412,6 +385,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					, provider: provider
 					, seeker: seeker
 					, appviews: _thisViewMyProfileNested.me.appviews
+					, sales: _thisViewMyProfileNested.orders
 				},{variable: 'user'});
 				// alert(htmlContent);
 				$(this.el).html(htmlContent);

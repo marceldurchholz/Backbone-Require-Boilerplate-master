@@ -621,7 +621,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					this.$el.trigger('create');
 					new FastClick(document.body);
 					
-					var slicePoint = Math.round($(window).width()/12-14);
+					var slicePoint = Math.round($(window).width()/10-14);
 					// alert(slicePoint);
 					_thisViewVideoDetails.title_shorten = this._videosCollection.models[0].attributes.title;
 					if (_thisViewVideoDetails.title_shorten.length>slicePoint) _thisViewVideoDetails.title_shorten = _thisViewVideoDetails.title_shorten.substr(0,slicePoint)+'...';
@@ -654,7 +654,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							userCollapse: false
 						});
 						$('.readmore').expander({
-							slicePoint: slicePoint*4,
+							slicePoint: slicePoint*10,
 							preserveWords: true,
 							expandPrefix: '...',
 							expandEffect: 'fadeIn',
