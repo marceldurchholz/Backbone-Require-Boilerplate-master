@@ -265,20 +265,21 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					e.preventDefault();
 					// console.log(e.delegateTarget);
 					var iapid = $(this).attr('data-iapid');
-					// console.log("purchasing "+iapid);
-					// window.storekit.purchase("com.digitalverve.APPinaut."+iapid,1);
-					showModal();
-					if (isMobile.any()) { 
+					if (isMobile.iPhone()) {
+						// console.log("purchasing "+iapid);
+						// window.storekit.purchase("com.digitalverve.APPinaut."+iapid,1);
 						window.storekit.purchase(iapid,1);
+						// window.storekit.purchase("com.digitalverve.APPinaut.250APP359T9", 1);
+						// window.storekit.purchase("com.digitalverve.APPinaut.250APP359T9");
 					}
 					else {
 						// console.log('window.storekit.purchase not available when not mobile');
-						_thisViewMyProfileNested.initialize();
+						// _thisViewMyProfileNested.initialize();
+						// alert('not iphone doing paypal');
+						doAlert('APPinaut® Coins können im Preview nicht gekauft werden.','Information');
 						hideModal();
-						
 					}
-					// window.storekit.purchase("com.digitalverve.APPinaut.250APP359T9", 1);
-					// window.storekit.purchase("com.digitalverve.APPinaut.250APP359T9");
+					return(false);
 				});
 				
 				this.$el.off('click','#showdeletearea').on('click','#showdeletearea',function(e){

@@ -47,8 +47,11 @@ try {
 		Windows: function() {
 			return navigator.userAgent.match(/IEMobile/i) ? true : false;
 		},
+		iPhone: function() {
+			return ((navigator.platform.indexOf("iPhone") != -1) || (navigator.platform.indexOf("iPod") != -1) ) ? true : false;
+		},
 		any: function() {
-			return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
+			return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows() || isMobile.iPhone());
 		}
 	};
 
@@ -658,7 +661,7 @@ try {
 			debug: true, /* Because we like to see logs on the console */
 			noAutoFinish: true,
 			purchase: function (transactionId, productId) {
-				// showModal();
+				showModal();
 				// alert('start purchasing');
 				storekit.finish(transactionId);
 				storekit.loadReceipts(function (receipts) {

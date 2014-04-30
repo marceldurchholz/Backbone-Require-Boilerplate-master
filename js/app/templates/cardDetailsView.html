@@ -24,7 +24,7 @@
 			<% } %>
 		<% } %>
 	<% } else  { %>
-		<a data-inset="false" data-corners="false" data-id="<%= card.id %>" id="buybutton" class="buybutton" data-theme="f" data-role="button"><%= card.pricetext %></a>
+		<a data-inset="false" data-corners="false" data-cardid="<%= card.id %>" id="submitbutton" name="submitbutton" data-theme="f" data-role="button" href="#cards/start/view/<%= card.id %>/0">Lernset starten</a>
 	<% } %>
 
 </div>
