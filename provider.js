@@ -8,5 +8,5 @@ window.kdnr = "20001";
 // 1ddee46a6fadb82a = wdurchholz / wd123
 // 47a73afc841ce83f = j.auer@joachimauer.de / JA5734
 
-window.aoid = "6b7210be92e32ac1";
-window.uid = "6b7210be92e32ac1";
+window.aoid = "";
+window.uid = "";
