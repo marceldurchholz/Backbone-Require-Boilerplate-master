@@ -120,34 +120,23 @@ define(["jquery", "backbone", "text!templates/captureVideoLinkPage.html", "model
 				event.preventDefault();
 				// alert('savePageTwo');
 				var _thisViewRecordVideoNested = this;
-				/*
-				if ($('#blafoopeng').val()=='') {
-					doAlert('','');
-					return(false);
-				}
-				*/
 				_thisViewRecordVideoNested.stop = false;
 				_thisViewRecordVideoNested.formValues = new Object;
 				_.each(this.$('#submitform').serializeArray(), function(input){
 					if (input.value=='') {
 						doAlert('Es fehlen Angaben in mindestens einem Formularfeld.','Formular unvollständig!');
-						console.log(input);
+						// console.log(input);
 						_thisViewRecordVideoNested.stop=true;
-						// return(false);
 					}
-					// console.log('getting: '+input.name+' >> '+input.value);
 					_thisViewRecordVideoNested.localStorageSubmitformModel.set(input.name,input.value);
 				});
 				if(_thisViewRecordVideoNested.stop==true) return(false);
 				_thisViewRecordVideoNested.localStorageSubmitform.set(_thisViewRecordVideoNested.localStorageSubmitformModel);
-				// this.activePage = VideoRecordNestedPageTwo;
-				// this.render();
-				console.log(_thisViewRecordVideoNested.localStorageSubmitform);
+				// console.log(_thisViewRecordVideoNested.localStorageSubmitform);
 				
 				var attributes = _thisViewRecordVideoNested.localStorageSubmitform.models[0].attributes;
-				console.log(attributes);
+				// console.log(attributes);
 				
-				// return(false);
 				var rval = new Object();
 				rval = checkYoutubeUrl(attributes.camera_file);
 				
@@ -164,6 +153,7 @@ define(["jquery", "backbone", "text!templates/captureVideoLinkPage.html", "model
 					});
 				}
 				else {
+					alert('now doing captureVideoUpload');
 					captureVideoUpload(_thisViewRecordVideoNested.localStorageSubmitform);
 				}
 			},
@@ -260,15 +250,6 @@ define(["jquery", "backbone", "text!templates/captureVideoLinkPage.html", "model
 				});
 				this.$el.off('click','#recordMediaUploadButton').on('click','#recordMediaUploadButton',function(event){
 					event.preventDefault();
-					/*
-					if (!isMobile.any()) {
-						doAlert('Die Uploadfunktion ist in einem APPinaut® Preview Beispiel nicht möglich. Sie werden statt dessen zur Pinnwand Ihres APPinaut® weitergeleitet.','APPinaut® Information');
-						window.location.href = "#learningstreamview";
-					}
-					else {
-						_thisViewRecordVideoNested.savePageTwo(event);
-					}
-					*/
 					_thisViewRecordVideoNested.savePageTwo(event);
 				});
 				this.$el.off('click','#formbackbutton').on('click','#formbackbutton',function(event){
@@ -279,6 +260,7 @@ define(["jquery", "backbone", "text!templates/captureVideoLinkPage.html", "model
 					event.preventDefault();
 					if (!isMobile.any()) {
 						doAlert('Die Aufnahmefunktion ist in einem APPinaut® Preview Beispiel nicht möglich. Es wird statt dessen ein Beispielvideo verwendet.','APPinaut® Information');
+						$("#camera_file").val("https://dl.dropboxusercontent.com/u/45253363/appinaut/videos/1111111111.mp4");
 						$("#video_player").attr("src", "https://dl.dropboxusercontent.com/u/45253363/appinaut/videos/1111111111.mp4").get(0).play();
 					}
 					else captureVideoRecord();

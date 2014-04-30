@@ -1947,6 +1947,13 @@ try {
 				formValues[modelkey] = modelsattribute[modelkey];
 			}
 		}
+		var flipactivate = false;
+		if (formValues.flipactivate=="on") flipactivate=true;
+		var flippublic = false;
+		if (formValues.flippublic=="on") flippublic=true;
+		// alert("active"+flipactivate);
+		// alert("public"+flippublic);
+		// alert({"vsize":Math.ceil(r.bytesSent).toString(),"vlength":window.system.videolength.toString(),"uploader":""+_this._thisViewRecordVideoNested.me.id,"videourl":""+options.fileName,"active":flipactivate,"public":flippublic,"cdate":""+dateYmdHis(),"topic":""+formValues.interest,"title":""+formValues.title,"subtitle":""+formValues.subtitle,"description":""+formValues.description,"price":formValues.sliderprice});
 		var mediaFile = formValues.camera_file;
 		try {
 			showModal();
@@ -1978,7 +1985,8 @@ try {
 							return console.log(err);
 						}
 						hideModal();
-						window.location.href = '#learningstreamview';
+						// window.location.href = '#learningstreamview';
+						window.location.href = '#videos/details/view/'+result.id;
 					});
 				},
 				function(error) {
@@ -2605,19 +2613,6 @@ try {
 		}, "Ja,Nein");
 	});
 	
-	/*
-	$('abody').off( "swipeleft", ".swipeToDelete").on( "swipeleft", ".swipeToDelete", function( e ) {
-		e.preventDefault();
-		// alert('swiped on element');
-		var listitem = $(this);
-		doConfirm('Der Eintrag kann nicht wiederhergestellt werden!', 'Wirklich löschen?', function (clickevent) { 
-			if (clickevent=="1") {
-				deleteFlowClicked(listitem);
-			}
-		}, "Ja,Nein");
-	});
-	*/
-	
 	function deleteFlowClicked() {
 		deleteMessageFlow();
 	}
@@ -2674,15 +2669,11 @@ try {
 	
 	$('body').off( "click", ".messagesendbutton").on( "click", ".messagesendbutton", function( e ) {
 		e.preventDefault();
-		// alert('bla');
 		$("#newmessageform").submit();
 	});
 
 	$('body').off( "submit", ".newmessageform").on( "submit", ".newmessageform", function( e ) {
 		e.preventDefault();
-		// alert('foo');
-		// var data = $('.newmessageform').serialize();
-		// console.log(data);
 		if($('#messagetextarea').val().length==0) return(false);
 		var sender = window.me.id;
 		var receiver = $('#receiver').val();
@@ -2691,18 +2682,9 @@ try {
 			return(false);
 		}
 		var content = $('#messagetextarea').val();
-		// console.log(sender);
-		// console.log(receiver);
-		// console.log(content);
-		// var cdate = dateYmdHis();
-		// alert(getTimestamp());
 		$('.newmessageform').css({'opacity':'0.6'});
 		$('#messagesendbutton').addClass( 'ui-disabled' );
 		$('#messagetextarea').addClass( 'ui-disabled' );
-		// alert(sender);
-		// alert(receiver);
-		// alert(content);
-		// alert(system.timestamp);
 		var postvals = {sender: sender, receiver: receiver, content: content, cdate: system.timestamp};
 		dpd.messages.post(postvals, function(result, err) {
 			if(err) {
@@ -2723,19 +2705,6 @@ try {
 		return(false);
 	});
 	
-	/*
-	$('#page-content').scroll(function () {
-		$('.newmessageform').each(function () {
-			// $(this).height();
-			// $(this).css({'position':'fixed'});
-			$(this).css({'bottom':'0px'});
-			// $(this).css({'opacity':'0.7'});
-		});
-	});
-	*/
-	
-	// resize:false;height: 40px !important;
-
 	function checkTextareaValue() {
 		// console.log($('#messagetextarea').val().length);
 		if ($('#messagetextarea').val() && $('#messagetextarea').val().length > 0) {
@@ -2761,39 +2730,37 @@ try {
 		return(false);
 	});
 	
-		$('#body').off('all','#sliderprice').on('all','#sliderprice',function(event){
-			console.log(event);
-		});
-		
 		$('#body').off('slidestop','#sliderprice').on('slidestop','#sliderprice',function(event){
-			showModal();
 			var id = $('#sliderprice').attr('data-id');
-			var priceincoins = $('#sliderprice').val();
-			$('#priceincoins').html(priceincoins);
-			var dbtable = "";
-			var dbtype = $('#sliderprice').attr('data-dbtype');
-			// console.log(dbtype);
-			// return(false);
-			if(dbtype=="video") dbtable="videos";
-			if(dbtype=="card") dbtable="cards";
-			$.ajax('http://dominik-lohmann.de:5000/'+dbtable+'/?id='+id,{
-				type:"POST",
-				contentType: "application/json",
-				async: false,
-				data: JSON.stringify({price: priceincoins}),
-			}).done(function(result) {
-				var priceineuro = ((Math.ceil(priceincoins*0.0055*100))/100).toString().replace(".", ",");
-				if (priceineuro.split(",")[1]==undefined) priceineuro = priceineuro + ",00";
-				else if (priceineuro.split(",")[1].length==0) priceineuro = priceineuro + "00";
-				else if (priceineuro.split(",")[1].length==1) priceineuro = priceineuro + "0";
-				$('#priceineuro').html(priceineuro);
-			}).fail(function() {
-				console.log( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
-				return(false);
-			})
-			.always(function() {
-				hideModal();
-			});
+			if (id!=undefined) {
+				showModal();
+				var priceincoins = $('#sliderprice').val();
+				$('#priceincoins').html(priceincoins);
+				var dbtable = "";
+				var dbtype = $('#sliderprice').attr('data-dbtype');
+				// console.log(dbtype);
+				// return(false);
+				if(dbtype=="video") dbtable="videos";
+				if(dbtype=="card") dbtable="cards";
+				$.ajax('http://dominik-lohmann.de:5000/'+dbtable+'/?id='+id,{
+					type:"POST",
+					contentType: "application/json",
+					async: false,
+					data: JSON.stringify({price: priceincoins}),
+				}).done(function(result) {
+					var priceineuro = ((Math.ceil(priceincoins*0.0055*100))/100).toString().replace(".", ",");
+					if (priceineuro.split(",")[1]==undefined) priceineuro = priceineuro + ",00";
+					else if (priceineuro.split(",")[1].length==0) priceineuro = priceineuro + "00";
+					else if (priceineuro.split(",")[1].length==1) priceineuro = priceineuro + "0";
+					$('#priceineuro').html(priceineuro);
+				}).fail(function() {
+					console.log( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
+					return(false);
+				})
+				.always(function() {
+					hideModal();
+				});
+			}
 		});
 
 		$('#body').off('change','#sliderprice').on('change','#sliderprice',function(event){
@@ -2819,14 +2786,7 @@ try {
 	});
 	
 	$('#body').off( "keyup", "#messagetextarea").on( "keyup", "#messagetextarea", function( e ) {
-		/*
-		if (e.which == 13) {
-			e.preventDefault();
-			return(false);
-		}
-		*/
 		e.preventDefault();
-		// console.log('keyup');
 		$('.newmessageform').css({'opacity':'0.9'});
 		var txt = $('#messagetextarea').val();
 		$('#messagetextarea').val(txt.replace(/[\n\r]+/g, ""));
@@ -2834,10 +2794,6 @@ try {
 		$('#page-content').stop().animate({
 		  scrollTop: $("#page-content")[0].scrollHeight
 		}, 1000);
-		
-		// $('#messagetextarea').css({'height':''});
-		// console.log($(this));
-		// console.log($('#messagetextarea').val());
 		checkTextareaValue();
 	});
 	
@@ -2846,57 +2802,26 @@ try {
 		$('.newmessageform').css({'opacity':'0.9'});
 		$('#messagetextarea').css({'max-height':'80px'});
 		checkTextareaValue();
-		// console.log(o);
-		// $('#messagetextarea').height(0);
-		// console.log(e.currentTarget.height());
-		// $('#messagesendbuttondiv').show();
 		$('#page-content').stop().animate({
 		  scrollTop: $("#page-content")[0].scrollHeight
 		}, 1000);
-		// console.log('focussed textarea');
 	});
 	$('#body').off( "blur", "#messagetextarea").on( "blur", "#messagetextarea", function( e ) {
 		e.preventDefault();
 		$('.newmessageform').css({'opacity':'0.7'});
-		// $('#messagetextarea').css({'max-height':'40px'});
 		checkTextareaValue();
-		// hideKeyboard();
-		// $('#messagetextarea').height(40);
-		// $('#messagetextarea').css("height","20px");
-		// $( '#messagetextarea' ).height( 20 );
-		// console.log($('#messagetextarea'));
-		// $('#messagesendbuttondiv').hide();
-		// console.log('blurred textarea');
 	});
-	
-	/*
-	$('#body').off( "keyup", "#messagetextarea").on( "keyup", "#messagetextarea", function( event ) {
-		if (event.keyCode == 13) {
-			event.preventDefault();
-			console.log('keyup');
-			return(false);
-		}
-	});
-	*/
 	
 	$(document).on('click', ".external", function (e) {
 		e.preventDefault();
-		// alert('bla');
 		var targetURL = $(this).attr("href");
 		window.open(targetURL, "_system");
 	});
 
-	// $(window).bind('resize', function() {
-	$(window).resize(function() {
-		// fontResize();
-	});
-	
-	 
 	function checkTopNaviRoles() {
 		 try {
 			$( "#pageOptions li" ).each(function(index, value) {
 				var lirole = $(this).attr('data-roles');
-				// if (lirole == '' || lirole == 'public' || lirole == undefined) { 
 				if (lirole == 'public') { 
 					$(this).css('visibility','visible');
 					$(this).css('display','block');
@@ -3328,37 +3253,14 @@ try {
 	}
 
 	function fontResize() {
-		// alert('font-resizing');
-		//Set default resolution and font size
-		// var resolution = 1024;
-		// var height = 1024;
 		var height = $(window).height();
 		var width = $(window).width();
-		
 		var font = 10;
-		//Get window width
-
-		//Set new font size
 		var fullpixel = width*height;
-		// alert(width);
-		// alert(height);
-		// alert(fullpixel);
-		// 150000
 		var factor = (fullpixel/180000);
-		// alert(factor);
 		if (factor<0.8) factor = 0.8;
 		if (factor>1.4) factor = 1.4;
 		var newFont = font * factor;
-		/*
-		$('#body').each(function( index ) {
-			// alert($(this).css('font-size').substr($( this ).css('font-size').len-2,2));
-			if ($(this).css('font-size').substr($( this ).css('font-size').len-2,2)>22 || newFont>22) newFont = 22;
-			// $('body').css('font-size', newFont);
-			$( this ).css('font-size', newFont);
-			// alert($(this).css('font-size'));
-			// alert(newFont);
-		});
-		*/	
 		$('.resizetext').each(function( index, bla ) {
 			// alert($(this).html());
 			var font = $(this).css('font-size').substr($( this ).css('font-size').len-2,2);
@@ -3368,8 +3270,6 @@ try {
 			// alert(newFont);
 			$(this).css("font-size", newFont+"px");
 		});
-		
-		
 	};
 
 	function getTimestamp() {

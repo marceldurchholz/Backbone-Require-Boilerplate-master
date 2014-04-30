@@ -1,4 +1,4 @@
-<h3 class="ui-bar ui-bar-b" style="border-top-width:0px;text-align:center;">aMedia hinzufügen (Schritt 1 von 2)</h3>
+<h3 class="ui-bar ui-bar-b" style="border-top-width:0px;text-align:center;">Media hinzufügen (Schritt 1 von 2)</h3>
 
 <div id="videobox" style="width:100px;height:100px;clear:both;float:none;background-color:#000;">
 	<div id="videoboxinnerdiv">
@@ -18,9 +18,9 @@
 	
 	<br>
 	
-	<% if (isMobile.any()) { %>
-		<a id="captureVideoRecordButton" name="captureVideoRecordButton" data-theme="d" data-role="button">Neues Video aufnehmen</a>
+	<% if (!isMobile.any()) { %>
 	<% } %>
+	<a id="captureVideoRecordButton" name="captureVideoRecordButton" data-theme="d" data-role="button">Neues Video aufnehmen</a>
 	<a id="captureVideoLinkPopup" name="captureVideoLinkPopup" data-theme="d" data-role="button">Neues Video verknüpfen</a>
 	<!-- <br> -->
 
