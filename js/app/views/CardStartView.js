@@ -1,8 +1,8 @@
 // CardStartView.js
 // -------
-define(["jquery", "backbone", "collections/answersCollection", "models/AnswerModel", "views/CardView", "text!templates/cardStartView.html", "text!templates/cardFinishView.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
+define(["jquery", "backbone", "collections/answersCollection", "models/AnswerModel", "text!templates/cardStartView.html", "text!templates/cardFinishView.html", "text!templates/sidemenusList.html", "views/SidemenuView"],
 
-    function($, Backbone, answersCollection, AnswerModel, CardListViewItems, cardsStartViewHTML, cardsFinishViewHTML, sidemenusList, SidemenuView){
+    function($, Backbone, answersCollection, AnswerModel, cardsStartViewHTML, cardsFinishViewHTML, sidemenusList, SidemenuView){
 		
 			var CardStartViewVar = Backbone.View.extend({
 			
@@ -226,26 +226,33 @@ define(["jquery", "backbone", "collections/answersCollection", "models/AnswerMod
 					
 					if (_thisViewCardStart.failures>0) { var wrong=1; var correct=0; }
 					else { var wrong=0; var correct=1; }
-					dpd.cards.put(_thisViewCardStart.options.cardid,{"completed":{$inc:1},"wrong":{$inc:wrong},"correct":{$inc:correct}}, function(result, err) {
-						if(err) return console.log(err);
-						// console.log(result);
-						_template = _.template(_thisViewCardStart.displayPage, {
-							id: _thisViewCardStart.carddata.id,
-							uploader: _thisViewCardStart.uploaderdata.fullname,
-							results: _thisViewCardStart._answersCollection.models,
-							failures: _thisViewCardStart.failures,
-							topic: _thisViewCardStart.carddata.topic,
-							cardurl: _thisViewCardStart.carddata.cardurl,
-							description: _thisViewCardStart.carddata.description,
-							resultArray: _thisViewCardStart.resultArray,
-							dbObject: result,
-							title: _thisViewCardStart.carddata.title
-						},{variable: 'card'});
-						// $(this.el).html(_template);
-						_thisViewCardStart.$el.html(_template);
-						_thisViewCardStart.render();
-					});
+					
+					dpd('users').put(window.me.id,{"completed":{$inc:1},"wrong":{$inc:wrong},"correct":{$inc:correct}}, function(me, errme) {
+						if(errme) return console.log(errme);
+						// console.log(me);
+						window.me = me;
 
+						dpd.cards.put(_thisViewCardStart.options.cardid,{"completed":{$inc:1},"wrong":{$inc:wrong},"correct":{$inc:correct}}, function(result, err) {
+							if(err) return console.log(err);
+							// console.log(result);
+							_template = _.template(_thisViewCardStart.displayPage, {
+								id: _thisViewCardStart.carddata.id,
+								uploader: _thisViewCardStart.uploaderdata.fullname,
+								results: _thisViewCardStart._answersCollection.models,
+								failures: _thisViewCardStart.failures,
+								topic: _thisViewCardStart.carddata.topic,
+								cardurl: _thisViewCardStart.carddata.cardurl,
+								description: _thisViewCardStart.carddata.description,
+								resultArray: _thisViewCardStart.resultArray,
+								dbObject: result,
+								title: _thisViewCardStart.carddata.title
+							},{variable: 'card'});
+							// $(this.el).html(_template);
+							_thisViewCardStart.$el.html(_template);
+							_thisViewCardStart.render();
+						});
+
+					});
 					
 				},
 				
@@ -432,14 +439,13 @@ define(["jquery", "backbone", "collections/answersCollection", "models/AnswerMod
 								var newfactor = Math.ceil(thisheight/thisfont);
 								// console.log(ofactor,newfactor);
 								// console.log(thisheight,thisfont,Math.ceil(thisheight/thisfont));
-								console.log(oheight,thisheight,thisfont,thisheight/thisfont);
+								// console.log(oheight,thisheight,thisfont,thisheight/thisfont);
 								// console.log(ofactor,newfactor);
 							}
 						}
-						console.log(oheight,thisheight,thisfont,thisheight/thisfont);
+						// console.log(oheight,thisheight,thisfont,thisheight/thisfont);
 						jThis.css("font-size",(thisfont-1)+"px");
 						jThis.css("line-height","1em");
-						$('.heightto').css("height",$('#heightfrom').height()+"px");
 						/*
 						var jThis=$(this);
 						var jthisheight = jThis.height();

@@ -20,25 +20,6 @@ define(["jquery", "backbone", "text!templates/captureVideoLinkPage.html", "model
 				_thisViewRecordVideoNested.localStorageSubmitform.set(_thisViewRecordVideoNested.localStorageSubmitformModel);
 				this.activePage = VideoRecordNestedPage;
 			},
-			/*
-			initializeme: function() {
-				console.log('initializing ME in VideoRecordNestedView.js');
-				$(this.el).html('loading...');
-				$.when( this.fetchMe() ).then(
-				  function( status ) {
-					_thisViewRecordVideoNested.me = status;
-					_thisViewRecordVideoNested.render();
-				  },
-				  function( status ) {
-					console.log( "you fail this time" );
-					system.redirectToUrl('#login');
-				  },
-				  function( status ) {
-					console.log('still fetchWorking');
-				  }
-				);
-			},
-			*/
 			fetchWorking: function() {
 				var setTimeoutWatcher = setTimeout(function foo() {
 					if ( _thisViewRecordVideoNested.dfd.state() === "pending" ) {
@@ -89,7 +70,6 @@ define(["jquery", "backbone", "text!templates/captureVideoLinkPage.html", "model
 				dpd('users').get(window.system.uid, function(me, err) { 
 					if (me) {
 						window.me = me;
-						_thisViewRecordVideoNested.me = me;
 						_thisViewRecordVideoNested.render();
 					}
 					else {
@@ -174,7 +154,7 @@ define(["jquery", "backbone", "text!templates/captureVideoLinkPage.html", "model
 				if (rval.isyoutube==true) {
 					if (attributes.flipactivate=="on") var isactive = true; else var isactive = false;
 					if (attributes.flippublic=="on") var ispublic = true; else var ispublic = false;
-					dpd.videos.post({"external":true,"vsize":"","vlength":"","uploader":""+_thisViewRecordVideoNested.me.id,"videourl":""+attributes.camera_file,"active":isactive,"public":ispublic,"cdate":""+dateYmdHis(),"topic":""+attributes.interest,"title":""+attributes.title,"subtitle":"","description":""+attributes.description,"price":attributes.sliderprice}, function(result, err) {
+					dpd.videos.post({"external":true,"vsize":"","vlength":"","uploader":""+window.me.id,"videourl":""+attributes.camera_file,"active":isactive,"public":ispublic,"cdate":""+dateYmdHis(),"topic":""+attributes.interest,"title":""+attributes.title,"subtitle":"","description":""+attributes.description,"price":attributes.sliderprice}, function(result, err) {
 						if(err) {
 							hideModal();
 							return console.log(err);
@@ -230,12 +210,16 @@ define(["jquery", "backbone", "text!templates/captureVideoLinkPage.html", "model
 								$(this).remove();
 							});
 							$('#pageoverlay').html('');							
+							// $('#videoboxinnerdiv').show();
+							$('#videoboxinnerdiv').css({"visibility":"visible"});
 						}
 					});
 					var popupcontent = _.template(captureVideoLinkPage, {
-						data: _thisViewRecordVideoNested.me
+						data: window.me
 					},{variable:'user'});
 					$('#popupcontent').html(popupcontent);
+					// $('#videoboxinnerdiv').hide();
+					$('#videoboxinnerdiv').css({"visibility":"hidden"});
 					var el = $( "#"+popupid );
 					el.popup().trigger('create');
 					el.popup( "open", {transition: 'fade'} );

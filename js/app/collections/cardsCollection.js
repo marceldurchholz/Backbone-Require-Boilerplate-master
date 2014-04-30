@@ -41,14 +41,14 @@ define(["jquery", "backbone", "models/CardModel"],
 		sync: function(method, model, options) {
 			var bla = Backbone.sync.call(model, method, model, options);
 			// console.log(bla);
-			console.log(options);
-			console.log(method);
-			console.log(model);
+			// console.log(options);
+			// console.log(method);
+			// console.log(model);
 		},
 		parse: function(responseCards) {
-			console.log('parse responseCards');
-			console.log(responseCards);
-			console.log(responseCards.length);
+			// console.log('parse responseCards');
+			// console.log(responseCards);
+			// console.log(responseCards.length);
 			_thisCollectionCards.models = [];
 			this._localStorage_cards.models = [];
 			if (responseCards.length==undefined) {
@@ -56,10 +56,10 @@ define(["jquery", "backbone", "models/CardModel"],
 				var myArray = new Array();
 				myArray[0] = responseCards;
 				responseCards = myArray;
-				console.log(myArray);
+				// console.log(myArray);
 			}
 			for (n = 0; n < responseCards.length; ++n) {
-				console.log('yiehpaa');
+				// console.log('yiehpaa');
 				model = responseCards[n];
 				if (this.options.hasOwnProperty('id')) {
 					if (this.options.id == model.id) {
@@ -73,13 +73,13 @@ define(["jquery", "backbone", "models/CardModel"],
 					var userid = model.uploader;
 				}
 			}
-			console.log('blafoopeng');
-			console.log(_thisCollectionCards);
-			console.log(_thisCollectionCards.models);
+			// console.log('blafoopeng');
+			// console.log(_thisCollectionCards);
+			// console.log(_thisCollectionCards.models);
 			return(_thisCollectionCards.models);
 		},
 		errorHandler: function(xhr) {
-			console.log(xhr);
+			// console.log(xhr);
 			if (xhr.status=='404') {
 				if (xhr.responseJSON==undefined) {
 					alert('probably no internet connection');
@@ -91,7 +91,7 @@ define(["jquery", "backbone", "models/CardModel"],
 		},
 		successHandler: function(xhr) {
 			alert('successHandler');
-			console.log(xhr);
+			// console.log(xhr);
 		}
 	});
 

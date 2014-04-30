@@ -3,7 +3,7 @@
 		<% if (data.active==true || window.me.id == data.uploader) { %>
 			<li data-cardsetid="<%= data.id %>" data-dbtype="card" class="<% if(window.me.uid==data.uploader) { %>swipetodeletetd<% } %>" data-topic="<%= data.topic %>">
 				<a class="showCardDetailsLink" href="<%= data.href %>">
-					<h3 <% if(data.active!=true) { %>style="color:red;"<% } %>><%= data.title %></h3>
+					<h3 <% if(data.active!=true || (window.system.aoid!=data.uploader && data.public!=true)) { %>style="color:red;"<% } %>><%= data.title %></h3>
 						<% if (window.system.aoid != data.uploader) { %>
 							<p><%= data.uploaderdata.fullname %></p>
 						<% } %>

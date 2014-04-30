@@ -1,0 +1,14 @@
+<div style="padding:0px;">		
+	<div class="ui-field-contain" style="margin:0px;padding:0px;width:100%;">
+		<fieldset style="width:100% !important;max-height:<%= ($(window).height()/3*2) %>px !important;overflow-y:auto !important;padding:0px 2px 0px 0px;" data-inset="false" data-corners="false" data-mini="true">		
+			<div class="containing-element">
+				Preis: <span id="priceincoins">1800</span> Coins (<span id="priceineuro">9,90</span> Euro)
+			</div>
+			<div data-role="fieldcontain" class="ui-hide-label">
+				<label for="sliderprice" style="font-size:11px;"></label>
+				<input type="range" name="sliderprice" id="sliderprice" data-dbtype="<%= streamdata.data.dbtype %>" data-id="<%= streamdata.data.objid %>" value="<%= streamdata.data.slider_price %>" min="0" max="10000" step="50" data-mini="false" data-theme="a" data-track-theme="b"/>
+			</div>
+		</fieldset>
+
+	</div>
+</div>

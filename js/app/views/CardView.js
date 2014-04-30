@@ -37,8 +37,8 @@ define(["jquery", "backbone", "text!templates/cardsViewPage.html"],
 
 				var requestUrl = "http://dominik-lohmann.de:5000/cards?deleted=false";
 				// active=true&
-				if (window.system.master==false) requestUrl = requestUrl + "&uploader="+window.system.aoid;
-				else requestUrl = requestUrl + "&public=true";
+				if (window.system.master!=true) requestUrl = requestUrl + "&uploader="+window.system.aoid;
+				// else requestUrl = requestUrl + "&public=true";
 				$.ajax({
 					url: requestUrl,
 					async: false
@@ -46,6 +46,7 @@ define(["jquery", "backbone", "text!templates/cardsViewPage.html"],
 					_thisViewCards.uploaderArray = new Array();
 					_.each(cardData, function(value, index, list) {
 						var exists = 1;
+						if (value.public!=true && value.uploader!=me.id) exists=-1;
 						// exists = $.inArray( value.topic, _thisViewCards.me.interests );
 						// if (_thisViewCards.me.interests == undefined) exists=1;
 						// else if (_thisViewCards.me.interests.length==0) exists=1;

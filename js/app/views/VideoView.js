@@ -90,8 +90,8 @@ define(["jquery", "backbone", "text!templates/videoView.html"],
 				
 				var requestUrl = "http://dominik-lohmann.de:5000/videos?deleted=false";
 				// if (window.system.master!=true) requestUrl = requestUrl + "&uploader="+window.system.aoid;
-				if (window.system.master==false) requestUrl = requestUrl + "&uploader="+window.system.aoid;
-				else requestUrl = requestUrl + "&public=true";
+				if (window.system.master!=true) requestUrl = requestUrl + "&uploader="+window.system.aoid;
+				// else requestUrl = requestUrl + "&public=true";
 				$.ajax({
 					url: requestUrl,
 					async: false
@@ -102,6 +102,7 @@ define(["jquery", "backbone", "text!templates/videoView.html"],
 						// if (_thisViewVideo.me.interests == undefined) exists=1;
 						// else if (_thisViewVideo.me.interests.length==0) exists=1;
 						var exists = 1;
+						if (value.public!=true && value.uploader!=me.id) exists=-1;
 						if (exists>-1 || value.uploader == me.id) {
 							value.ccat = 'video';
 							value.icon = 'images/icon-multimedia-60.png';

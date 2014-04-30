@@ -1738,45 +1738,26 @@ try {
 		var creditsAfterPurchase = parseFloat(me.credits) - parseFloat(videoData.price);
 		this._videoData = videoData;
 		this._creditsAfterPurchase = creditsAfterPurchase;
-		// console.log(creditsAfterPurchase,'creditsAfterPurchase');
-		// return(false);
-		// alert('Video ' + videoData.id + ' wird über User ID ' + me.id + 'gekauft. Sie haben nun '+creditsAfterPurchase+' Credits.');
 		var data = new Object();
 		data.credits = ''+creditsAfterPurchase;
 		data.purchases = me.purchases;
 		this._newData = data;
-		// console.log(_newData.purchases);
-		
 		this._me = me;
 		$.ajax('http://dominik-lohmann.de:5000/users/?id='+me.id,{
 			type:"GET",
 			async: false,
 		}).done(function(me) {
-			// doAlert( "DONE!" );
 			_me = me;
 			if (_me.purchases==undefined) _me.purchases = new Array();
-			// console.log('_me.purchases actual');
-			// console.log(_me.purchases);
-		}).fail(function() {
-			doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
-		})
+		}).fail(function() { doAlert( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." ); })
 		.always(function() {
-			// alert( "finished - nw redirecting" );
 		});
-		if ($.inArray(videoData.id, _me.purchases) >= 0) {
-			// Do your stuff.
+		if ($.inArray(videoData.id, _me.purchases) > -1) {
 			doAlert('Sie haben dieses Video bereits gekauft.','Information');
 		}
 		else {
 			if (_me.purchases==undefined) _me.purchases = new Array();
-			// console.log(me.purchases);
-			// me.push( videoData.id );
-			// var el = new Object();
-			// el.value = videoData.id;
 			me.purchases.push(videoData.id);
-			// var videoData = videoData;
-			// console.log(me.purchases);
-			// return(false);
 			$.ajax('http://dominik-lohmann.de:5000/users/?id='+me.id,{
 				type:"POST",
 				contentType: "application/json",
@@ -1786,7 +1767,6 @@ try {
 					credits: creditsAfterPurchase
 				}),
 			}).done(function(uploaderdata) {
-				// doAlert( "Das Video wurde gekauft." );
 				var alertmsg = 'Sie können das Video nun vollständig ansehen.';
 				if (_videoData.price>0) alertmsg += ' Für weitere Käufe sind noch '+creditsAfterPurchase+' Credits verfügbar.';
 				doAlert(alertmsg,'Information');
@@ -2781,6 +2761,53 @@ try {
 		return(false);
 	});
 	
+		$('#body').off('all','#sliderprice').on('all','#sliderprice',function(event){
+			console.log(event);
+		});
+		
+		$('#body').off('slidestop','#sliderprice').on('slidestop','#sliderprice',function(event){
+			showModal();
+			var id = $('#sliderprice').attr('data-id');
+			var priceincoins = $('#sliderprice').val();
+			$('#priceincoins').html(priceincoins);
+			var dbtable = "";
+			var dbtype = $('#sliderprice').attr('data-dbtype');
+			// console.log(dbtype);
+			// return(false);
+			if(dbtype=="video") dbtable="videos";
+			if(dbtype=="card") dbtable="cards";
+			$.ajax('http://dominik-lohmann.de:5000/'+dbtable+'/?id='+id,{
+				type:"POST",
+				contentType: "application/json",
+				async: false,
+				data: JSON.stringify({price: priceincoins}),
+			}).done(function(result) {
+				var priceineuro = ((Math.ceil(priceincoins*0.0055*100))/100).toString().replace(".", ",");
+				if (priceineuro.split(",")[1]==undefined) priceineuro = priceineuro + ",00";
+				else if (priceineuro.split(",")[1].length==0) priceineuro = priceineuro + "00";
+				else if (priceineuro.split(",")[1].length==1) priceineuro = priceineuro + "0";
+				$('#priceineuro').html(priceineuro);
+			}).fail(function() {
+				console.log( "Es ist leider ein Fehler passiert, der nicht passieren sollte.", "Entschuldigung..." );
+				return(false);
+			})
+			.always(function() {
+				hideModal();
+			});
+		});
+
+		$('#body').off('change','#sliderprice').on('change','#sliderprice',function(event){
+			// console.log(event);
+			var id = $('#sliderprice').attr('data-id');
+			var priceincoins = $('#sliderprice').val();
+			$('#priceincoins').html(priceincoins);
+			var priceineuro = ((Math.ceil(priceincoins*0.0055*100))/100).toString().replace(".", ",");
+			if (priceineuro.split(",")[1]==undefined) priceineuro = priceineuro + ",00";
+			else if (priceineuro.split(",")[1].length==0) priceineuro = priceineuro + "00";
+			else if (priceineuro.split(",")[1].length==1) priceineuro = priceineuro + "0";
+			$('#priceineuro').html(priceineuro);
+		});
+
 	$('#body').off('change','.publiccb').on('change','.publiccb',function(e) { 
 		e.preventDefault();
 		var id = $(this).attr('data-id');

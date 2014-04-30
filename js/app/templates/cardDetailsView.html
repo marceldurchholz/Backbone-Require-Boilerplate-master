@@ -1,34 +1,67 @@
 <h3 class="ui-bar ui-bar-f" style="border-top-width:0px;text-align:center;">Lernsetinformationen</h3>
 
 <% if (card.thumbnailurl=="") { %>
-	<div style="width:100%;text-align:center;padding-top:0px;max-height:<%= $(window).height()/2 %>px;overflow:hidden;">
-		<img src="./images/avatar2.jpg" style="width:100%;max-width:800px;">
+	<div style="width:100%;background-color:#fff;text-align:center;padding-top:0px;max-height:<%= $(window).height()/3 %>px;overflow:hidden;">
+		<img src="./images/avatar2.jpg" style="width:100%;max-width:800px;" border="0">
 	</div>
 <% } else { %>
-	<div style="width:100%;text-align:center;padding-top:0px;max-height:<%= $(window).height()/2 %>px;overflow:hidden;">
-		<img src="<%= card.thumbnailurl %>" style="width:100%;max-width:800px;">
+	<div style="width:100%;background-color:#fff;text-align:center;padding-top:0px;max-height:<%= $(window).height()/3 %>px;overflow:hidden;">
+		<img src="<%= card.thumbnailurl %>" style="width:100%;max-width:800px;" border="0">
 	</div>
 <% } %>
+<div style="width:100%;height:10px;overflow:visible;text-align:center;">
+	<img src="images/shadow.png" style="width:100%;height:20px;" border="0">
+</div>
+<div class="clear"></div>
 
-<div style="margin-bottom:50px;padding:15px;padding-top:0px;width;100%;">
+<div style="padding:0px 0px 0px 0px;">
+	<% if(Math.round(card.price)>0) { %>
+		<% if( $.inArray(card.id, window.me.purchases) == -1 && card.uploaderdata.id != window.me.id) { %>
+			<a data-inset="false" data-corners="false" data-id="<%= card.id %>" id="buybutton" class="buybutton" data-theme="f" data-role="button"><%= card.pricetext %></a>
+		<% } else  { %>
+			<a data-inset="false" data-corners="false" data-cardid="<%= card.id %>" id="submitbutton" name="submitbutton" data-theme="f" data-role="button" href="#cards/start/view/<%= card.id %>/0">Lernset starten</a>
+			<% if (card.offlineurl=="") { %>
+			<% } %>
+		<% } %>
+	<% } %>
+</div>
+<div class="clear"></div>
 
-	<p><a data-cardid="<%= card.id %>" id="submitbutton" name="submitbutton" data-theme="f" data-role="button" href="#cards/start/view/<%= card.id %>/0">Lernset <%= card.pricetext %> laden</a></p>
-	
+<div class="clear"></div>
+<% if (card.uploaderdata.id==window.me.id || window.me.master==true) { %>
+	<div class="clear" style="padding:0px 0px 0px 0px;">
+	<a data-mini="true" data-inset="false" data-corners="false" data-id="<%= card.id %>" id="setusergroupbtn" class="setusergroupbtn" data-theme="b" data-role="button">Zugriffrechte einschränken</a>
+<% } %>
+<div class="clear"></div>
+
+<div style="padding:0px 20px 60px 20px;">
+
 	<div class="title">
-			<h5>
-				<div class="readmoretitle resizetext" style="font-size:24px;"><%= card.title %></div>
-			</h5>
+		<h5 class="resizetext" style="font-size:24px;line-height:1.3em;">
+			<div class="readmoretitle" style="font-size:24px;"><%= card.title %></div>
+		</h5>
 	</div>
 	<div class="clear"></div>
-
-	<!-- <div class="resizetext" style="width:100%;white-space:nowrap;clear:both;font-size:10px;"><%= card.uploaderdata.fullname %></div>
-	<div class="resizetext" style="width:100%;white-space:nowrap;clear:both;font-size:10px;"><i><%= card.topic %></i></div>
-	-->
-	
-	<p>
-		<div class="readmore resizetext" style="width:100%;font-size:10px;">
-			<%= card.description %>
-		</div>
-	</p>
+	<div class="description resizetext" style="line-height:1.5em;">
+		<% if (window.system.aoid != card.uploaderdata.id) { %>
+			<strong><div class="readmorename"><%= card.uploader %></div></strong>
+			<div class="clear"></div>
+		<% } %>
+		<div style="padding-top:10px;">
+			<a id="detailslink" class="detailslink" style="font-weight:normal;" data-id="<%= card.id %>">
+				Details anzeigen
+			</a>
+			<div id="detailsdiv" style="display:none;">
+				Bereitstellung: <%= dateYmdHisToGerman(card.cdate) %>
+				<div class="clear"></div>
+				<a data-id="<%= card.id %>" id="changePriceBtn" href="">Preis: <% if(card.price==undefined || Math.ceil(card.price==0)) { %>kostenlos<% } else { %><%= card.price %> APPinaut&reg; Coins<% } %></a>
+				<div class="clear"></div>
+				<div class="clear" style="padding-bottom:10px;"></div>
+			</div>
+		</div>	
+		<div class="clear"></div>
+		<div class="readmore"><%= card.description %></div>
+	</div>
+	<div class="clear"></div>
 
 </div>

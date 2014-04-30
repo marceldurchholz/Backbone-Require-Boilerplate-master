@@ -63,29 +63,25 @@
 	<% } %>
 <% } %>
 
-
 <% if (video.uploaderdata.id==window.me.id || window.me.master==true) { %>
 	<div class="clear" style="padding:10px 0px 10px 0px;">
-	<div style="padding:0px 20px 0px 20px;"><a data-mini="true" data-videoid="<%= video.id %>" id="setusergroupbtn" class="setusergroupbtn" data-theme="b" data-role="button">Zugriffrechte einschränken</a></div>
+	<a data-inset="false" data-corners="false" data-mini="true" data-videoid="<%= video.id %>" id="setusergroupbtn" class="setusergroupbtn" data-theme="b" data-role="button">Zugriffrechte einschränken</a>
 <% } %>
-
 <div class="clear"></div>
+
 <div style="padding:0px 20px 60px 20px;">
 	
 	<div class="title">
-			<h5 class="resizetext" style="font-size:24px;line-height:1.3em;" >
-				<div class="readmoretitle" style="font-size:24px;"><%= video.title %></div>
-			</h5>
+		<h5 class="resizetext" style="font-size:24px;line-height:1.3em;" >
+			<div class="readmoretitle" style="font-size:24px;"><%= video.title %></div>
+		</h5>
 	</div>
 	<div class="clear"></div>
-	
-
 	<div class="description resizetext" style="line-height:1.5em;">
 		<% if (window.system.aoid != video.uploaderdata.id) { %>
 			<strong><div class="readmorename"><%= video.uploader %></div></strong>
 			<div class="clear"></div>
 		<% } %>
-		
 		<div style="padding-top:10px;">
 			<a id="detailsvideolink" class="detailsvideolink" style="font-weight:normal;" data-videoid="<%= video.id %>">
 				Videodetails anzeigen
@@ -96,17 +92,15 @@
 				<div class="clear"></div>
 				Dateigröße: <% if(video.vsize==undefined || Math.round(video.vsize*100/1024/1024)/100==0) { %>Unbekannt<% } else { %>ca. <%= Math.round(video.vsize*100/1024/1024)/100 %> Mbyte<% } %>
 				<div class="clear"></div>
-				Bereitstellung: <%= video.cdate %>
+				Bereitstellung: <%= dateYmdHisToGerman(video.cdate) %>
 				<div class="clear"></div>
-				Preis: <% if(video.price==undefined || Math.ceil(video.price==0)) { %>kostenlos<% } else { %><%= video.price %> APPinaut&reg; Coins<% } %>
+				<a data-id="<%= video.id %>" id="changePriceBtn" href="">Preis: <% if(video.price==undefined || Math.ceil(video.price==0)) { %>kostenlos<% } else { %><%= video.price %> APPinaut&reg; Coins<% } %></a>
 				<div class="clear"></div>
 				<div class="clear" style="padding-bottom:10px;"></div>
 			</div>
 		</div>	
 		<div class="clear"></div>
-
 		<div class="readmore"><%= video.description %></div>
-		
 	</div>
 	<div class="clear"></div>
 

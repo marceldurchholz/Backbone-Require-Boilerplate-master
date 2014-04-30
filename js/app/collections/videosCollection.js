@@ -19,8 +19,8 @@ define(["jquery", "backbone", "models/VideoModel"],
 				this.url = 'http://dominik-lohmann.de:5000/videos/?deleted=false';
 				// active=true&
 				// console.log(window.system.master);
-				if (window.system.master==true) this.url = this.url + "&public=true";
-				else this.url = this.url + "&uploader=" + window.system.aoid;
+				if(window.system.master!=true) this.url = this.url + "&uploader=" + window.system.aoid;
+				// else (window.system.master==true) this.url = this.url + "&public=true";
 				// this.url = 'http://dominik-lohmann.de:5000/videos/d6c9268c49a139bf';
 				this.localStorage = null;
 			}

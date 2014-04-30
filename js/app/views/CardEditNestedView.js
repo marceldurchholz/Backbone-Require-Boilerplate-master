@@ -167,11 +167,11 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 					return(false);
 				});
 				
-				_thisViewCardEditNested.$el.off('click','#setUsergroupsBtn').on('click','#setUsergroupsBtn',function(e){
+				_thisViewCardEditNested.$el.off('click','#setusergroupbtn').on('click','#setusergroupbtn',function(e){
 					e.preventDefault();
 					var cardsetid = $(this).attr('data-cardsetid');
 					$.ajax({
-						url: "http://dominik-lohmann.de:5000/cards/"+_thisViewCardEditNested.options.cardsetid,
+						url: "http://dominik-lohmann.de:5000/cards/"+cardsetid,
 						async: false
 					}).done(function(card) {
 						_thisViewCardEditNested.me.activeusergroups = card.usergroups;
@@ -201,21 +201,6 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 					var el = $( "#"+popupid );
 					el.popup().trigger('create');
 					el.popup( "open", {transition: 'fade'} );
-					
-					/*
-					$('[data-role="content"]').append('<div data-role="popup" data-dismissible="true" data-overlay-theme="a" class="ui-corner-all" data-theme="b" id="'+popupid+'"></div>');
-					$('#'+popupid).append('<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>');			
-					$('#'+popupid).append('<div class="ui-corner-bottom ui-content" id="popupcontent" data-role="content"></div>');
-
-					_thisViewCardEditNested.me.cardsetid = _thisViewCardEditNested.options.cardsetid;
-					var popupcontent = _.template(usergroupsPopupPage, {
-						data: _thisViewCardEditNested.me
-					},{variable:'streamdata'});
-					$('#popupcontent').append(popupcontent);
-					var el = $( "#"+popupid );
-					el.popup().trigger('create');
-					el.popup( "open", {transition: 'fade'} );
-					*/
 				});
 				
 				$('#body').off('change','.usergroupcb').on('change','.usergroupcb',function(e) { 

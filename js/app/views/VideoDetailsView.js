@@ -1,8 +1,8 @@
 // VideoDetailsView.js
 // -------
-define(["jquery", "backbone", "collections/videosCollection", "text!templates/videoDetailsView.html", "text!templates/sidemenusList.html", "views/SidemenuView", "text!templates/usergroupsPopupPage.html"],
+define(["jquery", "backbone", "collections/videosCollection", "text!templates/videoDetailsView.html", "text!templates/sidemenusList.html", "views/SidemenuView", "text!templates/usergroupsPopupPage.html", "text!templates/pricePopupPage.html"],
 
-    function($, Backbone, videosCollection, videosDetailsViewHTML, sidemenusList, SidemenuView, usergroupsPopupPage){
+    function($, Backbone, videosCollection, videosDetailsViewHTML, sidemenusList, SidemenuView, usergroupsPopupPage, pricePopupPage){
 		
 			var VideoDetailsViewVar = Backbone.View.extend({
 			
@@ -37,9 +37,9 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 									}
 								}, ('Okay,Abbruch').split(","));
 							}
-						});
-						
+						});						
 					});
+					
 					this.$el.off('click','#complainvideolink').on('click','#complainvideolink',function(e) { 
 						e.preventDefault();
 						var videoid = $(this).attr('data-videoid');
@@ -57,8 +57,6 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					});
 					this.$el.off('click','#detailsvideolink').on('click','#detailsvideolink',function(e) { 
 						e.preventDefault();
-						// var videoid = $(this).attr('data-videoid');
-						// window.location.href = "mailto:support@appinaut.de?subject=Meldung%20eines%20Videos%20oder%20eines%20Verstosses%20-%20"+videoid+"&body=Bitte%20teilen%20Sie%20uns%20den%20Hintergrund%20Ihrer%20Meldung%20oder%20des%20Verstosses%20detailliert%20mit.";
 						$('#videodetailsdiv').toggle();
 						$('#detailsvideolink').toggle();
 					});
@@ -91,19 +89,19 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							streamdata.dbtype = 'video';
 							streamdata.objid = video.id;
 							streamdata.activeusergroups = video.usergroups;
+							if (video.usergroups==undefined) video.usergroups=new Array();
 							_thisViewVideoDetails._videosCollection.models[0].attributes.usergroups = streamdata.activeusergroups;
+							if (video.active==undefined) video.active=false;
 							streamdata.objactive = video.active;
 							_thisViewVideoDetails._videosCollection.models[0].attributes.active = streamdata.objactive;
+							if (video.public==undefined) video.public=false;
 							streamdata.objpublic = video.public;
 							_thisViewVideoDetails._videosCollection.models[0].attributes.public = streamdata.objpublic;
 						});
-
 						var popupid = 'popupBasic';
 						$('#pageoverlay').append('<div style="z-index:9999;b/ackground-color:#000;width:'+($(window).width()-60)+'px;min-width:200px !important;max-width:650px !important;" data-role="popup" data-dismissible="true" data-overlay-theme="a" class="ui-corner-all" data-theme="a" id="'+popupid+'"></div>');
 						$('#'+popupid).html('<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>');			
 						$('#'+popupid).append('<div class="ui-corner-bottom ui-content" style="z-index:9999;b/ackground-color:#000;" id="popupcontent" data-role="content"></div>');
-						// alert('bla>'+dateYmdHis());
-						// console.log($('#'+popupid).html());
 						$( "#"+popupid ).bind({
 							popupafterclose: function(event, ui) { 
 								$('#body').find('.ui-popup-container').each(function() {
@@ -112,14 +110,14 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 								$('#pageoverlay').find('#popupBasic').each(function() {
 									$(this).remove();
 								});
-								$('#videoboxinnerdiv').show();
+								$('#videoboxinnerdiv').css({"visibility":"visible"});
 							}
 						});
 						var popupcontent = _.template(usergroupsPopupPage, {
 							data: streamdata
 						},{variable:'streamdata'});
 						$('#popupcontent').html(popupcontent);
-						$('#videoboxinnerdiv').hide();
+						$('#videoboxinnerdiv').css({"visibility":"hidden"});
 						var el = $( "#"+popupid );
 						el.popup().trigger('create');
 						el.popup( "open", {transition: 'fade'} );
@@ -140,6 +138,58 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							else dpd.videos.put(id, {"usergroups": {$pull:$.trim(usergroupid)}} );
 						});
 						return(false);
+					});
+					
+					_thisViewVideoDetails.$el.off('click','#changePriceBtn').on('click','#changePriceBtn',function(e){
+						e.preventDefault();
+						var streamdata = new Object();
+						var id = $(this).attr('data-id');
+						_thisViewVideoDetails._videosCollection.models[0].attributes.id = id;
+						streamdata.id = _thisViewVideoDetails._videosCollection.models[0].attributes.id;
+						
+						$.ajax({
+							url: "http://dominik-lohmann.de:5000/videos/"+id,
+							async: false
+						}).done(function(video) {
+							streamdata.dbtype = 'video';
+							streamdata.objid = video.id;
+							streamdata.activeusergroups = video.usergroups;
+							_thisViewVideoDetails._videosCollection.models[0].attributes.usergroups = streamdata.activeusergroups;
+							streamdata.objactive = video.active;
+							_thisViewVideoDetails._videosCollection.models[0].attributes.active = streamdata.objactive;
+							streamdata.objpublic = video.public;
+							_thisViewVideoDetails._videosCollection.models[0].attributes.public = streamdata.objpublic;
+							streamdata.slider_price = video.price;
+							_thisViewVideoDetails._videosCollection.models[0].attributes.price = streamdata.slider_price;		
+							console.log(streamdata);
+						});
+						var popupid = 'popupBasic';
+						$('#pageoverlay').append('<div style="z-index:9999;b/ackground-color:#000;width:'+($(window).width()-60)+'px;min-width:200px !important;max-width:650px !important;" data-role="popup" data-dismissible="true" data-overlay-theme="a" class="ui-corner-all" data-theme="a" id="'+popupid+'"></div>');
+						$('#'+popupid).html('<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>');			
+						$('#'+popupid).append('<div class="ui-corner-bottom ui-content" style="z-index:9999;b/ackground-color:#000;" id="popupcontent" data-role="content"></div>');
+						$( "#"+popupid ).bind({
+							popupafterclose: function(event, ui) { 
+								$('#body').find('.ui-popup-container').each(function() {
+									$(this).remove();
+								});
+								$('#pageoverlay').find('#popupBasic').each(function() {
+									$(this).remove();
+								});
+								$('#videoboxinnerdiv').css({"visibility":"visible"});
+								_thisViewVideoDetails.fetch(_thisViewVideoDetails.options);
+							}
+						});
+						var popupcontent = _.template(pricePopupPage, {
+							data: streamdata
+						},{variable:'streamdata'});
+						$('#popupcontent').html(popupcontent);
+						$('#videoboxinnerdiv').css({"visibility":"hidden"});
+						var el = $( "#"+popupid );
+						el.popup().trigger('create');
+						$("#sliderprice").val(streamdata.slider_price).slider("refresh");
+						$("#sliderprice").focus();
+						$("#sliderprice").blur();
+						el.popup( "open", {transition: 'fade'} );
 					});
 
 				},
@@ -469,7 +519,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						price: model.get('price'),
 						seeker: seeker,
 						provider: provider,
-						cdate: dateYmdHisToGerman(model.get('cdate')),
+						cdate: model.get('cdate'),
 						vlength: model.get('vlength'),
 						vsize: model.get('vsize'),
 						purchases: this._videosCollection.user.purchases,
