@@ -265,6 +265,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					e.preventDefault();
 					// console.log(e.delegateTarget);
 					var iapid = $(this).attr('data-iapid');
+					var iapamount = $(this).attr('data-iapamount');
 					if (isMobile.iPhone() && isPhoneGap()) {
 						// console.log("purchasing "+iapid);
 						// window.storekit.purchase("com.digitalverve.APPinaut."+iapid,1);
@@ -276,10 +277,20 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						// console.log('window.storekit.purchase not available when not mobile');
 						// _thisViewMyProfileNested.initialize();
 						// alert('not iphone doing paypal');
-						doAlert('APPinaut® Coins können im Preview nicht gekauft werden.','Information');
+						// doAlert('APPinaut® Coins können nicht in einem Preview gekauft werden.','Information');
 						var pplink = "";
-						pplink = "http://www.wikipedia.org";
-						pplink = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XQM2GLEJK6MEA"; // iapa // 3,59
+						// pplink = "http://www.wikipedia.org";
+						// pplink = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XQM2GLEJK6MEA"; // iapa // 3,59
+						var custom = window.me.id+"_"+iapid; // "mycustomurlvarvalueandsoon";
+						var item_name = getCoinsFromProductId(iapid)+" APPinaut Coins"; // "iapa";
+						var amount = iapamount; // "3.59";
+						var currency_code = "EUR";
+						var business = "appinaut@digitalverve.de";
+						var return_url = "http://www.appinaut.de/iapsuccess/";
+						var cancel_return_url = "http://www.appinaut.de/iapcancel/";
+						var callback_url = "http://www.appinaut.de/iapcallback/";
+						var lc = "DE";
+						pplink = "https://www.paypal.com/cgi-bin/webscr?business="+business+"&cmd=_xclick&currency_code="+currency_code+"&amount="+amount+"&item_name="+item_name+"&return="+return_url+"&cancel_return="+cancel_return_url+"&callback_url="+callback_url+"&no_note=1&cn=APPinaut&lc="+lc+"&custom="+custom;
 						window.open(pplink,'_system','location=yes')
 						hideModal();
 					}

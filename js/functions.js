@@ -7,6 +7,8 @@ try {
 	var deviceSDID = "???";
 	var SDID_DOMAIN = 'phonegap.appinaut.de';  
 	var SDID_KEY = '633241';
+	var PhoneGap = false;
+	var phonegap = false;
 
 	var my_media;
 	var platformId = null;
@@ -566,6 +568,39 @@ try {
 		}
 	};
 
+	function getCoinsFromProductId(productId) {
+		var addcredits = "0";
+		switch (productId) {
+		  case "com.digitalverve.APPinaut.250APP359T4":
+			addcredits = "250";
+			break;
+		  case "com.digitalverve.APPinaut.750APP799T9":
+			addcredits = "750";
+			break;
+		  case "com.digitalverve.APPinaut.2500APP2499T28":
+			addcredits = "2500";
+			break;
+		  case "com.digitalverve.APPinaut.6500APP4999T51":
+			addcredits = "6500";
+			break;
+		  case "com.digitalverve.APPinaut.16000APP9999T60":
+			addcredits = "16000";
+			break;
+		  case "com.digitalverve.APPinaut.25000APP17999T72":
+			addcredits = "25000";
+			break;
+		  case "com.digitalverve.APPinaut.UPGPROVAPP269T3":
+			addcredits = "0";
+			break;
+		  case "com.digitalverve.APPinaut.UPGPROVAPP1999T22":
+			addcredits = "0";
+			break;
+		  default:
+			break;
+		}
+		return(addcredits);
+	}
+	
 	function updateCoins(productId) {
 		// showModal();
 		$.ajax('http://dominik-lohmann.de:5000/users/?id='+window.me.id,{
@@ -718,7 +753,7 @@ try {
 	}
 
 	function isPhoneGap() {
-		return (cordova || PhoneGap || phonegap) && /^file:\/{3}[^\/]/i.test(window.location.href) && /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
+		return (cordovaIsLoaded || PhoneGap || phonegap) && /^file:\/{3}[^\/]/i.test(window.location.href) && /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
 		// return /^file:\/{3}[^\/]/i.test(window.location.href) && /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
 		// return /^file:\/{3}[^\/]/i.test(window.location.href) && /iphone|ipod|ipad/i.test(navigator.userAgent);
 	}

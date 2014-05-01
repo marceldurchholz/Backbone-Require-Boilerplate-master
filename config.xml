@@ -4,16 +4,16 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.digitalverve.APPinaut"
-        version   = "1.0.1">
+        version   = "1.1.0">
 
-    <name>APPinaut</name>
+    <name>APPinaut - Mobile Training and Infotainment</name>
 
     <description>
-        Der APPinaut ist eine Mobile Learning App. Im Multimediaformat und über Lernsets/Lernkarten kann Wissen den wissensdurstigen Nutzern des APPinaut angeboten werden.
+        Mit dem APPinaut, einer Mobile Learning App, wird Wissensmaterial multimedial und in Form von Übungsaufgaben zu unterschiedlichsten Bildungsthemen bereitgestellt. Der Zugang zum APPinaut und seiner stetig wachsenden mobilen Mediathek, bestehend aus Lernsets und Videos, ist kostenlos. Die Inhalte können von den wissensdurstige Nutzern teilweise kostenpflichtig aber auch kostenlos geladen werden. Das Tablet und das Smartphone eignen sich ideal für das mobile Lernen zwischendurch. Laden Sie den APPinaut und bilden Sie sich weiter - wann und wo Sie wollen.
     </description>
 
     <author href="http://www.digitalverve.de" email="info@digitalverve.de">
-        DigitalVerve - Marcel Durchholz
+        DigitalVerve - Digital Solutions
     </author>
 
     <!--
