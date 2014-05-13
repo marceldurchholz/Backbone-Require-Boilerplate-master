@@ -172,6 +172,11 @@ define(["jquery", "backbone", "models/Profile", "models/System", "views/View", "
 				this.changePage(loginView, {});
             },
             support: function() {
+				// alert('bla');
+				// hideModal();
+				// console.log($.mobile.jqmNavigator);
+				// $.mobile.jqmNavigator.pushView(new View());
+				// return(false);
 				this.changePage(supportView, {});
             },
             help: function() {

@@ -2492,7 +2492,9 @@ try {
 
 	$(window).bind('hashchange', function(){
 		showModal();
-		modifyiOS7StatusBar();
+		if (navigator.userAgent.match(/(iPad|iPhone)/)) {
+			modifyiOS7StatusBar();
+		}
 		checkTopNaviAppConfig();
 		// checkTopNaviRoles();
 		bindSwipeBack();

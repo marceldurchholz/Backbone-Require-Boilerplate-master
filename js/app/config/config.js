@@ -17,6 +17,8 @@ require.config({
 
       "jquerymobile": "../libs/jquery.mobile",
 	  
+	  "jqmNavigator": "../libs/jqmNavigator",
+	  
       // "jquerypulltorefresh": "../libs/jquery.plugin.pullToRefresh",
 
       // "backbone.LocalStorage": "../libs/backbone.localStorage",
@@ -63,26 +65,29 @@ require.config({
       // "jquerypulltorefresh": ["jquery"],
 
       // jQuery Mobile
-      "jquerymobile": ["bindmobile", "jquery", "deployd"],
+      "jquerymobile": ["bindmobile", "jquery", "jqueryui", "deployd"],
 	  
       // Twitter Bootstrap jQuery plugins
-      "bootstrap": ["jquery"],
+      "bootstrap": ["jquery", "jquerymobile", "jqueryui"],
 
       // jQueryUI
       "jqueryui": ["jquery"],
-      
-	  "jtouchpunch": ["jqueryui"],
 	  
-	  "jexpander": ["jquery"],
+	  "jtouchpunch": ["jquery", "jquerymobile", "jqueryui"],
+	  
+	  "jexpander": ["jquery", "jquerymobile", "jqueryui"],
 
-	  "jelastic": ["jquery"],
+	  "jelastic": ["jquery", "jquerymobile", "jqueryui"],
 	  
-	  "jtablesorter": ["jquery"],
+	  "jtablesorter": ["jquery", "jquerymobile", "jqueryui"],
 	  
-	  "functions": ["jquery", "videojs"],
+	  "functions": ["jquery", "videojs", "jquerymobile"],
 	  
+	  // jqmNavigator
+      "jqmNavigator": ["jquery", "jquerymobile", "jqueryui"],
+      
       "videojs": {
-		"deps": ["jquery"],
+		"deps": ["jquery", "jquerymobile", "jqueryui"],
 		"exports": "videojs"
 	  },
 
@@ -90,7 +95,7 @@ require.config({
       "backbone": {
 
         // Depends on underscore/lodash and jQuery // "jquerypulltorefresh", 
-        "deps": ["functions", "underscore", "jquery", "jquerymobile", "jqueryui", "jexpander", "jelastic", "jtablesorter"],
+        "deps": ["functions", "underscore", "jquery", "jquerymobile", "jqueryui", "jqmNavigator", "jexpander", "jelastic", "jtablesorter"],
 
         // Exports the global window.Backbone object
         "exports": "Backbone"

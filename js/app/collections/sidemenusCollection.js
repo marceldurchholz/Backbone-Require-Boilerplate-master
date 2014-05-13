@@ -62,54 +62,26 @@ define(["jquery", "backbone", "models/SidemenuModel"],
 			Backbone.sync.call(model, method, model, options);
 		},
 		parse: function(responseSidemenu) {
-			// console.log('parse responseSidemenu');
-			// console.log(_thisCollectionSidemenu.user);			
+			console.log(responseSidemenu);
 			_thisCollectionSidemenu.models = [];
 			this._localStorage_sidemenus.models = [];
 			for (n = 0; n < responseSidemenu.length; ++n) {
 				model = responseSidemenu[n];
 				var access = 0;
-				/*
-				$.each(model.roles, function(i, val) {
-					if (_thisCollectionSidemenu.user) {
-						access = $.inArray( val, _thisCollectionSidemenu.user.roles );
-						if (access<=0) {
-						}
-						if (access>0) {
-							// console.log(model.userfriendly + ' is a internal page');
-							return false;
-						}
-					}
-					else if (model.roles=="public") {
-						// console.log(model.userfriendly + ' is a public page');
-						access = 1;
-					}
-				});
-				*/
-				// console.log(model.userfriendly+': '+access);
-				if (checkAppConfigs(model.roles)==true) access = 1;
-				if (access==0) if (checkRoles(model.roles)==true) access = 1;
-				
-				// console.log(model.userfriendly+': '+access);				
-				if (access>0) {
-					// console.log('ADDING PAGE ' + model.userfriendly);
-					_thisCollectionSidemenu.add(model);
-					/*
-					if (_thisCollectionSidemenu.online==1) {
-						console.log('updating this._localStorage_sidemenus');
-						this._localStorage_sidemenus.update(new SidemenuModel(model));
-					}
-					*/
+				// alert(window.system.uid);
+				if (window.system.uid==undefined || window.system.uid=="0" || window.system.uid=="") {
+					// window.system.uid = "0";
+					if ($.inArray( "public", model.roles )>-1) access = 1;
+					// alert('checking in public mode');
 				}
-				// console.log('DEBUG');
-				// console.log(this.options.id);
-				// console.log(model.id);
+				else {
+					if (checkRoles(model.roles)==true) access = 1;
+					if (access==0) if (checkAppConfigs(model.roles)==true) access = 1;
+				}
+				if (access>0) {
+					_thisCollectionSidemenu.add(model);
+				}
 			}
-			// console.log('_thisCollectionSidemenu.models');
-			// console.log(_thisCollectionSidemenu.models);
-			// console.log(this._localStorage_sidemenus.update);
-			// console.log(this._localStorage_sidemenus);
-			// this.options.parentView.render();
 			return(_thisCollectionSidemenu.models);
 		},
 		errorHandler: function(xhr) {
