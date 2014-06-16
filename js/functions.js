@@ -603,7 +603,7 @@ try {
 	
 	function updateCoins(productId) {
 		// showModal();
-		$.ajax('http://dominik-lohmann.de:5000/users/?id='+window.me.id,{
+		$.ajax('http://s299455960.online.de:5000/users/?id='+window.me.id,{
 			type:"GET",
 			async: false,
 		}).done(function(me) {
@@ -1781,7 +1781,7 @@ try {
 		data.purchases = me.purchases;
 		this._newData = data;
 		this._me = me;
-		$.ajax('http://dominik-lohmann.de:5000/users/?id='+me.id,{
+		$.ajax('http://s299455960.online.de:5000/users/?id='+me.id,{
 			type:"GET",
 			async: false,
 		}).done(function(me) {
@@ -1796,7 +1796,7 @@ try {
 		else {
 			if (_me.purchases==undefined) _me.purchases = new Array();
 			me.purchases.push(videoData.id);
-			$.ajax('http://dominik-lohmann.de:5000/users/?id='+me.id,{
+			$.ajax('http://s299455960.online.de:5000/users/?id='+me.id,{
 				type:"POST",
 				contentType: "application/json",
 				async: false,
@@ -2782,7 +2782,7 @@ try {
 				// return(false);
 				if(dbtype=="video") dbtable="videos";
 				if(dbtype=="card") dbtable="cards";
-				$.ajax('http://dominik-lohmann.de:5000/'+dbtable+'/?id='+id,{
+				$.ajax('http://s299455960.online.de:5000/'+dbtable+'/?id='+id,{
 					type:"POST",
 					contentType: "application/json",
 					async: false,
@@ -3129,7 +3129,7 @@ try {
 	
 	function getOwnerData() {
 		// get owner data and roles
-		$.ajax('http://dominik-lohmann.de:5000/users/?kdnr='+window.system.kdnr,{
+		$.ajax('http://s299455960.online.de:5000/users/?kdnr='+window.system.kdnr,{
 			type:"GET",
 			async: false,
 		}).done(function(result) {
@@ -3144,7 +3144,7 @@ try {
 
 	function getAppOptions() {
 		// get app data and roles
-		$.ajax('http://dominik-lohmann.de:5000/appoptions/',{
+		$.ajax('http://s299455960.online.de:5000/appoptions/',{
 			type:"GET",
 			async: false,
 		}).done(function(result) {
@@ -3156,7 +3156,7 @@ try {
 	/*
 	function checkLogin() {
 		// get owner data and roles
-		$.ajax('http://dominik-lohmann.de:5000/users/?kdnr='+window.system.kdnr,{
+		$.ajax('http://s299455960.online.de:5000/users/?kdnr='+window.system.kdnr,{
 			type:"GET",
 			async: false,
 		}).done(function(result) {

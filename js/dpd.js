@@ -37,11 +37,8 @@ function sendRequest(url,options) {
   req.open(method,url,true);
   req.withCredentials = true;
   // req.setRequestHeader('User-Agent','XMLHTTP/1.0');
-  if (data) {
-    req.setRequestHeader('Content-Type', options.contentType || 'application/json');
-  }
-  req.setRequestHeader('Accept', 'application/json');
-    
+  if (data)
+    req.setRequestHeader('Content-type', options.contentType || 'application/json');
   if (typeof sendRequest.headers === 'object') {
     for (var k in sendRequest.headers) {
       if (sendRequest.headers.hasOwnProperty(k)) {
@@ -94,7 +91,7 @@ window._dpd.ajax = sendRequest;
 
   if (!window._dpd) window._dpd = {};
 
-  var root = "http://dominik-lohmann.de:5000";
+  var root = "http://s299455960.online.de:5000";
 
   var consoleLog = (typeof console !== 'undefined') && console.log;
 
@@ -364,194 +361,113 @@ window._dpd.ajax = sendRequest;
     socket.on.apply(socket, arguments);
   };
 
-  window.dpd.once = function(name, fn) {
-    var _fn = function() {
-      socket.removeListener(name, _fn);
-      fn.apply(this, arguments);
-    };
-    socket.on(name, _fn);
-  };
-
-  window.dpd.off = function(name, fn) {
-    if (fn == null) {
-      socket.removeAllListeners(name);
-    } else {
-      socket.removeListener(name, fn);
-    }
-  };
-
-  var isSocketReady = false;
-  window.dpd.once('connect', function() {
-    isSocketReady = true;
-  });
-
-  window.dpd.socketReady = function(fn) {
-    if (isSocketReady) {
-      setTimeout(fn, 0);
-    } else {
-      window.dpd.once('connect', fn);
-    }
-  };
-
-  window.dpd.socket = socket;
-
 
 })();
 
 // automatically generated code
 
+dpd.appoptions = dpd("/appoptions");
+dpd.appoptions.on = function(ev, fn) {
+  return dpd.on("appoptions" + ":" + ev, fn);
+}
+dpd.appoptions.rename = function (path, body, fn) {
+  dpd.exec("rename", path, body, fn);
+}
+
 dpd.cardpages = dpd("/cardpages");
 dpd.cardpages.on = function(ev, fn) {
   return dpd.on("cardpages" + ":" + ev, fn);
 }
-dpd.cardpages.once = function(ev, fn) {
-  return dpd.once("cardpages" + ":" + ev, fn);
-}
-dpd.cardpages.off = function(ev, fn) {
-  return dpd.off("cardpages" + ":" + ev, fn);
-}
 dpd.cardpages.rename = function (path, body, fn) {
-  dpd.cardpages.exec("rename", path, body, fn);
+  dpd.exec("rename", path, body, fn);
 }
 
 dpd.cards = dpd("/cards");
 dpd.cards.on = function(ev, fn) {
   return dpd.on("cards" + ":" + ev, fn);
 }
-dpd.cards.once = function(ev, fn) {
-  return dpd.once("cards" + ":" + ev, fn);
-}
-dpd.cards.off = function(ev, fn) {
-  return dpd.off("cards" + ":" + ev, fn);
-}
 dpd.cards.rename = function (path, body, fn) {
-  dpd.cards.exec("rename", path, body, fn);
+  dpd.exec("rename", path, body, fn);
 }
 
 dpd.config = dpd("/config");
 dpd.config.on = function(ev, fn) {
   return dpd.on("config" + ":" + ev, fn);
 }
-dpd.config.once = function(ev, fn) {
-  return dpd.once("config" + ":" + ev, fn);
-}
-dpd.config.off = function(ev, fn) {
-  return dpd.off("config" + ":" + ev, fn);
-}
 dpd.config.rename = function (path, body, fn) {
-  dpd.config.exec("rename", path, body, fn);
+  dpd.exec("rename", path, body, fn);
 }
 
 dpd.interests = dpd("/interests");
 dpd.interests.on = function(ev, fn) {
   return dpd.on("interests" + ":" + ev, fn);
 }
-dpd.interests.once = function(ev, fn) {
-  return dpd.once("interests" + ":" + ev, fn);
-}
-dpd.interests.off = function(ev, fn) {
-  return dpd.off("interests" + ":" + ev, fn);
-}
 dpd.interests.rename = function (path, body, fn) {
-  dpd.interests.exec("rename", path, body, fn);
+  dpd.exec("rename", path, body, fn);
 }
 
 dpd.messages = dpd("/messages");
 dpd.messages.on = function(ev, fn) {
   return dpd.on("messages" + ":" + ev, fn);
 }
-dpd.messages.once = function(ev, fn) {
-  return dpd.once("messages" + ":" + ev, fn);
-}
-dpd.messages.off = function(ev, fn) {
-  return dpd.off("messages" + ":" + ev, fn);
-}
 dpd.messages.rename = function (path, body, fn) {
-  dpd.messages.exec("rename", path, body, fn);
+  dpd.exec("rename", path, body, fn);
 }
 
 dpd.modules = dpd("/modules");
 dpd.modules.on = function(ev, fn) {
   return dpd.on("modules" + ":" + ev, fn);
 }
-dpd.modules.once = function(ev, fn) {
-  return dpd.once("modules" + ":" + ev, fn);
-}
-dpd.modules.off = function(ev, fn) {
-  return dpd.off("modules" + ":" + ev, fn);
-}
 dpd.modules.rename = function (path, body, fn) {
-  dpd.modules.exec("rename", path, body, fn);
+  dpd.exec("rename", path, body, fn);
 }
 
 dpd.msgs = dpd("/msgs");
 dpd.msgs.on = function(ev, fn) {
   return dpd.on("msgs" + ":" + ev, fn);
 }
-dpd.msgs.once = function(ev, fn) {
-  return dpd.once("msgs" + ":" + ev, fn);
-}
-dpd.msgs.off = function(ev, fn) {
-  return dpd.off("msgs" + ":" + ev, fn);
-}
 dpd.msgs.rename = function (path, body, fn) {
-  dpd.msgs.exec("rename", path, body, fn);
+  dpd.exec("rename", path, body, fn);
 }
 
 dpd.orders = dpd("/orders");
 dpd.orders.on = function(ev, fn) {
   return dpd.on("orders" + ":" + ev, fn);
 }
-dpd.orders.once = function(ev, fn) {
-  return dpd.once("orders" + ":" + ev, fn);
-}
-dpd.orders.off = function(ev, fn) {
-  return dpd.off("orders" + ":" + ev, fn);
-}
 dpd.orders.rename = function (path, body, fn) {
-  dpd.orders.exec("rename", path, body, fn);
+  dpd.exec("rename", path, body, fn);
 }
 
 dpd.planer = dpd("/planer");
 dpd.planer.on = function(ev, fn) {
   return dpd.on("planer" + ":" + ev, fn);
 }
-dpd.planer.once = function(ev, fn) {
-  return dpd.once("planer" + ":" + ev, fn);
-}
-dpd.planer.off = function(ev, fn) {
-  return dpd.off("planer" + ":" + ev, fn);
-}
 dpd.planer.rename = function (path, body, fn) {
-  dpd.planer.exec("rename", path, body, fn);
+  dpd.exec("rename", path, body, fn);
 }
 
 dpd.plangdict = dpd("/plang-dict");
 dpd.plangdict.on = function(ev, fn) {
   return dpd.on("plang-dict" + ":" + ev, fn);
 }
-dpd.plangdict.once = function(ev, fn) {
-  return dpd.once("plang-dict" + ":" + ev, fn);
-}
-dpd.plangdict.off = function(ev, fn) {
-  return dpd.off("plang-dict" + ":" + ev, fn);
-}
 dpd.plangdict.rename = function (path, body, fn) {
-  dpd.plangdict.exec("rename", path, body, fn);
+  dpd.exec("rename", path, body, fn);
 }
 
 dpd.sidemenu = dpd("/sidemenu");
 dpd.sidemenu.on = function(ev, fn) {
   return dpd.on("sidemenu" + ":" + ev, fn);
 }
-dpd.sidemenu.once = function(ev, fn) {
-  return dpd.once("sidemenu" + ":" + ev, fn);
-}
-dpd.sidemenu.off = function(ev, fn) {
-  return dpd.off("sidemenu" + ":" + ev, fn);
-}
 dpd.sidemenu.rename = function (path, body, fn) {
-  dpd.sidemenu.exec("rename", path, body, fn);
+  dpd.exec("rename", path, body, fn);
+}
+
+dpd.usergroups = dpd("/usergroups");
+dpd.usergroups.on = function(ev, fn) {
+  return dpd.on("usergroups" + ":" + ev, fn);
+}
+dpd.usergroups.rename = function (path, body, fn) {
+  dpd.exec("rename", path, body, fn);
 }
 
 dpd.users = dpd("/users");
@@ -567,24 +483,12 @@ dpd.users.me = function(path, query, fn) {
 dpd.users.on = function(ev, fn) {
   return dpd.on("users" + ":" + ev, fn);
 }
-dpd.users.once = function(ev, fn) {
-  return dpd.once("users" + ":" + ev, fn);
-}
-dpd.users.off = function(ev, fn) {
-  return dpd.off("users" + ":" + ev, fn);
-}
 
 dpd.videos = dpd("/videos");
 dpd.videos.on = function(ev, fn) {
   return dpd.on("videos" + ":" + ev, fn);
 }
-dpd.videos.once = function(ev, fn) {
-  return dpd.once("videos" + ":" + ev, fn);
-}
-dpd.videos.off = function(ev, fn) {
-  return dpd.off("videos" + ":" + ev, fn);
-}
 dpd.videos.rename = function (path, body, fn) {
-  dpd.videos.exec("rename", path, body, fn);
+  dpd.exec("rename", path, body, fn);
 }
 
