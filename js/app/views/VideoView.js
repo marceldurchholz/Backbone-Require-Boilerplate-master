@@ -80,7 +80,7 @@ define(["jquery", "backbone", "text!templates/videoView.html"],
 				this.$el.hide();
 				
 				$.ajax({
-					url: "http://dominik-lohmann.de:5000/users/"+window.me.id,
+					url: "http://s299455960.online.de:5000/users/"+window.me.id,
 					async: false
 				}).done(function(me) {
 					// alert(me.id);
@@ -88,7 +88,7 @@ define(["jquery", "backbone", "text!templates/videoView.html"],
 				if (_thisViewVideo.me.interests == undefined) _thisViewVideo.me.interests = new Array();
 				});
 				
-				var requestUrl = "http://dominik-lohmann.de:5000/videos?deleted=false";
+				var requestUrl = "http://s299455960.online.de:5000/videos?deleted=false";
 				// if (window.system.master!=true) requestUrl = requestUrl + "&uploader="+window.system.aoid;
 				if (window.system.master!=true) requestUrl = requestUrl + "&uploader="+window.system.aoid;
 				// else requestUrl = requestUrl + "&public=true";
@@ -112,7 +112,7 @@ define(["jquery", "backbone", "text!templates/videoView.html"],
 							// console.log(_thisViewVideo.uploaderArray[uploader]);
 							if (_thisViewVideo.uploaderArray[uploader]==undefined) {
 								$.ajax({
-									url: 'http://dominik-lohmann.de:5000/users/?id='+uploader,
+									url: 'http://s299455960.online.de:5000/users/?id='+uploader,
 									async: false,
 									success: function(data, textStatus, XMLHttpRequest) {
 										console.log(data);

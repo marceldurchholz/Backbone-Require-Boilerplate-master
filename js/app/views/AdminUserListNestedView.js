@@ -16,13 +16,13 @@ define(["jquery", "backbone", "text!templates/AdminUserListItemPage.html"],
 			fetch: function() {	
 				_thisViewAdminUser = this;
 				$.ajax({
-					url: "http://dominik-lohmann.de:5000/users/"+window.me.id,
+					url: "http://s299455960.online.de:5000/users/"+window.me.id,
 					async: false
 				}).done(function(me) {
 					_thisViewAdminUser.me = me;
 				});
 
-				var requestUrl = "http://dominik-lohmann.de:5000/users?deleted=false"; // active=true&
+				var requestUrl = "http://s299455960.online.de:5000/users?deleted=false"; // active=true&
 				if (window.me.master!=true) requestUrl = requestUrl + "&sponsor="+_thisViewAdminUser.me.id;
 				$.ajax({
 					url: requestUrl,

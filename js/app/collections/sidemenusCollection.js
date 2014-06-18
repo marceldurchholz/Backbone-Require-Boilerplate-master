@@ -17,16 +17,16 @@ define(["jquery", "backbone", "models/SidemenuModel"],
 			// this.localStorage = this._localStorage_sidemenus;
 			/*
 			if (_thisCollectionSidemenu.online==1) {
-				// this.url = 'http://dominik-lohmann.de:5000/sidemenu/?nav=true';
-				this.url = 'http://dominik-lohmann.de:5000/sidemenu/?{"nav":"true","$sort":"seq"}';
+				// this.url = 'http://s299455960.online.de:5000/sidemenu/?nav=true';
+				this.url = 'http://s299455960.online.de:5000/sidemenu/?{"nav":true,"$sort":"seq"}';
 				
-				// this.url = 'http://dominik-lohmann.de:5000/sidemenu?{%22nav%22:%22true%22}';
-				// this.url = 'http://dominik-lohmann.de:5000/sidemenu/d6c9268c49a139bf';
+				// this.url = 'http://s299455960.online.de:5000/sidemenu?{%22nav%22:%22true%22}';
+				// this.url = 'http://s299455960.online.de:5000/sidemenu/d6c9268c49a139bf';
 				// this.localStorage = null;
 			}
 			*/
-			this.url = 'http://dominik-lohmann.de:5000/sidemenu/?{"navoffline":"true","$sort":"seq"}';
-			// this.url = 'http://dominik-lohmann.de:5000/sidemenu/?navoffline=true';
+			this.url = 'http://s299455960.online.de:5000/sidemenu/?{"navoffline":true,"$sort":"seq"}';
+			// this.url = 'http://s299455960.online.de:5000/sidemenu/?navoffline=true';
 		},
 		model: SidemenuModel,
 		fetch: function(options) {

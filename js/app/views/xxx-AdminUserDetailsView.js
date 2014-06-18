@@ -19,7 +19,7 @@ define(["jquery", "backbone", "models/UserModel", "collections/usersCollection",
 				},
 				create: function(model) {
 					_thisViewUserDetails = this;
-					$.ajax('http://dominik-lohmann.de:5000/users', {
+					$.ajax('http://s299455960.online.de:5000/users', {
 					  type: "POST",
 					  contentType: "application/json",
 					  data: JSON.stringify(model.attributes),
@@ -100,7 +100,7 @@ define(["jquery", "backbone", "models/UserModel", "collections/usersCollection",
 					options.sponsor = me.id;
 					console.log(options);
 					$.ajax({
-						url: "http://dominik-lohmann.de:5000/interests",
+						url: "http://s299455960.online.de:5000/interests",
 						async: false
 					}).done(function(responsedata) {
 						_thisViewUserDetails.interests = responsedata;
@@ -113,7 +113,7 @@ define(["jquery", "backbone", "models/UserModel", "collections/usersCollection",
 					var sponsor = model.get('sponsor');
 					console.log(this.id);
 					$.ajax({
-						url: "http://dominik-lohmann.de:5000/users/?id="+sponsor,
+						url: "http://s299455960.online.de:5000/users/?id="+sponsor,
 						async: false
 					}).done(function(sponsordata) {
 						console.log('sponsordata');

@@ -23,7 +23,7 @@ define(["jquery", "backbone", "models/VideoModel", "collections/videosCollection
 				},
 				create: function(model) {
 					_thisView = this;
-					$.ajax('http://dominik-lohmann.de:5000/videos', {
+					$.ajax('http://s299455960.online.de:5000/videos', {
 					  type: "POST",
 					  contentType: "application/json",
 					  data: JSON.stringify(model.attributes),

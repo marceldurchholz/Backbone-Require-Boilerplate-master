@@ -13,7 +13,7 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 		model: Profile,
 		// url: 'profiles.jsonx'
 		// url: 'http://mobile002.appinaut.de/api/employees/index.php', 
-		// url: 'http://dominik-lohmann.de:5000/users/?{%22zip%22:%20%2222415%22}',
+		// url: 'http://s299455960.online.de:5000/users/?{%22zip%22:%20%2222415%22}',
 		initialize: function() {
 			//// console.log('***** initialize');
 			this.bind("error", this.errorHandler);			
@@ -24,7 +24,7 @@ define(["jquery", "backbone", "models/Profile", "backbone.LocalStorage"],
 			// this._localStorage_videos = new Store('videos');
 			this.localStorage = this._localStorage_users;
 			if (_thisCollection.online==1) {
-				this.url = 'http://dominik-lohmann.de:5000/users/';
+				this.url = 'http://s299455960.online.de:5000/users/';
 				this.localStorage = null;
 			}
 		},

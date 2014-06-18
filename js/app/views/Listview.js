@@ -33,7 +33,7 @@ define(["jquery", "backbone", "models/Profile", "collections/ProfileList", "view
 					// console.log(' ############# create');
 					// console.log(model.attributes);
 					// console.log(JSON.stringify(model.attributes));
-					$.ajax('http://dominik-lohmann.de:5000/users', {
+					$.ajax('http://s299455960.online.de:5000/users', {
 					  type: "POST",
 					  contentType: "application/json",
 					  data: JSON.stringify(model.attributes),

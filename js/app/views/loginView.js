@@ -28,7 +28,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 						// 16181348537294980
 						// console.log(username);
 						$.ajax({
-							url: 'http://dominik-lohmann.de:5000/users/?username='+username,
+							url: 'http://s299455960.online.de:5000/users/?username='+username,
 							async: false,
 							success: function(response, textStatus, XMLHttpRequest) {
 								// console.log(response);
@@ -104,7 +104,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							var registered = dateYmdHis();
 							/*
 							$.ajax({
-								url: 'http://dominik-lohmann.de:5000/users/'+window.system.aoid,
+								url: 'http://s299455960.online.de:5000/users/'+window.system.aoid,
 								async: false,
 								success: function(sponsor, textStatus, XMLHttpRequest){
 									// _thisViewLogin.ownerdata = ownerdata[0];

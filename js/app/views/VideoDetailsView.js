@@ -74,7 +74,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						var videoid = $(this).attr('data-videoid');						
 						streamdata.videoid = _thisViewVideoDetails._videosCollection.models[0].attributes.id;
 
-						var requestUrl = "http://dominik-lohmann.de:5000/usergroups/?deleted=false";
+						var requestUrl = "http://s299455960.online.de:5000/usergroups/?deleted=false";
 						if (window.me.master!=true) requestUrl = requestUrl+"&owner="+window.me.id;
 						$.ajax({
 							url: requestUrl,
@@ -83,7 +83,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							streamdata.allusergroups = allusergroups;
 						});
 						$.ajax({
-							url: "http://dominik-lohmann.de:5000/videos/"+videoid,
+							url: "http://s299455960.online.de:5000/videos/"+videoid,
 							async: false
 						}).done(function(video) {
 							streamdata.dbtype = 'video';
@@ -148,7 +148,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						streamdata.id = _thisViewVideoDetails._videosCollection.models[0].attributes.id;
 						
 						$.ajax({
-							url: "http://dominik-lohmann.de:5000/videos/"+id,
+							url: "http://s299455960.online.de:5000/videos/"+id,
 							async: false
 						}).done(function(video) {
 							streamdata.dbtype = 'video';
@@ -362,7 +362,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					_thisKnowledgeData.streamData = streamData;
 					var querystr = "";
 					// if (topic!='') querystr += "&topic="+topic;
-					var url = "http://dominik-lohmann.de:5000/videos?active=true&deleted=false";
+					var url = "http://s299455960.online.de:5000/videos?active=true&deleted=false";
 					if (window.system.master!=true) url = url+"&uploader="+window.system.aoid;
 					var anzahl = 0;
 					$.ajax({
@@ -407,7 +407,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 							if (anzahl > 4) return(false);
 						});
 					});
-					var url = "http://dominik-lohmann.de:5000/cards?active=true&deleted=false";
+					var url = "http://s299455960.online.de:5000/cards?active=true&deleted=false";
 					if (window.system.master!=true) url = url+"&uploader="+window.system.aoid;
 					$.ajax({
 						url: url,
@@ -451,7 +451,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 						});
 					});
 					/*
-					var url = "http://dominik-lohmann.de:5000/planer?active=true&deleted=false";
+					var url = "http://s299455960.online.de:5000/planer?active=true&deleted=false";
 					$.ajax({
 						url: url,
 						async: false
@@ -483,7 +483,7 @@ define(["jquery", "backbone", "collections/videosCollection", "text!templates/vi
 					}
 					else {
 						$.ajax({
-							url: "http://dominik-lohmann.de:5000/users/?id="+uploader,
+							url: "http://s299455960.online.de:5000/users/?id="+uploader,
 							async: false
 						}).done(function(uploaderdata) {
 							// console.log(uploaderdata);

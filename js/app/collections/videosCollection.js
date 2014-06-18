@@ -14,14 +14,14 @@ define(["jquery", "backbone", "models/VideoModel"],
 			var offlineData = this.offlineData = this._localStorage_videos.findAll();
 			this.localStorage = this._localStorage_videos;
 			if (_thisCollectionVideos.online==1) {
-				// this.url = 'http://dominik-lohmann.de:5000/videos?{"$orderby":"topic"}';
+				// this.url = 'http://s299455960.online.de:5000/videos?{"$orderby":"topic"}';
 				// alert(window.system.aoid);
-				this.url = 'http://dominik-lohmann.de:5000/videos/?deleted=false';
+				this.url = 'http://s299455960.online.de:5000/videos/?deleted=false';
 				// active=true&
 				// console.log(window.system.master);
 				if(window.system.master!=true) this.url = this.url + "&uploader=" + window.system.aoid;
 				// else (window.system.master==true) this.url = this.url + "&public=true";
-				// this.url = 'http://dominik-lohmann.de:5000/videos/d6c9268c49a139bf';
+				// this.url = 'http://s299455960.online.de:5000/videos/d6c9268c49a139bf';
 				this.localStorage = null;
 			}
 		},

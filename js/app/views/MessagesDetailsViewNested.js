@@ -83,7 +83,7 @@ define(["jquery", "backbone", "text!templates/MessagesDetailsViewNestedPage.html
 											if (_thisMessagesDetailsViewNested.messages[key4].sender==me.id) nameArray[_thisMessagesDetailsViewNested.messages[key4].sender] = me.fullname;
 											else {
 												$.ajax({
-													url: 'http://dominik-lohmann.de:5000/users?id='+_thisMessagesDetailsViewNested.messages[key4].sender,
+													url: 'http://s299455960.online.de:5000/users?id='+_thisMessagesDetailsViewNested.messages[key4].sender,
 													async: false
 												}).done(function(userdata) {
 													nameArray[_thisMessagesDetailsViewNested.messages[key4].sender] = userdata.fullname;

@@ -19,8 +19,8 @@ define(["jquery", "backbone", "models/PlanModel"],
 			var offlineData = this.offlineData = this._localStorage_planer.findAll();
 			this.localStorage = this._localStorage_planer;
 			if (_thisCollectionPlaner.online==1) {
-				this.url = 'http://dominik-lohmann.de:5000/planer/?active=true&deleted=false';
-				// this.url = 'http://dominik-lohmann.de:5000/planer/d6c9268c49a139bf';
+				this.url = 'http://s299455960.online.de:5000/planer/?active=true&deleted=false';
+				// this.url = 'http://s299455960.online.de:5000/planer/d6c9268c49a139bf';
 				this.localStorage = null;
 			}
 		},
@@ -53,7 +53,7 @@ define(["jquery", "backbone", "models/PlanModel"],
 			console.log(method);
 			console.log(model);
 			/*
-			$.get( 'http://dominik-lohmann.de:5000/planer/', function( data ) {
+			$.get( 'http://s299455960.online.de:5000/planer/', function( data ) {
 			  alert( "Data Loaded: " + data );
 			  console.log(data);
 			  return(data);
@@ -80,7 +80,7 @@ define(["jquery", "backbone", "models/PlanModel"],
 					if (_thisCollectionPlaner.online==1) _thisCollectionPlaner._localStorage_planer.update(new PlanModel(model));
 					var userid = model.uploader;
 					/*
-					$.get( 'http://dominik-lohmann.de:5000/users/?id='+userid, function( data ) {
+					$.get( 'http://s299455960.online.de:5000/users/?id='+userid, function( data ) {
 						// alert( "Data Loaded: " + data.fullname );
 						console.log("Data Loaded: " + data.fullname);
 						model.fullname = data.fullname;

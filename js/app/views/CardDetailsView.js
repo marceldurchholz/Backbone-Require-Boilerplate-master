@@ -42,7 +42,7 @@ define(["jquery", "backbone", "collections/cardsCollection", "text!templates/car
 						streamdata.id = id;
 						
 						$.ajax({
-							url: "http://dominik-lohmann.de:5000/cards/"+id,
+							url: "http://s299455960.online.de:5000/cards/"+id,
 							async: false
 						}).done(function(card) {
 							streamdata.dbtype = 'card';
@@ -107,7 +107,7 @@ define(["jquery", "backbone", "collections/cardsCollection", "text!templates/car
 						_thisViewCardDetails.obj = new Object();
 						var cardsetid = _thisViewCardDetails._cardsCollection.models[0].attributes.id;
 						
-						var requestUrl = "http://dominik-lohmann.de:5000/usergroups/?deleted=false";
+						var requestUrl = "http://s299455960.online.de:5000/usergroups/?deleted=false";
 						if (window.me.master!=true) requestUrl = requestUrl+"&owner="+window.me.id;
 						$.ajax({
 							url: requestUrl,
@@ -117,7 +117,7 @@ define(["jquery", "backbone", "collections/cardsCollection", "text!templates/car
 						});
 
 						$.ajax({
-							url: "http://dominik-lohmann.de:5000/cards/"+cardsetid,
+							url: "http://s299455960.online.de:5000/cards/"+cardsetid,
 							async: false
 						}).done(function(card) {
 							_thisViewCardDetails.obj.activeusergroups = card.usergroups;
@@ -191,7 +191,7 @@ define(["jquery", "backbone", "collections/cardsCollection", "text!templates/car
 					_newData.purchases = new Array();
 					_newData = data;
 					// _thisViewCardDetails._me = me;
-					$.ajax('http://dominik-lohmann.de:5000/users/?id='+me.id,{
+					$.ajax('http://s299455960.online.de:5000/users/?id='+me.id,{
 						type:"GET",
 						async: false,
 					}).done(function(me) {
@@ -208,7 +208,7 @@ define(["jquery", "backbone", "collections/cardsCollection", "text!templates/car
 						if (window.me.purchases==undefined) window.me.purchases = new Array();
 						_newData.purchases.push(cardData.id);
 						console.log(JSON.stringify({purchases: _newData.purchases,credits: creditsAfterPurchase}));
-						$.ajax('http://dominik-lohmann.de:5000/users/?id='+window.me.id,{
+						$.ajax('http://s299455960.online.de:5000/users/?id='+window.me.id,{
 							type:"POST",
 							contentType: "application/json",
 							async: false,
@@ -258,7 +258,7 @@ define(["jquery", "backbone", "collections/cardsCollection", "text!templates/car
 					var uploader = model.get('uploader');
 					// console.log(this.id);
 					$.ajax({
-						url: "http://dominik-lohmann.de:5000/users/?id="+uploader,
+						url: "http://s299455960.online.de:5000/users/?id="+uploader,
 						async: false
 					}).done(function(uploaderdata) {
 						// console.log(uploaderdata);

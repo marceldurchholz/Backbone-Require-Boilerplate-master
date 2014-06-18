@@ -23,7 +23,7 @@ define(["jquery", "backbone", "models/PlanModel", "collections/planerCollection"
 				},
 				create: function(model) {
 					_thisViewPlanDetails = this;
-					$.ajax('http://dominik-lohmann.de:5000/planer', {
+					$.ajax('http://s299455960.online.de:5000/planer', {
 					  type: "POST",
 					  contentType: "application/json",
 					  data: JSON.stringify(model.attributes),
@@ -73,7 +73,7 @@ define(["jquery", "backbone", "models/PlanModel", "collections/planerCollection"
 					var uploader = model.get('uploader');
 					console.log(this.id);
 					$.ajax({
-						url: "http://dominik-lohmann.de:5000/users/?id="+uploader,
+						url: "http://s299455960.online.de:5000/users/?id="+uploader,
 						async: false
 					}).done(function(uploaderdata) {
 						// $( this ).addClass( "done" );

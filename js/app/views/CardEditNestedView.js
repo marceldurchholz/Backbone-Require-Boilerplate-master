@@ -171,7 +171,7 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 					e.preventDefault();
 					var cardsetid = $(this).attr('data-cardsetid');
 					$.ajax({
-						url: "http://dominik-lohmann.de:5000/cards/"+cardsetid,
+						url: "http://s299455960.online.de:5000/cards/"+cardsetid,
 						async: false
 					}).done(function(card) {
 						_thisViewCardEditNested.me.activeusergroups = card.usergroups;
@@ -504,7 +504,7 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 				
 				_thisViewCardEditNested = this;
 				$.ajax({
-					url: "http://dominik-lohmann.de:5000/users/"+window.me.id,
+					url: "http://s299455960.online.de:5000/users/"+window.me.id,
 					async: false
 				}).done(function(me) {
 					_thisViewCardEditNested.me = me;
@@ -556,7 +556,7 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 			},
 			collectCardData: function(cardsetid,pageid) {
 				
-				var requestUrl = "http://dominik-lohmann.de:5000/usergroups/?deleted=false";
+				var requestUrl = "http://s299455960.online.de:5000/usergroups/?deleted=false";
 				if (window.me.master!=true) requestUrl = requestUrl+"&owner="+window.me.id;
 				$.ajax({
 					url: requestUrl,
@@ -566,7 +566,7 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 					// console.log(_thisViewCardEditNested.me.allusergroups);
 				});
 				
-				var requestUrl = "http://dominik-lohmann.de:5000/interests/";
+				var requestUrl = "http://s299455960.online.de:5000/interests/";
 				// if (window.me.master!=true) requestUrl = requestUrl+"&owner="+window.me.id;
 				$.ajax({
 					url: requestUrl,
@@ -583,7 +583,7 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 
 				if (_thisViewCardEditNested.streamData.view!="new") {
 					
-					var requestUrl = "http://dominik-lohmann.de:5000/cards?deleted=false"; // active=true&
+					var requestUrl = "http://s299455960.online.de:5000/cards?deleted=false"; // active=true&
 					if (window.system.master!=true) requestUrl = requestUrl + "&uploader="+window.system.aoid;
 					if (cardsetid!="") requestUrl = requestUrl + "&id="+cardsetid;
 					// console.log(requestUrl);
@@ -615,7 +615,7 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 								}
 								else {
 									$.ajax({
-										url: "http://dominik-lohmann.de:5000/users/"+value.uploader,
+										url: "http://s299455960.online.de:5000/users/"+value.uploader,
 										async: false
 									}).done(function(userData) {
 										value.uploaderdata = userData;
@@ -639,7 +639,7 @@ define(["jquery", "backbone", "text!templates/CardEditNestedPage.html", "text!te
 								console.log(_thisViewCardEditNested.me.objactive);
 								_thisViewCardEditNested.streamData.topic = myObj.cardData.topic;
 								_thisViewCardEditNested.streamData.pagetitle = myObj.cardData.title;
-								var requestUrl = "http://dominik-lohmann.de:5000/cardpages?deleted=false&cardid="+cardsetid; // active=true&
+								var requestUrl = "http://s299455960.online.de:5000/cardpages?deleted=false&cardid="+cardsetid; // active=true&
 								$.ajax({
 									url: requestUrl,
 									async: false

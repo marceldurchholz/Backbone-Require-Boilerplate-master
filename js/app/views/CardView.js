@@ -27,7 +27,7 @@ define(["jquery", "backbone", "text!templates/cardsViewPage.html"],
 				// _thisViewCards.checkLogin();
 				
 				$.ajax({
-					url: "http://dominik-lohmann.de:5000/users/"+window.me.id,
+					url: "http://s299455960.online.de:5000/users/"+window.me.id,
 					async: false
 				}).done(function(me) {
 					// alert(me.id);
@@ -35,7 +35,7 @@ define(["jquery", "backbone", "text!templates/cardsViewPage.html"],
 					if (_thisViewCards.me.interests == undefined) _thisViewCards.me.interests = new Array();
 				});
 
-				var requestUrl = "http://dominik-lohmann.de:5000/cards?deleted=false";
+				var requestUrl = "http://s299455960.online.de:5000/cards?deleted=false";
 				// active=true&
 				if (window.system.master!=true) requestUrl = requestUrl + "&uploader="+window.system.aoid;
 				// else requestUrl = requestUrl + "&public=true";
@@ -68,7 +68,7 @@ define(["jquery", "backbone", "text!templates/cardsViewPage.html"],
 						if (value.uploader == me.id) exists=1;
 
 						var cardPagesArray = new Array();
-						var requestUrl = "http://dominik-lohmann.de:5000/cardpages/?active=true&deleted=false&cardid="+value.id;
+						var requestUrl = "http://s299455960.online.de:5000/cardpages/?active=true&deleted=false&cardid="+value.id;
 						if (window.system.master==false) requestUrl = requestUrl + "&uploader="+window.system.aoid;
 						else requestUrl = requestUrl + "&public=true";
 						$.ajax({
@@ -88,7 +88,7 @@ define(["jquery", "backbone", "text!templates/cardsViewPage.html"],
 							var uploader = value.uploader;
 							if (_thisViewCards.uploaderArray[uploader]==undefined) {
 								$.ajax({
-									url: 'http://dominik-lohmann.de:5000/users/?id='+uploader,
+									url: 'http://s299455960.online.de:5000/users/?id='+uploader,
 									async: false,
 									success: function(data, textStatus, XMLHttpRequest) {
 										// console.log(data);

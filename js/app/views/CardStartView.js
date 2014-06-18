@@ -264,7 +264,7 @@ define(["jquery", "backbone", "collections/answersCollection", "models/AnswerMod
 					// _thisViewCardStart.cardpageid
 					
 					if ( typeof( _thisViewCardStart.carddata ) == "undefined") {
-						var query = "http://dominik-lohmann.de:5000/cards/?id="+_thisViewCardStart.options.cardid;
+						var query = "http://s299455960.online.de:5000/cards/?id="+_thisViewCardStart.options.cardid;
 						$.ajax({
 							url: query,
 							async: false
@@ -274,7 +274,7 @@ define(["jquery", "backbone", "collections/answersCollection", "models/AnswerMod
 					}
 					// console.log(_thisViewCardStart.carddata);
 					
-					var query = "http://dominik-lohmann.de:5000/cardpages/?active=true&deleted=false&cardid="+_thisViewCardStart.options.cardid;
+					var query = "http://s299455960.online.de:5000/cardpages/?active=true&deleted=false&cardid="+_thisViewCardStart.options.cardid;
 					$.ajax({
 						url: query,
 						async: false
@@ -291,7 +291,7 @@ define(["jquery", "backbone", "collections/answersCollection", "models/AnswerMod
 					// }
 					
 					/*
-					var query = "http://dominik-lohmann.de:5000/cardpages/?active=true&cardid="+_thisViewCardStart.options.cardid+"&id="+_thisViewCardStart.cardpageid; // +"&uploader?"+model.get('uploader')
+					var query = "http://s299455960.online.de:5000/cardpages/?active=true&cardid="+_thisViewCardStart.options.cardid+"&id="+_thisViewCardStart.cardpageid; // +"&uploader?"+model.get('uploader')
 					$.ajax({
 						url: query,
 						async: false
@@ -320,7 +320,7 @@ define(["jquery", "backbone", "collections/answersCollection", "models/AnswerMod
 						if ( typeof( _thisViewCardStart.uploaderdata ) == "undefined") {
 							var uploader = _thisViewCardStart.carddata.uploader;
 							$.ajax({
-								url: "http://dominik-lohmann.de:5000/users/?id="+uploader,
+								url: "http://s299455960.online.de:5000/users/?id="+uploader,
 								async: false
 							}).done(function(uploaderdata) {
 								// console.log(uploaderdata);

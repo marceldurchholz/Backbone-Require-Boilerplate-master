@@ -88,7 +88,7 @@ define(["jquery", "backbone", "text!templates/LearningStreamNestedPage.html"],
 				_thisViewLearningStreamNested.streamData = streamData;
 				
 				$.ajax({
-					url: "http://dominik-lohmann.de:5000/users/"+window.me.id,
+					url: "http://s299455960.online.de:5000/users/"+window.me.id,
 					async: false
 				}).done(function(me) {
 					// alert(me.id);
@@ -96,7 +96,7 @@ define(["jquery", "backbone", "text!templates/LearningStreamNestedPage.html"],
 					if (_thisViewLearningStreamNested.me.interests == undefined) _thisViewLearningStreamNested.me.interests = new Array();
 				});
 				
-				var requestUrl = "http://dominik-lohmann.de:5000/videos?active=true&deleted=false";
+				var requestUrl = "http://s299455960.online.de:5000/videos?active=true&deleted=false";
 				if (window.system.master!=true) requestUrl = requestUrl + "&uploader="+window.system.aoid;
 				$.ajax({
 					url: requestUrl,
@@ -136,7 +136,7 @@ define(["jquery", "backbone", "text!templates/LearningStreamNestedPage.html"],
 				});
 				// console.log(_thisViewLearningStreamNested.streamDatairefire);
 				
-				var requestUrl = "http://dominik-lohmann.de:5000/cards?active=true&deleted=false";
+				var requestUrl = "http://s299455960.online.de:5000/cards?active=true&deleted=false";
 				if (window.system.master!=true) requestUrl = requestUrl + "&uploader="+window.system.aoid;
 				$.ajax({
 					url: requestUrl,
@@ -175,7 +175,7 @@ define(["jquery", "backbone", "text!templates/LearningStreamNestedPage.html"],
 				});
 				/*
 				$.ajax({
-					url: "http://dominik-lohmann.de:5000/planer?active=true&deleted=false",
+					url: "http://s299455960.online.de:5000/planer?active=true&deleted=false",
 					async: false
 				}).done(function(planData) {
 					_.each(planData, function(value, index, list) {

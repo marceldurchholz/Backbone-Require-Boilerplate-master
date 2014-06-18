@@ -31,7 +31,7 @@ define(["jquery", "backbone", "text!templates/MessagesEditNestedPage.html"],
 							// dpd.users.me(function(me) {
 							if (me) {
 								// console.log(me.id);
-								// http://dominik-lohmann.de:5000/messages?{"$or":[{"sender":"009505631619d88e"},{"receiver":"009505631619d88e"}],$sort:{cdate:-1}}
+								// http://s299455960.online.de:5000/messages?{"$or":[{"sender":"009505631619d88e"},{"receiver":"009505631619d88e"}],$sort:{cdate:-1}}
 								// var query = {$or:[{"sender":result.sender},{"receiver":result.receiver}],$sort:{cdate:-1}};
 								var query = {  $or:[{"sender":result.sender,"receiver":result.receiver}  ,  {"sender":result.receiver,"receiver":result.sender}]  ,$sort:{cdate:-1}};
 								dpd.messages.get(query, function (allmessagesdata) {
@@ -62,7 +62,7 @@ define(["jquery", "backbone", "text!templates/MessagesEditNestedPage.html"],
 											if (_thisMessagesEditViewNested.messages[key4].sender==me.id) _thisMessagesEditViewNested.messages[key4].fullname = me.fullname;
 											else {
 												$.ajax({
-													url: 'http://dominik-lohmann.de:5000/users?id='+_thisMessagesEditViewNested.messages[key4].sender,
+													url: 'http://s299455960.online.de:5000/users?id='+_thisMessagesEditViewNested.messages[key4].sender,
 													async: false
 												}).done(function(userdata) {
 													_thisMessagesEditViewNested.messages[key4].fullname = userdata.fullname;

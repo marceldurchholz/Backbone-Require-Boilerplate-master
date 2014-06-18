@@ -53,7 +53,7 @@ define(["jquery", "backbone", "text!templates/captureVideoLinkPage.html", "model
 				this.$el.hide();
 				// _thisViewRecordVideoNested.initializeme();
 				$.ajax({
-					url: "http://dominik-lohmann.de:5000/interests",
+					url: "http://s299455960.online.de:5000/interests",
 					async: false
 				}).done(function(interests) {
 					_thisViewRecordVideoNested.interests = interests;

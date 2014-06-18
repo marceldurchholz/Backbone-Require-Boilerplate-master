@@ -9,7 +9,7 @@ define(["jquery","backbone", "models/VideoModel"],
 	
 		model: VideoModel,
 		localStorage: new Backbone.LocalStorage("videoRecordStorage"),
-		url: 'dominik-lohmann.de:5000/videos/'
+		url: 's299455960.online.de:5000/videos/'
 
     });
 

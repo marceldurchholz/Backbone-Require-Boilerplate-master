@@ -17,7 +17,7 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 				if (window.me.interests==undefined) window.me.interests=new Array();
 
 				$.ajax({
-					url: "http://dominik-lohmann.de:5000/users",
+					url: "http://s299455960.online.de:5000/users",
 					async: false
 				}).done(function(users) {
 					var logincounts = 0;
@@ -29,7 +29,7 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 				});
 				
 				$.ajax({
-					url: "http://dominik-lohmann.de:5000/users/"+_thisViewAdminUserDetails.options.id,
+					url: "http://s299455960.online.de:5000/users/"+_thisViewAdminUserDetails.options.id,
 					async: false
 				}).done(function(user) {
 					if (user.interests==undefined) user.interests= new Array();
@@ -39,7 +39,7 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 				
 				// console.log(_thisViewAdminUserDetailsNested.user);
 				$.ajax({
-					url: "http://dominik-lohmann.de:5000/interests/",
+					url: "http://s299455960.online.de:5000/interests/",
 					async: false
 				}).done(function(interests) {
 					_thisViewAdminUserDetailsNested.interests = interests;
@@ -67,7 +67,7 @@ define(["jquery", "backbone", "text!templates/AdminUserDetailsNestedPage.html"],
 				});
 				*/
 				
-				var requestUrl = "http://dominik-lohmann.de:5000/usergroups/?deleted=false";
+				var requestUrl = "http://s299455960.online.de:5000/usergroups/?deleted=false";
 				if (window.me.master!=true) requestUrl = requestUrl + "&owner="+window.me.id;
 				$.ajax({
 					url: requestUrl,

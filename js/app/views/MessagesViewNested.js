@@ -21,7 +21,7 @@ define(["jquery", "backbone", "text!templates/MessagesViewNestedPage.html"],
 				dpd('users').get(window.system.uid, function(me, err) {
 					if (me) {
 						// console.log(me.id);
-						// http://dominik-lohmann.de:5000/messages?{"$or":[{"sender":"009505631619d88e"},{"receiver":"009505631619d88e"}],$sort:{cdate:-1}}
+						// http://s299455960.online.de:5000/messages?{"$or":[{"sender":"009505631619d88e"},{"receiver":"009505631619d88e"}],$sort:{cdate:-1}}
 						var query = {$or:[{"sender":me.id},{"receiver":me.id}],"deleted":false,$sort:{cdate:1}};
 						// var query = {$or:[{"sender":me.id},{"receiver":me.id}]};
 						dpd.messages.get(query, function (allmessagesdata) {
@@ -54,7 +54,7 @@ define(["jquery", "backbone", "text!templates/MessagesViewNestedPage.html"],
 										if (_thisMessagesViewNested.messages[key4].sender==me.id) quid = _thisMessagesViewNested.messages[key4].receiver;
 										else quid = _thisMessagesViewNested.messages[key4].sender;
 										$.ajax({
-											url: 'http://dominik-lohmann.de:5000/users?id='+quid,
+											url: 'http://s299455960.online.de:5000/users?id='+quid,
 											async: false
 										}).done(function(userdata) {
 											_thisMessagesViewNested.messages[key4].fullname = userdata.fullname;

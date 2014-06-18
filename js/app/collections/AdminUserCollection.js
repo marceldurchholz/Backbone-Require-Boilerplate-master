@@ -19,8 +19,8 @@ define(["jquery", "backbone", "models/AdminUserModel"],
 			var offlineData = this.offlineData = this._localStorage_AdminUser.findAll();
 			this.localStorage = this._localStorage_AdminUser;
 			if (_thisCollectionAdminUser.online==1) {
-				// http://dominik-lohmann.de:5000/users/?id=f0cebeb4f451982b&sponsor=df8a74e899bba811
-				this.url = 'http://dominik-lohmann.de:5000/users/';
+				// http://s299455960.online.de:5000/users/?id=f0cebeb4f451982b&sponsor=df8a74e899bba811
+				this.url = 'http://s299455960.online.de:5000/users/';
 				if (this.options.sponsor!=undefined) {
 					this.url = this.url+"?sponsor="+this.options.sponsor;
 					// alert(this.url);

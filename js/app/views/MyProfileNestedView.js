@@ -27,7 +27,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					// console.log(me);
 					
 					$.ajax({
-						url: "http://dominik-lohmann.de:5000/users",
+						url: "http://s299455960.online.de:5000/users",
 						async: false
 					}).done(function(users) {
 						var logincounts = 0;
@@ -39,7 +39,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 					});
 					
 					$.ajax({
-						url: "http://dominik-lohmann.de:5000/videos?active=true&deleted=false", /* &public=true */
+						url: "http://s299455960.online.de:5000/videos?active=true&deleted=false", /* &public=true */
 						async: false
 					}).done(function(videos) {
 							_thisViewMyProfileNested.videos = videos;
@@ -71,7 +71,7 @@ define(["jquery", "backbone", "text!templates/sidemenusList.html", "views/Sideme
 							_thisViewMyProfileNested.interests[index] = interest;
 						});
 						
-						var requestUrl = "http://dominik-lohmann.de:5000/orders/?userid="+window.me.id;
+						var requestUrl = "http://s299455960.online.de:5000/orders/?userid="+window.me.id;
 						$.ajax({
 							url: requestUrl,
 							async: false

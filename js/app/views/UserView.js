@@ -115,7 +115,7 @@ define(["jquery", "backbone", "models/CardModel", "collections/cardsCollection",
 				console.log(this.id);
 				if ( typeof( _thisViewCard.uploaderdata ) == "undefined") {
 					$.ajax({
-						url: "http://dominik-lohmann.de:5000/users/?id="+uploader,
+						url: "http://s299455960.online.de:5000/users/?id="+uploader,
 						async: false
 					}).done(function(uploaderdata) {
 						// $( this ).addClass( "done" );
